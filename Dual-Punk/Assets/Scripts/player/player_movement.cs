@@ -66,5 +66,17 @@ public class movement : MonoBehaviour
         else if (direction.x < 0.1f && direction.x > -0.1f && direction.y <= -0.1f){
             ChangeAnimation(PLAYER_S);
         }
+        else if (direction.x >= 0.5f && direction.y >= 0.3f){
+            ChangeAnimation(PLAYER_NE);
+        }
+        else if (direction.x >= 0.5f && direction.y <= -0.3f){
+            ChangeAnimation(PLAYER_SE);
+        }
+        else if (direction.x <= -0.5f && direction.y >= 0.3f){
+            ChangeAnimation(PLAYER_NW);
+        }
+        else if (direction.x <= -0.5f && direction.y <= -0.3f){
+            ChangeAnimation(PLAYER_SW);
+        }
     }
 }
