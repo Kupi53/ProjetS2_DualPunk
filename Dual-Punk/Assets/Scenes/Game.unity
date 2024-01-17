@@ -228,10 +228,10 @@ MonoBehaviour:
   body: {fileID: 1971815}
   animator: {fileID: 1971809}
   spriteRenderer: {fileID: 1971805}
-  walkspeed: 15
-  dashSpeed: 30
+  walkspeed: 4
+  dashSpeed: 10
   dashTime: 0.25
-  deceleration: 10
+  deceleration: 5
 --- !u!95 &1971809
 Animator:
   serializedVersion: 5

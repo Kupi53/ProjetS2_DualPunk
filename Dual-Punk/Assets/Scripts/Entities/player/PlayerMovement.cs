@@ -39,7 +39,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update(){
+    void FixedUpdate(){
         // inputs
         if (Input.GetButtonDown("Dash") && AbilitiesState.Instance.dashCooldown <= 0.0f){
             enableMovement = false;
@@ -56,11 +56,9 @@ public class PlayerMovement : MonoBehaviour
     void Movement(){
         if (enableMovement)
         {                
-            direction = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical") * 0.5f).normalized;
-            if (Input.GetAxis("Horizontal") != 0 && Input.GetAxis("Vertical") != 0)
-                direction *= 0.8f;
-            else if (Input.GetAxis("Horizontal") == 0)
-                direction *= 0.6f;
+            direction = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")*0.5f).normalized;
+            if (Input.GetAxis("Horizontal") == 0)
+                direction.Scale(new Vector2(1,0.75f));
             body.MovePosition(body.position + direction * walkspeed * Time.deltaTime);
             Anim_Movement(direction);
         }
