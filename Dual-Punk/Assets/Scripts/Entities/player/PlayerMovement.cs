@@ -8,9 +8,8 @@ Il gere aussi les abilités (dash) mais ça doit être changé */
 public class PlayerMovement : NetworkBehaviour
 {
     public Rigidbody2D body;
-    public SpriteRenderer spriteRenderer;
-
     public Animator animator;
+    public SpriteRenderer spriteRenderer;
     private string currentState;
     
 // constantes qui sont les noms des sprites du joueur
@@ -23,12 +22,15 @@ public class PlayerMovement : NetworkBehaviour
     const string PLAYER_SE = "Player SE";
     const string PLAYER_SW = "Player SW";
     
-    public float walkspeed;
-// bool qui sert pour le state du joueur (par exemple pendant un dash ou certaines abilitiés le joueur ne doit pas pouvoir bouger)
+    // bool qui sert pour le state du joueur (par exemple pendant un dash ou certaines abilitiés le joueur ne doit pas pouvoir bouger)
     private bool enableMovement = true;
-
+    public float walkspeed;
+    public float dashSpeed;
+    public float dashTime;
+    public float deceleration;
     Vector2 direction;
-    Vector2 pos;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -38,51 +40,36 @@ public class PlayerMovement : NetworkBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     void FixedUpdate(){
         // inputs
-        if (IsOwner){
-            if (Input.GetButtonDown("Dash") && AbilitiesState.Instance.dashCooldown <= 0.0f){
-                Debug.Log("dashing");
-                enableMovement = false;
-                AbilitiesState.Instance.dashing = true;
-                AbilitiesState.Instance.dashCooldown = AbilitiesState.Instance.dashCooldownMax;
-                AbilitiesState.Instance.dashTimer = 0.25f;
-            }
-            // functions
-            Movement();
-            Cooldown();
+        if (Input.GetButtonDown("Dash") && AbilitiesState.Instance.dashCooldown <= 0.0f){
+            enableMovement = false;
+            AbilitiesState.Instance.dashing = true;
+            AbilitiesState.Instance.dashCooldown = AbilitiesState.Instance.dashCooldownMax;
         }
     }
 
-// gere le mouvement et gère aussi le dash mais ça doit etre separé
+
+    // gere le mouvement et gère aussi le dash mais ça doit etre separé
     void Movement(){
-        if (AbilitiesState.Instance.dashing){
-            if (AbilitiesState.Instance.dashTimer>0.15f){
-                Debug.Log("dashing rn");
-                pos = body.position;
-                body.MovePosition(pos + direction * walkspeed * Time.fixedDeltaTime * 4.0f);
-                AbilitiesState.Instance.dashTimer-=Time.fixedDeltaTime;
-            }
-            else if (AbilitiesState.Instance.dashTimer > 0){
-                pos = body.position;
-                body.MovePosition(pos + direction * walkspeed * Time.fixedDeltaTime * 2.0f);
-                AbilitiesState.Instance.dashTimer-=Time.fixedDeltaTime;
+        if (enableMovement)
+        {                
+            direction = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")*0.5f).normalized;
+            if (Input.GetAxis("Horizontal") == 0)
+                direction.Scale(new Vector2(1,0.75f));
+            body.MovePosition(body.position + direction * walkspeed * Time.deltaTime);
+            Anim_Movement(direction);
+        }
+        else if (AbilitiesState.Instance.dashing){
+            if (AbilitiesState.Instance.dashTimer < dashTime){
+                body.MovePosition(body.position + direction * Time.deltaTime * (dashSpeed - AbilitiesState.Instance.dashTimer*deceleration));
+                AbilitiesState.Instance.dashTimer += Time.deltaTime;
             }
             else {
                 enableMovement = true;
                 AbilitiesState.Instance.dashing = false;
+                AbilitiesState.Instance.dashTimer = 0;
             }
-        }
-        if (enableMovement){
-            pos = body.position;
-            direction = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")*0.5f).normalized;
-            body.MovePosition(pos + direction*walkspeed * Time.fixedDeltaTime);
-            Anim_Movement(direction);
         }
     }
 
@@ -133,4 +120,3 @@ public class PlayerMovement : NetworkBehaviour
         }
     }
 }
-

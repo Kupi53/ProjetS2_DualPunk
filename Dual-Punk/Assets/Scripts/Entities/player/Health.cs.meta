@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Dual-Punk/Assets/Scripts/Entities/player/Health.cs.meta
 guid: 0de8d8ef811bcbe4cb0e5b245ef30576
+========
+guid: e244107ce79fda549a7421403933f067
+>>>>>>>> arnaud:Dual-Punk/Assets/Scripts/Entities/Weapons/M4/M4Script.cs.meta
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
