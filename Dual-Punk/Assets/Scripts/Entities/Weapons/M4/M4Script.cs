@@ -1,42 +1,48 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Threading;
+using System.Reflection;
 using UnityEngine;
 using System;
 
-public class WeaponContoller : MonoBehaviour
+public class M4Script : MonoBehaviour
 {
     public GameObject bullet;
+    public GameObject gunEnd;
     public GameObject pointer;
-    public GameObject? player;
+    private GameObject? player;
+    public SpriteRenderer spriteRenderer;
     private BulletScript bulletScript;
+    private bool inHand;
     private float timer;
     public float fireRate;
     public float weaponDistance;
-    public bool onGround;
-    
 
 
     // Start is called before the first frame update
     void Start()
     {
         timer = 0;
-        onGround = true;
+        inHand = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!onGround)
+        if (inHand)
         {
             if (Input.GetButton("Drop"))
             {
-                player.GetComponent<Player>().HoldingWeapon = false;
-                onGround = true;
+                player.GetComponent<PlayerStates>().HoldingWeapon = false;
+                inHand = false;
             }
 
             Vector3 direction = (pointer.transform.position - player.transform.position).normalized;
             float angle = (float)(Math.Atan2(direction.y, direction.x) * (180 / Math.PI));
+            if (angle > 90 || angle < -90)
+                spriteRenderer.flipY = true;
+            else
+                spriteRenderer.flipY = false;
+
             transform.position = player.transform.position + direction * weaponDistance;
             transform.eulerAngles = new Vector3(0, 0, angle);
 
@@ -54,22 +60,20 @@ public class WeaponContoller : MonoBehaviour
 
     void fireRound(Vector3 direction, float angle)
     {
-        GameObject newBullet = Instantiate(bullet, new Vector3(transform.position.x, transform.position.y, 0), transform.rotation);
+        GameObject newBullet = Instantiate(bullet, gunEnd.transform.position, transform.rotation);
         bulletScript = newBullet.GetComponent<BulletScript>();
         bulletScript.MoveDirection = direction;
         bulletScript.transform.eulerAngles = new Vector3(0, 0, angle);
     }
 
-    // lorsqu'on joueur collide avec le weapon
     void OnTriggerStay2D(Collider2D collisionInfo)
     {
-        Debug.Log("Collision");
         // si sur le sol
-        if (onGround && Input.GetButton("Pickup"))
+        if (!inHand && Input.GetButton("Pickup"))
         {
             player = collisionInfo.gameObject;
-            player.GetComponent<Player>().HoldingWeapon = true;
-            onGround = false;
+            player.GetComponent<PlayerStates>().HoldingWeapon = true;
+            inHand = true;
         }
     }
 }

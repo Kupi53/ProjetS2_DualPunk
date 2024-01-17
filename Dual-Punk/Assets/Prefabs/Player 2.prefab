@@ -11,12 +11,11 @@ GameObject:
   - component: {fileID: 8192433139940407827}
   - component: {fileID: 7857469595641532043}
   - component: {fileID: 728196796464708050}
+  - component: {fileID: 6894590553985709234}
   - component: {fileID: 7264431200739703479}
   - component: {fileID: 7893170153911066021}
   - component: {fileID: 13296490387251366}
   - component: {fileID: 6241726113914869527}
-  - component: {fileID: 7210982261651561885}
-  - component: {fileID: 8490973688139225687}
   - component: {fileID: 7238190320246616216}
   m_Layer: 0
   m_Name: Player 2
@@ -119,6 +118,19 @@ Rigidbody2D:
   m_SleepingMode: 0
   m_CollisionDetection: 1
   m_Constraints: 4
+--- !u!114 &6894590553985709234
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5491630933537548266}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5abb139e7fb67043a0247ab15427858, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HoldingWeapon: 0
 --- !u!114 &7264431200739703479
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -132,9 +144,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   body: {fileID: 728196796464708050}
-  spriteRenderer: {fileID: 7857469595641532043}
   animator: {fileID: 13296490387251366}
-  walkspeed: 3
+  spriteRenderer: {fileID: 7857469595641532043}
+  walkspeed: 4
+  dashSpeed: 10
+  dashTime: 0.25
+  deceleration: 10
 --- !u!114 &7893170153911066021
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -214,36 +229,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.75, y: 0.75}
   m_EdgeRadius: 0
---- !u!114 &7210982261651561885
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5491630933537548266}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e741851cba3ad425c91ecf922cc6b379, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _data:
-    _json: '{"declarations":{"Kind":"Object","collection":{"$content":[],"$version":"A"},"$version":"A"}}'
-    _objectReferences: []
---- !u!114 &8490973688139225687
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5491630933537548266}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bdf33d41924375840a67b7fa203e4bd0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 100
-  Stats: 
-  Health: 0
 --- !u!114 &7238190320246616216
 MonoBehaviour:
   m_ObjectHideFlags: 0
