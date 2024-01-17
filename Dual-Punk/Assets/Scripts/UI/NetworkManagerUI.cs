@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using Unity.Netcode;
 using UnityEngine.SceneManagement;
 
-public class NetworkManagerUI : NetworkBehaviour
+public class NetworkManagerUI : MonoBehaviour
 {
     [SerializeField] private Button hostButton;
     [SerializeField] private Button clientButton;
@@ -13,13 +13,32 @@ public class NetworkManagerUI : NetworkBehaviour
 
     private void Awake(){
         hostButton.onClick.AddListener(() => {
-            NetworkManager.Singleton.SceneManager.LoadScene("Game", LoadSceneMode.Additive);
-            NetworkManager.Singleton.StartHost();
-
+            StartCoroutine(LoadGameScene("host"));
         });
         clientButton.onClick.AddListener(() => {
-            NetworkManager.Singleton.SceneManager.LoadScene("Game", LoadSceneMode.Additive);
-            NetworkManager.Singleton.StartClient();
+            StartCoroutine(LoadGameScene("client"));
         });
     }
+
+// g volé ce script dans la docu et modifié il permet de changer de scene de maniere clean
+    IEnumerator LoadGameScene(string type)
+    {
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("Game", LoadSceneMode.Additive);
+        // Wait until the asynchronous scene fully loads
+        while (!asyncLoad.isDone)
+        {
+            yield return null;
+        }
+        SceneManager.SetActiveScene(SceneManager.GetSceneByName("Game"));
+        // spawn le joueur
+        if (type=="host"){
+            NetworkManager.Singleton.StartHost();
+        }
+        else if (type=="client"){
+            NetworkManager.Singleton.StartClient();
+        }
+        // Unload the previous Scene
+        SceneManager.UnloadSceneAsync("Menu");
+    }
+    
 }

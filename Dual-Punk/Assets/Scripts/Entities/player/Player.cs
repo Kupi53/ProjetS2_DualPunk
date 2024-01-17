@@ -13,6 +13,7 @@ public class Player : MonoBehaviour {
     public bool HoldingWeapon {get;set;}
 
     void Awake(){
+        DontDestroyOnLoad(this.gameObject);
         Health = maxHealth;
         HoldingWeapon = false;
     }
