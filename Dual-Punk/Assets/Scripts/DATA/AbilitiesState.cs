@@ -11,9 +11,10 @@ public class AbilitiesState : MonoBehaviour
 {
     public static AbilitiesState Instance;
     public bool dashing = false;
-    public float dashCooldown = 0.0f;
-    public float dashCooldownMax = 4.0f;
     public float dashTimer = 0.0f;
+    public float dashCooldown = 0.0f;
+    public float dashCooldownMax = 2.0f;
+    
 
     void Awake(){
         /* pattern "Singleton" càd une seule instance de la classe qui est utilisée pour communiquer
