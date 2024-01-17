@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 /* ce script gere le mouvement et les animations du joueur 
 Il gere aussi les abilités (dash) mais ça doit être changé */
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : NetworkBehaviour
 {
     public Rigidbody2D body;
     public SpriteRenderer spriteRenderer;
@@ -44,16 +45,18 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate(){
         // inputs
-        if (Input.GetButtonDown("Dash") && AbilitiesState.Instance.dashCooldown <= 0.0f){
-            Debug.Log("dashing");
-            enableMovement = false;
-            AbilitiesState.Instance.dashing = true;
-            AbilitiesState.Instance.dashCooldown = AbilitiesState.Instance.dashCooldownMax;
-            AbilitiesState.Instance.dashTimer = 0.25f;
+        if (IsOwner){
+            if (Input.GetButtonDown("Dash") && AbilitiesState.Instance.dashCooldown <= 0.0f){
+                Debug.Log("dashing");
+                enableMovement = false;
+                AbilitiesState.Instance.dashing = true;
+                AbilitiesState.Instance.dashCooldown = AbilitiesState.Instance.dashCooldownMax;
+                AbilitiesState.Instance.dashTimer = 0.25f;
+            }
+            // functions
+            Movement();
+            Cooldown();
         }
-        // functions
-        Movement();
-        Cooldown();
     }
 
 // gere le mouvement et gère aussi le dash mais ça doit etre separé
