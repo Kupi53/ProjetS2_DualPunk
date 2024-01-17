@@ -25,6 +25,7 @@ public class PlayerMovement : MonoBehaviour
     private bool enableMovement = true;
     public float walkspeed;
     public float dashSpeed;
+    public float dashTime;
     public float deceleration;
     Vector2 direction;
 
@@ -64,9 +65,9 @@ public class PlayerMovement : MonoBehaviour
             Anim_Movement(direction);
         }
         else if (AbilitiesState.Instance.dashing){
-            if (AbilitiesState.Instance.dashTimer < 0.25){
+            if (AbilitiesState.Instance.dashTimer < dashTime){
                 body.MovePosition(body.position + direction * Time.deltaTime * (dashSpeed - AbilitiesState.Instance.dashTimer*deceleration));
-                AbilitiesState.Instance.dashTimer += Time.fixedDeltaTime;
+                AbilitiesState.Instance.dashTimer += Time.deltaTime;
             }
             else {
                 enableMovement = true;
@@ -123,4 +124,3 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 }
-

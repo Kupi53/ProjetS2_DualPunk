@@ -228,8 +228,9 @@ MonoBehaviour:
   body: {fileID: 1971815}
   animator: {fileID: 1971809}
   spriteRenderer: {fileID: 1971805}
-  walkspeed: 4
-  dashSpeed: 15
+  walkspeed: 15
+  dashSpeed: 30
+  dashTime: 0.25
   deceleration: 10
 --- !u!95 &1971809
 Animator:
@@ -3772,7 +3773,7 @@ Transform:
   m_GameObject: {fileID: 1998143737}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.3433049, y: -1.0040879, z: 4.462686}
+  m_LocalPosition: {x: -2.3433049, y: -0.97, z: 4.462686}
   m_LocalScale: {x: 0.1, y: 0.1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
