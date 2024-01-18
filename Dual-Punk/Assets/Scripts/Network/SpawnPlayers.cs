@@ -9,7 +9,8 @@ public class SpawnPlayers : NetworkBehaviour
     [SerializeField] private GameObject playerPrefabA; //add prefab in inspector
     [SerializeField] private GameObject playerPrefabB; //add prefab in inspector
     public override void OnNetworkSpawn(){
-        if (IsServer){
+        Debug.Log("test");
+        if (IsHost){
             Debug.Log("host de merde");
             GameObject player = Instantiate(playerPrefabA, new Vector3(0,0,0), Quaternion.identity).gameObject;
             player.GetComponent<NetworkObject>().SpawnAsPlayerObject(NetworkManager.Singleton.LocalClientId);
@@ -18,7 +19,6 @@ public class SpawnPlayers : NetworkBehaviour
             Debug.Log("client de merde");
             SpawnServerRPC(NetworkManager.Singleton.LocalClientId);
         }
-        Destroy(this.gameObject);
     }
     [ServerRpc]
     public void SpawnServerRPC(ulong clientId){

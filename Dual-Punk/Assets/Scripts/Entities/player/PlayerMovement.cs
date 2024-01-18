@@ -105,7 +105,7 @@ public class PlayerMovement : MonoBehaviour
         {
             if (PlayerState.dashTimer < dashTime)
             {
-                body.MovePosition(body.position + moveDirection * (dashSpeed - PlayerState.dashTimer));
+                body.MovePosition(body.position + moveDirection * (dashSpeed - PlayerState.dashTimer) * 0.02f);
                 PlayerState.dashTimer += Time.fixedDeltaTime;
             }
             else
