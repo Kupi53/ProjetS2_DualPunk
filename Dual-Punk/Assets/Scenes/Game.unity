@@ -136,9 +136,9 @@ GameObject:
   - component: {fileID: 1971809}
   - component: {fileID: 1971811}
   - component: {fileID: 1971815}
-  - component: {fileID: 1971814}
   - component: {fileID: 1971807}
-  - component: {fileID: 1971812}
+  - component: {fileID: 1971817}
+  - component: {fileID: 1971816}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -228,10 +228,10 @@ MonoBehaviour:
   body: {fileID: 1971815}
   animator: {fileID: 1971809}
   spriteRenderer: {fileID: 1971805}
-  walkspeed: 4
-  dashSpeed: 10
-  dashTime: 0.25
-  deceleration: 5
+  walkspeed: 0.1
+  dashSpeed: 0.3
+  dashTime: 0.2
+  deceleration: 1
 --- !u!95 &1971809
 Animator:
   serializedVersion: 5
@@ -298,34 +298,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.5, y: 0.5}
   m_EdgeRadius: 0
---- !u!114 &1971812
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1971802}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f0547fe9611dd44bb29eb8778bca6bd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 0}
---- !u!114 &1971814
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1971802}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bdf33d41924375840a67b7fa203e4bd0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 100
-  Stats: 
-  Health: 0
 --- !u!50 &1971815
 Rigidbody2D:
   serializedVersion: 4
@@ -353,6 +325,34 @@ Rigidbody2D:
   m_SleepingMode: 0
   m_CollisionDetection: 1
   m_Constraints: 4
+--- !u!114 &1971816
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1971802}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f0547fe9611dd44bb29eb8778bca6bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 0}
+--- !u!114 &1971817
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1971802}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bdf33d41924375840a67b7fa203e4bd0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  Stats: 
+  Health: 0
 --- !u!1 &257122563
 GameObject:
   m_ObjectHideFlags: 0
@@ -2211,10 +2211,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4e5ad91c79e53a4fad3ea3b78944684, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dashing: 0
-  dashTimer: 0
-  dashCooldown: 0
-  dashCooldownMax: 4
 --- !u!1 &1045441745
 GameObject:
   m_ObjectHideFlags: 0

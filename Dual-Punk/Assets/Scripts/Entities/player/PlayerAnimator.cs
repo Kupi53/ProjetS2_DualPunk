@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerAnimtor : MonoBehaviour{
+public class PlayerAnimator : MonoBehaviour{
     const string PLAYER_N = "Player N";
     const string PLAYER_E = "Player E";
     const string PLAYER_S = "Player S";
