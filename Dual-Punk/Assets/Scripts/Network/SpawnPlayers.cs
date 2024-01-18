@@ -20,7 +20,7 @@ public class SpawnPlayers : NetworkBehaviour
             SpawnServerRPC(NetworkManager.Singleton.LocalClientId);
         }
     }
-    [ServerRpc]
+    [ServerRpc(RequireOwnership = false)]
     public void SpawnServerRPC(ulong clientId){
         GameObject player = Instantiate(playerPrefabB, new Vector3(0,0,0), Quaternion.identity).gameObject;
         player.GetComponent<NetworkObject>().SpawnAsPlayerObject(clientId);

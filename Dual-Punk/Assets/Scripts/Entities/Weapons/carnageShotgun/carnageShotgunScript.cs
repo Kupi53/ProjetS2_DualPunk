@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.Netcode;
 using System;
 
 public class carnageShotgunScript : MonoBehaviour
@@ -52,7 +53,7 @@ public class carnageShotgunScript : MonoBehaviour
             else if (Input.GetButton("Use"))
             {
                 timer = 0;
-                fireRound(direction, angle);
+                fireRoundServerRPC(direction, angle, NetworkManager.Singleton.LocalClientId);
             }
         }
     }
@@ -60,6 +61,16 @@ public class carnageShotgunScript : MonoBehaviour
     void fireRound(Vector3 direction, float angle)
     {
         GameObject newBullet = Instantiate(bullet, gunEnd.transform.position, transform.rotation);
+        bulletScript = newBullet.GetComponent<BulletScript>();
+        bulletScript.MoveDirection = direction;
+        bulletScript.transform.eulerAngles = new Vector3(0, 0, angle);
+    }
+
+    [ServerRpc(RequireOwnership = false)] 
+    void fireRoundServerRPC(Vector3 direction, float angle, ulong clientId)
+    {
+        GameObject newBullet = Instantiate(bullet, gunEnd.transform.position, transform.rotation);
+        newBullet.GetComponent<NetworkObject>().SpawnWithOwnership(clientId);
         bulletScript = newBullet.GetComponent<BulletScript>();
         bulletScript.MoveDirection = direction;
         bulletScript.transform.eulerAngles = new Vector3(0, 0, angle);

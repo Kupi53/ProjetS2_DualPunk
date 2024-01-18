@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
 using System;
+using Unity.Netcode;
 
-public class M4Script : MonoBehaviour
+public class M4Script : NetworkBehaviour
 {
     public GameObject bullet;
     public GameObject gunEnd;
@@ -53,7 +54,7 @@ public class M4Script : MonoBehaviour
             else if (Input.GetButton("Use"))
             {
                 timer = 0;
-                fireRound(direction, angle);
+                fireRoundServerRPC(direction, angle, NetworkManager.Singleton.LocalClientId);
             }
         }
     }
@@ -61,6 +62,16 @@ public class M4Script : MonoBehaviour
     void fireRound(Vector3 direction, float angle)
     {
         GameObject newBullet = Instantiate(bullet, gunEnd.transform.position, transform.rotation);
+        bulletScript = newBullet.GetComponent<BulletScript>();
+        bulletScript.MoveDirection = direction;
+        bulletScript.transform.eulerAngles = new Vector3(0, 0, angle);
+    }
+    
+    [ServerRpc(RequireOwnership = false)] 
+    void fireRoundServerRPC(Vector3 direction, float angle, ulong clientId)
+    {
+        GameObject newBullet = Instantiate(bullet, gunEnd.transform.position, transform.rotation);
+        newBullet.GetComponent<NetworkObject>().SpawnWithOwnership(clientId);
         bulletScript = newBullet.GetComponent<BulletScript>();
         bulletScript.MoveDirection = direction;
         bulletScript.transform.eulerAngles = new Vector3(0, 0, angle);
@@ -79,5 +90,5 @@ public class M4Script : MonoBehaviour
                 pointer = player.GetComponent<PlayerMovement>().pointer;
             }
         }
-    } 
+    }
 }
