@@ -333,7 +333,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   version: 1
-  target: {fileID: 0}
+  target: {fileID: 1526320398}
 --- !u!114 &254556864
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -675,7 +675,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7898736215898924539, guid: 2fd5569aaa9b023419d0d7775a666b76, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2132961798}
   m_SourcePrefab: {fileID: 100100000, guid: 2fd5569aaa9b023419d0d7775a666b76, type: 3}
 --- !u!4 &456808272 stripped
 Transform:
@@ -6510,7 +6513,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   version: 1
-  target: {fileID: 0}
+  target: {fileID: 1526320398}
 --- !u!114 &1998143745
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6912,6 +6915,27 @@ MonoBehaviour:
   m_FirstSelected: {fileID: 0}
   m_sendNavigationEvents: 1
   m_DragThreshold: 10
+--- !u!1 &2132961786 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7898736215898924539, guid: 2fd5569aaa9b023419d0d7775a666b76, type: 3}
+  m_PrefabInstance: {fileID: 438202461}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2132961798
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2132961786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0de8d8ef811bcbe4cb0e5b245ef30576, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  damage: 10
+  Stats: 
+  Health: 0
 --- !u!1001 &2222465090424874162
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -16,7 +16,6 @@ public class Player : MonoBehaviour {
     public int[] Stats;
     [SerializeField]
     public float Health;
-    public bool HoldingWeapon {get;set;}
 
     void Start(){
         Health = maxHealth;
