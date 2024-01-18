@@ -32,7 +32,7 @@ public class M4Script : MonoBehaviour
         {
             if (Input.GetButton("Drop"))
             {
-                player.GetComponent<PlayerStates>().HoldingWeapon = false;
+                player.GetComponent<PlayerState>().HoldingWeapon = false;
                 inHand = false;
             }
 
@@ -71,11 +71,12 @@ public class M4Script : MonoBehaviour
         if (!inHand && Input.GetButton("Pickup"))
         {
             player = collisionInfo.gameObject;
-            var playerState = player.GetComponent<PlayerStates>();
+            var playerState = player.GetComponent<PlayerState>();
             if (playerState.HoldingWeapon == false)
             {
                 playerState.HoldingWeapon = true;
                 inHand = true;
+                pointer = player.GetComponent<PlayerMovement>().pointer;
             }
         }
     } 

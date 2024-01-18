@@ -75,6 +75,7 @@ public class carnageShotgunScript : MonoBehaviour
             {
                 playerState.HoldingWeapon = true;
                 inHand = true;
+                pointer = player.GetComponent<PlayerMovement>().pointer;
             }
         }
     }

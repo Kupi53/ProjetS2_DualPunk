@@ -175,9 +175,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e244107ce79fda549a7421403933f067, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bullet: {fileID: 5298557137024599475, guid: cb55d8f518ae5b545a7d8b27480d1ee3, type: 3}
+  bullet: {fileID: 5298557137024599475, guid: cf1a87b5cd3d7904dbe9dcf2013b111e, type: 3}
   gunEnd: {fileID: 770741380508746298}
-  pointer: {fileID: 0}
+  pointer: {fileID: 3846805473541732106, guid: faa2bfaf09b2b0245bdf636d122519a1, type: 3}
   spriteRenderer: {fileID: 3296293110993711413}
   fireRate: 0.1
   weaponDistance: 0.7

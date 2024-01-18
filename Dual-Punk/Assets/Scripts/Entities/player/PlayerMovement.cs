@@ -59,11 +59,8 @@ public class PlayerMovement : MonoBehaviour
             moveDirection = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical") * 0.5f).normalized;
             // Direction du pointeur
             pointerDirection = (pointer.transform.position - transform.position).normalized;
-
-            if (Input.GetAxis("Horizontal") != 0 && Input.GetAxis("Vertical") != 0)
-                moveDirection *= 0.8f;
-            else if (Input.GetAxis("Horizontal") == 0)
-                moveDirection *= 0.6f;
+            if (Input.GetAxis("Horizontal") == 0)
+                moveDirection.Scale(new Vector2(1,0.75f));
         }
 
         if (Input.GetButton("Aim"))
@@ -98,9 +95,9 @@ public class PlayerMovement : MonoBehaviour
             if (moveDirection != new Vector2(0, 0))
             {
                 if (moveAngle > pointerAngle - 45 && moveAngle < pointerAngle + 45)
-                    body.MovePosition(body.position + moveDirection * sprintSpeed);
+                    body.MovePosition(body.position + moveDirection * sprintSpeed * 0.02f);
                 else
-                    body.MovePosition(body.position + moveDirection * walkSpeed);
+                    body.MovePosition(body.position + moveDirection * walkSpeed * 0.02f);
             }
             ChangeAnimation(ChangeDirection(pointerAngle));
         }

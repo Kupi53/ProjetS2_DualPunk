@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 18646855055023927}
   - component: {fileID: 4733711911263106263}
   - component: {fileID: 4248386606771748690}
+  - component: {fileID: 4043952418168445416}
   - component: {fileID: -2497419794516822679}
-  - component: {fileID: 8819970759370092231}
   - component: {fileID: 7528638334341656761}
   - component: {fileID: 2909192396974194660}
   - component: {fileID: 8964195863846787305}
@@ -122,6 +122,21 @@ Rigidbody2D:
   m_SleepingMode: 0
   m_CollisionDetection: 1
   m_Constraints: 4
+--- !u!114 &4043952418168445416
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7898736215898924539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b5457baef9161b42b53eb0d17876e9a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  Stats: 
+  Health: 0
 --- !u!114 &-2497419794516822679
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -138,19 +153,6 @@ MonoBehaviour:
   damage: 10
   Stats: 
   Health: 0
---- !u!114 &8819970759370092231
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7898736215898924539}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e5abb139e7fb67043a0247ab15427858, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  HoldingWeapon: 0
 --- !u!114 &7528638334341656761
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -165,11 +167,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   body: {fileID: 4248386606771748690}
   animator: {fileID: 8964195863846787305}
+  pointer: {fileID: 0}
   spriteRenderer: {fileID: 4733711911263106263}
-  walkspeed: 4
+  walkSpeed: 0
+  sprintSpeed: 0
   dashSpeed: 10
   dashTime: 0.25
-  deceleration: 5
 --- !u!114 &2909192396974194660
 MonoBehaviour:
   m_ObjectHideFlags: 0
