@@ -1,10 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Reflection;
 using UnityEngine;
 using System;
 
-public class M4Script : MonoBehaviour
+public class carnageShotgunScript : MonoBehaviour
 {
     public GameObject bullet;
     public GameObject gunEnd;
@@ -78,5 +77,5 @@ public class M4Script : MonoBehaviour
                 inHand = true;
             }
         }
-    } 
+    }
 }
