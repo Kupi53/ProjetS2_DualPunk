@@ -10,12 +10,13 @@ public class PlayerState : MonoBehaviour {
     private int maxHealth = 100;
     public int[] Stats;
     public float Health;
-    public bool HoldingWeapon {get;set; }
-
+    public bool HoldingWeapon { get; set; }
+    public static bool aiming = false;
     public static bool dashing = false;
     public static float dashTimer = 0.0f;
     public static float dashCooldown = 0.0f;
     public static float dashCooldownMax = 1.0f;
+    
 
     void Awake(){
         Health = maxHealth;

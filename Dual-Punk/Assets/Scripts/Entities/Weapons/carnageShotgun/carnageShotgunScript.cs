@@ -49,7 +49,7 @@ public class carnageShotgunScript : MonoBehaviour
             {
                 timer += Time.deltaTime;
             }
-            else if (Input.GetButton("Fire1"))
+            else if (Input.GetButton("Use"))
             {
                 timer = 0;
                 fireRound(direction, angle);
