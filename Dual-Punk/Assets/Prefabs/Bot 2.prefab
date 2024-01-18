@@ -158,7 +158,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   version: 5
-  radius: 2.5
+  radius: 3
   height: 2
   canMove: 1
   maxSpeed: 1
@@ -182,7 +182,7 @@ MonoBehaviour:
   rotationSpeed: 360
   slowdownDistance: 0.4
   pickNextWaypointDist: 0.1
-  endReachedDistance: 0.2
+  endReachedDistance: 0.8
   alwaysDrawGizmos: 0
   slowWhenNotFacingTarget: 1
   whenCloseToDestination: 0
