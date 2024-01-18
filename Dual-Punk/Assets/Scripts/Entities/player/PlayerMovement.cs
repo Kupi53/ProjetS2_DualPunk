@@ -1,17 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
-/* ce script gere le mouvement et les animations du joueur 
+using System;
+
+/* Ce script gere le mouvement et les animations du joueur 
 Il gere aussi les abilités (dash) mais ça doit être changé */
 
 public class PlayerMovement : MonoBehaviour
 {
     public Rigidbody2D body;
     public Animator animator;
+    public GameObject pointer;
     public SpriteRenderer spriteRenderer;
-    private string currentState;
-    
-// constantes qui sont les noms des sprites du joueur
+    private PlayerState playerState;
+
+    // Constantes qui sont les noms des sprites du joueur
     const string PLAYER_N = "Player N";
     const string PLAYER_E = "Player E";
     const string PLAYER_S = "Player S";
@@ -20,105 +24,146 @@ public class PlayerMovement : MonoBehaviour
     const string PLAYER_NW = "Player NW";
     const string PLAYER_SE = "Player SE";
     const string PLAYER_SW = "Player SW";
-    
-    // bool qui sert pour le state du joueur (par exemple pendant un dash ou certaines abilitiés le joueur ne doit pas pouvoir bouger)
-    private bool enableMovement = true;
-    public float walkspeed;
+
+    // Bool qui sert pour le state du joueur (par exemple pendant un dash ou certaines abilitiés le joueur ne doit pas pouvoir bouger)
+    private bool enableMovement;
+    private string currentState;
+    private float slowingFactor;
+
+    // Nombres decimaux pour gerer la vitesse de marche, course et de dash
+    public float walkSpeed;
+    public float sprintSpeed;
     public float dashSpeed;
     public float dashTime;
-    public float deceleration;
-    Vector2 direction;
+    Vector2 moveDirection;
+    Vector2 pointerDirection;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        animator = GetComponent<Animator>();
-        // de base le joueur face en bas
+        // De base le joueur face en bas
         currentState = PLAYER_S;
+        enableMovement = true;
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
-    void FixedUpdate(){
-        // inputs
-        if (Input.GetButtonDown("Dash") && AbilitiesState.Instance.dashCooldown <= 0.0f){
-            enableMovement = false;
-            AbilitiesState.Instance.dashing = true;
-            AbilitiesState.Instance.dashCooldown = AbilitiesState.Instance.dashCooldownMax;
-        }
-        // functions
-        Movement();
-        Cooldown();
-    }
+    void Update()
+    {
+        // Prends Imputs et cooldown chaque frame
 
-
-    // gere le mouvement et gère aussi le dash mais ça doit etre separé
-    void Movement(){
         if (enableMovement)
-        {                
-            direction = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")*0.5f).normalized;
-            if (Input.GetAxis("Horizontal") == 0)
-                direction.Scale(new Vector2(1,0.75f));
-            body.MovePosition(body.position + direction * walkspeed * Time.deltaTime);
-            Anim_Movement(direction);
+        {
+            // Direction du deplacement
+            moveDirection = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical") * 0.5f).normalized;
+            // Direction du pointeur
+            pointerDirection = (pointer.transform.position - transform.position).normalized;
+
+            if (Input.GetAxis("Horizontal") != 0 && Input.GetAxis("Vertical") != 0)
+                moveDirection *= 0.8f;
+            else if (Input.GetAxis("Horizontal") == 0)
+                moveDirection *= 0.6f;
         }
-        else if (AbilitiesState.Instance.dashing){
-            if (AbilitiesState.Instance.dashTimer < dashTime){
-                body.MovePosition(body.position + direction * Time.deltaTime * (dashSpeed - AbilitiesState.Instance.dashTimer*deceleration));
-                AbilitiesState.Instance.dashTimer += Time.deltaTime;
+
+        if (Input.GetButton("Aim"))
+        {
+            slowingFactor = 0.8f;
+        }
+        else
+        {
+            slowingFactor = 1.0f;
+        }
+
+        if (Input.GetButtonDown("Dash") && PlayerState.dashCooldown <= 0.0f)
+        {
+            enableMovement = false;
+            PlayerState.dashing = true;
+            PlayerState.dashCooldown = PlayerState.dashCooldownMax;
+        }
+        else if (PlayerState.dashCooldown > 0.0f)
+        {
+            PlayerState.dashCooldown -= Time.deltaTime;
+        }
+    }
+
+
+    void FixedUpdate()
+    {
+        if (enableMovement)
+        {
+            float moveAngle = (float)(Math.Atan2(moveDirection.y, moveDirection.x) * (180 / Math.PI));
+            float pointerAngle = (float)(Math.Atan2(pointerDirection.y, pointerDirection.x) * (180 / Math.PI));
+
+            if (moveDirection != new Vector2(0, 0))
+            {
+                if (moveAngle > pointerAngle - 45 && moveAngle < pointerAngle + 45)
+                    body.MovePosition(body.position + moveDirection * sprintSpeed);
+                else
+                    body.MovePosition(body.position + moveDirection * walkSpeed);
             }
-            else {
+            ChangeAnimation(ChangeDirection(pointerAngle));
+        }
+        else if (PlayerState.dashing)
+        {
+            if (PlayerState.dashTimer < dashTime)
+            {
+                body.MovePosition(body.position + moveDirection * (dashSpeed - PlayerState.dashTimer));
+                PlayerState.dashTimer += Time.fixedDeltaTime;
+            }
+            else
+            {
                 enableMovement = true;
-                AbilitiesState.Instance.dashing = false;
-                AbilitiesState.Instance.dashTimer = 0;
+                PlayerState.dashing = false;
+                PlayerState.dashTimer = 0;
             }
         }
     }
 
-// gere le cooldown des abilités (pour l'instant seulement le dash) mais ça doit etre changé
-    void Cooldown(){
-        // dash
-        if (AbilitiesState.Instance.dashCooldown > 0.0f){
-            AbilitiesState.Instance.dashCooldown -= Time.fixedDeltaTime;
-        }
-    }
 
-    // utilisé dans anim mouvement, change l'animation en fonction des constantes Player_S, Player_...
-    void ChangeAnimation(string newState){
+    // Utilise dans anim mouvement, change l'animation en fonction des constantes Player_S, Player_...
+    void ChangeAnimation(string newState)
+    {
         if (currentState == newState) return;
         animator.Play(newState);
         currentState = newState;
     }
 
-    // on passe la direction actuelle du joueur et en fonction, appelle changeAnimation 
-    // avec la constante (nom du sprite) adaptée
-   public void Anim_Movement(Vector2 direction){
-        if (direction.x < 0.1f && direction.x > -0.1f && direction.y < 0.1f && direction.y > -0.1f){
-            ChangeAnimation(PLAYER_S);
+    // On passe la direction actuelle du joueur et en fonction, appelle changeAnimation 
+    // Avec la constante (nom du sprite) adaptée
+    string ChangeDirection(float angle)
+    {
+        if (angle > -22 && angle <= 22)
+        {
+            return PLAYER_E;
         }
-        else if (direction.x >= 0.1f && direction.y < 0.1f && direction.y > -0.1f){
-            ChangeAnimation(PLAYER_E);
+        else if (angle > 22 && angle <= 67)
+        {
+            return PLAYER_NE;
         }
-        else if (direction.x <= -0.1f && direction.y < 0.1f && direction.y > -0.1f){
-            ChangeAnimation(PLAYER_W);
+        else if (angle > 67 && angle <= 112)
+        {
+            return PLAYER_N;
         }
-        else if (direction.x < 0.1f && direction.x > -0.1f && direction.y >= 0.1f){
-            ChangeAnimation(PLAYER_N);
+        else if (angle > 112 && angle <= 157)
+        {
+            return PLAYER_NW;
         }
-        else if (direction.x < 0.1f && direction.x > -0.1f && direction.y <= -0.1f){
-            ChangeAnimation(PLAYER_S);
+        else if ((angle > 157 &&  angle <= 180) || (angle >= -180 && angle <= -158))
+        {
+            return PLAYER_W;
         }
-        else if (direction.x >= 0.5f && direction.y >= 0.3f){
-            ChangeAnimation(PLAYER_NE);
+        else if (angle > -158 && angle <= -113)
+        {
+            return PLAYER_SW;
         }
-        else if (direction.x >= 0.5f && direction.y <= -0.3f){
-            ChangeAnimation(PLAYER_SE);
+        else if (angle > -113 && angle <= -68)
+        {
+            return PLAYER_S;
         }
-        else if (direction.x <= -0.5f && direction.y >= 0.3f){
-            ChangeAnimation(PLAYER_NW);
-        }
-        else if (direction.x <= -0.5f && direction.y <= -0.3f){
-            ChangeAnimation(PLAYER_SW);
+        else
+        {
+            return PLAYER_SE;
         }
     }
 }

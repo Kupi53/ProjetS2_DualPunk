@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class PointerScript : MonoBehaviour
 {
+    public Sprite pointerNormal;
+    public Sprite pointer1;
+    public Sprite pointer2;
+    public Sprite pointerAim1;
+    public Sprite pointerAim2;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -14,6 +20,8 @@ public class PointerScript : MonoBehaviour
     void Update()
     {
         ChangePosition();
+
+        
     }
 
     void ChangePosition()

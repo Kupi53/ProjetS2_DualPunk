@@ -15,7 +15,7 @@ public class DashIconRender : MonoBehaviour
         le but est que pour dashcooldown max on puisse faire dashcooldown * transform = dashdisabledTop
         comme ça on part de Top = 150 (dashicon recouverte) et on va a dashcooldown = 0 donc Top = 0 
         au fur et à mesure que dashcooldown tend vers 0 */
-        transformMultiplier = DashDisabledTop/AbilitiesState.Instance.dashCooldownMax;
+        transformMultiplier = DashDisabledTop / PlayerState.dashCooldownMax;
         rectTransform = GetComponent<RectTransform>();
     }
 
@@ -23,9 +23,10 @@ public class DashIconRender : MonoBehaviour
     void Update()
     {
         // si dashcooldown
-        if (AbilitiesState.Instance.dashCooldown > 0){
+        if (PlayerState.dashCooldown > 0)
+        {
             // dashdisabledicon fait son truc
-            rectTransform.offsetMax = new Vector2(rectTransform.offsetMax.x,-150+AbilitiesState.Instance.dashCooldown*transformMultiplier);
+            rectTransform.offsetMax = new Vector2(rectTransform.offsetMax.x, -150 + PlayerState.dashCooldown * transformMultiplier);
         }
     }
 }
