@@ -236,7 +236,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75dc1b67eab14874ba90171c662e8641, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pointer: {fileID: 3846805473541732106, guid: faa2bfaf09b2b0245bdf636d122519a1, type: 3}
+  pointer: {fileID: 1702336741078652632}
   holdingWeapon: 0
   aimingAccuracy: 5
 --- !u!95 &8964195863846787305
@@ -344,6 +344,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 18646855055023927}
     m_Modifications:
+    - target: {fileID: -8173808296829769124, guid: faa2bfaf09b2b0245bdf636d122519a1, type: 3}
+      propertyPath: m_SpriteTilingProperty.newSize.x
+      value: 0.44
+      objectReference: {fileID: 0}
+    - target: {fileID: -8173808296829769124, guid: faa2bfaf09b2b0245bdf636d122519a1, type: 3}
+      propertyPath: m_SpriteTilingProperty.newSize.y
+      value: 0.44
+      objectReference: {fileID: 0}
     - target: {fileID: 3846805473541732106, guid: faa2bfaf09b2b0245bdf636d122519a1, type: 3}
       propertyPath: m_Name
       value: Pointer

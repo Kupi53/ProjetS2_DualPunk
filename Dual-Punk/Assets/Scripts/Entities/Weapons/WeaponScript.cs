@@ -64,10 +64,10 @@ public class WeaponScript : NetworkBehaviour
                 {
                     weaponController.FireRound(bullet, gunEnd, direction, dispersion, bulletNumber);
                 }
-                /*else
+                else
                 {
                     weaponController.FireRoundServerRPC(bullet, gunEnd, direction, dispersion, bulletNumber, NetworkManager.Singleton.LocalClientId);
-                }*/
+                }
 
                 fireTimer = 0;
                 magSize--;

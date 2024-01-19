@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4576023538387133060}
+  - component: {fileID: 5402183002687166434}
   m_Layer: 0
   m_Name: GunEndPoint
   m_TagString: Untagged
@@ -31,6 +32,26 @@ Transform:
   m_Children: []
   m_Father: {fileID: 8421518522682235623}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5402183002687166434
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 770741380508746298}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 951099334
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
 --- !u!1 &4568866855915729630
 GameObject:
   m_ObjectHideFlags: 0
@@ -229,7 +250,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bullet: {fileID: 5298557137024599475, guid: cf1a87b5cd3d7904dbe9dcf2013b111e, type: 3}
   gunEnd: {fileID: 770741380508746298}
-  pointer: {fileID: 3846805473541732106, guid: faa2bfaf09b2b0245bdf636d122519a1, type: 3}
   spriteRenderer: {fileID: 3296293110993711413}
   fireRate: 0.15
   dispersion: 0.1

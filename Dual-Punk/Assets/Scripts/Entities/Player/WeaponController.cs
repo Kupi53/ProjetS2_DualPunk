@@ -56,23 +56,25 @@ public class WeaponController : NetworkBehaviour
         }
     }
 
-    /*
     [ServerRpc(RequireOwnership = false)]
-    public void FireRoundServerRPC(GameObject bullet, GameObject gunEnd, Vector3 direction, float dispersion, int bulletNumber, ulong clientId)
+    public void FireRoundServerRPC(NetworkObjectReference bulletRef, NetworkObjectReference gunEndRef, Vector3 direction, float dispersion, int bulletNumber, ulong clientId)
     {
         if (PlayerState.Aiming)
             dispersion /= aimingAccuracy;
 
         for (int i = 0; i < bulletNumber; i++)
         {
+            bulletRef.TryGet(out NetworkObject netBullet);
+            GameObject bullet = netBullet.gameObject;
+            gunEndRef.TryGet(out NetworkObject netGunEnd);
+            GameObject gunEnd = netGunEnd.gameObject;
             Vector3 newDirection = new Vector3(direction.x + NextFloat(-dispersion, dispersion), direction.y + NextFloat(-dispersion, dispersion), 0);
             float newAngle = (float)(Math.Atan2(newDirection.y, newDirection.x) * (180 / Math.PI));
-
             GameObject newBullet = Instantiate(bullet, gunEnd.transform.position, transform.rotation);
             newBullet.GetComponent<NetworkObject>().SpawnWithOwnership(clientId);
             BulletScript bulletScript = newBullet.GetComponent<BulletScript>();
             bulletScript.MoveDirection = newDirection;
             bulletScript.transform.eulerAngles = new Vector3(0, 0, newAngle);
         }
-    }*/
+    }
 }
