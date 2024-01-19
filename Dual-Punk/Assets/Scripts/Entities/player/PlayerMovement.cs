@@ -25,10 +25,11 @@ public class PlayerMovement : NetworkBehaviour
     const string PLAYER_NW = "Player NW";
     const string PLAYER_SE = "Player SE";
     const string PLAYER_SW = "Player SW";
+    const string Player_Idle = "Player Idle";
 
     // Bool qui sert pour le state du joueur (par exemple pendant un dash ou certaines abilitiés le joueur ne doit pas pouvoir bouger)
     private bool enableMovement;
-    private string currentState;
+    private string currentAnim;
     private float slowingFactor;
 
     // Nombres decimaux pour gerer la vitesse de marche, course et de dash
@@ -45,7 +46,6 @@ public class PlayerMovement : NetworkBehaviour
     void Start()
     {
         // De base le joueur face en bas
-        currentState = PLAYER_S;
         enableMovement = true;
         animator = GetComponent<Animator>();
     }
@@ -178,16 +178,26 @@ public class PlayerMovement : NetworkBehaviour
     // Utilise dans anim mouvement, change l'animation en fonction des constantes Player_S, Player_...
     void ChangeAnimation(string newState)
     {
-        if (currentState == newState) return;
-        animator.Play(newState);
-        currentState = newState;
+        if (PlayerState.HoldingWeapon)
+        {
+            animator.Play(newState);
+        }
+        else
+        {
+            animator.SetFloat("Speed", moveDirection.x);
+        }
     }
     [ServerRpc(RequireOwnership = false)]
     void ChangeAnimationServerRPC(string newState)
     {
-        if (currentState == newState) return;
-        animator.Play(newState);
-        currentState = newState;
+        if (PlayerState.HoldingWeapon)
+        {
+            animator.Play(newState);
+        }
+        else
+        {
+            animator.SetFloat("Speed", moveDirection.x);
+        }
     }
 
     // On passe la direction actuelle du joueur et en fonction, appelle changeAnimation 

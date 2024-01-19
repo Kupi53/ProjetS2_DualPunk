@@ -2577,10 +2577,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4e5ad91c79e53a4fad3ea3b78944684, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dashing: 0
-  dashCooldown: 0
-  dashCooldownMax: 4
-  dashTimer: 0
 --- !u!1 &1045441745
 GameObject:
   m_ObjectHideFlags: 0
