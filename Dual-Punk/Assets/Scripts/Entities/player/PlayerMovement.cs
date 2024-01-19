@@ -29,7 +29,7 @@ public class PlayerMovement : NetworkBehaviour
 
     // Bool qui sert pour le state du joueur (par exemple pendant un dash ou certaines abilitiés le joueur ne doit pas pouvoir bouger)
     private bool enableMovement;
-    private string currentAnim;
+    private string currentState;
     private float slowingFactor;
 
     // Nombres decimaux pour gerer la vitesse de marche, course et de dash
@@ -46,6 +46,7 @@ public class PlayerMovement : NetworkBehaviour
     void Start()
     {
         // De base le joueur face en bas
+        currentState = PLAYER_S;
         enableMovement = true;
         animator = GetComponent<Animator>();
     }
@@ -180,7 +181,9 @@ public class PlayerMovement : NetworkBehaviour
     {
         if (PlayerState.HoldingWeapon)
         {
+            if (currentState == newState) return;
             animator.Play(newState);
+            currentState = newState;
         }
         else
         {
@@ -192,7 +195,9 @@ public class PlayerMovement : NetworkBehaviour
     {
         if (PlayerState.HoldingWeapon)
         {
+            if (currentState == newState) return;
             animator.Play(newState);
+            currentState = newState;
         }
         else
         {
