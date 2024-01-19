@@ -7,16 +7,21 @@ using UnityEngine;
 public class PlayerState : MonoBehaviour {
 
     [SerializeField]
+    private int MaxHealth = 100;
     public int[] Stats;
-    public bool HoldingWeapon { get; set; }
-    public static bool aiming = false;
-    public static bool dashing = false;
-    public static float dashTimer = 0.0f;
-    public static float dashCooldown = 0.0f;
-    public static float dashCooldownMax = 1.0f;
-    
+    public float Health;
 
-    void Awake(){
+    public static bool HoldingWeapon = false;
+    public static bool Aiming = false;
+    public static bool Dashing = false;
+    public static float DashTimer = 0.0f;
+    public static float DashCooldown = 0.0f;
+    public static float DashCooldownMax = 1.0f;
+
+
+    void Awake()
+    {
+        Health = MaxHealth;
         HoldingWeapon = false;
     }
 }

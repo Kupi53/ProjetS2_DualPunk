@@ -42,9 +42,9 @@ GameObject:
   - component: {fileID: 8421518522682235623}
   - component: {fileID: 3296293110993711413}
   - component: {fileID: 4177410995206868752}
-  - component: {fileID: 662058232798417726}
   - component: {fileID: 2139856518883750391}
   - component: {fileID: -4752123658958502982}
+  - component: {fileID: 4640346647727036328}
   m_Layer: 0
   m_Name: M4
   m_TagString: Untagged
@@ -165,24 +165,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 14.02, y: 4.96}
   m_EdgeRadius: 0
---- !u!114 &662058232798417726
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4568866855915729630}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e244107ce79fda549a7421403933f067, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bullet: {fileID: 5298557137024599475, guid: cf1a87b5cd3d7904dbe9dcf2013b111e, type: 3}
-  gunEnd: {fileID: 770741380508746298}
-  pointer: {fileID: 3846805473541732106, guid: faa2bfaf09b2b0245bdf636d122519a1, type: 3}
-  spriteRenderer: {fileID: 3296293110993711413}
-  fireRate: 0.1
-  weaponDistance: 0.7
 --- !u!114 &2139856518883750391
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -233,3 +215,26 @@ MonoBehaviour:
   InLocalSpace: 0
   Interpolate: 1
   SlerpPosition: 0
+--- !u!114 &4640346647727036328
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4568866855915729630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8460473f92773e74f9c436b5b690daa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bullet: {fileID: 5298557137024599475, guid: cf1a87b5cd3d7904dbe9dcf2013b111e, type: 3}
+  gunEnd: {fileID: 770741380508746298}
+  pointer: {fileID: 3846805473541732106, guid: faa2bfaf09b2b0245bdf636d122519a1, type: 3}
+  spriteRenderer: {fileID: 3296293110993711413}
+  fireRate: 0.15
+  dispersion: 0.1
+  weaponDistance: 0.7
+  reloadTime: 2
+  maxMagSize: 30
+  bulletNumber: 1
+  isAuto: 1

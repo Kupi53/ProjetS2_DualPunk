@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 6070574959440917383}
   - component: {fileID: 5280717515457528235}
   - component: {fileID: 4038244472519242302}
-  - component: {fileID: 5364866886856150078}
   - component: {fileID: 4593421468593424019}
   - component: {fileID: -5576481083375041209}
+  - component: {fileID: 2998020564572275706}
   m_Layer: 0
   m_Name: CarnageShotgun
   m_TagString: Untagged
@@ -134,24 +134,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 3.21, y: 0.8}
   m_EdgeRadius: 0
---- !u!114 &5364866886856150078
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 156933350303824626}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 50cf74f1bc6691c48a2f48811e595bc7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bullet: {fileID: 5298557137024599475, guid: cf1a87b5cd3d7904dbe9dcf2013b111e, type: 3}
-  gunEnd: {fileID: 1151202582569453349}
-  pointer: {fileID: 3846805473541732106, guid: faa2bfaf09b2b0245bdf636d122519a1, type: 3}
-  spriteRenderer: {fileID: 5280717515457528235}
-  fireRate: 0.5
-  weaponDistance: 0.7
 --- !u!114 &4593421468593424019
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -202,6 +184,29 @@ MonoBehaviour:
   InLocalSpace: 0
   Interpolate: 1
   SlerpPosition: 0
+--- !u!114 &2998020564572275706
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 156933350303824626}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8460473f92773e74f9c436b5b690daa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bullet: {fileID: 5298557137024599475, guid: cf1a87b5cd3d7904dbe9dcf2013b111e, type: 3}
+  gunEnd: {fileID: 1151202582569453349}
+  pointer: {fileID: 3846805473541732106, guid: faa2bfaf09b2b0245bdf636d122519a1, type: 3}
+  spriteRenderer: {fileID: 5280717515457528235}
+  fireRate: 1
+  dispersion: 0.3
+  weaponDistance: 0.7
+  reloadTime: 3
+  maxMagSize: 4
+  bulletNumber: 9
+  isAuto: 0
 --- !u!1 &1151202582569453349
 GameObject:
   m_ObjectHideFlags: 0

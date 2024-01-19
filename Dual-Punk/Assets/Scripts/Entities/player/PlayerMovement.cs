@@ -4,6 +4,7 @@ using System.Reflection;
 using UnityEngine;
 using System;
 using Unity.Netcode;
+using IngameDebugConsole;
 
 /* Ce script gere le mouvement et les animations du joueur 
 Il gere aussi les abilités (dash) mais ça doit être changé */
@@ -14,7 +15,6 @@ public class PlayerMovement : NetworkBehaviour
     public Animator animator;
     public GameObject pointer;
     public SpriteRenderer spriteRenderer;
-    private PlayerState playerState;
 
     // Constantes qui sont les noms des sprites du joueur
     const string PLAYER_N = "Player N";
@@ -36,6 +36,7 @@ public class PlayerMovement : NetworkBehaviour
     public float sprintSpeed;
     public float dashSpeed;
     public float dashTime;
+    public float slowingAim;
     Vector2 moveDirection;
     Vector2 pointerDirection;
 
@@ -52,96 +53,123 @@ public class PlayerMovement : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!IsOwner) return;
 
-        if (!IsOwner){
-            return;
-        }
         // Prends Imputs et cooldown chaque frame
-        
         if (enableMovement)
         {
             // Direction du deplacement
             moveDirection = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical") * 0.5f).normalized;
             // Direction du pointeur
             pointerDirection = (pointer.transform.position - transform.position).normalized;
-            if (Input.GetAxis("Horizontal") == 0)
-                moveDirection.Scale(new Vector2(1,0.75f));
+
+            if (Input.GetAxis("Horizontal") != 0 && Input.GetAxis("Vertical") != 0)
+                moveDirection *= 0.8f;
+            else if (Input.GetAxis("Horizontal") == 0)
+                moveDirection *= 0.6f;
         }
 
         if (Input.GetButton("Aim"))
         {
-            slowingFactor = 0.8f;
+            PlayerState.Aiming = true;
+            slowingFactor = slowingAim;
         }
-        else
+        else 
         {
+            PlayerState.Aiming = false;
             slowingFactor = 1.0f;
         }
 
-        if (Input.GetButtonDown("Dash") && PlayerState.dashCooldown <= 0.0f)
+        if (Input.GetButtonDown("Dash") && PlayerState.DashCooldown <= 0.0f)
         {
             enableMovement = false;
-            PlayerState.dashing = true;
-            PlayerState.dashCooldown = PlayerState.dashCooldownMax;
+            PlayerState.Dashing = true;
+            PlayerState.DashCooldown = PlayerState.DashCooldownMax;
         }
-        else if (PlayerState.dashCooldown > 0.0f)
+        else if (PlayerState.DashCooldown > 0.0f)
         {
-            PlayerState.dashCooldown -= Time.deltaTime;
+            PlayerState.DashCooldown -= Time.deltaTime;
         }
     }
 
 
     void FixedUpdate()
     {
-        if (!IsOwner){
-            return;
-        }
         if (enableMovement)
         {
-            if (IsHost){
-                float moveAngle = (float)(Math.Atan2(moveDirection.y, moveDirection.x) * (180 / Math.PI));
-                float pointerAngle = (float)(Math.Atan2(pointerDirection.y, pointerDirection.x) * (180 / Math.PI));
+            float moveAngle = (float)(Math.Atan2(moveDirection.y, moveDirection.x) * (180 / Math.PI));
+            float pointerAngle = (float)(Math.Atan2(pointerDirection.y, pointerDirection.x) * (180 / Math.PI));
 
-                if (moveDirection != new Vector2(0, 0))
-                {
-                    if (moveAngle > pointerAngle - 45 && moveAngle < pointerAngle + 45)
-                        body.MovePosition(body.position + moveDirection * sprintSpeed * 0.02f);
-                    else
-                        body.MovePosition(body.position + moveDirection * walkSpeed * 0.02f);
-                }
-                ChangeAnimation(ChangeDirection(pointerAngle));
-            }
-            else{
-                float moveAngle = (float)(Math.Atan2(moveDirection.y, moveDirection.x) * (180 / Math.PI));
-                float pointerAngle = (float)(Math.Atan2(pointerDirection.y, pointerDirection.x) * (180 / Math.PI));
-
-                if (moveDirection != new Vector2(0, 0))
-                {
-                    if (moveAngle > pointerAngle - 45 && moveAngle < pointerAngle + 45)
-                        MovePositionServerRPC(body.position + moveDirection * sprintSpeed * 0.02f);
-                    else
-                        MovePositionServerRPC(body.position + moveDirection * walkSpeed * 0.02f);
-                }
-                ChangeAnimationServerRPC(ChangeDirection(pointerAngle));
-            }
-
-        }
-        else if (PlayerState.dashing)
-        {
-            if (PlayerState.dashTimer < dashTime)
+            if (IsHost)
             {
-                body.MovePosition(body.position + moveDirection * (dashSpeed - PlayerState.dashTimer) * 0.02f);
-                PlayerState.dashTimer += Time.fixedDeltaTime;
+                if (moveDirection != new Vector2(0, 0))
+                {
+                    if (PlayerState.HoldingWeapon)
+                    {
+                        if (moveAngle > pointerAngle - 45 && moveAngle < pointerAngle + 45)
+                            body.MovePosition(body.position + moveDirection * sprintSpeed * slowingFactor);
+                        else
+                            body.MovePosition(body.position + moveDirection * walkSpeed * slowingFactor);
+                        ChangeAnimation(ChangeDirection(pointerAngle));
+                    }
+                    else
+                    {
+                        body.MovePosition(body.position + moveDirection * walkSpeed * slowingFactor);
+                        ChangeAnimation(ChangeDirection(moveAngle));
+                    }
+                }
+
+                if (PlayerState.HoldingWeapon)
+                    ChangeAnimation(ChangeDirection(pointerAngle));
+                else
+                    ChangeAnimation(ChangeDirection(moveAngle));
+            }
+
+            else
+            {
+                if (moveDirection != new Vector2(0, 0))
+                {
+                    if (PlayerState.HoldingWeapon)
+                    {
+                        if (moveAngle > pointerAngle - 45 && moveAngle < pointerAngle + 45)
+                            MovePositionServerRPC(body.position + moveDirection * sprintSpeed * slowingFactor);
+                        else
+                            MovePositionServerRPC(body.position + moveDirection * walkSpeed * slowingFactor);
+                        ChangeAnimationServerRPC(ChangeDirection(pointerAngle));
+                    }
+                    else
+                    {
+                        body.MovePosition(body.position + moveDirection * walkSpeed * slowingFactor);
+                        ChangeAnimationServerRPC(ChangeDirection(moveAngle));
+                    }
+                }
+
+                if (PlayerState.HoldingWeapon)
+                    ChangeAnimationServerRPC(ChangeDirection(pointerAngle));
+                else
+                    ChangeAnimationServerRPC(ChangeDirection(moveAngle));
+            }
+            
+        }
+        else if (PlayerState.Dashing)
+        {
+            if (PlayerState.DashTimer < dashTime)
+            {
+                body.MovePosition(body.position + moveDirection * (dashSpeed - PlayerState.DashTimer));
+                PlayerState.DashTimer += Time.fixedDeltaTime;
             }
             else
             {
                 enableMovement = true;
-                PlayerState.dashing = false;
-                PlayerState.dashTimer = 0;
+                PlayerState.Dashing = false;
+                PlayerState.DashTimer = 0;
             }
         }
     }
+
+
     // movement du client
-     [ServerRpc(RequireOwnership = false)]
+    [ServerRpc(RequireOwnership = false)]
     void MovePositionServerRPC(Vector2 pos){
         body.MovePosition(pos);
     }
