@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
 using System;
+using Unity.Netcode;
 
 /* Ce script gere le mouvement et les animations du joueur 
 Il gere aussi les abilités (dash) mais ça doit être changé */
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : NetworkBehaviour
 {
     public Rigidbody2D body;
     public Animator animator;
@@ -51,8 +52,12 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Prends Imputs et cooldown chaque frame
 
+        if (!IsOwner){
+            return;
+        }
+        // Prends Imputs et cooldown chaque frame
+        
         if (enableMovement)
         {
             // Direction du deplacement
@@ -87,19 +92,38 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (!IsOwner){
+            return;
+        }
         if (enableMovement)
         {
-            float moveAngle = (float)(Math.Atan2(moveDirection.y, moveDirection.x) * (180 / Math.PI));
-            float pointerAngle = (float)(Math.Atan2(pointerDirection.y, pointerDirection.x) * (180 / Math.PI));
+            if (IsHost){
+                float moveAngle = (float)(Math.Atan2(moveDirection.y, moveDirection.x) * (180 / Math.PI));
+                float pointerAngle = (float)(Math.Atan2(pointerDirection.y, pointerDirection.x) * (180 / Math.PI));
 
-            if (moveDirection != new Vector2(0, 0))
-            {
-                if (moveAngle > pointerAngle - 45 && moveAngle < pointerAngle + 45)
-                    body.MovePosition(body.position + moveDirection * sprintSpeed * 0.02f);
-                else
-                    body.MovePosition(body.position + moveDirection * walkSpeed * 0.02f);
+                if (moveDirection != new Vector2(0, 0))
+                {
+                    if (moveAngle > pointerAngle - 45 && moveAngle < pointerAngle + 45)
+                        body.MovePosition(body.position + moveDirection * sprintSpeed * 0.02f);
+                    else
+                        body.MovePosition(body.position + moveDirection * walkSpeed * 0.02f);
+                }
+                ChangeAnimation(ChangeDirection(pointerAngle));
             }
-            ChangeAnimation(ChangeDirection(pointerAngle));
+            else{
+                float moveAngle = (float)(Math.Atan2(moveDirection.y, moveDirection.x) * (180 / Math.PI));
+                float pointerAngle = (float)(Math.Atan2(pointerDirection.y, pointerDirection.x) * (180 / Math.PI));
+
+                if (moveDirection != new Vector2(0, 0))
+                {
+                    if (moveAngle > pointerAngle - 45 && moveAngle < pointerAngle + 45)
+                        MovePositionServerRPC(body.position + moveDirection * sprintSpeed * 0.02f);
+                    else
+                        MovePositionServerRPC(body.position + moveDirection * walkSpeed * 0.02f);
+                }
+                ChangeAnimationServerRPC(ChangeDirection(pointerAngle));
+            }
+
         }
         else if (PlayerState.dashing)
         {
@@ -116,10 +140,22 @@ public class PlayerMovement : MonoBehaviour
             }
         }
     }
+    // movement du client
+     [ServerRpc(RequireOwnership = false)]
+    void MovePositionServerRPC(Vector2 pos){
+        body.MovePosition(pos);
+    }
 
 
     // Utilise dans anim mouvement, change l'animation en fonction des constantes Player_S, Player_...
     void ChangeAnimation(string newState)
+    {
+        if (currentState == newState) return;
+        animator.Play(newState);
+        currentState = newState;
+    }
+    [ServerRpc(RequireOwnership = false)]
+    void ChangeAnimationServerRPC(string newState)
     {
         if (currentState == newState) return;
         animator.Play(newState);

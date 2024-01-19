@@ -4,7 +4,7 @@ using UnityEngine;
 using Unity.Netcode;
 using System;
 
-public class carnageShotgunScript : MonoBehaviour
+public class carnageShotgunScript : NetworkBehaviour
 {
     public GameObject bullet;
     public GameObject gunEnd;
@@ -53,7 +53,12 @@ public class carnageShotgunScript : MonoBehaviour
             else if (Input.GetButton("Use"))
             {
                 timer = 0;
-                fireRoundServerRPC(direction, angle, NetworkManager.Singleton.LocalClientId);
+                if (IsHost){
+                    fireRound(direction, angle);
+                }
+                else{
+                    fireRoundServerRPC(direction, angle, NetworkManager.Singleton.LocalClientId);
+                }
             }
         }
     }
@@ -61,6 +66,7 @@ public class carnageShotgunScript : MonoBehaviour
     void fireRound(Vector3 direction, float angle)
     {
         GameObject newBullet = Instantiate(bullet, gunEnd.transform.position, transform.rotation);
+        newBullet.GetComponent<NetworkObject>().SpawnWithOwnership(NetworkManager.Singleton.LocalClientId);
         bulletScript = newBullet.GetComponent<BulletScript>();
         bulletScript.MoveDirection = direction;
         bulletScript.transform.eulerAngles = new Vector3(0, 0, angle);
