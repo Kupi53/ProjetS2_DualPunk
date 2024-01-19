@@ -67,7 +67,7 @@ public class PointerScript : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.gameObject.GetComponent<EnnemyScript>() != null)
+        if (collision.gameObject.CompareTag("Ennemy"))
         {
             onTarget = true;
         }
@@ -75,7 +75,7 @@ public class PointerScript : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.GetComponent<EnnemyScript>() != null)
+        if (collision.gameObject.CompareTag("Ennemy"))
         {
             onTarget = false;
         }

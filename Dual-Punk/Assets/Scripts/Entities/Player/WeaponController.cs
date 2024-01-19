@@ -22,7 +22,6 @@ public class WeaponController : NetworkBehaviour
 
     public bool DropWeapon()
     {
-        Debug.Log(pointer.transform.position.x);
         if (Input.GetButtonDown("Drop"))
         {
             IsHolding(false);
