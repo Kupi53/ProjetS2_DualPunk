@@ -25,6 +25,7 @@ public class PlayerMovement : NetworkBehaviour
     const string PLAYER_NW = "Player NW";
     const string PLAYER_SE = "Player SE";
     const string PLAYER_SW = "Player SW";
+    const string Player_Idle = "Player Idle";
 
     // Bool qui sert pour le state du joueur (par exemple pendant un dash ou certaines abilitiés le joueur ne doit pas pouvoir bouger)
     private bool enableMovement;
@@ -178,16 +179,32 @@ public class PlayerMovement : NetworkBehaviour
     // Utilise dans anim mouvement, change l'animation en fonction des constantes Player_S, Player_...
     void ChangeAnimation(string newState)
     {
-        if (currentState == newState) return;
-        animator.Play(newState);
-        currentState = newState;
+        if (PlayerState.HoldingWeapon)
+        {
+            if (currentState == newState) return;
+            animator.Play(newState);
+            currentState = newState;
+        }
+        else
+        {
+            animator.SetFloat("SpeedX", moveDirection.x);
+            animator.SetFloat("SpeedY", moveDirection.y);
+        }
     }
     [ServerRpc(RequireOwnership = false)]
     void ChangeAnimationServerRPC(string newState)
     {
-        if (currentState == newState) return;
-        animator.Play(newState);
-        currentState = newState;
+        if (PlayerState.HoldingWeapon)
+        {
+            if (currentState == newState) return;
+            animator.Play(newState);
+            currentState = newState;
+        }
+        else
+        {
+            animator.SetFloat("SpeedX", moveDirection.x);
+            animator.SetFloat("SpeedY", moveDirection.y);
+        }
     }
 
     // On passe la direction actuelle du joueur et en fonction, appelle changeAnimation 
