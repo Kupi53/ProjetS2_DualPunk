@@ -206,11 +206,11 @@ MonoBehaviour:
   animator: {fileID: 8964195863846787305}
   pointer: {fileID: 1702336741078652632}
   spriteRenderer: {fileID: 4733711911263106263}
-  walkSpeed: 0.07
-  sprintSpeed: 0.1
-  dashSpeed: 0.3
+  walkSpeed: 0.05
+  sprintSpeed: 0.08
+  dashSpeed: 0.25
   dashTime: 0.2
-  slowingAim: 0.7
+  aimFactor: 0.7
 --- !u!114 &2909192396974194660
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -11,9 +11,10 @@ public class PlayerState : MonoBehaviour {
     public int[] Stats;
     public float Health;
 
-    public static bool HoldingWeapon = false;
     public static bool Aiming = false;
+    public static bool Walking = true;
     public static bool Dashing = false;
+    public static bool HoldingWeapon = false;
     public static float DashTimer = 0.0f;
     public static float DashCooldown = 0.0f;
     public static float DashCooldownMax = 1.0f;

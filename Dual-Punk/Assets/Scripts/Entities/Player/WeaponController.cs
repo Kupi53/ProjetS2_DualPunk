@@ -56,6 +56,7 @@ public class WeaponController : NetworkBehaviour
         }
     }
 
+
     [ServerRpc(RequireOwnership = false)]
     public void FireRoundServerRPC(NetworkObjectReference bulletRef, NetworkObjectReference gunEndRef, Vector3 direction, float dispersion, int bulletNumber, ulong clientId)
     {

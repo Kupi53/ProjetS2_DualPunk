@@ -27,16 +27,19 @@ public class PlayerMovement : NetworkBehaviour
     const string PLAYER_SW = "Player SW";
 
     // Bool qui sert pour le state du joueur (par exemple pendant un dash ou certaines abilitiés le joueur ne doit pas pouvoir bouger)
-    private bool enableMovement;
+    private bool enableMovement = true;
     private string currentState;
-    private float slowingFactor;
+    // Vitesse de deplacement en fonction des variables publiques en dessous
+    private float moveSpeed;
+    // Facteur qui depend aussi de certaines variables en dessous qui ralenti ou accelere le deplacement dans certaines situations
+    private float moveFactor = 1.0f;
 
     // Nombres decimaux pour gerer la vitesse de marche, course et de dash
     public float walkSpeed;
     public float sprintSpeed;
     public float dashSpeed;
     public float dashTime;
-    public float slowingAim;
+    public float aimFactor;
     Vector2 moveDirection;
     Vector2 pointerDirection;
 
@@ -46,7 +49,7 @@ public class PlayerMovement : NetworkBehaviour
     {
         // De base le joueur face en bas
         currentState = PLAYER_S;
-        enableMovement = true;
+        moveSpeed = walkSpeed;
         animator = GetComponent<Animator>();
     }
 
@@ -55,7 +58,7 @@ public class PlayerMovement : NetworkBehaviour
     {
         if (!IsOwner) return;
 
-        // Prends Imputs et cooldown chaque frame
+        // Prends Imputs chaque frame
         if (enableMovement)
         {
             // Direction du deplacement
@@ -67,17 +70,25 @@ public class PlayerMovement : NetworkBehaviour
                 moveDirection *= 0.8f;
             else if (Input.GetAxis("Horizontal") == 0)
                 moveDirection *= 0.6f;
+
+            if (Input.GetButtonDown("Sprint"))
+            {
+                if (PlayerState.Walking)
+                    PlayerState.Walking = false;
+                else
+                    PlayerState.Walking = true;
+            }
         }
 
-        if (Input.GetButton("Aim"))
+        if (Input.GetButtonDown("Aim"))
         {
             PlayerState.Aiming = true;
-            slowingFactor = slowingAim;
+            moveFactor *= aimFactor;
         }
-        else 
+        else if (Input.GetButtonUp("Aim"))
         {
             PlayerState.Aiming = false;
-            slowingFactor = 1.0f;
+            moveFactor /= aimFactor;
         }
 
         if (Input.GetButtonDown("Dash") && PlayerState.DashCooldown <= 0.0f)
@@ -104,21 +115,14 @@ public class PlayerMovement : NetworkBehaviour
             {
                 if (moveDirection != new Vector2(0, 0))
                 {
-                    if (PlayerState.HoldingWeapon)
-                    {
-                        if (moveAngle > pointerAngle - 45 && moveAngle < pointerAngle + 45)
-                            body.MovePosition(body.position + moveDirection * sprintSpeed * slowingFactor);
-                        else
-                            body.MovePosition(body.position + moveDirection * walkSpeed * slowingFactor);
-                        ChangeAnimation(ChangeDirection(pointerAngle));
+                    if (PlayerState.HoldingWeapon && (moveAngle < pointerAngle - 45 || moveAngle > pointerAngle + 45) || PlayerState.Walking) {
+                        moveSpeed = walkSpeed;
                     }
-                    else
-                    {
-                        body.MovePosition(body.position + moveDirection * walkSpeed * slowingFactor);
-                        ChangeAnimation(ChangeDirection(moveAngle));
+                    else {
+                        moveSpeed = sprintSpeed;
                     }
+                    body.MovePosition(body.position + moveDirection * moveSpeed * moveFactor);
                 }
-
                 if (PlayerState.HoldingWeapon)
                     ChangeAnimation(ChangeDirection(pointerAngle));
                 else
@@ -129,28 +133,21 @@ public class PlayerMovement : NetworkBehaviour
             {
                 if (moveDirection != new Vector2(0, 0))
                 {
-                    if (PlayerState.HoldingWeapon)
-                    {
-                        if (moveAngle > pointerAngle - 45 && moveAngle < pointerAngle + 45)
-                            MovePositionServerRPC(body.position + moveDirection * sprintSpeed * slowingFactor);
-                        else
-                            MovePositionServerRPC(body.position + moveDirection * walkSpeed * slowingFactor);
-                        ChangeAnimationServerRPC(ChangeDirection(pointerAngle));
+                    if (PlayerState.HoldingWeapon && (moveAngle < pointerAngle - 45 || moveAngle > pointerAngle + 45) || PlayerState.Walking) {
+                        moveSpeed = walkSpeed;
                     }
-                    else
-                    {
-                        body.MovePosition(body.position + moveDirection * walkSpeed * slowingFactor);
-                        ChangeAnimationServerRPC(ChangeDirection(moveAngle));
+                    else {
+                        moveSpeed = sprintSpeed;
                     }
+                    MovePositionServerRPC(body.position + moveDirection * moveSpeed * moveFactor);
                 }
-
                 if (PlayerState.HoldingWeapon)
                     ChangeAnimationServerRPC(ChangeDirection(pointerAngle));
                 else
                     ChangeAnimationServerRPC(ChangeDirection(moveAngle));
             }
-            
         }
+
         else if (PlayerState.Dashing)
         {
             if (PlayerState.DashTimer < dashTime)
@@ -168,7 +165,8 @@ public class PlayerMovement : NetworkBehaviour
     }
 
 
-    // movement du client
+
+    // Mouvement du client
     [ServerRpc(RequireOwnership = false)]
     void MovePositionServerRPC(Vector2 pos){
         body.MovePosition(pos);
@@ -182,6 +180,8 @@ public class PlayerMovement : NetworkBehaviour
         animator.Play(newState);
         currentState = newState;
     }
+
+
     [ServerRpc(RequireOwnership = false)]
     void ChangeAnimationServerRPC(string newState)
     {
@@ -189,6 +189,7 @@ public class PlayerMovement : NetworkBehaviour
         animator.Play(newState);
         currentState = newState;
     }
+
 
     // On passe la direction actuelle du joueur et en fonction, appelle changeAnimation 
     // Avec la constante (nom du sprite) adaptée
