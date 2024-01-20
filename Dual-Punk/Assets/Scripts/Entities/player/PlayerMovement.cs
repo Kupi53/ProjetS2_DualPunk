@@ -187,7 +187,8 @@ public class PlayerMovement : NetworkBehaviour
         }
         else
         {
-            animator.SetFloat("Speed", moveDirection.x);
+            animator.SetFloat("SpeedX", moveDirection.x);
+            animator.SetFloat("SpeedY", moveDirection.y);
         }
     }
     [ServerRpc(RequireOwnership = false)]
@@ -201,7 +202,8 @@ public class PlayerMovement : NetworkBehaviour
         }
         else
         {
-            animator.SetFloat("Speed", moveDirection.x);
+            animator.SetFloat("SpeedX", moveDirection.x);
+            animator.SetFloat("SpeedY", moveDirection.y);
         }
     }
 
