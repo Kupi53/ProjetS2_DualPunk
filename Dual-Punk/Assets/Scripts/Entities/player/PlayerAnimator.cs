@@ -14,7 +14,7 @@ public class PlayerAnimator : MonoBehaviour{
     public Animator animator;
     private string currentState;
 
-      void Start()
+    void Start()
     {
         animator = GetComponent<Animator>();
         // de base le joueur face en bas
