@@ -92,6 +92,7 @@ public class WeaponScript : NetworkBehaviour
                     reloadTimer += Time.deltaTime;
             }
         }
+
     }
 
 
@@ -109,4 +110,5 @@ public class WeaponScript : NetworkBehaviour
             }
         }
     }
+
 }

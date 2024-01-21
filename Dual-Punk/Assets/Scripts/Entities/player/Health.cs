@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 
 // classe base pour les joueurs
-public class Player : MonoBehaviour {
+public class Health : MonoBehaviour {
 
     [SerializeField]
     private int maxHealth = 100;
@@ -15,22 +15,17 @@ public class Player : MonoBehaviour {
     private int damage = 10;
     public int[] Stats;
     [SerializeField]
-    public float Health;
+    public float health;
 
     void Start(){
-        Health = maxHealth;
+        health = maxHealth;
     }
     void Update(){
-        if(Input.GetKeyDown(KeyCode.E)){
-            Damage(damage);
-        }
-        if(Input.GetKeyDown(KeyCode.V)){
-            Heal(10);
-        }
+        
     }
     void Awake(){
         DontDestroyOnLoad(this.gameObject);
-        Health = maxHealth;
+        health = maxHealth;
     }
 
     void Die(){
@@ -42,9 +37,9 @@ public class Player : MonoBehaviour {
         if (amount < 0){
             throw new ArgumentOutOfRangeException("Cannot have Negative damage.");
         }
-        this.Health -= amount;
+        this.health -= amount;
 
-        if (Health <= 0){
+        if (health <= 0){
             Die();
         }
     }
@@ -53,10 +48,11 @@ public class Player : MonoBehaviour {
         if (amount < 0){
             throw new ArgumentOutOfRangeException("Cannot have Negative Healing.");
         }
-        if (Health + amount > maxHealth){
-            this.Health = this.maxHealth;
+        if (health + amount > maxHealth){
+            this.health = this.maxHealth;
         }
         else
-            this.Health += amount;
+            this.health += amount;
     }
+
 }

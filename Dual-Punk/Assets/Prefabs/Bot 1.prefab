@@ -20,6 +20,7 @@ GameObject:
   - component: {fileID: 4218614655469655346}
   - component: {fileID: 6490135238372769520}
   - component: {fileID: 1523476562688627023}
+  - component: {fileID: -4330598843571790048}
   m_Layer: 0
   m_Name: Bot 1
   m_TagString: Ennemy
@@ -227,7 +228,7 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_Size: {x: 1.25, y: 1.25}
+  m_Size: {x: 3, y: 4.5}
   m_Direction: 0
 --- !u!114 &2345998891758550736
 MonoBehaviour:
@@ -328,3 +329,19 @@ MonoBehaviour:
   InLocalSpace: 0
   Interpolate: 1
   SlerpPosition: 0
+--- !u!114 &-4330598843571790048
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6076069747835287369}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0de8d8ef811bcbe4cb0e5b245ef30576, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  damage: 10
+  Stats: 
+  health: 0
