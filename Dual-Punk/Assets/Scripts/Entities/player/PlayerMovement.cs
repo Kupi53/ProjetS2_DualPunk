@@ -74,8 +74,11 @@ public class PlayerMovement : NetworkBehaviour
 
             if (Input.GetButtonDown("Sprint"))
             {
+                Debug.Log("change");
                 if (PlayerState.Walking)
+                {
                     PlayerState.Walking = false;
+                }
                 else
                     PlayerState.Walking = true;
             }
@@ -85,6 +88,7 @@ public class PlayerMovement : NetworkBehaviour
         {
             PlayerState.Aiming = true;
             moveFactor *= aimFactor;
+            Debug.Log("aiming");
         }
         else if (Input.GetButtonUp("Aim"))
         {
@@ -116,11 +120,11 @@ public class PlayerMovement : NetworkBehaviour
             {
                 if (moveDirection != new Vector2(0, 0))
                 {
-                    if (PlayerState.HoldingWeapon && (moveAngle < pointerAngle - 45 || moveAngle > pointerAngle + 45) || PlayerState.Walking) {
-                        moveSpeed = walkSpeed;
+                    if (PlayerState.HoldingWeapon && sameDirection(moveAngle, pointerAngle, 60) || !PlayerState.Walking) {
+                        moveSpeed = sprintSpeed;
                     }
                     else {
-                        moveSpeed = sprintSpeed;
+                        moveSpeed = walkSpeed;
                     }
                     body.MovePosition(body.position + moveDirection * moveSpeed * moveFactor);
                 }
@@ -134,11 +138,11 @@ public class PlayerMovement : NetworkBehaviour
             {
                 if (moveDirection != new Vector2(0, 0))
                 {
-                    if (PlayerState.HoldingWeapon && (moveAngle < pointerAngle - 45 || moveAngle > pointerAngle + 45) || PlayerState.Walking) {
-                        moveSpeed = walkSpeed;
+                    if (PlayerState.HoldingWeapon && sameDirection(moveAngle, pointerAngle, 60) || !PlayerState.Walking) {
+                        moveSpeed = sprintSpeed;
                     }
                     else {
-                        moveSpeed = sprintSpeed;
+                        moveSpeed = walkSpeed;
                     }
                     MovePositionServerRPC(body.position + moveDirection * moveSpeed * moveFactor);
                 }
@@ -165,6 +169,17 @@ public class PlayerMovement : NetworkBehaviour
         }
     }
 
+
+    bool sameDirection(float angle1, float angle2, int margin) 
+    {
+        if (angle1 + margin > 180 && (angle2 > angle1 - margin || angle2 < -360 + angle1 + margin))
+            return true;
+        else if (angle1 - margin < -180 && (angle2 < angle1 + margin || angle2 > 360 - angle1 - margin))
+            return true;
+        else if (angle2 < angle1 + margin || angle2 > angle1 - margin)
+            return true;
+        return false;
+    }
 
 
     // Mouvement du client
