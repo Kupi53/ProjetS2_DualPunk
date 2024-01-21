@@ -43,9 +43,6 @@ public class WeaponScript : NetworkBehaviour
     {
         if (!onGround)
         {
-            onGround = weaponController.DropWeapon();
-
-
             Vector3 direction = (weaponController.pointer.transform.position - player.transform.position).normalized;
             float angle = (float)(Math.Atan2(direction.y, direction.x) * (180 / Math.PI));
 
@@ -73,16 +70,19 @@ public class WeaponScript : NetworkBehaviour
                 magSize--;
             }
             else
-                fireTimer += Time.deltaTime; 
-  
+                fireTimer += Time.deltaTime;
+
+
+            if (Input.GetButtonDown("Drop"))
+                onGround = weaponController.HoldWeapon(false);
 
             if (Input.GetButtonDown("Reload"))
-            {
                 isReloading = true;
-            }
+
+            
             if (isReloading)
             {
-                if (reloadTimer > reloadTime)
+                if (reloadTimer >= reloadTime)
                 {
                     reloadTimer = 0;
                     isReloading = false;
@@ -90,6 +90,7 @@ public class WeaponScript : NetworkBehaviour
                 }
                 else
                     reloadTimer += Time.deltaTime;
+
             }
         }
     }
@@ -101,12 +102,7 @@ public class WeaponScript : NetworkBehaviour
         {
             player = collision.gameObject;
             weaponController = player.GetComponent<WeaponController>();
-
-            if (!weaponController.holdingWeapon)
-            {
-                weaponController.IsHolding(true);
-                onGround = false;
-            }
+            onGround = weaponController.HoldWeapon(true);
         }
     }
 }

@@ -4,8 +4,8 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 // Classe base pour les joueurs
-public class PlayerState : MonoBehaviour {
-
+public class PlayerState : MonoBehaviour
+{
     [SerializeField]
     private int MaxHealth = 100;
     public int[] Stats;

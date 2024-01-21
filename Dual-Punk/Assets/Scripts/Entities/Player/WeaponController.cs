@@ -9,25 +9,23 @@ using Unity.Netcode;
 public class WeaponController : NetworkBehaviour
 {
     public GameObject pointer;
-    public bool holdingWeapon = PlayerState.HoldingWeapon;
+    public GameObject reloadCooldown;
     public float aimingAccuracy;
 
 
-    public void IsHolding(bool isHolding)
+    public bool HoldWeapon(bool hold)
     {
-        holdingWeapon = isHolding;
-        PlayerState.HoldingWeapon = isHolding;
-    }
-
-
-    public bool DropWeapon()
-    {
-        if (Input.GetButtonDown("Drop"))
+        if (!hold)
         {
-            IsHolding(false);
+            PlayerState.HoldingWeapon = false;
             return true;
         }
-        return false;
+        else if (hold && !PlayerState.HoldingWeapon)
+        {
+            PlayerState.HoldingWeapon = true;
+            return false;
+        }
+        return hold;
     }
 
 
