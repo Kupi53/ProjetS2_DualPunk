@@ -210,7 +210,7 @@ MonoBehaviour:
   sprintSpeed: 0.08
   dashSpeed: 0.25
   dashTime: 0.2
-  aimFactor: 0.7
+  aimFactor: 0.5
 --- !u!114 &2909192396974194660
 MonoBehaviour:
   m_ObjectHideFlags: 0

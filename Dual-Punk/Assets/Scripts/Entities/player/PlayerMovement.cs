@@ -74,7 +74,6 @@ public class PlayerMovement : NetworkBehaviour
 
             if (Input.GetButtonDown("Sprint"))
             {
-                Debug.Log("change");
                 if (PlayerState.Walking)
                 {
                     PlayerState.Walking = false;
@@ -88,7 +87,6 @@ public class PlayerMovement : NetworkBehaviour
         {
             PlayerState.Aiming = true;
             moveFactor *= aimFactor;
-            Debug.Log("aiming");
         }
         else if (Input.GetButtonUp("Aim"))
         {
@@ -120,7 +118,7 @@ public class PlayerMovement : NetworkBehaviour
             {
                 if (moveDirection != new Vector2(0, 0))
                 {
-                    if (PlayerState.HoldingWeapon && sameDirection(moveAngle, pointerAngle, 60) || !PlayerState.Walking) {
+                    if (PlayerState.HoldingWeapon && sameDirection(moveAngle, pointerAngle, 60) && !PlayerState.Walking || !PlayerState.Walking && !PlayerState.HoldingWeapon) {
                         moveSpeed = sprintSpeed;
                     }
                     else {
@@ -138,7 +136,7 @@ public class PlayerMovement : NetworkBehaviour
             {
                 if (moveDirection != new Vector2(0, 0))
                 {
-                    if (PlayerState.HoldingWeapon && sameDirection(moveAngle, pointerAngle, 60) || !PlayerState.Walking) {
+                    if (PlayerState.HoldingWeapon && sameDirection(moveAngle, pointerAngle, 60) && !PlayerState.Walking || !PlayerState.Walking && !PlayerState.HoldingWeapon) {
                         moveSpeed = sprintSpeed;
                     }
                     else {
@@ -176,7 +174,7 @@ public class PlayerMovement : NetworkBehaviour
             return true;
         else if (angle1 - margin < -180 && (angle2 < angle1 + margin || angle2 > 360 - angle1 - margin))
             return true;
-        else if (angle2 < angle1 + margin || angle2 > angle1 - margin)
+        else if (angle2 < angle1 + margin && angle2 > angle1 - margin)
             return true;
         return false;
     }
