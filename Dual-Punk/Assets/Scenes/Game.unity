@@ -357,6 +357,7 @@ GameObject:
   - component: {fileID: 292228525}
   - component: {fileID: 292228527}
   - component: {fileID: 292228526}
+  - component: {fileID: 292228528}
   m_Layer: 5
   m_Name: Health
   m_TagString: Untagged
@@ -380,8 +381,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -79.80002, y: -14.000008}
-  m_SizeDelta: {x: -160.39996, y: 27.599998}
+  m_AnchoredPosition: {x: -144.70004, y: -14.000008}
+  m_SizeDelta: {x: -290.1999, y: 27.599998}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &292228526
 MonoBehaviour:
@@ -421,6 +422,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 292228524}
   m_CullTransparentMesh: 1
+--- !u!114 &292228528
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 292228524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7103d77420cb00544b4e455058269b87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  image: {fileID: 292228526}
 --- !u!1 &337720446
 GameObject:
   m_ObjectHideFlags: 0
@@ -6507,6 +6521,7 @@ GameObject:
   - component: {fileID: 1372826228}
   - component: {fileID: 1372826230}
   - component: {fileID: 1372826229}
+  - component: {fileID: 1372826231}
   m_Layer: 5
   m_Name: CurrentHealth
   m_TagString: Untagged
@@ -6630,6 +6645,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1372826227}
   m_CullTransparentMesh: 1
+--- !u!114 &1372826231
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1372826227}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 429460ee491cd924c8161620e13ee79c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text: {fileID: 1372826229}
 --- !u!1 &1438135648
 GameObject:
   m_ObjectHideFlags: 0
@@ -6641,6 +6669,7 @@ GameObject:
   - component: {fileID: 1438135649}
   - component: {fileID: 1438135651}
   - component: {fileID: 1438135650}
+  - component: {fileID: 1438135652}
   m_Layer: 5
   m_Name: MaxHealth
   m_TagString: Untagged
@@ -6764,6 +6793,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1438135648}
   m_CullTransparentMesh: 1
+--- !u!114 &1438135652
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1438135648}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c3fe9f4c61ea7e4cb731d94b3999e37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text: {fileID: 1438135650}
 --- !u!1 &1506023152
 GameObject:
   m_ObjectHideFlags: 0

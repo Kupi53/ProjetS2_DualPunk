@@ -16,7 +16,7 @@ public class DashIconRenderer : MonoBehaviour
     
     void Start()
     {
-        rectTransform = GetComponent<RectTransform>();
+        rectTransform = image.GetComponent<RectTransform>();
         DashEnabledRight = -rectTransform.offsetMax.x;
         DashDisabledRight = rectTransform.offsetMin.x;
         transformMultiplier = (DashEnabledRight - DashDisabledRight) / PlayerState.DashCooldownMax;
