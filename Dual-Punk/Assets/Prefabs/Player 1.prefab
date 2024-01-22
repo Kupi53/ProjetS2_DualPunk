@@ -237,7 +237,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pointer: {fileID: 1702336741078652632}
-  holdingWeapon: 0
+  reloadCooldown: {fileID: 0}
   aimingAccuracy: 5
 --- !u!114 &936892507655542304
 MonoBehaviour:
