@@ -25,7 +25,7 @@ public class PlayerMovement : NetworkBehaviour
     const string PLAYER_NW = "Player NW";
     const string PLAYER_SE = "Player SE";
     const string PLAYER_SW = "Player SW";
-    const string Player_Idle = "Player Idle";
+    const string PLAYER_IDLE = "Player Idle";
 
     // Bool qui sert pour le state du joueur (par exemple pendant un dash ou certaines abilitiés le joueur ne doit pas pouvoir bouger)
     private bool enableMovement = true;
@@ -49,7 +49,7 @@ public class PlayerMovement : NetworkBehaviour
     void Start()
     {
         // De base le joueur face en bas
-        currentState = PLAYER_S;
+        currentState = PLAYER_IDLE;
         moveSpeed = walkSpeed;
         animator = GetComponent<Animator>();
     }
@@ -126,6 +126,11 @@ public class PlayerMovement : NetworkBehaviour
                     }
                     body.MovePosition(body.position + moveDirection * moveSpeed * moveFactor);
                 }
+                else if (!PlayerState.HoldingWeapon)
+                {
+                    animator.Play(PLAYER_IDLE);
+                }
+                
                 if (PlayerState.HoldingWeapon)
                     ChangeAnimation(ChangeDirection(pointerAngle));
                 else
@@ -144,6 +149,11 @@ public class PlayerMovement : NetworkBehaviour
                     }
                     MovePositionServerRPC(body.position + moveDirection * moveSpeed * moveFactor);
                 }
+                else if (!PlayerState.HoldingWeapon)
+                {
+                    animator.Play(PLAYER_IDLE);
+                }
+                
                 if (PlayerState.HoldingWeapon)
                     ChangeAnimationServerRPC(ChangeDirection(pointerAngle));
                 else
@@ -190,34 +200,18 @@ public class PlayerMovement : NetworkBehaviour
     // Utilise dans anim mouvement, change l'animation en fonction des constantes Player_S, Player_...
     void ChangeAnimation(string newState)
     {
-        if (PlayerState.HoldingWeapon)
-        {
-            if (currentState == newState) return;
-            animator.Play(newState);
-            currentState = newState;
-        }
-        else
-        {
-            animator.SetFloat("SpeedX", moveDirection.x);
-            animator.SetFloat("SpeedY", moveDirection.y);
-        }
+        if (currentState == newState) return;
+        animator.Play(newState);
+        currentState = newState;
     }
 
 
     [ServerRpc(RequireOwnership = false)]
     void ChangeAnimationServerRPC(string newState)
     {
-        if (PlayerState.HoldingWeapon)
-        {
-            if (currentState == newState) return;
-            animator.Play(newState);
-            currentState = newState;
-        }
-        else
-        {
-            animator.SetFloat("SpeedX", moveDirection.x);
-            animator.SetFloat("SpeedY", moveDirection.y);
-        }
+        if (currentState == newState) return;
+        animator.Play(newState);
+        currentState = newState;
     }
 
 
