@@ -26,12 +26,15 @@ public class WeaponScript : NetworkBehaviour
     private float fireTimer;
     private float reloadTimer;
     private int magSize;
+
+    private Vector3 weaponOffset;
     private bool isReloading;
 
 
     // Start is called before the first frame update
     void Start()
     {
+        weaponOffset = new Vector3(0,0.5f,0);
         onGround = true;
         reloadTimer = 0;
         fireTimer = fireRate;
@@ -43,7 +46,7 @@ public class WeaponScript : NetworkBehaviour
     {
         if (!onGround)
         {
-            Vector3 direction = (weaponController.pointer.transform.position - player.transform.position).normalized;
+            Vector3 direction = (weaponController.pointer.transform.position - player.transform.position-weaponOffset).normalized;
             float angle = (float)(Math.Atan2(direction.y, direction.x) * (180 / Math.PI));
 
             if (angle > 90 || angle < -90)
@@ -51,7 +54,7 @@ public class WeaponScript : NetworkBehaviour
             else
                 spriteRenderer.flipY = false;
 
-            transform.position = player.transform.position + direction * weaponDistance;
+            transform.position = player.transform.position + weaponOffset + direction  * weaponDistance;
             transform.eulerAngles = new Vector3(0, 0, angle);
 
 
