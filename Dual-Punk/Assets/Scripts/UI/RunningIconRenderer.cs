@@ -18,7 +18,7 @@ public class RunningIconRenderer : MonoBehaviour
         }
         else
         {
-            if (!playerState.Walking)
+            if (playerState.Walking)
             {
                 image.enabled = false;
             }

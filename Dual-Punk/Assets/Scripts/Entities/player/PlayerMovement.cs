@@ -50,7 +50,7 @@ public class PlayerMovement : NetworkBehaviour
     {
         // De base le joueur face en bas
         currentState = PLAYER_IDLE;
-        moveSpeed = walkSpeed;
+        moveSpeed = sprintSpeed;
         animator = GetComponent<Animator>();
         playerState = gameObject.GetComponent<PlayerState>();
     }
@@ -79,19 +79,16 @@ public class PlayerMovement : NetworkBehaviour
                 if (playerState.Walking)
                 {
                     playerState.Walking = false;
-                    moveSpeed = walkSpeed;
                 }
                 else
                 {
                     playerState.Walking = true;
-                    moveSpeed = sprintSpeed;
                 }
             }
         }
 
         if (Input.GetButton("Aim")) {
             playerState.Aiming = true;
-            moveSpeed = walkSpeed;
         }
         else {
             playerState.Aiming = false;
@@ -116,6 +113,12 @@ public class PlayerMovement : NetworkBehaviour
         {
             float moveAngle = (float)(Math.Atan2(moveDirection.y, moveDirection.x) * (180 / Math.PI));
             float pointerAngle = (float)(Math.Atan2(pointerDirection.y, pointerDirection.x) * (180 / Math.PI));
+
+            if (playerState.Aiming || playerState.Walking) {
+                moveSpeed = walkSpeed;
+            } else {
+                moveSpeed = sprintSpeed;
+            }
 
             if (playerState.HoldingWeapon && !sameDirection(moveAngle, pointerAngle, 60))
             {
