@@ -1,7 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.Networking.PlayerConnection;
+
 
 public class PointerScript : MonoBehaviour
 {
@@ -11,48 +14,56 @@ public class PointerScript : MonoBehaviour
     public Sprite pointerAim1;
     public Sprite pointerAim2;
     public SpriteRenderer spriteRenderer;
+
+    private PlayerState? playerState;
     private bool onTarget;
 
     // Start is called before the first frame update
     void Start()
     {
         onTarget = false;
-        ChangePosition();
     }
 
     // Update is called once per frame
     void Update()
     {
-        ChangePosition();
-
-        if (PlayerState.HoldingWeapon)
+        if (playerState == null)
         {
-            if (PlayerState.Aiming)
+            playerState = NetworkManager.Singleton.ConnectedClients[NetworkManager.Singleton.LocalClientId].PlayerObject.gameObject.GetComponent<PlayerState>();
+        }
+        else
+        {
+            ChangePosition();
+
+            if (playerState.HoldingWeapon)
             {
-                if (onTarget)
+                if (playerState.Aiming)
                 {
-                    spriteRenderer.sprite = pointerAim2;
+                    if (onTarget)
+                    {
+                        spriteRenderer.sprite = pointerAim2;
+                    }
+                    else
+                    {
+                        spriteRenderer.sprite = pointerAim1;
+                    }
                 }
                 else
                 {
-                    spriteRenderer.sprite = pointerAim1;
+                    if (onTarget)
+                    {
+                        spriteRenderer.sprite = pointer2;
+                    }
+                    else
+                    {
+                        spriteRenderer.sprite = pointer1;
+                    }
                 }
             }
             else
             {
-                if (onTarget)
-                {
-                    spriteRenderer.sprite = pointer2;
-                }
-                else
-                {
-                    spriteRenderer.sprite = pointer1;
-                }
+                spriteRenderer.sprite = pointerNormal;
             }
-        }
-        else
-        {
-            spriteRenderer.sprite = pointerNormal;
         }
     }
 

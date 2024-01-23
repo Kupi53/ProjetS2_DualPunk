@@ -1,7 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel.Design.Serialization;
+using Unity.Netcode;
+using Unity.Properties;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
+
 
 public class HealthBar : MonoBehaviour
 {
@@ -11,6 +16,7 @@ public class HealthBar : MonoBehaviour
     private float HealthMinRight;
     private float transformMultiplier;
     private RectTransform rectTransform;
+    private PlayerState? playerState;
 
 
     // Start is called before the first frame update
@@ -19,30 +25,42 @@ public class HealthBar : MonoBehaviour
         rectTransform = image.GetComponent<RectTransform>();
         HealthMaxRight = rectTransform.offsetMin.x;
         HealthMinRight = -rectTransform.offsetMax.x;
-        transformMultiplier = (HealthMinRight - HealthMaxRight) / PlayerState.MaxHealth;
     }
 
     // Update is called once per frame
     void Update()
     {
-        rectTransform.offsetMax = new Vector2(-HealthMaxRight - transformMultiplier * (PlayerState.MaxHealth - PlayerState.Health), rectTransform.offsetMax.y);
+        if (playerState == null)
+        {
+            playerState = NetworkManager.Singleton.ConnectedClients[NetworkManager.Singleton.LocalClientId].PlayerObject.gameObject.GetComponent<PlayerState>();
+            try
+            {
+                transformMultiplier = (HealthMinRight - HealthMaxRight) / playerState.MaxHealth;
+            }
+            catch (Exception) { }
+        }
+        else
+        {
+            rectTransform.offsetMax = new Vector2(-HealthMaxRight - transformMultiplier * (playerState.MaxHealth - playerState.Health), rectTransform.offsetMax.y);
+        }
     }
+
 
     [ContextMenu("DecreaseHealth")]
     public void DecreaseHealth()
     {
         Debug.Log("HealthDecreased");
-        PlayerState.Health -= 9;
-        if (PlayerState.Health < 0)
-            PlayerState.Health = 0;
+        playerState.Health -= 9;
+        if (playerState.Health < 0)
+            playerState.Health = 0;
     }
 
     [ContextMenu("IncreaseHealth")]
     public void IncreaseHealth()
     {
         Debug.Log("HealthIncreased");
-        PlayerState.Health += 9;
-        if (PlayerState.Health > PlayerState.MaxHealth)
-            PlayerState.Health = PlayerState.MaxHealth;
+        playerState.Health += 9;
+        if (playerState.Health > playerState.MaxHealth)
+            playerState.Health = playerState.MaxHealth;
     }
 }

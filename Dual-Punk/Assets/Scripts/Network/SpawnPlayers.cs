@@ -8,6 +8,7 @@ public class SpawnPlayers : NetworkBehaviour
 {
     [SerializeField] private GameObject playerPrefabA; //add prefab in inspector
     [SerializeField] private GameObject playerPrefabB; //add prefab in inspector
+
     public override void OnNetworkSpawn(){
         Debug.Log("test");
         if (IsHost){

@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 
 // classe base pour les joueurs
-public class Player : MonoBehaviour {
+public class PlayerHealth : MonoBehaviour {
 
     [SerializeField]
     private int maxHealth = 100;
@@ -21,7 +21,7 @@ public class Player : MonoBehaviour {
         Health = maxHealth;
     }
     void Update(){
-        if(Input.GetKeyDown(KeyCode.E)){
+        if(Input.GetKeyDown(KeyCode.C)){
             Damage(damage);
         }
         if(Input.GetKeyDown(KeyCode.V)){

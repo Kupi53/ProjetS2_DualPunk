@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: -9102011316835607866}
   m_Layer: 0
   m_Name: Player 1
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -171,9 +171,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b5457baef9161b42b53eb0d17876e9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHealth: 100
-  Stats: 
   Health: 0
+  MaxHealth: 100
+  Aiming: 0
+  Walking: 0
+  Dashing: 0
+  HoldingWeapon: 0
+  DashTimer: 0
+  DashCooldown: 0
+  DashCooldownMax: 1
 --- !u!114 &-2497419794516822679
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -205,12 +211,13 @@ MonoBehaviour:
   body: {fileID: 4248386606771748690}
   animator: {fileID: -5388759501148665378}
   pointer: {fileID: 1702336741078652632}
+  playerState: {fileID: 0}
   spriteRenderer: {fileID: 4733711911263106263}
   walkSpeed: 0.05
   sprintSpeed: 0.08
   dashSpeed: 0.25
   dashTime: 0.2
-  aimFactor: 0.5
+  moveBackFactor: 0.8
 --- !u!114 &2909192396974194660
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -238,6 +245,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pointer: {fileID: 1702336741078652632}
   reloadCooldown: {fileID: 0}
+  playerState: {fileID: 0}
   aimingAccuracy: 5
 --- !u!114 &936892507655542304
 MonoBehaviour:

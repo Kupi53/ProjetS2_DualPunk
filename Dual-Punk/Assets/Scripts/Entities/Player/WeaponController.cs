@@ -10,19 +10,25 @@ public class WeaponController : NetworkBehaviour
 {
     public GameObject pointer;
     public GameObject reloadCooldown;
+    public PlayerState playerState;
     public float aimingAccuracy;
 
+
+    private void Start()
+    {
+        playerState = gameObject.GetComponent<PlayerState>();
+    }
 
     public bool HoldWeapon(bool hold)
     {
         if (!hold)
         {
-            PlayerState.HoldingWeapon = false;
+            playerState.HoldingWeapon = false;
             return true;
         }
-        else if (hold && !PlayerState.HoldingWeapon)
+        else if (hold && !playerState.HoldingWeapon)
         {
-            PlayerState.HoldingWeapon = true;
+            playerState.HoldingWeapon = true;
             return false;
         }
         return hold;
@@ -39,7 +45,7 @@ public class WeaponController : NetworkBehaviour
     
     public void FireRound(GameObject bullet, GameObject gunEnd, Vector3 direction, float dispersion, int bulletNumber)
     {
-        if (PlayerState.Aiming)
+        if (playerState.Aiming)
             dispersion /= aimingAccuracy;
 
         for (int i = 0; i < bulletNumber; i++)
@@ -58,7 +64,7 @@ public class WeaponController : NetworkBehaviour
     [ServerRpc(RequireOwnership = false)]
     public void FireRoundServerRPC(NetworkObjectReference bulletRef, NetworkObjectReference gunEndRef, Vector3 direction, float dispersion, int bulletNumber, ulong clientId)
     {
-        if (PlayerState.Aiming)
+        if (playerState.Aiming)
             dispersion /= aimingAccuracy;
 
         for (int i = 0; i < bulletNumber; i++)

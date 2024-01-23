@@ -1,7 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.Playables;
 using UnityEngine.UI;
+using static System.Net.Mime.MediaTypeNames;
 
 
 public class DashIconRenderer : MonoBehaviour
@@ -12,27 +16,39 @@ public class DashIconRenderer : MonoBehaviour
     private float DashDisabledRight;
     private float transformMultiplier;
     private RectTransform rectTransform;
+    private PlayerState? playerState;
 
-    
+
     void Start()
     {
         rectTransform = image.GetComponent<RectTransform>();
         DashEnabledRight = -rectTransform.offsetMax.x;
         DashDisabledRight = rectTransform.offsetMin.x;
-        transformMultiplier = (DashEnabledRight - DashDisabledRight) / PlayerState.DashCooldownMax;
     }
 
     
     void Update()
     {
-        if (PlayerState.DashCooldown > 0)
+        if (playerState == null)
         {
-            image.enabled = true;
-            rectTransform.offsetMax = new Vector2(- DashDisabledRight - transformMultiplier * (PlayerState.DashCooldownMax - PlayerState.DashCooldown), rectTransform.offsetMax.y);
+            playerState = NetworkManager.Singleton.ConnectedClients[NetworkManager.Singleton.LocalClientId].PlayerObject.gameObject.GetComponent<PlayerState>();
+            try
+            {
+                transformMultiplier = (DashEnabledRight - DashDisabledRight) / playerState.DashCooldownMax;
+            }
+            catch (Exception) { }
         }
         else
         {
-            image.enabled = false;
+            if (playerState.DashCooldown > 0)
+            {
+                image.enabled = true;
+                rectTransform.offsetMax = new Vector2(-DashDisabledRight - transformMultiplier * (playerState.DashCooldownMax - playerState.DashCooldown), rectTransform.offsetMax.y);
+            }
+            else
+            {
+                image.enabled = false;
+            }
         }
     }
 }
