@@ -84,7 +84,7 @@ public class PlayerMovement : NetworkBehaviour
 
             if (Input.GetButtonDown("Sprint"))
             {
-                playerState.Walking = !playerState.Walking
+                playerState.Walking = !playerState.Walking;
             }
         }
 

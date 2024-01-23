@@ -16,7 +16,7 @@ public class DashIconRenderer : MonoBehaviour
     private float DashDisabledRight;
     private float transformMultiplier;
     private RectTransform rectTransform;
-    private PlayerState? playerState;
+    private PlayerState playerState;
 
 
     void Start()
@@ -24,35 +24,21 @@ public class DashIconRenderer : MonoBehaviour
         rectTransform = image.GetComponent<RectTransform>();
         DashEnabledRight = -rectTransform.offsetMax.x;
         DashDisabledRight = rectTransform.offsetMin.x;
+        playerState = gameObject.transform.root.gameObject.GetComponent<LocalPlayerReference>().LOCALPLAYER.gameObject.GetComponent<PlayerState>();
     }
 
     
     void Update()
     {
-        if (playerState == null)
+        transformMultiplier = (DashEnabledRight - DashDisabledRight) / playerState.DashCooldownMax;
+        if (playerState.DashCooldown > 0)
         {
-            playerState = NetworkManager.Singleton.ConnectedClients[NetworkManager.Singleton.LocalClientId].PlayerObject.gameObject.GetComponent<PlayerState>();
-            try
-            {
-                transformMultiplier = (DashEnabledRight - DashDisabledRight) / playerState.DashCooldownMax;
-            }
-            catch (Exception) { }
+            image.enabled = true;
+            rectTransform.offsetMax = new Vector2(-DashDisabledRight - transformMultiplier * (playerState.DashCooldownMax - playerState.DashCooldown), rectTransform.offsetMax.y);
         }
         else
         {
-            if (playerState.DashCooldown > 0)
-            {
-                image.enabled = true;
-                rectTransform.offsetMax = new Vector2(-DashDisabledRight - transformMultiplier * (playerState.DashCooldownMax - playerState.DashCooldown), rectTransform.offsetMax.y);
-            }
-            else
-            {
-                image.enabled = false;
-            }
+            image.enabled = false;
         }
-    }
-    [ServerRpc(RequireOwnership = false)]
-    void FindLocalPlayerServerRPC(){
-        
     }
 }

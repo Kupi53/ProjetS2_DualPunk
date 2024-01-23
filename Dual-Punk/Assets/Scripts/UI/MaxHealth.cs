@@ -7,18 +7,13 @@ using Unity.Netcode;
 public class MaxHealth : MonoBehaviour
 {
     public TextMeshProUGUI text;
-    private PlayerState? playerState;
+    private PlayerState playerState;
 
-
+    void Start(){
+        playerState = gameObject.transform.root.gameObject.GetComponent<LocalPlayerReference>().LOCALPLAYER.gameObject.GetComponent<PlayerState>();
+    }
     void Update()
     {
-        if (playerState == null)
-        {
-            playerState = NetworkManager.Singleton.ConnectedClients[NetworkManager.Singleton.LocalClientId].PlayerObject.gameObject.GetComponent<PlayerState>();
-        }
-        else
-        {
-            text.text = playerState.MaxHealth.ToString();
-        }
+        text.text = playerState.MaxHealth.ToString();
     }
 }

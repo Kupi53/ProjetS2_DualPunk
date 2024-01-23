@@ -16,8 +16,7 @@ public class HealthBar : MonoBehaviour
     private float HealthMinRight;
     private float transformMultiplier;
     private RectTransform rectTransform;
-    private PlayerState? playerState;
-
+    private PlayerState playerState;
 
     // Start is called before the first frame update
     void Start()
@@ -25,24 +24,14 @@ public class HealthBar : MonoBehaviour
         rectTransform = image.GetComponent<RectTransform>();
         HealthMaxRight = rectTransform.offsetMin.x;
         HealthMinRight = -rectTransform.offsetMax.x;
+        playerState = gameObject.transform.root.gameObject.GetComponent<LocalPlayerReference>().LOCALPLAYER.gameObject.GetComponent<PlayerState>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (playerState == null)
-        {
-            playerState = NetworkManager.Singleton.ConnectedClients[NetworkManager.Singleton.LocalClientId].PlayerObject.gameObject.GetComponent<PlayerState>();
-            try
-            {
-                transformMultiplier = (HealthMinRight - HealthMaxRight) / playerState.MaxHealth;
-            }
-            catch (Exception) { }
-        }
-        else
-        {
-            rectTransform.offsetMax = new Vector2(-HealthMaxRight - transformMultiplier * (playerState.MaxHealth - playerState.Health), rectTransform.offsetMax.y);
-        }
+        transformMultiplier = (HealthMinRight - HealthMaxRight) / playerState.MaxHealth;
+        rectTransform.offsetMax = new Vector2(-HealthMaxRight - transformMultiplier * (playerState.MaxHealth - playerState.Health), rectTransform.offsetMax.y);
     }
 
 

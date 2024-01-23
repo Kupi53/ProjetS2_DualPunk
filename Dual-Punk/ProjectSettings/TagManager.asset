@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Ennemy
   - UI
+  - NetworkManager
   layers:
   - Default
   - TransparentFX
