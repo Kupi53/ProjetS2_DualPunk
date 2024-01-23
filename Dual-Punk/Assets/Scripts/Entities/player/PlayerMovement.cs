@@ -4,10 +4,7 @@ using System.Reflection;
 using UnityEngine;
 using System;
 using Unity.Netcode;
-using IngameDebugConsole;
 
-/* Ce script gere le mouvement et les animations du joueur 
-Il gere aussi les abilités (dash) mais ça doit être changé */
 
 public class PlayerMovement : NetworkBehaviour
 {
