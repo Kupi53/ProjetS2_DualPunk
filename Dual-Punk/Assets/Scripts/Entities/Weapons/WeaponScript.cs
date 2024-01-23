@@ -104,8 +104,11 @@ public class WeaponScript : NetworkBehaviour
         if (onGround && Input.GetButton("Pickup"))
         {
             player = collision.gameObject;
-            weaponController = player.GetComponent<WeaponController>();
-            onGround = weaponController.HoldWeapon(true);
+            if (player.CompareTag("Player"))
+            {
+                weaponController = player.GetComponent<WeaponController>();
+                onGround = weaponController.HoldWeapon(true);
+            }
         }
     }
 }
