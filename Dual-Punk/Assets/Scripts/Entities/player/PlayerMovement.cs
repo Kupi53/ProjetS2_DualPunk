@@ -50,7 +50,7 @@ public class PlayerMovement : NetworkBehaviour
     {
         // De base le joueur face en bas
         currentState = PLAYER_IDLE;
-        moveSpeed = walkSpeed;
+        moveSpeed = sprintSpeed;
         animator = GetComponent<Animator>();
         playerState = gameObject.GetComponent<PlayerState>();
     }
