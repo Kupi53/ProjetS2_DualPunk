@@ -84,16 +84,7 @@ public class PlayerMovement : NetworkBehaviour
 
             if (Input.GetButtonDown("Sprint"))
             {
-                if (playerState.Walking)
-                {
-                    playerState.Walking = false;
-                    moveSpeed = walkSpeed;
-                }
-                else
-                {
-                    playerState.Walking = true;
-                    moveSpeed = sprintSpeed;
-                }
+                playerState.Walking = !playerState.Walking
             }
         }
 
