@@ -51,4 +51,8 @@ public class DashIconRenderer : MonoBehaviour
             }
         }
     }
+    [ServerRpc(RequireOwnership = false)]
+    void FindLocalPlayerServerRPC(){
+        
+    }
 }
