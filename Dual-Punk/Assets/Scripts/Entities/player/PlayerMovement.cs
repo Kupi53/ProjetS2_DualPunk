@@ -79,12 +79,12 @@ public class PlayerMovement : NetworkBehaviour
                 if (playerState.Walking)
                 {
                     playerState.Walking = false;
-                    moveSpeed = walkSpeed;
+                    moveSpeed = sprintSpeed;
                 }
                 else
                 {
                     playerState.Walking = true;
-                    moveSpeed = sprintSpeed;
+                    moveSpeed = walkSpeed;
                 }
             }
         }
