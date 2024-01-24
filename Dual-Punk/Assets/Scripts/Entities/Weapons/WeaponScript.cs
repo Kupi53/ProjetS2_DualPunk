@@ -4,6 +4,7 @@ using System.Reflection;
 using UnityEngine;
 using System;
 using Unity.Netcode;
+using UnityEngine.Playables;
 
 
 public class WeaponScript : NetworkBehaviour
@@ -13,11 +14,13 @@ public class WeaponScript : NetworkBehaviour
     private GameObject? player;
     public SpriteRenderer spriteRenderer;
     private WeaponController? weaponController;
+    private PlayerState? playerState;
 
     public float fireRate;
     public float dispersion;
-    public float weaponDistance;
     public float reloadTime;
+    public float aimAccuracy;
+    public float weaponDistance;
     public int maxMagSize;
     public int bulletNumber;
     public bool isAuto;
@@ -31,7 +34,6 @@ public class WeaponScript : NetworkBehaviour
     private bool isReloading;
 
 
-    // Start is called before the first frame update
     void Start()
     {
         weaponOffset = new Vector3(0,0.5f,0);
@@ -60,6 +62,9 @@ public class WeaponScript : NetworkBehaviour
 
             if ((isAuto && Input.GetButton("Use") || !isAuto && Input.GetButtonDown("Use")) && fireTimer > fireRate && magSize > 0)
             {
+                if (playerState.Aiming)
+                    dispersion /= aimAccuracy;
+
                 if (IsHost)
                 {
                     weaponController.FireRound(bullet, gunEnd, direction, dispersion, bulletNumber);
@@ -93,7 +98,6 @@ public class WeaponScript : NetworkBehaviour
                 }
                 else
                     reloadTimer += Time.deltaTime;
-
             }
         }
     }
@@ -107,7 +111,9 @@ public class WeaponScript : NetworkBehaviour
             if (player.CompareTag("Player"))
             {
                 weaponController = player.GetComponent<WeaponController>();
+                playerState = player.GetComponent<PlayerState>();
                 onGround = weaponController.HoldWeapon(true);
+                playerState.Weapon = gameObject;
             }
         }
     }

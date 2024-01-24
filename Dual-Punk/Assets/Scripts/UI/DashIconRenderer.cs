@@ -24,7 +24,7 @@ public class DashIconRenderer : MonoBehaviour
         rectTransform = image.GetComponent<RectTransform>();
         DashEnabledRight = -rectTransform.offsetMax.x;
         DashDisabledRight = rectTransform.offsetMin.x;
-        playerState = gameObject.transform.root.gameObject.GetComponent<LocalPlayerReference>().LOCALPLAYER.gameObject.GetComponent<PlayerState>();
+        playerState = gameObject.transform.root.gameObject.GetComponent<LocalPlayerReference>().playerState;
     }
 
     

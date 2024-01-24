@@ -18,16 +18,16 @@ public class HealthBar : MonoBehaviour
     private RectTransform rectTransform;
     private PlayerState playerState;
 
-    // Start is called before the first frame update
+
     void Start()
     {
         rectTransform = image.GetComponent<RectTransform>();
         HealthMaxRight = rectTransform.offsetMin.x;
         HealthMinRight = -rectTransform.offsetMax.x;
-        playerState = gameObject.transform.root.gameObject.GetComponent<LocalPlayerReference>().LOCALPLAYER.gameObject.GetComponent<PlayerState>();
+        playerState = gameObject.transform.root.gameObject.GetComponent<LocalPlayerReference>().playerState;
     }
 
-    // Update is called once per frame
+
     void Update()
     {
         transformMultiplier = (HealthMinRight - HealthMaxRight) / playerState.MaxHealth;

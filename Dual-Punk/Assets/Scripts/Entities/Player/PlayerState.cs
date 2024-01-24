@@ -15,6 +15,8 @@ public class PlayerState : MonoBehaviour
     public float DashTimer = 0.0f;
     public float DashCooldown = 0.0f;
     public float DashCooldownMax = 1.0f;
+    public GameObject? Weapon;
+
 
     private void Awake()
     {

@@ -10,9 +10,11 @@ public class RunningIconRenderer : MonoBehaviour
     public RawImage image;
     private PlayerState playerState;
 
-    void Start(){
-        playerState = gameObject.transform.root.gameObject.GetComponent<LocalPlayerReference>().LOCALPLAYER.gameObject.GetComponent<PlayerState>();
+    void Start()
+    {
+        playerState = gameObject.transform.root.gameObject.GetComponent<LocalPlayerReference>().playerState;
     }
+
     void Update()
     {
         if (playerState.Walking)
