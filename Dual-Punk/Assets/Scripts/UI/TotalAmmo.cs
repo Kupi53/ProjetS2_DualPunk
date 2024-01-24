@@ -6,6 +6,7 @@ using TMPro;
 public class TotalAmmo : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI Text;
+    
 
     void Update()
     {

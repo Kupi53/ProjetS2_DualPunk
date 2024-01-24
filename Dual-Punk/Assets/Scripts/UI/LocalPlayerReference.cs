@@ -20,5 +20,4 @@ public class LocalPlayerReference : MonoBehaviour
             weaponScript = playerState.Weapon.GetComponent<WeaponScript>();
         }
     }
-
 }
