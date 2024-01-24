@@ -9,6 +9,7 @@ public class SpawnUi : MonoBehaviour
     void Start()
     {
         GameObject LocalUI = Instantiate(UI);
+        LocalUI.name = gameObject.name + " UI";
         LocalUI.GetComponent<LocalPlayerReference>().LOCALPLAYER = gameObject;
     }
 

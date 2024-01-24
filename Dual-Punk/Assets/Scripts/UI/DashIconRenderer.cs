@@ -10,7 +10,7 @@ using static System.Net.Mime.MediaTypeNames;
 
 public class DashIconRenderer : MonoBehaviour
 {
-    public RawImage image;
+    private RawImage image;
 
     private float DashEnabledRight;
     private float DashDisabledRight;
@@ -21,6 +21,7 @@ public class DashIconRenderer : MonoBehaviour
 
     void Start()
     {
+        image = gameObject.GetComponent<RawImage>();
         rectTransform = image.GetComponent<RectTransform>();
         DashEnabledRight = -rectTransform.offsetMax.x;
         DashDisabledRight = rectTransform.offsetMin.x;
@@ -31,6 +32,7 @@ public class DashIconRenderer : MonoBehaviour
     void Update()
     {
         transformMultiplier = (DashEnabledRight - DashDisabledRight) / playerState.DashCooldownMax;
+        Debug.Log(playerState.gameObject.name + "  -  " + playerState.DashCooldown);
         if (playerState.DashCooldown > 0)
         {
             image.enabled = true;

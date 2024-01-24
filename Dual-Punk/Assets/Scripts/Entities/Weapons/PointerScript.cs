@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
+using Unity.Properties;
 using UnityEngine;
 using UnityEngine.Networking.PlayerConnection;
 
@@ -15,58 +16,50 @@ public class PointerScript : MonoBehaviour
     public Sprite pointerAim2;
     public SpriteRenderer spriteRenderer;
 
-    private PlayerState? playerState;
+    private PlayerState playerState;
     private bool onTarget;
 
     // Start is called before the first frame update
     void Start()
     {
+        playerState = gameObject.transform.root.gameObject.GetComponent<PlayerState>();
         onTarget = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (playerState == null)
+        ChangePosition();
+        if (playerState.HoldingWeapon)
         {
-            playerState = NetworkManager.Singleton.ConnectedClients[NetworkManager.Singleton.LocalClientId].PlayerObject.gameObject.GetComponent<PlayerState>();
-        }
-        else
-        {
-            ChangePosition();
-
-            if (playerState.HoldingWeapon)
+            if (playerState.Aiming)
             {
-                if (playerState.Aiming)
+                if (onTarget)
                 {
-                    if (onTarget)
-                    {
-                        spriteRenderer.sprite = pointerAim2;
-                    }
-                    else
-                    {
-                        spriteRenderer.sprite = pointerAim1;
-                    }
+                    spriteRenderer.sprite = pointerAim2;
                 }
                 else
                 {
-                    if (onTarget)
-                    {
-                        spriteRenderer.sprite = pointer2;
-                    }
-                    else
-                    {
-                        spriteRenderer.sprite = pointer1;
-                    }
+                    spriteRenderer.sprite = pointerAim1;
                 }
             }
             else
             {
-                spriteRenderer.sprite = pointerNormal;
+                if (onTarget)
+                {
+                    spriteRenderer.sprite = pointer2;
+                }
+                else
+                {
+                    spriteRenderer.sprite = pointer1;
+                }
             }
         }
+        else
+        {
+            spriteRenderer.sprite = pointerNormal;
+        }
     }
-
     void ChangePosition()
     {
         Vector3 mousePos = Input.mousePosition;
