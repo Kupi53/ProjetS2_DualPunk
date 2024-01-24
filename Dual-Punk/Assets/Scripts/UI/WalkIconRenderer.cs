@@ -5,9 +5,9 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-public class RunningIconRenderer : MonoBehaviour
+public class WalkIconRenderer : MonoBehaviour
 {
-    public RawImage image;
+    [SerializeField] private RawImage Image;
     private PlayerState playerState;
 
     void Start()
@@ -19,11 +19,11 @@ public class RunningIconRenderer : MonoBehaviour
     {
         if (playerState.Walking)
         {
-            image.enabled = false;
+            Image.enabled = true;
         }
         else
         {
-            image.enabled = true;
+            Image.enabled = false;
         }
     }
 }
