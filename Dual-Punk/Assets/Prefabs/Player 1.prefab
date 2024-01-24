@@ -88,7 +88,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 791a4989b64e0df4499e3e35764ddd09, type: 3}
-  m_Color: {r: 0.9459286, g: 0, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -110,7 +110,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 1
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 0.0001
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
@@ -181,6 +181,7 @@ MonoBehaviour:
   DashTimer: 0
   DashCooldown: 0
   DashCooldownMax: 1
+  Weapon: {fileID: 0}
 --- !u!114 &-2497419794516822679
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -247,7 +248,6 @@ MonoBehaviour:
   pointer: {fileID: 1702336741078652632}
   reloadCooldown: {fileID: 0}
   playerState: {fileID: 0}
-  aimingAccuracy: 5
 --- !u!114 &936892507655542304
 MonoBehaviour:
   m_ObjectHideFlags: 0
