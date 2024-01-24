@@ -19,19 +19,18 @@ public class WeaponScript : NetworkBehaviour
     public float fireRate;
     public float dispersion;
     public float reloadTime;
+    public float reloadTimer;
     public float aimAccuracy;
     public float weaponDistance;
+    public int magSize;
     public int maxMagSize;
     public int bulletNumber;
     public bool isAuto;
+    public bool isReloading;
 
     private bool onGround;
     private float fireTimer;
-    private float reloadTimer;
-    private int magSize;
-
     private Vector3 weaponOffset;
-    private bool isReloading;
 
 
     void Start()
