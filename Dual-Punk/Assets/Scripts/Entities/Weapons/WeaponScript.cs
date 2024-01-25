@@ -47,7 +47,7 @@ public class WeaponScript : NetworkBehaviour
     {
         if (!onGround)
         {
-            Vector3 direction = (weaponController.pointer.transform.position - player.transform.position-weaponOffset).normalized;
+            Vector3 direction = (weaponController.pointer.transform.position - player.transform.position - weaponOffset).normalized;
             float angle = (float)(Math.Atan2(direction.y, direction.x) * (180 / Math.PI));
 
             if (angle > 90 || angle < -90)
@@ -55,7 +55,7 @@ public class WeaponScript : NetworkBehaviour
             else
                 spriteRenderer.flipY = false;
 
-            transform.position = player.transform.position + weaponOffset + direction  * weaponDistance;
+            transform.position = player.transform.position + weaponOffset + direction * weaponDistance;
             transform.eulerAngles = new Vector3(0, 0, angle);
 
 
@@ -83,7 +83,7 @@ public class WeaponScript : NetworkBehaviour
             if (Input.GetButtonDown("Reload") && magSize != maxMagSize)
                 isReloading = true;
 
-            
+
             if (isReloading)
             {
                 if (reloadTimer >= reloadTime)
@@ -95,6 +95,11 @@ public class WeaponScript : NetworkBehaviour
                 else
                     reloadTimer += Time.deltaTime;
             }
+        }
+        else
+        {
+            reloadTimer = 0;
+            isReloading = false;
         }
     }
 
