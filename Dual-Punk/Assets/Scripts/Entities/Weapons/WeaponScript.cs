@@ -61,16 +61,13 @@ public class WeaponScript : NetworkBehaviour
 
             if ((isAuto && Input.GetButton("Use") || !isAuto && Input.GetButtonDown("Use")) && fireTimer > fireRate && magSize > 0)
             {
-                if (playerState.Walking)
-                    dispersion /= aimAccuracy;
-
                 if (IsHost)
                 {
-                    weaponController.FireRound(bullet, gunEnd, direction, dispersion, bulletNumber);
+                    weaponController.FireRound(bullet, gunEnd, direction, dispersion, bulletNumber, aimAccuracy);
                 }
                 else
                 {
-                    weaponController.FireRoundServerRPC(bullet, gunEnd, direction, dispersion, bulletNumber, NetworkManager.Singleton.LocalClientId);
+                    weaponController.FireRoundServerRPC(bullet, gunEnd, direction, dispersion, bulletNumber, aimAccuracy, NetworkManager.Singleton.LocalClientId);
                 }
 
                 fireTimer = 0;
@@ -83,7 +80,7 @@ public class WeaponScript : NetworkBehaviour
             if (Input.GetButtonDown("Drop"))
                 onGround = weaponController.HoldWeapon(false);
 
-            if (Input.GetButtonDown("Reload"))
+            if (Input.GetButtonDown("Reload") && magSize != maxMagSize)
                 isReloading = true;
 
             
