@@ -201,7 +201,7 @@ MonoBehaviour:
   spriteRenderer: {fileID: 5280717515457528235}
   fireRate: 1
   dispersion: 0.3
-  reloadTime: 3
+  reloadTime: 2
   reloadTimer: 0
   aimAccuracy: 2
   weaponDistance: 0.7
