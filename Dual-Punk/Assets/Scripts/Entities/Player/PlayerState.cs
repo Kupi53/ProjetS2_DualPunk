@@ -8,7 +8,6 @@ public class PlayerState : MonoBehaviour
 {
     public float Health;
     public float MaxHealth = 100;
-    public bool Aiming = false;
     public bool Walking = false;
     public bool Dashing = false;
     public bool HoldingWeapon = false;

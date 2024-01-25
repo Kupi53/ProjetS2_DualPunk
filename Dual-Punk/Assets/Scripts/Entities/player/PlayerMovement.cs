@@ -88,13 +88,6 @@ public class PlayerMovement : NetworkBehaviour
             }
         }
 
-        if (Input.GetButton("Aim")) {
-            playerState.Aiming = true;
-        }
-        else {
-            playerState.Aiming = false;
-        }
-
         if (Input.GetButtonDown("Dash") && playerState.DashCooldown <= 0.0f)
         {
             enableMovement = false;
@@ -115,7 +108,7 @@ public class PlayerMovement : NetworkBehaviour
             float moveAngle = (float)(Math.Atan2(moveDirection.y, moveDirection.x) * (180 / Math.PI));
             float pointerAngle = (float)(Math.Atan2(pointerDirection.y, pointerDirection.x) * (180 / Math.PI));
 
-            if (playerState.Aiming || playerState.Walking) {
+            if (playerState.Walking) {
                 moveSpeed = walkSpeed;
             } else {
                 moveSpeed = sprintSpeed;

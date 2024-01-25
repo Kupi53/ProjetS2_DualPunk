@@ -32,7 +32,7 @@ public class PointerScript : MonoBehaviour
         ChangePosition();
         if (playerState.HoldingWeapon)
         {
-            if (playerState.Aiming)
+            if (playerState.Walking)
             {
                 if (onTarget)
                 {

@@ -61,7 +61,7 @@ public class WeaponScript : NetworkBehaviour
 
             if ((isAuto && Input.GetButton("Use") || !isAuto && Input.GetButtonDown("Use")) && fireTimer > fireRate && magSize > 0)
             {
-                if (playerState.Aiming)
+                if (playerState.Walking)
                     dispersion /= aimAccuracy;
 
                 if (IsHost)
