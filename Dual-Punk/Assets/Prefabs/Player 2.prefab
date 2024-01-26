@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: -9102011316835607866}
   - component: {fileID: -1218646767100711813}
   - component: {fileID: 2669398913041646407}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player 2
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -111,8 +111,8 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 1
   m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
+  m_Mass: 100000
+  m_LinearDrag: 100000
   m_AngularDrag: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}
@@ -138,10 +138,10 @@ CapsuleCollider2D:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4294967295
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -175,7 +175,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Health: 0
   MaxHealth: 100
-  Aiming: 0
   Walking: 0
   Dashing: 0
   HoldingWeapon: 0

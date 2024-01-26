@@ -5955,6 +5955,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bot 2
       objectReference: {fileID: 0}
+    - target: {fileID: 2037555728248527565, guid: 5c637c058b632c047990c2ab5c6bb775, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 4112757015286213556, guid: 5c637c058b632c047990c2ab5c6bb775, type: 3}
       propertyPath: target
       value: 
