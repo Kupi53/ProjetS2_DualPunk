@@ -114,8 +114,7 @@ public class PlayerMovement : NetworkBehaviour
                 moveSpeed = sprintSpeed;
             }
 
-            if (playerState.HoldingWeapon && !sameDirection(moveAngle, pointerAngle, 60))
-            {
+            if (playerState.HoldingWeapon && !sameDirection(moveAngle, pointerAngle, 60)) {
                 moveFactor *= moveBackFactor;
             }
 

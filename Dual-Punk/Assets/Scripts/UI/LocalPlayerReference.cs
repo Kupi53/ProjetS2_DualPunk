@@ -7,7 +7,9 @@ public class LocalPlayerReference : MonoBehaviour
 {
     public GameObject LOCALPLAYER;
     public PlayerState playerState;
-    public WeaponScript weaponScript;
+    public WeaponScript? weaponScript;
+    public KnifeScript? knifeScript;
+
 
     private void Start()
     {
@@ -19,6 +21,7 @@ public class LocalPlayerReference : MonoBehaviour
         if (playerState.HoldingWeapon)
         {
             weaponScript = playerState.Weapon.GetComponent<WeaponScript>();
+            knifeScript = playerState.Weapon.GetComponent<KnifeScript>();
         }
     }
 }

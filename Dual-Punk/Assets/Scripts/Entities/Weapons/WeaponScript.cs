@@ -11,8 +11,9 @@ public class WeaponScript : NetworkBehaviour
 {
     public GameObject bullet;
     public GameObject gunEnd;
-    private GameObject? player;
     public SpriteRenderer spriteRenderer;
+
+    private GameObject? player;
     private WeaponController? weaponController;
     private PlayerState? playerState;
 
@@ -36,11 +37,11 @@ public class WeaponScript : NetworkBehaviour
 
     void Start()
     {
-        weaponOffset = new Vector3(0,0.5f,0);
         onGround = true;
         reloadTimer = 0;
         fireTimer = fireRate;
         magSize = maxMagSize;
+        weaponOffset = new Vector3(0, 0.5f, 0);
     }
 
 
@@ -101,7 +102,8 @@ public class WeaponScript : NetworkBehaviour
                     reloadTimer += Time.deltaTime;
             }
         }
-        else
+
+        else if (reloading)
         {
             ResetReload();
         }
@@ -124,8 +126,8 @@ public class WeaponScript : NetworkBehaviour
             {
                 weaponController = player.GetComponent<WeaponController>();
                 playerState = player.GetComponent<PlayerState>();
-                onGround = weaponController.HoldWeapon(true);
-                playerState.Weapon = gameObject;
+                if (!(onGround = weaponController.HoldWeapon(true)))
+                    playerState.Weapon = gameObject;
             }
         }
     }

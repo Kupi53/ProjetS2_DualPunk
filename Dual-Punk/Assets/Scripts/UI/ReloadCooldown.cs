@@ -27,11 +27,18 @@ public class ReloadCooldown : MonoBehaviour
     private void Update()
     {
         Image.enabled = false;
-        if (References.playerState.HoldingWeapon && References.weaponScript.reloading)
+        if (References.playerState.HoldingWeapon)
         {
-            Image.enabled = true;
-            multiplier = (MaxTop - MinTop) / References.weaponScript.reloadTime;
-            rectTransform.offsetMax = new Vector2(rectTransform.offsetMax.x, -MinTop - multiplier * References.weaponScript.reloadTimer);
+            if (References.weaponScript != null && References.weaponScript.reloading)
+            {
+                Image.enabled = true;
+                multiplier = (MaxTop - MinTop) / References.weaponScript.reloadTime;
+                rectTransform.offsetMax = new Vector2(rectTransform.offsetMax.x, -MinTop - multiplier * References.weaponScript.reloadTimer);
+            }
+            else if (References.knifeScript != null && References.knifeScript.attacking)
+            {
+
+            }
         }
     }
 }
