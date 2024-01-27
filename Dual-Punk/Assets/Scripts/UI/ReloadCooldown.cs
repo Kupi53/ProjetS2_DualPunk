@@ -27,7 +27,7 @@ public class ReloadCooldown : MonoBehaviour
     private void Update()
     {
         Image.enabled = false;
-        if (References.playerState.HoldingWeapon && References.weaponScript.isReloading)
+        if (References.playerState.HoldingWeapon && References.weaponScript.reloading)
         {
             Image.enabled = true;
             multiplier = (MaxTop - MinTop) / References.weaponScript.reloadTime;

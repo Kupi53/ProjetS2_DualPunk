@@ -260,5 +260,6 @@ MonoBehaviour:
   magSize: 0
   maxMagSize: 30
   bulletNumber: 1
-  isAuto: 1
-  isReloading: 0
+  auto: 1
+  reloading: 0
+  reloadAmount: 30

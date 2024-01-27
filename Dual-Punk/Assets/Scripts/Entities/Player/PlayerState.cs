@@ -16,7 +16,6 @@ public class PlayerState : MonoBehaviour
     public float DashCooldownMax = 1.0f;
     public GameObject? Weapon;
 
-
     private void Awake()
     {
         Health = MaxHealth;

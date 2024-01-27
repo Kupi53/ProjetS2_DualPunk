@@ -25,9 +25,10 @@ public class WeaponScript : NetworkBehaviour
     public int magSize;
     public int maxMagSize;
     public int bulletNumber;
-    public bool isAuto;
-    public bool isReloading;
+    public bool auto;
+    public bool reloading;
 
+    [SerializeField] private int reloadAmount;
     private bool onGround;
     private float fireTimer;
     private Vector3 weaponOffset;
@@ -59,16 +60,15 @@ public class WeaponScript : NetworkBehaviour
             transform.eulerAngles = new Vector3(0, 0, angle);
 
 
-            if ((isAuto && Input.GetButton("Use") || !isAuto && Input.GetButtonDown("Use")) && fireTimer > fireRate && magSize > 0)
+            if ((auto && Input.GetButton("Use") || !auto && Input.GetButtonDown("Use")) && fireTimer > fireRate && magSize > 0)
             {
+                if (reloading)
+                    ResetReload();
+
                 if (IsHost)
-                {
                     weaponController.FireRound(bullet, gunEnd, direction, dispersion, bulletNumber, aimAccuracy);
-                }
                 else
-                {
                     weaponController.FireRoundServerRPC(bullet, gunEnd, direction, dispersion, bulletNumber, aimAccuracy, NetworkManager.Singleton.LocalClientId);
-                }
 
                 fireTimer = 0;
                 magSize--;
@@ -81,16 +81,21 @@ public class WeaponScript : NetworkBehaviour
                 onGround = weaponController.HoldWeapon(false);
 
             if (Input.GetButtonDown("Reload") && magSize != maxMagSize)
-                isReloading = true;
+                reloading = true;
 
 
-            if (isReloading)
+            if (reloading)
             {
                 if (reloadTimer >= reloadTime)
                 {
                     reloadTimer = 0;
-                    isReloading = false;
-                    magSize = maxMagSize;
+                    if (magSize + reloadAmount < maxMagSize)
+                        magSize += reloadAmount;
+                    else
+                    { 
+                        reloading = false;
+                        magSize = maxMagSize;
+                    }
                 }
                 else
                     reloadTimer += Time.deltaTime;
@@ -98,9 +103,15 @@ public class WeaponScript : NetworkBehaviour
         }
         else
         {
-            reloadTimer = 0;
-            isReloading = false;
+            ResetReload();
         }
+    }
+
+
+    private void ResetReload()
+    {
+        reloadTimer = 0;
+        reloading = false;
     }
 
 

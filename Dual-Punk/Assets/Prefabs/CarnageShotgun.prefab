@@ -201,15 +201,16 @@ MonoBehaviour:
   spriteRenderer: {fileID: 5280717515457528235}
   fireRate: 1
   dispersion: 0.3
-  reloadTime: 2
+  reloadTime: 0.8
   reloadTimer: 0
   aimAccuracy: 2
   weaponDistance: 0.7
   magSize: 0
   maxMagSize: 4
   bulletNumber: 9
-  isAuto: 0
-  isReloading: 0
+  auto: 1
+  reloading: 0
+  reloadAmount: 1
 --- !u!1 &1151202582569453349
 GameObject:
   m_ObjectHideFlags: 0
