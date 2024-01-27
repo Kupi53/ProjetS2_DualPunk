@@ -11,7 +11,8 @@ public class KnifeScript : MonoBehaviour
     private WeaponController? weaponController;
     private PlayerState? playerState;
 
-    public bool attacking;
+
+    public int attack;
     public float weaponDistance;
     public float resetCooldown;
     public float resetCooldownTimer;
@@ -20,7 +21,7 @@ public class KnifeScript : MonoBehaviour
     public float attackDistance;
 
     private bool onGround;
-    private int attack;
+    private bool attacking;
     private float angle;
     private float rangeTop;
     private float rangeMiddle;

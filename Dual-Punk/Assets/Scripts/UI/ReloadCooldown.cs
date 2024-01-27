@@ -35,9 +35,11 @@ public class ReloadCooldown : MonoBehaviour
                 multiplier = (MaxTop - MinTop) / References.weaponScript.reloadTime;
                 rectTransform.offsetMax = new Vector2(rectTransform.offsetMax.x, -MinTop - multiplier * References.weaponScript.reloadTimer);
             }
-            else if (References.knifeScript != null && References.knifeScript.attacking)
+            else if (References.knifeScript != null && References.knifeScript.attack != 0)
             {
-
+                Image.enabled = true;
+                multiplier = (MaxTop - MinTop) / References.knifeScript.resetCooldown;
+                rectTransform.offsetMax = new Vector2(rectTransform.offsetMax.x, -MinTop - multiplier * References.knifeScript.resetCooldownTimer);
             }
         }
     }
