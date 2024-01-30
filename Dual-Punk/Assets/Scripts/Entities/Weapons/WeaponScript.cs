@@ -30,6 +30,7 @@ public class WeaponScript : NetworkBehaviour
     public bool reloading;
 
     [SerializeField] private int reloadAmount;
+    [SerializeField] private bool autoReload;
     private bool onGround;
     private float fireTimer;
     private Vector3 weaponOffset;
@@ -81,7 +82,7 @@ public class WeaponScript : NetworkBehaviour
             if (Input.GetButtonDown("Drop"))
                 onGround = weaponController.HoldWeapon(false);
 
-            if (Input.GetButtonDown("Reload") && magSize != maxMagSize)
+            if ((Input.GetButtonDown("Reload") || autoReload) && magSize != maxMagSize)
                 reloading = true;
 
 
