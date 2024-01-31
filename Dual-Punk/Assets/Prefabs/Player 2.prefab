@@ -19,11 +19,11 @@ GameObject:
   - component: {fileID: -4606354589101628817}
   - component: {fileID: 936892507655542304}
   - component: {fileID: -5388759501148665378}
-  - component: {fileID: -9102011316835607866}
   - component: {fileID: -1218646767100711813}
   - component: {fileID: 2669398913041646407}
   - component: {fileID: 1420423551760931468}
   - component: {fileID: -6042218734118284792}
+  - component: {fileID: 7393153921741756722}
   m_Layer: 6
   m_Name: Player 2
   m_TagString: Player
@@ -289,20 +289,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &-9102011316835607866
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7898736215898924539}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e8d0727d5ae3244e3b569694d3912374, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TransitionStateInfoList: []
-  m_Animator: {fileID: -5388759501148665378}
 --- !u!70 &-1218646767100711813
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -393,6 +379,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80d7c879794dfda4687da0e400131852, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7393153921741756722
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7898736215898924539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb4272b16c117434db87af746037e32e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TransitionStateInfoList: []
+  m_Animator: {fileID: -5388759501148665378}
 --- !u!1001 &2521297867384906194
 PrefabInstance:
   m_ObjectHideFlags: 0
