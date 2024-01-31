@@ -10,12 +10,13 @@ public class WeaponController : NetworkBehaviour
 {
     [SerializeField] private GameObject pointer;
     private PlayerState playerState;
+    private List<GameObject> weapons;
+
     private WeaponScript? weaponScript;
     private KnifeScript? knifeScript;
+    private GameObject? Weapon;
 
-    private List<GameObject> weapons;
     private int index;
-
     private float angle;
     private Vector3 direction;
 
@@ -37,16 +38,17 @@ public class WeaponController : NetworkBehaviour
 
         if (Input.GetButtonDown("Pickup") && weapons.Count > 0 && !playerState.HoldingWeapon && !playerState.HoldingKnife)
         {
-            playerState.Weapon = weapons[index];
-            if (weapons[index].CompareTag("Weapon"))
+            Weapon = weapons[index];
+            playerState.Weapon = Weapon;
+            if (Weapon.CompareTag("Weapon"))
             {
                 playerState.HoldingWeapon = true;
-                weaponScript = weapons[index].GetComponent<WeaponScript>();
+                weaponScript = Weapon.GetComponent<WeaponScript>();
             }
-            else
+            else if (Weapon.CompareTag("Knife"))
             {
                 playerState.HoldingKnife = true;
-                knifeScript = weapons[index].GetComponent<KnifeScript>();
+                knifeScript = Weapon.GetComponent<KnifeScript>();
             }
         }
 
@@ -72,18 +74,17 @@ public class WeaponController : NetworkBehaviour
             if (!knifeScript.attacking)
             {
                 direction = (pointer.transform.position - transform.position - knifeScript.weaponOffset).normalized;
-                angle = (float)(Math.Atan2(direction.y, direction.x) * (180 / Math.PI));
 
                 if (Input.GetButtonDown("Drop"))
+                { 
                     playerState.HoldingKnife = false;
+                }
             }
 
-            knifeScript.Run(transform.position, direction, angle);
+            knifeScript.Run(transform.position, direction);
         }
     }
 
-
-    
 
     
     /*public void FireRound(GameObject bullet, GameObject gunEnd, Vector3 direction, float dispersion, int bulletNumber, float aimAccuracy)
@@ -132,6 +133,7 @@ public class WeaponController : NetworkBehaviour
         if (collision.gameObject.CompareTag("Weapon") || collision.gameObject.CompareTag("Knife"))
         {
             weapons.Add(collision.gameObject);
+            index %= weapons.Count;
         }
     }
 
@@ -139,6 +141,11 @@ public class WeaponController : NetworkBehaviour
     {
         if (collision.gameObject.CompareTag("Weapon") || collision.gameObject.CompareTag("Knife"))
         {
+            if (weapons.IndexOf(playerState.Weapon) < index)
+                index -= 1;
+            else if (weapons.IndexOf(playerState.Weapon) == index)
+                index = 0;
+
             weapons.Remove(collision.gameObject);
         }
     }

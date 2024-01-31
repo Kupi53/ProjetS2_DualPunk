@@ -114,7 +114,7 @@ public class PlayerMovement : NetworkBehaviour
                 moveSpeed = sprintSpeed;
             }
 
-            if (playerState.HoldingWeapon && !sameDirection(moveAngle, pointerAngle, 60)) {
+            if ((playerState.HoldingWeapon || playerState.HoldingKnife) && !sameDirection(moveAngle, pointerAngle, 60)) {
                 moveFactor *= moveBackFactor;
             }
 
@@ -124,12 +124,12 @@ public class PlayerMovement : NetworkBehaviour
                 {
                     body.MovePosition(body.position + moveDirection * moveSpeed * moveFactor);
                     
-                    if (playerState.HoldingWeapon)
+                    if (playerState.HoldingWeapon || playerState.HoldingKnife)
                         ChangeAnimation(ChangeDirection(pointerAngle));
                     else
                         ChangeAnimation(ChangeDirection(moveAngle));
                 }
-                else if (!playerState.HoldingWeapon)
+                else if (!(playerState.HoldingWeapon || playerState.HoldingKnife))
                 {
                     animator.Play(PLAYER_IDLE);
                 }
@@ -145,12 +145,12 @@ public class PlayerMovement : NetworkBehaviour
                 {
                     MovePositionServerRPC(body.position + moveDirection * moveSpeed * moveFactor);
                     
-                    if (playerState.HoldingWeapon)
+                    if (playerState.HoldingWeapon || playerState.HoldingKnife)
                         ChangeAnimationServerRPC(ChangeDirection(pointerAngle));
                     else
                         ChangeAnimationServerRPC(ChangeDirection(moveAngle));
                 }
-                else if (!playerState.HoldingWeapon)
+                else if (!(playerState.HoldingWeapon || playerState.HoldingKnife))
                 {
                     animator.Play(PLAYER_IDLE);
                 }

@@ -19,6 +19,7 @@ public class KnifeScript : MonoBehaviour
     public float attackDistance;
     public Vector3 weaponOffset;
 
+    private float angle;
     private float rangeTop;
     private float rangeMiddle;
     private float rangeBottom;
@@ -33,10 +34,12 @@ public class KnifeScript : MonoBehaviour
     }
 
 
-    public void Run(Vector3 position, Vector3 direction, float angle)
+    public void Run(Vector3 position, Vector3 direction)
     {
         if (Input.GetButtonDown("Use") && !attacking && attack < 3)
         {
+            angle = (float)(Math.Atan2(direction.y, direction.x) * (180 / Math.PI));
+
             attack += 1;
             attacking = true;
             resetCooldownTimer = 0;
@@ -56,8 +59,6 @@ public class KnifeScript : MonoBehaviour
                 spriteRenderer.flipY = false;
             }       
         }
-
-        Debug.Log("attacking");
 
         if (attacking)
         {
@@ -91,6 +92,8 @@ public class KnifeScript : MonoBehaviour
 
         else
         {
+            angle = (float)(Math.Atan2(direction.y, direction.x) * (180 / Math.PI));
+
             switch (attack)
             {
                 case 1:
