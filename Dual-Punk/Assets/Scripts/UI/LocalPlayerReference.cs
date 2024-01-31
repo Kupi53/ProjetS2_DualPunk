@@ -21,6 +21,9 @@ public class LocalPlayerReference : MonoBehaviour
         if (playerState.HoldingWeapon)
         {
             weaponScript = playerState.Weapon.GetComponent<WeaponScript>();
+        }
+        else if (playerState.HoldingKnife)
+        {
             knifeScript = playerState.Weapon.GetComponent<KnifeScript>();
         }
     }

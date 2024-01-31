@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 2998020564572275706}
   m_Layer: 0
   m_Name: Shotgun1
-  m_TagString: Untagged
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -210,7 +210,9 @@ MonoBehaviour:
   bulletNumber: 9
   auto: 1
   reloading: 0
+  weaponOffset: {x: 0, y: 0, z: 0}
   reloadAmount: 1
+  autoReload: 0
 --- !u!1 &1151202582569453349
 GameObject:
   m_ObjectHideFlags: 0

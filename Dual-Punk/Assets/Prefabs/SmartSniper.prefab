@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 38113171406740092}
   m_Layer: 0
   m_Name: SmartSniper
-  m_TagString: Untagged
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -210,6 +210,7 @@ MonoBehaviour:
   bulletNumber: 1
   auto: 0
   reloading: 0
+  weaponOffset: {x: 0, y: 0, z: 0}
   reloadAmount: 1
   autoReload: 1
 --- !u!1 &4522083825481786314

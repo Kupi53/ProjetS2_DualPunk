@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 3101570405284729770}
   m_Layer: 0
   m_Name: Katana
-  m_TagString: Untagged
+  m_TagString: Knife
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -196,6 +196,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 3628626176491043060}
+  attack: 0
   attacking: 0
   weaponDistance: 0.7
   resetCooldown: 1
@@ -203,3 +204,4 @@ MonoBehaviour:
   attackSpeed: 1000
   attackRange: 45
   attackDistance: 1
+  weaponOffset: {x: 0, y: 0, z: 0}
