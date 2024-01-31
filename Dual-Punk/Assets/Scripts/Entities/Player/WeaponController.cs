@@ -50,6 +50,8 @@ public class WeaponController : NetworkBehaviour
             }
         }
 
+        //Gere les scripts des armes
+        //Quand le joueur tient une arme a feu
         if (playerState.HoldingWeapon)
         {
             direction = (pointer.transform.position - transform.position - weaponScript.weaponOffset).normalized;
@@ -64,6 +66,7 @@ public class WeaponController : NetworkBehaviour
             weaponScript.Run(transform.position, direction, angle, playerState.Walking);
         }
 
+        //Quand le joueur tient une arme blanche
         else if (playerState.HoldingKnife)
         {
             if (!knifeScript.attacking)

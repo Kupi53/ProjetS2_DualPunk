@@ -27,6 +27,7 @@ public class KnifeScript : MonoBehaviour
 
     void Start()
     {
+        attacking = false;
         weaponOffset = new Vector3(0, 0.5f, 0);
         currentWeaponDistance = weaponDistance;
     }
@@ -34,7 +35,7 @@ public class KnifeScript : MonoBehaviour
 
     public void Run(Vector3 position, Vector3 direction, float angle)
     {
-        if (!attacking && Input.GetButtonDown("Use") && attack < 3)
+        if (Input.GetButtonDown("Use") && !attacking && attack < 3)
         {
             attack += 1;
             attacking = true;
@@ -53,10 +54,10 @@ public class KnifeScript : MonoBehaviour
             {
                 angle = rangeTop;
                 spriteRenderer.flipY = false;
-            }
-                
+            }       
         }
 
+        Debug.Log("attacking");
 
         if (attacking)
         {
