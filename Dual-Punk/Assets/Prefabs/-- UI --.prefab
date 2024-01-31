@@ -1958,6 +1958,7 @@ MonoBehaviour:
   LOCALPLAYER: {fileID: 0}
   playerState: {fileID: 0}
   weaponScript: {fileID: 0}
+  knifeScript: {fileID: 0}
 --- !u!1 &8639963373913519423
 GameObject:
   m_ObjectHideFlags: 0
@@ -1993,7 +1994,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 53.1, y: 13.4}
-  m_SizeDelta: {x: 267.8, y: 113.34}
+  m_SizeDelta: {x: 267.8, y: 129.98}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4580575404578277903
 CanvasRenderer:
@@ -2023,7 +2024,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: a9751f3316d93e3478c5a4c59554435b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 90aa106e4f16de64885605d2868921d9, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

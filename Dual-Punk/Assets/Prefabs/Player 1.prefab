@@ -174,10 +174,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Health: 0
   MaxHealth: 100
-  Aiming: 0
   Walking: 0
   Dashing: 0
   HoldingWeapon: 0
+  HoldingKnife: 0
   DashTimer: 0
   DashCooldown: 0
   DashCooldownMax: 1
@@ -246,8 +246,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pointer: {fileID: 1702336741078652632}
-  reloadCooldown: {fileID: 0}
-  playerState: {fileID: 0}
 --- !u!114 &936892507655542304
 MonoBehaviour:
   m_ObjectHideFlags: 0

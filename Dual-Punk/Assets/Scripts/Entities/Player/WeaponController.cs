@@ -83,6 +83,9 @@ public class WeaponController : NetworkBehaviour
 
             knifeScript.Run(transform.position, direction);
         }
+
+        if (weapons.Count > 0 && !playerState.HoldingWeapon && !playerState.HoldingKnife)
+           weapons[index].GetComponent<HighlightWeapon>().Highlight();
     }
 
 
