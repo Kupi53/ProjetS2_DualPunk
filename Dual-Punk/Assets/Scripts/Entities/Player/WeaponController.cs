@@ -8,10 +8,8 @@ using Unity.Netcode;
 
 public class WeaponController : NetworkBehaviour
 {
-    [SerializeField] private GameObject pointer;
     private PlayerState playerState;
     private List<GameObject> weapons;
-
     private WeaponScript? weaponScript;
     private KnifeScript? knifeScript;
     private GameObject? Weapon;
@@ -19,6 +17,7 @@ public class WeaponController : NetworkBehaviour
     private int index;
     private float angle;
     private Vector3 direction;
+    private Vector3 mousePos;
 
 
     private void Start()
@@ -31,6 +30,9 @@ public class WeaponController : NetworkBehaviour
 
     private void Update()
     {
+        mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        mousePos.z = 0;
+
         if (Input.GetButtonDown("Switch") && weapons.Count > 0)
         {
             index = (index + 1) % weapons.Count;
@@ -40,6 +42,8 @@ public class WeaponController : NetworkBehaviour
         {
             Weapon = weapons[index];
             playerState.Weapon = Weapon;
+            index = 0;
+
             if (Weapon.CompareTag("Weapon"))
             {
                 playerState.HoldingWeapon = true;
@@ -56,7 +60,7 @@ public class WeaponController : NetworkBehaviour
         //Quand le joueur tient une arme a feu
         if (playerState.HoldingWeapon)
         {
-            direction = (pointer.transform.position - transform.position - weaponScript.weaponOffset).normalized;
+            direction = (mousePos - transform.position - weaponScript.weaponOffset).normalized;
             angle = (float)(Math.Atan2(direction.y, direction.x) * (180 / Math.PI));
 
             if (Input.GetButtonDown("Drop"))
@@ -73,7 +77,7 @@ public class WeaponController : NetworkBehaviour
         {
             if (!knifeScript.attacking)
             {
-                direction = (pointer.transform.position - transform.position - knifeScript.weaponOffset).normalized;
+                direction = (mousePos - transform.position - knifeScript.weaponOffset).normalized;
 
                 if (Input.GetButtonDown("Drop"))
                 { 

@@ -15,21 +15,25 @@ public class PointerScript : MonoBehaviour
     public Sprite pointerAim1;
     public Sprite pointerAim2;
     public SpriteRenderer spriteRenderer;
-
     private PlayerState playerState;
-    private bool onTarget;
 
-    // Start is called before the first frame update
+    private bool onTarget;
+    private Vector3 mousePos;
+
+
     void Start()
     {
-        playerState = gameObject.transform.root.gameObject.GetComponent<PlayerState>();
         onTarget = false;
+        playerState = gameObject.transform.root.gameObject.GetComponent<LocalPlayerReference>().playerState;
     }
 
-    // Update is called once per frame
+
     void Update()
     {
-        ChangePosition();
+        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        mousePos.z = 0;
+        transform.position = mousePos;
+
         if (playerState.HoldingWeapon)
         {
             if (playerState.Walking)
@@ -59,13 +63,6 @@ public class PointerScript : MonoBehaviour
         {
             spriteRenderer.sprite = pointerNormal;
         }
-    }
-    void ChangePosition()
-    {
-        Vector3 mousePos = Input.mousePosition;
-        mousePos = Camera.main.ScreenToWorldPoint(mousePos);
-        mousePos.z = 0;
-        transform.position = mousePos;
     }
 
 

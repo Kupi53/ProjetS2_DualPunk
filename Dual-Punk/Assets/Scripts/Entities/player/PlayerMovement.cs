@@ -12,7 +12,6 @@ public class PlayerMovement : NetworkBehaviour
 {
     public Rigidbody2D body;
     public Animator animator;
-    public GameObject pointer;
     public PlayerState playerState;
     public SpriteRenderer spriteRenderer;
 
@@ -36,12 +35,13 @@ public class PlayerMovement : NetworkBehaviour
     const string PLAYERWEAPON_SW = "PlayerWeapon SW";
 
     // Bool qui sert pour le state du joueur (par exemple pendant un dash ou certaines abilitiés le joueur ne doit pas pouvoir bouger)
-    private bool enableMovement = true;
+    private bool enableMovement;
     private string currentState;
     // Vitesse de deplacement en fonction des variables publiques en dessous
     private float moveSpeed;
     // Facteur qui depend aussi de certaines variables en dessous qui ralenti ou accelere le deplacement dans certaines situations
     private float moveFactor;
+    private float dashTimer;
 
     // Nombres decimaux pour gerer la vitesse de marche, course et de dash
     public float walkSpeed;
@@ -49,16 +49,19 @@ public class PlayerMovement : NetworkBehaviour
     public float dashSpeed;
     public float dashTime;
     public float moveBackFactor;
-    Vector2 moveDirection;
-    Vector2 pointerDirection;
+
+    private Vector2 moveDirection;
+    private Vector2 pointerDirection;
+    private Vector3 mousePos;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        // De base le joueur face en bas
-        currentState = PLAYER_IDLE;
+        dashTimer = 0;
+        enableMovement = true;
         moveSpeed = sprintSpeed;
+        currentState = PLAYER_IDLE;
         animator = GetComponent<Animator>();
         playerState = gameObject.GetComponent<PlayerState>();
     }
@@ -68,6 +71,9 @@ public class PlayerMovement : NetworkBehaviour
     {
         if (!IsOwner) return;
 
+        mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        mousePos.z = 0;
+
         // Prends Imputs chaque frame
         if (enableMovement)
         {
@@ -75,7 +81,7 @@ public class PlayerMovement : NetworkBehaviour
             // Direction du deplacement
             moveDirection = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical") * 0.5f).normalized;
             // Direction du pointeur
-            pointerDirection = (pointer.transform.position - transform.position).normalized;
+            pointerDirection = (mousePos - transform.position).normalized;
 
             if (Input.GetAxis("Horizontal") != 0 && Input.GetAxis("Vertical") != 0)
                 moveDirection *= 0.8f;
@@ -163,16 +169,16 @@ public class PlayerMovement : NetworkBehaviour
 
         else if (playerState.Dashing)
         {
-            if (playerState.DashTimer < dashTime)
+            if (dashTimer < dashTime)
             {
-                body.MovePosition(body.position + moveDirection * (dashSpeed - playerState.DashTimer));
-                playerState.DashTimer += Time.fixedDeltaTime;
+                body.MovePosition(body.position + moveDirection * (dashSpeed - dashTimer));
+                dashTimer += Time.fixedDeltaTime;
             }
             else
             {
                 enableMovement = true;
                 playerState.Dashing = false;
-                playerState.DashTimer = 0;
+                dashTimer = 0;
             }
         }
     }
