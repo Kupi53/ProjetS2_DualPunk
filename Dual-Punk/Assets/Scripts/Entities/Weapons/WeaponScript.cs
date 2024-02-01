@@ -119,8 +119,26 @@ public class WeaponScript : NetworkBehaviour
 
 
 
-    /*[ServerRpc(RequireOwnership = false)]
-    public void FireServerRPC(NetworkObjectReference bulletRef, NetworkObjectReference gunEndRef, Vector3 direction, float dispersion, int bulletNumber, float aimAccuracy, ulong clientId)
+    /*public void FireRound(GameObject bullet, GameObject gunEnd, Vector3 direction, float dispersion, int bulletNumber, float aimAccuracy)
+    {
+        if (playerState.Walking)
+            dispersion /= aimAccuracy;
+
+        for (int i = 0; i < bulletNumber; i++)
+        {
+            Vector3 newDirection = new Vector3(direction.x + NextFloat(-dispersion,dispersion), direction.y + NextFloat(-dispersion, dispersion), 0);
+            float newAngle = (float)(Math.Atan2(newDirection.y, newDirection.x) * (180 / Math.PI));
+
+            GameObject newBullet = Instantiate(bullet, gunEnd.transform.position, transform.rotation);
+            BulletScript bulletScript = newBullet.GetComponent<BulletScript>();
+            bulletScript.MoveDirection = newDirection;
+            bulletScript.transform.eulerAngles = new Vector3(0, 0, newAngle);
+        }
+    }
+
+
+    [ServerRpc(RequireOwnership = false)]
+    public void FireRoundServerRPC(NetworkObjectReference bulletRef, NetworkObjectReference gunEndRef, Vector3 direction, float dispersion, int bulletNumber, float aimAccuracy, ulong clientId)
     {
         if (playerState.Walking)
             dispersion /= aimAccuracy;

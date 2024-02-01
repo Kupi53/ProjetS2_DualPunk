@@ -4,6 +4,7 @@ using System.Reflection;
 using UnityEngine;
 using System;
 using Unity.Netcode;
+using Unity.VisualScripting;
 
 
 public class WeaponController : NetworkBehaviour
@@ -33,26 +34,27 @@ public class WeaponController : NetworkBehaviour
         mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePos.z = 0;
 
-        if (Input.GetButtonDown("Switch") && weapons.Count > 0)
+        if (weapons.Count > 0 && !playerState.HoldingWeapon && !playerState.HoldingKnife)
         {
-            index = (index + 1) % weapons.Count;
-        }
+            if (Input.GetButtonDown("Switch"))
+                index = (index + 1) % weapons.Count;
 
-        if (Input.GetButtonDown("Pickup") && weapons.Count > 0 && !playerState.HoldingWeapon && !playerState.HoldingKnife)
-        {
-            Weapon = weapons[index];
-            playerState.Weapon = Weapon;
-            index = 0;
+            if (Input.GetButtonDown("Pickup"))
+            {
+                Weapon = weapons[index];
+                playerState.Weapon = Weapon;
+                index = 0;
 
-            if (Weapon.CompareTag("Weapon"))
-            {
-                playerState.HoldingWeapon = true;
-                weaponScript = Weapon.GetComponent<WeaponScript>();
-            }
-            else if (Weapon.CompareTag("Knife"))
-            {
-                playerState.HoldingKnife = true;
-                knifeScript = Weapon.GetComponent<KnifeScript>();
+                if (Weapon.CompareTag("Weapon"))
+                {
+                    playerState.HoldingWeapon = true;
+                    weaponScript = Weapon.GetComponent<WeaponScript>();
+                }
+                else if (Weapon.CompareTag("Knife"))
+                {
+                    playerState.HoldingKnife = true;
+                    knifeScript = Weapon.GetComponent<KnifeScript>();
+                }
             }
         }
 
@@ -63,13 +65,13 @@ public class WeaponController : NetworkBehaviour
             direction = (mousePos - transform.position - weaponScript.weaponOffset).normalized;
             angle = (float)(Math.Atan2(direction.y, direction.x) * (180 / Math.PI));
 
+            weaponScript.Run(transform.position, direction, angle, playerState.Walking);
+
             if (Input.GetButtonDown("Drop"))
-            { 
+            {
                 playerState.HoldingWeapon = false;
                 weaponScript.ResetReload();
             }
-
-            weaponScript.Run(transform.position, direction, angle, playerState.Walking);
         }
 
         //Quand le joueur tient une arme blanche
@@ -80,59 +82,19 @@ public class WeaponController : NetworkBehaviour
                 direction = (mousePos - transform.position - knifeScript.weaponOffset).normalized;
 
                 if (Input.GetButtonDown("Drop"))
-                { 
+                {
                     playerState.HoldingKnife = false;
+                    knifeScript.ResetAttack();
                 }
             }
 
-            knifeScript.Run(transform.position, direction);
+            if (playerState.HoldingKnife)
+                knifeScript.Run(transform.position, direction);
         }
 
         if (weapons.Count > 0 && !playerState.HoldingWeapon && !playerState.HoldingKnife)
-           weapons[index].GetComponent<HighlightWeapon>().Highlight();
+            weapons[index].GetComponent<HighlightWeapon>().Highlight();
     }
-
-
-    
-    /*public void FireRound(GameObject bullet, GameObject gunEnd, Vector3 direction, float dispersion, int bulletNumber, float aimAccuracy)
-    {
-        if (playerState.Walking)
-            dispersion /= aimAccuracy;
-
-        for (int i = 0; i < bulletNumber; i++)
-        {
-            Vector3 newDirection = new Vector3(direction.x + NextFloat(-dispersion,dispersion), direction.y + NextFloat(-dispersion, dispersion), 0);
-            float newAngle = (float)(Math.Atan2(newDirection.y, newDirection.x) * (180 / Math.PI));
-
-            GameObject newBullet = Instantiate(bullet, gunEnd.transform.position, transform.rotation);
-            BulletScript bulletScript = newBullet.GetComponent<BulletScript>();
-            bulletScript.MoveDirection = newDirection;
-            bulletScript.transform.eulerAngles = new Vector3(0, 0, newAngle);
-        }
-    }
-
-
-    [ServerRpc(RequireOwnership = false)]
-    public void FireRoundServerRPC(NetworkObjectReference bulletRef, NetworkObjectReference gunEndRef, Vector3 direction, float dispersion, int bulletNumber, float aimAccuracy, ulong clientId)
-    {
-        if (playerState.Walking)
-            dispersion /= aimAccuracy;
-
-        for (int i = 0; i < bulletNumber; i++)
-        {
-            bulletRef.TryGet(out NetworkObject netBullet);
-            GameObject bullet = netBullet.gameObject;
-            gunEndRef.TryGet(out NetworkObject netGunEnd);
-            GameObject gunEnd = netGunEnd.gameObject;
-            Vector3 newDirection = new Vector3(direction.x + NextFloat(-dispersion, dispersion), direction.y + NextFloat(-dispersion, dispersion), 0);
-            float newAngle = (float)(Math.Atan2(newDirection.y, newDirection.x) * (180 / Math.PI));
-            GameObject newBullet = Instantiate(bullet, gunEnd.transform.position, transform.rotation);
-            newBullet.GetComponent<NetworkObject>().SpawnWithOwnership(clientId);
-            BulletScript bulletScript = newBullet.GetComponent<BulletScript>();
-            bulletScript.MoveDirection = newDirection;
-            bulletScript.transform.eulerAngles = new Vector3(0, 0, newAngle);
-        }
-    }*/
 
 
     void OnTriggerEnter2D(Collider2D collision)
@@ -148,11 +110,7 @@ public class WeaponController : NetworkBehaviour
     {
         if (collision.gameObject.CompareTag("Weapon") || collision.gameObject.CompareTag("Knife"))
         {
-            if (weapons.IndexOf(playerState.Weapon) < index)
-                index -= 1;
-            else if (weapons.IndexOf(playerState.Weapon) == index)
-                index = 0;
-
+            index = 0;
             weapons.Remove(collision.gameObject);
         }
     }

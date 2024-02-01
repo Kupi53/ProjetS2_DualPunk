@@ -117,9 +117,7 @@ public class KnifeScript : MonoBehaviour
             resetCooldownTimer += Time.deltaTime;
             if (resetCooldownTimer > resetCooldown)
             {
-                attack = 0;
-                resetCooldownTimer = 0;
-                currentWeaponDistance = weaponDistance;
+                ResetAttack();
             }
 
             direction = new Vector2((float)Math.Cos(angle * Math.PI / 180), (float)Math.Sin(angle * Math.PI / 180)).normalized;
@@ -127,5 +125,13 @@ public class KnifeScript : MonoBehaviour
 
         transform.position = position + weaponOffset + direction * currentWeaponDistance;
         transform.eulerAngles = new Vector3(0, 0, angle);
+    }
+
+
+    public void ResetAttack()
+    {
+        attack = 0;
+        resetCooldownTimer = 0;
+        currentWeaponDistance = weaponDistance;
     }
 }
