@@ -7,6 +7,7 @@ public class SpawnUi : NetworkBehaviour
 {
     [SerializeField] private GameObject UI;
     private GameObject LocalUI;
+
     void Start()
     {
         if (IsLocalPlayer)
@@ -16,5 +17,4 @@ public class SpawnUi : NetworkBehaviour
             LocalUI.GetComponent<LocalPlayerReference>().LOCALPLAYER = gameObject;
         }
     }
-
 }

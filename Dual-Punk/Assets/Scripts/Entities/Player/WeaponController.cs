@@ -4,76 +4,114 @@ using System.Reflection;
 using UnityEngine;
 using System;
 using Unity.Netcode;
+using Unity.VisualScripting;
 
 
 public class WeaponController : NetworkBehaviour
 {
-    public GameObject pointer;
-    public GameObject reloadCooldown;
-    public PlayerState playerState;
+    private PlayerState playerState;
+    private List<GameObject> weapons;
+    private WeaponScript? weaponScript;
+    private KnifeScript? knifeScript;
+    private GameObject? Weapon;
+
+    private int index;
+    private float angle;
+    private Vector3 direction;
+    private Vector3 mousePos;
 
 
     private void Start()
     {
+        index = 0;
+        weapons = new List<GameObject>();
         playerState = gameObject.GetComponent<PlayerState>();
     }
 
 
-    public bool HoldWeapon(bool hold)
+    private void Update()
     {
-        if (!hold)
+        mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        mousePos.z = 0;
+
+        if (weapons.Count > 0 && !playerState.HoldingWeapon && !playerState.HoldingKnife)
         {
-            playerState.HoldingWeapon = false;
-            return true;
+            if (Input.GetButtonDown("Switch"))
+                index = (index + 1) % weapons.Count;
+
+            if (Input.GetButtonDown("Pickup"))
+            {
+                Weapon = weapons[index];
+                playerState.Weapon = Weapon;
+                index = 0;
+
+                if (Weapon.CompareTag("Weapon"))
+                {
+                    playerState.HoldingWeapon = true;
+                    weaponScript = Weapon.GetComponent<WeaponScript>();
+                }
+                else if (Weapon.CompareTag("Knife"))
+                {
+                    playerState.HoldingKnife = true;
+                    knifeScript = Weapon.GetComponent<KnifeScript>();
+                }
+            }
         }
-        else if (hold && !playerState.HoldingWeapon)
+
+        //Gere les scripts des armes
+        //Quand le joueur tient une arme a feu
+        if (playerState.HoldingWeapon)
         {
-            playerState.HoldingWeapon = true;
-            return false;
+            direction = (mousePos - transform.position - weaponScript.weaponOffset).normalized;
+            angle = (float)(Math.Atan2(direction.y, direction.x) * (180 / Math.PI));
+
+            weaponScript.Run(transform.position, direction, angle, playerState.Walking);
+
+            if (Input.GetButtonDown("Drop"))
+            {
+                playerState.HoldingWeapon = false;
+                weaponScript.ResetReload();
+            }
         }
-        return hold;
+
+        //Quand le joueur tient une arme blanche
+        else if (playerState.HoldingKnife)
+        {
+            if (!knifeScript.attacking)
+            {
+                direction = (mousePos - transform.position - knifeScript.weaponOffset).normalized;
+
+                if (Input.GetButtonDown("Drop"))
+                {
+                    playerState.HoldingKnife = false;
+                    knifeScript.ResetAttack();
+                }
+            }
+
+            if (playerState.HoldingKnife)
+                knifeScript.Run(transform.position, direction);
+        }
+
+        if (weapons.Count > 0 && !playerState.HoldingWeapon && !playerState.HoldingKnife)
+            weapons[index].GetComponent<HighlightWeapon>().Highlight();
     }
 
 
-    public static float NextFloat(float min, float max)
+    void OnTriggerEnter2D(Collider2D collision)
     {
-        System.Random random = new System.Random();
-        double val = random.NextDouble() * (max - min) + min;
-        return (float)val;
-    }
-
-    
-    public void FireRound(GameObject bullet, GameObject gunEnd, Vector3 direction, float dispersion, int bulletNumber)
-    {
-        for (int i = 0; i < bulletNumber; i++)
+        if (collision.gameObject.CompareTag("Weapon") || collision.gameObject.CompareTag("Knife"))
         {
-            Vector3 newDirection = new Vector3(direction.x + NextFloat(-dispersion,dispersion), direction.y + NextFloat(-dispersion, dispersion), 0);
-            float newAngle = (float)(Math.Atan2(newDirection.y, newDirection.x) * (180 / Math.PI));
-
-            GameObject newBullet = Instantiate(bullet, gunEnd.transform.position, transform.rotation);
-            BulletScript bulletScript = newBullet.GetComponent<BulletScript>();
-            bulletScript.MoveDirection = newDirection;
-            bulletScript.transform.eulerAngles = new Vector3(0, 0, newAngle);
+            weapons.Add(collision.gameObject);
+            index %= weapons.Count;
         }
     }
 
-
-    [ServerRpc(RequireOwnership = false)]
-    public void FireRoundServerRPC(NetworkObjectReference bulletRef, NetworkObjectReference gunEndRef, Vector3 direction, float dispersion, int bulletNumber, ulong clientId)
+    void OnTriggerExit2D(Collider2D collision)
     {
-        for (int i = 0; i < bulletNumber; i++)
+        if (collision.gameObject.CompareTag("Weapon") || collision.gameObject.CompareTag("Knife"))
         {
-            bulletRef.TryGet(out NetworkObject netBullet);
-            GameObject bullet = netBullet.gameObject;
-            gunEndRef.TryGet(out NetworkObject netGunEnd);
-            GameObject gunEnd = netGunEnd.gameObject;
-            Vector3 newDirection = new Vector3(direction.x + NextFloat(-dispersion, dispersion), direction.y + NextFloat(-dispersion, dispersion), 0);
-            float newAngle = (float)(Math.Atan2(newDirection.y, newDirection.x) * (180 / Math.PI));
-            GameObject newBullet = Instantiate(bullet, gunEnd.transform.position, transform.rotation);
-            newBullet.GetComponent<NetworkObject>().SpawnWithOwnership(clientId);
-            BulletScript bulletScript = newBullet.GetComponent<BulletScript>();
-            bulletScript.MoveDirection = newDirection;
-            bulletScript.transform.eulerAngles = new Vector3(0, 0, newAngle);
+            index = 0;
+            weapons.Remove(collision.gameObject);
         }
     }
 }
