@@ -200,6 +200,7 @@ MonoBehaviour:
   bullet: {fileID: 5298557137024599475, guid: cf1a87b5cd3d7904dbe9dcf2013b111e, type: 3}
   gunEnd: {fileID: 1151202582569453349}
   spriteRenderer: {fileID: 5280717515457528235}
+  damage: 5
   fireRate: 1
   dispersion: 0.3
   reloadTime: 0.8

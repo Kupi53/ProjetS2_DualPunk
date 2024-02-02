@@ -12,7 +12,7 @@ public class WeaponScript : NetworkBehaviour
     public GameObject bullet;
     public GameObject gunEnd;
     public SpriteRenderer spriteRenderer;
-
+    public int damage;
     public float fireRate;
     public float dispersion;
     public float reloadTime;

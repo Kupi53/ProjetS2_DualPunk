@@ -35,7 +35,7 @@ public class PlayerState : MonoBehaviour
         Destroy(gameObject);
     }
 
-    public void Damage(int amount){
+    public void Damage(float amount){
         if (amount < 0){
             throw new ArgumentOutOfRangeException("Cannot have Negative damage.");
         }
