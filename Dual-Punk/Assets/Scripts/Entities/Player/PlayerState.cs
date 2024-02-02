@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -19,5 +20,40 @@ public class PlayerState : MonoBehaviour
     private void Awake()
     {
         Health = MaxHealth;
+    }
+
+        void Update(){
+        if(Input.GetKeyDown(KeyCode.C)){
+            Damage(10);
+        }
+        if(Input.GetKeyDown(KeyCode.V)){
+            Heal(10);
+        }
+    }
+    void Die(){
+        Debug.Log("you dead man");
+        Destroy(gameObject);
+    }
+
+    public void Damage(int amount){
+        if (amount < 0){
+            throw new ArgumentOutOfRangeException("Cannot have Negative damage.");
+        }
+        this.Health -= amount;
+
+        if (Health <= 0){
+            Die();
+        }
+    }
+
+    public void Heal(int amount){
+        if (amount < 0){
+            throw new ArgumentOutOfRangeException("Cannot have Negative Healing.");
+        }
+        if (Health + amount > MaxHealth){
+            Health = MaxHealth;
+        }
+        else
+            Health += amount;
     }
 }
