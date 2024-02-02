@@ -21,11 +21,8 @@ public class EnnemyState : MonoBehaviour
         health = data.Health;
         damage = data.Damage;
         speed = data.Speed;
-        player = GameObject.FindGameObjectWithTag("Player");
+        StartCoroutine(Spawner());
     }
-
-
-
 
     // Update is called once per frame
     void Update()
@@ -34,10 +31,20 @@ public class EnnemyState : MonoBehaviour
 
     }
 
+    private IEnumerator Spawner(){
+        yield return new WaitForSeconds(0.0001f);
+        player = GameObject.FindGameObjectWithTag("Player");
+    }
 
+    private IEnumerator VisualIndicator(Color color){
+        GetComponent<SpriteRenderer>().color = color;
+        yield return new WaitForSeconds(0.15f);
+        GetComponent<SpriteRenderer>().color = Color.white;
+    }
 
     public void OnDamage(float damage){
         health -= damage;
+        StartCoroutine(VisualIndicator(Color.red));
         CheckDeath();
     }
     private void CheckDeath(){
