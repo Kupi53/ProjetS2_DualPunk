@@ -7,6 +7,7 @@ using UnityEngine.UIElements;
 
 public class KnifeScript : MonoBehaviour
 {
+    public PlayerState playerState;
     public SpriteRenderer spriteRenderer;
 
     public int attack;
@@ -120,7 +121,7 @@ public class KnifeScript : MonoBehaviour
                 ResetAttack();
             }
 
-            direction = new Vector2((float)Math.Cos(angle * Math.PI / 180), (float)Math.Sin(angle * Math.PI / 180)).normalized;
+            direction = new Vector3((float)Math.Cos(angle * Math.PI / 180), (float)Math.Sin(angle * Math.PI / 180)).normalized;
         }
 
         transform.position = position + weaponOffset + direction * currentWeaponDistance;

@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 8398048145432304591}
   - component: {fileID: 6120374516710583700}
   - component: {fileID: 765827749627930239}
+  - component: {fileID: -1364001083191632165}
   - component: {fileID: 4704230053284419655}
   - component: {fileID: 4801852604900925511}
-  - component: {fileID: -9085438613942371308}
   - component: {fileID: 5156073177227003732}
   m_Layer: 0
   m_Name: SeekingBullet
@@ -134,6 +134,33 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.2, y: 0.06}
   m_EdgeRadius: 0
+--- !u!50 &-1364001083191632165
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3137761784652373764}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!114 &4704230053284419655
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -184,20 +211,6 @@ MonoBehaviour:
   InLocalSpace: 0
   Interpolate: 1
   SlerpPosition: 0
---- !u!114 &-9085438613942371308
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3137761784652373764}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9298fcd5dccd15d4e80293664e349662, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MoveDirection: {x: 0, y: 0, z: 0}
-  MoveSpeed: 20
 --- !u!114 &5156073177227003732
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -211,4 +224,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MoveDirection: {x: 0, y: 0, z: 0}
-  MoveSpeed: 0
+  MoveSpeed: 20
+  target: {fileID: 0}
+  rotateSpeed: 3

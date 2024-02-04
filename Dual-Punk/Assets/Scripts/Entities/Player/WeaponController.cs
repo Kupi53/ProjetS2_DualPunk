@@ -39,16 +39,20 @@ public class WeaponController : NetworkBehaviour
             if (Input.GetButtonDown("Switch"))
                 index = (index + 1) % weapons.Count;
 
+            Weapon = weapons[index];
+            Weapon.GetComponent<HighlightWeapon>().Highlight();
+
             if (Input.GetButtonDown("Pickup"))
             {
-                Weapon = weapons[index];
-                playerState.Weapon = Weapon;
                 index = 0;
+                playerState.Weapon = Weapon;
 
                 if (Weapon.CompareTag("Weapon"))
                 {
                     playerState.HoldingWeapon = true;
                     weaponScript = Weapon.GetComponent<WeaponScript>();
+                    weaponScript.inHand = true;
+                    weaponScript.playerState = playerState;
                 }
                 else if (Weapon.CompareTag("Knife"))
                 {
@@ -63,14 +67,15 @@ public class WeaponController : NetworkBehaviour
         if (playerState.HoldingWeapon)
         {
             direction = (mousePos - transform.position - weaponScript.weaponOffset).normalized;
-            angle = (float)(Math.Atan2(direction.y, direction.x) * (180 / Math.PI));
 
-            weaponScript.Run(transform.position, direction, angle, playerState.Walking);
+            weaponScript.Run(transform.position, direction);
 
             if (Input.GetButtonDown("Drop"))
             {
+                playerState.pointer = 0;
                 playerState.HoldingWeapon = false;
                 weaponScript.ResetReload();
+                weaponScript.inHand = false;
             }
         }
 
@@ -83,6 +88,7 @@ public class WeaponController : NetworkBehaviour
 
                 if (Input.GetButtonDown("Drop"))
                 {
+                    playerState.pointer = 0;
                     playerState.HoldingKnife = false;
                     knifeScript.ResetAttack();
                 }
@@ -91,9 +97,6 @@ public class WeaponController : NetworkBehaviour
             if (playerState.HoldingKnife)
                 knifeScript.Run(transform.position, direction);
         }
-
-        if (weapons.Count > 0 && !playerState.HoldingWeapon && !playerState.HoldingKnife)
-            weapons[index].GetComponent<HighlightWeapon>().Highlight();
     }
 
 
@@ -102,7 +105,6 @@ public class WeaponController : NetworkBehaviour
         if (collision.gameObject.CompareTag("Weapon") || collision.gameObject.CompareTag("Knife"))
         {
             weapons.Add(collision.gameObject);
-            index %= weapons.Count;
         }
     }
 

@@ -203,7 +203,7 @@ MonoBehaviour:
   resetCooldown: 1
   resetCooldownTimer: 0
   attackSpeed: 1000
-  attackRange: 45
+  attackRange: 60
   attackDistance: 1
   weaponOffset: {x: 0, y: 0, z: 0}
 --- !u!114 &8556322678607386002

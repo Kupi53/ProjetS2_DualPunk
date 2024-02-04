@@ -5739,14 +5739,10 @@ PrefabInstance:
       propertyPath: GlobalObjectIdHash
       value: 1428906985
       objectReference: {fileID: 0}
-    - target: {fileID: 6551797201584562624, guid: 369723fd2c1c3fe4d87eeffa57e39c40, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.7
-      objectReference: {fileID: 0}
-    - target: {fileID: 6551797201584562624, guid: 369723fd2c1c3fe4d87eeffa57e39c40, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.65
-      objectReference: {fileID: 0}
+    - target: {fileID: 6194921478525316530, guid: 369723fd2c1c3fe4d87eeffa57e39c40, type: 3}
+      propertyPath: target
+      value: 
+      objectReference: {fileID: 4053613328837788251}
     - target: {fileID: 6551797201584562624, guid: 369723fd2c1c3fe4d87eeffa57e39c40, type: 3}
       propertyPath: m_LocalPosition.x
       value: -4.54
@@ -6045,6 +6041,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 075a9c319525f2a4babfc57577026b95, type: 3}
+--- !u!1 &4053613328837788251 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6076069747835287369, guid: 075a9c319525f2a4babfc57577026b95, type: 3}
+  m_PrefabInstance: {fileID: 4053613328837788250}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8668196123130379317
 PrefabInstance:
   m_ObjectHideFlags: 0
