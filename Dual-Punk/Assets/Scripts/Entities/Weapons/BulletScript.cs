@@ -5,12 +5,20 @@ using UnityEngine;
 
 public class BulletScript : MonoBehaviour
 {
+    internal Rigidbody2D rb2d;
+
     public Vector3 MoveDirection;
     public int MoveSpeed;
 
-    void Update()
+
+    private void Start()
     {
-        transform.position += MoveDirection * MoveSpeed * Time.deltaTime;
+        rb2d = GetComponent<Rigidbody2D>();
+    }
+
+    public void FixedUpdate()
+    {
+        rb2d.velocity = MoveDirection * MoveSpeed;
 
         if (!GetComponent<Renderer>().isVisible)
         {

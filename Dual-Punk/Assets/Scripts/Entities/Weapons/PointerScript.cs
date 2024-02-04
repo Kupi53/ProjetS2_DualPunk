@@ -9,64 +9,74 @@ using UnityEngine.Networking.PlayerConnection;
 
 public class PointerScript : MonoBehaviour
 {
-    public Sprite pointerNormal;
-    public Sprite pointer1;
-    public Sprite pointer2;
-    public Sprite pointerAim1;
-    public Sprite pointerAim2;
-    public SpriteRenderer spriteRenderer;
-    private PlayerState playerState;
+    [SerializeField] private Sprite pointerNormal;
+    [SerializeField] private Sprite pointer1;
+    [SerializeField] private Sprite pointer2;
+    [SerializeField] private Sprite pointerAim1;
+    [SerializeField] private Sprite pointerAim2;
+    [SerializeField] private Sprite autolockPointer;
+    [SerializeField] private SpriteRenderer spriteRenderer;
 
+    private PlayerState playerState;
+    private Vector2 mousePos;
     private bool onTarget;
-    private Vector3 mousePos;
 
 
     void Start()
     {
         onTarget = false;
-        playerState = gameObject.transform.root.gameObject.GetComponent<LocalPlayerReference>().playerState;
+        playerState = transform.root.gameObject.GetComponent<LocalPlayerReference>().playerState;
     }
 
 
     void Update()
     {
-        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        mousePos.z = 0;
+        mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         transform.position = mousePos;
 
-        if (playerState.HoldingWeapon)
+        switch (playerState.pointer)
         {
-            if (playerState.Walking)
-            {
-                if (onTarget)
+            case -1:
+                spriteRenderer.enabled = false;
+                break;
+
+            case 0:
+                spriteRenderer.sprite = pointerNormal;
+                break;
+
+            case 1:
+                if (playerState.Walking)
                 {
-                    spriteRenderer.sprite = pointerAim2;
+                    if (onTarget)
+                    {
+                        spriteRenderer.sprite = pointerAim2;
+                    }
+                    else
+                    {
+                        spriteRenderer.sprite = pointerAim1;
+                    }
                 }
                 else
                 {
-                    spriteRenderer.sprite = pointerAim1;
+                    if (onTarget)
+                    {
+                        spriteRenderer.sprite = pointer2;
+                    }
+                    else
+                    {
+                        spriteRenderer.sprite = pointer1;
+                    }
                 }
-            }
-            else
-            {
-                if (onTarget)
-                {
-                    spriteRenderer.sprite = pointer2;
-                }
-                else
-                {
-                    spriteRenderer.sprite = pointer1;
-                }
-            }
-        }
-        else
-        {
-            spriteRenderer.sprite = pointerNormal;
+                break;
+
+            case 2:
+                spriteRenderer.sprite = autolockPointer;
+                break;
         }
     }
 
 
-    private void OnTriggerStay2D(Collider2D collision)
+    void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Ennemy"))
         {
@@ -74,7 +84,7 @@ public class PointerScript : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
+    void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Ennemy"))
         {

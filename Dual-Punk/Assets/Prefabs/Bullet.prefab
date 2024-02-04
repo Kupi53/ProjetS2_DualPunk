@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 2003887880135054962}
   - component: {fileID: 913722063687859201}
   - component: {fileID: 5748532016103718925}
+  - component: {fileID: 8184458209721837017}
   - component: {fileID: 8802264110380639672}
   - component: {fileID: 3160641312404286634}
   - component: {fileID: 3335639127292127641}
-  - component: {fileID: 8184458209721837017}
   - component: {fileID: 2877922400840253058}
   m_Layer: 0
   m_Name: Bullet
@@ -135,6 +135,33 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.2, y: 0.06}
   m_EdgeRadius: 0
+--- !u!50 &8184458209721837017
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5298557137024599475}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 2
+  m_SleepingMode: 0
+  m_CollisionDetection: 1
+  m_Constraints: 4
 --- !u!114 &8802264110380639672
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -147,8 +174,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9298fcd5dccd15d4e80293664e349662, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MoveDirection: {x: 0, y: 0, z: 0}
   MoveSpeed: 50
+  MoveDirection: {x: 0, y: 0, z: 0}
 --- !u!114 &3160641312404286634
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -199,33 +226,6 @@ MonoBehaviour:
   InLocalSpace: 0
   Interpolate: 1
   SlerpPosition: 0
---- !u!50 &8184458209721837017
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5298557137024599475}
-  m_BodyType: 1
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_Interpolate: 2
-  m_SleepingMode: 0
-  m_CollisionDetection: 1
-  m_Constraints: 4
 --- !u!114 &2877922400840253058
 MonoBehaviour:
   m_ObjectHideFlags: 0

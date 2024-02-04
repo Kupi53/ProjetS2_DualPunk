@@ -6,15 +6,20 @@ using UnityEngine;
 
 public class PlayerState : MonoBehaviour
 {
-    public float Health;
-    public float MaxHealth = 100;
+    public int Health;
+    public int MaxHealth = 100;
+    public int pointer = 0;
+
     public bool Walking = false;
     public bool Dashing = false;
     public bool HoldingWeapon = false;
     public bool HoldingKnife = false;
+
     public float DashCooldown = 0.0f;
     public float DashCooldownMax = 1.0f;
+
     public GameObject? Weapon;
+
 
     private void Awake()
     {

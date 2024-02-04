@@ -11,6 +11,7 @@ public class WeaponScript : NetworkBehaviour
 {
     public GameObject bullet;
     public GameObject gunEnd;
+    public PlayerState playerState;
     public SpriteRenderer spriteRenderer;
 
     public float fireRate;
@@ -24,6 +25,7 @@ public class WeaponScript : NetworkBehaviour
     public int bulletNumber;
     public bool auto;
     public bool reloading;
+    public bool inHand;
     public Vector3 weaponOffset;
 
     [SerializeField] private int reloadAmount;
@@ -31,8 +33,9 @@ public class WeaponScript : NetworkBehaviour
     private float fireTimer;
 
 
-    void Start()
+    public void Start()
     {
+        inHand = false;
         reloadTimer = 0;
         fireTimer = fireRate;
         magSize = maxMagSize;
@@ -40,8 +43,18 @@ public class WeaponScript : NetworkBehaviour
     }
 
 
-    public void Run(Vector3 position, Vector3 direction, float angle, bool walking)
+    public void Update()
     {
+        //Faire des aniations ici
+        if (inHand)
+            playerState.pointer = 1;
+    }
+
+
+    public void Run(Vector3 position, Vector3 direction)
+    {
+        float angle = (float)(Math.Atan2(direction.y, direction.x) * (180 / Math.PI));
+
         if (angle > 90 || angle < -90)
             spriteRenderer.flipY = true;
         else
@@ -57,7 +70,7 @@ public class WeaponScript : NetworkBehaviour
                 ResetReload();
 
             if (IsHost)
-                Fire(direction, dispersion, walking);
+                Fire(direction, dispersion);
 
             fireTimer = 0;
             magSize--;
@@ -69,16 +82,17 @@ public class WeaponScript : NetworkBehaviour
         if ((Input.GetButtonDown("Reload") || autoReload) && magSize != maxMagSize)
             reloading = true;
 
-
         if (reloading)
         {
+            playerState.pointer = 0;
+
             if (reloadTimer >= reloadTime)
             {
                 reloadTimer = 0;
                 if (magSize + reloadAmount < maxMagSize)
                     magSize += reloadAmount;
                 else
-                { 
+                {
                     reloading = false;
                     magSize = maxMagSize;
                 }
@@ -89,9 +103,6 @@ public class WeaponScript : NetworkBehaviour
     }
 
 
-    
-
-
     public static float NextFloat(float min, float max)
     {
         System.Random random = new System.Random();
@@ -100,14 +111,14 @@ public class WeaponScript : NetworkBehaviour
     }
 
 
-    public void Fire(Vector3 direction, float spread, bool walking)
+    public virtual void Fire(Vector3 direction, float spread)
     {
-        if (walking)
+        if (playerState.Walking)
             spread /= aimAccuracy;
 
         for (int i = 0; i < bulletNumber; i++)
         {
-            Vector3 newDirection = new Vector3(direction.x + NextFloat(-spread, spread), direction.y + NextFloat(-spread, spread), 0);
+            Vector3 newDirection = new Vector3(direction.x + NextFloat(-spread, spread), direction.y + NextFloat(-spread, spread), 0).normalized;
             float newAngle = (float)(Math.Atan2(newDirection.y, newDirection.x) * (180 / Math.PI));
 
             GameObject newBullet = Instantiate(bullet, gunEnd.transform.position, transform.rotation);
@@ -115,6 +126,12 @@ public class WeaponScript : NetworkBehaviour
             bulletScript.MoveDirection = newDirection;
             bulletScript.transform.eulerAngles = new Vector3(0, 0, newAngle);
         }
+    }
+
+    public void ResetReload()
+    {
+        reloadTimer = 0;
+        reloading = false;
     }
 
 
@@ -158,11 +175,4 @@ public class WeaponScript : NetworkBehaviour
             bulletScript.transform.eulerAngles = new Vector3(0, 0, newAngle);
         }
     }*/
-
-
-    public void ResetReload()
-    {
-        reloadTimer = 0;
-        reloading = false;
-    }
 }
