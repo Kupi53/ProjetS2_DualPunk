@@ -7,22 +7,10 @@ using System;
 
 public class SmartWeaponScript : WeaponScript
 {
-    [SerializeField] private GameObject AutoLockZone;
-    [SerializeField] private GameObject LockedTargetPointer;
-    private GameObject? lockedTarget;
-    private Vector2 mousePos;
-
-    public List<GameObject> targets;
-    public int index;
-
-
     private void Start()
     {
         base.Start();
-        index = 0;
-        targets = new List<GameObject>();
     }
-
 
     private void Update()
     {
@@ -30,35 +18,8 @@ public class SmartWeaponScript : WeaponScript
 
         if (inHand && !reloading)
         {
-            playerState.pointer = 2;
-            mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            AutoLockZone.transform.position = mousePos;
-
-            if (targets.Count > 0)
-            {
-                if (Input.GetButtonDown("Switch"))
-                    index = (index + 1) % targets.Count;
-
-                lockedTarget = targets[index];
-                LockedTargetPointer.GetComponent<SpriteRenderer>().enabled = true;
-                LockedTargetPointer.transform.position = lockedTarget.transform.position;
-            }
-            else
-            {
-                ResetTarget();
-            }
+            playerState.pointerScript.spriteNumber = 2;
         }
-        else
-        {
-            ResetTarget();
-        }
-    }
-
-
-    private void ResetTarget()
-    {
-        lockedTarget = null;
-        LockedTargetPointer.GetComponent<SpriteRenderer>().enabled = false;
     }
 
 
@@ -76,7 +37,7 @@ public class SmartWeaponScript : WeaponScript
             SeekingBulletScript bulletScript = newBullet.GetComponent<SeekingBulletScript>();
             bulletScript.MoveDirection = newDirection;
             bulletScript.transform.eulerAngles = new Vector3(0, 0, newAngle);
-            bulletScript.target = lockedTarget;
+            bulletScript.target = playerState.pointerScript.target;
         }
     }
 }

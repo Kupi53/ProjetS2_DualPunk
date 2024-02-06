@@ -52,7 +52,6 @@ public class PlayerMovement : NetworkBehaviour
 
     private Vector2 moveDirection;
     private Vector2 pointerDirection;
-    private Vector3 mousePos;
 
 
     // Start is called before the first frame update
@@ -71,9 +70,6 @@ public class PlayerMovement : NetworkBehaviour
     {
         if (!IsOwner) return;
 
-        mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        mousePos.z = 0;
-
         // Prends Imputs chaque frame
         if (enableMovement)
         {
@@ -81,7 +77,7 @@ public class PlayerMovement : NetworkBehaviour
             // Direction du deplacement
             moveDirection = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical") * 0.5f).normalized;
             // Direction du pointeur
-            pointerDirection = (mousePos - transform.position).normalized;
+            pointerDirection = (playerState.pointerScript.position - transform.position).normalized;
 
             if (Input.GetAxis("Horizontal") != 0 && Input.GetAxis("Vertical") != 0)
                 moveDirection *= 0.8f;

@@ -11,7 +11,7 @@ public class WeaponScript : NetworkBehaviour
 {
     public GameObject bullet;
     public GameObject gunEnd;
-    public PlayerState playerState;
+    public PlayerState? playerState;
     public SpriteRenderer spriteRenderer;
 
     public float fireRate;
@@ -37,8 +37,8 @@ public class WeaponScript : NetworkBehaviour
     {
         inHand = false;
         reloadTimer = 0;
-        fireTimer = fireRate;
         magSize = maxMagSize;
+        fireTimer = fireRate;
         weaponOffset = new Vector3(0, 0.5f, 0);
     }
 
@@ -47,7 +47,7 @@ public class WeaponScript : NetworkBehaviour
     {
         //Faire des aniations ici
         if (inHand)
-            playerState.pointer = 1;
+            playerState.pointerScript.spriteNumber = 1;
     }
 
 
@@ -84,7 +84,7 @@ public class WeaponScript : NetworkBehaviour
 
         if (reloading)
         {
-            playerState.pointer = 0;
+            playerState.pointerScript.spriteNumber = 0;
 
             if (reloadTimer >= reloadTime)
             {

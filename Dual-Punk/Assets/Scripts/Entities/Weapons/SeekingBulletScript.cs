@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 
 public class SeekingBulletScript : BulletScript
 {
-    public GameObject target;
+    public GameObject? target;
     public float rotateSpeed;
 
 
@@ -19,16 +19,24 @@ public class SeekingBulletScript : BulletScript
         {
             Vector3 heading = (target.transform.position - transform.position).normalized;
             float rotation = Vector3.Cross(MoveDirection, heading).z * rotateSpeed;
-            float angle = (float)(Math.Atan2(MoveDirection.y, MoveDirection.x) * (180 / Math.PI));
 
-            MoveDirection = new Vector3((float)Math.Cos((angle + rotation) * Math.PI / 180), (float)Math.Sin((angle + rotation) * Math.PI / 180)).normalized;
-            transform.eulerAngles = new Vector3(0, 0, angle + rotation);
+            MoveDirection = Quaternion.Euler(0, 0, rotation) * MoveDirection;
+            transform.eulerAngles = new Vector3(0, 0, transform.eulerAngles.z + rotation);
         }
     }
 }
 
 
-/*
+
+
+
+/*float angle = (float)(Math.Atan2(MoveDirection.y, MoveDirection.x) * (180 / Math.PI));
+
+MoveDirection = new Vector3((float)Math.Cos((angle + rotation) * Math.PI / 180), (float)Math.Sin((angle + rotation) * Math.PI / 180)).normalized;
+transform.eulerAngles = new Vector3(0, 0, angle + rotation);
+
+
+
     private float GetAngle(Vector3 direction)
     {
         return (float)(Math.Atan2(direction.y, direction.x) * (180 / Math.PI));

@@ -224,6 +224,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MoveDirection: {x: 0, y: 0, z: 0}
-  MoveSpeed: 20
+  MoveSpeed: 10
   target: {fileID: 0}
   rotateSpeed: 3

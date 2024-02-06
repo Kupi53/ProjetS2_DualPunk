@@ -8,7 +8,6 @@ public class PlayerState : MonoBehaviour
 {
     public int Health;
     public int MaxHealth = 100;
-    public int pointer = 0;
 
     public bool Walking = false;
     public bool Dashing = false;
@@ -18,7 +17,8 @@ public class PlayerState : MonoBehaviour
     public float DashCooldown = 0.0f;
     public float DashCooldownMax = 1.0f;
 
-    public GameObject? Weapon;
+    public PointerScript pointerScript;
+    public GameObject Weapon;
 
 
     private void Awake()

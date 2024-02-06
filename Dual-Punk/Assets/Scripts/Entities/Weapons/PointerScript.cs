@@ -14,32 +14,33 @@ public class PointerScript : MonoBehaviour
     [SerializeField] private Sprite pointer2;
     [SerializeField] private Sprite pointerAim1;
     [SerializeField] private Sprite pointerAim2;
-    [SerializeField] private Sprite autolockPointer;
+    [SerializeField] private Sprite specialPointer1;
+    [SerializeField] private Sprite specialPointer2;
     [SerializeField] private SpriteRenderer spriteRenderer;
 
     private PlayerState playerState;
-    private Vector2 mousePos;
-    private bool onTarget;
+
+    public GameObject? target;
+    public Vector3 position;
+    public int spriteNumber;
 
 
     void Start()
     {
-        onTarget = false;
         playerState = transform.root.gameObject.GetComponent<LocalPlayerReference>().playerState;
+        playerState.pointerScript = GetComponent<PointerScript>();
     }
 
 
     void Update()
     {
-        mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        transform.position = mousePos;
+        position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        position.z = 0;
+        transform.position = position;
 
-        switch (playerState.pointer)
+
+        switch (spriteNumber)
         {
-            case -1:
-                spriteRenderer.enabled = false;
-                break;
-
             case 0:
                 spriteRenderer.sprite = pointerNormal;
                 break;
@@ -47,7 +48,7 @@ public class PointerScript : MonoBehaviour
             case 1:
                 if (playerState.Walking)
                 {
-                    if (onTarget)
+                    if (target != null)
                     {
                         spriteRenderer.sprite = pointerAim2;
                     }
@@ -58,7 +59,7 @@ public class PointerScript : MonoBehaviour
                 }
                 else
                 {
-                    if (onTarget)
+                    if (target != null)
                     {
                         spriteRenderer.sprite = pointer2;
                     }
@@ -70,7 +71,8 @@ public class PointerScript : MonoBehaviour
                 break;
 
             case 2:
-                spriteRenderer.sprite = autolockPointer;
+                if (target == null) spriteRenderer.sprite = specialPointer1;
+                else spriteRenderer.sprite = specialPointer2;
                 break;
         }
     }
@@ -80,7 +82,7 @@ public class PointerScript : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Ennemy"))
         {
-            onTarget = true;
+            target = collision.gameObject;
         }
     }
 
@@ -88,7 +90,7 @@ public class PointerScript : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Ennemy"))
         {
-            onTarget = false;
+            //target = null;
         }
     }
 }
