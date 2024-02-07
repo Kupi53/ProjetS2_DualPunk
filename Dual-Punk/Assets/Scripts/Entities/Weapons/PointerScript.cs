@@ -18,7 +18,7 @@ public class PointerScript : NetworkBehaviour
     [SerializeField] private Sprite specialPointer2;
     [SerializeField] private SpriteRenderer spriteRenderer;
 
-    private LocalPlayerReference References;
+    private PlayerState playerState;
 
     public GameObject? target;
     public Vector3 position;
@@ -28,23 +28,16 @@ public class PointerScript : NetworkBehaviour
 
     void Start()
     {
-        References = transform.root.gameObject.GetComponent<LocalPlayerReference>();
-        References.playerState.Pointer = gameObject;
+        playerState = transform.root.gameObject.GetComponent<LocalPlayerReference>().playerState;
+        playerState.Pointer = gameObject;
     }
 
 
     void Update()
     {
-        if (locked && target != null)
-        {
-            transform.position = target.transform.position;
-        }
-        else
-        {
-            position = References.Camera.GetComponent<Camera>().ScreenToWorldPoint(Input.mousePosition);
-            position.z = 0;
-            transform.position = position;
-        }
+        position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        position.z = 0;
+        transform.position = position;
 
 
         switch (spriteNumber)
@@ -54,7 +47,7 @@ public class PointerScript : NetworkBehaviour
                 break;
 
             case 1:
-                if (References.playerState.Walking)
+                if (playerState.Walking)
                 {
                     if (target != null)
                     {
