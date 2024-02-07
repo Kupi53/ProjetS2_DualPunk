@@ -11,9 +11,9 @@ public class WeaponScript : NetworkBehaviour
 {
     public GameObject bullet;
     public GameObject gunEnd;
-    internal PlayerState? playerState;
-    internal PointerScript? pointerScript;
-    internal SpriteRenderer spriteRenderer;
+    public PlayerState? playerState;
+    public PointerScript? pointerScript;
+    public SpriteRenderer spriteRenderer;
 
     public float fireRate;
     public float dispersion;

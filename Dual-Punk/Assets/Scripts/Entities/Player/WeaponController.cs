@@ -46,14 +46,16 @@ public class WeaponController : NetworkBehaviour
                     playerState.Weapon = Weapon;
                     playerState.HoldingWeapon = true;
                     weaponScript = Weapon.GetComponent<WeaponScript>();
-                    weaponScript.inHand = true;
                     weaponScript.playerState = playerState;
+                    weaponScript.inHand = true;
                 }
                 else if (Weapon.CompareTag("Knife"))
                 {
                     playerState.Weapon = Weapon;
                     playerState.HoldingKnife = true;
                     knifeScript = Weapon.GetComponent<KnifeScript>();
+                    knifeScript.playerState = playerState;
+                    knifeScript.inHand = true;
                 }
             }
         }
@@ -84,9 +86,10 @@ public class WeaponController : NetworkBehaviour
 
                 if (Input.GetButtonDown("Drop"))
                 {
-                    weaponScript.pointerScript.spriteNumber = 0;
-                    playerState.HoldingKnife = false;
                     knifeScript.ResetAttack();
+                    knifeScript.inHand = false;
+                    playerState.HoldingKnife = false;
+                    knifeScript.pointerScript.spriteNumber = 0;
                 }
             }
 
