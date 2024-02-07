@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class LocalPlayerReference : MonoBehaviour
 {
+    // set in spawnui
     public GameObject LOCALPLAYER;
     public PlayerState playerState;
     public WeaponScript? weaponScript;

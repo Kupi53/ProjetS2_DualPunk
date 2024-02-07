@@ -69,7 +69,6 @@ public class PlayerMovement : NetworkBehaviour
     void Update()
     {
         if (!IsOwner) return;
-
         // Prends Imputs chaque frame
         if (enableMovement)
         {
@@ -77,8 +76,9 @@ public class PlayerMovement : NetworkBehaviour
             // Direction du deplacement
             moveDirection = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical") * 0.5f).normalized;
             // Direction du pointeur
-            pointerDirection = (playerState.Pointer.transform.position - transform.position).normalized;
-
+            if (playerState.pointerScript != null){
+                pointerDirection = (playerState.pointerScript.position - transform.position).normalized;
+            }
             if (Input.GetAxis("Horizontal") != 0 && Input.GetAxis("Vertical") != 0)
                 moveDirection *= 0.8f;
             else if (Input.GetAxis("Horizontal") == 0)
@@ -105,6 +105,7 @@ public class PlayerMovement : NetworkBehaviour
 
     void FixedUpdate()
     {
+        if (!IsOwner) return;
         if (enableMovement)
         {
             float moveAngle = (float)(Math.Atan2(moveDirection.y, moveDirection.x) * (180 / Math.PI));
@@ -145,12 +146,12 @@ public class PlayerMovement : NetworkBehaviour
             {
                 if (moveDirection != new Vector2(0, 0))
                 {
-                    MovePositionServerRPC(body.position + moveDirection * moveSpeed * moveFactor);
+                    body.MovePosition(body.position + moveDirection * moveSpeed * moveFactor);
                     
                     if (playerState.HoldingWeapon || playerState.HoldingKnife)
-                        ChangeAnimationServerRPC(ChangeDirection(pointerAngle));
+                        ChangeAnimation(ChangeDirection(pointerAngle));
                     else
-                        ChangeAnimationServerRPC(ChangeDirection(moveAngle));
+                        ChangeAnimation(ChangeDirection(moveAngle));
                 }
                 else if (!(playerState.HoldingWeapon || playerState.HoldingKnife))
                 {

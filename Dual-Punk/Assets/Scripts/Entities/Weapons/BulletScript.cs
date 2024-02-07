@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
 
-public class BulletScript : MonoBehaviour
+public class BulletScript : NetworkBehaviour
 {
     internal Rigidbody2D rb2d;
 
@@ -18,8 +19,8 @@ public class BulletScript : MonoBehaviour
 
     public void FixedUpdate()
     {
+        if (!IsServer) return;
         rb2d.velocity = MoveDirection * MoveSpeed;
-
         if (!GetComponent<Renderer>().isVisible)
         {
             Destroy(gameObject);

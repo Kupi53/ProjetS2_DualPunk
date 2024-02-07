@@ -131,6 +131,8 @@ public class WeaponScript : NetworkBehaviour
             BulletScript bulletScript = newBullet.GetComponent<BulletScript>();
             bulletScript.MoveDirection = newDirection;
             bulletScript.transform.eulerAngles = new Vector3(0, 0, newAngle);
+            NetworkObject bulletNetwork = newBullet.GetComponent<NetworkObject>();
+            bulletNetwork.Spawn();
         }
     }
 

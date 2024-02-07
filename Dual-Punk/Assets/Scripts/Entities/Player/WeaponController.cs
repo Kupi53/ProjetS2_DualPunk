@@ -29,6 +29,7 @@ public class WeaponController : NetworkBehaviour
 
     private void Update()
     {
+        if (!IsOwner) return;
         if (weapons.Count > 0 && !playerState.HoldingWeapon && !playerState.HoldingKnife)
         {
             if (Input.GetButtonDown("Switch"))
