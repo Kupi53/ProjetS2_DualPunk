@@ -85,7 +85,7 @@ public class WeaponScript : NetworkBehaviour
             fireTimer += Time.deltaTime;
 
 
-        if ((Input.GetButtonDown("Reload") || autoReload) && magSize != maxMagSize)
+        if (Input.GetButtonDown("Reload") && magSize != maxMagSize || autoReload && magSize == 0)
             reloading = true;
 
         if (reloading)
@@ -106,6 +106,13 @@ public class WeaponScript : NetworkBehaviour
             else
                 reloadTimer += Time.deltaTime;
         }   
+    }
+
+
+    public void ResetReload()
+    {
+        reloadTimer = 0;
+        reloading = false;
     }
 
 
@@ -134,12 +141,6 @@ public class WeaponScript : NetworkBehaviour
             NetworkObject bulletNetwork = newBullet.GetComponent<NetworkObject>();
             bulletNetwork.Spawn();
         }
-    }
-
-    public void ResetReload()
-    {
-        reloadTimer = 0;
-        reloading = false;
     }
 
 
