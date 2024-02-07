@@ -70,7 +70,7 @@ public class WeaponScript : NetworkBehaviour
         transform.eulerAngles = new Vector3(0, 0, angle);
 
 
-        if ((auto && Input.GetButton("Use") || !auto && Input.GetButtonDown("Use")) && fireTimer > fireRate && magSize > 0)
+        if ((Input.GetButton("Use") && auto && !reloading || Input.GetButtonDown("Use")) && fireTimer > fireRate && magSize > 0)
         {
             if (reloading)
                 ResetReload();

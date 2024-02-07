@@ -75,6 +75,7 @@ public class WeaponController : NetworkBehaviour
                 weaponScript.ResetReload();
                 weaponScript.inHand = false;
                 playerState.HoldingWeapon = false;
+                weaponScript.pointerScript.locked = false;
                 weaponScript.pointerScript.spriteNumber = 0;
             }
         }
