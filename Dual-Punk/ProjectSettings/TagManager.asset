@@ -9,6 +9,7 @@ TagManager:
   - NetworkManager
   - Weapon
   - Knife
+  - PlayerObject
   layers:
   - Default
   - TransparentFX

@@ -7,6 +7,7 @@ public class LocalPlayerReference : MonoBehaviour
 {
     // set in spawnui
     public GameObject LOCALPLAYER;
+    public GameObject Camera;
     public PlayerState playerState;
     public WeaponScript? weaponScript;
     public KnifeScript? knifeScript;
@@ -14,7 +15,7 @@ public class LocalPlayerReference : MonoBehaviour
 
     private void Start()
     {
-        playerState = LOCALPLAYER.gameObject.GetComponent<PlayerState>();
+        playerState = LOCALPLAYER.GetComponentInChildren<PlayerState>();
     }
 
     private void Update()
