@@ -119,8 +119,7 @@ public class PlayerMovement : NetworkBehaviour
             if ((playerState.HoldingWeapon || playerState.HoldingKnife) && !sameDirection(moveAngle, pointerAngle, 60)) {
                 moveFactor *= moveBackFactor;
             }
-
-            if (IsHost)
+            if (moveDirection != new Vector2(0, 0))
             {
                 if (moveDirection != new Vector2(0, 0))
                 {
@@ -136,11 +135,12 @@ public class PlayerMovement : NetworkBehaviour
                     animator.Play(PLAYER_IDLE);
                 }
                 else
-                {
-                    ChangeAnimation(ChangeDirectionWeapon(pointerAngle));
-                }
+                    ChangeAnimation(ChangeDirection(moveAngle));
             }
-
+            else if (!playerState.HoldingWeapon)
+            {
+                animator.Play(PLAYER_IDLE);
+            }
             else
             {
                 if (moveDirection != new Vector2(0, 0))
@@ -191,14 +191,6 @@ public class PlayerMovement : NetworkBehaviour
         return false;
     }
 
-
-    // Mouvement du client
-    [ServerRpc(RequireOwnership = false)]
-    void MovePositionServerRPC(Vector2 pos){
-        body.MovePosition(pos);
-    }
-
-
     // Utilise dans anim mouvement, change l'animation en fonction des constantes Player_S, Player_...
     void ChangeAnimation(string newState)
     {
@@ -206,16 +198,6 @@ public class PlayerMovement : NetworkBehaviour
         animator.Play(newState);
         currentState = newState;
     }
-
-
-    [ServerRpc(RequireOwnership = false)]
-    void ChangeAnimationServerRPC(string newState)
-    {
-        if (currentState == newState) return;
-        animator.Play(newState);
-        currentState = newState;
-    }
-
 
     // On passe la direction actuelle du joueur et en fonction, appelle changeAnimation 
     // Avec la constante (nom du sprite) adaptée
