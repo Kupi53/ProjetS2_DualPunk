@@ -24,6 +24,8 @@ public class WeaponController : NetworkBehaviour
         index = 0;
         weapons = new List<GameObject>();
         playerState = gameObject.GetComponent<PlayerState>();
+        Debug.Log("a");
+        if (IsHost) Debug.Log("b");
     }
 
 

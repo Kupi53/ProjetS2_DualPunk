@@ -13,8 +13,8 @@ public class SpawnPlayers : NetworkBehaviour
         Debug.Log("test");
         if (IsHost){
             Debug.Log("host de merde");
-            GameObject player = Instantiate(playerPrefabA, new Vector3(0,0,0), Quaternion.identity).gameObject;
-            player.GetComponent<NetworkObject>().SpawnAsPlayerObject(NetworkManager.Singleton.LocalClientId);
+            GameObject player = Instantiate(playerPrefabA, new Vector3(0,0,0), transform.rotation);
+            player.GetComponentInChildren<NetworkObject>().SpawnAsPlayerObject(NetworkManager.Singleton.LocalClientId);
         }
         else{
             Debug.Log("client de merde");

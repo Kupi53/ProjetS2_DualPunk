@@ -18,7 +18,7 @@ public class PointerScript : MonoBehaviour
     [SerializeField] private Sprite specialPointer2;
     [SerializeField] private SpriteRenderer spriteRenderer;
 
-    private PlayerState playerState;
+    private LocalPlayerReference References;
 
     public GameObject? target;
     public Vector3 position;
@@ -28,16 +28,23 @@ public class PointerScript : MonoBehaviour
 
     void Start()
     {
-        playerState = transform.root.gameObject.GetComponent<LocalPlayerReference>().playerState;
-        playerState.Pointer = gameObject;
+        References = transform.root.gameObject.GetComponent<LocalPlayerReference>();
+        References.playerState.Pointer = gameObject;
     }
 
 
     void Update()
     {
-        position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        position.z = 0;
-        transform.position = position;
+        if (locked && target != null)
+        {
+            transform.position = target.transform.position;
+        }
+        else
+        {
+            position = References.Camera.GetComponent<Camera>().ScreenToWorldPoint(Input.mousePosition);
+            position.z = 0;
+            transform.position = position;
+        }
 
 
         switch (spriteNumber)
@@ -47,7 +54,7 @@ public class PointerScript : MonoBehaviour
                 break;
 
             case 1:
-                if (playerState.Walking)
+                if (References.playerState.Walking)
                 {
                     if (target != null)
                     {
