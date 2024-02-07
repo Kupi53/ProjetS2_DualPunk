@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.Networking.PlayerConnection;
 
 
-public class PointerScript : MonoBehaviour
+public class PointerScript : NetworkBehaviour
 {
     [SerializeField] private Sprite pointerNormal;
     [SerializeField] private Sprite pointer1;

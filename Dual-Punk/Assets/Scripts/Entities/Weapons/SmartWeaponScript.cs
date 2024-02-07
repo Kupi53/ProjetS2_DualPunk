@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics.Tracing;
 using UnityEngine;
 using System;
+using Unity.Netcode;
 
 
 public class SmartWeaponScript : WeaponScript
@@ -38,6 +39,8 @@ public class SmartWeaponScript : WeaponScript
             bulletScript.MoveDirection = newDirection;
             bulletScript.transform.eulerAngles = new Vector3(0, 0, newAngle);
             bulletScript.target = playerState.pointerScript.target;
+            NetworkObject bulletNetwork = newBullet.GetComponent<NetworkObject>();
+            bulletNetwork.Spawn();
         }
     }
 }

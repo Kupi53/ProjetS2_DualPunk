@@ -179,6 +179,7 @@ MonoBehaviour:
   HoldingKnife: 0
   DashCooldown: 0
   DashCooldownMax: 1
+  pointerScript: {fileID: 0}
   Weapon: {fileID: 0}
 --- !u!114 &-2497419794516822679
 MonoBehaviour:
@@ -290,7 +291,7 @@ MonoBehaviour:
   UseQuaternionCompression: 0
   UseHalfFloatPrecision: 0
   InLocalSpace: 0
-  Interpolate: 1
+  Interpolate: 0
   SlerpPosition: 0
 --- !u!114 &3880985010079075994
 MonoBehaviour:

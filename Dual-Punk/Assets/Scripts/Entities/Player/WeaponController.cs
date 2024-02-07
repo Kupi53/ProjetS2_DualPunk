@@ -29,6 +29,7 @@ public class WeaponController : NetworkBehaviour
 
     private void Update()
     {
+        if (!IsOwner) return;
         if (weapons.Count > 0 && !playerState.HoldingWeapon && !playerState.HoldingKnife)
         {
             if (Input.GetButtonDown("Switch"))
@@ -46,6 +47,7 @@ public class WeaponController : NetworkBehaviour
                     playerState.Weapon = Weapon;
                     playerState.HoldingWeapon = true;
                     weaponScript = Weapon.GetComponent<WeaponScript>();
+                    Debug.Log(weaponScript);
                     weaponScript.inHand = true;
                     weaponScript.playerState = playerState;
                 }

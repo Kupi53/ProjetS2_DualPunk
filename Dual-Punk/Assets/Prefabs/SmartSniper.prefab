@@ -183,7 +183,7 @@ MonoBehaviour:
   UseQuaternionCompression: 0
   UseHalfFloatPrecision: 0
   InLocalSpace: 0
-  Interpolate: 1
+  Interpolate: 0
   SlerpPosition: 0
 --- !u!114 &6194921478525316530
 MonoBehaviour:
@@ -200,7 +200,6 @@ MonoBehaviour:
   bullet: {fileID: 3137761784652373764, guid: c83c2ecdccc5c4e42a0c6b0d758735f3, type: 3}
   gunEnd: {fileID: 4522083825481786314}
   playerState: {fileID: 0}
-  pointerScript: {fileID: 0}
   spriteRenderer: {fileID: 851809470009851409}
   fireRate: 0
   dispersion: 0.02
@@ -217,10 +216,6 @@ MonoBehaviour:
   weaponOffset: {x: 0, y: 0, z: 0}
   reloadAmount: 1
   autoReload: 1
-  AutoLockZone: {fileID: 0}
-  LockedTargetPointer: {fileID: 0}
-  targets: []
-  index: 0
 --- !u!114 &4229723477884905967
 MonoBehaviour:
   m_ObjectHideFlags: 0
