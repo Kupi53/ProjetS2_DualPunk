@@ -18,7 +18,7 @@ public class SmartWeaponScript : WeaponScript
 
         if (inHand && !reloading)
         {
-            playerState.pointerScript.spriteNumber = 2;
+            pointerScript.spriteNumber = 2;
         }
     }
 
@@ -37,7 +37,7 @@ public class SmartWeaponScript : WeaponScript
             SeekingBulletScript bulletScript = newBullet.GetComponent<SeekingBulletScript>();
             bulletScript.MoveDirection = newDirection;
             bulletScript.transform.eulerAngles = new Vector3(0, 0, newAngle);
-            bulletScript.target = playerState.pointerScript.target;
+            bulletScript.target = pointerScript.target;
         }
     }
 }

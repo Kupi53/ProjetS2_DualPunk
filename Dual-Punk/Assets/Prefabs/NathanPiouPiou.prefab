@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 3601345631294641985}
   - component: {fileID: 4157719503904639808}
   - component: {fileID: 6668199507099185680}
-  - component: {fileID: 6951860184099669573}
+  - component: {fileID: 7599136847487818925}
   - component: {fileID: 5536798300859352896}
   m_Layer: 0
   m_Name: NathanPiouPiou
@@ -216,7 +216,7 @@ MonoBehaviour:
   InLocalSpace: 0
   Interpolate: 1
   SlerpPosition: 0
---- !u!114 &6951860184099669573
+--- !u!114 &7599136847487818925
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -225,18 +225,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 2853303830935746606}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8460473f92773e74f9c436b5b690daa9, type: 3}
+  m_Script: {fileID: 11500000, guid: 18ca51c2304a4414993bd86bd661106f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bullet: {fileID: 5298557137024599475, guid: cf1a87b5cd3d7904dbe9dcf2013b111e, type: 3}
+  bullet: {fileID: 3137761784652373764, guid: c83c2ecdccc5c4e42a0c6b0d758735f3, type: 3}
   gunEnd: {fileID: 298094953147082344}
   playerState: {fileID: 0}
   spriteRenderer: {fileID: 8354761501384256457}
   fireRate: 0.1
-  dispersion: 0.01
-  reloadTime: 1.8
+  dispersion: 0.05
+  reloadTime: 1.6
   reloadTimer: 0
-  aimAccuracy: 1
+  aimAccuracy: 2
   weaponDistance: 0.7
   magSize: 0
   maxMagSize: 50

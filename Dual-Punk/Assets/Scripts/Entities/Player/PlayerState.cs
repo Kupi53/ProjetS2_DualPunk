@@ -17,7 +17,7 @@ public class PlayerState : MonoBehaviour
     public float DashCooldown = 0.0f;
     public float DashCooldownMax = 1.0f;
 
-    public PointerScript pointerScript;
+    public GameObject Pointer;
     public GameObject Weapon;
 
 
