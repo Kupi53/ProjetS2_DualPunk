@@ -28,7 +28,7 @@ public class PointerScript : MonoBehaviour
     void Start()
     {
         playerState = transform.root.gameObject.GetComponent<LocalPlayerReference>().playerState;
-        playerState.pointerScript = GetComponent<PointerScript>();
+        playerState.Pointer = gameObject;
     }
 
 
@@ -90,7 +90,7 @@ public class PointerScript : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Ennemy"))
         {
-            //target = null;
+            target = null;
         }
     }
 }

@@ -3,14 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using UnityEngine.UIElements;
+using UnityEngine.XR;
 
 
 public class KnifeScript : MonoBehaviour
 {
     public PlayerState playerState;
+    public PointerScript pointerScript;
     public SpriteRenderer spriteRenderer;
 
     public int attack;
+    public bool inHand;
     public bool attacking;
     public float weaponDistance;
     public float resetCooldown;
@@ -32,6 +35,19 @@ public class KnifeScript : MonoBehaviour
         attacking = false;
         weaponOffset = new Vector3(0, 0.5f, 0);
         currentWeaponDistance = weaponDistance;
+    }
+
+
+    public void Update()
+    {
+        //Faire des animations ici
+        if (inHand)
+        {
+            pointerScript = playerState.Pointer.GetComponent<PointerScript>();
+            pointerScript.spriteNumber = 1;
+        }
+        else
+            pointerScript = null;
     }
 
 

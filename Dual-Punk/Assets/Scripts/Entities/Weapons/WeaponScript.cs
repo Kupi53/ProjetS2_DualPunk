@@ -12,6 +12,7 @@ public class WeaponScript : NetworkBehaviour
     public GameObject bullet;
     public GameObject gunEnd;
     public PlayerState? playerState;
+    public PointerScript? pointerScript;
     public SpriteRenderer spriteRenderer;
 
     public float fireRate;
@@ -45,9 +46,14 @@ public class WeaponScript : NetworkBehaviour
 
     public void Update()
     {
-        //Faire des aniations ici
+        //Faire des animations ici
         if (inHand)
-            playerState.pointerScript.spriteNumber = 1;
+        {
+            pointerScript = playerState.Pointer.GetComponent<PointerScript>();
+            pointerScript.spriteNumber = 1;
+        }
+        else
+            pointerScript = null;
     }
 
 
@@ -84,7 +90,7 @@ public class WeaponScript : NetworkBehaviour
 
         if (reloading)
         {
-            playerState.pointerScript.spriteNumber = 0;
+            pointerScript.spriteNumber = 0;
 
             if (reloadTimer >= reloadTime)
             {

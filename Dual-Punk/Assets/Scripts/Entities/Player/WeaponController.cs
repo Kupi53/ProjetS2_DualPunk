@@ -46,14 +46,16 @@ public class WeaponController : NetworkBehaviour
                     playerState.Weapon = Weapon;
                     playerState.HoldingWeapon = true;
                     weaponScript = Weapon.GetComponent<WeaponScript>();
-                    weaponScript.inHand = true;
                     weaponScript.playerState = playerState;
+                    weaponScript.inHand = true;
                 }
                 else if (Weapon.CompareTag("Knife"))
                 {
                     playerState.Weapon = Weapon;
                     playerState.HoldingKnife = true;
                     knifeScript = Weapon.GetComponent<KnifeScript>();
+                    knifeScript.playerState = playerState;
+                    knifeScript.inHand = true;
                 }
             }
         }
@@ -62,7 +64,7 @@ public class WeaponController : NetworkBehaviour
         //Quand le joueur tient une arme a feu
         if (playerState.HoldingWeapon)
         {
-            direction = (playerState.pointerScript.position - transform.position - weaponScript.weaponOffset).normalized;
+            direction = (playerState.Pointer.transform.position - transform.position - weaponScript.weaponOffset).normalized;
 
             weaponScript.Run(transform.position, direction);
 
@@ -71,7 +73,7 @@ public class WeaponController : NetworkBehaviour
                 weaponScript.ResetReload();
                 weaponScript.inHand = false;
                 playerState.HoldingWeapon = false;
-                playerState.pointerScript.spriteNumber = 0;
+                weaponScript.pointerScript.spriteNumber = 0;
             }
         }
 
@@ -80,13 +82,14 @@ public class WeaponController : NetworkBehaviour
         {
             if (!knifeScript.attacking)
             {
-                direction = (playerState.pointerScript.position - transform.position - knifeScript.weaponOffset).normalized;
+                direction = (playerState.Pointer.transform.position - transform.position - knifeScript.weaponOffset).normalized;
 
                 if (Input.GetButtonDown("Drop"))
                 {
-                    playerState.pointerScript.spriteNumber = 0;
-                    playerState.HoldingKnife = false;
                     knifeScript.ResetAttack();
+                    knifeScript.inHand = false;
+                    playerState.HoldingKnife = false;
+                    knifeScript.pointerScript.spriteNumber = 0;
                 }
             }
 
