@@ -23,6 +23,7 @@ public class PointerScript : MonoBehaviour
     public GameObject? target;
     public Vector3 position;
     public int spriteNumber;
+    public bool locked;
 
 
     void Start()
