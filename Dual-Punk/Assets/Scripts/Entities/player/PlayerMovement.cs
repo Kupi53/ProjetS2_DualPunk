@@ -76,9 +76,9 @@ public class PlayerMovement : NetworkBehaviour
             // Direction du deplacement
             moveDirection = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical") * 0.5f).normalized;
             // Direction du pointeur
-            if (playerState.pointerScript != null){
-                pointerDirection = (playerState.pointerScript.position - transform.position).normalized;
-            }
+            if (playerState.Pointer != null)
+                pointerDirection = (playerState.Pointer.transform.position - transform.position).normalized;
+            
             if (Input.GetAxis("Horizontal") != 0 && Input.GetAxis("Vertical") != 0)
                 moveDirection *= 0.8f;
             else if (Input.GetAxis("Horizontal") == 0)

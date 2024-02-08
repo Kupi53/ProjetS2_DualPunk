@@ -38,7 +38,7 @@ public class SmartWeaponScript : WeaponScript
             SeekingBulletScript bulletScript = newBullet.GetComponent<SeekingBulletScript>();
             bulletScript.MoveDirection = newDirection;
             bulletScript.transform.eulerAngles = new Vector3(0, 0, newAngle);
-            bulletScript.target = playerState.pointerScript.target;
+            bulletScript.target = pointerScript.target;
             NetworkObject bulletNetwork = newBullet.GetComponent<NetworkObject>();
             bulletNetwork.Spawn();
         }
