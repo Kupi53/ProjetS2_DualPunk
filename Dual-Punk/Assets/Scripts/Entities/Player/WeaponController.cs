@@ -38,31 +38,34 @@ public class WeaponController : NetworkBehaviour
         {
             if (Input.GetButtonDown("Switch"))
                 index = (index + 1) % weapons.Count;
-
             Weapon = weapons[index];
-            Weapon.GetComponent<HighlightWeapon>().Highlight();
-
-            if (Input.GetButtonDown("Pickup"))
+            weaponScript = Weapon.GetComponent<WeaponScript>();
+            if (!weaponScript.inHand)
             {
-                index = 0;
+                Weapon.GetComponent<HighlightWeapon>().Highlight();
 
-                if (Weapon.CompareTag("Weapon"))
+                if (Input.GetButtonDown("Pickup"))
                 {
-                    playerState.Weapon = Weapon;
-                    playerState.HoldingWeapon = true;
-                    weaponScript = Weapon.GetComponent<WeaponScript>();
-                    weaponScript.playerState = playerState;
-                    weaponScript.inHand = true;
-                }
-                else if (Weapon.CompareTag("Knife"))
-                {
-                    playerState.Weapon = Weapon;
-                    playerState.HoldingKnife = true;
-                    knifeScript = Weapon.GetComponent<KnifeScript>();
-                    knifeScript.playerState = playerState;
-                    knifeScript.inHand = true;
+                    index = 0;
+                    if (Weapon.CompareTag("Weapon") )
+                    {
+                        playerState.Weapon = Weapon;
+                        playerState.HoldingWeapon = true;
+                        weaponScript = Weapon.GetComponent<WeaponScript>();
+                        weaponScript.playerState = playerState;
+                        weaponScript.inHand = true;
+                    }
+                    else if (Weapon.CompareTag("Knife"))
+                    {
+                        playerState.Weapon = Weapon;
+                        playerState.HoldingKnife = true;
+                        knifeScript = Weapon.GetComponent<KnifeScript>();
+                        knifeScript.playerState = playerState;
+                        knifeScript.inHand = true;
+                    }
                 }
             }
+            
         }
 
         //Gere les scripts des armes
@@ -72,7 +75,6 @@ public class WeaponController : NetworkBehaviour
             direction = (playerState.Pointer.transform.position - transform.position - weaponScript.weaponOffset).normalized;
 
             weaponScript.Run(transform.position, direction);
-
             if (Input.GetButtonDown("Drop"))
             {
                 weaponScript.ResetReload();

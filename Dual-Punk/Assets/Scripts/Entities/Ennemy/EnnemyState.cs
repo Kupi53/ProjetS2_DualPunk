@@ -4,7 +4,7 @@ using Unity.Netcode;
 using Unity.Netcode.Components;
 using UnityEngine;
 
-public class EnnemyState : MonoBehaviour
+public class EnnemyState : NetworkBehaviour
 {
     public float health;
 
@@ -20,6 +20,7 @@ public class EnnemyState : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if(!IsServer) return;
         health = data.Health;
         damage = data.Damage;
         speed = data.Speed;
@@ -30,6 +31,7 @@ public class EnnemyState : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(!IsServer) return;
         PathFinding();
     }
 
@@ -41,22 +43,25 @@ public class EnnemyState : MonoBehaviour
     }
 
     public void OnDamage(float damage){
+        if(!IsServer) return;
         health -= damage;
         StartCoroutine(VisualIndicator(Color.red));
         CheckDeath();
     }
     private void CheckDeath(){
+        if(!IsServer) return;
         if (health <= 0){
             Destroy(gameObject);
         }
     }
 
     private void PathFinding(){
-        Debug.Log(player.transform.position);
+        if(!IsServer) return;
         transform.position = Vector2.MoveTowards(transform.position, player.transform.position, speed* Time.deltaTime);
     }
 
     private void OnTriggerEnter2D(Collider2D collider){
+        if(!IsServer) return;
         if(collider.GetComponent<PlayerState>()!=null){
             collider.GetComponent<PlayerState>().Damage(damage);
             Debug.Log("Ennemy is touching you !");

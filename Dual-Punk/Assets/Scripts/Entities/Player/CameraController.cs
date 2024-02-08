@@ -7,9 +7,9 @@ using UnityEngine;
 using Unity.Networking;
 
 
-public class CameraController : NetworkBehaviour
+public class CameraController : MonoBehaviour
 {
-    [SerializeField] private GameObject Player;
+    [SerializeField] public GameObject Player;
 
     private Vector3 Offset;
     private Vector3 Velocity;

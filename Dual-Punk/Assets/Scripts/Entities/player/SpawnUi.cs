@@ -8,15 +8,19 @@ public class SpawnUi : NetworkBehaviour
     [SerializeField] private GameObject UI;
     [SerializeField] private GameObject Camera;
     private GameObject LocalUI;
+    private GameObject LocalCamera;
 
     void Start()
     {
         if (IsLocalPlayer)
         {
             LocalUI = Instantiate(UI);
+            LocalCamera = Instantiate(Camera);
             LocalUI.name = gameObject.name + " UI";
+            LocalCamera.name = gameObject.name + " Camera";
+            LocalCamera.GetComponent<CameraController>().Player = gameObject;
             LocalUI.GetComponent<LocalPlayerReference>().LOCALPLAYER = gameObject;
-            LocalUI.GetComponent<LocalPlayerReference>().Camera = Camera;
+            LocalUI.GetComponent<LocalPlayerReference>().Camera = LocalCamera;
         }
     }
 }

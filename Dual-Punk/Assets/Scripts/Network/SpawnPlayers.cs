@@ -14,7 +14,7 @@ public class SpawnPlayers : NetworkBehaviour
         if (IsHost){
             Debug.Log("host de merde");
             GameObject player = Instantiate(playerPrefabA, new Vector3(0,0,0), transform.rotation);
-            player.GetComponentInChildren<NetworkObject>().SpawnAsPlayerObject(NetworkManager.Singleton.LocalClientId);
+            player.GetComponent<NetworkObject>().SpawnAsPlayerObject(NetworkManager.Singleton.LocalClientId);
         }
         else{
             Debug.Log("client de merde");   
@@ -23,7 +23,7 @@ public class SpawnPlayers : NetworkBehaviour
     }
     [ServerRpc(RequireOwnership = false)]
     public void SpawnServerRPC(ulong clientId){
-        GameObject player = Instantiate(playerPrefabB, new Vector3(0,0,0), Quaternion.identity).gameObject;
+        GameObject player = Instantiate(playerPrefabB, new Vector3(0,0,0), transform.rotation);
         player.GetComponent<NetworkObject>().SpawnAsPlayerObject(clientId);
         Debug.Log("client de merde");
     }

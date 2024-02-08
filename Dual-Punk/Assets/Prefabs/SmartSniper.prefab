@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 851809470009851409}
   - component: {fileID: 1393161904206046293}
   - component: {fileID: 4929022784131720752}
-  - component: {fileID: 6240376241709379562}
   - component: {fileID: 6194921478525316530}
   - component: {fileID: 4229723477884905967}
+  - component: {fileID: -6643820295790352462}
   m_Layer: 0
   m_Name: SmartSniper
   m_TagString: Weapon
@@ -155,36 +155,6 @@ MonoBehaviour:
   SpawnWithObservers: 1
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
---- !u!114 &6240376241709379562
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3523624623969322734}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e96cb6065543e43c4a752faaa1468eb1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SyncPositionX: 1
-  SyncPositionY: 1
-  SyncPositionZ: 1
-  SyncRotAngleX: 1
-  SyncRotAngleY: 1
-  SyncRotAngleZ: 1
-  SyncScaleX: 1
-  SyncScaleY: 1
-  SyncScaleZ: 1
-  PositionThreshold: 0.001
-  RotAngleThreshold: 0.01
-  ScaleThreshold: 0.01
-  UseQuaternionSynchronization: 0
-  UseQuaternionCompression: 0
-  UseHalfFloatPrecision: 0
-  InLocalSpace: 0
-  Interpolate: 0
-  SlerpPosition: 0
 --- !u!114 &6194921478525316530
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -200,6 +170,7 @@ MonoBehaviour:
   bullet: {fileID: 3137761784652373764, guid: c83c2ecdccc5c4e42a0c6b0d758735f3, type: 3}
   gunEnd: {fileID: 4522083825481786314}
   playerState: {fileID: 0}
+  pointerScript: {fileID: 0}
   spriteRenderer: {fileID: 851809470009851409}
   damage: 50
   fireRate: 0
@@ -232,6 +203,36 @@ MonoBehaviour:
   normal: {fileID: 21300000, guid: f1629d059e7fb7041b1ec180942b2993, type: 3}
   highlighted: {fileID: 21300000, guid: 19b9ce38bd362ef48b30cd386b720e3f, type: 3}
   spriteRenderer: {fileID: 851809470009851409}
+--- !u!114 &-6643820295790352462
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3523624623969322734}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ff6716d2edc76c46ace58a3377b080f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SyncPositionX: 1
+  SyncPositionY: 1
+  SyncPositionZ: 1
+  SyncRotAngleX: 1
+  SyncRotAngleY: 1
+  SyncRotAngleZ: 1
+  SyncScaleX: 1
+  SyncScaleY: 1
+  SyncScaleZ: 1
+  PositionThreshold: 0.001
+  RotAngleThreshold: 0.01
+  ScaleThreshold: 0.01
+  UseQuaternionSynchronization: 0
+  UseQuaternionCompression: 0
+  UseHalfFloatPrecision: 0
+  InLocalSpace: 0
+  Interpolate: 0
+  SlerpPosition: 0
 --- !u!1 &4522083825481786314
 GameObject:
   m_ObjectHideFlags: 0

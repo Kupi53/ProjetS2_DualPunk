@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 3628626176491043060}
   - component: {fileID: 7547148938412414778}
   - component: {fileID: 8969328688938474120}
-  - component: {fileID: 5118538193299508354}
   - component: {fileID: 3101570405284729770}
   - component: {fileID: 8556322678607386002}
+  - component: {fileID: -7815886583125092397}
   m_Layer: 0
   m_Name: Katana
   m_TagString: Knife
@@ -154,36 +154,6 @@ MonoBehaviour:
   SpawnWithObservers: 1
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
---- !u!114 &5118538193299508354
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3553326147683758454}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e96cb6065543e43c4a752faaa1468eb1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SyncPositionX: 1
-  SyncPositionY: 1
-  SyncPositionZ: 1
-  SyncRotAngleX: 1
-  SyncRotAngleY: 1
-  SyncRotAngleZ: 1
-  SyncScaleX: 1
-  SyncScaleY: 1
-  SyncScaleZ: 1
-  PositionThreshold: 0.001
-  RotAngleThreshold: 0.01
-  ScaleThreshold: 0.01
-  UseQuaternionSynchronization: 0
-  UseQuaternionCompression: 0
-  UseHalfFloatPrecision: 0
-  InLocalSpace: 0
-  Interpolate: 0
-  SlerpPosition: 0
 --- !u!114 &3101570405284729770
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -197,8 +167,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerState: {fileID: 0}
+  pointerScript: {fileID: 0}
   spriteRenderer: {fileID: 3628626176491043060}
   attack: 0
+  inHand: 0
   attacking: 0
   weaponDistance: 0.7
   resetCooldown: 1
@@ -222,3 +194,33 @@ MonoBehaviour:
   normal: {fileID: 21300000, guid: fece9090c0c0b3546a6043512f841178, type: 3}
   highlighted: {fileID: 21300000, guid: 1b5bef0368f62734599837aa35cfdf8d, type: 3}
   spriteRenderer: {fileID: 3628626176491043060}
+--- !u!114 &-7815886583125092397
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3553326147683758454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ff6716d2edc76c46ace58a3377b080f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SyncPositionX: 1
+  SyncPositionY: 1
+  SyncPositionZ: 1
+  SyncRotAngleX: 1
+  SyncRotAngleY: 1
+  SyncRotAngleZ: 1
+  SyncScaleX: 1
+  SyncScaleY: 1
+  SyncScaleZ: 1
+  PositionThreshold: 0.001
+  RotAngleThreshold: 0.01
+  ScaleThreshold: 0.01
+  UseQuaternionSynchronization: 0
+  UseQuaternionCompression: 0
+  UseHalfFloatPrecision: 0
+  InLocalSpace: 0
+  Interpolate: 0
+  SlerpPosition: 0

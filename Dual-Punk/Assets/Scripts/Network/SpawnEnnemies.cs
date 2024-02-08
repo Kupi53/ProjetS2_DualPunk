@@ -12,8 +12,9 @@ public class SpawnEnnemies : NetworkBehaviour
 
     public override void OnNetworkSpawn()
     {
-        GameObject bot = Instantiate(randomEnnemy, new Vector3(-0.51f,-4.29f,0), Quaternion.identity);
-        spawnedEnnemy = bot.GetComponent<NetworkObject>();
-        spawnedEnnemy.Spawn();
-      }
+      if (!IsServer) return;  
+      GameObject bot = Instantiate(randomEnnemy, new Vector3(-0.51f,-4.29f,0), Quaternion.identity);
+      spawnedEnnemy = bot.GetComponent<NetworkObject>();
+      spawnedEnnemy.Spawn();
+    }
 }

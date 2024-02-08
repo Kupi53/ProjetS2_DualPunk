@@ -173,8 +173,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8081f8ec8ea25e4abdc8a8871d97938, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPrefabA: {fileID: 125098735201231728, guid: 39d7173fd00881149ae057bb784c8bd1, type: 3}
-  playerPrefabB: {fileID: 2088521937311669635, guid: 3f53453140357374b9d94e6f1d5a8fa7, type: 3}
+  playerPrefabA: {fileID: 7898736215898924539, guid: 2fd5569aaa9b023419d0d7775a666b76, type: 3}
+  playerPrefabB: {fileID: 7898736215898924539, guid: 49266e8bac6ba9d4f92307cdd141c3c3, type: 3}
 --- !u!4 &216955234
 Transform:
   m_ObjectHideFlags: 0
@@ -5564,6 +5564,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2027551280}
     m_Modifications:
+    - target: {fileID: -6128434064685948543, guid: 2aa24079ea5cf324c9968a9df667c0ab, type: 3}
+      propertyPath: SyncPositionX
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 156933350303824626, guid: 2aa24079ea5cf324c9968a9df667c0ab, type: 3}
       propertyPath: m_Name
       value: Shotgun1
@@ -5619,13 +5623,63 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 156933350303824626, guid: 2aa24079ea5cf324c9968a9df667c0ab, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1890179251}
+    - targetCorrespondingSourceObject: {fileID: 156933350303824626, guid: 2aa24079ea5cf324c9968a9df667c0ab, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1890179250}
   m_SourcePrefab: {fileID: 100100000, guid: 2aa24079ea5cf324c9968a9df667c0ab, type: 3}
 --- !u!4 &1890179248 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6070574959440917383, guid: 2aa24079ea5cf324c9968a9df667c0ab, type: 3}
   m_PrefabInstance: {fileID: 1890179247}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1890179249 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 156933350303824626, guid: 2aa24079ea5cf324c9968a9df667c0ab, type: 3}
+  m_PrefabInstance: {fileID: 1890179247}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1890179250
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1890179249}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80d7c879794dfda4687da0e400131852, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!50 &1890179251
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1890179249}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &2027551279
 GameObject:
   m_ObjectHideFlags: 0
@@ -5780,7 +5834,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: AutolockAR
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 0}
+    - {fileID: 0}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
