@@ -17,7 +17,7 @@ public class SpawnPlayers : NetworkBehaviour
             player.GetComponentInChildren<NetworkObject>().SpawnAsPlayerObject(NetworkManager.Singleton.LocalClientId);
         }
         else{
-            Debug.Log("client de merde");
+            Debug.Log("client de merde");   
             SpawnServerRPC(NetworkManager.Singleton.LocalClientId);
         }
     }

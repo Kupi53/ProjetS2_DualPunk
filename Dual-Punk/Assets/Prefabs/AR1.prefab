@@ -253,6 +253,7 @@ MonoBehaviour:
   gunEnd: {fileID: 7751566459779938819}
   playerState: {fileID: 0}
   spriteRenderer: {fileID: 6375131043796351911}
+  damage: 10
   fireRate: 0.15
   dispersion: 0.1
   reloadTime: 1.2

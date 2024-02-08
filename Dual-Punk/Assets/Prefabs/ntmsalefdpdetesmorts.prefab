@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 4248386606771748690}
   - component: {fileID: -3888720248179441692}
   - component: {fileID: 4043952418168445416}
-  - component: {fileID: -2497419794516822679}
   - component: {fileID: 7528638334341656761}
   - component: {fileID: 2909192396974194660}
   - component: {fileID: -4606354589101628817}
@@ -181,22 +180,6 @@ MonoBehaviour:
   DashCooldownMax: 1
   Pointer: {fileID: 0}
   Weapon: {fileID: 0}
---- !u!114 &-2497419794516822679
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7898736215898924539}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0de8d8ef811bcbe4cb0e5b245ef30576, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 100
-  damage: 10
-  Stats: 
-  Health: 0
 --- !u!114 &7528638334341656761
 MonoBehaviour:
   m_ObjectHideFlags: 0

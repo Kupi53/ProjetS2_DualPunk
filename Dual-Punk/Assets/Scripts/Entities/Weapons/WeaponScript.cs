@@ -14,7 +14,7 @@ public class WeaponScript : NetworkBehaviour
     public PlayerState? playerState;
     public PointerScript? pointerScript;
     public SpriteRenderer spriteRenderer;
-
+    public int damage;
     public float fireRate;
     public float dispersion;
     public float reloadTime;

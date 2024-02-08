@@ -9,9 +9,12 @@ public class LocalPlayerReference : MonoBehaviour
     public GameObject LOCALPLAYER;
     public GameObject Camera;
     public PlayerState playerState;
+
+    #nullable enable
     public WeaponScript? weaponScript;
     public KnifeScript? knifeScript;
-
+    
+    #nullable disable
 
     private void Start()
     {
