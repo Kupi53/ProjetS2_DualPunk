@@ -13,7 +13,6 @@ public class SpawnUi : NetworkBehaviour
     {
         if (IsLocalPlayer)
         {
-            Debug.Log("super");
             LocalUI = Instantiate(UI);
             LocalUI.name = gameObject.name + " UI";
             LocalUI.GetComponent<LocalPlayerReference>().LOCALPLAYER = gameObject;

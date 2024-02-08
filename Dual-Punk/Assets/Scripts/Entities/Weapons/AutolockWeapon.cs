@@ -16,15 +16,10 @@ public class AutolockWeapon : WeaponScript
 
         if (inHand)
         {
-            if (pointerScript.target != null)
+            if (pointerScript.target != null && Input.GetButtonDown("Switch"))
             {
-                if (Input.GetButtonDown("Switch"))
-                {
-                    pointerScript.locked = !pointerScript.locked;
-                }
+                pointerScript.locked = !pointerScript.locked;
             }
-            else
-                pointerScript.locked = false;
         }
     }
 }

@@ -18,10 +18,9 @@ public class CameraController : NetworkBehaviour
 
     void Start()
     {
-        Offset = new Vector3(0, 0, -10);
+        Offset = new Vector3(0, 0, -7);
         Velocity = Vector3.zero;
         SmoothTime = 0.25f;
-        Debug.Log("c");
     }
 
 
