@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
+using Unity.Netcode.Components;
 using UnityEngine;
 
 public class EnnemyState : MonoBehaviour
@@ -21,20 +23,16 @@ public class EnnemyState : MonoBehaviour
         health = data.Health;
         damage = data.Damage;
         speed = data.Speed;
-        player = GameObject.FindGameObjectWithTag("Player");
+        player = GameObject.FindGameObjectWithTag("Ntmtest");
+        
     }
 
     // Update is called once per frame
     void Update()
     {
         PathFinding();
-
     }
 
-    private IEnumerator Spawner(){
-        yield return new WaitForSeconds(0.0001f);
-
-    }
 
     private IEnumerator VisualIndicator(Color color){
         GetComponent<SpriteRenderer>().color = color;
@@ -54,6 +52,7 @@ public class EnnemyState : MonoBehaviour
     }
 
     private void PathFinding(){
+        Debug.Log(player.transform.position);
         transform.position = Vector2.MoveTowards(transform.position, player.transform.position, speed* Time.deltaTime);
     }
 
