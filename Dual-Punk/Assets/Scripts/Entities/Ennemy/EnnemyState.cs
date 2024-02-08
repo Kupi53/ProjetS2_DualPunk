@@ -21,7 +21,7 @@ public class EnnemyState : MonoBehaviour
         health = data.Health;
         damage = data.Damage;
         speed = data.Speed;
-        StartCoroutine(Spawner());
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
     // Update is called once per frame
@@ -33,7 +33,7 @@ public class EnnemyState : MonoBehaviour
 
     private IEnumerator Spawner(){
         yield return new WaitForSeconds(0.0001f);
-        player = GameObject.FindGameObjectWithTag("Player");
+
     }
 
     private IEnumerator VisualIndicator(Color color){
