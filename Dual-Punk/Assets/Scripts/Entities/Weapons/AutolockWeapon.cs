@@ -9,14 +9,13 @@ public class AutolockWeapon : WeaponScript
         base.Start();
     }
 
-    // Update is called once per frame
     void Update()
     {
         base.Update();
 
-        if (inHand && pointerScript.target != null)
+        if (inHand)
         {
-            if (Input.GetButtonDown("Switch"))
+            if (pointerScript.target != null && Input.GetButtonDown("Switch"))
             {
                 pointerScript.locked = !pointerScript.locked;
             }
