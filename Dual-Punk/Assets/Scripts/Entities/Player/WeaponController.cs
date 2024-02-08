@@ -11,9 +11,13 @@ public class WeaponController : NetworkBehaviour
 {
     private PlayerState playerState;
     private List<GameObject> weapons;
+
+    #nullable enable
     private WeaponScript? weaponScript;
     private KnifeScript? knifeScript;
     private GameObject? Weapon;
+    
+    #nullable disable
 
     private int index;
     private float angle;

@@ -15,7 +15,11 @@ public class PlayerState : MonoBehaviour
     public bool HoldingKnife = false;
     public float DashCooldown = 0.0f;
     public float DashCooldownMax = 1.0f;
+
+    #nullable enable
     public GameObject? Weapon;
+    
+    #nullable disable
 
     private void Awake()
     {

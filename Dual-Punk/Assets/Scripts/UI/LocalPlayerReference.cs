@@ -7,9 +7,12 @@ public class LocalPlayerReference : MonoBehaviour
 {
     public GameObject LOCALPLAYER;
     public PlayerState playerState;
+
+    #nullable enable
     public WeaponScript? weaponScript;
     public KnifeScript? knifeScript;
-
+    
+    #nullable disable
 
     private void Start()
     {
