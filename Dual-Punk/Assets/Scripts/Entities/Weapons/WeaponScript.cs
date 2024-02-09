@@ -60,6 +60,7 @@ public class WeaponScript : NetworkBehaviour
 
     public void Run(Vector3 position, Vector3 direction)
     {
+        Debug.Log("0");
         movePosition(position, weaponOffset, direction, weaponDistance);
         if ((Input.GetButton("Use") && auto && !reloading || Input.GetButtonDown("Use")) && fireTimer > fireRate && magSize > 0)
         {
@@ -100,7 +101,7 @@ public class WeaponScript : NetworkBehaviour
     }
 
     public void movePosition(Vector3 position, Vector3 weaponOffset, Vector3 direction, float weaponDistance){
-        //Debug.Log(GetComponent<NetworkObject>().OwnerClientId);
+        Debug.Log("2");
         float angle = (float)(Math.Atan2(direction.y, direction.x) * (180 / Math.PI));
         if (angle > 90 || angle < -90)
             spriteRenderer.flipY = true;
