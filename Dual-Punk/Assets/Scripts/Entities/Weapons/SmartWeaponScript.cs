@@ -20,6 +20,11 @@ public class SmartWeaponScript : WeaponScript
         if (inHand && !reloading)
         {
             pointerScript.spriteNumber = 2;
+
+            if (pointerScript.target != null && Input.GetButtonDown("Switch"))
+            {
+                pointerScript.locked = !pointerScript.locked;
+            }
         }
     }
 
