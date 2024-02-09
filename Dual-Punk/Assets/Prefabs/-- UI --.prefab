@@ -940,17 +940,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d4f94336d77b7f45a4f11014b41e8b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pointerNormal: {fileID: 21300000, guid: 010b16a6ebd0cdc4b8ad77f8053563a2, type: 3}
-  pointer1: {fileID: 21300000, guid: 8b05fb7f4d2d60e42a4228c8bca66e48, type: 3}
-  pointer2: {fileID: 21300000, guid: 16140eb948e71d74bb9586075cd2a16f, type: 3}
-  pointerAim1: {fileID: 21300000, guid: cf785be34e6e09240b5e2281aa94dd2c, type: 3}
-  pointerAim2: {fileID: 21300000, guid: de5d835e0ce90c942b64e9cd07c441ac, type: 3}
-  specialPointer1: {fileID: 21300000, guid: 4f49c04a6db0c0b4badc275f614b2b77, type: 3}
-  specialPointer2: {fileID: 21300000, guid: 243bafd811eb724418ec88facebfe5b9, type: 3}
+  PointerBase: {fileID: 21300000, guid: 76b7963040b26374bae7a894fc9e1b2d, type: 3}
+  Pointer1: {fileID: 21300000, guid: 8b05fb7f4d2d60e42a4228c8bca66e48, type: 3}
+  Pointer2: {fileID: 21300000, guid: 16140eb948e71d74bb9586075cd2a16f, type: 3}
+  Pointer3: {fileID: 21300000, guid: 56b35168b271e39498f2cd169929469a, type: 3}
+  Pointer4: {fileID: 21300000, guid: 75db11973ea9de04f80e00d3f9869194, type: 3}
+  SmartPointer1: {fileID: 21300000, guid: 24da230c6c77deb439308368b8653e44, type: 3}
+  SmartPointer2: {fileID: 21300000, guid: 20a930c0b74748e4796fceef5edcf87b, type: 3}
+  SmartPointer3: {fileID: 21300000, guid: 6a3c8bf5af9b3aa4c85f96707be64e1c, type: 3}
+  SmartPointer4: {fileID: 21300000, guid: ce9345307b088d043b4a091bb90c4208, type: 3}
   spriteRenderer: {fileID: 9172545623872268035}
   target: {fileID: 0}
   position: {x: 0, y: 0, z: 0}
   spriteNumber: 0
+  locked: 0
 --- !u!1 &3241151104222223355
 GameObject:
   m_ObjectHideFlags: 0
@@ -2111,6 +2114,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LOCALPLAYER: {fileID: 0}
+  Camera: {fileID: 0}
   playerState: {fileID: 0}
   weaponScript: {fileID: 0}
   knifeScript: {fileID: 0}

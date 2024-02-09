@@ -9,13 +9,15 @@ using UnityEngine.Networking.PlayerConnection;
 
 public class PointerScript : MonoBehaviour
 {
-    [SerializeField] private Sprite pointerNormal;
-    [SerializeField] private Sprite pointer1;
-    [SerializeField] private Sprite pointer2;
-    [SerializeField] private Sprite pointerAim1;
-    [SerializeField] private Sprite pointerAim2;
-    [SerializeField] private Sprite specialPointer1;
-    [SerializeField] private Sprite specialPointer2;
+    [SerializeField] private Sprite PointerBase;
+    [SerializeField] private Sprite Pointer1;
+    [SerializeField] private Sprite Pointer2;
+    [SerializeField] private Sprite Pointer3;
+    [SerializeField] private Sprite Pointer4;
+    [SerializeField] private Sprite SmartPointer1;
+    [SerializeField] private Sprite SmartPointer2;
+    [SerializeField] private Sprite SmartPointer3;
+    [SerializeField] private Sprite SmartPointer4;
     [SerializeField] private SpriteRenderer spriteRenderer;
 
     private LocalPlayerReference References;
@@ -50,40 +52,38 @@ public class PointerScript : MonoBehaviour
         switch (spriteNumber)
         {
             case 0:
-                spriteRenderer.sprite = pointerNormal;
+                spriteRenderer.sprite = PointerBase;
                 break;
 
             case 1:
-                if (References.playerState.Walking)
-                {
-                    if (target != null)
-                    {
-                        spriteRenderer.sprite = pointerAim2;
-                    }
-                    else
-                    {
-                        spriteRenderer.sprite = pointerAim1;
-                    }
-                }
-                else
-                {
-                    if (target != null)
-                    {
-                        spriteRenderer.sprite = pointer2;
-                    }
-                    else
-                    {
-                        spriteRenderer.sprite = pointer1;
-                    }
-                }
+                ChangePointer(Pointer1, Pointer2, Pointer3, Pointer4);
                 break;
 
             case 2:
-                if (target == null) spriteRenderer.sprite = specialPointer1;
-                else spriteRenderer.sprite = specialPointer2;
+                ChangePointer(SmartPointer1, SmartPointer2, SmartPointer3, SmartPointer4);
                 break;
         }
     }
+
+
+    private void ChangePointer(Sprite pointer1, Sprite pointer2, Sprite pointer3, Sprite pointer4)
+    {
+        if (!References.playerState.Walking)
+        {
+            if (target == null)
+                spriteRenderer.sprite = pointer1;
+            else
+                spriteRenderer.sprite = pointer2;
+        }
+        else
+        {
+            if (target == null)
+                spriteRenderer.sprite = pointer3;
+            else
+                spriteRenderer.sprite = pointer4;
+        }
+    }
+
 
 
     void OnTriggerStay2D(Collider2D collision)
