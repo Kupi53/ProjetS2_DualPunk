@@ -49,6 +49,8 @@ public class WeaponController : NetworkBehaviour
                     index = 0;
                     if (Weapon.CompareTag("Weapon") )
                     {
+                        NetworkObjectReference WeaponRef = new NetworkObjectReference(Weapon);
+                        OwnGunServerRpc(NetworkManager.Singleton.LocalClientId, WeaponRef);
                         playerState.Weapon = Weapon;
                         playerState.HoldingWeapon = true;
                         weaponScript = Weapon.GetComponent<WeaponScript>();
@@ -57,6 +59,8 @@ public class WeaponController : NetworkBehaviour
                     }
                     else if (Weapon.CompareTag("Knife"))
                     {
+                        NetworkObjectReference WeaponRef = new NetworkObjectReference(Weapon);
+                        OwnGunServerRpc(NetworkManager.Singleton.LocalClientId, WeaponRef);
                         playerState.Weapon = Weapon;
                         playerState.HoldingKnife = true;
                         knifeScript = Weapon.GetComponent<KnifeScript>();
@@ -106,7 +110,12 @@ public class WeaponController : NetworkBehaviour
         }
     }
 
-
+    [ServerRpc(RequireOwnership =false)]
+    void OwnGunServerRpc(ulong clientId, NetworkObjectReference weaponref){
+        Debug.Log(clientId);
+        weaponref.TryGet(out NetworkObject weapon);
+        weapon.GetComponent<NetworkObject>().ChangeOwnership(clientId);
+    }
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Weapon") || collision.gameObject.CompareTag("Knife"))
