@@ -38,10 +38,11 @@ public class ItemManager : NetworkBehaviour
                 _index = (_index + 1) % _items.Count;
 
             _item = _items[_index];
-            _item.GetComponent<HighlightItem>().Highlight();
 
             if (_item.CompareTag("Weapon") && !(_weaponScript = _item.GetComponent<WeaponScript>()).InHand)
             {
+                _item.GetComponent<HighlightItem>().Highlight();
+
                 if (Input.GetButtonDown("Pickup") && !_playerState.HoldingWeapon)
                 {
                     _index = 0;
@@ -54,14 +55,18 @@ public class ItemManager : NetworkBehaviour
             }
             else if (_item.CompareTag("Implant")) //Plus verifier que l'implant n'est pas sur une entite
             {
+                _item.GetComponent<HighlightItem>().Highlight();
+
                 if (Input.GetButtonDown("Pickup"))
                 {
                     _index = 0;
                     //Mettre l'implant dans l'inventaire ou le remplacer avec un autre
                 }
             }
-            else
+            else if (_item.CompareTag("Item"))
             {
+                _item.GetComponent<HighlightItem>().Highlight();
+
                 if (Input.GetButtonDown("Pickup"))
                 {
                     _index = 0;
