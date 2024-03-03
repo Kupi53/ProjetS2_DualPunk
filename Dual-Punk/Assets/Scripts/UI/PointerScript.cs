@@ -3,11 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
 using Unity.Properties;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Networking.PlayerConnection;
 
 
-public class PointerScript : NetworkBehaviour
+public class PointerScript : MonoBehaviour
 {
     [SerializeField] private Sprite _pointerBase;
     [SerializeField] private Sprite _pointer1;
@@ -18,9 +19,9 @@ public class PointerScript : NetworkBehaviour
     [SerializeField] private Sprite _smartPointer2;
     [SerializeField] private Sprite _smartPointer3;
     [SerializeField] private Sprite _smartPointer4;
-    [SerializeField] private SpriteRenderer _spriteRenderer;
-
+    
     private LocalPlayerReference _references;
+    private SpriteRenderer _spriteRenderer;
     private Vector3 _position;
 
     public int SpriteNumber { get; set; }
@@ -35,7 +36,6 @@ public class PointerScript : NetworkBehaviour
     {
         _references = transform.root.gameObject.GetComponent<LocalPlayerReference>();
         _references.PlayerState.Pointer = gameObject;
-
         _spriteRenderer = GetComponent<SpriteRenderer>();
     }
 

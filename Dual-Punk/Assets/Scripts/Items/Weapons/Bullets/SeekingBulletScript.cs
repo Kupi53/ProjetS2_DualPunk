@@ -7,12 +7,13 @@ using UnityEngine.EventSystems;
 
 public class SeekingBulletScript : BulletScript
 {
-    public GameObject? Target { get; set; }
-    
     public float RotateSpeed { get; set; }
 
+    #nullable enable
+    public GameObject? Target { get; set; }
+    #nullable disable
 
-    void FixedUpdate()
+    new void FixedUpdate()
     {
         base.FixedUpdate();
 

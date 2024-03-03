@@ -7,25 +7,28 @@ public class KnifeScript : WeaponScript
     [SerializeField] private float _attackSpeed;
     [SerializeField] private float _attackRange;
     [SerializeField] private float _attackDistance;
+    [SerializeField] private float _resetCooldown;
 
     private float _angle;
+    private float _attack;
     private float _rangeTop;
     private float _rangeMiddle;
     private float _rangeBottom;
+    private float _resetCooldownTimer;
     private float _currentWeaponDistance;
 
-    public float Attack { get; set; }
-
-    public float ResetCooldown { get; set; }
-    public float ResetCooldownTimer { get; set; }
+    public float Attack { get => _attack; set => _attack = value; }
+    
+    public float ResetCooldown { get => _resetCooldown; set => _resetCooldown = value; }
+    public float ResetCooldownTimer { get => _resetCooldownTimer; set => _resetCooldownTimer = value; }
 
 
 
     void Start()
     {
-        Attack = 0;
-        ResetCooldownTimer = 0;
-        _currentWeaponDistance = WeaponDistance;
+        _attack = 0;
+        _resetCooldownTimer = 0;
+        _currentWeaponDistance = _weaponDistance;
         _spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
@@ -45,19 +48,19 @@ public class KnifeScript : WeaponScript
 
     public override void Run(Vector3 position, Vector3 direction)
     {
-        if (Input.GetButtonDown("Use") && !PlayerState.Attacking && Attack < 3)
+        if (Input.GetButtonDown("Use") && !PlayerState.Attacking && _attack < 3)
         {
             _angle = (float)(Math.Atan2(direction.y, direction.x) * (180 / Math.PI));
 
-            Attack += 1;
-            ResetCooldownTimer = 0;
+            _attack += 1;
+            _resetCooldownTimer = 0;
             PlayerState.Attacking = true;
 
             _rangeMiddle = _angle;
             _rangeTop = _angle + _attackRange;
             _rangeBottom = _angle - _attackRange;
 
-            if (Attack == 2)
+            if (_attack == 2)
             {
                 _angle = _rangeBottom;
                 _spriteRenderer.flipY = true;
@@ -71,7 +74,7 @@ public class KnifeScript : WeaponScript
 
         if (PlayerState.Attacking)
         {
-            switch (Attack)
+            switch (_attack)
             {
                 case 1:
                     _angle -= _attackSpeed * Time.deltaTime;
@@ -103,7 +106,7 @@ public class KnifeScript : WeaponScript
         {
             _angle = (float)(Math.Atan2(direction.y, direction.x) * (180 / Math.PI));
 
-            switch (Attack)
+            switch (_attack)
             {
                 case 1:
                     _angle -= _attackRange;
@@ -121,10 +124,10 @@ public class KnifeScript : WeaponScript
         }
 
 
-        if (Attack != 0)
+        if (_attack != 0)
         {
-            ResetCooldownTimer += Time.deltaTime;
-            if (ResetCooldownTimer > ResetCooldown)
+            _resetCooldownTimer += Time.deltaTime;
+            if (_resetCooldownTimer > _resetCooldown)
             {
                 Reset();
             }
@@ -139,8 +142,8 @@ public class KnifeScript : WeaponScript
 
     public override void Reset()
     {
-        Attack = 0;
-        ResetCooldownTimer = 0;
-        _currentWeaponDistance = WeaponDistance;
+        _attack = 0;
+        _resetCooldownTimer = 0;
+        _currentWeaponDistance = _weaponDistance;
     }
 }

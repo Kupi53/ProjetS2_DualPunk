@@ -9,7 +9,7 @@ public class BulletScript : NetworkBehaviour
     private Rigidbody2D _rb2d;
 
     public int Damage { get; set; }
-    public int MoveSpeed { get; set; }
+    public float MoveSpeed { get; set; }
     public Vector3 MoveDirection {  get; set; }
 
 

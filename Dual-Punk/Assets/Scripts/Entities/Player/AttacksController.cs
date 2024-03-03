@@ -9,25 +9,25 @@ using UnityEngine.Playables;
 
 public class AttacksController : NetworkBehaviour
 {
-    private PlayerState _playerState;
     private Vector3 _direction;
+    private PlayerState _playerState;
 
-#nullable enable
-    private GameObject? _weapon;
+    #nullable enable
     private WeaponScript? _weaponScript;
-#nullable disable
+    #nullable disable
 
 
     private void Start()
     {
         _playerState = GetComponent<PlayerState>();
-
     }
 
     private void Update()
     {
         if (_playerState.HoldingWeapon)
         {
+            _weaponScript = _playerState.Weapon.GetComponent<WeaponScript>();
+
             if (!_playerState.Attacking)
             {
                 _direction = (_playerState.Pointer.transform.position - transform.position - _weaponScript.WeaponOffset).normalized;

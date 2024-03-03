@@ -8,12 +8,11 @@ using TMPro;
 using System.Data.SqlTypes;
 
 
-public class PlayerController : NetworkBehaviour
+public class MouvementsController : NetworkBehaviour
 {
     private Rigidbody2D _rb2d;
     private Animator _animator;
     private PlayerState _playerState;
-    private SpriteRenderer _spriteRenderer;
 
     // Constantes qui sont les noms des sprites du joueur
     const string PLAYER_N = "Player N";
@@ -60,7 +59,6 @@ public class PlayerController : NetworkBehaviour
         _rb2d = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
         _playerState = GetComponent<PlayerState>();
-        _spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -121,7 +119,7 @@ public class PlayerController : NetworkBehaviour
                 moveSpeed = _sprintSpeed;
             }
 
-            if (_playerState.HoldingWeapon && !SameDirection(moveAngle, pointerAngle, 60)) {
+            if (_playerState.HoldingWeapon && !Methods.SameDirection(moveAngle, pointerAngle, 60)) {
                 moveFactor *= _moveBackFactor;
             }
 
@@ -156,17 +154,6 @@ public class PlayerController : NetworkBehaviour
         }
     }
 
-
-    bool SameDirection(float angle1, float angle2, int margin) 
-    {
-        if (angle1 + margin > 180 && (angle2 > angle1 - margin || angle2 < -360 + angle1 + margin))
-            return true;
-        else if (angle1 - margin < -180 && (angle2 < angle1 + margin || angle2 > 360 - angle1 - margin))
-            return true;
-        else if (angle2 < angle1 + margin && angle2 > angle1 - margin)
-            return true;
-        return false;
-    }
 
     // Utilise dans anim mouvement, change l'animation en fonction des constantes Player_S, Player_...
     void ChangeAnimation(string newState)

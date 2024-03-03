@@ -228,17 +228,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18ca51c2304a4414993bd86bd661106f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bullet: {fileID: 0}
-  _gunEnd: {fileID: 0}
-  _damage: 0
-  _maxMagSize: 0
-  _bulletNumber: 0
-  _reloadAmount: 0
-  _fireRate: 0
-  _dispersion: 0
-  _aimAccuracy: 0
-  _autoReload: 0
-  _auto: 0
+  _weaponDistance: 0.7
+  _weaponOffset: {x: 0, y: 0.5, z: 0}
+  _bullet: {fileID: 3137761784652373764, guid: c83c2ecdccc5c4e42a0c6b0d758735f3, type: 3}
+  _gunEnd: {fileID: 3833763891036575703}
+  _damage: 9
+  _maxMagSize: 25
+  _bulletNumber: 1
+  _reloadAmount: 25
+  _fireRate: 0.2
+  _dispersion: 0.08
+  _reloadTime: 1.5
+  _aimAccuracy: 4
+  _bulletSpeed: 15
+  _autoReload: 1
+  _auto: 1
+  _bulletRotateSpeed: 4
 --- !u!114 &920262741264380314
 MonoBehaviour:
   m_ObjectHideFlags: 0

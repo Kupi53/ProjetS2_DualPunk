@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -10,8 +11,10 @@ public abstract class WeaponScript : NetworkBehaviour
     public PointerScript PointerScript { get; set; }
     public bool InHand { get; set; } = false;
 
-    public Vector3 WeaponOffset { get; set; }
-    public float WeaponDistance { get; set; }
+    [SerializeField] protected float _weaponDistance;
+    [SerializeField] protected Vector3 _weaponOffset;
+    
+    public Vector3 WeaponOffset { get => _weaponOffset; set => _weaponOffset = value; }
 
     protected SpriteRenderer _spriteRenderer;
 

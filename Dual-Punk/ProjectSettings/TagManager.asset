@@ -10,6 +10,9 @@ TagManager:
   - Weapon
   - Knife
   - PlayerObject
+  - Ntmtest
+  - Item
+  - Implant
   layers:
   - Default
   - TransparentFX

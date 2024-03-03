@@ -13,31 +13,38 @@ public class FireArmScript : WeaponScript
     [SerializeField] protected GameObject _bullet;
     [SerializeField] protected GameObject _gunEnd;
 
-    [SerializeField] private int _damage;
+    [SerializeField] protected int _damage;
     [SerializeField] private int _maxMagSize;
     [SerializeField] protected int _bulletNumber;
     [SerializeField] private int _reloadAmount;
 
     [SerializeField] private float _fireRate;
     [SerializeField] private float _dispersion;
+    [SerializeField] private float _reloadTime;
     [SerializeField] protected float _aimAccuracy;
+    [SerializeField] protected float _bulletSpeed;
 
     [SerializeField] private bool _autoReload;
     [SerializeField] private bool _auto;
 
+    private int _currentMagSize;
+    private float _reloadTimer;
     private float _fireTimer;
+    protected bool _reloading;
 
-    public int CurrentMagSize { get; set; }
-    public float ReloadTime { get; set; }
-    public float ReloadTimer {  get; set; }
-    public bool Reloading { get; set; }
+    
+    public int CurrentMagSize { get => _currentMagSize; set => _currentMagSize = value; }
+    public float ReloadTime { get => _reloadTime; set => _reloadTime = value; }
+    public float ReloadTimer {  get => _reloadTimer; set => _reloadTimer = value; }
+    public bool Reloading { get => _reloading; set => _reloading = value; }
 
 
     public void Start()
     {
-        ReloadTimer = 0;
+        _reloadTimer = 0;
+        _reloading = false;
         _fireTimer = _fireRate;
-        CurrentMagSize = _maxMagSize;
+        _currentMagSize = _maxMagSize;
         _spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
@@ -57,43 +64,43 @@ public class FireArmScript : WeaponScript
 
     public override void Run(Vector3 position, Vector3 direction)
     {
-        movePosition(position, WeaponOffset, direction, WeaponDistance);
+        movePosition(position, _weaponOffset, direction, _weaponDistance);
 
-        if ((Input.GetButton("Use") && _auto && !Reloading || Input.GetButtonDown("Use")) && _fireTimer > _fireRate && CurrentMagSize > 0)
+        if ((Input.GetButton("Use") && _auto && !_reloading || Input.GetButtonDown("Use")) && _fireTimer > _fireRate && _currentMagSize > 0)
         {
-            if (Reloading)
+            if (_reloading)
                 Reset();
 
             if (IsHost)
                 Fire(direction, _dispersion);
 
             _fireTimer = 0;
-            CurrentMagSize--;
+            _currentMagSize--;
         }
         else
             _fireTimer += Time.deltaTime;
 
 
-        if (Input.GetButtonDown("Reload") && CurrentMagSize != _maxMagSize || _autoReload && CurrentMagSize == 0)
-            Reloading = true;
+        if (Input.GetButtonDown("Reload") && _currentMagSize != _maxMagSize || _autoReload && _currentMagSize == 0)
+            _reloading = true;
 
-        if (Reloading)
+        if (_reloading)
         {
             PointerScript.SpriteNumber = 0;
 
-            if (ReloadTimer >= ReloadTime)
+            if (_reloadTimer >= _reloadTime)
             {
-                ReloadTimer = 0;
-                if (CurrentMagSize + _reloadAmount < _maxMagSize)
-                    CurrentMagSize += _reloadAmount;
+                _reloadTimer = 0;
+                if (_currentMagSize + _reloadAmount < _maxMagSize)
+                    _currentMagSize += _reloadAmount;
                 else
                 {
-                    Reloading = false;
-                    CurrentMagSize = _maxMagSize;
+                    _reloading = false;
+                    _currentMagSize = _maxMagSize;
                 }
             }
             else
-                ReloadTimer += Time.deltaTime;
+                _reloadTimer += Time.deltaTime;
         }   
     }
 
@@ -111,8 +118,8 @@ public class FireArmScript : WeaponScript
 
     public override void Reset()
     {
-        ReloadTimer = 0;
-        Reloading = false;
+        _reloadTimer = 0;
+        _reloading = false;
     }
 
 
@@ -135,8 +142,13 @@ public class FireArmScript : WeaponScript
 
             GameObject newBullet = Instantiate(_bullet, _gunEnd.transform.position, transform.rotation);
             BulletScript bulletScript = newBullet.GetComponent<BulletScript>();
+
+            bulletScript.Damage = _damage;
+            bulletScript.MoveSpeed = _bulletSpeed;
             bulletScript.MoveDirection = newDirection;
-            bulletScript.transform.eulerAngles = new Vector3(0, 0, newAngle);
+
+            newBullet.transform.eulerAngles = new Vector3(0, 0, newAngle);
+
             NetworkObject bulletNetwork = newBullet.GetComponent<NetworkObject>();
             bulletNetwork.Spawn();
         }

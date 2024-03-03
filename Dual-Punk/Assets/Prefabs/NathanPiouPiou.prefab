@@ -198,27 +198,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18ca51c2304a4414993bd86bd661106f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bullet: {fileID: 3137761784652373764, guid: c83c2ecdccc5c4e42a0c6b0d758735f3, type: 3}
-  gunEnd: {fileID: 298094953147082344}
-  playerState: {fileID: 0}
-  pointerScript: {fileID: 0}
-  spriteRenderer: {fileID: 8354761501384256457}
-  damage: 0
-  fireRate: 0.1
-  dispersion: 0.05
-  reloadTime: 1.6
-  reloadTimer: 0
-  aimAccuracy: 2
-  weaponDistance: 0.7
-  magSize: 0
-  maxMagSize: 50
-  bulletNumber: 1
-  auto: 1
-  reloading: 0
-  inHand: 0
-  weaponOffset: {x: 0, y: 0, z: 0}
-  reloadAmount: 50
-  autoReload: 0
+  _weaponDistance: 0.7
+  _weaponOffset: {x: 0, y: 0.5, z: 0}
+  _bullet: {fileID: 3137761784652373764, guid: c83c2ecdccc5c4e42a0c6b0d758735f3, type: 3}
+  _gunEnd: {fileID: 298094953147082344}
+  _damage: 8
+  _maxMagSize: 50
+  _bulletNumber: 1
+  _reloadAmount: 50
+  _fireRate: 0.1
+  _dispersion: 0.15
+  _reloadTime: 1.5
+  _aimAccuracy: 3
+  _bulletSpeed: 10
+  _autoReload: 1
+  _auto: 1
+  _bulletRotateSpeed: 5
 --- !u!114 &5536798300859352896
 MonoBehaviour:
   m_ObjectHideFlags: 0

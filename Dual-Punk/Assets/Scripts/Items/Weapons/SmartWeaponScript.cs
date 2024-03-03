@@ -8,6 +8,8 @@ using Unity.Netcode;
 
 public class SmartWeaponScript : FireArmScript
 {
+    [SerializeField] private float _bulletRotateSpeed;
+
     private new void Start()
     {
         base.Start();
@@ -17,7 +19,7 @@ public class SmartWeaponScript : FireArmScript
     {
         base.Update();
 
-        if (InHand && !Reloading)
+        if (InHand && !_reloading)
         {
             PointerScript.SpriteNumber = 2;
 
@@ -41,9 +43,14 @@ public class SmartWeaponScript : FireArmScript
 
             GameObject newBullet = Instantiate(_bullet, _gunEnd.transform.position, transform.rotation);
             SeekingBulletScript bulletScript = newBullet.GetComponent<SeekingBulletScript>();
+
+            bulletScript.Damage = _damage;
+            bulletScript.MoveSpeed = _bulletSpeed;
             bulletScript.MoveDirection = newDirection;
-            bulletScript.transform.eulerAngles = new Vector3(0, 0, newAngle);
             bulletScript.Target = PointerScript.Target;
+            bulletScript.RotateSpeed = _bulletRotateSpeed;
+
+            newBullet.transform.eulerAngles = new Vector3(0, 0, newAngle);
             NetworkObject bulletNetwork = newBullet.GetComponent<NetworkObject>();
             bulletNetwork.Spawn();
         }
