@@ -6,18 +6,18 @@ using System;
 using Unity.Netcode;
 
 
-public class SmartWeaponScript : WeaponScript
+public class SmartWeaponScript : FireArmScript
 {
-    private void Start()
+    private new void Start()
     {
         base.Start();
     }
 
-    private void Update()
+    private new void Update()
     {
         base.Update();
 
-        if (inHand && !reloading)
+        if (InHand && !reloading)
         {
             pointerScript.spriteNumber = 2;
 

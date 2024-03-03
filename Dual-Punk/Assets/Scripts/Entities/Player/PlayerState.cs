@@ -12,8 +12,8 @@ public class PlayerState : MonoBehaviour
 
     public bool Walking = false;
     public bool Dashing = false;
+    public bool Attacking = false;
     public bool HoldingWeapon = false;
-    public bool HoldingKnife = false;
 
     public float DashCooldown = 0.0f;
     public float DashCooldownMax = 1.0f;
@@ -21,7 +21,6 @@ public class PlayerState : MonoBehaviour
     #nullable enable
     public GameObject? Pointer;
     public GameObject? Weapon;
-    
     #nullable disable
 
 
@@ -30,7 +29,8 @@ public class PlayerState : MonoBehaviour
         Health = MaxHealth;
     }
 
-        void Update(){
+    void Update()
+    {
         if(Input.GetKeyDown(KeyCode.C)){
             Damage(10);
         }
@@ -38,6 +38,7 @@ public class PlayerState : MonoBehaviour
             Heal(10);
         }
     }
+
     void Die(){
         Debug.Log("you dead man");
         Destroy(gameObject);

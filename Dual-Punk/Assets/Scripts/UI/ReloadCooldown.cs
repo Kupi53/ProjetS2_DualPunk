@@ -11,7 +11,6 @@ public class ReloadCooldown : MonoBehaviour
 
     private float MaxTop;
     private float MinTop;
-    private float multiplier;
     private RectTransform rectTransform;
     private LocalPlayerReference References;
 
@@ -27,16 +26,16 @@ public class ReloadCooldown : MonoBehaviour
     private void Update()
     {
         Image.enabled = false;
-        if (References.playerState.HoldingWeapon && References.weaponScript.reloading)
+        if (References.fireArmScript != null && References.fireArmScript.reloading)
         {
             Image.enabled = true;
-            multiplier = (MaxTop - MinTop) / References.weaponScript.reloadTime;
-            rectTransform.offsetMax = new Vector2(rectTransform.offsetMax.x, -MinTop - multiplier * References.weaponScript.reloadTimer);
+            float multiplier = (MaxTop - MinTop) / References.fireArmScript.reloadTime;
+            rectTransform.offsetMax = new Vector2(rectTransform.offsetMax.x, -MinTop - multiplier * References.fireArmScript.reloadTimer);
         }
-        else if (References.playerState.HoldingKnife && References.knifeScript.attack != 0)
+        else if (References.fireArmScript != null && References.knifeScript.attack != 0)
         {
             Image.enabled = true;
-            multiplier = (MaxTop - MinTop) / References.knifeScript.resetCooldown;
+            float multiplier = (MaxTop - MinTop) / References.knifeScript.resetCooldown;
             rectTransform.offsetMax = new Vector2(rectTransform.offsetMax.x, -MinTop - multiplier * References.knifeScript.resetCooldownTimer);
         }
     }

@@ -1,19 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using System;
-using UnityEngine.UIElements;
-using UnityEngine.XR;
+using UnityEngine;
 
 
-public class KnifeScript : MonoBehaviour
+public class KnifeScript : WeaponScript
 {
-    public PlayerState playerState;
-    public PointerScript pointerScript;
-    public SpriteRenderer spriteRenderer;
+    [SerializeField] private SpriteRenderer spriteRenderer;
 
     public int attack;
-    public bool inHand;
     public bool attacking;
     public float weaponDistance;
     public float resetCooldown;
@@ -21,7 +14,6 @@ public class KnifeScript : MonoBehaviour
     public float attackSpeed;
     public float attackRange;
     public float attackDistance;
-    public Vector3 weaponOffset;
 
     private float angle;
     private float rangeTop;
@@ -32,8 +24,7 @@ public class KnifeScript : MonoBehaviour
 
     void Start()
     {
-        attacking = false;
-        weaponOffset = new Vector3(0, 0.5f, 0);
+        WeaponOffset = new Vector3(0, 0.5f, 0);
         currentWeaponDistance = weaponDistance;
     }
 
@@ -41,25 +32,25 @@ public class KnifeScript : MonoBehaviour
     public void Update()
     {
         //Faire des animations ici
-        if (inHand)
+        if (InHand)
         {
-            pointerScript = playerState.Pointer.GetComponent<PointerScript>();
-            pointerScript.spriteNumber = 1;
+            PointerScript = PlayerState.Pointer.GetComponent<PointerScript>();
+            PointerScript.spriteNumber = 1;
         }
         else
-            pointerScript = null;
+            PointerScript = null;
     }
 
 
-    public void Run(Vector3 position, Vector3 direction)
+    public override void Run(Vector3 position, Vector3 direction)
     {
-        if (Input.GetButtonDown("Use") && !attacking && attack < 3)
+        if (Input.GetButtonDown("Use") && !PlayerState.Attacking && attack < 3)
         {
             angle = (float)(Math.Atan2(direction.y, direction.x) * (180 / Math.PI));
 
             attack += 1;
-            attacking = true;
             resetCooldownTimer = 0;
+            PlayerState.Attacking = true;
 
             rangeMiddle = angle;
             rangeTop = angle + attackRange;
@@ -74,23 +65,23 @@ public class KnifeScript : MonoBehaviour
             {
                 angle = rangeTop;
                 spriteRenderer.flipY = false;
-            }       
+            }
         }
 
-        if (attacking)
+        if (PlayerAttacking)
         {
             switch (attack)
             {
                 case 1:
                     angle -= attackSpeed * Time.deltaTime;
                     if (angle <= rangeBottom)
-                        attacking = false;
+                        Attacking = false;
                     break;
 
                 case 2:
                     angle += attackSpeed * Time.deltaTime;
                     if (angle >= rangeTop)
-                        attacking = false;
+                        Attacking = false;
                     break;
 
                 case 3:
@@ -100,7 +91,7 @@ public class KnifeScript : MonoBehaviour
                         currentWeaponDistance += Time.deltaTime * 10;
                     else
                     {
-                        attacking = false;
+                        Attacking = false;
                         currentWeaponDistance = attackDistance;
                     }
                     break;
@@ -134,18 +125,18 @@ public class KnifeScript : MonoBehaviour
             resetCooldownTimer += Time.deltaTime;
             if (resetCooldownTimer > resetCooldown)
             {
-                ResetAttack();
+                Reset();
             }
 
             direction = new Vector3((float)Math.Cos(angle * Math.PI / 180), (float)Math.Sin(angle * Math.PI / 180)).normalized;
         }
 
-        transform.position = position + weaponOffset + direction * currentWeaponDistance;
+        transform.position = position + WeaponOffset + direction * currentWeaponDistance;
         transform.eulerAngles = new Vector3(0, 0, angle);
     }
 
 
-    public void ResetAttack()
+    public override void Reset()
     {
         attack = 0;
         resetCooldownTimer = 0;

@@ -8,7 +8,7 @@ using TMPro;
 using System.Data.SqlTypes;
 
 
-public class PlayerMovement : NetworkBehaviour
+public class PlayerController : NetworkBehaviour
 {
     public Rigidbody2D body;
     public Animator animator;
@@ -37,10 +37,6 @@ public class PlayerMovement : NetworkBehaviour
     // Bool qui sert pour le state du joueur (par exemple pendant un dash ou certaines abilitiés le joueur ne doit pas pouvoir bouger)
     private bool enableMovement;
     private string currentState;
-    // Vitesse de deplacement en fonction des variables publiques en dessous
-    private float moveSpeed;
-    // Facteur qui depend aussi de certaines variables en dessous qui ralenti ou accelere le deplacement dans certaines situations
-    private float moveFactor;
     private float dashTimer;
 
     // Nombres decimaux pour gerer la vitesse de marche, course et de dash
@@ -59,7 +55,6 @@ public class PlayerMovement : NetworkBehaviour
     {
         dashTimer = 0;
         enableMovement = true;
-        moveSpeed = sprintSpeed;
         currentState = PLAYER_IDLE;
         animator = GetComponent<Animator>();
         playerState = gameObject.GetComponent<PlayerState>();
@@ -72,7 +67,6 @@ public class PlayerMovement : NetworkBehaviour
         // Prends Imputs chaque frame
         if (enableMovement)
         {
-            moveFactor = 1.0f;
             // Direction du deplacement
             moveDirection = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical") * 0.5f).normalized;
             // Direction du pointeur
@@ -106,10 +100,17 @@ public class PlayerMovement : NetworkBehaviour
     void FixedUpdate()
     {
         if (!IsOwner) return;
+
         if (enableMovement)
         {
+            // Vitesse de deplacement en fonction des variables publiques en dessous
+            float moveSpeed;
+            // Facteur qui depend aussi de certaines variables en dessous qui ralenti ou accelere le deplacement dans certaines situations
+            float moveFactor = 1.0f;
+
             float moveAngle = (float)(Math.Atan2(moveDirection.y, moveDirection.x) * (180 / Math.PI));
             float pointerAngle = (float)(Math.Atan2(pointerDirection.y, pointerDirection.x) * (180 / Math.PI));
+
 
             if (playerState.Walking) {
                 moveSpeed = walkSpeed;
@@ -117,51 +118,23 @@ public class PlayerMovement : NetworkBehaviour
                 moveSpeed = sprintSpeed;
             }
 
-            if ((playerState.HoldingWeapon || playerState.HoldingKnife) && !sameDirection(moveAngle, pointerAngle, 60)) {
+            if (playerState.HoldingWeapon && !SameDirection(moveAngle, pointerAngle, 60)) {
                 moveFactor *= moveBackFactor;
             }
+
             if (moveDirection != new Vector2(0, 0))
             {
-                if (moveDirection != new Vector2(0, 0))
-                {
-                    body.MovePosition(body.position + moveDirection * moveSpeed * moveFactor);
-                    
-                    if (playerState.HoldingWeapon || playerState.HoldingKnife)
-                        ChangeAnimation(ChangeDirection(pointerAngle));
-                    else
-                        ChangeAnimation(ChangeDirection(moveAngle));
-                }
-                else if (!(playerState.HoldingWeapon || playerState.HoldingKnife))
-                {
-                    animator.Play(PLAYER_IDLE);
-                }
-                else
+                body.MovePosition(body.position + moveDirection * moveSpeed * moveFactor);
+
+                if (!playerState.HoldingWeapon)
                     ChangeAnimation(ChangeDirection(moveAngle));
             }
+
             else if (!playerState.HoldingWeapon)
-            {
                 animator.Play(PLAYER_IDLE);
-            }
-            else
-            {
-                if (moveDirection != new Vector2(0, 0))
-                {
-                    body.MovePosition(body.position + moveDirection * moveSpeed * moveFactor);
-                    
-                    if (playerState.HoldingWeapon || playerState.HoldingKnife)
-                        ChangeAnimation(ChangeDirection(pointerAngle));
-                    else
-                        ChangeAnimation(ChangeDirection(moveAngle));
-                }
-                else if (!(playerState.HoldingWeapon || playerState.HoldingKnife))
-                {
-                    animator.Play(PLAYER_IDLE);
-                }
-                else
-                {
-                    ChangeAnimation(ChangeDirectionWeapon(pointerAngle));
-                }
-            }
+
+            if (playerState.HoldingWeapon)
+                ChangeAnimation(ChangeDirection(pointerAngle));
         }
 
         else if (playerState.Dashing)
@@ -181,7 +154,7 @@ public class PlayerMovement : NetworkBehaviour
     }
 
 
-    bool sameDirection(float angle1, float angle2, int margin) 
+    bool SameDirection(float angle1, float angle2, int margin) 
     {
         if (angle1 + margin > 180 && (angle2 > angle1 - margin || angle2 < -360 + angle1 + margin))
             return true;

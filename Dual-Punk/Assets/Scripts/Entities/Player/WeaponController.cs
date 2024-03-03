@@ -1,126 +1,55 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Reflection;
 using UnityEngine;
-using System;
-using Unity.Netcode;
-using Unity.VisualScripting;
+using UnityEngine.Playables;
 
 
-public class WeaponController : NetworkBehaviour
+//Ce script va gerer les attaques, des implants ou des armes
+
+public class AttacksController : MonoBehaviour
 {
-    private PlayerState playerState;
-    private List<GameObject> weapons;
-
-    #nullable enable
-    private WeaponScript? weaponScript;
-    private KnifeScript? knifeScript;
-    private GameObject? Weapon;
-    
-    #nullable disable
-
-    private int index;
     private Vector3 direction;
-
 
     private void Start()
     {
-        index = 0;
-        weapons = new List<GameObject>();
-        playerState = gameObject.GetComponent<PlayerState>();
+        
     }
-
 
     private void Update()
     {
-        if (!IsOwner) return;
-        if (weapons.Count > 0 && !playerState.HoldingWeapon && !playerState.HoldingKnife)
-        {
-            if (Input.GetButtonDown("Switch"))
-                index = (index + 1) % weapons.Count;
-            Weapon = weapons[index];
-            weaponScript = Weapon.GetComponent<WeaponScript>();
-            if (!weaponScript.inHand)
-            {
-                Weapon.GetComponent<HighlightWeapon>().Highlight();
-
-                if (Input.GetButtonDown("Pickup"))
-                {
-                    index = 0;
-                    if (Weapon.CompareTag("Weapon") )
-                    {
-                        playerState.Weapon = Weapon;
-                        playerState.HoldingWeapon = true;
-                        weaponScript = Weapon.GetComponent<WeaponScript>();
-                        weaponScript.playerState = playerState;
-                        weaponScript.inHand = true;
-                    }
-                    else if (Weapon.CompareTag("Knife"))
-                    {
-                        playerState.Weapon = Weapon;
-                        playerState.HoldingKnife = true;
-                        knifeScript = Weapon.GetComponent<KnifeScript>();
-                        knifeScript.playerState = playerState;
-                        knifeScript.inHand = true;
-                    }
-                }
-            }
-            
-        }
-
-        //Gere les scripts des armes
-        //Quand le joueur tient une arme a feu
         if (playerState.HoldingWeapon)
         {
-            direction = (playerState.Pointer.transform.position - transform.position - weaponScript.weaponOffset).normalized;
+            direction = (playerState.Pointer.transform.position - transform.position - weaponScript.WeaponOffset).normalized;
 
             weaponScript.Run(transform.position, direction);
+
             if (Input.GetButtonDown("Drop"))
             {
-                weaponScript.ResetReload();
-                weaponScript.inHand = false;
+                weaponScript.Reset();
+                weaponScript.InHand = false;
                 playerState.HoldingWeapon = false;
-                weaponScript.pointerScript.locked = false;
-                weaponScript.pointerScript.spriteNumber = 0;
+                weaponScript.PointerScript.locked = false;
+                weaponScript.PointerScript.spriteNumber = 0;
             }
         }
 
         //Quand le joueur tient une arme blanche
         else if (playerState.HoldingKnife)
+            knifeScript.Run(transform.position, direction);
+
+
+        if (!knifeScript.Attacking)
         {
-            if (!knifeScript.attacking)
+            direction = (playerState.Pointer.transform.position - transform.position - knifeScript.weaponOffset).normalized;
+
+            if (Input.GetButtonDown("Drop"))
             {
-                direction = (playerState.Pointer.transform.position - transform.position - knifeScript.weaponOffset).normalized;
-
-                if (Input.GetButtonDown("Drop"))
-                {
-                    knifeScript.ResetAttack();
-                    knifeScript.inHand = false;
-                    playerState.HoldingKnife = false;
-                    knifeScript.pointerScript.spriteNumber = 0;
-                }
+                knifeScript.ResetAttack();
+                knifeScript.inHand = false;
+                playerState.HoldingKnife = false;
+                knifeScript.pointerScript.spriteNumber = 0;
             }
-
-            if (playerState.HoldingKnife)
-                knifeScript.Run(transform.position, direction);
         }
-    }
-
-
-    void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.CompareTag("Weapon") || collision.gameObject.CompareTag("Knife"))
-        {
-            weapons.Add(collision.gameObject);
-        }
-    }
-
-    void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.gameObject.CompareTag("Weapon") || collision.gameObject.CompareTag("Knife"))
-        {
-            index = 0;
-            weapons.Remove(collision.gameObject);
-        }
+        knifeScript.Run(transform.position, direction);
     }
 }

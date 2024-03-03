@@ -15,9 +15,9 @@ public class AmmoInMag : MonoBehaviour
 
     void Update()
     {
-        if (References.playerState.HoldingWeapon && References.weaponScript != null)
+        if (References.playerState.HoldingWeapon && References.fireArmScript != null)
         { 
-            Text.text = References.weaponScript.magSize.ToString();
+            Text.text = References.fireArmScript.magSize.ToString();
             Text.enabled = true;
         }
         else

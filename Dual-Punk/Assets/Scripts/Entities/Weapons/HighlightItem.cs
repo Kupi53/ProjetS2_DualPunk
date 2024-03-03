@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HighlightWeapon : MonoBehaviour
+public class HighlightItem : MonoBehaviour
 {
     [SerializeField] private Sprite normal;
     [SerializeField] private Sprite highlighted;

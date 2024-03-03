@@ -11,10 +11,10 @@ public class LocalPlayerReference : MonoBehaviour
     public PlayerState playerState;
 
     #nullable enable
-    public WeaponScript? weaponScript;
+    public FireArmScript? fireArmScript;
     public KnifeScript? knifeScript;
-    
     #nullable disable
+
 
     private void Start()
     {
@@ -25,10 +25,7 @@ public class LocalPlayerReference : MonoBehaviour
     {
         if (playerState.HoldingWeapon)
         {
-            weaponScript = playerState.Weapon.GetComponent<WeaponScript>();
-        }
-        else if (playerState.HoldingKnife)
-        {
+            fireArmScript = playerState.Weapon.GetComponent<FireArmScript>();
             knifeScript = playerState.Weapon.GetComponent<KnifeScript>();
         }
     }
