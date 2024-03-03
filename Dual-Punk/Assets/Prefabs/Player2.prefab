@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: -6393577948362790542}
   - component: {fileID: 8347425168969962720}
   - component: {fileID: -4858889487215260986}
+  - component: {fileID: -7003829035611701060}
   m_Layer: 6
   m_Name: Player2
   m_TagString: Ntmtest
@@ -174,8 +175,8 @@ MonoBehaviour:
   MaxHealth: 100
   Walking: 0
   Dashing: 0
+  Attacking: 0
   HoldingWeapon: 0
-  HoldingKnife: 0
   DashCooldown: 0
   DashCooldownMax: 1
   Pointer: {fileID: 0}
@@ -192,15 +193,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 029682367093fa94783098505f2608b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  body: {fileID: 4248386606771748690}
-  animator: {fileID: -5388759501148665378}
-  playerState: {fileID: 0}
-  spriteRenderer: {fileID: 4733711911263106263}
-  walkSpeed: 0.05
-  sprintSpeed: 0.08
-  dashSpeed: 0.25
-  dashTime: 0.2
-  moveBackFactor: 0.8
+  _walkSpeed: 0.05
+  _sprintSpeed: 0.08
+  _dashSpeed: 0.25
+  _dashTime: 0.2
+  _moveBackFactor: 0.8
 --- !u!114 &2909192396974194660
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -335,5 +332,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 80d7c879794dfda4687da0e400131852, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-7003829035611701060
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7898736215898924539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d2079d1b20954f43ae4b21ced5e53d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

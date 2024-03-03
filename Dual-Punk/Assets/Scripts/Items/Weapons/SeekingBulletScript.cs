@@ -7,18 +7,19 @@ using UnityEngine.EventSystems;
 
 public class SeekingBulletScript : BulletScript
 {
-    public GameObject? target;
-    public float rotateSpeed;
+    public GameObject? Target { get; set; }
+    
+    public float RotateSpeed { get; set; }
 
 
     void FixedUpdate()
     {
         base.FixedUpdate();
 
-        if (target != null)
+        if (Target != null)
         {
-            Vector3 heading = (target.transform.position - transform.position).normalized;
-            float rotation = Vector3.Cross(MoveDirection, heading).z * rotateSpeed;
+            Vector3 heading = (Target.transform.position - transform.position).normalized;
+            float rotation = Vector3.Cross(MoveDirection, heading).z * RotateSpeed;
 
             MoveDirection = Quaternion.Euler(0, 0, rotation) * MoveDirection;
             transform.eulerAngles = new Vector3(0, 0, transform.eulerAngles.z + rotation);

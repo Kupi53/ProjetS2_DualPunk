@@ -5,22 +5,22 @@ using UnityEngine;
 
 public class AmmoInMag : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI Text;
-    private LocalPlayerReference References;
+    [SerializeField] private TextMeshProUGUI _text;
+    private LocalPlayerReference _references;
 
     void Start()
     {
-        References = gameObject.transform.root.gameObject.GetComponent<LocalPlayerReference>();
+        _references = gameObject.transform.root.gameObject.GetComponent<LocalPlayerReference>();
     }
 
     void Update()
     {
-        if (References.playerState.HoldingWeapon && References.fireArmScript != null)
+        if (_references.PlayerState.HoldingWeapon && _references.FireArmScript != null)
         { 
-            Text.text = References.fireArmScript.magSize.ToString();
-            Text.enabled = true;
+            _text.text = _references.FireArmScript.CurrentMagSize.ToString();
+            _text.enabled = true;
         }
         else
-            Text.enabled = false;
+            _text.enabled = false;
     }
 }

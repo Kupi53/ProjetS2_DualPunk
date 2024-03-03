@@ -48,7 +48,7 @@ public class PlayerState : MonoBehaviour
         if (amount < 0){
             throw new ArgumentOutOfRangeException("Cannot have Negative damage.");
         }
-        this.Health -= (int)amount;
+        Health -= (int)amount;
 
         if (Health <= 0){
             Die();

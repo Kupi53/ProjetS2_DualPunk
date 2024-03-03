@@ -6,16 +6,16 @@ using Unity.Netcode;
 
 public class CurrentHealth : MonoBehaviour
 {
-    public TextMeshProUGUI text;
-    private PlayerState playerState;
+    [SerializeField] private TextMeshProUGUI _text;
+    private PlayerState _playerState;
 
     void Start()
     {
-        playerState = gameObject.transform.root.gameObject.GetComponent<LocalPlayerReference>().playerState;
+        _playerState = gameObject.transform.root.gameObject.GetComponent<LocalPlayerReference>().PlayerState;
     }
 
     void Update()
     {
-        text.text = playerState.Health.ToString();
+        _text.text = _playerState.Health.ToString();
     }
 }

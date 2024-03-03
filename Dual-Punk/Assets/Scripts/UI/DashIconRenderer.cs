@@ -10,29 +10,30 @@ using static System.Net.Mime.MediaTypeNames;
 
 public class DashIconRenderer : MonoBehaviour
 {
-    [SerializeField] private RawImage Image;
+    [SerializeField] private RawImage _image;
 
-    private float DashEnabledRight;
-    private float DashDisabledRight;
-    private float transformMultiplier;
-    private RectTransform rectTransform;
-    private PlayerState playerState;
+    private float _dashEnabledRight;
+    private float _dashDisabledRight;
+    private float _transformMultiplier;
+
+    private PlayerState _playerState;
+    private RectTransform _rectTransform;
 
 
     void Start()
     {
-        rectTransform = Image.GetComponent<RectTransform>();
-        DashEnabledRight = -rectTransform.offsetMax.x;
-        DashDisabledRight = rectTransform.offsetMin.x;
-        playerState = gameObject.transform.root.gameObject.GetComponent<LocalPlayerReference>().playerState;
-        transformMultiplier = (DashEnabledRight - DashDisabledRight) / playerState.DashCooldownMax;
+        _rectTransform = _image.GetComponent<RectTransform>();
+        _dashEnabledRight = -_rectTransform.offsetMax.x;
+        _dashDisabledRight = _rectTransform.offsetMin.x;
+        _playerState = gameObject.transform.root.gameObject.GetComponent<LocalPlayerReference>().PlayerState;
+        _transformMultiplier = (_dashEnabledRight - _dashDisabledRight) / _playerState.DashCooldownMax;
     }
     
     void Update()
     {
-        if (playerState.DashCooldown > 0)
+        if (_playerState.DashCooldown > 0)
         {
-            rectTransform.offsetMax = new Vector2(-DashDisabledRight - transformMultiplier * (playerState.DashCooldownMax - playerState.DashCooldown), rectTransform.offsetMax.y);
+            _rectTransform.offsetMax = new Vector2(-_dashDisabledRight - _transformMultiplier * (_playerState.DashCooldownMax - _playerState.DashCooldown), _rectTransform.offsetMax.y);
         }
     }
 }

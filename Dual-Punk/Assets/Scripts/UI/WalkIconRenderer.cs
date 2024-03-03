@@ -12,7 +12,7 @@ public class WalkIconRenderer : MonoBehaviour
 
     void Start()
     {
-        playerState = gameObject.transform.root.gameObject.GetComponent<LocalPlayerReference>().playerState;
+        playerState = transform.root.gameObject.GetComponent<LocalPlayerReference>().PlayerState;
     }
 
     void Update()

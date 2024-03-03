@@ -10,10 +10,10 @@ using System.Data.SqlTypes;
 
 public class PlayerController : NetworkBehaviour
 {
-    public Rigidbody2D body;
-    public Animator animator;
-    public PlayerState playerState;
-    public SpriteRenderer spriteRenderer;
+    private Rigidbody2D _rb2d;
+    private Animator _animator;
+    private PlayerState _playerState;
+    private SpriteRenderer _spriteRenderer;
 
     // Constantes qui sont les noms des sprites du joueur
     const string PLAYER_N = "Player N";
@@ -34,30 +34,33 @@ public class PlayerController : NetworkBehaviour
     const string PLAYERWEAPON_SE = "PlayerWeapon SE";
     const string PLAYERWEAPON_SW = "PlayerWeapon SW";
 
-    // Bool qui sert pour le state du joueur (par exemple pendant un dash ou certaines abilitiés le joueur ne doit pas pouvoir bouger)
-    private bool enableMovement;
-    private string currentState;
-    private float dashTimer;
-
     // Nombres decimaux pour gerer la vitesse de marche, course et de dash
-    public float walkSpeed;
-    public float sprintSpeed;
-    public float dashSpeed;
-    public float dashTime;
-    public float moveBackFactor;
+    [SerializeField] private float _walkSpeed;
+    [SerializeField] private float _sprintSpeed;
+    [SerializeField] private float _dashSpeed;
+    [SerializeField] private float _dashTime;
+    [SerializeField] private float _moveBackFactor;
 
-    private Vector2 moveDirection;
-    private Vector2 pointerDirection;
+    // Bool qui sert pour le state du joueur (par exemple pendant un dash ou certaines abilitiés le joueur ne doit pas pouvoir bouger)
+    private bool _enableMovement;
+    private string _currentState;
+    private float _dashTimer;
+
+    private Vector2 _moveDirection;
+    private Vector2 _pointerDirection;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        dashTimer = 0;
-        enableMovement = true;
-        currentState = PLAYER_IDLE;
-        animator = GetComponent<Animator>();
-        playerState = gameObject.GetComponent<PlayerState>();
+        _dashTimer = 0;
+        _enableMovement = true;
+        _currentState = PLAYER_IDLE;
+
+        _rb2d = GetComponent<Rigidbody2D>();
+        _animator = GetComponent<Animator>();
+        _playerState = GetComponent<PlayerState>();
+        _spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -65,34 +68,34 @@ public class PlayerController : NetworkBehaviour
     {
         if (!IsOwner) return;
         // Prends Imputs chaque frame
-        if (enableMovement)
+        if (_enableMovement)
         {
             // Direction du deplacement
-            moveDirection = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical") * 0.5f).normalized;
+            _moveDirection = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical") * 0.5f).normalized;
             // Direction du pointeur
-            if (playerState.Pointer != null)
-                pointerDirection = (playerState.Pointer.transform.position - transform.position).normalized;
+            if (_playerState.Pointer != null)
+                _pointerDirection = (_playerState.Pointer.transform.position - transform.position).normalized;
             
             if (Input.GetAxis("Horizontal") != 0 && Input.GetAxis("Vertical") != 0)
-                moveDirection *= 0.8f;
+                _moveDirection *= 0.8f;
             else if (Input.GetAxis("Horizontal") == 0)
-                moveDirection *= 0.6f;
+                _moveDirection *= 0.6f;
 
             if (Input.GetButtonDown("Sprint"))
             {
-                playerState.Walking = !playerState.Walking;
+                _playerState.Walking = !_playerState.Walking;
             }
         }
 
-        if (Input.GetButtonDown("Dash") && playerState.DashCooldown <= 0.0f)
+        if (Input.GetButtonDown("Dash") && _playerState.DashCooldown <= 0.0f)
         {
-            enableMovement = false;
-            playerState.Dashing = true;
-            playerState.DashCooldown = playerState.DashCooldownMax;
+            _enableMovement = false;
+            _playerState.Dashing = true;
+            _playerState.DashCooldown = _playerState.DashCooldownMax;
         }
-        else if (playerState.DashCooldown > 0.0f)
+        else if (_playerState.DashCooldown > 0.0f)
         {
-            playerState.DashCooldown -= Time.deltaTime;
+            _playerState.DashCooldown -= Time.deltaTime;
         }
     }
 
@@ -101,54 +104,54 @@ public class PlayerController : NetworkBehaviour
     {
         if (!IsOwner) return;
 
-        if (enableMovement)
+        if (_enableMovement)
         {
             // Vitesse de deplacement en fonction des variables publiques en dessous
             float moveSpeed;
             // Facteur qui depend aussi de certaines variables en dessous qui ralenti ou accelere le deplacement dans certaines situations
             float moveFactor = 1.0f;
 
-            float moveAngle = (float)(Math.Atan2(moveDirection.y, moveDirection.x) * (180 / Math.PI));
-            float pointerAngle = (float)(Math.Atan2(pointerDirection.y, pointerDirection.x) * (180 / Math.PI));
+            float moveAngle = (float)(Math.Atan2(_moveDirection.y, _moveDirection.x) * (180 / Math.PI));
+            float pointerAngle = (float)(Math.Atan2(_pointerDirection.y, _pointerDirection.x) * (180 / Math.PI));
 
 
-            if (playerState.Walking) {
-                moveSpeed = walkSpeed;
+            if (_playerState.Walking) {
+                moveSpeed = _walkSpeed;
             } else {
-                moveSpeed = sprintSpeed;
+                moveSpeed = _sprintSpeed;
             }
 
-            if (playerState.HoldingWeapon && !SameDirection(moveAngle, pointerAngle, 60)) {
-                moveFactor *= moveBackFactor;
+            if (_playerState.HoldingWeapon && !SameDirection(moveAngle, pointerAngle, 60)) {
+                moveFactor *= _moveBackFactor;
             }
 
-            if (moveDirection != new Vector2(0, 0))
+            if (_moveDirection != new Vector2(0, 0))
             {
-                body.MovePosition(body.position + moveDirection * moveSpeed * moveFactor);
+                _rb2d.MovePosition(_rb2d.position + _moveDirection * moveSpeed * moveFactor);
 
-                if (!playerState.HoldingWeapon)
+                if (!_playerState.HoldingWeapon)
                     ChangeAnimation(ChangeDirection(moveAngle));
             }
 
-            else if (!playerState.HoldingWeapon)
-                animator.Play(PLAYER_IDLE);
+            else if (!_playerState.HoldingWeapon)
+                _animator.Play(PLAYER_IDLE);
 
-            if (playerState.HoldingWeapon)
+            if (_playerState.HoldingWeapon)
                 ChangeAnimation(ChangeDirection(pointerAngle));
         }
 
-        else if (playerState.Dashing)
+        else if (_playerState.Dashing)
         {
-            if (dashTimer < dashTime)
+            if (_dashTimer < _dashTime)
             {
-                body.MovePosition(body.position + moveDirection * (dashSpeed - dashTimer));
-                dashTimer += Time.fixedDeltaTime;
+                _rb2d.MovePosition(_rb2d.position + _moveDirection * (_dashSpeed - _dashTimer));
+                _dashTimer += Time.fixedDeltaTime;
             }
             else
             {
-                enableMovement = true;
-                playerState.Dashing = false;
-                dashTimer = 0;
+                _enableMovement = true;
+                _playerState.Dashing = false;
+                _dashTimer = 0;
             }
         }
     }
@@ -168,9 +171,10 @@ public class PlayerController : NetworkBehaviour
     // Utilise dans anim mouvement, change l'animation en fonction des constantes Player_S, Player_...
     void ChangeAnimation(string newState)
     {
-        if (currentState == newState) return;
-        animator.Play(newState);
-        currentState = newState;
+        if (_currentState == newState) return;
+
+        _animator.Play(newState);
+        _currentState = newState;
     }
 
     // On passe la direction actuelle du joueur et en fonction, appelle changeAnimation 

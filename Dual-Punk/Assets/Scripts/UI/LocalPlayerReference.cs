@@ -6,27 +6,27 @@ using UnityEngine;
 public class LocalPlayerReference : MonoBehaviour
 {
     // set in spawnui
-    public GameObject LOCALPLAYER;
-    public GameObject Camera;
-    public PlayerState playerState;
+    public GameObject LOCALPLAYER { get;  set; }
+    public GameObject Camera { get; set; }
+    public PlayerState PlayerState { get; set; }
 
     #nullable enable
-    public FireArmScript? fireArmScript;
-    public KnifeScript? knifeScript;
+    public FireArmScript? FireArmScript { get; private set; }
+    public KnifeScript? KnifeScript { get; private set; }
     #nullable disable
 
 
     private void Start()
     {
-        playerState = LOCALPLAYER.GetComponentInChildren<PlayerState>();
+        PlayerState = LOCALPLAYER.GetComponentInChildren<PlayerState>();
     }
 
     private void Update()
     {
-        if (playerState.HoldingWeapon)
+        if (PlayerState.HoldingWeapon)
         {
-            fireArmScript = playerState.Weapon.GetComponent<FireArmScript>();
-            knifeScript = playerState.Weapon.GetComponent<KnifeScript>();
+            FireArmScript = PlayerState.Weapon.GetComponent<FireArmScript>();
+            KnifeScript = PlayerState.Weapon.GetComponent<KnifeScript>();
         }
     }
 }

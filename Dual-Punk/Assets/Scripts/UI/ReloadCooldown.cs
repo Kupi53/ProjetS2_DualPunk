@@ -7,36 +7,36 @@ using UnityEngine.UI;
 
 public class ReloadCooldown : MonoBehaviour
 {
-    [SerializeField] private RawImage Image;
+    [SerializeField] private RawImage _image;
 
-    private float MaxTop;
-    private float MinTop;
-    private RectTransform rectTransform;
-    private LocalPlayerReference References;
+    private float _maxTop;
+    private float _minTop;
+    private RectTransform _rectTransform;
+    private LocalPlayerReference _references;
 
 
     void Start()
     {
-        rectTransform = Image.GetComponent<RectTransform>();
-        MaxTop = -rectTransform.offsetMax.y;
-        MinTop = rectTransform.offsetMin.y;
-        References = gameObject.transform.root.gameObject.GetComponent<LocalPlayerReference>();
+        _rectTransform = _image.GetComponent<RectTransform>();
+        _maxTop = -_rectTransform.offsetMax.y;
+        _minTop = _rectTransform.offsetMin.y;
+        _references = transform.root.gameObject.GetComponent<LocalPlayerReference>();
     }
 
     private void Update()
     {
-        Image.enabled = false;
-        if (References.fireArmScript != null && References.fireArmScript.reloading)
+        _image.enabled = false;
+        if (_references.FireArmScript != null && _references.FireArmScript.Reloading)
         {
-            Image.enabled = true;
-            float multiplier = (MaxTop - MinTop) / References.fireArmScript.reloadTime;
-            rectTransform.offsetMax = new Vector2(rectTransform.offsetMax.x, -MinTop - multiplier * References.fireArmScript.reloadTimer);
+            _image.enabled = true;
+            float multiplier = (_maxTop - _minTop) / _references.FireArmScript.ReloadTime;
+            _rectTransform.offsetMax = new Vector2(_rectTransform.offsetMax.x, -_minTop - multiplier * _references.FireArmScript.ReloadTimer);
         }
-        else if (References.fireArmScript != null && References.knifeScript.attack != 0)
+        else if (_references.KnifeScript != null && _references.KnifeScript.Attack != 0)
         {
-            Image.enabled = true;
-            float multiplier = (MaxTop - MinTop) / References.knifeScript.resetCooldown;
-            rectTransform.offsetMax = new Vector2(rectTransform.offsetMax.x, -MinTop - multiplier * References.knifeScript.resetCooldownTimer);
+            _image.enabled = true;
+            float multiplier = (_maxTop - _minTop) / _references.KnifeScript.ResetCooldown;
+            _rectTransform.offsetMax = new Vector2(_rectTransform.offsetMax.x, -_minTop - multiplier * _references.KnifeScript.ResetCooldownTimer);
         }
     }
 }

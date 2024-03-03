@@ -9,22 +9,22 @@ using Unity.VisualScripting;
 
 public class ItemManager : NetworkBehaviour
 {
-    private PlayerState playerState;
-    private List<GameObject> items;
+    private PlayerState _playerState;
+    private List<GameObject> _items;
 
     #nullable enable
-    private GameObject? Item;
-    private WeaponScript? weaponScript;
+    private GameObject? _item;
+    private WeaponScript? _weaponScript;
     #nullable disable
 
-    private int index;
+    private int _index;
 
 
     private void Start()
     {
-        index = 0;
-        items = new List<GameObject>();
-        playerState = gameObject.GetComponent<PlayerState>();
+        _index = 0;
+        _items = new List<GameObject>();
+        _playerState = GetComponent<PlayerState>();
     }
 
 
@@ -32,45 +32,39 @@ public class ItemManager : NetworkBehaviour
     {
         if (!IsOwner) return;
 
-        if (items.Count > 0)
+        if (_items.Count > 0)
         {
             if (Input.GetButtonDown("Switch"))
-                index = (index + 1) % items.Count;
+                _index = (_index + 1) % _items.Count;
 
-            Item = items[index];
-            Item.GetComponent<HighlightItem>().Highlight();
+            _item = _items[_index];
+            _item.GetComponent<HighlightItem>().Highlight();
 
-            if (Item.CompareTag("Weapon") && !(weaponScript = Item.GetComponent<WeaponScript>()).InHand)
+            if (_item.CompareTag("Weapon") && !(_weaponScript = _item.GetComponent<WeaponScript>()).InHand)
             {
-                Item.GetComponent<HighlightItem>().Highlight();
-
-                if (Input.GetButtonDown("Pickup") && !playerState.HoldingWeapon)
+                if (Input.GetButtonDown("Pickup") && !_playerState.HoldingWeapon)
                 {
-                    index = 0;
+                    _index = 0;
                     //Intervetir avec l'arme en main
-                    playerState.Weapon = Item;
-                    playerState.HoldingWeapon = true;
-                    weaponScript.PlayerState = playerState;
-                    weaponScript.InHand = true;
+                    _playerState.Weapon = _item;
+                    _playerState.HoldingWeapon = true;
+                    _weaponScript.PlayerState = _playerState;
+                    _weaponScript.InHand = true;
                 }
             }
-            else if (Item.CompareTag("Implant")) //Plus verifier que l'implant n'est pas sur une entite
+            else if (_item.CompareTag("Implant")) //Plus verifier que l'implant n'est pas sur une entite
             {
-                Item.GetComponent<HighlightItem>().Highlight();
-
                 if (Input.GetButtonDown("Pickup"))
                 {
-                    index = 0;
+                    _index = 0;
                     //Mettre l'implant dans l'inventaire ou le remplacer avec un autre
                 }
             }
             else
             {
-                Item.GetComponent<HighlightItem>().Highlight();
-
                 if (Input.GetButtonDown("Pickup"))
                 {
-                    index = 0;
+                    _index = 0;
                     //Mettre l'item dans l'inventaire
                 }
             }
@@ -82,7 +76,7 @@ public class ItemManager : NetworkBehaviour
     {
         if (collision.gameObject.CompareTag("Weapon") || collision.gameObject.CompareTag("Implant") || collision.gameObject.CompareTag("Item"))
         {
-            items.Add(collision.gameObject);
+            _items.Add(collision.gameObject);
         }
     }
 
@@ -90,8 +84,8 @@ public class ItemManager : NetworkBehaviour
     {
         if (collision.gameObject.CompareTag("Weapon") || collision.gameObject.CompareTag("Knife") || collision.gameObject.CompareTag("Item"))
         {
-            index = 0;
-            items.Remove(collision.gameObject);
+            _index = 0;
+            _items.Remove(collision.gameObject);
         }
     }
 }
