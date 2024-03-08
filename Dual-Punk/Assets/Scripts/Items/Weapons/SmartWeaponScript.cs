@@ -19,7 +19,7 @@ public class SmartWeaponScript : FireArmScript
     {
         base.Update();
 
-        if (InHand && !_reloading)
+        if (InHand && !Reloading)
         {
             PointerScript.SpriteNumber = 2;
 
@@ -31,21 +31,21 @@ public class SmartWeaponScript : FireArmScript
     }
 
 
-    public override void Fire(Vector3 direction, float spread)
+    public override void Fire(Vector3 direction, int damage, float bulletSpeed, float dispersion)
     {
         if (PlayerState.Walking)
-            spread /= _aimAccuracy;
+            dispersion /= _aimAccuracy;
 
         for (int i = 0; i < _bulletNumber; i++)
         {
-            Vector3 newDirection = new Vector3(direction.x + NextFloat(-spread, spread), direction.y + NextFloat(-spread, spread), 0).normalized;
+            Vector3 newDirection = new Vector3(direction.x + Methods.NextFloat(-dispersion, dispersion), direction.y + Methods.NextFloat(-dispersion, dispersion), 0).normalized;
             float newAngle = (float)(Math.Atan2(newDirection.y, newDirection.x) * (180 / Math.PI));
 
-            GameObject newBullet = Instantiate(_bullet, _gunEnd.transform.position, transform.rotation);
+            GameObject newBullet = Instantiate(_bullet, _gunEndPoints[i % _gunEndPoints.Length].transform.position, transform.rotation);
             SeekingBulletScript bulletScript = newBullet.GetComponent<SeekingBulletScript>();
 
-            bulletScript.Damage = _damage;
-            bulletScript.MoveSpeed = _bulletSpeed;
+            bulletScript.Damage = damage;
+            bulletScript.MoveSpeed = bulletSpeed;
             bulletScript.MoveDirection = newDirection;
             bulletScript.Target = PointerScript.Target;
             bulletScript.RotateSpeed = _bulletRotateSpeed;

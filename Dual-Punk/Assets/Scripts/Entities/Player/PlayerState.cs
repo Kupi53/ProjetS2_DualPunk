@@ -7,26 +7,33 @@ using UnityEngine;
 
 public class PlayerState : MonoBehaviour
 {
-    public int Health;
-    public int MaxHealth = 100;
+    public int Health { get; set; }
+    public int MaxHealth { get; set; }
 
-    public bool Walking = false;
-    public bool Dashing = false;
-    public bool Attacking = false;
-    public bool HoldingWeapon = false;
+    public bool Walking { get; set; }
+    public bool Dashing { get; set; }
+    public bool Attacking { get; set; }
+    public bool HoldingWeapon { get; set; }
 
-    public float DashCooldown = 0.0f;
-    public float DashCooldownMax = 1.0f;
+    public float DashCooldown { get; set; }
+    public float DashCooldownMax { get; set; }
 
     #nullable enable
-    public GameObject? Pointer;
-    public GameObject? Weapon;
+    public GameObject? Pointer { get; set; }
+    public GameObject? Weapon { get; set; }
     #nullable disable
 
 
     private void Awake()
     {
+        MaxHealth = 100;
         Health = MaxHealth;
+        Walking = false;
+        Dashing = false;
+        Attacking = false;
+        HoldingWeapon = false;
+        DashCooldown = 0.0f;
+        DashCooldownMax = 1.0f;
     }
 
     void Update()

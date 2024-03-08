@@ -170,14 +170,15 @@ MonoBehaviour:
   _weaponDistance: 0.7
   _weaponOffset: {x: 0, y: 0.5, z: 0}
   _bullet: {fileID: 5298557137024599475, guid: cf1a87b5cd3d7904dbe9dcf2013b111e, type: 3}
-  _gunEnd: {fileID: 1151202582569453349}
-  _damage: 6
-  _maxMagSize: 4
+  _gunEndPoints:
+  - {fileID: 1151202582569453349}
+  _damage: 7
+  _magSize: 4
   _bulletNumber: 9
   _reloadAmount: 1
-  _fireRate: 1
+  _fireRate: 0.8
   _dispersion: 0.3
-  _reloadTime: 0.8
+  _reloadTime: 0.7
   _aimAccuracy: 2
   _bulletSpeed: 30
   _autoReload: 0

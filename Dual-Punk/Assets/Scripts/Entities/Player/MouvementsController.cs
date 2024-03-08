@@ -42,8 +42,8 @@ public class MouvementsController : NetworkBehaviour
 
     // Bool qui sert pour le state du joueur (par exemple pendant un dash ou certaines abilitiés le joueur ne doit pas pouvoir bouger)
     private bool _enableMovement;
-    private string _currentState;
     private float _dashTimer;
+    private string _currentState;
 
     private Vector2 _moveDirection;
     private Vector2 _pointerDirection;
@@ -70,6 +70,7 @@ public class MouvementsController : NetworkBehaviour
         {
             // Direction du deplacement
             _moveDirection = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical") * 0.5f).normalized;
+
             // Direction du pointeur
             if (_playerState.Pointer != null)
                 _pointerDirection = (_playerState.Pointer.transform.position - transform.position).normalized;
@@ -79,10 +80,16 @@ public class MouvementsController : NetworkBehaviour
             else if (Input.GetAxis("Horizontal") == 0)
                 _moveDirection *= 0.6f;
 
-            if (Input.GetButtonDown("Sprint"))
+            if (Input.GetButton("Walk") || _moveDirection == Vector2.zero)
             {
-                _playerState.Walking = !_playerState.Walking;
+                _playerState.Walking = true;
             }
+            else
+            {
+                _playerState.Walking = false;
+            }
+
+
         }
 
         if (Input.GetButtonDown("Dash") && _playerState.DashCooldown <= 0.0f)
@@ -113,15 +120,13 @@ public class MouvementsController : NetworkBehaviour
             float pointerAngle = (float)(Math.Atan2(_pointerDirection.y, _pointerDirection.x) * (180 / Math.PI));
 
 
-            if (_playerState.Walking) {
+            if (_playerState.Walking)
                 moveSpeed = _walkSpeed;
-            } else {
+            else
                 moveSpeed = _sprintSpeed;
-            }
 
-            if (_playerState.HoldingWeapon && !Methods.SameDirection(moveAngle, pointerAngle, 60)) {
+            if (_playerState.HoldingWeapon && !Methods.SameDirection(moveAngle, pointerAngle, 60))
                 moveFactor *= _moveBackFactor;
-            }
 
             if (_moveDirection != new Vector2(0, 0))
             {

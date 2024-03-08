@@ -949,7 +949,10 @@ MonoBehaviour:
   _smartPointer2: {fileID: 21300000, guid: 20a930c0b74748e4796fceef5edcf87b, type: 3}
   _smartPointer3: {fileID: 21300000, guid: 6a3c8bf5af9b3aa4c85f96707be64e1c, type: 3}
   _smartPointer4: {fileID: 21300000, guid: ce9345307b088d043b4a091bb90c4208, type: 3}
-  _spriteRenderer: {fileID: 0}
+  _chargePointer1: {fileID: 21300000, guid: 00d7da47a0708544aad89fcde8a3d791, type: 3}
+  _chargePointer2: {fileID: 21300000, guid: 71b69cef2141158458bbbd6b56499499, type: 3}
+  _chargePointer3: {fileID: 21300000, guid: 07ed62cc71730444c81b7f68312c9578, type: 3}
+  _chargePointer4: {fileID: 21300000, guid: e883d4a2211a4e94094ed28baaa97b3d, type: 3}
 --- !u!1 &3241151104222223355
 GameObject:
   m_ObjectHideFlags: 0

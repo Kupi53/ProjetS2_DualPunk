@@ -8,34 +8,35 @@ using UnityEngine.Playables;
 using Unity.Multiplayer.Samples.Utilities.ClientAuthority;
 
 
+
 public class FireArmScript : WeaponScript
 {
     [SerializeField] protected GameObject _bullet;
-    [SerializeField] protected GameObject _gunEnd;
+    [SerializeField] protected GameObject[] _gunEndPoints;
 
     [SerializeField] protected int _damage;
-    [SerializeField] private int _maxMagSize;
+    [SerializeField] protected int _magSize;
     [SerializeField] protected int _bulletNumber;
     [SerializeField] private int _reloadAmount;
 
-    [SerializeField] private float _fireRate;
-    [SerializeField] private float _dispersion;
+    [SerializeField] protected float _fireRate;
+    [SerializeField] protected float _dispersion;
     [SerializeField] private float _reloadTime;
     [SerializeField] protected float _aimAccuracy;
     [SerializeField] protected float _bulletSpeed;
 
-    [SerializeField] private bool _autoReload;
-    [SerializeField] private bool _auto;
+    [SerializeField] protected bool _autoReload;
+    [SerializeField] protected bool _auto;
 
-    private int _currentMagSize;
+    private int _ammoLeft;
     private float _reloadTimer;
-    private float _fireTimer;
-    protected bool _reloading;
+    protected float _fireTimer;
+    private bool _reloading;
 
-    
-    public int CurrentMagSize { get => _currentMagSize; set => _currentMagSize = value; }
+
+    public int AmmoLeft { get => _ammoLeft; set => _ammoLeft = value; }
     public float ReloadTime { get => _reloadTime; set => _reloadTime = value; }
-    public float ReloadTimer {  get => _reloadTimer; set => _reloadTimer = value; }
+    public float ReloadTimer { get => _reloadTimer; set => _reloadTimer = value; }
     public bool Reloading { get => _reloading; set => _reloading = value; }
 
 
@@ -43,8 +44,8 @@ public class FireArmScript : WeaponScript
     {
         _reloadTimer = 0;
         _reloading = false;
+        _ammoLeft = _magSize;
         _fireTimer = _fireRate;
-        _currentMagSize = _maxMagSize;
         _spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
@@ -64,55 +65,71 @@ public class FireArmScript : WeaponScript
 
     public override void Run(Vector3 position, Vector3 direction)
     {
-        movePosition(position, _weaponOffset, direction, _weaponDistance);
+        MovePosition(position, direction, _weaponOffset, _weaponDistance);
 
-        if ((Input.GetButton("Use") && _auto && !_reloading || Input.GetButtonDown("Use")) && _fireTimer > _fireRate && _currentMagSize > 0)
+        if ((Input.GetButton("Use") && _auto && !_reloading || Input.GetButtonDown("Use")) && _fireTimer >= _fireRate && _ammoLeft > 0)
         {
             if (_reloading)
                 Reset();
 
             if (IsHost)
-                Fire(direction, _dispersion);
+                Fire(direction, _damage, _bulletSpeed, _dispersion);
 
             _fireTimer = 0;
-            _currentMagSize--;
+            _ammoLeft--;
         }
-        else
+        else if (_fireTimer < _fireRate)
+        {
             _fireTimer += Time.deltaTime;
+        }
 
 
-        if (Input.GetButtonDown("Reload") && _currentMagSize != _maxMagSize || _autoReload && _currentMagSize == 0)
+        if (Input.GetButtonDown("Reload") && _ammoLeft != _magSize || _autoReload && _ammoLeft == 0)
+        {
             _reloading = true;
-
+        }
         if (_reloading)
         {
-            PointerScript.SpriteNumber = 0;
-
-            if (_reloadTimer >= _reloadTime)
-            {
-                _reloadTimer = 0;
-                if (_currentMagSize + _reloadAmount < _maxMagSize)
-                    _currentMagSize += _reloadAmount;
-                else
-                {
-                    _reloading = false;
-                    _currentMagSize = _maxMagSize;
-                }
-            }
-            else
-                _reloadTimer += Time.deltaTime;
+            Reload();
         }   
     }
 
-    public void movePosition(Vector3 position, Vector3 weaponOffset, Vector3 direction, float weaponDistance)
+
+    protected void MovePosition(Vector3 position, Vector3 direction, Vector3 weaponOffset, float weaponDistance)
     {
         float angle = (float)(Math.Atan2(direction.y, direction.x) * (180 / Math.PI));
+
         if (angle > 90 || angle < -90)
-            _spriteRenderer.flipY = true;
+        {
+            _spriteRenderer.flipY = true; 
+            weaponOffset.x = -weaponOffset.x;
+        }
         else
             _spriteRenderer.flipY = false;
+
         transform.position = position + weaponOffset + direction * weaponDistance;
         transform.eulerAngles = new Vector3(0, 0, angle);
+    }
+
+
+    protected void Reload()
+    {
+        PointerScript.SpriteNumber = 0;
+
+        if (_reloadTimer >= _reloadTime)
+        {
+            _reloadTimer = 0;
+
+            if (_ammoLeft + _reloadAmount < _magSize)
+                _ammoLeft += _reloadAmount;
+            else
+            {
+                _reloading = false;
+                _ammoLeft = _magSize;
+            }
+        }
+        else
+            _reloadTimer += Time.deltaTime;
     }
 
 
@@ -123,28 +140,21 @@ public class FireArmScript : WeaponScript
     }
 
 
-    public static float NextFloat(float min, float max)
-    {
-        System.Random random = new System.Random();
-        double val = random.NextDouble() * (max - min) + min;
-        return (float)val;
-    }
-
-    public virtual void Fire(Vector3 direction, float spread)
+    public virtual void Fire(Vector3 direction, int damage, float bulletSpeed, float dispersion)
     {
         if (PlayerState.Walking)
-            spread /= _aimAccuracy;
+            dispersion /= _aimAccuracy;
 
         for (int i = 0; i < _bulletNumber; i++)
         {
-            Vector3 newDirection = new Vector3(direction.x + NextFloat(-spread, spread), direction.y + NextFloat(-spread, spread), 0).normalized;
+            Vector3 newDirection = new Vector3(direction.x + Methods.NextFloat(-dispersion, dispersion), direction.y + Methods.NextFloat(-dispersion, dispersion), 0).normalized;
             float newAngle = (float)(Math.Atan2(newDirection.y, newDirection.x) * (180 / Math.PI));
 
-            GameObject newBullet = Instantiate(_bullet, _gunEnd.transform.position, transform.rotation);
+            GameObject newBullet = Instantiate(_bullet, _gunEndPoints[i%_gunEndPoints.Length].transform.position, transform.rotation);
             BulletScript bulletScript = newBullet.GetComponent<BulletScript>();
 
-            bulletScript.Damage = _damage;
-            bulletScript.MoveSpeed = _bulletSpeed;
+            bulletScript.Damage = damage;
+            bulletScript.MoveSpeed = bulletSpeed;
             bulletScript.MoveDirection = newDirection;
 
             newBullet.transform.eulerAngles = new Vector3(0, 0, newAngle);

@@ -19,10 +19,15 @@ public class PointerScript : MonoBehaviour
     [SerializeField] private Sprite _smartPointer2;
     [SerializeField] private Sprite _smartPointer3;
     [SerializeField] private Sprite _smartPointer4;
-    
+    [SerializeField] private Sprite _chargePointer1;
+    [SerializeField] private Sprite _chargePointer2;
+    [SerializeField] private Sprite _chargePointer3;
+    [SerializeField] private Sprite _chargePointer4;
+
     private LocalPlayerReference _references;
     private SpriteRenderer _spriteRenderer;
     private Vector3 _position;
+
 
     public int SpriteNumber { get; set; }
     public bool Locked { get; set; }
@@ -59,13 +64,14 @@ public class PointerScript : MonoBehaviour
             case 0:
                 _spriteRenderer.sprite = _pointerBase;
                 break;
-
             case 1:
                 ChangePointer(_pointer1, _pointer2, _pointer3, _pointer4);
                 break;
-
             case 2:
                 ChangePointer(_smartPointer1, _smartPointer2, _smartPointer3, _smartPointer4);
+                break;
+            case 3:
+                ChangePointer(_chargePointer1, _chargePointer2, _chargePointer3, _chargePointer4);
                 break;
         }
     }

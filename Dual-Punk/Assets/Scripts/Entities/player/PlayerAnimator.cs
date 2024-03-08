@@ -12,12 +12,12 @@ public class PlayerAnimator : MonoBehaviour{
     const string PLAYER_SE = "Player SE";
     const string PLAYER_SW = "Player SW";
     public Animator animator;
-    private string currentState;
+    //private string currentState;
 
     void Start()
     {
         animator = GetComponent<Animator>();
         // de base le joueur face en bas
-        currentState = PLAYER_S;
+        //currentState = PLAYER_S;
     }
 }

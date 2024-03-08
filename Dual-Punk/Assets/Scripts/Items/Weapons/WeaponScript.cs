@@ -13,7 +13,7 @@ public abstract class WeaponScript : NetworkBehaviour
 
     [SerializeField] protected float _weaponDistance;
     [SerializeField] protected Vector3 _weaponOffset;
-    
+
     public Vector3 WeaponOffset { get => _weaponOffset; set => _weaponOffset = value; }
 
     protected SpriteRenderer _spriteRenderer;

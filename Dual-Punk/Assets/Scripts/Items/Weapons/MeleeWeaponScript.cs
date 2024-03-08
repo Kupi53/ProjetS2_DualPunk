@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 
 
-public class KnifeScript : WeaponScript
+public class MeleeWeaponScript : WeaponScript
 {
     [SerializeField] private float _attackSpeed;
     [SerializeField] private float _attackRange;
@@ -18,10 +18,8 @@ public class KnifeScript : WeaponScript
     private float _currentWeaponDistance;
 
     public float Attack { get => _attack; set => _attack = value; }
-    
     public float ResetCooldown { get => _resetCooldown; set => _resetCooldown = value; }
     public float ResetCooldownTimer { get => _resetCooldownTimer; set => _resetCooldownTimer = value; }
-
 
 
     void Start()

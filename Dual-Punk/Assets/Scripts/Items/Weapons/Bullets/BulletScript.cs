@@ -32,7 +32,7 @@ public class BulletScript : NetworkBehaviour
 
     public void OnTriggerEnter2D(Collider2D collider)
     {
-        if(collider.GetComponent<EnnemyState>()!= null)
+        if (collider.CompareTag("Ennemy"))
         {
             EnnemyState health = collider.GetComponent<EnnemyState>();
             health.OnDamage(Damage);
