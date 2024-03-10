@@ -172,7 +172,7 @@ MonoBehaviour:
   _bullet: {fileID: 3137761784652373764, guid: c83c2ecdccc5c4e42a0c6b0d758735f3, type: 3}
   _gunEndPoints:
   - {fileID: 4522083825481786314}
-  _damage: 30
+  _damage: 100
   _magSize: 3
   _bulletNumber: 1
   _reloadAmount: 3

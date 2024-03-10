@@ -267,18 +267,18 @@ MonoBehaviour:
   - {fileID: 5507576148066104672}
   - {fileID: 5261379878311747825}
   _damage: 40
-  _magSize: 5
+  _magSize: 4
   _bulletNumber: 2
   _reloadAmount: 1
   _fireRate: 0.4
   _dispersion: 0.1
-  _reloadTime: 0.8
+  _reloadTime: 0.7
   _aimAccuracy: 2
   _bulletSpeed: 50
   _autoReload: 0
   _auto: 0
-  _minDamage: 10
-  _minSpeed: 15
+  _minDamage: 15
+  _minSpeed: 10
   _chargeTime: 1.2
 --- !u!114 &-5961033379950352520
 MonoBehaviour:

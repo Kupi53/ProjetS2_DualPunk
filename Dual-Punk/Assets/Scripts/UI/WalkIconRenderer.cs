@@ -12,18 +12,12 @@ public class WalkIconRenderer : MonoBehaviour
 
     void Start()
     {
-        playerState = transform.root.gameObject.GetComponent<LocalPlayerReference>().PlayerState;
+        playerState = transform.root.GetComponent<LocalPlayerReference>().PlayerState;
+        Image.enabled = false;
     }
 
     void Update()
     {
-        if (playerState.Walking)
-        {
-            Image.enabled = true;
-        }
-        else
-        {
-            Image.enabled = false;
-        }
+        
     }
 }

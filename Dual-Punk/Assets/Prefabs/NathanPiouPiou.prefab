@@ -203,18 +203,18 @@ MonoBehaviour:
   _bullet: {fileID: 3137761784652373764, guid: c83c2ecdccc5c4e42a0c6b0d758735f3, type: 3}
   _gunEndPoints:
   - {fileID: 298094953147082344}
-  _damage: 8
+  _damage: 12
   _magSize: 40
   _bulletNumber: 1
   _reloadAmount: 50
-  _fireRate: 0.1
+  _fireRate: 0.12
   _dispersion: 0.15
   _reloadTime: 1.5
   _aimAccuracy: 3
   _bulletSpeed: 10
   _autoReload: 1
   _auto: 1
-  _bulletRotateSpeed: 5
+  _bulletRotateSpeed: 3
 --- !u!114 &5536798300859352896
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -36,13 +36,11 @@ public class PlayerState : MonoBehaviour
         DashCooldownMax = 1.0f;
     }
 
+
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.C)){
-            Damage(10);
-        }
         if(Input.GetKeyDown(KeyCode.V)){
-            Heal(10);
+            Damage(10);
         }
     }
 

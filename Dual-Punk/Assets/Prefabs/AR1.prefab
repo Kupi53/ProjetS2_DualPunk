@@ -224,11 +224,11 @@ MonoBehaviour:
   _bullet: {fileID: 5298557137024599475, guid: cf1a87b5cd3d7904dbe9dcf2013b111e, type: 3}
   _gunEndPoints:
   - {fileID: 7751566459779938819}
-  _damage: 10
+  _damage: 17
   _magSize: 30
   _bulletNumber: 1
   _reloadAmount: 30
-  _fireRate: 0.15
+  _fireRate: 0.18
   _dispersion: 0.1
   _reloadTime: 1.3
   _aimAccuracy: 3

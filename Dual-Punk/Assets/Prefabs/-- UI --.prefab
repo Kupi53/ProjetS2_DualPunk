@@ -115,7 +115,7 @@ GameObject:
   - component: {fileID: 1436926165767245335}
   - component: {fileID: 8191380270806452394}
   m_Layer: 5
-  m_Name: WalkIcon
+  m_Name: GrenadeIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -268,7 +268,7 @@ GameObject:
   - component: {fileID: 8814030487684000180}
   - component: {fileID: 5744916581267769838}
   m_Layer: 5
-  m_Name: DashIcon
+  m_Name: HealIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -880,7 +880,7 @@ SpriteRenderer:
   m_Size: {x: 0.32, y: 0.32}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!61 &5871187509924059242
@@ -1113,7 +1113,7 @@ GameObject:
   - component: {fileID: 2704918632770003181}
   - component: {fileID: 6481167447171124052}
   m_Layer: 5
-  m_Name: Dash
+  m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1136,7 +1136,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -0.3, y: -3.4}
-  m_SizeDelta: {x: 75.11, y: 33.2363}
+  m_SizeDelta: {x: 75.11, y: 33.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2704918632770003181
 CanvasRenderer:
@@ -1166,7 +1166,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: DASH
+  m_text: HEAL
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
   m_sharedMaterial: {fileID: 2140032, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
@@ -1248,7 +1248,7 @@ GameObject:
   - component: {fileID: 575877543041742936}
   - component: {fileID: 9044720112194011704}
   m_Layer: 5
-  m_Name: DashCooldown
+  m_Name: Reload
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1553,7 +1553,7 @@ GameObject:
   - component: {fileID: 7846933987185799181}
   - component: {fileID: 4990315603970988650}
   m_Layer: 5
-  m_Name: Walk
+  m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1575,8 +1575,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 56.7, y: -11.88}
-  m_SizeDelta: {x: 187.5, y: 50}
+  m_AnchoredPosition: {x: 29, y: -10.2}
+  m_SizeDelta: {x: 190, y: 48}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7846933987185799181
 CanvasRenderer:
@@ -1606,7 +1606,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: WALK
+  m_text: 'Grenade
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
   m_sharedMaterial: {fileID: 2140032, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
@@ -1992,7 +1994,7 @@ GameObject:
   - component: {fileID: 6727217811904165705}
   - component: {fileID: 3672941406297564446}
   m_Layer: 5
-  m_Name: IsWalking
+  m_Name: Reload
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2012,10 +2014,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 117068554864095363}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -7.200006, y: -7}
+  m_AnchoredPosition: {x: 0, y: -20}
+  m_SizeDelta: {x: -7.200012, y: 33}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2225119750043908708
 CanvasRenderer:
