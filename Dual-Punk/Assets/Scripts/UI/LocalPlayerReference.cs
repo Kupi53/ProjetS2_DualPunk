@@ -18,7 +18,7 @@ public class LocalPlayerReference : MonoBehaviour
 
     private void Start()
     {
-        PlayerState = LOCALPLAYER.GetComponentInChildren<PlayerState>();
+        PlayerState = LOCALPLAYER.GetComponent<PlayerState>();
     }
 
     private void Update()
