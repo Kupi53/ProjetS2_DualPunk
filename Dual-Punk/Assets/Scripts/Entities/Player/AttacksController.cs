@@ -37,7 +37,6 @@ public class AttacksController : NetworkBehaviour
                     _weaponScript.Reset();
                     _weaponScript.InHand = false;
                     _playerState.HoldingWeapon = false;
-                    _weaponScript.PointerScript.Locked = false;
                     _weaponScript.PointerScript.SpriteNumber = 0;
                 }
             }

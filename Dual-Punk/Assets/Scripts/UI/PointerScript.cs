@@ -30,7 +30,6 @@ public class PointerScript : MonoBehaviour
 
 
     public int SpriteNumber { get; set; }
-    public bool Locked { get; set; }
 
     #nullable enable
     public GameObject? Target { get; set; }
@@ -47,16 +46,9 @@ public class PointerScript : MonoBehaviour
 
     void Update()
     {
-        if (Locked && Target != null)
-        {
-            transform.position = Target.transform.position;
-        }
-        else
-        {
-            _position = _references.Camera.GetComponent<Camera>().ScreenToWorldPoint(Input.mousePosition);
-            _position.z = 0;
-            transform.position = _position;
-        }
+        _position = _references.Camera.GetComponent<Camera>().ScreenToWorldPoint(Input.mousePosition);
+        _position.z = 0;
+        transform.position = _position;
 
 
         switch (SpriteNumber)

@@ -244,6 +244,7 @@ MonoBehaviour:
   _bulletSpeed: 15
   _autoReload: 1
   _auto: 1
+  _lockedTargetIndicator: {fileID: 2443144578293597239, guid: e3bb1f7480ddb6645bdbf6c3371c4af5, type: 3}
   _bulletRotateSpeed: 5
 --- !u!114 &920262741264380314
 MonoBehaviour:
