@@ -11,7 +11,7 @@ public class SmartWeaponScript : FireArmScript
     [SerializeField] private GameObject _lockedTargetIndicator;
     [SerializeField] private float _bulletRotateSpeed;
 
-    private List<GameObject> _lockedTargets;
+    private List<GameObject> _targetsIndicators;
     private GameObject _newTargetIndicator;
 
     private float _resetTimer;
@@ -24,7 +24,7 @@ public class SmartWeaponScript : FireArmScript
 
         _index = 0;
         _resetTimer = 0;
-        _lockedTargets = new List<GameObject>();
+        _targetsIndicators = new List<GameObject>();
     }
 
     private new void Update()
@@ -39,13 +39,13 @@ public class SmartWeaponScript : FireArmScript
             {
                 if (_resetTimer > 0.2)
                 {
-                    _lockedTargets.Clear();
+                    Reset();
                 }
                 else if (PointerScript.Target != null)
                 {
                     _newTargetIndicator = Instantiate(_lockedTargetIndicator);
                     _newTargetIndicator.GetComponent<TargetIndicatorScript>().Target = PointerScript.Target;
-                    _lockedTargets.Add(PointerScript.Target);
+                    _targetsIndicators.Add(_newTargetIndicator);
                 }
             }
 
@@ -61,7 +61,11 @@ public class SmartWeaponScript : FireArmScript
     {
         base.Reset();
 
-        _lockedTargets.Clear();
+        foreach (GameObject target in _targetsIndicators)
+        {
+            Destroy(target);
+        }
+        _targetsIndicators.Clear();
     }
 
 
@@ -69,20 +73,20 @@ public class SmartWeaponScript : FireArmScript
     {
         if (PointerScript.Target != null)
             bulletScript.Target = PointerScript.Target;
-        else if (_lockedTargets.Count == 0)
+        else if (_targetsIndicators.Count == 0)
             bulletScript.Target = null;
         else
         {
-            _index = (_index + 1) % _lockedTargets.Count;
+            _index = (_index + 1) % _targetsIndicators.Count;
 
-            if (_lockedTargets[_index] == null)
+            if (_targetsIndicators[_index] == null)
             {
-                _lockedTargets.Remove(_lockedTargets[_index]);
+                _targetsIndicators.Remove(_targetsIndicators[_index]);
                 AssignTarget(bulletScript);
             }
             else
             {
-                bulletScript.Target = _lockedTargets[_index];
+                bulletScript.Target = _targetsIndicators[_index].GetComponent<TargetIndicatorScript>().Target;
             }
         }
     }
