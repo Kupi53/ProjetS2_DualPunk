@@ -25,8 +25,7 @@ public class PointerScript : MonoBehaviour
     [SerializeField] private Sprite _chargePointer3;
     [SerializeField] private Sprite _chargePointer4;
 
-    private Image _image;
-    private RectTransform _rectTransform;
+    private SpriteRenderer _spriteRenderer;
     private PlayerState _playerState;
 
 
@@ -39,8 +38,7 @@ public class PointerScript : MonoBehaviour
 
     void Start()
     {
-        _image = GetComponent<Image>();
-        _rectTransform = GetComponent<RectTransform>();
+        _spriteRenderer = GetComponent<SpriteRenderer>();
         _playerState = transform.root.gameObject.GetComponent<LocalPlayerReference>().PlayerState;
         _playerState.PointerScript = this;
     }
@@ -48,12 +46,12 @@ public class PointerScript : MonoBehaviour
 
     void Update()
     {
-        _rectTransform.anchoredPosition = Input.mousePosition;
+        transform.position = _playerState.MousePosition;
 
         switch (SpriteNumber)
         {
             case 0:
-                _image.sprite = _pointerBase;
+                _spriteRenderer.sprite = _pointerBase;
                 break;
             case 1:
                 ChangePointer(_pointer1, _pointer2, _pointer3, _pointer4);
@@ -73,26 +71,24 @@ public class PointerScript : MonoBehaviour
         if (!_playerState.Walking)
         {
             if (Target == null)
-                _image.sprite = pointer1;
+                _spriteRenderer.sprite = pointer1;
             else
-                _image.sprite = pointer2;
+                _spriteRenderer.sprite = pointer2;
         }
         else
         {
-            if (Target == null) 
-                _image.sprite = pointer3;
+            if (Target == null)
+                _spriteRenderer.sprite = pointer3;
             else
-                _image.sprite = pointer4;
+                _spriteRenderer.sprite = pointer4;
         }
     }
 
 
-    void OnTriggerEnter2D(Collider2D collision)
+    void OnTriggerStay2D(Collider2D collision)
     {
-        Debug.Log("aaaaa");
         if (collision.gameObject.CompareTag("Ennemy"))
         {
-            Debug.Log("bbbbb");
             Target = collision.gameObject;
         }
     }
