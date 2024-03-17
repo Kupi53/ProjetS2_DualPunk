@@ -3,10 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 
 public class PlayerState : MonoBehaviour
 {
+    private Vector3 _mousePosition;
+
+
     public int Health { get; set; }
     public int MaxHealth { get; set; }
 
@@ -18,9 +22,13 @@ public class PlayerState : MonoBehaviour
     public float DashCooldown { get; set; }
     public float DashCooldownMax { get; set; }
 
+    public Vector3 MousePosition { get => _mousePosition; }
+
+    public Camera Camera { get; set; }
+
     #nullable enable
-    public GameObject? Pointer { get; set; }
-    public GameObject? Weapon { get; set; }
+    public WeaponScript? WeaponScript { get; set; }
+    public PointerScript? PointerScript { get; set; }
     #nullable disable
 
 
@@ -39,7 +47,10 @@ public class PlayerState : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.V)){
+        _mousePosition = Camera.ScreenToWorldPoint(Input.mousePosition);
+        _mousePosition.z = 0;
+
+        if (Input.GetKeyDown(KeyCode.V)){
             Damage(10);
         }
     }

@@ -33,24 +33,22 @@ public class SmartWeaponScript : FireArmScript
 
         if (InHand && !Reloading)
         {
-            PointerScript.SpriteNumber = 2;
+            PlayerState.PointerScript.SpriteNumber = 2;
 
-            if (Input.GetButtonUp("Switch"))
+            if (Input.GetButtonUp("Switch") && PlayerState.PointerScript.Target != null)
             {
-                if (_resetTimer > 0.2)
-                {
-                    Reset();
-                }
-                else if (PointerScript.Target != null)
-                {
-                    _newTargetIndicator = Instantiate(_lockedTargetIndicator);
-                    _newTargetIndicator.GetComponent<TargetIndicatorScript>().Target = PointerScript.Target;
-                    _targetsIndicators.Add(_newTargetIndicator);
-                }
+                _newTargetIndicator = Instantiate(_lockedTargetIndicator);
+                _newTargetIndicator.GetComponent<TargetIndicatorScript>().Target = PlayerState.PointerScript.Target;
+                _targetsIndicators.Add(_newTargetIndicator);
             }
 
-            if (Input.GetButton("Switch"))
+            else if (Input.GetButton("Switch"))
+            {
                 _resetTimer += Time.deltaTime;
+
+                if (_resetTimer > 0.25)
+                    Reset();
+            }
             else
                 _resetTimer = 0;
         }
@@ -71,10 +69,10 @@ public class SmartWeaponScript : FireArmScript
 
     public void AssignTarget(SeekingBulletScript bulletScript)
     {
-        if (PointerScript.Target != null)
-            bulletScript.Target = PointerScript.Target;
-        else if (_targetsIndicators.Count == 0)
-            bulletScript.Target = null;
+        if (_targetsIndicators.Count == 0)
+        {
+            bulletScript.Target = PlayerState.PointerScript.Target;
+        }
         else
         {
             _index = (_index + 1) % _targetsIndicators.Count;
@@ -107,8 +105,9 @@ public class SmartWeaponScript : FireArmScript
 
             bulletScript.Damage = damage;
             bulletScript.MoveSpeed = bulletSpeed;
-            bulletScript.MoveDirection = newDirection;
             bulletScript.RotateSpeed = _bulletRotateSpeed;
+
+            bulletScript.ChangeDirection(newDirection, true);
 
             AssignTarget(bulletScript);
 

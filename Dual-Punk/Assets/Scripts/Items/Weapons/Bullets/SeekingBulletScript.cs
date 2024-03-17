@@ -22,14 +22,13 @@ public class SeekingBulletScript : BulletScript
         {
             Vector3 heading = (Target.transform.position - transform.position).normalized;
             float angle = Vector3.Cross(MoveDirection, heading).z * 100;
-            Debug.Log(angle);
 
-            if (angle > RotateSpeed)
+            if (angle > RotateSpeed * _moveFactor)
                 angle = RotateSpeed;
-            else if (-angle > RotateSpeed)
+            else if (-angle > RotateSpeed * _moveFactor)
                 angle = -RotateSpeed;
 
-            MoveDirection = Quaternion.Euler(0, 0, angle) * MoveDirection;
+            ChangeDirection(Quaternion.Euler(0, 0, angle) * MoveDirection, false);
             transform.eulerAngles = new Vector3(0, 0, transform.eulerAngles.z + angle);
         }
     }

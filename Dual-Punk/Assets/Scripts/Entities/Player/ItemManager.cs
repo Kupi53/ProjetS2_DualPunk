@@ -47,7 +47,7 @@ public class ItemManager : NetworkBehaviour
                 {
                     _index = 0;
                     //Intervetir avec l'arme en main
-                    _playerState.Weapon = _item;
+                    _playerState.WeaponScript = _weaponScript;
                     _playerState.HoldingWeapon = true;
                     _weaponScript.PlayerState = _playerState;
                     _weaponScript.InHand = true;

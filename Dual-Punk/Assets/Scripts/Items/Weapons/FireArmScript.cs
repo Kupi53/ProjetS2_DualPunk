@@ -55,11 +55,8 @@ public class FireArmScript : WeaponScript
         //Faire des animations ici
         if (InHand)
         {
-            PointerScript = PlayerState.Pointer.GetComponent<PointerScript>();
-            PointerScript.SpriteNumber = 1;
+            PlayerState.PointerScript.SpriteNumber = 1;
         }
-        else
-            PointerScript = null;
     }
 
 
@@ -114,7 +111,7 @@ public class FireArmScript : WeaponScript
 
     protected void Reload()
     {
-        PointerScript.SpriteNumber = 0;
+        PlayerState.PointerScript.SpriteNumber = 0;
 
         if (_reloadTimer >= _reloadTime)
         {
@@ -147,17 +144,16 @@ public class FireArmScript : WeaponScript
 
         for (int i = 0; i < _bulletNumber; i++)
         {
-            Vector3 newDirection = new Vector3(direction.x + Methods.NextFloat(-dispersion, dispersion), direction.y + Methods.NextFloat(-dispersion, dispersion), 0).normalized;
-            float newAngle = (float)(Math.Atan2(newDirection.y, newDirection.x) * (180 / Math.PI));
-
             GameObject newBullet = Instantiate(_bullet, _gunEndPoints[i%_gunEndPoints.Length].transform.position, transform.rotation);
             BulletScript bulletScript = newBullet.GetComponent<BulletScript>();
+
+            Vector3 newDirection = new Vector3(direction.x + Methods.NextFloat(-dispersion, dispersion), direction.y + Methods.NextFloat(-dispersion, dispersion), 0).normalized;
 
             bulletScript.Damage = damage;
             bulletScript.MoveSpeed = bulletSpeed;
             bulletScript.MoveDirection = newDirection;
 
-            newBullet.transform.eulerAngles = new Vector3(0, 0, newAngle);
+            bulletScript.ChangeDirection(newDirection, true);
 
             NetworkObject bulletNetwork = newBullet.GetComponent<NetworkObject>();
             bulletNetwork.Spawn();

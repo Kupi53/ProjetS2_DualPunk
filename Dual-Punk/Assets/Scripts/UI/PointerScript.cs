@@ -6,6 +6,7 @@ using Unity.Properties;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Networking.PlayerConnection;
+using UnityEngine.UI;
 
 
 public class PointerScript : MonoBehaviour
@@ -24,9 +25,9 @@ public class PointerScript : MonoBehaviour
     [SerializeField] private Sprite _chargePointer3;
     [SerializeField] private Sprite _chargePointer4;
 
-    private LocalPlayerReference _references;
-    private SpriteRenderer _spriteRenderer;
-    private Vector3 _position;
+    private Image _image;
+    private RectTransform _rectTransform;
+    private PlayerState _playerState;
 
 
     public int SpriteNumber { get; set; }
@@ -38,23 +39,21 @@ public class PointerScript : MonoBehaviour
 
     void Start()
     {
-        _references = transform.root.gameObject.GetComponent<LocalPlayerReference>();
-        _references.PlayerState.Pointer = gameObject;
-        _spriteRenderer = GetComponent<SpriteRenderer>();
+        _image = GetComponent<Image>();
+        _rectTransform = GetComponent<RectTransform>();
+        _playerState = transform.root.gameObject.GetComponent<LocalPlayerReference>().PlayerState;
+        _playerState.PointerScript = this;
     }
 
 
     void Update()
     {
-        _position = _references.Camera.GetComponent<Camera>().ScreenToWorldPoint(Input.mousePosition);
-        _position.z = 0;
-        transform.position = _position;
-
+        _rectTransform.anchoredPosition = Input.mousePosition;
 
         switch (SpriteNumber)
         {
             case 0:
-                _spriteRenderer.sprite = _pointerBase;
+                _image.sprite = _pointerBase;
                 break;
             case 1:
                 ChangePointer(_pointer1, _pointer2, _pointer3, _pointer4);
@@ -71,28 +70,29 @@ public class PointerScript : MonoBehaviour
 
     private void ChangePointer(Sprite pointer1, Sprite pointer2, Sprite pointer3, Sprite pointer4)
     {
-        if (!_references.PlayerState.Walking)
+        if (!_playerState.Walking)
         {
             if (Target == null)
-                _spriteRenderer.sprite = pointer1;
+                _image.sprite = pointer1;
             else
-                _spriteRenderer.sprite = pointer2;
+                _image.sprite = pointer2;
         }
         else
         {
-            if (Target == null)
-                _spriteRenderer.sprite = pointer3;
+            if (Target == null) 
+                _image.sprite = pointer3;
             else
-                _spriteRenderer.sprite = pointer4;
+                _image.sprite = pointer4;
         }
     }
 
 
-
-    void OnTriggerStay2D(Collider2D collision)
+    void OnTriggerEnter2D(Collider2D collision)
     {
+        Debug.Log("aaaaa");
         if (collision.gameObject.CompareTag("Ennemy"))
         {
+            Debug.Log("bbbbb");
             Target = collision.gameObject;
         }
     }

@@ -36,11 +36,8 @@ public class MeleeWeaponScript : WeaponScript
         //Faire des animations ici
         if (InHand)
         {
-            PointerScript = PlayerState.Pointer.GetComponent<PointerScript>();
-            PointerScript.SpriteNumber = 1;
+            PlayerState.PointerScript.SpriteNumber = 0;
         }
-        else
-            PointerScript = null;
     }
 
 

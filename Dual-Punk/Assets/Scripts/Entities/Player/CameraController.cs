@@ -18,10 +18,9 @@ public class CameraController : MonoBehaviour
     private Vector3 _offset;
     private Vector3 _velocity2;
 
-    public GameObject Player { get; set; }
-    public Camera Camera { get; set; }
+    private Camera _camera;
 
-    public PlayerState _playerState;
+    public GameObject Player { get; set; }
 
 
     void Start()
@@ -30,7 +29,8 @@ public class CameraController : MonoBehaviour
         _velocity1 = 0;
         _velocity2 = Vector3.zero;
         _offset = new Vector3(0, 0, -7);
-        _playerState = Player.GetComponent<PlayerState>();
+
+        _camera = GetComponent<Camera>();
     }
 
 
@@ -41,11 +41,11 @@ public class CameraController : MonoBehaviour
 
         if (Input.GetButton("Walk"))
         {
-            Camera.orthographicSize = Mathf.SmoothDamp(Camera.orthographicSize, minZoom, ref _velocity1, _smoothTime);
+            _camera.orthographicSize = Mathf.SmoothDamp(_camera.orthographicSize, minZoom, ref _velocity1, _smoothTime);
         }
         else
         {
-            Camera.orthographicSize = Mathf.SmoothDamp(Camera.orthographicSize, maxZoom, ref _velocity1, _smoothTime);
+            _camera.orthographicSize = Mathf.SmoothDamp(_camera.orthographicSize, maxZoom, ref _velocity1, _smoothTime);
         }
     }
 }

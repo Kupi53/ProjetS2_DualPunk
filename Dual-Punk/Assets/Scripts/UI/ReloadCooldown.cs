@@ -32,11 +32,11 @@ public class ReloadCooldown : MonoBehaviour
             float multiplier = (_maxTop - _minTop) / _references.FireArmScript.ReloadTime;
             _rectTransform.offsetMax = new Vector2(_rectTransform.offsetMax.x, -_minTop - multiplier * _references.FireArmScript.ReloadTimer);
         }
-        else if (_references.KnifeScript != null && _references.KnifeScript.Attack != 0)
+        else if (_references.MeleeWeaponScript != null && _references.MeleeWeaponScript.Attack != 0)
         {
             _image.enabled = true;
-            float multiplier = (_maxTop - _minTop) / _references.KnifeScript.ResetCooldown;
-            _rectTransform.offsetMax = new Vector2(_rectTransform.offsetMax.x, -_minTop - multiplier * _references.KnifeScript.ResetCooldownTimer);
+            float multiplier = (_maxTop - _minTop) / _references.MeleeWeaponScript.ResetCooldown;
+            _rectTransform.offsetMax = new Vector2(_rectTransform.offsetMax.x, -_minTop - multiplier * _references.MeleeWeaponScript.ResetCooldownTimer);
         }
     }
 }

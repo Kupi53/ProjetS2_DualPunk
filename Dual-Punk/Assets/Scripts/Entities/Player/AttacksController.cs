@@ -10,11 +10,8 @@ using UnityEngine.Playables;
 public class AttacksController : NetworkBehaviour
 {
     private Vector3 _direction;
+    private Vector3 _pointerPosition;
     private PlayerState _playerState;
-
-    #nullable enable
-    private WeaponScript? _weaponScript;
-    #nullable disable
 
 
     private void Start()
@@ -26,23 +23,23 @@ public class AttacksController : NetworkBehaviour
     {
         if (_playerState.HoldingWeapon)
         {
-            _weaponScript = _playerState.Weapon.GetComponent<WeaponScript>();
-
             if (!_playerState.Attacking)
             {
-                _direction = (_playerState.Pointer.transform.position - transform.position - _weaponScript.WeaponOffset).normalized;
+                _pointerPosition = 
+        
+                _direction = (_playerState.MousePosition - transform.position - _playerState.WeaponScript.WeaponOffset).normalized;
 
                 if (Input.GetButtonDown("Drop"))
                 {
-                    _weaponScript.Reset();
-                    _weaponScript.InHand = false;
+                    _playerState.WeaponScript.Reset();
+                    _playerState.WeaponScript.InHand = false;
                     _playerState.HoldingWeapon = false;
-                    _weaponScript.PointerScript.SpriteNumber = 0;
+                    _playerState.PointerScript.SpriteNumber = 0;
                 }
             }
 
             if (_playerState.HoldingWeapon)
-                _weaponScript.Run(transform.position, _direction);
+                _playerState.WeaponScript.Run(transform.position, _direction);
         }
     }
 }

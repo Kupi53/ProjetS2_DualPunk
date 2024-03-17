@@ -20,8 +20,11 @@ public class ChargeWeaponScript : FireArmScript
     private new void Update()
     {
         base.Update();
+
         if (InHand && !Reloading)
-            PointerScript.SpriteNumber = 3;
+        {
+            PlayerState.PointerScript.SpriteNumber = 3;
+        }
     }
 
 

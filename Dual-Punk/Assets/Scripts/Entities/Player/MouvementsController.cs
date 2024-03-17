@@ -45,6 +45,11 @@ public class MouvementsController : NetworkBehaviour
     private float _dashTimer;
     private string _currentState;
 
+    // Vitesse de deplacement en fonction des variables publiques en dessous
+    private float _moveSpeed;
+    // Facteur qui depend aussi de certaines variables en dessous qui ralenti ou accelere le deplacement dans certaines situations
+    private float _moveFactor;
+
     private Vector2 _moveDirection;
     private Vector2 _pointerDirection;
 
@@ -68,28 +73,28 @@ public class MouvementsController : NetworkBehaviour
         // Prends Imputs chaque frame
         if (_enableMovement)
         {
+            _moveFactor = 1;
+            if (_playerState.Walking)
+                _moveSpeed = _walkSpeed;
+            else
+                _moveSpeed = _sprintSpeed;
+
             // Direction du deplacement
             _moveDirection = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical") * 0.5f).normalized;
 
             // Direction du pointeur
-            if (_playerState.Pointer != null)
-                _pointerDirection = (_playerState.Pointer.transform.position - transform.position).normalized;
+            if (_playerState.PointerScript != null)
+                _pointerDirection = (_playerState.MousePosition - transform.position).normalized;
             
             if (Input.GetAxis("Horizontal") != 0 && Input.GetAxis("Vertical") != 0)
-                _moveDirection *= 0.8f;
+                _moveFactor *= 0.75f;
             else if (Input.GetAxis("Horizontal") == 0)
-                _moveDirection *= 0.6f;
+                _moveDirection *= 0.5f;
 
             if (Input.GetButton("Walk") || _moveDirection == Vector2.zero)
-            {
                 _playerState.Walking = true;
-            }
             else
-            {
                 _playerState.Walking = false;
-            }
-
-
         }
 
         if (Input.GetButtonDown("Dash") && _playerState.DashCooldown <= 0.0f)
@@ -111,26 +116,15 @@ public class MouvementsController : NetworkBehaviour
 
         if (_enableMovement)
         {
-            // Vitesse de deplacement en fonction des variables publiques en dessous
-            float moveSpeed;
-            // Facteur qui depend aussi de certaines variables en dessous qui ralenti ou accelere le deplacement dans certaines situations
-            float moveFactor = 1.0f;
-
             float moveAngle = (float)(Math.Atan2(_moveDirection.y, _moveDirection.x) * (180 / Math.PI));
             float pointerAngle = (float)(Math.Atan2(_pointerDirection.y, _pointerDirection.x) * (180 / Math.PI));
 
-
-            if (_playerState.Walking)
-                moveSpeed = _walkSpeed;
-            else
-                moveSpeed = _sprintSpeed;
-
             if (_playerState.HoldingWeapon && !Methods.SameDirection(moveAngle, pointerAngle, 60))
-                moveFactor *= _moveBackFactor;
+                _moveFactor *= _moveBackFactor;
 
             if (_moveDirection != new Vector2(0, 0))
             {
-                _rb2d.MovePosition(_rb2d.position + _moveDirection * moveSpeed * moveFactor);
+                _rb2d.MovePosition(_rb2d.position + _moveDirection * _moveSpeed * _moveFactor);
 
                 if (!_playerState.HoldingWeapon)
                     ChangeAnimation(ChangeDirection(moveAngle));

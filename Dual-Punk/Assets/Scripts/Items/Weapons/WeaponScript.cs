@@ -8,7 +8,7 @@ using UnityEngine;
 public abstract class WeaponScript : NetworkBehaviour
 {
     public PlayerState PlayerState { get; set; }
-    public PointerScript PointerScript { get; set; }
+
     public bool InHand { get; set; } = false;
 
     [SerializeField] protected float _weaponDistance;
