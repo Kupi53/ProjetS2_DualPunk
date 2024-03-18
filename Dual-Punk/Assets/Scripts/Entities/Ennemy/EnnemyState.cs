@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Unity.Netcode;
 using Unity.Netcode.Components;
 using UnityEngine;
-using Pathfinding;
 
 public class EnnemyState : NetworkBehaviour
 {
@@ -16,7 +15,6 @@ public class EnnemyState : NetworkBehaviour
     [SerializeField]
     private EnnemyData data;
     private GameObject player;
-    private IAstarAI ai;
 
 
     // Start is called before the first frame update
@@ -27,19 +25,7 @@ public class EnnemyState : NetworkBehaviour
         damage = data.Damage;
         speed = data.Speed;
         player = GameObject.FindGameObjectWithTag("Ntmtest");
-
-        // Obtenir ou attacher le composant IAstarAI (par exemple, AIPath)
-        ai = GetComponent<IAstarAI>();
-        if (ai == null)
-        {
-            return;
-        }
-
-        // Assigner la destination initiale
-        if (player != null)
-        {
-            ai.destination = player.transform.position;
-        }
+        
     }
 
     // Update is called once per frame
@@ -71,20 +57,13 @@ public class EnnemyState : NetworkBehaviour
 
     private void PathFinding(){
         if(!IsServer) return;
-        
-        // Générer un nouveau chemin vers la position du joueur
-        if (player != null)
-        {
-            ai.destination = player.transform.position;
-        }
+        transform.position = Vector2.MoveTowards(transform.position, player.transform.position, speed* Time.deltaTime);
     }
 
     private void OnTriggerEnter2D(Collider2D collider){
         if(!IsServer) return;
-        PlayerState playerState = collider.GetComponent<PlayerState>();
-        if (playerState != null)
-        {
-            playerState.Damage(damage);
+        if(collider.GetComponent<PlayerState>()!=null){
+            collider.GetComponent<PlayerState>().Damage(damage);
             Debug.Log("Ennemy is touching you !");
         }
     }

@@ -57,6 +57,7 @@ public class PlayerState : MonoBehaviour
 
     void Die(){
         Debug.Log("you dead man");
+        Destroy(gameObject);
     }
 
     public void Damage(float amount){
