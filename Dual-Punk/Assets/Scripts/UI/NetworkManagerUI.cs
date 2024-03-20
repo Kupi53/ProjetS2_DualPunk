@@ -35,25 +35,11 @@ public class NetworkManagerUI : NetworkBehaviour
         // spawn le joueur
         if (type=="host"){
             NetworkManager.Singleton.StartHost();
-            /*GameObject player = Instantiate(playerPrefabA, new Vector3(0,0,0), Quaternion.identity).gameObject;
-            player.GetComponent<NetworkObject>().SpawnAsPlayerObject(NetworkManager.Singleton.LocalClientId);
-            Debug.Log("host de merde");*/
-            
         }
         else if (type=="client"){
             NetworkManager.Singleton.StartClient();
-            /*Debug.Log("client de merde");
-            SpawnServerRpc(NetworkManager.Singleton.LocalClientId);*/
         }
         // Unload the previous Scene
         SceneManager.UnloadSceneAsync("Menu");
     }
-
-    /*[ServerRpc(RequireOwnership = false)]
-    public void SpawnServerRpc(ulong clientId){
-        Debug.Log("client de merde11");
-        GameObject player = Instantiate(playerPrefabB, new Vector3(0,0,0), Quaternion.identity).gameObject;
-        player.GetComponent<NetworkObject>().SpawnAsPlayerObject(clientId);
-        Debug.Log("client de merde");
-    }*/
 }
