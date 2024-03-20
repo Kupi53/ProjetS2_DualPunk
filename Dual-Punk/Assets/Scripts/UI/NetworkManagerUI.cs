@@ -35,10 +35,6 @@ public class NetworkManagerUI : NetworkBehaviour
             SceneManager.UnloadSceneAsync("Menu");
             NetworkManager.Singleton.StartHost();
         }
-<<<<<<< HEAD
-        else if (type=="client"){
-            NetworkManager.Singleton.StartClient();
-=======
         if (type == "client"){
             NetworkManager.GetComponent<UnityTransport>().ConnectionData.Address = ipField.text;
             if (NetworkManager.Singleton.StartClient()){
@@ -50,16 +46,11 @@ public class NetworkManagerUI : NetworkBehaviour
                 }
                 SceneManager.UnloadSceneAsync("Menu");
             }
->>>>>>> parent of 88e0c82 (Revert "Merge branch 'prototype' into Arnaud")
         }
     }
-<<<<<<< HEAD
-=======
 
     public void OnIpInputChanged(){
         if (ipField.text == ""){
-            connectButton.interactable = false;
-            connectButton.GetComponentInChildren<TMP_Text>().color = new Color32(0, 185, 255, 100);
         }
         else{
             connectButton.interactable = true;
@@ -74,5 +65,5 @@ public class NetworkManagerUI : NetworkBehaviour
         player.GetComponent<NetworkObject>().SpawnAsPlayerObject(clientId);
         Debug.Log("client de merde");
     }*/
->>>>>>> parent of 88e0c82 (Revert "Merge branch 'prototype' into Arnaud")
+
 }

@@ -27,8 +27,6 @@ public class EnnemyState : NetworkBehaviour
         damage = data.Damage;
         speed = data.Speed;
         player = GameObject.FindGameObjectWithTag("Ntmtest");
-<<<<<<< HEAD
-=======
 
         // Obtenir ou attacher le composant IAstarAI (par exemple, AIPath)
         ai = GetComponent<IAstarAI>();
@@ -42,9 +40,6 @@ public class EnnemyState : NetworkBehaviour
         {
             ai.destination = player.transform.position;
         }
-    }
->>>>>>> parent of 88e0c82 (Revert "Merge branch 'prototype' into Arnaud")
-
         // Obtenir ou attacher le composant IAstarAI (par exemple, AIPath)
         ai = GetComponent<IAstarAI>();
         if (ai == null)
@@ -89,32 +84,18 @@ public class EnnemyState : NetworkBehaviour
         }
     }
 
-<<<<<<< HEAD
-    private void PathFinding()
-    {
-        if (!IsServer) return;
-
-        // Générer un nouveau chemin vers la position du joueur
-=======
     private void PathFinding(){
         if(!IsServer) return;
         
         // GÃ©nÃ©rer un nouveau chemin vers la position du joueur
->>>>>>> parent of 88e0c82 (Revert "Merge branch 'prototype' into Arnaud")
         if (player != null)
         {
             ai.destination = player.transform.position;
         }
     }
 
-<<<<<<< HEAD
-    private void OnTriggerEnter2D(Collider2D collider)
-    {
-        if (!IsServer) return;
-=======
     private void OnTriggerEnter2D(Collider2D collider){
         if(!IsServer) return;
->>>>>>> parent of 88e0c82 (Revert "Merge branch 'prototype' into Arnaud")
         PlayerState playerState = collider.GetComponent<PlayerState>();
         if (playerState != null)
         {
