@@ -10,14 +10,11 @@ public class SpawnPlayers : NetworkBehaviour
     [SerializeField] private GameObject playerPrefabB; //add prefab in inspector
 
     public override void OnNetworkSpawn(){
-        Debug.Log("test");
         if (IsHost){
-            Debug.Log("host de merde");
             GameObject player = Instantiate(playerPrefabA, new Vector3(0,0,0), transform.rotation);
             player.GetComponent<NetworkObject>().SpawnAsPlayerObject(NetworkManager.Singleton.LocalClientId);
         }
         else{
-            Debug.Log("client de merde");   
             SpawnServerRPC(NetworkManager.Singleton.LocalClientId);
         }
     }
@@ -26,5 +23,6 @@ public class SpawnPlayers : NetworkBehaviour
         GameObject player = Instantiate(playerPrefabB, new Vector3(0,0,0), transform.rotation);
         player.GetComponent<NetworkObject>().SpawnAsPlayerObject(clientId);
         Debug.Log("client de merde");
-    }
+    } 
+
 }

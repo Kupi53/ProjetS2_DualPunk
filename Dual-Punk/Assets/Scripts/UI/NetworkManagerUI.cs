@@ -6,11 +6,13 @@ using Unity.Netcode;
 using UnityEngine.SceneManagement;
 using TMPro;
 using Unity.Netcode.Transports.UTP;
+using Unity.VisualScripting;
 
 public class NetworkManagerUI : NetworkBehaviour
 {
     [SerializeField] private Button hostButton;
     [SerializeField] private Button connectButton;
+    [SerializeField] private Button debugButton;
     [SerializeField] private TMP_InputField ipField;
 
     private void Awake(){
@@ -19,6 +21,9 @@ public class NetworkManagerUI : NetworkBehaviour
         });
         connectButton.onClick.AddListener(()=>{
             StartCoroutine(LoadLobbyScene("client"));
+        });
+        debugButton.onClick.AddListener(() => {
+            StartCoroutine(LoadGameDebug());
         });
     }
 // g volé ce script dans la docu et modifié il permet de changer de scene de maniere clean
@@ -57,6 +62,15 @@ public class NetworkManagerUI : NetworkBehaviour
             connectButton.GetComponentInChildren<TMP_Text>().color = new Color32(0, 185, 255, 255);
 
         }
+    }
+
+    IEnumerator LoadGameDebug()
+    {
+        NetworkManager.Singleton.StartHost();
+        NetworkManager.SceneManager.LoadScene("Game", LoadSceneMode.Single);
+        yield return new WaitForEndOfFrame();
+        SceneManager.SetActiveScene(SceneManager.GetSceneByName("Game"));
+        NetworkManager.SceneManager.UnloadScene(SceneManager.GetSceneByName("Lobby"));
     }
     /*[ServerRpc(RequireOwnership = false)]
     public void SpawnServerRpc(ulong clientId){
