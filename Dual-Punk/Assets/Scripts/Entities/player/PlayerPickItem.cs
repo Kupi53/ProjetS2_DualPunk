@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class PlayerPickItem : MonoBehaviour
 {
-    [SerializeField] InventoryPickItem inventoryManager;
+    private InventoryPickItem inventoryManager;
     private GameObject itemToPick;
     private bool _CanBePicked;
     
     // Start is called before the first frame update
     void Start()
     {
-        
+        inventoryManager = GameObject.FindWithTag("Inventory").GetComponent<InventoryPickItem>();
     }
 
     void Update(){

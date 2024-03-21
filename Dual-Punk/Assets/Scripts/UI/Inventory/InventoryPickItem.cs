@@ -33,11 +33,10 @@ public class InventoryPickItem : MonoBehaviour
         if(emptySlot != null){
 
             GameObject newItem = Instantiate(inventoryItemPrefab);
-            RectTransform parentPosition = emptySlot.GetComponent<RectTransform>();
-            Debug.Log(newItem);
             newItem.GetComponent<InventoryItem>().displayedItem = pickedItem;
-            newItem.transform.SetParent(parentPosition);
-
+            newItem.transform.SetParent(emptySlot.transform.parent.parent.GetChild(1));
+            newItem.transform.localScale = new Vector3(1f,1f,1f);
+            
             emptySlot.GetComponent<InventorySlots>().SetHeldItem(newItem);
 
         }

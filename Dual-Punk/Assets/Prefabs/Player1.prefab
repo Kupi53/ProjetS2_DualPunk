@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: -1765967010265010259}
   - component: {fileID: 3907873960965384262}
   - component: {fileID: 5216142456762304026}
+  - component: {fileID: 5276345633691954301}
   m_Layer: 6
   m_Name: Player1
   m_TagString: Ntmtest
@@ -171,16 +172,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b5457baef9161b42b53eb0d17876e9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Health: 0
-  MaxHealth: 100
-  Walking: 0
-  Dashing: 0
-  Attacking: 0
-  HoldingWeapon: 0
-  DashCooldown: 0
-  DashCooldownMax: 1
-  Pointer: {fileID: 0}
-  Weapon: {fileID: 0}
 --- !u!114 &7528638334341656761
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -346,3 +337,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d2079d1b20954f43ae4b21ced5e53d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5276345633691954301
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7898736215898924539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fda5d65418dbcc4797b728d7fc5d921, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventoryManager: {fileID: 0}

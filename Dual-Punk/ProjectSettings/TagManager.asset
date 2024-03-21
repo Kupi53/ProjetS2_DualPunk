@@ -13,6 +13,7 @@ TagManager:
   - Ntmtest
   - Item
   - Implant
+  - Inventory
   layers:
   - Default
   - TransparentFX
