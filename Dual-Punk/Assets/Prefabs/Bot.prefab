@@ -17,7 +17,6 @@ GameObject:
   - component: {fileID: 3878650768626394483}
   - component: {fileID: 2561562740075767283}
   - component: {fileID: 2345998891758550736}
-  - component: {fileID: 4218614655469655346}
   - component: {fileID: 6490135238372769520}
   - component: {fileID: 1523476562688627023}
   m_Layer: 0
@@ -103,10 +102,10 @@ Rigidbody2D:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6076069747835287369}
   m_BodyType: 0
-  m_Simulated: 1
+  m_Simulated: 0
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 9999
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
@@ -196,7 +195,7 @@ MonoBehaviour:
   health: 0
   speed: 0
   damage: 0
-  data: {fileID: 0}
+  data: {fileID: 11400000, guid: 60d845cdc11913847814ecc65a2325f0, type: 2}
 --- !u!70 &2561562740075767283
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -245,20 +244,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   aiPath: {fileID: 6490135238372769520}
---- !u!114 &4218614655469655346
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6076069747835287369}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c9679e68a0f1144e79c664d9a11ca121, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  version: 1
-  target: {fileID: 18646855055023927, guid: 2fd5569aaa9b023419d0d7775a666b76, type: 3}
 --- !u!114 &6490135238372769520
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -272,8 +257,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   version: 5
-  radius: 3
-  height: 2
+  radius: 1
+  height: 1
   canMove: 1
   maxSpeed: 1
   gravity: {x: NaN, y: NaN, z: NaN}
@@ -294,10 +279,10 @@ MonoBehaviour:
   targetCompatibility: {fileID: 0}
   maxAcceleration: -2.5
   rotationSpeed: 360
-  slowdownDistance: 0.4
+  slowdownDistance: 0
   pickNextWaypointDist: 0.1
-  endReachedDistance: 0.8
-  alwaysDrawGizmos: 0
+  endReachedDistance: 0.5
+  alwaysDrawGizmos: 1
   slowWhenNotFacingTarget: 1
   whenCloseToDestination: 0
   constrainInsideGraph: 0
