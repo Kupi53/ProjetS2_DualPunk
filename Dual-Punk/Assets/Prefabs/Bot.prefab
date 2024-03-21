@@ -20,9 +20,8 @@ GameObject:
   - component: {fileID: 4218614655469655346}
   - component: {fileID: 6490135238372769520}
   - component: {fileID: 1523476562688627023}
-  - component: {fileID: -4330598843571790048}
   m_Layer: 0
-  m_Name: Bot 1
+  m_Name: Bot
   m_TagString: Ennemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -84,12 +83,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 61359a7dc9c0ff2469afb5b8b5c6fdc0, type: 3}
+  m_Sprite: {fileID: -445710619, guid: 61359a7dc9c0ff2469afb5b8b5c6fdc0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.939394, y: 1.939394}
+  m_Size: {x: 8.6, y: 7.7}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -194,7 +193,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57b982fee80429242a38e7325a04cf3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHealth: 100
+  health: 0
+  speed: 0
+  damage: 0
+  data: {fileID: 0}
 --- !u!70 &2561562740075767283
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -329,19 +331,3 @@ MonoBehaviour:
   InLocalSpace: 0
   Interpolate: 1
   SlerpPosition: 0
---- !u!114 &-4330598843571790048
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6076069747835287369}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0de8d8ef811bcbe4cb0e5b245ef30576, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 100
-  damage: 10
-  Stats: 
-  health: 0
