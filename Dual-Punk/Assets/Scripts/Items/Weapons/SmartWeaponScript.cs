@@ -35,7 +35,7 @@ public class SmartWeaponScript : FireArmScript
         {
             PlayerState.PointerScript.SpriteNumber = 2;
 
-            if (Input.GetButtonUp("Switch") && PlayerState.PointerScript.Target != null)
+            if (Input.GetButtonUp("Switch") && !ContainsTarget(PlayerState.PointerScript.Target))
             {
                 _newTargetIndicator = Instantiate(_lockedTargetIndicator);
                 _newTargetIndicator.GetComponent<TargetIndicatorScript>().Target = PlayerState.PointerScript.Target;
@@ -55,15 +55,21 @@ public class SmartWeaponScript : FireArmScript
     }
 
 
-    public override void Reset()
+    public bool ContainsTarget(GameObject target)
     {
-        base.Reset();
+        if (target == null)
+            return true;
 
-        foreach (GameObject target in _targetsIndicators)
+        for (int i = 0; i < _targetsIndicators.Count; i++)
         {
-            Destroy(target);
+            if (_targetsIndicators[i] == null || _targetsIndicators[i].GetComponent<TargetIndicatorScript>().Target == target)
+            {
+                Destroy(_targetsIndicators[i]);
+                _targetsIndicators.Remove(_targetsIndicators[i]);
+                return true;
+            }
         }
-        _targetsIndicators.Clear();
+        return false;
     }
 
 
@@ -87,6 +93,18 @@ public class SmartWeaponScript : FireArmScript
                 bulletScript.Target = _targetsIndicators[_index].GetComponent<TargetIndicatorScript>().Target;
             }
         }
+    }
+
+
+    public override void Reset()
+    {
+        base.Reset();
+
+        foreach (GameObject target in _targetsIndicators)
+        {
+            Destroy(target);
+        }
+        _targetsIndicators.Clear();
     }
 
 

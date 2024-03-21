@@ -70,6 +70,7 @@ public class MouvementsController : NetworkBehaviour
     void Update()
     {
         if (!IsOwner) return;
+
         // Prends Imputs chaque frame
         if (_enableMovement)
         {

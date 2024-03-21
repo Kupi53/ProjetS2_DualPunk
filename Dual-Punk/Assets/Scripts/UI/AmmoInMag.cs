@@ -14,6 +14,10 @@ public class AmmoInMag : MonoBehaviour
     private LocalPlayerReference _references;
     private Image _image;
 
+#nullable enable
+    private FireArmScript? _fireArmScript;
+#nullable disable
+
 
     void Start()
     {
@@ -21,14 +25,17 @@ public class AmmoInMag : MonoBehaviour
         _references = transform.root.gameObject.GetComponent<LocalPlayerReference>();
     }
 
+
     void Update()
     {
-        if (_references.PlayerState.HoldingWeapon && _references.FireArmScript != null)
+        if (_references.PlayerState.HoldingWeapon && _references.PlayerState.WeaponScript is FireArmScript)
         {
-            if (_references.FireArmScript.AmmoLeft < 10)
-                _text.text = "0" + _references.FireArmScript.AmmoLeft.ToString();
+            _fireArmScript = (FireArmScript)_references.PlayerState.WeaponScript;
+
+            if (_fireArmScript.AmmoLeft < 10)
+                _text.text = "0" + _fireArmScript.AmmoLeft.ToString();
             else
-                _text.text = _references.FireArmScript.AmmoLeft.ToString();
+                _text.text = _fireArmScript.AmmoLeft.ToString();
 
             _text.enabled = true;
             _image.enabled = false;

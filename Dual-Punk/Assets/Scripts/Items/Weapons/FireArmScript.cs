@@ -33,11 +33,12 @@ public class FireArmScript : WeaponScript
     protected float _fireTimer;
     private bool _reloading;
 
-
     public int AmmoLeft { get => _ammoLeft; set => _ammoLeft = value; }
-    public float ReloadTime { get => _reloadTime; set => _reloadTime = value; }
-    public float ReloadTimer { get => _reloadTimer; set => _reloadTimer = value; }
     public bool Reloading { get => _reloading; set => _reloading = value; }
+
+    public override bool DisplayInfo { get => _reloading; }
+    public override float InfoMaxTime { get => _reloadTime; }
+    public override float InfoTimer { get => _reloadTimer; }
 
 
     public void Start()

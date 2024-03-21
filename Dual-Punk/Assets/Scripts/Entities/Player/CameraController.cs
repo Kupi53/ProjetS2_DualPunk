@@ -17,10 +17,11 @@ public class CameraController : MonoBehaviour
 
     private Vector3 _offset;
     private Vector3 _velocity2;
+    private Vector3 _position;
 
     private Camera _camera;
 
-    public GameObject Player { get; set; }
+    public PlayerState PlayerState { get; set; }
 
 
     void Start()
@@ -36,8 +37,8 @@ public class CameraController : MonoBehaviour
 
     void FixedUpdate()
     {
-        Vector3 playerPosition = Player.transform.position + _offset;
-        transform.position = Vector3.SmoothDamp(transform.position, playerPosition, ref _velocity2, _smoothTime);
+        _position = PlayerState.transform.position + _offset;
+        transform.position = Vector3.SmoothDamp(transform.position, _position, ref _velocity2, _smoothTime);
 
         if (Input.GetButton("Walk"))
         {

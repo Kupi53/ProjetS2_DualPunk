@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 6551797201584562624}
   - component: {fileID: 851809470009851409}
   - component: {fileID: 1393161904206046293}
-  - component: {fileID: 4929022784131720752}
   - component: {fileID: 6194921478525316530}
   - component: {fileID: 4229723477884905967}
+  - component: {fileID: 4929022784131720752}
   - component: {fileID: -6643820295790352462}
   m_Layer: 0
   m_Name: SmartSniper
@@ -32,7 +32,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -4.54, y: -2.4, z: 4}
-  m_LocalScale: {x: 0.7, y: 0.7, z: 1}
+  m_LocalScale: {x: 0.75, y: 0.75, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 387513027228673633}
@@ -135,26 +135,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.1681023, y: 0.7580513}
   m_EdgeRadius: 0
---- !u!114 &4929022784131720752
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3523624623969322734}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 951099334
-  AlwaysReplicateAsRoot: 0
-  SynchronizeTransform: 1
-  ActiveSceneSynchronization: 0
-  SceneMigrationSynchronization: 1
-  SpawnWithObservers: 1
-  DontDestroyWithOwner: 0
-  AutoObjectParentSync: 1
 --- !u!114 &6194921478525316530
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -177,14 +157,14 @@ MonoBehaviour:
   _bulletNumber: 1
   _reloadAmount: 3
   _fireRate: 1.2
-  _dispersion: 0.2
+  _dispersion: 0.3
   _reloadTime: 1.6
-  _aimAccuracy: 10
-  _bulletSpeed: 20
+  _aimAccuracy: 5
+  _bulletSpeed: 15
   _autoReload: 1
   _auto: 0
   _lockedTargetIndicator: {fileID: 2443144578293597239, guid: e3bb1f7480ddb6645bdbf6c3371c4af5, type: 3}
-  _bulletRotateSpeed: 4
+  _bulletRotateSpeed: 2
 --- !u!114 &4229723477884905967
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -200,6 +180,26 @@ MonoBehaviour:
   normal: {fileID: 21300000, guid: f1629d059e7fb7041b1ec180942b2993, type: 3}
   highlighted: {fileID: 21300000, guid: 19b9ce38bd362ef48b30cd386b720e3f, type: 3}
   spriteRenderer: {fileID: 851809470009851409}
+--- !u!114 &4929022784131720752
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3523624623969322734}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 951099334
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
 --- !u!114 &-6643820295790352462
 MonoBehaviour:
   m_ObjectHideFlags: 0

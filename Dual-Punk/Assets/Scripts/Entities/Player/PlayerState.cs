@@ -10,7 +10,6 @@ public class PlayerState : MonoBehaviour
 {
     private Vector3 _mousePosition;
 
-
     public int Health { get; set; }
     public int MaxHealth { get; set; }
 

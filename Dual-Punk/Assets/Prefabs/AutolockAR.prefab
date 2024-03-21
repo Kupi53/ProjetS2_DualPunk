@@ -42,10 +42,10 @@ GameObject:
   - component: {fileID: 8525544907906017579}
   - component: {fileID: 168552385852472485}
   - component: {fileID: 930166362514265191}
-  - component: {fileID: 6323057463472029642}
-  - component: {fileID: 6659244552092932453}
   - component: {fileID: -6790185488990606666}
   - component: {fileID: 920262741264380314}
+  - component: {fileID: 6323057463472029642}
+  - component: {fileID: 6659244552092932453}
   m_Layer: 0
   m_Name: AutolockAR
   m_TagString: Weapon
@@ -166,6 +166,51 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.66, y: 0.7223897}
   m_EdgeRadius: 0
+--- !u!114 &-6790185488990606666
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8832150194662058669}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18ca51c2304a4414993bd86bd661106f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _weaponDistance: 0.7
+  _weaponOffset: {x: 0, y: 0.5, z: 0}
+  _bullet: {fileID: 3137761784652373764, guid: c83c2ecdccc5c4e42a0c6b0d758735f3, type: 3}
+  _gunEndPoints:
+  - {fileID: 3833763891036575703}
+  _damage: 15
+  _magSize: 25
+  _bulletNumber: 1
+  _reloadAmount: 25
+  _fireRate: 0.2
+  _dispersion: 0.2
+  _reloadTime: 1.5
+  _aimAccuracy: 4
+  _bulletSpeed: 10
+  _autoReload: 1
+  _auto: 1
+  _lockedTargetIndicator: {fileID: 2443144578293597239, guid: e3bb1f7480ddb6645bdbf6c3371c4af5, type: 3}
+  _bulletRotateSpeed: 2
+--- !u!114 &920262741264380314
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8832150194662058669}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 758d5ccc253c2f04f8451e29ebbfa99f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  normal: {fileID: 21300000, guid: bf75ed1d991158e47830175dc9be7648, type: 3}
+  highlighted: {fileID: 21300000, guid: eaf9bcd0325115642ac4925efeee2f06, type: 3}
+  spriteRenderer: {fileID: 168552385852472485}
 --- !u!114 &6323057463472029642
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -216,48 +261,3 @@ MonoBehaviour:
   InLocalSpace: 0
   Interpolate: 1
   SlerpPosition: 0
---- !u!114 &-6790185488990606666
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8832150194662058669}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 18ca51c2304a4414993bd86bd661106f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _weaponDistance: 0.7
-  _weaponOffset: {x: 0, y: 0.5, z: 0}
-  _bullet: {fileID: 3137761784652373764, guid: c83c2ecdccc5c4e42a0c6b0d758735f3, type: 3}
-  _gunEndPoints:
-  - {fileID: 3833763891036575703}
-  _damage: 15
-  _magSize: 25
-  _bulletNumber: 1
-  _reloadAmount: 25
-  _fireRate: 0.2
-  _dispersion: 0.08
-  _reloadTime: 1.5
-  _aimAccuracy: 4
-  _bulletSpeed: 15
-  _autoReload: 1
-  _auto: 1
-  _lockedTargetIndicator: {fileID: 2443144578293597239, guid: e3bb1f7480ddb6645bdbf6c3371c4af5, type: 3}
-  _bulletRotateSpeed: 5
---- !u!114 &920262741264380314
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8832150194662058669}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 758d5ccc253c2f04f8451e29ebbfa99f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  normal: {fileID: 21300000, guid: bf75ed1d991158e47830175dc9be7648, type: 3}
-  highlighted: {fileID: 21300000, guid: eaf9bcd0325115642ac4925efeee2f06, type: 3}
-  spriteRenderer: {fileID: 168552385852472485}
