@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 3101570405284729770}
   - component: {fileID: 8556322678607386002}
   - component: {fileID: -7815886583125092397}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Katana
   m_TagString: Weapon
   m_Icon: {fileID: 0}

@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4229723477884905967}
   - component: {fileID: 4929022784131720752}
   - component: {fileID: -6643820295790352462}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: SmartSniper
   m_TagString: Weapon
   m_Icon: {fileID: 0}
@@ -239,7 +239,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 387513027228673633}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: GunEndPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}

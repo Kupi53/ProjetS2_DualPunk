@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -5896032686861132043}
   - component: {fileID: 4593421468593424019}
   - component: {fileID: -6128434064685948543}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Shotgun1
   m_TagString: Weapon
   m_Icon: {fileID: 0}
@@ -238,7 +238,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1335187768205989025}
   - component: {fileID: 1122021632364059420}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: GunEndPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -1,28 +1,44 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using System;
+using UnityEngine;
 
 
 public class LaserGunScript : WeaponScript
 {
     [SerializeField] private GameObject _gunEndPoint;
-    [SerializeField] private LineRenderer _lineRenderer;
     [SerializeField] private float _coolDownSpeed;
     [SerializeField] private float _coolDownTime;
+    [SerializeField] private float _smoothTime;
+    [SerializeField] private LayerMask _layerMask;
 
-    private float _coolDownLevel;
+    private LineRenderer _lineRenderer;
+    private Vector3 _startPosition;
+
+    private bool _fire;
     private bool _coolDown;
+    private float _coolDownLevel;
+
+    private float _velocity;
+    private float _resetTimer;
+    private float _laserLength;
 
     public override bool DisplayInfo { get => _coolDownLevel > 0; }
     public override float InfoMaxTime { get => _coolDownTime; }
-    public override float InfoTimer { get => _coolDownLevel; }
+    public override float InfoTimer { get => _coolDownTime - _coolDownLevel; }
 
 
     void Start()
     {
+        _velocity = 0;
+        _resetTimer = 0;
+        _laserLength = 0;
         _coolDownLevel = 0;
+
         _spriteRenderer = GetComponent<SpriteRenderer>();
+        _lineRenderer = GetComponentInChildren<LineRenderer>();
+
+        _fire = false;
+        _coolDown = false;
+        _lineRenderer.enabled = false;
     }
 
 
@@ -38,29 +54,53 @@ public class LaserGunScript : WeaponScript
                 _coolDown = false;
             }
         }
+        else if (_fire)
+        {
+            _coolDownLevel += Time.deltaTime * _coolDownSpeed / 3;
+
+            if (_coolDownLevel > _coolDownTime)
+            {
+                _coolDownLevel = _coolDownTime;
+                _coolDown = true;
+                _fire = false;
+            }
+        }
     }
 
 
     public override void Run(Vector3 position, Vector3 direction)
     {
+        if (!_coolDown)
+            PlayerState.PointerScript.SpriteNumber = 1;
+        else
+            PlayerState.PointerScript.SpriteNumber = 0;
+
         MovePosition(position, direction, _weaponOffset, _weaponDistance);
 
-        if (Input.GetButton("Use") && _coolDownLevel < _coolDownTime)
+        _startPosition = _gunEndPoint.transform.position;
+
+        if (Input.GetButtonDown("Use"))
         {
-            Fire(true);
-            _coolDownLevel += Time.deltaTime * _coolDownSpeed;
+            _fire = true;
+            _coolDown = false;
         }
-        else if (Input.GetButtonUp("Use") && _coolDownLevel > 0)
+        else if (Input.GetButtonUp("Use"))
         {
-            Fire(false);
+            _fire = false;
             _coolDown = true;
         }
+
+        Fire(direction);
     }
 
 
     public override void Reset()
     {
+        _fire = false;
         _coolDown = true;
+        _lineRenderer.enabled = false;
+
+        _laserLength = 0;
     }
 
 
@@ -81,15 +121,40 @@ public class LaserGunScript : WeaponScript
     }
 
 
-    private void Fire(bool display)
+    private void DrawLaser(Vector3 targetPoint, Vector3 direction)
     {
-        if (display)
+        _laserLength = Mathf.SmoothDamp(_laserLength, Vector3.Distance(targetPoint, _startPosition), ref _velocity, _smoothTime);
+        _lineRenderer.SetPosition(0, _startPosition);
+        _lineRenderer.SetPosition(1, _startPosition + direction * _laserLength);
+    }
+
+
+    private void Fire(Vector3 direction)
+    {
+        if (_fire)
         {
+            _resetTimer = 0;
             _lineRenderer.enabled = true;
-            _lineRenderer.SetPosition(1, _gunEndPoint.transform.position);
-            _lineRenderer.SetPosition(0, PlayerState.MousePosition);
+
+            RaycastHit2D hit = Physics2D.Raycast(_startPosition, direction, Vector3.Distance(PlayerState.MousePosition, _startPosition), _layerMask);
+            if (hit)
+                DrawLaser(hit.point, direction);
+            else
+                DrawLaser(PlayerState.MousePosition, direction);
         }
         else
-            _lineRenderer.enabled = false;
+        {
+            if (_resetTimer < _smoothTime)
+            {
+                _resetTimer += Time.deltaTime;
+
+                DrawLaser(_startPosition, direction);
+            }
+            else
+            {
+                _laserLength = 0;
+                _lineRenderer.enabled = false;
+            }
+        }
     }
 }

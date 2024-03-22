@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8855826882481181318}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: GunEndPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -46,7 +46,7 @@ GameObject:
   - component: {fileID: 920262741264380314}
   - component: {fileID: 6323057463472029642}
   - component: {fileID: 6659244552092932453}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: AutolockAR
   m_TagString: Weapon
   m_Icon: {fileID: 0}
@@ -62,7 +62,7 @@ Transform:
   m_GameObject: {fileID: 8832150194662058669}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.09, y: -1.04, z: 4}
+  m_LocalPosition: {x: -3.09, y: -1.04, z: 0}
   m_LocalScale: {x: 0.8, y: 0.8, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
