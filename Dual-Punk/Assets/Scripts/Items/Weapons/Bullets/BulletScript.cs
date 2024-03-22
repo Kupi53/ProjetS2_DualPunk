@@ -50,7 +50,7 @@ public class BulletScript : NetworkBehaviour
     {
         if (collider.CompareTag("Ennemy"))
         {
-            EnnemyState health = collider.GetComponent<EnnemyState>();
+            EnemyState health = collider.GetComponent<EnemyState>();
             health.OnDamage(Damage);
             Destroy(gameObject);
         }

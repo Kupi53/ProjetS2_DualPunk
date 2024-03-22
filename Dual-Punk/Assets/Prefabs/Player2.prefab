@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: -7003829035611701060}
   m_Layer: 6
   m_Name: Player2
-  m_TagString: Ntmtest
+  m_TagString: Player2
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -171,16 +171,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b5457baef9161b42b53eb0d17876e9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Health: 0
-  MaxHealth: 100
-  Walking: 0
-  Dashing: 0
-  Attacking: 0
-  HoldingWeapon: 0
-  DashCooldown: 0
-  DashCooldownMax: 1
-  Pointer: {fileID: 0}
-  Weapon: {fileID: 0}
 --- !u!114 &7528638334341656761
 MonoBehaviour:
   m_ObjectHideFlags: 0
