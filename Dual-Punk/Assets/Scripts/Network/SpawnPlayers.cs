@@ -22,7 +22,6 @@ public class SpawnPlayers : NetworkBehaviour
     public void SpawnServerRPC(ulong clientId){
         GameObject player = Instantiate(playerPrefabB, new Vector3(0,0,0), transform.rotation);
         player.GetComponent<NetworkObject>().SpawnAsPlayerObject(clientId);
-        Debug.Log("client de merde");
     } 
 
 }
