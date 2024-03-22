@@ -1,15 +1,20 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 
 public class LaserGunScript : WeaponScript
 {
     [SerializeField] private GameObject _gunEndPoint;
+    [SerializeField] private GameObject _startVFX;
+    [SerializeField] private GameObject _endVFX;
+
     [SerializeField] private float _coolDownSpeed;
     [SerializeField] private float _coolDownTime;
     [SerializeField] private float _smoothTime;
     [SerializeField] private LayerMask _layerMask;
 
+    private List<ParticleSystem> _particles;
     private LineRenderer _lineRenderer;
     private Vector3 _startPosition;
 
@@ -35,10 +40,13 @@ public class LaserGunScript : WeaponScript
 
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _lineRenderer = GetComponentInChildren<LineRenderer>();
+        _particles = new List<ParticleSystem>();
 
         _fire = false;
         _coolDown = false;
-        _lineRenderer.enabled = false;
+
+        FillList();
+        DisableLaser();
     }
 
 
@@ -83,6 +91,7 @@ public class LaserGunScript : WeaponScript
         {
             _fire = true;
             _coolDown = false;
+            EnableLaser();
         }
         else if (Input.GetButtonUp("Use"))
         {
@@ -98,8 +107,8 @@ public class LaserGunScript : WeaponScript
     {
         _fire = false;
         _coolDown = true;
-        _lineRenderer.enabled = false;
-
+        DisableLaser();
+        _startVFX.SetActive(false);
         _laserLength = 0;
     }
 
@@ -121,6 +130,44 @@ public class LaserGunScript : WeaponScript
     }
 
 
+    private void FillList()
+    {
+        for (int i = 0; i < _startVFX.transform.childCount; i++)
+        {
+            ParticleSystem particleSystem = _startVFX.transform.GetChild(i).GetComponent<ParticleSystem>();
+            if (particleSystem != null)
+                _particles.Add(particleSystem);
+        }
+        for (int i = 0; i < _endVFX.transform.childCount; i++)
+        {
+            ParticleSystem particleSystem = _endVFX.transform.GetChild(i).GetComponent<ParticleSystem>();
+            if (particleSystem != null)
+                _particles.Add(particleSystem);
+        }
+    }
+
+
+    private void EnableLaser()
+    {
+        _lineRenderer.enabled = true;
+
+        foreach (ParticleSystem particleSystem in _particles)
+        {
+            particleSystem.Play();
+        }
+    }
+
+    private void DisableLaser()
+    {
+        _lineRenderer.enabled = false;
+
+        foreach (ParticleSystem particleSystem in _particles)
+        {
+            particleSystem.Stop();
+        }
+    }
+
+
     private void DrawLaser(Vector3 targetPoint, Vector3 direction)
     {
         _laserLength = Mathf.SmoothDamp(_laserLength, Vector3.Distance(targetPoint, _startPosition), ref _velocity, _smoothTime);
@@ -134,7 +181,6 @@ public class LaserGunScript : WeaponScript
         if (_fire)
         {
             _resetTimer = 0;
-            _lineRenderer.enabled = true;
 
             RaycastHit2D hit = Physics2D.Raycast(_startPosition, direction, Vector3.Distance(PlayerState.MousePosition, _startPosition), _layerMask);
             if (hit)
@@ -153,7 +199,7 @@ public class LaserGunScript : WeaponScript
             else
             {
                 _laserLength = 0;
-                _lineRenderer.enabled = false;
+                DisableLaser();
             }
         }
     }
