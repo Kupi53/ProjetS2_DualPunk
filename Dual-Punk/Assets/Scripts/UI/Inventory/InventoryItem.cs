@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.Http.Headers;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,11 +9,11 @@ using UnityEngine.UI;
 public class InventoryItem : MonoBehaviour
 {
 
-    public GameObject displayedItem;
+    public InventoryItemData displayedItem;
     [SerializeField] Image IconImage;
 
     void Update()
     {
-        IconImage.sprite = displayedItem.GetComponent<SpriteRenderer>().sprite;
+        IconImage.sprite = displayedItem.icon;
     }
 }

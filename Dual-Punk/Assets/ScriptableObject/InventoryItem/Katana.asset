@@ -9,9 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 73394e85b5cc88c4b9195f673f111253, type: 3}
-  m_Name: EnnemyTest
+  m_Script: {fileID: 11500000, guid: bb4d4ad9335e54a4aa04976f4584bb33, type: 3}
+  m_Name: Katana
   m_EditorClassIdentifier: 
-  Health: 200
-  Damage: 5
-  Speed: 1
+  name: Katana
+  prefab: {fileID: 3553326147683758454, guid: c537b2fa156ad2c4493157e872b54c9a, type: 3}
+  icon: {fileID: 21300000, guid: fece9090c0c0b3546a6043512f841178, type: 3}
+  description: 

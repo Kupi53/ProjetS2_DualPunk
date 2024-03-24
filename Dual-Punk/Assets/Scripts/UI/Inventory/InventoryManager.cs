@@ -10,13 +10,6 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
     GameObject draggedObject;
     GameObject LastSlotPosition;
 
-        // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
     void Update()
     {
         //fais suivre l'objet clique par la souris, sur la souris.
@@ -35,12 +28,10 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
             GameObject clickedObject = eventData.pointerCurrentRaycast.gameObject;
             InventorySlots slot = clickedObject.GetComponent<InventorySlots>();
 
-            if (slot != null && slot.HeldItem != null){
-                // Debug.Log("tu devrais avoir l'item dans la main la.");
-                draggedObject = slot.HeldItem;
-                slot.HeldItem = null;
+            if (slot != null && slot.heldItem != null){
+                draggedObject = slot.heldItem;
+                slot.heldItem = null;
                 LastSlotPosition = clickedObject;
-                // Debug.Log(LastSlotPosition);
             }
         }
     }
@@ -56,26 +47,40 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
                 GameObject clickedObject = eventData.pointerCurrentRaycast.gameObject;
                 InventorySlots slot = clickedObject.GetComponent<InventorySlots>();
 
-                if(slot != null && slot.HeldItem == null){
+                //if the slot is empty - place item
+                if(slot != null && slot.heldItem == null){
 
                     slot.SetHeldItem(draggedObject);
                     draggedObject = null;
 
                 }
 
-                else if (slot != null && slot.HeldItem != null){
-                    LastSlotPosition.GetComponent<InventorySlots>().SetHeldItem(slot.HeldItem);
+                //if the slot is not empty - swap item
+                else if (slot != null && slot.heldItem != null){
+                    LastSlotPosition.GetComponent<InventorySlots>().SetHeldItem(slot.heldItem);
                     slot.SetHeldItem(draggedObject);
                     draggedObject = null;
                 }
+
+                //if there is not slot and no drop - replace item at last pos
+                else if (clickedObject.name != "DropItem"){
+                    Debug.Log("Test de cette condition");
+                    LastSlotPosition.GetComponent<InventorySlots>().SetHeldItem(draggedObject);
+                }
+
+                //drop the item on the map
+                else{
+                    Vector3 spawnPosition = GameObject.FindWithTag("Player").transform.position;
+                    Instantiate(draggedObject.GetComponent<InventoryItem>().displayedItem.prefab, spawnPosition, new Quaternion());
+
+                    LastSlotPosition.GetComponent<InventorySlots>().heldItem = null;
+                    Destroy(draggedObject);
+                }
+
+                draggedObject = null;
             }
             
 
-            // Remets l'item a sa place dans l'inventaire s'il est pas dans un des slots.
-            else {
-                LastSlotPosition.GetComponent<InventorySlots>().SetHeldItem(draggedObject);
-                draggedObject = null;
-            }
 
         }
     }

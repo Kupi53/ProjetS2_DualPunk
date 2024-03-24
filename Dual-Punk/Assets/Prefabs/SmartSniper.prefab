@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 6194921478525316530}
   - component: {fileID: 4229723477884905967}
   - component: {fileID: -6643820295790352462}
+  - component: {fileID: -5427694352711233904}
   m_Layer: 0
   m_Name: SmartSniper
   m_TagString: Weapon
@@ -230,6 +231,19 @@ MonoBehaviour:
   InLocalSpace: 0
   Interpolate: 0
   SlerpPosition: 0
+--- !u!114 &-5427694352711233904
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3523624623969322734}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71eb8b037ef4d2843bdf7ae083f038ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemData: {fileID: 11400000, guid: e746773ec33a361418f5926645d25107, type: 2}
 --- !u!1 &4522083825481786314
 GameObject:
   m_ObjectHideFlags: 0

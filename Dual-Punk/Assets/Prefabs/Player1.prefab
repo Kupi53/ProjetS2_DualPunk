@@ -26,7 +26,7 @@ GameObject:
   - component: {fileID: 5276345633691954301}
   m_Layer: 6
   m_Name: Player1
-  m_TagString: Ntmtest
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -349,4 +349,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fda5d65418dbcc4797b728d7fc5d921, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventoryManager: {fileID: 0}

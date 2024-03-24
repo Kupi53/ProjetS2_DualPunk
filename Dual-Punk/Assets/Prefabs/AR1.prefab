@@ -67,6 +67,7 @@ GameObject:
   - component: {fileID: 2190047050533192951}
   - component: {fileID: 4687209510453595086}
   - component: {fileID: -4960110305564644536}
+  - component: {fileID: 15168328794631097}
   m_Layer: 0
   m_Name: AR1
   m_TagString: Weapon
@@ -280,3 +281,16 @@ MonoBehaviour:
   InLocalSpace: 0
   Interpolate: 0
   SlerpPosition: 0
+--- !u!114 &15168328794631097
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8566271621736578887}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71eb8b037ef4d2843bdf7ae083f038ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemData: {fileID: 11400000, guid: 696d63f12a5412b45b24a22cc803fd74, type: 2}

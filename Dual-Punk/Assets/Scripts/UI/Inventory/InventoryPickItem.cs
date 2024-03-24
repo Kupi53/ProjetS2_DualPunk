@@ -6,17 +6,6 @@ public class InventoryPickItem : MonoBehaviour
 {
     [SerializeField] GameObject[] Slots = new GameObject[30];
     [SerializeField] GameObject inventoryItemPrefab;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     public void ItemPicked(GameObject pickedItem){
         GameObject emptySlot = null;
@@ -24,7 +13,7 @@ public class InventoryPickItem : MonoBehaviour
 
             InventorySlots Slot = Slots[i].GetComponent<InventorySlots>();
 
-            if (Slot.HeldItem == null){
+            if (Slot.heldItem == null){
                 emptySlot = Slots[i];
                 break;
             }
@@ -33,12 +22,15 @@ public class InventoryPickItem : MonoBehaviour
         if(emptySlot != null){
 
             GameObject newItem = Instantiate(inventoryItemPrefab);
-            newItem.GetComponent<InventoryItem>().displayedItem = pickedItem;
+
+            //enregistre le prefab de displayed item car displayed item sera detruit juste en dessous
+            newItem.GetComponent<InventoryItem>().displayedItem = pickedItem.GetComponent<PickableItem>().itemData;
+
             newItem.transform.SetParent(emptySlot.transform.parent.parent.GetChild(1));
-            newItem.transform.localScale = new Vector3(1f,1f,1f);
+            newItem.transform.localScale = emptySlot.transform.localScale;
             
             emptySlot.GetComponent<InventorySlots>().SetHeldItem(newItem);
-
+            Destroy(pickedItem);
         }
     }
 }
