@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Pathfinding;
-using Unity.Netcode;
-using Unity.Netcode.Components;
+//using Unity.Netcode;
+//using Unity.Netcode.Components;
 
-public class EnemyState : NetworkBehaviour
+public class EnemyState : MonoBehaviour
 {
     public float health;
 
@@ -23,7 +23,7 @@ public class EnemyState : NetworkBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (!IsServer) return;
+ //       if (!IsServer) return;
         health = data.Health;
         damage = data.Damage;
         speed = data.Speed;
@@ -40,7 +40,7 @@ public class EnemyState : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!IsServer) return;
+//        if (!IsServer) return;
         PathFinding();
     }
 
@@ -54,14 +54,14 @@ public class EnemyState : NetworkBehaviour
 
     public void OnDamage(float damage)
     {
-        if (!IsServer) return;
+   //     if (!IsServer) return;
         health -= damage;
         StartCoroutine(VisualIndicator(Color.red));
         CheckDeath();
     }
     private void CheckDeath()
     {
-        if (!IsServer) return;
+   //     if (!IsServer) return;
         if (health <= 0)
         {
             Destroy(gameObject);
@@ -70,7 +70,7 @@ public class EnemyState : NetworkBehaviour
 
     private void PathFinding()
     {
-        if (!IsServer) return;
+    //    if (!IsServer) return;
 
         // Générer un nouveau chemin vers la position du joueur
         player1 = GameObject.FindWithTag("Player1");
@@ -102,7 +102,7 @@ public class EnemyState : NetworkBehaviour
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        if (!IsServer) return;
+  //      if (!IsServer) return;
         PlayerState playerState = collider.GetComponent<PlayerState>();
         if (playerState != null)
         {
