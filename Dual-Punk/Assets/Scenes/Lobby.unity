@@ -524,7 +524,6 @@ GameObject:
   - component: {fileID: 901399460}
   - component: {fileID: 901399459}
   - component: {fileID: 901399458}
-  - component: {fileID: 901399462}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -616,39 +615,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &901399462
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 901399457}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26b716c41e9b56b4baafaf13a523ba2e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <IsNested>k__BackingField: 0
-  <ComponentIndex>k__BackingField: 0
-  <PredictedSpawn>k__BackingField: {fileID: 0}
-  _networkBehaviours:
-  - {fileID: 1955572596}
-  <ParentNetworkObject>k__BackingField: {fileID: 0}
-  <ChildNetworkObjects>k__BackingField: []
-  SerializedTransformProperties:
-    Position: {x: 960, y: 540, z: 0}
-    Rotation: {x: 0, y: 0, z: 0, w: 1}
-    LocalScale: {x: 1, y: 1, z: 1}
-  _isNetworked: 1
-  _isGlobal: 0
-  _initializeOrder: 0
-  _defaultDespawnType: 0
-  NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 0
-  <SpawnableCollectionId>k__BackingField: 0
-  _scenePathHash: 952082934
-  <SceneId>k__BackingField: 4089165067256597409
-  <AssetPathHash>k__BackingField: 0
 --- !u!1 &1115490655
 GameObject:
   m_ObjectHideFlags: 0
@@ -1204,6 +1170,7 @@ GameObject:
   - component: {fileID: 1955572595}
   - component: {fileID: 1955572596}
   - component: {fileID: 1955572597}
+  - component: {fileID: 1955572598}
   m_Layer: 5
   m_Name: LobbyMenu
   m_TagString: Untagged
@@ -1247,8 +1214,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _componentIndexCache: 0
-  _addedNetworkObject: {fileID: 901399462}
-  _networkObjectCache: {fileID: 901399462}
+  _addedNetworkObject: {fileID: 1955572597}
+  _networkObjectCache: {fileID: 1955572597}
   playButton: {fileID: 100195199}
   cancelButton: {fileID: 1944415770}
   waiting: {fileID: 1438764650}
@@ -1265,10 +1232,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26b716c41e9b56b4baafaf13a523ba2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <IsNested>k__BackingField: 1
+  <IsNested>k__BackingField: 0
   <ComponentIndex>k__BackingField: 0
   <PredictedSpawn>k__BackingField: {fileID: 0}
-  _networkBehaviours: []
+  _networkBehaviours:
+  - {fileID: 1955572596}
   <ParentNetworkObject>k__BackingField: {fileID: 0}
   <ChildNetworkObjects>k__BackingField: []
   SerializedTransformProperties:
@@ -1283,8 +1251,23 @@ MonoBehaviour:
   <PrefabId>k__BackingField: 0
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 952082934
-  <SceneId>k__BackingField: 4089165064611178993
+  <SceneId>k__BackingField: 4089165065344769137
   <AssetPathHash>k__BackingField: 0
+--- !u!114 &1955572598
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1955572594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c71fd7f855ec523429999fc4e14a1928, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _overrideType: 3
+  _updateHostVisibility: 1
+  _observerConditions: []
 --- !u!1 &2066354936
 GameObject:
   m_ObjectHideFlags: 0

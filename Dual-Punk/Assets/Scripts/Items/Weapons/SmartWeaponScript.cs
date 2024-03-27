@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Diagnostics.Tracing;
 using UnityEngine;
 using System;
-//using Unity.Netcode;
 
 
 public class SmartWeaponScript : FireArmScript
@@ -29,6 +28,7 @@ public class SmartWeaponScript : FireArmScript
 
     private new void Update()
     {
+        if (!Owner.IsLocalClient) return;
         base.Update();
 
         if (InHand && !Reloading)
@@ -55,9 +55,9 @@ public class SmartWeaponScript : FireArmScript
     }
 
 
-    public override void Reset()
+    public override void ResetWeapon()
     {
-        base.Reset();
+        base.ResetWeapon();
 
         foreach (GameObject target in _targetsIndicators)
         {
@@ -112,8 +112,7 @@ public class SmartWeaponScript : FireArmScript
             AssignTarget(bulletScript);
 
             newBullet.transform.eulerAngles = new Vector3(0, 0, newAngle);
-     //       NetworkObject bulletNetwork = newBullet.GetComponent<NetworkObject>();
-    //        bulletNetwork.Spawn();
+            base.Spawn(newBullet);
         }
     }
 }

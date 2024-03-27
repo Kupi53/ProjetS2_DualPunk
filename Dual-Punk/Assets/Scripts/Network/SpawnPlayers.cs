@@ -1,27 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
-//using Unity.Netcode;
+using FishNet.Object;
+using FishNet.Connection;
 using UnityEngine;
-using UnityEngine.Networking;
 
-public class SpawnPlayers:MonoBehaviour 
-{/*
+public class SpawnPlayers : NetworkBehaviour
+{
     [SerializeField] private GameObject playerPrefabA; //add prefab in inspector
     [SerializeField] private GameObject playerPrefabB; //add prefab in inspector
+    private GameObject playerObject;
 
-    public override void OnNetworkSpawn(){
-        if (IsHost){
-            GameObject player = Instantiate(playerPrefabA, new Vector3(0,0,0), transform.rotation);
-            player.GetComponent<NetworkObject>().SpawnAsPlayerObject(NetworkManager.Singleton.LocalClientId);
+    public override void OnStartClient(){
+        if (IsServer){
+            SpawnServerRPC(ClientManager.Connection, true);
         }
         else{
-            SpawnServerRPC(NetworkManager.Singleton.LocalClientId);
+            SpawnServerRPC(ClientManager.Connection, false);
         }
     }
     [ServerRpc(RequireOwnership = false)]
-    public void SpawnServerRPC(ulong clientId){
-        GameObject player = Instantiate(playerPrefabB, new Vector3(0,0,0), transform.rotation);
-        player.GetComponent<NetworkObject>().SpawnAsPlayerObject(clientId);
+    public void SpawnServerRPC(NetworkConnection connection, bool host){
+        if (host){
+            playerObject = Instantiate(playerPrefabA, new Vector3(0,0,0), transform.rotation);
+        }
+        else{
+            playerObject = Instantiate(playerPrefabB, new Vector3(0,0,0), transform.rotation);
+        }
+        base.Spawn(playerObject, connection);
     } 
-*/
 }

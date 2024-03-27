@@ -2,9 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.Design.Serialization;
 using System.Xml.Schema;
-//using Unity.Netcode;
 using UnityEngine;
-//using Unity.Networking;
 
 
 public class CameraController : MonoBehaviour

@@ -1,12 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using FishNet.Object;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 
-public class PlayerState : MonoBehaviour
+public class PlayerState : NetworkBehaviour
 {
     private Vector3 _mousePosition;
 
@@ -34,6 +35,7 @@ public class PlayerState : MonoBehaviour
 
     private void Awake()
     {
+        if(!Owner.IsLocalClient) return;
         MaxHealth = 100;
         Health = MaxHealth;
         Walking = false;
@@ -47,6 +49,7 @@ public class PlayerState : MonoBehaviour
 
     void Update()
     {
+        if(!Owner.IsLocalClient) return;
         _mousePosition = Camera.ScreenToWorldPoint(Input.mousePosition);
         _mousePosition.z = 0;
 

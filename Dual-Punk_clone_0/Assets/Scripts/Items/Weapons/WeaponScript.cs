@@ -1,11 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices.WindowsRuntime;
-//using Unity.Netcode;
+using FishNet.Object;
 using UnityEngine;
 
 
-public abstract class WeaponScript : MonoBehaviour
+public abstract class WeaponScript : NetworkBehaviour
 {
     public PlayerState PlayerState { get; set; }
 
@@ -20,5 +20,5 @@ public abstract class WeaponScript : MonoBehaviour
 
     public abstract void Run(Vector3 position, Vector3 rotation);
 
-    public abstract void Reset();
+    public abstract void ResetWeapon();
 }

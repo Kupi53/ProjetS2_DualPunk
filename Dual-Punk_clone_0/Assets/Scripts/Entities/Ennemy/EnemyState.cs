@@ -2,10 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Pathfinding;
-//using Unity.Netcode;
-//using Unity.Netcode.Components;
+using FishNet.Object;
 
-public class EnemyState : MonoBehaviour
+public class EnemyState : NetworkBehaviour
 {
     public float health;
 
@@ -23,7 +22,7 @@ public class EnemyState : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
- //       if (!IsServer) return;
+        if (!IsServer) return;
         health = data.Health;
         damage = data.Damage;
         speed = data.Speed;
@@ -40,7 +39,7 @@ public class EnemyState : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-//        if (!IsServer) return;
+        if (!IsServer) return;
         PathFinding();
     }
 
@@ -54,14 +53,14 @@ public class EnemyState : MonoBehaviour
 
     public void OnDamage(float damage)
     {
-   //     if (!IsServer) return;
+        if (!IsServer) return;
         health -= damage;
         StartCoroutine(VisualIndicator(Color.red));
         CheckDeath();
     }
     private void CheckDeath()
     {
-   //     if (!IsServer) return;
+        if (!IsServer) return;
         if (health <= 0)
         {
             Destroy(gameObject);
@@ -70,7 +69,7 @@ public class EnemyState : MonoBehaviour
 
     private void PathFinding()
     {
-    //    if (!IsServer) return;
+        if (!IsServer) return;
 
         // Générer un nouveau chemin vers la position du joueur
         player1 = GameObject.FindWithTag("Player1");
@@ -102,7 +101,7 @@ public class EnemyState : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
-  //      if (!IsServer) return;
+        if (!IsServer) return;
         PlayerState playerState = collider.GetComponent<PlayerState>();
         if (playerState != null)
         {

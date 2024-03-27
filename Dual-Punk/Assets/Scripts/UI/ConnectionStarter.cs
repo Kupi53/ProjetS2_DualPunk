@@ -29,7 +29,7 @@ public class ConnectionStarter : MonoBehaviour
             LoadLobbyScene("client");
         });
         debugButton.onClick.AddListener(() => {
-            LoadGameDebug();
+            StartCoroutine(LoadGameDebug());
         });
     }
     void Start()
@@ -69,10 +69,11 @@ public class ConnectionStarter : MonoBehaviour
         }
     }
 
-    void LoadGameDebug()
+    IEnumerator LoadGameDebug()
     {
         _tugboat.StartConnection(true);
         _tugboat.StartConnection(false);
+        yield return new WaitForSeconds(0.5f);
         SceneLoadData sld = new SceneLoadData("Game");
         sld.ReplaceScenes = ReplaceOption.All;
         InstanceFinder.SceneManager.LoadGlobalScenes(sld);

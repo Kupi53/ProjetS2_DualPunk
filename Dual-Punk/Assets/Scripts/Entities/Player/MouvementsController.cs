@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
 using System;
-//using Unity.Netcode;
 using TMPro;
 using System.Data.SqlTypes;
+using FishNet.Object;
+using FishNet.Component.Animating;
 
 
-public class MouvementsController : MonoBehaviour
+public class MouvementsController : NetworkBehaviour
 {
     private Rigidbody2D _rb2d;
-    private Animator _animator;
+    private NetworkAnimator _networkAnimator;
     private PlayerState _playerState;
 
     // Constantes qui sont les noms des sprites du joueur
@@ -57,19 +58,20 @@ public class MouvementsController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (!Owner.IsLocalClient) return;
         _dashTimer = 0;
         _enableMovement = true;
         _currentState = PLAYER_IDLE;
 
         _rb2d = GetComponent<Rigidbody2D>();
-        _animator = GetComponent<Animator>();
+        _networkAnimator = GetComponent<NetworkAnimator>();
         _playerState = GetComponent<PlayerState>();
     }
 
     // Update is called once per frame
     void Update()
     {
-  //      if (!IsOwner) return;
+        if (!Owner.IsLocalClient) return;
         // Prends Imputs chaque frame
         if (_enableMovement)
         {
@@ -112,7 +114,7 @@ public class MouvementsController : MonoBehaviour
 
     void FixedUpdate()
     {
-   //     if (!IsOwner) return;
+       if (!Owner.IsLocalClient) return;
 
         if (_enableMovement)
         {
@@ -131,7 +133,7 @@ public class MouvementsController : MonoBehaviour
             }
 
             else if (!_playerState.HoldingWeapon)
-                _animator.Play(PLAYER_IDLE);
+                ChangeAnimation(PLAYER_IDLE);
 
             if (_playerState.HoldingWeapon)
                 ChangeAnimation(ChangeDirection(pointerAngle));
@@ -159,7 +161,7 @@ public class MouvementsController : MonoBehaviour
     {
         if (_currentState == newState) return;
 
-        _animator.Play(newState);
+        _networkAnimator.Play(newState);
         _currentState = newState;
     }
 

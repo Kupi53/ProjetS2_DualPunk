@@ -14,11 +14,13 @@ public class ChargeWeaponScript : FireArmScript
 
     private new void Start()
     {
+        if (!IsServer) return;
         base.Start();
     }
 
     private new void Update()
     {
+        if (!Owner.IsLocalClient) return;
         base.Update();
 
         if (InHand && !Reloading)
@@ -30,6 +32,7 @@ public class ChargeWeaponScript : FireArmScript
 
     public override void Run(Vector3 position, Vector3 direction)
     {
+        if (!Owner.IsLocalClient) return;
         MovePosition(position, direction, _weaponOffset, _weaponDistance);
 
         if (Input.GetButton("Use") && !Reloading && _fireTimer >= _fireRate && AmmoLeft > 0 && _chargeTimer < _chargeTime) {
@@ -41,7 +44,6 @@ public class ChargeWeaponScript : FireArmScript
 
         if (Input.GetButtonUp("Use") && _chargeTimer > 0) 
         {
-           // if (IsHost)
             {
                 float multiplier = _chargeTimer / _chargeTime;
                 Fire(direction, (int)(multiplier * (_damage - _minDamage) + _minDamage), multiplier * (_bulletSpeed - _minSpeed) + _minSpeed, _dispersion);
@@ -53,7 +55,7 @@ public class ChargeWeaponScript : FireArmScript
         }
 
         else if (Input.GetButtonDown("Use") && Reloading && AmmoLeft > 0) {
-            Reset();
+            ResetWeapon();
         }
 
 
@@ -66,9 +68,9 @@ public class ChargeWeaponScript : FireArmScript
     }
 
 
-    public override void Reset()
+    public override void ResetWeapon()
     {
-        base.Reset();
+        base.ResetWeapon();
         _chargeTimer = 0;
     }
 }

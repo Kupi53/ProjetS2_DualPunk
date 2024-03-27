@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-//using Unity.Netcode;
+using FishNet.Object;
 
 public class CurrentHealth : MonoBehaviour
 {

@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
 using System;
-//using Unity.Netcode;
 using UnityEngine.Playables;
+using FishNet.Object;
 
 
 
@@ -41,6 +41,7 @@ public class FireArmScript : WeaponScript
 
     public void Start()
     {
+        if (!IsServer) return;
         _reloadTimer = 0;
         _reloading = false;
         _ammoLeft = _magSize;
@@ -51,6 +52,7 @@ public class FireArmScript : WeaponScript
 
     public void Update()
     {
+        if (!Owner.IsLocalClient) return;
         //Faire des animations ici
         if (InHand)
         {
@@ -61,14 +63,14 @@ public class FireArmScript : WeaponScript
 
     public override void Run(Vector3 position, Vector3 direction)
     {
+        if (!Owner.IsLocalClient) return;
         MovePosition(position, direction, _weaponOffset, _weaponDistance);
 
         if ((Input.GetButton("Use") && _auto && !_reloading || Input.GetButtonDown("Use")) && _fireTimer >= _fireRate && _ammoLeft > 0)
         {
             if (_reloading)
-                Reset();
+                ResetWeapon();
 
-          //  if (IsHost)
                 Fire(direction, _damage, _bulletSpeed, _dispersion);
 
             _fireTimer = 0;
@@ -93,6 +95,7 @@ public class FireArmScript : WeaponScript
 
     protected void MovePosition(Vector3 position, Vector3 direction, Vector3 weaponOffset, float weaponDistance)
     {
+        if (!Owner.IsLocalClient) return;
         float angle = (float)(Math.Atan2(direction.y, direction.x) * (180 / Math.PI));
 
         if (angle > 90 || angle < -90)
@@ -110,6 +113,7 @@ public class FireArmScript : WeaponScript
 
     protected void Reload()
     {
+        if (!Owner.IsLocalClient) return;
         PlayerState.PointerScript.SpriteNumber = 0;
 
         if (_reloadTimer >= _reloadTime)
@@ -129,7 +133,7 @@ public class FireArmScript : WeaponScript
     }
 
 
-    public override void Reset()
+    public override void ResetWeapon()
     {
         _reloadTimer = 0;
         _reloading = false;
@@ -138,6 +142,7 @@ public class FireArmScript : WeaponScript
 
     public virtual void Fire(Vector3 direction, int damage, float bulletSpeed, float dispersion)
     {
+        if (!Owner.IsLocalClient) return;
         if (PlayerState.Walking)
             dispersion /= _aimAccuracy;
 
@@ -154,50 +159,7 @@ public class FireArmScript : WeaponScript
 
             bulletScript.ChangeDirection(newDirection, true);
 
-      //      NetworkObject bulletNetwork = newBullet.GetComponent<NetworkObject>();
-     //       bulletNetwork.Spawn();
+            base.Spawn(newBullet);
         }
     }
-
-
-
-    /*public void FireRound(GameObject bullet, GameObject gunEnd, Vector3 direction, float dispersion, int bulletNumber, float aimAccuracy)
-    {
-        if (playerState.Walking)
-            dispersion /= aimAccuracy;
-
-        for (int i = 0; i < bulletNumber; i++)
-        {
-            Vector3 newDirection = new Vector3(direction.x + NextFloat(-dispersion,dispersion), direction.y + NextFloat(-dispersion, dispersion), 0);
-            float newAngle = (float)(Math.Atan2(newDirection.y, newDirection.x) * (180 / Math.PI));
-
-            GameObject newBullet = Instantiate(bullet, gunEnd.transform.position, transform.rotation);
-            BulletScript bulletScript = newBullet.GetComponent<BulletScript>();
-            bulletScript.MoveDirection = newDirection;
-            bulletScript.transform.eulerAngles = new Vector3(0, 0, newAngle);
-        }
-    }
-
-
-    [ServerRpc(RequireOwnership = false)]
-    public void FireRoundServerRPC(NetworkObjectReference bulletRef, NetworkObjectReference gunEndRef, Vector3 direction, float dispersion, int bulletNumber, float aimAccuracy, ulong clientId)
-    {
-        if (playerState.Walking)
-            dispersion /= aimAccuracy;
-
-        for (int i = 0; i < bulletNumber; i++)
-        {
-            bulletRef.TryGet(out NetworkObject netBullet);
-            GameObject bullet = netBullet.gameObject;
-            gunEndRef.TryGet(out NetworkObject netGunEnd);
-            GameObject gunEnd = netGunEnd.gameObject;
-            Vector3 newDirection = new Vector3(direction.x + NextFloat(-dispersion, dispersion), direction.y + NextFloat(-dispersion, dispersion), 0);
-            float newAngle = (float)(Math.Atan2(newDirection.y, newDirection.x) * (180 / Math.PI));
-            GameObject newBullet = Instantiate(bullet, gunEnd.transform.position, transform.rotation);
-            newBullet.GetComponent<NetworkObject>().SpawnWithOwnership(clientId);
-            BulletScript bulletScript = newBullet.GetComponent<BulletScript>();
-            bulletScript.MoveDirection = newDirection;
-            bulletScript.transform.eulerAngles = new Vector3(0, 0, newAngle);
-        }
-    }*/
 }
