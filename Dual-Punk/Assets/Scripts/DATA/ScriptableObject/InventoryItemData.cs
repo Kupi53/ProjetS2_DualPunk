@@ -8,7 +8,7 @@ public class InventoryItemData : ScriptableObject
     public new string name;
     public GameObject prefab;
     public Sprite icon;
-    [TextArea()] 
+    [TextArea(3,10)] 
     public string description;
 
 

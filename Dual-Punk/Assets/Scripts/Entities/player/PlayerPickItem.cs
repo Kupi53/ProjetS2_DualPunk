@@ -12,6 +12,7 @@ public class PlayerPickItem : MonoBehaviour
     void Start()
     {
         inventoryManager = GameObject.FindWithTag("Inventory").GetComponent<InventoryPickItem>();
+        inventoryManager.gameObject.SetActive(false);
     }
 
     void Update(){

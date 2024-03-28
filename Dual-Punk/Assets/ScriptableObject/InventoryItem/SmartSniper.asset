@@ -15,4 +15,5 @@ MonoBehaviour:
   name: SmartSniper
   prefab: {fileID: 3523624623969322734, guid: 369723fd2c1c3fe4d87eeffa57e39c40, type: 3}
   icon: {fileID: 21300000, guid: f1629d059e7fb7041b1ec180942b2993, type: 3}
-  description: 
+  description: Le sniper intelligent, les balles suivent les adversaires jusqu'a
+    leur mort.

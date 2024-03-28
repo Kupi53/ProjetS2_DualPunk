@@ -15,4 +15,5 @@ MonoBehaviour:
   name: Shotgun
   prefab: {fileID: 156933350303824626, guid: 2aa24079ea5cf324c9968a9df667c0ab, type: 3}
   icon: {fileID: 21300000, guid: 9dd371f6dc406804e8a08151ad1cc7fc, type: 3}
-  description: 
+  description: Le Shotgun a rechargement, tres utile pour litteralement trouer tes
+    ennemis.
