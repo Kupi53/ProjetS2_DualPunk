@@ -11,6 +11,7 @@ public class ItemManager : NetworkBehaviour
 {
     private PlayerState _playerState;
     private List<GameObject> _items;
+    private IImpact _impact;
 
     #nullable enable
     private GameObject? _item;
@@ -24,6 +25,7 @@ public class ItemManager : NetworkBehaviour
     {
         _index = 0;
         _items = new List<GameObject>();
+        _impact = GetComponent<IImpact>();
         _playerState = GetComponent<PlayerState>();
     }
 
@@ -50,6 +52,7 @@ public class ItemManager : NetworkBehaviour
                     _playerState.WeaponScript = _weaponScript;
                     _playerState.HoldingWeapon = true;
                     _weaponScript.PlayerState = _playerState;
+                    _weaponScript.PlayerRecoil = _impact;
                     _weaponScript.InHand = true;
                 }
             }

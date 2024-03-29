@@ -101,7 +101,7 @@ public class MeleeWeaponScript : WeaponScript
 
         else
         {
-            _angle = (float)(Math.Atan2(direction.y, direction.x) * (180 / Math.PI));
+            _angle = Methods.GetAngle(direction);
 
             switch (_attack)
             {
@@ -132,7 +132,7 @@ public class MeleeWeaponScript : WeaponScript
             direction = new Vector3((float)Math.Cos(_angle * Math.PI / 180), (float)Math.Sin(_angle * Math.PI / 180)).normalized;
         }
 
-        transform.position = position + WeaponOffset + direction * _currentWeaponDistance;
+        transform.position = position + _weaponOffset + direction * _currentWeaponDistance;
         transform.eulerAngles = new Vector3(0, 0, _angle);
     }
 

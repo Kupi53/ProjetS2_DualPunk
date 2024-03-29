@@ -9,8 +9,6 @@ TagManager:
   - NetworkManager
   - Weapon
   - Knife
-  - PlayerObject
-  - Ntmtest
   - Item
   - Implant
   layers:

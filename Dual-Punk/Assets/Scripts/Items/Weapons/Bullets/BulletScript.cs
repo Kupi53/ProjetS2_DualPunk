@@ -5,15 +5,14 @@ using UnityEngine;
 using System;
 
 
-public class BulletScript : NetworkBehaviour
+public class BulletScript : NetworkBehaviour, IImpact
 {
     private Rigidbody2D _rb2d;
-
+    protected Vector3 _moveDirection;
+    protected int _damage;
+    protected float _moveSpeed;
     protected float _moveFactor;
-
-    public int Damage { get; set; }
-    public float MoveSpeed { get; set; }
-    public Vector3 MoveDirection { get; set; }
+    protected float _impactForce;
 
 
     private void Start()
@@ -21,37 +20,64 @@ public class BulletScript : NetworkBehaviour
         _rb2d = GetComponent<Rigidbody2D>();
     }
 
-    public void FixedUpdate()
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Impact(Vector2.up, 0.5f);
+        }
+    }
+
+    protected void FixedUpdate()
     {
         if (!IsServer) return;
 
-        _rb2d.velocity = MoveDirection * MoveSpeed * _moveFactor;
+        _rb2d.velocity = _moveDirection * _moveSpeed * _moveFactor;
 
-        if (!GetComponent<Renderer>().isVisible)
+        if (!GetComponent<Renderer>().isVisible || _moveSpeed < 5)
         {
             Destroy(gameObject);
         }
     }
 
+
+    public void Setup(int damage, float moveSpeed, Vector3 moveDirection)
+    {
+        _damage = damage;
+        _moveSpeed = moveSpeed;
+
+        ChangeDirection(moveDirection, true);
+    }
+
+
     public void ChangeDirection(Vector3 direction, bool changeAngle)
     {
-        MoveDirection = direction;
-        _moveFactor = (float)(Math.Abs(direction.x / 2) + 0.5);
+        _moveDirection = direction.normalized;
+        _moveFactor = Methods.GetDirectionFactor(direction);
 
         if (changeAngle)
         {
-            float angle = (float)(Math.Atan2(direction.y, direction.x) * (180 / Math.PI));
+            float angle = Methods.GetAngle(direction);
             transform.eulerAngles = new Vector3(0, 0, angle);
         }
-
     }
+
+
+    public void Impact(Vector2 direction, float intensity)
+    {
+        Vector2 newDirection = _moveDirection + (Vector3)direction * intensity;
+        _moveSpeed *= newDirection.magnitude;
+
+        ChangeDirection(newDirection, true);
+    }
+
 
     public void OnTriggerEnter2D(Collider2D collider)
     {
         if (collider.CompareTag("Ennemy"))
         {
             EnnemyState health = collider.GetComponent<EnnemyState>();
-            health.OnDamage(Damage);
+            health.OnDamage(_damage);
             Destroy(gameObject);
         }
     }

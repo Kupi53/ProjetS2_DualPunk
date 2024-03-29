@@ -23,9 +23,10 @@ public class SpawnUi : NetworkBehaviour
             LocalUI.name = gameObject.name + " UI";
             LocalCamera.name = gameObject.name + " Camera";
 
-            GetComponent<PlayerState>().Camera = LocalCamera.GetComponent<Camera>();
-            LocalCamera.GetComponent<CameraController>().PlayerState = GetComponent<PlayerState>();
+            GetComponent<PlayerState>().CameraController = LocalCamera.GetComponent<CameraController>();
+            LocalCamera.GetComponent<CameraController>().Player = gameObject;
             LocalUI.GetComponent<LocalPlayerReference>().PlayerState = GetComponent<PlayerState>();
+            LocalUI.GetComponent<LocalPlayerReference>().PlayerAbilities = GetComponent<PlayerAbilities>();
         }
     }
 }

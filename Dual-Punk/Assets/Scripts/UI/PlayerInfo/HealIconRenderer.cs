@@ -12,44 +12,35 @@ public class HealIconRenderer : MonoBehaviour
 {
     [SerializeField] private RawImage _image;
     // [SerializeField]
-    private float _cooldown = 20;
-
-    private float _timer;
+    
     private float _reloadingOffset;
     private float _transformMultiplier;
 
-    private PlayerState _playerState;
+    private PlayerAbilities _playerAbilities;
     private RectTransform _rectTransform;
 
 
     void Start()
     {
         _rectTransform = _image.GetComponent<RectTransform>();
-        _playerState = transform.root.GetComponent<LocalPlayerReference>().PlayerState;
-
-        _timer = _cooldown;
+        _playerAbilities = transform.root.GetComponent<LocalPlayerReference>().PlayerAbilities;
+        
         _reloadingOffset = _rectTransform.offsetMin.x;
         // Offset max est negatif car c'est la distance entre le coin haut droit de l'ancre et le coin haut droit de l'image
-        _transformMultiplier = (_reloadingOffset + _rectTransform.offsetMax.x) / _cooldown;
+        _transformMultiplier = (_reloadingOffset + _rectTransform.offsetMax.x) / _playerAbilities.HealCoolDown;
     }
 
     
     void Update()
     {
-        if (_timer >= _cooldown)
+        if (_playerAbilities.HealTimer >= _playerAbilities.HealCoolDown)
         {
             _image.enabled = false;
-            if (Input.GetButtonDown("UseHeal") && _playerState.Health < _playerState.MaxHealth)
-            {
-                _timer = 0;
-                _playerState.Heal(30);
-            }
         }
         else
         {
             _image.enabled = true;
-            _timer += Time.deltaTime;
-            _rectTransform.offsetMax = new Vector2(-_reloadingOffset + _transformMultiplier * _timer, _rectTransform.offsetMax.y);
+            _rectTransform.offsetMax = new Vector2(-_reloadingOffset + _transformMultiplier * _playerAbilities.HealTimer, _rectTransform.offsetMax.y);
         }
     }
 }

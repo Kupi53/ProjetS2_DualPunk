@@ -7,30 +7,37 @@ using UnityEngine.EventSystems;
 
 public class SeekingBulletScript : BulletScript
 {
-    public float RotateSpeed { get; set; }
+    private float _rotateSpeed;
 
-    #nullable enable
+#nullable enable
     public GameObject? Target { get; set; }
-    #nullable disable
+#nullable disable
 
 
-    new void FixedUpdate()
+    private new void FixedUpdate()
     {
         base.FixedUpdate();
 
         if (Target != null)
         {
             Vector3 heading = (Target.transform.position - transform.position).normalized;
-            float angle = Vector3.Cross(MoveDirection, heading).z * 100;
+            float angle = Vector3.Cross(_moveDirection, heading).z * 100;
 
-            if (angle > RotateSpeed * _moveFactor)
-                angle = RotateSpeed;
-            else if (-angle > RotateSpeed * _moveFactor)
-                angle = -RotateSpeed;
+            if (angle > _rotateSpeed * _moveFactor)
+                angle = _rotateSpeed;
+            else if (-angle > _rotateSpeed * _moveFactor)
+                angle = -_rotateSpeed;
 
-            ChangeDirection(Quaternion.Euler(0, 0, angle) * MoveDirection, false);
+            ChangeDirection(Quaternion.Euler(0, 0, angle) * _moveDirection, false);
             transform.eulerAngles = new Vector3(0, 0, transform.eulerAngles.z + angle);
         }
+    }
+
+    
+    public void Setup(int damage, float moveSpeed, Vector3 moveDirection, float rotateSpeed)
+    {
+        Setup(damage, moveSpeed, moveDirection);
+        _rotateSpeed = rotateSpeed;
     }
 }
 

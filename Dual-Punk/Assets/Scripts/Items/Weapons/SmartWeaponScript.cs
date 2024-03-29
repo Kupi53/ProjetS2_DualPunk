@@ -115,21 +115,14 @@ public class SmartWeaponScript : FireArmScript
 
         for (int i = 0; i < _bulletNumber; i++)
         {
-            Vector3 newDirection = new Vector3(direction.x + Methods.NextFloat(-dispersion, dispersion), direction.y + Methods.NextFloat(-dispersion, dispersion), 0).normalized;
-            float newAngle = (float)(Math.Atan2(newDirection.y, newDirection.x) * (180 / Math.PI));
-
             GameObject newBullet = Instantiate(_bullet, _gunEndPoints[i % _gunEndPoints.Length].transform.position, transform.rotation);
             SeekingBulletScript bulletScript = newBullet.GetComponent<SeekingBulletScript>();
 
-            bulletScript.Damage = damage;
-            bulletScript.MoveSpeed = bulletSpeed;
-            bulletScript.RotateSpeed = _bulletRotateSpeed;
+            Vector3 newDirection = new Vector3(direction.x + Methods.NextFloat(-dispersion, dispersion), direction.y + Methods.NextFloat(-dispersion, dispersion), 0).normalized;
 
-            bulletScript.ChangeDirection(newDirection, true);
-
+            bulletScript.Setup(damage, bulletSpeed, newDirection, _bulletRotateSpeed);
             AssignTarget(bulletScript);
 
-            newBullet.transform.eulerAngles = new Vector3(0, 0, newAngle);
             NetworkObject bulletNetwork = newBullet.GetComponent<NetworkObject>();
             bulletNetwork.Spawn();
         }

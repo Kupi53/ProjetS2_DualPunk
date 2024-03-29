@@ -8,23 +8,26 @@ public class LaserGunScript : WeaponScript
     [SerializeField] private GameObject _gunEndPoint;
     [SerializeField] private GameObject _startVFX;
     [SerializeField] private GameObject _endVFX;
+    [SerializeField] private LayerMask _layerMask;
 
+    [SerializeField] private float _damageFrequency;
     [SerializeField] private float _coolDownSpeed;
     [SerializeField] private float _coolDownTime;
     [SerializeField] private float _smoothTime;
-    [SerializeField] private LayerMask _layerMask;
+    [SerializeField] private float _damage;
 
     private List<ParticleSystem> _particles;
     private LineRenderer _lineRenderer;
     private Vector3 _startPosition;
 
-    private bool _fire;
-    private bool _coolDown;
     private float _coolDownLevel;
-
+    private float _damageTimer;
     private float _velocity;
     private float _resetTimer;
     private float _laserLength;
+    private bool _coolDown;
+    private bool _fire;
+
 
     public override bool DisplayInfo { get => _coolDownLevel > 0; }
     public override float InfoMaxTime { get => _coolDownTime; }
@@ -44,6 +47,7 @@ public class LaserGunScript : WeaponScript
 
         _fire = false;
         _coolDown = false;
+        _damageTimer = _damageFrequency;
 
         FillList();
         DisableLaser();
@@ -64,7 +68,7 @@ public class LaserGunScript : WeaponScript
         }
         else if (_fire)
         {
-            _coolDownLevel += Time.deltaTime * _coolDownSpeed / 3;
+            _coolDownLevel += Time.deltaTime * _coolDownSpeed / 2;
 
             if (_coolDownLevel > _coolDownTime)
             {
@@ -76,14 +80,13 @@ public class LaserGunScript : WeaponScript
     }
 
 
+
     public override void Run(Vector3 position, Vector3 direction)
     {
         if (!_coolDown)
             PlayerState.PointerScript.SpriteNumber = 1;
         else
             PlayerState.PointerScript.SpriteNumber = 0;
-
-        MovePosition(position, direction, _weaponOffset, _weaponDistance);
 
         _startPosition = _gunEndPoint.transform.position;
 
@@ -99,17 +102,8 @@ public class LaserGunScript : WeaponScript
             _coolDown = true;
         }
 
+        MovePosition(position, direction, _weaponOffset, _weaponDistance);
         Fire(direction);
-    }
-
-
-    public override void Reset()
-    {
-        _fire = false;
-        _coolDown = true;
-        DisableLaser();
-        _startVFX.SetActive(false);
-        _laserLength = 0;
     }
 
 
@@ -130,6 +124,7 @@ public class LaserGunScript : WeaponScript
     }
 
 
+
     private void FillList()
     {
         for (int i = 0; i < _startVFX.transform.childCount; i++)
@@ -146,9 +141,9 @@ public class LaserGunScript : WeaponScript
         }
     }
 
-
     private void EnableLaser()
     {
+        _resetTimer = 0;
         _lineRenderer.enabled = true;
 
         foreach (ParticleSystem particleSystem in _particles)
@@ -159,6 +154,7 @@ public class LaserGunScript : WeaponScript
 
     private void DisableLaser()
     {
+        _laserLength = 0;
         _lineRenderer.enabled = false;
 
         foreach (ParticleSystem particleSystem in _particles)
@@ -168,11 +164,20 @@ public class LaserGunScript : WeaponScript
     }
 
 
+    public override void Reset()
+    {
+        _fire = false;
+        _coolDown = true;
+        DisableLaser();
+    }
+
+
     private void DrawLaser(Vector3 targetPoint, Vector3 direction)
     {
         _laserLength = Mathf.SmoothDamp(_laserLength, Vector3.Distance(targetPoint, _startPosition), ref _velocity, _smoothTime);
         _lineRenderer.SetPosition(0, _startPosition);
         _lineRenderer.SetPosition(1, _startPosition + direction * _laserLength);
+        _endVFX.transform.position = _startPosition + direction * _laserLength;
     }
 
 
@@ -180,27 +185,37 @@ public class LaserGunScript : WeaponScript
     {
         if (_fire)
         {
-            _resetTimer = 0;
+            if (_damageTimer < _damageFrequency)
+                _damageTimer += Time.deltaTime;
+
+            PlayerRecoil.Impact(-direction, _recoilForce);
+            PlayerState.CameraController.ShakeCamera(_cameraShake, 0.1f);
 
             RaycastHit2D hit = Physics2D.Raycast(_startPosition, direction, Vector3.Distance(PlayerState.MousePosition, _startPosition), _layerMask);
-            if (hit)
-                DrawLaser(hit.point, direction);
-            else
-                DrawLaser(PlayerState.MousePosition, direction);
-        }
-        else
-        {
-            if (_resetTimer < _smoothTime)
-            {
-                _resetTimer += Time.deltaTime;
 
-                DrawLaser(_startPosition, direction);
+            if (hit)
+            {
+                DrawLaser(hit.point, direction);
+                
+                if (hit.collider.CompareTag("Ennemy") && _damageTimer >= _damageFrequency)
+                {
+                    EnnemyState health = hit.collider.GetComponent<EnnemyState>();
+                    health.OnDamage(_damage);
+                    _damageTimer = 0;
+                }
             }
             else
             {
-                _laserLength = 0;
-                DisableLaser();
+                DrawLaser(PlayerState.MousePosition, direction);
             }
+        }
+        else if (_resetTimer < _smoothTime*3)
+        {
+            _resetTimer += Time.deltaTime;
+            DrawLaser(_startPosition, direction);
+
+            if (_resetTimer >= _smoothTime * 3)
+                DisableLaser();
         }
     }
 }

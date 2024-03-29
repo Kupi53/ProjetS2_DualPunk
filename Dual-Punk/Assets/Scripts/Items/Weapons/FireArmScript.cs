@@ -6,6 +6,7 @@ using System;
 using Unity.Netcode;
 using UnityEngine.Playables;
 using Unity.Multiplayer.Samples.Utilities.ClientAuthority;
+using Unity.VisualScripting;
 
 
 
@@ -73,8 +74,9 @@ public class FireArmScript : WeaponScript
                 _reloading = false;
             }
 
-            if (IsHost)
-                Fire(direction, _damage, _bulletSpeed, _dispersion);
+            Fire(direction, _damage, _bulletSpeed, _dispersion);
+            PlayerRecoil.Impact(-direction, _recoilForce);
+            PlayerState.CameraController.ShakeCamera(_cameraShake, 0.1f);
 
             _fireTimer = 0;
             _ammoLeft--;
@@ -98,7 +100,7 @@ public class FireArmScript : WeaponScript
 
     protected void MovePosition(Vector3 position, Vector3 direction, Vector3 weaponOffset, float weaponDistance)
     {
-        float angle = (float)(Math.Atan2(direction.y, direction.x) * (180 / Math.PI));
+        float angle = Methods.GetAngle(direction);
 
         if (angle > 90 || angle < -90)
         {
@@ -152,12 +154,7 @@ public class FireArmScript : WeaponScript
             BulletScript bulletScript = newBullet.GetComponent<BulletScript>();
 
             Vector3 newDirection = new Vector3(direction.x + Methods.NextFloat(-dispersion, dispersion), direction.y + Methods.NextFloat(-dispersion, dispersion), 0).normalized;
-
-            bulletScript.Damage = damage;
-            bulletScript.MoveSpeed = bulletSpeed;
-            bulletScript.MoveDirection = newDirection;
-
-            bulletScript.ChangeDirection(newDirection, true);
+            bulletScript.Setup(damage, bulletSpeed, newDirection);
 
             NetworkObject bulletNetwork = newBullet.GetComponent<NetworkObject>();
             bulletNetwork.Spawn();

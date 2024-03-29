@@ -199,8 +199,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8460473f92773e74f9c436b5b690daa9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _weaponDistance: 0.7
   _weaponOffset: {x: 0, y: 0.5, z: 0}
+  _weaponDistance: 0.7
+  _recoilForce: 1.5
+  _impactForce: 1.2
+  _cameraShake: 1.2
   _bullet: {fileID: 5298557137024599475, guid: cf1a87b5cd3d7904dbe9dcf2013b111e, type: 3}
   _gunEndPoints:
   - {fileID: 7751566459779938819}

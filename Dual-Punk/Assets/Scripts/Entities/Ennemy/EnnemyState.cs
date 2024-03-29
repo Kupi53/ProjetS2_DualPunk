@@ -26,7 +26,7 @@ public class EnnemyState : NetworkBehaviour
         health = data.Health;
         damage = data.Damage;
         speed = data.Speed;
-        player = GameObject.FindGameObjectWithTag("Ntmtest");
+        player = GameObject.FindGameObjectWithTag("Player");
 
         // Obtenir ou attacher le composant IAstarAI (par exemple, AIPath)
         ai = GetComponent<IAstarAI>();
@@ -86,11 +86,11 @@ public class EnnemyState : NetworkBehaviour
     private void OnTriggerEnter2D(Collider2D collider)
     {
         if (!IsServer) return;
-        PlayerState playerState = collider.GetComponent<PlayerState>();
-        if (playerState != null)
+        
+        // faire un layer mask si jamais on veut rajouter des objects qui prennent des degats ennemis
+        if (collider.CompareTag("Player"))
         {
-            playerState.Damage(damage);
-            Debug.Log("Ennemy is touching you !");
+            collider.GetComponent<IDamageable>().Damage(10);
         }
     }
 }
