@@ -11,15 +11,17 @@ using TMPro;
 using Unity.VisualScripting;
 using FishNet.Transporting.Tugboat;
 using FishNet.Managing.Scened;
+using Unity.Services.Relay;
 
 public class ConnectionStarter : MonoBehaviour
 {
     [SerializeField] private Button hostButton;
     [SerializeField] private Button connectButton;
     [SerializeField] private Button debugButton;
-    [SerializeField] private TMP_InputField ipField;
+    [SerializeField] private TMP_InputField codeField;
 
     private Tugboat _tugboat;
+    private RelayManager _relayManager;
 
     private void Awake(){
         hostButton.onClick.AddListener(() => {
@@ -43,24 +45,34 @@ public class ConnectionStarter : MonoBehaviour
             Debug.LogError("Couldn't get tugboat!", this);
             return;
         }
+        if (TryGetComponent(out RelayManager RelayManager))
+        {
+            _relayManager = RelayManager;
+        }
+        else
+        {
+            Debug.LogError("Couldn't get tugboat!", this);
+            return;
+        }
     }
     void LoadLobbyScene(string type)
     {
         // lobby scene
         if (type=="host"){
+            _relayManager.CreateRelay();
             _tugboat.StartConnection(true);
             _tugboat.StartConnection(false);
             UnityEngine.SceneManagement.SceneManager.LoadScene("Lobby", LoadSceneMode.Single);
         }
         if (type == "client"){
-            _tugboat.SetClientAddress(ipField.text);
+            _relayManager.JoinRelay(codeField.text);
             _tugboat.StartConnection(false);
             UnityEngine.SceneManagement.SceneManager.LoadScene("Lobby", LoadSceneMode.Single);
         }
     }
 
     public void OnIpInputChanged(){
-        if (ipField.text == ""){
+        if (codeField.text == ""){
         }
         else{
             connectButton.interactable = true;

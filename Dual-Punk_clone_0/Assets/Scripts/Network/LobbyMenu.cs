@@ -9,6 +9,10 @@ using FishNet.Object;
 using FishNet.Managing;
 using FishNet.Managing.Scened;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Unity.Services.Relay;
+using Unity.Services.Authentication;
+using Unity.Services.Core;
+using System.Linq;
 
 public class LobbyMenu : NetworkBehaviour
 {
@@ -16,7 +20,9 @@ public class LobbyMenu : NetworkBehaviour
     [SerializeField] private Button cancelButton;
     [SerializeField] private GameObject waiting;
     [SerializeField] private GameObject ready;
+    [SerializeField] private GameObject joinCode;
     private GameObject networkManager;
+    private RelayManager relayManager;
     private GameObject fishnetDDOL;
     // Start is called before the first frame update
     void Awake()
@@ -32,12 +38,20 @@ public class LobbyMenu : NetworkBehaviour
     void Start(){
         networkManager = GameObject.FindWithTag("NetworkManager");
         fishnetDDOL = GameObject.Find("FirstGearGames DDOL");
+        relayManager = networkManager.GetComponent<RelayManager>();
     }
 
     void Update(){
         if (!InstanceFinder.IsServer) return;
         ChangePlayButton();
     }
+
+    public override void OnStartServer(){
+        cancelButton.GetComponent<RectTransform>().anchoredPosition = new Vector3(0.34541f, -40, 0);
+        playButton.GetComponent<RectTransform>().anchoredPosition = new Vector3(0.34541f, 5, 0);
+        joinCode.SetActive(true);
+    }
+
 
     [Server]
     private void ChangePlayButton(){
@@ -56,6 +70,7 @@ public class LobbyMenu : NetworkBehaviour
     {
         Destroy(fishnetDDOL);
         Destroy(networkManager);
+        AuthenticationService.Instance.SignOut();
         UnityEngine.SceneManagement.SceneManager.LoadScene("Menu", LoadSceneMode.Single);
     }
     void LoadGame()
