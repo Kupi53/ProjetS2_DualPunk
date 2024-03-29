@@ -20,7 +20,7 @@ public class HealIconRenderer : MonoBehaviour
     private RectTransform _rectTransform;
 
 
-    void Start()
+    private void Start()
     {
         _rectTransform = _image.GetComponent<RectTransform>();
         _playerAbilities = transform.root.GetComponent<LocalPlayerReference>().PlayerAbilities;
@@ -31,7 +31,7 @@ public class HealIconRenderer : MonoBehaviour
     }
 
     
-    void Update()
+    private void Update()
     {
         if (_playerAbilities.HealTimer >= _playerAbilities.HealCoolDown)
         {

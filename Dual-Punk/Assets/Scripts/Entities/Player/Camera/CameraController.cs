@@ -41,8 +41,6 @@ public class CameraController : MonoBehaviour
 
         _refV1 = 0;
         _refV2 = Vector3.zero;
-
-        StopShake();
     }
 
 

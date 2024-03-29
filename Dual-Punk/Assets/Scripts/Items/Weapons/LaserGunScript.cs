@@ -188,7 +188,7 @@ public class LaserGunScript : WeaponScript
             if (_damageTimer < _damageFrequency)
                 _damageTimer += Time.deltaTime;
 
-            PlayerRecoil.Impact(-direction, _recoilForce);
+            PlayerRecoil.Impact(-direction, _recoilForce * Time.deltaTime * 100);
             PlayerState.CameraController.ShakeCamera(_cameraShake, 0.1f);
 
             RaycastHit2D hit = Physics2D.Raycast(_startPosition, direction, Vector3.Distance(PlayerState.MousePosition, _startPosition), _layerMask);
