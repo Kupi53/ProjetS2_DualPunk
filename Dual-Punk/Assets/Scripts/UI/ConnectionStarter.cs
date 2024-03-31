@@ -12,6 +12,8 @@ using Unity.VisualScripting;
 using FishNet.Transporting.Tugboat;
 using FishNet.Managing.Scened;
 using Unity.Services.Relay;
+using FishNet.Transporting.UTP;
+using FishNet.Managing;
 
 public class ConnectionStarter : MonoBehaviour
 {
@@ -19,8 +21,7 @@ public class ConnectionStarter : MonoBehaviour
     [SerializeField] private Button connectButton;
     [SerializeField] private Button debugButton;
     [SerializeField] private TMP_InputField codeField;
-
-    private Tugboat _tugboat;
+    private NetworkManager _networkManager;
     private RelayManager _relayManager;
 
     private void Awake(){
@@ -36,13 +37,13 @@ public class ConnectionStarter : MonoBehaviour
     }
     void Start()
     {
-        if (TryGetComponent(out Tugboat tugboat))
+        if (TryGetComponent(out NetworkManager networkManager))
         {
-            _tugboat = tugboat;
+            _networkManager = networkManager;
         }
         else
         {
-            Debug.LogError("Couldn't get tugboat!", this);
+            Debug.LogError("Couldn't get networkmanager!", this);
             return;
         }
         if (TryGetComponent(out RelayManager RelayManager))
@@ -51,7 +52,7 @@ public class ConnectionStarter : MonoBehaviour
         }
         else
         {
-            Debug.LogError("Couldn't get tugboat!", this);
+            Debug.LogError("Couldn't get relay!", this);
             return;
         }
     }
@@ -59,14 +60,11 @@ public class ConnectionStarter : MonoBehaviour
     {
         // lobby scene
         if (type=="host"){
-            _relayManager.CreateRelay();
-            _tugboat.StartConnection(true);
-            _tugboat.StartConnection(false);
+            _relayManager.CreateRelayHost(); 
             UnityEngine.SceneManagement.SceneManager.LoadScene("Lobby", LoadSceneMode.Single);
         }
         if (type == "client"){
-            _relayManager.JoinRelay(codeField.text);
-            _tugboat.StartConnection(false);
+            _relayManager.JoinRelayClient(codeField.text);
             UnityEngine.SceneManagement.SceneManager.LoadScene("Lobby", LoadSceneMode.Single);
         }
     }
@@ -83,8 +81,8 @@ public class ConnectionStarter : MonoBehaviour
 
     IEnumerator LoadGameDebug()
     {
-        _tugboat.StartConnection(true);
-        _tugboat.StartConnection(false);
+        _networkManager.ServerManager.StartConnection();
+        _networkManager.ClientManager.StartConnection();
         yield return new WaitForSeconds(0.5f);
         SceneLoadData sld = new SceneLoadData("Game");
         sld.ReplaceScenes = ReplaceOption.All;
