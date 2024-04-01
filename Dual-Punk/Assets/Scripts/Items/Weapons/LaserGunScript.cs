@@ -83,10 +83,10 @@ public class LaserGunScript : WeaponScript
 
     public override void Run(Vector3 position, Vector3 direction)
     {
-        if (!_coolDown)
-            PlayerState.PointerScript.SpriteNumber = 1;
-        else
+        if (_coolDown && Input.GetButton("Use"))
             PlayerState.PointerScript.SpriteNumber = 0;
+        else
+            PlayerState.PointerScript.SpriteNumber = 1;
 
         _startPosition = _gunEndPoint.transform.position;
 

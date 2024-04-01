@@ -7,7 +7,7 @@ using System;
 
 public class BulletScript : NetworkBehaviour, IImpact
 {
-    private Rigidbody2D _rb2d;
+    protected Rigidbody2D _rb2d;
     protected Vector3 _moveDirection;
     protected int _damage;
     protected float _moveSpeed;
@@ -32,11 +32,12 @@ public class BulletScript : NetworkBehaviour, IImpact
     {
         if (!IsServer) return;
 
+        // Marche pas avec MovePosition
         _rb2d.velocity = _moveDirection * _moveSpeed * _moveFactor;
 
         if (!GetComponent<Renderer>().isVisible || _moveSpeed < 5)
         {
-            Destroy(gameObject);
+            DestroyThis();
         }
     }
 
@@ -50,7 +51,7 @@ public class BulletScript : NetworkBehaviour, IImpact
     }
 
 
-    public void ChangeDirection(Vector3 direction, bool changeAngle)
+    protected void ChangeDirection(Vector3 direction, bool changeAngle)
     {
         _moveDirection = direction.normalized;
         _moveFactor = Methods.GetDirectionFactor(direction);
@@ -72,13 +73,22 @@ public class BulletScript : NetworkBehaviour, IImpact
     }
 
 
-    public void OnTriggerEnter2D(Collider2D collider)
+    protected virtual void DestroyThis()
+    {
+        Destroy(gameObject);
+    }
+
+
+    protected virtual void OnTriggerEnter2D(Collider2D collider)
     {
         if (collider.CompareTag("Ennemy"))
         {
             EnnemyState health = collider.GetComponent<EnnemyState>();
             health.OnDamage(_damage);
-            Destroy(gameObject);
+        }
+        if (!collider.CompareTag("Weapon"))
+        {
+            DestroyThis();
         }
     }
 }
