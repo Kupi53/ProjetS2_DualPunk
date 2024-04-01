@@ -1,18 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using FishNet;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using FishNet.Object;
-using FishNet.Managing;
 using FishNet.Managing.Scened;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Unity.Services.Relay;
 using Unity.Services.Authentication;
-using Unity.Services.Core;
-using System.Linq;
 
 public class LobbyMenu : NetworkBehaviour
 {
@@ -20,10 +13,11 @@ public class LobbyMenu : NetworkBehaviour
     [SerializeField] private Button cancelButton;
     [SerializeField] private GameObject waiting;
     [SerializeField] private GameObject ready;
-    [SerializeField] private GameObject joinCode;
+    [SerializeField] private GameObject joinCodeText;
     private GameObject networkManager;
-    private RelayManager relayManager;
+    private ConnectionStarter connectionStarter;
     private GameObject fishnetDDOL;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -38,7 +32,6 @@ public class LobbyMenu : NetworkBehaviour
     void Start(){
         networkManager = GameObject.FindWithTag("NetworkManager");
         fishnetDDOL = GameObject.Find("FirstGearGames DDOL");
-        relayManager = networkManager.GetComponent<RelayManager>();
     }
 
     void Update(){
@@ -47,9 +40,12 @@ public class LobbyMenu : NetworkBehaviour
     }
 
     public override void OnStartServer(){
+        base.OnStartServer();
         cancelButton.GetComponent<RectTransform>().anchoredPosition = new Vector3(0.34541f, -40, 0);
         playButton.GetComponent<RectTransform>().anchoredPosition = new Vector3(0.34541f, 5, 0);
-        joinCode.SetActive(true);
+        connectionStarter = networkManager.GetComponent<ConnectionStarter>();
+        joinCodeText.GetComponent<TMP_Text>().text += connectionStarter.joinCode;
+        joinCodeText.SetActive(true);
     }
 
 
@@ -66,10 +62,12 @@ public class LobbyMenu : NetworkBehaviour
             playButton.GetComponentInChildren<TMP_Text>().color = new Color32(0, 185, 255, 100);
         }
     }
-    void LoadMenu()
+    public static void LoadMenu()
     {
-        Destroy(fishnetDDOL);
-        Destroy(networkManager);
+        GameObject _networkManager = GameObject.FindWithTag("NetworkManager");
+        GameObject _fishnetDDOL = GameObject.Find("FirstGearGames DDOL");
+        Destroy(_fishnetDDOL);
+        Destroy(_networkManager);
         AuthenticationService.Instance.SignOut();
         UnityEngine.SceneManagement.SceneManager.LoadScene("Menu", LoadSceneMode.Single);
     }

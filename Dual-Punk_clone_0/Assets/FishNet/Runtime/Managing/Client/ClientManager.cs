@@ -19,7 +19,7 @@ namespace FishNet.Managing.Client
     /// </summary>
     [DisallowMultipleComponent]
     [AddComponentMenu("FishNet/Manager/ClientManager")]
-    public sealed partial class ClientManager : MonoBehaviour
+    public partial class ClientManager : MonoBehaviour
     {
         #region Public.
         /// <summary>

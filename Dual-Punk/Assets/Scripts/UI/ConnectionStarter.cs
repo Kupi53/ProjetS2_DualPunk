@@ -14,6 +14,7 @@ using FishNet.Managing.Scened;
 using Unity.Services.Relay;
 using FishNet.Transporting.UTP;
 using FishNet.Managing;
+using System.Threading.Tasks;
 
 public class ConnectionStarter : MonoBehaviour
 {
@@ -21,15 +22,16 @@ public class ConnectionStarter : MonoBehaviour
     [SerializeField] private Button connectButton;
     [SerializeField] private Button debugButton;
     [SerializeField] private TMP_InputField codeField;
+    public string joinCode;
     private NetworkManager _networkManager;
     private RelayManager _relayManager;
 
     private void Awake(){
         hostButton.onClick.AddListener(() => {
-            LoadLobbyScene("host");
+            LoadLobbySceneAsync("host");
         });
         connectButton.onClick.AddListener(()=>{
-            LoadLobbyScene("client");
+            LoadLobbySceneAsync("client");
         });
         debugButton.onClick.AddListener(() => {
             StartCoroutine(LoadGameDebug());
@@ -56,16 +58,15 @@ public class ConnectionStarter : MonoBehaviour
             return;
         }
     }
-    void LoadLobbyScene(string type)
+    async Task LoadLobbySceneAsync(string type)
     {
         // lobby scene
         if (type=="host"){
-            _relayManager.CreateRelayHost(); 
+            joinCode = await _relayManager.CreateRelayHost();
             UnityEngine.SceneManagement.SceneManager.LoadScene("Lobby", LoadSceneMode.Single);
         }
         if (type == "client"){
             _relayManager.JoinRelayClient(codeField.text);
-            UnityEngine.SceneManagement.SceneManager.LoadScene("Lobby", LoadSceneMode.Single);
         }
     }
 
