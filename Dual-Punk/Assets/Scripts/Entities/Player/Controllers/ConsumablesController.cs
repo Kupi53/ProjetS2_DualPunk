@@ -7,17 +7,20 @@ using UnityEngine;
 public class ConsumablesController : MonoBehaviour
 {
     [SerializeField] private GameObject _grenade;
+    [SerializeField] private GameObject _grenadePath;
 
     [SerializeField] private float _throwForce;
     [SerializeField] private float _throwDistance;
     [SerializeField] private float _chargeTime;
-    // temps avant explosion de la grenade apres armement
     [SerializeField] private float _grenadeTimer;
 
     private LineRenderer _lineRenderer;
+    private SpriteRenderer _grenadeImpact;
+
     private PlayerState _playerState;
     private IDamageable _damageable;
     private Vector3 _direction;
+    private Vector3 _offset;
 
 
     // Heal
@@ -33,7 +36,6 @@ public class ConsumablesController : MonoBehaviour
     [SerializeField]
     private float _itemCooldown;
     private float _itemTimer;
-    // timer pour le temps avant explosion de la grenade
     private float _explodeTimer;
     private bool _chargeGrenade;
     
@@ -43,18 +45,22 @@ public class ConsumablesController : MonoBehaviour
 
     void Start()
     {
-        _explodeTimer = 0;
         _healTimer = _healCooldown;
         _itemTimer = _itemCooldown;
+        _offset = new Vector3(0, 0.5f, 0);
+
         _damageable = GetComponent<IDamageable>();
         _playerState = GetComponent<PlayerState>();
-        _lineRenderer = GetComponentInChildren<LineRenderer>();
+        _lineRenderer = _grenadePath.GetComponentInChildren<LineRenderer>();
+        _grenadeImpact = _grenadePath.GetComponentInChildren<SpriteRenderer>();
+
+        Reset();
     }
 
 
     void Update()
     {
-        _direction = _playerState.MousePosition - transform.position;
+        _direction = _playerState.MousePosition - transform.position - _offset;
 
         if (_healTimer >= _healCooldown)
         {
@@ -75,24 +81,28 @@ public class ConsumablesController : MonoBehaviour
             if (Input.GetButtonDown("UseGrenade"))
             {
                 _chargeGrenade = true;
+                _lineRenderer.enabled = true;
+                _grenadeImpact.enabled = true;
             }
+
             if (_chargeGrenade)
             {
                 _explodeTimer += Time.deltaTime;
 
                 if (_explodeTimer > _grenadeTimer)
-                {
                     Reset();
-                }
+
                 if (Input.GetButtonUp("UseGrenade"))
                 {
-                    GameObject grenade = Instantiate(_grenade, transform.position, transform.rotation);
-                    grenade.GetComponent<GrenadeScript>().Setup(transform.position, _direction.normalized,
-                        _throwForce * GetChargeFactor(), _grenadeTimer - _explodeTimer, GetThrowDistance());
+                    GameObject grenade = Instantiate(_grenade, transform.position + _offset, transform.rotation);
+                    grenade.GetComponent<GrenadeScript>().Setup(transform.position + _offset, _direction.normalized,
+                        _throwForce * Methods.GetDirectionFactor(_direction) * GetChargeFactor(), _grenadeTimer - _explodeTimer, GetThrowDistance());
 
                     Reset();
                     _itemTimer = 0;
                 }
+
+                DrawGrenadePath();
             }
         }
         else
@@ -102,18 +112,28 @@ public class ConsumablesController : MonoBehaviour
     }
 
 
+    private void DrawGrenadePath()
+    {
+        Vector3 endPos = transform.position + _offset + _direction.normalized * GetThrowDistance();
+        _lineRenderer.SetPosition(0, transform.position + _offset);
+        _lineRenderer.SetPosition(1, endPos);
+        _grenadeImpact.transform.position = endPos;
+    }
+
+
     private float GetChargeFactor()
     {
         if (_explodeTimer > _chargeTime)
             return 1;
-        return _chargeTime - _explodeTimer;
+        return _explodeTimer/_chargeTime;
     }
 
 
     private float GetThrowDistance()
     {
-        if (_throwDistance * GetChargeFactor() < _direction.magnitude)
-            return _throwDistance * GetChargeFactor();
+        float distance = _throwDistance * GetChargeFactor() * Methods.GetDirectionFactor(_direction.normalized);
+        if (_direction.magnitude > distance)
+            return distance;
         return _direction.magnitude;
     }
 
@@ -122,5 +142,7 @@ public class ConsumablesController : MonoBehaviour
     {
         _explodeTimer = 0;
         _chargeGrenade = false;
+        _lineRenderer.enabled = false;
+        _grenadeImpact.enabled = false;
     }
 }

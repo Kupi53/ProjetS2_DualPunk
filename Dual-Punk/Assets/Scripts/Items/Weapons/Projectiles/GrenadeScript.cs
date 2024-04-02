@@ -14,6 +14,9 @@ public class GrenadeScript : MonoBehaviour
     [SerializeField] private float _moveDecreaseSpeed;
     [SerializeField] private float _stoppingFactor;
 
+    private Rigidbody2D _rb2d;
+    private SpriteRenderer _spriteRenderer;
+
     private Vector3 _startPosition;
     private Vector3 _moveDirection;
 
@@ -23,13 +26,21 @@ public class GrenadeScript : MonoBehaviour
     private bool _stop;
 
 
+    private void Start()
+    {
+        _stop = false;
+        _rb2d = GetComponent<Rigidbody2D>();
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+    }
+
+
     // quand distance est atteinte on active la collision, si collision moveSpeed = 0
-    private void Update()
+    private void FixedUpdate()
     {
         if (_moveSpeed > 0)
         {
-            transform.position += _moveDirection * _moveSpeed * Time.deltaTime;
-            _moveSpeed -= _moveDecreaseSpeed * Time.deltaTime;
+            _rb2d.MovePosition(transform.position + _moveDirection * _moveSpeed * Time.fixedDeltaTime);
+            _moveSpeed -= _moveDecreaseSpeed * Time.fixedDeltaTime;
         }
 
         if (!_stop && Vector3.Distance(transform.position, _startPosition) > _distanceUntilStop)
@@ -37,11 +48,12 @@ public class GrenadeScript : MonoBehaviour
             _stop = true;
             _moveSpeed /= _stoppingFactor;
             _moveDecreaseSpeed *= _stoppingFactor;
+            _spriteRenderer.sortingOrder = 1;
         }
 
         if (_explodeTimer > 0)
         {
-            _explodeTimer -= Time.deltaTime;
+            _explodeTimer -= Time.fixedDeltaTime;
         }
         else
         {
@@ -65,12 +77,12 @@ public class GrenadeScript : MonoBehaviour
         _moveSpeed = moveSpeed;
         _explodeTimer = explodeTimer;
         _distanceUntilStop = distanceUntilStop;
-        Debug.Log(explodeTimer);
     }
 
 
-    private void OnTriggerEnter2D(Collider2D collider)
+    private void OnTriggerStay2D(Collider2D collider)
     {
-        if (_stop) _moveSpeed = 0;
+        if (!collider.CompareTag("Ennemy") && !collider.CompareTag("Weapon") && _stop)
+            _moveSpeed = 0;
     }
 }
