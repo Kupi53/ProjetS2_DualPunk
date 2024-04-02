@@ -12,6 +12,7 @@ public class PlayerPickItem : MonoBehaviour
     void Start()
     {
         inventoryManager = GameObject.FindWithTag("Inventory").GetComponent<InventoryPickItem>();
+        inventoryManager.gameObject.SetActive(false);
     }
 
     void Update(){
@@ -21,14 +22,14 @@ public class PlayerPickItem : MonoBehaviour
     }
 
     void OnTriggerEnter2D(Collider2D collider){
-        if(collider.CompareTag("Weapon")){
+        if(collider.CompareTag("Weapon") || collider.CompareTag("Item") || collider.CompareTag("Implant")){
             _CanBePicked = true;
             itemToPick = collider.gameObject;
     }
 }
 
     void OnTriggerExit2D(Collider2D collider){
-        if(collider.CompareTag("Weapon")){
+        if(collider.CompareTag("Weapon") || collider.CompareTag("Item") || collider.CompareTag("Implant")){
             _CanBePicked = false;
             itemToPick = null;
         }

@@ -250,10 +250,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57b982fee80429242a38e7325a04cf3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 10
-  speed: 1
-  damage: 5
-  data: {fileID: 11400000, guid: 07f0b901eaa57a943860c1e1c7db0e70, type: 2}
+  health: 0
+  speed: 0
+  damage: 0
+  data: {fileID: 11400000, guid: 60d845cdc11913847814ecc65a2325f0, type: 2}
 --- !u!114 &5331057200940085085
 MonoBehaviour:
   m_ObjectHideFlags: 0

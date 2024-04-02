@@ -14,6 +14,8 @@ TagManager:
   - Implant
   - Player1
   - Player2
+  - Inventory
+  - InventorySlot
   layers:
   - Default
   - TransparentFX

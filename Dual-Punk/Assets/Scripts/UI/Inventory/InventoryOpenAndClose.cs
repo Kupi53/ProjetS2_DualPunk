@@ -7,14 +7,12 @@ public class InventoryOpenAndClose : MonoBehaviour
 {
     public GameObject Inventory;
     bool InventoryIsClose;
-    // Start is called before the first frame update
+
     void Start()
     {
         InventoryIsClose = true;
-        Inventory.SetActive(false);
     }
 
-    // Update is called once per frame
     void Update()
     {
         if(Input.GetButtonDown("Inventory")){

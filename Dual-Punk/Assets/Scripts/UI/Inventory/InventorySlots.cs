@@ -7,12 +7,11 @@ using UnityEngine.UI;
 public class InventorySlots : MonoBehaviour
 {
 
-    public GameObject HeldItem;
-
+    public GameObject heldItem;
 
     public void SetHeldItem(GameObject Item){
-        HeldItem = Item;
-        HeldItem.transform.position = this.transform.position;
+        heldItem = Item;
+        heldItem.transform.position = transform.position;
     }
 
 }

@@ -46,6 +46,7 @@ GameObject:
   - component: {fileID: 6659244552092932453}
   - component: {fileID: -6790185488990606666}
   - component: {fileID: 920262741264380314}
+  - component: {fileID: -1078858990597080937}
   m_Layer: 0
   m_Name: AutolockAR
   m_TagString: Weapon
@@ -261,3 +262,16 @@ MonoBehaviour:
   normal: {fileID: 21300000, guid: bf75ed1d991158e47830175dc9be7648, type: 3}
   highlighted: {fileID: 21300000, guid: eaf9bcd0325115642ac4925efeee2f06, type: 3}
   spriteRenderer: {fileID: 168552385852472485}
+--- !u!114 &-1078858990597080937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8832150194662058669}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71eb8b037ef4d2843bdf7ae083f038ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemData: {fileID: 11400000, guid: d73fe682cddb1ad4bb388fce6d17e074, type: 2}
