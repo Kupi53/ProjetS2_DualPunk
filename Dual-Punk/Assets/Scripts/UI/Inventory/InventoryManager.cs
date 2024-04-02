@@ -136,7 +136,7 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
         else{
             if(placedItemName == "Weapon" && currentSlotName == "WeaponSlots") res = true;
             else if(placedItemName == "Implant" && currentSlotName == "ImplantSlot") res = true;
-            else if(placedItemName == "Consummable" && currentSlotName == "ConsummabelSlots") res = true;
+            else if(placedItemName == "Item" && currentSlotName == "ConsumabelSlots") res = true;
         }
         return res;
     }

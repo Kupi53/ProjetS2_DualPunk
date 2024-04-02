@@ -70,7 +70,7 @@ GameObject:
   - component: {fileID: 15168328794631097}
   m_Layer: 0
   m_Name: AR1
-  m_TagString: Weapon
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
