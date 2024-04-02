@@ -86,7 +86,7 @@ public class BulletScript : NetworkBehaviour, IImpact
             EnnemyState health = collider.GetComponent<EnnemyState>();
             health.OnDamage(_damage);
         }
-        if (!collider.CompareTag("Weapon"))
+        if (!collider.CompareTag("Weapon") && !collider.CompareTag("Projectile") && !collider.CompareTag("UI"))
         {
             DestroyThis();
         }

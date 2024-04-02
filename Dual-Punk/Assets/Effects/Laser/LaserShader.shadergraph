@@ -428,13 +428,13 @@
                 "m_Id": "79b5de67a859412c96f2a3ae1eb75844"
             },
             {
+                "m_Id": "3b8fc41f8bda4ba4897dfa1cf2062fb4"
+            },
+            {
                 "m_Id": "03d1f6e3095d4b19900c3ce043160b00"
             },
             {
                 "m_Id": "18817c90fba048a8a25306a8209ffa03"
-            },
-            {
-                "m_Id": "3b8fc41f8bda4ba4897dfa1cf2062fb4"
             }
         ]
     },
@@ -1261,10 +1261,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": 0.0,
-            "y": 0.0,
-            "width": 0.0,
-            "height": 0.0
+            "x": 2228.6669921875,
+            "y": -86.00001525878906,
+            "width": 200.0,
+            "height": 42.666656494140628
         }
     },
     "m_Slots": [

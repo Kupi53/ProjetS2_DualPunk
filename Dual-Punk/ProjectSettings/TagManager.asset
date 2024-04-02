@@ -11,6 +11,7 @@ TagManager:
   - Knife
   - Item
   - Implant
+  - Projectile
   layers:
   - Default
   - TransparentFX

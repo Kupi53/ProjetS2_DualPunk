@@ -84,7 +84,7 @@ public class RocketScript : BulletScript
 
     protected override void OnTriggerEnter2D(Collider2D collider)
     {
-        if (!collider.CompareTag("Weapon"))
+        if (!collider.CompareTag("Weapon") && !collider.CompareTag("Projectile") && !collider.CompareTag("UI"))
         {
             DestroyThis();
         }

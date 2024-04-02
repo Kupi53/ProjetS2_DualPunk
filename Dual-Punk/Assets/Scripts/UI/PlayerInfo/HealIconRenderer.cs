@@ -16,31 +16,31 @@ public class HealIconRenderer : MonoBehaviour
     private float _reloadingOffset;
     private float _transformMultiplier;
 
-    private PlayerAbilities _playerAbilities;
+    private ConsumablesController _consumablesController;
     private RectTransform _rectTransform;
 
 
     private void Start()
     {
         _rectTransform = _image.GetComponent<RectTransform>();
-        _playerAbilities = transform.root.GetComponent<LocalPlayerReference>().PlayerAbilities;
+        _consumablesController = transform.root.GetComponent<LocalPlayerReference>().ConsumablesController;
         
         _reloadingOffset = _rectTransform.offsetMin.x;
         // Offset max est negatif car c'est la distance entre le coin haut droit de l'ancre et le coin haut droit de l'image
-        _transformMultiplier = (_reloadingOffset + _rectTransform.offsetMax.x) / _playerAbilities.HealCoolDown;
+        _transformMultiplier = (_reloadingOffset + _rectTransform.offsetMax.x) / _consumablesController.HealCoolDown;
     }
 
     
     private void Update()
     {
-        if (_playerAbilities.HealTimer >= _playerAbilities.HealCoolDown)
+        if (_consumablesController.HealTimer >= _consumablesController.HealCoolDown)
         {
             _image.enabled = false;
         }
         else
         {
             _image.enabled = true;
-            _rectTransform.offsetMax = new Vector2(-_reloadingOffset + _transformMultiplier * _playerAbilities.HealTimer, _rectTransform.offsetMax.y);
+            _rectTransform.offsetMax = new Vector2(-_reloadingOffset + _transformMultiplier * _consumablesController.HealTimer, _rectTransform.offsetMax.y);
         }
     }
 }
