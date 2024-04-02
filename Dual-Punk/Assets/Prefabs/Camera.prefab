@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4270302605014846673}
+  - component: {fileID: -4184657985354449156}
   - component: {fileID: 468911616492622369}
   - component: {fileID: -465523057194069402}
   m_Layer: 0
@@ -33,6 +34,14 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!81 &-4184657985354449156
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1400482974226751408}
+  m_Enabled: 1
 --- !u!20 &468911616492622369
 Camera:
   m_ObjectHideFlags: 0
@@ -98,4 +107,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minZoom: 4
   maxZoom: 5
-  _playerState: {fileID: 0}
