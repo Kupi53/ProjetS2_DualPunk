@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.Netcode;
+using FishNet.Object;
 using UnityEngine;
 using UnityEngine.Playables;
 
@@ -27,7 +27,7 @@ public class AttacksController : NetworkBehaviour
 
                 if (Input.GetButtonDown("Drop"))
                 {
-                    _playerState.WeaponScript.Reset();
+                    _playerState.WeaponScript.ResetWeapon();
                     _playerState.WeaponScript.InHand = false;
                     _playerState.HoldingWeapon = false;
                     _playerState.PointerScript.SpriteNumber = 0;

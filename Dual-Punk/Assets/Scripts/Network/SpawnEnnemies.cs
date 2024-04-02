@@ -4,12 +4,13 @@ using UnityEngine;
 using Unity.Netcode;
 using UnityEngine.Networking;
 using System.Security.Cryptography;
+using FishNet.Object;
 
 public class SpawnEnnemies : NetworkBehaviour
 {
     [SerializeField] private GameObject randomEnnemy; //add prefab in inspector
     private NetworkObject spawnedEnnemy;
-
+    /*
     public override void OnNetworkSpawn()
     {
         if (!IsServer) return;  
@@ -24,6 +25,7 @@ public class SpawnEnnemies : NetworkBehaviour
         spawnedEnnemy.Spawn();
         GameObject bot4 = Instantiate(randomEnnemy, new Vector3(-1f, -5f, 0), Quaternion.identity);
         spawnedEnnemy = bot4.GetComponent<NetworkObject>();
-        spawnedEnnemy.Spawn();*/
+        spawnedEnnemy.Spawn();
     }
+    */
 }

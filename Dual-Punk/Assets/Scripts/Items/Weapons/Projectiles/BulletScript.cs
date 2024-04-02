@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.Netcode;
 using UnityEngine;
 using System;
+using FishNet.Object;
 
 
 public class BulletScript : NetworkBehaviour, IImpact

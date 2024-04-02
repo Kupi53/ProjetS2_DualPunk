@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices.WindowsRuntime;
-using Unity.Netcode;
+using FishNet.Object;
 using UnityEngine;
 using UnityEngine.Video;
 
@@ -28,5 +28,5 @@ public abstract class WeaponScript : NetworkBehaviour
     public Vector3 WeaponOffset { get => _weaponOffset; set => _weaponOffset = value; }
 
     public abstract void Run(Vector3 position, Vector3 direction);
-    public abstract void Reset();
+    public abstract void ResetWeapon();
 }

@@ -3565,6 +3565,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1488730309}
   - component: {fileID: 1488730308}
+  - component: {fileID: 1488730310}
+  - component: {fileID: 1488730311}
+  - component: {fileID: 1488730312}
+  - component: {fileID: 1488730313}
   m_Layer: 0
   m_Name: NetworkManager
   m_TagString: Untagged
@@ -3606,6 +3610,82 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1488730310
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1488730307}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d331f979d46e8e4a9fc90070c596d44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _enableNetworkLod: 0
+  _levelOfDetailDistances: []
+  _updateHostVisibility: 1
+  _defaultConditions:
+  - {fileID: 11400000, guid: 2033f54fd2794464bae08fa5a55c8996, type: 2}
+--- !u!114 &1488730311
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1488730307}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cdcee4396754c63a1574492499cffc8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ProtocolType: 1
+  m_UseWebSockets: 0
+  m_UseEncryption: 0
+  m_MaxPacketQueueSize: 128
+  m_MaxPayloadSize: 6144
+  m_HeartbeatTimeoutMS: 500
+  m_ConnectTimeoutMS: 1000
+  m_MaxConnectAttempts: 60
+  m_DisconnectTimeoutMS: 30000
+  ConnectionData:
+    Address: 127.0.0.1
+    Port: 7777
+    ServerListenAddress: 
+  DebugSimulator:
+    PacketDelayMS: 0
+    PacketJitterMS: 0
+    PacketDropRate: 0
+  m_MaximumClients: 4095
+--- !u!114 &1488730312
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1488730307}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e80359b7a422f5e49bc83b27e539a496, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hostButton: {fileID: 1504957982}
+  connectButton: {fileID: 711081079}
+  debugButton: {fileID: 1586404192}
+  codeField: {fileID: 454313361}
+  joinCode: 
+--- !u!114 &1488730313
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1488730307}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 056db9766b0b2e349a60b6d929f885a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1500765336
 GameObject:
   m_ObjectHideFlags: 0
@@ -4638,6 +4718,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2062904829}
   m_CullTransparentMesh: 1
+--- !u!1 &2063893092 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2046713062755613681, guid: 187e3256c778ee844be379d8bb129af3, type: 3}
+  m_PrefabInstance: {fileID: 6405682963677286662}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1702409304218492472
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4657,7 +4742,7 @@ PrefabInstance:
     - target: {fileID: 8283373856175131914, guid: dda056c3d8465334d88694bddf737e40, type: 3}
       propertyPath: objects.Array.data[2]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2063893092}
     - target: {fileID: 8819496605840115333, guid: dda056c3d8465334d88694bddf737e40, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.272768
@@ -4828,6 +4913,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SoundEffectsManager
       objectReference: {fileID: 0}
+    - target: {fileID: 2046713062755613681, guid: 187e3256c778ee844be379d8bb129af3, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3663543771106863963, guid: 187e3256c778ee844be379d8bb129af3, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1004.57495
@@ -4878,7 +4967,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3601068414016455795, guid: 187e3256c778ee844be379d8bb129af3, type: 3}
   m_PrefabInstance: {fileID: 6405682963677286662}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 2063893092}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 57c97b7b524ecb446897a8d6195888c1, type: 3}

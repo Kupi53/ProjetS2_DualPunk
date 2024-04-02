@@ -4,6 +4,7 @@ using System.Diagnostics.Tracing;
 using UnityEngine;
 using System;
 using Unity.Netcode;
+using FishNet.Object;
 
 
 public class SmartWeaponScript : FireArmScript
@@ -96,7 +97,7 @@ public class SmartWeaponScript : FireArmScript
     }
 
 
-    public override void Reset()
+    public override void ResetWeapon()
     {
         base.Reset();
 
@@ -124,7 +125,7 @@ public class SmartWeaponScript : FireArmScript
             AssignTarget(bulletScript);
 
             NetworkObject bulletNetwork = newBullet.GetComponent<NetworkObject>();
-            bulletNetwork.Spawn();
+            //bulletNetwork.Spawn();
         }
     }
 }

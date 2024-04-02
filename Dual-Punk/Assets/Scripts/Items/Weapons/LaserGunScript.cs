@@ -164,7 +164,7 @@ public class LaserGunScript : WeaponScript
     }
 
 
-    public override void Reset()
+    public override void ResetWeapon()
     {
         _fire = false;
         _coolDown = true;

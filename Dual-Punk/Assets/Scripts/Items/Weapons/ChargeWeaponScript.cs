@@ -69,7 +69,7 @@ public class ChargeWeaponScript : FireArmScript
     }
 
 
-    public override void Reset()
+    public override void ResetWeapon()
     {
         base.Reset();
         _chargeTimer = 0;

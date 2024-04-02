@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
 using System;
-using Unity.Netcode;
 using UnityEngine.Playables;
-using Unity.Multiplayer.Samples.Utilities.ClientAuthority;
 using Unity.VisualScripting;
+using FishNet.Object;
 
 
 
@@ -136,7 +135,7 @@ public class FireArmScript : WeaponScript
     }
 
 
-    public override void Reset()
+    public override void ResetWeapon()
     {
         _reloadTimer = 0;
         _reloading = false;
@@ -157,7 +156,7 @@ public class FireArmScript : WeaponScript
             bulletScript.Setup(damage, bulletSpeed, newDirection);
 
             NetworkObject bulletNetwork = newBullet.GetComponent<NetworkObject>();
-            bulletNetwork.Spawn();
+            //bulletNetwork.Spawn();
         }
     }
 }

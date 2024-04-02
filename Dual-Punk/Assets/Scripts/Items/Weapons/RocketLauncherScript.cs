@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using FishNet.Object;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -21,7 +22,7 @@ public class RocketLauncherScript : FireArmScript
                 _explosionDistance, _explosionImpact, _deviationAngle, _deviationSpeed);
 
             NetworkObject bulletNetwork = rocket.GetComponent<NetworkObject>();
-            bulletNetwork.Spawn();
+            //bulletNetwork.Spawn();
         }
     }
 }
