@@ -42,9 +42,9 @@ GameObject:
   - component: {fileID: 597023484082588879}
   - component: {fileID: 8354761501384256457}
   - component: {fileID: 3601345631294641985}
-  - component: {fileID: 4157719503904639808}
   - component: {fileID: 7599136847487818925}
   - component: {fileID: 5536798300859352896}
+  - component: {fileID: 4157719503904639808}
   - component: {fileID: -2098497007966325069}
   - component: {fileID: -2403136632774440814}
   m_Layer: 0
@@ -167,26 +167,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 7.8, y: 4.95}
   m_EdgeRadius: 0
---- !u!114 &4157719503904639808
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2853303830935746606}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 951099334
-  AlwaysReplicateAsRoot: 0
-  SynchronizeTransform: 1
-  ActiveSceneSynchronization: 0
-  SceneMigrationSynchronization: 1
-  SpawnWithObservers: 1
-  DontDestroyWithOwner: 0
-  AutoObjectParentSync: 1
 --- !u!114 &7599136847487818925
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -216,7 +196,7 @@ MonoBehaviour:
   _autoReload: 1
   _auto: 1
   _lockedTargetIndicator: {fileID: 2443144578293597239, guid: e3bb1f7480ddb6645bdbf6c3371c4af5, type: 3}
-  _bulletRotateSpeed: 3
+  _bulletRotateSpeed: 2
 --- !u!114 &5536798300859352896
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -232,6 +212,26 @@ MonoBehaviour:
   normal: {fileID: 21300000, guid: e0e3f4dac14eeb04990198e2b85a5941, type: 3}
   highlighted: {fileID: 21300000, guid: e0e3f4dac14eeb04990198e2b85a5941, type: 3}
   spriteRenderer: {fileID: 8354761501384256457}
+--- !u!114 &4157719503904639808
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2853303830935746606}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 951099334
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
 --- !u!114 &-2098497007966325069
 MonoBehaviour:
   m_ObjectHideFlags: 0

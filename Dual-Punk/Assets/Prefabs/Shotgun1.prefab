@@ -11,12 +11,11 @@ GameObject:
   - component: {fileID: 6070574959440917383}
   - component: {fileID: 5280717515457528235}
   - component: {fileID: 4038244472519242302}
-  - component: {fileID: 4593421468593424019}
   - component: {fileID: 2998020564572275706}
   - component: {fileID: -5896032686861132043}
+  - component: {fileID: 4593421468593424019}
   - component: {fileID: -6128434064685948543}
-  - component: {fileID: -1244894343670975705}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Shotgun1
   m_TagString: Weapon
   m_Icon: {fileID: 0}
@@ -136,26 +135,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.8827909, y: 0.6230389}
   m_EdgeRadius: 0
---- !u!114 &4593421468593424019
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 156933350303824626}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 951099334
-  AlwaysReplicateAsRoot: 0
-  SynchronizeTransform: 1
-  ActiveSceneSynchronization: 0
-  SceneMigrationSynchronization: 1
-  SpawnWithObservers: 1
-  DontDestroyWithOwner: 0
-  AutoObjectParentSync: 1
 --- !u!114 &2998020564572275706
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -168,8 +147,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8460473f92773e74f9c436b5b690daa9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _weaponDistance: 0.7
   _weaponOffset: {x: 0, y: 0.5, z: 0}
+  _weaponDistance: 0.7
+  _recoilForce: 2
+  _impactForce: 0.5
+  _cameraShake: 2
   _bullet: {fileID: 5298557137024599475, guid: cf1a87b5cd3d7904dbe9dcf2013b111e, type: 3}
   _gunEndPoints:
   - {fileID: 1151202582569453349}
@@ -199,6 +181,26 @@ MonoBehaviour:
   normal: {fileID: 21300000, guid: 9dd371f6dc406804e8a08151ad1cc7fc, type: 3}
   highlighted: {fileID: 21300000, guid: 28bc08ba4841e3640bc808a0969b8816, type: 3}
   spriteRenderer: {fileID: 5280717515457528235}
+--- !u!114 &4593421468593424019
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 156933350303824626}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 951099334
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
 --- !u!114 &-6128434064685948543
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -229,19 +231,6 @@ MonoBehaviour:
   InLocalSpace: 0
   Interpolate: 0
   SlerpPosition: 0
---- !u!114 &-1244894343670975705
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 156933350303824626}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71eb8b037ef4d2843bdf7ae083f038ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemData: {fileID: 11400000, guid: dbf751a8a8cdfcc46b6482e8e9cc24ff, type: 2}
 --- !u!1 &1151202582569453349
 GameObject:
   m_ObjectHideFlags: 0
@@ -252,7 +241,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1335187768205989025}
   - component: {fileID: 1122021632364059420}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: GunEndPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -268,7 +257,7 @@ Transform:
   m_GameObject: {fileID: 1151202582569453349}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.9, y: 0, z: 0}
+  m_LocalPosition: {x: 0.931, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

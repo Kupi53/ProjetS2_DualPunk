@@ -35,7 +35,7 @@ public class SmartWeaponScript : FireArmScript
         {
             PlayerState.PointerScript.SpriteNumber = 2;
 
-            if (Input.GetButtonUp("Switch") && PlayerState.PointerScript.Target != null)
+            if (Input.GetButtonUp("Switch") && !ContainsTarget(PlayerState.PointerScript.Target))
             {
                 _newTargetIndicator = Instantiate(_lockedTargetIndicator);
                 _newTargetIndicator.GetComponent<TargetIndicatorScript>().Target = PlayerState.PointerScript.Target;
@@ -55,15 +55,21 @@ public class SmartWeaponScript : FireArmScript
     }
 
 
-    public override void Reset()
+    public bool ContainsTarget(GameObject target)
     {
-        base.Reset();
+        if (target == null)
+            return true;
 
-        foreach (GameObject target in _targetsIndicators)
+        for (int i = 0; i < _targetsIndicators.Count; i++)
         {
-            Destroy(target);
+            if (_targetsIndicators[i] == null || _targetsIndicators[i].GetComponent<TargetIndicatorScript>().Target == target)
+            {
+                Destroy(_targetsIndicators[i]);
+                _targetsIndicators.Remove(_targetsIndicators[i]);
+                return true;
+            }
         }
-        _targetsIndicators.Clear();
+        return false;
     }
 
 
@@ -90,6 +96,18 @@ public class SmartWeaponScript : FireArmScript
     }
 
 
+    public override void Reset()
+    {
+        base.Reset();
+
+        foreach (GameObject target in _targetsIndicators)
+        {
+            Destroy(target);
+        }
+        _targetsIndicators.Clear();
+    }
+
+
     public override void Fire(Vector3 direction, int damage, float bulletSpeed, float dispersion)
     {
         if (PlayerState.Walking)
@@ -97,21 +115,14 @@ public class SmartWeaponScript : FireArmScript
 
         for (int i = 0; i < _bulletNumber; i++)
         {
-            Vector3 newDirection = new Vector3(direction.x + Methods.NextFloat(-dispersion, dispersion), direction.y + Methods.NextFloat(-dispersion, dispersion), 0).normalized;
-            float newAngle = (float)(Math.Atan2(newDirection.y, newDirection.x) * (180 / Math.PI));
-
             GameObject newBullet = Instantiate(_bullet, _gunEndPoints[i % _gunEndPoints.Length].transform.position, transform.rotation);
             SeekingBulletScript bulletScript = newBullet.GetComponent<SeekingBulletScript>();
 
-            bulletScript.Damage = damage;
-            bulletScript.MoveSpeed = bulletSpeed;
-            bulletScript.RotateSpeed = _bulletRotateSpeed;
+            Vector3 newDirection = new Vector3(direction.x + Methods.NextFloat(-dispersion, dispersion), direction.y + Methods.NextFloat(-dispersion, dispersion), 0).normalized;
 
-            bulletScript.ChangeDirection(newDirection, true);
-
+            bulletScript.Setup(damage, bulletSpeed, newDirection, _bulletRotateSpeed);
             AssignTarget(bulletScript);
 
-            newBullet.transform.eulerAngles = new Vector3(0, 0, newAngle);
             NetworkObject bulletNetwork = newBullet.GetComponent<NetworkObject>();
             bulletNetwork.Spawn();
         }

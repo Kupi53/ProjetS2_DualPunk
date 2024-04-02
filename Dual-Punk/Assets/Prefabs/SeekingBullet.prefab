@@ -12,13 +12,13 @@ GameObject:
   - component: {fileID: 6120374516710583700}
   - component: {fileID: 765827749627930239}
   - component: {fileID: -1364001083191632165}
+  - component: {fileID: 5156073177227003732}
   - component: {fileID: 4704230053284419655}
   - component: {fileID: 4801852604900925511}
-  - component: {fileID: 5156073177227003732}
   - component: {fileID: -3031230235909385288}
   m_Layer: 0
   m_Name: SeekingBullet
-  m_TagString: Untagged
+  m_TagString: Projectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -78,7 +78,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 35d77963c03108445ab691a2885d7c1a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -126,7 +126,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.2, y: 0.06}
+    oldSize: {x: 0.16, y: 0.09}
     newSize: {x: 0.2, y: 0.06}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -162,6 +162,18 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &5156073177227003732
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3137761784652373764}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df7eb0ddbe899bc4bb7eb1c440fad28e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &4704230053284419655
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -212,18 +224,6 @@ MonoBehaviour:
   InLocalSpace: 0
   Interpolate: 0
   SlerpPosition: 0
---- !u!114 &5156073177227003732
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3137761784652373764}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df7eb0ddbe899bc4bb7eb1c440fad28e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &-3031230235909385288
 MonoBehaviour:
   m_ObjectHideFlags: 0

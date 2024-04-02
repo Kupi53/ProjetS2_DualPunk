@@ -9,13 +9,13 @@ TagManager:
   - NetworkManager
   - Weapon
   - Knife
-  - PlayerObject
-  - Item
-  - Implant
   - Player1
   - Player2
   - Inventory
   - InventorySlot
+  - Item
+  - Implant
+  - Projectile
   layers:
   - Default
   - TransparentFX
@@ -24,7 +24,7 @@ TagManager:
   - Water
   - UI
   - Players
-  - 
+  - Items
   - 
   - 
   - 

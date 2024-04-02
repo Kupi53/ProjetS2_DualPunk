@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 6473613331437441931}
   - component: {fileID: 3709983839459762069}
   - component: {fileID: 4646120459241842232}
-  m_Layer: 3
+  m_Layer: 5
   m_Name: Pointer
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1650,7 +1650,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 29, y: -10.2}
+  m_AnchoredPosition: {x: 58.1, y: -10.5}
   m_SizeDelta: {x: 190, y: 48}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7846933987185799181
@@ -1681,9 +1681,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Grenade
-
-'
+  m_text: Item
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
   m_sharedMaterial: {fileID: 2140032, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
@@ -1842,7 +1840,7 @@ GameObject:
   - component: {fileID: 4522462252932621487}
   - component: {fileID: 4628872503625578581}
   m_Layer: 5
-  m_Name: AmmoInfo
+  m_Name: WeaponInfo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2175,8 +2173,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5826673250490905095}
-  - {fileID: 3472296309069826488}
   - {fileID: 849413111509910347}
+  - {fileID: 3472296309069826488}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8128199219013295654
