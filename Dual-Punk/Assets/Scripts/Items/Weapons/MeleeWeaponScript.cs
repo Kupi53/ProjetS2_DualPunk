@@ -26,6 +26,7 @@ public class MeleeWeaponScript : WeaponScript
 
     void Start()
     {
+
         _attack = 0;
         _resetCooldownTimer = 0;
         _currentWeaponDistance = _weaponDistance;
@@ -35,6 +36,7 @@ public class MeleeWeaponScript : WeaponScript
 
     public void Update()
     {
+        if (!Owner.IsLocalClient) return;
         //Faire des animations ici
         if (InHand)
         {
@@ -45,6 +47,7 @@ public class MeleeWeaponScript : WeaponScript
 
     public override void Run(Vector3 position, Vector3 direction)
     {
+        if (!Owner.IsLocalClient) return;
         if (Input.GetButtonDown("Use") && !PlayerState.Attacking && _attack < 3)
         {
             _angle = (float)(Math.Atan2(direction.y, direction.x) * (180 / Math.PI));
@@ -126,7 +129,7 @@ public class MeleeWeaponScript : WeaponScript
             _resetCooldownTimer += Time.deltaTime;
             if (_resetCooldownTimer > _resetCooldown)
             {
-                Reset();
+                ResetWeapon();
             }
 
             direction = new Vector3((float)Math.Cos(_angle * Math.PI / 180), (float)Math.Sin(_angle * Math.PI / 180)).normalized;
@@ -137,7 +140,7 @@ public class MeleeWeaponScript : WeaponScript
     }
 
 
-    public override void Reset()
+    public override void ResetWeapon()
     {
         _attack = 0;
         _resetCooldownTimer = 0;

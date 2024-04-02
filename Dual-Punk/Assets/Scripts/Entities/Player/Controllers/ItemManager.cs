@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
 using System;
-using Unity.Netcode;
 using Unity.VisualScripting;
+using FishNet.Object;
 
 
 public class ItemManager : NetworkBehaviour
@@ -23,6 +23,7 @@ public class ItemManager : NetworkBehaviour
 
     private void Start()
     {
+        if(!Owner.IsLocalClient) return;
         _index = 0;
         _items = new List<GameObject>();
         _impact = GetComponent<IImpact>();
@@ -32,7 +33,7 @@ public class ItemManager : NetworkBehaviour
 
     private void Update()
     {
-        if (!IsOwner) return;
+        if(!Owner.IsLocalClient) return;
 
         if (_items.Count > 0)
         {
@@ -51,6 +52,7 @@ public class ItemManager : NetworkBehaviour
                     //Intervetir avec l'arme en main
                     _playerState.WeaponScript = _weaponScript;
                     _playerState.HoldingWeapon = true;
+                    _weaponScript.gameObject.GetComponent<NetworkObject>().GiveOwnership(base.ClientManager.Connection);
                     _weaponScript.PlayerState = _playerState;
                     _weaponScript.PlayerRecoil = _impact;
                     _weaponScript.InHand = true;
@@ -82,6 +84,7 @@ public class ItemManager : NetworkBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
+        if (!Owner.IsLocalClient) return;
         if (collision.gameObject.CompareTag("Weapon") || collision.gameObject.CompareTag("Implant") || collision.gameObject.CompareTag("Item"))
         {
             _items.Add(collision.gameObject);
@@ -90,6 +93,7 @@ public class ItemManager : NetworkBehaviour
 
     void OnTriggerExit2D(Collider2D collision)
     {
+        if (!Owner.IsLocalClient) return;
         if (collision.gameObject.CompareTag("Weapon") || collision.gameObject.CompareTag("Knife") || collision.gameObject.CompareTag("Item"))
         {
             _index = 0;

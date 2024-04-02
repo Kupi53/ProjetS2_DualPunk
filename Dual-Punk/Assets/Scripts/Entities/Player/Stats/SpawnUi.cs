@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.Netcode;
+using FishNet.Object;
 using UnityEngine;
 
 
@@ -15,7 +15,7 @@ public class SpawnUi : NetworkBehaviour
 
     void Start()
     {
-        if (IsLocalPlayer)
+      if (Owner.IsLocalClient)
         {
             LocalUI = Instantiate(UI);
             LocalCamera = Instantiate(Camera);
