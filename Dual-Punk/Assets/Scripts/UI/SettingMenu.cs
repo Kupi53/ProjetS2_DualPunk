@@ -15,6 +15,27 @@ public class SettingMenu : MonoBehaviour
 
     public void Start()
     {
+		audioMixer.GetFloat("Music", out float musicValueForSlider);
+		if (musicValueForSlider <= -30)
+		{
+			musicSlider.value = -30;
+		}
+		else
+		{
+			musicSlider.value = musicValueForSlider;
+		}
+
+		audioMixer.GetFloat("Sound", out float soundValueForSlider);
+		if (soundValueForSlider <= -30)
+		{
+			soundSlider.value = -30;
+		}
+		else
+		{
+			soundSlider.value = soundValueForSlider;
+		}
+		
+
         resolutions = Screen.resolutions.Select(resolution => new Resolution { width = resolution.width, height = resolution.height }).Distinct().ToArray();
         resolutionDropdown.ClearOptions();
 
