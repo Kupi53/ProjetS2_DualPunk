@@ -15,6 +15,7 @@ using Unity.Services.Relay;
 using FishNet.Transporting.UTP;
 using FishNet.Managing;
 using System.Threading.Tasks;
+using Unity.VisualScripting.Dependencies.Sqlite;
 
 public class ConnectionStarter : MonoBehaviour
 {
@@ -53,7 +54,12 @@ public class ConnectionStarter : MonoBehaviour
             UnityEngine.SceneManagement.SceneManager.LoadScene("Lobby", LoadSceneMode.Single);
         }
         if (type == "client"){
-            _relayManager.JoinRelayClient(codeField.text);
+            if (codeField.text != ""){
+                _relayManager.JoinRelayClient(codeField.text);
+            }
+            else{
+                StartCoroutine(RelayManager.SpawnNetworkErrorMessage("Join code cannot be empty"));
+            }
         }
     }
 

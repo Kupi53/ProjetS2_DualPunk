@@ -94,11 +94,11 @@ public class RelayManager : MonoBehaviour
         }
         catch (RelayServiceException e){
             Debug.Log(e);
-            SpawnNetworkErrorMessage("Could not find/connect to the server.");
+            StartCoroutine(SpawnNetworkErrorMessage("Could not find/connect to the server."));
         }
     }
 
-    public IEnumerator SpawnNetworkErrorMessage(string errorMessage){
+    public static IEnumerator SpawnNetworkErrorMessage(string errorMessage){
         //  Assets/Resources/NetworkError
         while(SceneManager.GetActiveScene().name != "Menu"){
             yield return null;
