@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using FishNet.Object;
 using FishNet.Managing.Scened;
 using Unity.Services.Authentication;
+using FishNet.Managing;
 
 public class LobbyMenu : NetworkBehaviour
 {
@@ -14,9 +15,11 @@ public class LobbyMenu : NetworkBehaviour
     [SerializeField] private GameObject waiting;
     [SerializeField] private GameObject ready;
     [SerializeField] private GameObject joinCodeText;
+    [SerializeField] private GameObject serverConnectionsManagerPrefab;
     private GameObject networkManager;
     private ConnectionStarter connectionStarter;
     private GameObject fishnetDDOL;
+    private ServerConnectionsManager serverConnectionsManager;
 
     // Start is called before the first frame update
     void Awake()
@@ -32,6 +35,9 @@ public class LobbyMenu : NetworkBehaviour
     void Start(){
         networkManager = GameObject.FindWithTag("NetworkManager");
         fishnetDDOL = GameObject.Find("FirstGearGames DDOL");
+        if (networkManager.GetComponent<NetworkManager>().IsServer){
+            serverConnectionsManager = Instantiate(serverConnectionsManagerPrefab).GetComponent<ServerConnectionsManager>();
+        }
     }
 
     void Update(){
@@ -62,14 +68,15 @@ public class LobbyMenu : NetworkBehaviour
             playButton.GetComponentInChildren<TMP_Text>().color = new Color32(0, 185, 255, 100);
         }
     }
-    public static void LoadMenu()
+    public void LoadMenu()
     {
-        GameObject _networkManager = GameObject.FindWithTag("NetworkManager");
-        GameObject _fishnetDDOL = GameObject.Find("FirstGearGames DDOL");
-        Destroy(_fishnetDDOL);
-        Destroy(_networkManager);
-        AuthenticationService.Instance.SignOut();
-        UnityEngine.SceneManagement.SceneManager.LoadScene("Menu", LoadSceneMode.Single);
+        if (networkManager.GetComponent<NetworkManager>().IsServer){
+            serverConnectionsManager.CloseConnection();
+        }
+        else{
+            networkManager.GetComponent<NetworkManager>().ClientManager.StopConnection();
+            AuthenticationService.Instance.SignOut();
+        }
     }
     void LoadGame()
     {

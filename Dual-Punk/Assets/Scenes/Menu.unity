@@ -3568,7 +3568,7 @@ GameObject:
   - component: {fileID: 1488730310}
   - component: {fileID: 1488730311}
   - component: {fileID: 1488730312}
-  - component: {fileID: 1488730313}
+  - component: {fileID: 1488730314}
   m_Layer: 0
   m_Name: NetworkManager
   m_TagString: NetworkManager
@@ -3674,7 +3674,7 @@ MonoBehaviour:
   debugButton: {fileID: 1586404192}
   codeField: {fileID: 454313361}
   joinCode: 
---- !u!114 &1488730313
+--- !u!114 &1488730314
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

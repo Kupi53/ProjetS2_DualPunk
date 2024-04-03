@@ -1,10 +1,15 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using FishNet.Connection;
 using FishNet.Managing;
 using FishNet.Managing.Client;
+using FishNet.Managing.Server;
 using FishNet.Object;
 using FishNet.Transporting;
 using FishNet.Transporting.UTP;
+using Pathfinding;
 using TMPro;
+using Unity.Collections.LowLevel.Unsafe;
 using Unity.Networking.Transport.Relay;
 using Unity.Services.Authentication;
 using Unity.Services.Core;
@@ -39,8 +44,6 @@ public class RelayManager : MonoBehaviour
             Debug.LogError("Couldn't get UTP!", this);
             return;
         }
-
-
         await UnityServices.InitializeAsync();
 
         AuthenticationService.Instance.SignedIn += () => {
@@ -49,10 +52,6 @@ public class RelayManager : MonoBehaviour
 
         await AuthenticationService.Instance.SignInAnonymouslyAsync();
 
-        networkManager.ClientManager.OnClientConnectionState += (args) =>
-        {
-            ClientTimeout(args);
-        };
     }
 
     public async Task<string> CreateRelayHost(){
@@ -91,13 +90,5 @@ public class RelayManager : MonoBehaviour
         GameObject errorUI = (GameObject)Instantiate(Resources.Load("NetworkError"));
         errorUI.GetComponentInChildren<TMP_Text>().text += errorMessage;
         errorUI.transform.SetParent(GameObject.Find("Canvas").transform, false);
-    }
-
-    public static void ClientTimeout(ClientConnectionStateArgs args){
-        if (args.ConnectionState == LocalConnectionState.Stopping){
-            Debug.Log("disconnected");
-            LobbyMenu.LoadMenu();
-            SpawnNetworkErrorMessage("Client timed out.");
-        }
     }
 }
