@@ -1,4 +1,6 @@
+using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using System.Threading.Tasks;
 using FishNet.Connection;
 using FishNet.Managing;
@@ -23,6 +25,8 @@ public class RelayManager : MonoBehaviour
 {
     private FishyUnityTransport _fishyUTP;
     private NetworkManager _networkManager;
+    public string joinCode;
+    public bool clientRequestedDisconnect;
 
     private async void Start()
     {
@@ -44,13 +48,22 @@ public class RelayManager : MonoBehaviour
             Debug.LogError("Couldn't get UTP!", this);
             return;
         }
-        await UnityServices.InitializeAsync();
+        if (UnityServices.State != ServicesInitializationState.Initialized){
+            await UnityServices.InitializeAsync();
+        }
 
         AuthenticationService.Instance.SignedIn += () => {
             Debug.Log("Signed in " + AuthenticationService.Instance.PlayerId);            
         };
 
-        await AuthenticationService.Instance.SignInAnonymouslyAsync();
+        if (!AuthenticationService.Instance.IsSignedIn){
+            await AuthenticationService.Instance.SignInAnonymouslyAsync();
+        }
+
+        _networkManager.ClientManager.OnClientConnectionState += (ClientConnectionStateArgs args) => {
+            ClientTimeout(args);
+        };
+        
 
     }
 
@@ -58,11 +71,11 @@ public class RelayManager : MonoBehaviour
         // 1 max connection car host pas inclu
         try{
             Allocation allocation = await RelayService.Instance.CreateAllocationAsync(1);
-            string joinCode = await Relay.Instance.GetJoinCodeAsync(allocation.AllocationId);
+            joinCode = await Relay.Instance.GetJoinCodeAsync(allocation.AllocationId);
             _fishyUTP.SetRelayServerData(new RelayServerData(allocation, "dtls"));
             _networkManager.ServerManager.StartConnection();
             _networkManager.ClientManager.StartConnection();
-            return joinCode ;
+            return joinCode;
         }
         catch (RelayServiceException e){
 
@@ -85,10 +98,26 @@ public class RelayManager : MonoBehaviour
         }
     }
 
-    public static void SpawnNetworkErrorMessage(string errorMessage){
+    public IEnumerator SpawnNetworkErrorMessage(string errorMessage){
         //  Assets/Resources/NetworkError
+        while(SceneManager.GetActiveScene().name != "Menu"){
+            yield return null;
+        }
         GameObject errorUI = (GameObject)Instantiate(Resources.Load("NetworkError"));
         errorUI.GetComponentInChildren<TMP_Text>().text += errorMessage;
         errorUI.transform.SetParent(GameObject.Find("Canvas").transform, false);
+    }
+
+    private void ClientTimeout(ClientConnectionStateArgs args){
+        if (_networkManager.IsServer) return;
+        if (args.ConnectionState == LocalConnectionState.Stopped){
+            SceneManager.LoadScene("Menu", LoadSceneMode.Single);
+            if (clientRequestedDisconnect){
+                clientRequestedDisconnect = false;
+            }
+            else{
+                StartCoroutine(SpawnNetworkErrorMessage("Client timed out."));
+            }
+        }
     }
 }

@@ -26,43 +26,30 @@ public class ConnectionStarter : MonoBehaviour
     private NetworkManager _networkManager;
     private RelayManager _relayManager;
 
-    private void Awake(){
+    void Start()
+    {
         hostButton.onClick.AddListener(() => {
-            LoadLobbySceneAsync("host");
+            _ = LoadLobbySceneAsync("host");
         });
         connectButton.onClick.AddListener(()=>{
-            LoadLobbySceneAsync("client");
+            _ = LoadLobbySceneAsync("client");
         });
         debugButton.onClick.AddListener(() => {
             StartCoroutine(LoadGameDebug());
         });
-    }
-    void Start()
-    {
-        if (TryGetComponent(out NetworkManager networkManager))
-        {
-            _networkManager = networkManager;
+        _networkManager = GameObject.Find("NetworkManager").GetComponent<NetworkManager>();
+        _relayManager = GameObject.Find("NetworkManager").GetComponent<RelayManager>();
+        GameObject _servercm = GameObject.Find("ServerConnectionsManager");
+        if (_servercm is not null){
+            Destroy(_servercm);
         }
-        else
-        {
-            Debug.LogError("Couldn't get networkmanager!", this);
-            return;
-        }
-        if (TryGetComponent(out RelayManager RelayManager))
-        {
-            _relayManager = RelayManager;
-        }
-        else
-        {
-            Debug.LogError("Couldn't get relay!", this);
-            return;
-        }
+        Debug.Log("sdfsd");
     }
     async Task LoadLobbySceneAsync(string type)
     {
         // lobby scene
         if (type=="host"){
-            joinCode = await _relayManager.CreateRelayHost();
+            await _relayManager.CreateRelayHost();
             UnityEngine.SceneManagement.SceneManager.LoadScene("Lobby", LoadSceneMode.Single);
         }
         if (type == "client"){

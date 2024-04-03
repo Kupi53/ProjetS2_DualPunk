@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using FishNet.Connection;
@@ -30,14 +31,11 @@ public class ServerConnectionsManager : NetworkBehaviour
     public void CloseConnection(){
         DisconnectClientsRPC();
         networkManager.ServerManager.StopConnection(true);
-        AuthenticationService.Instance.SignOut();
-        Destroy(gameObject);
     }
 
     [ObserversRpc]
     void DisconnectClientsRPC(){
         networkManager.ClientManager.StopConnection();
-        AuthenticationService.Instance.SignOut();
     } 
 
 }

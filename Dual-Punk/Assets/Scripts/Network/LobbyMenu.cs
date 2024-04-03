@@ -17,7 +17,7 @@ public class LobbyMenu : NetworkBehaviour
     [SerializeField] private GameObject joinCodeText;
     [SerializeField] private GameObject serverConnectionsManagerPrefab;
     private GameObject networkManager;
-    private ConnectionStarter connectionStarter;
+    private RelayManager relayManager;
     private GameObject fishnetDDOL;
     private ServerConnectionsManager serverConnectionsManager;
 
@@ -35,6 +35,7 @@ public class LobbyMenu : NetworkBehaviour
     void Start(){
         networkManager = GameObject.FindWithTag("NetworkManager");
         fishnetDDOL = GameObject.Find("FirstGearGames DDOL");
+        relayManager = networkManager.GetComponent<RelayManager>();
         if (networkManager.GetComponent<NetworkManager>().IsServer){
             serverConnectionsManager = Instantiate(serverConnectionsManagerPrefab).GetComponent<ServerConnectionsManager>();
         }
@@ -47,10 +48,11 @@ public class LobbyMenu : NetworkBehaviour
 
     public override void OnStartServer(){
         base.OnStartServer();
+        Spawn(serverConnectionsManager.gameObject);
         cancelButton.GetComponent<RectTransform>().anchoredPosition = new Vector3(0.34541f, -40, 0);
         playButton.GetComponent<RectTransform>().anchoredPosition = new Vector3(0.34541f, 5, 0);
-        connectionStarter = networkManager.GetComponent<ConnectionStarter>();
-        joinCodeText.GetComponent<TMP_Text>().text += connectionStarter.joinCode;
+        relayManager = networkManager.GetComponent<RelayManager>();
+        joinCodeText.GetComponent<TMP_Text>().text += relayManager.joinCode;
         joinCodeText.SetActive(true);
     }
 
@@ -72,10 +74,11 @@ public class LobbyMenu : NetworkBehaviour
     {
         if (networkManager.GetComponent<NetworkManager>().IsServer){
             serverConnectionsManager.CloseConnection();
+            UnityEngine.SceneManagement.SceneManager.LoadScene("Menu", LoadSceneMode.Single);
         }
         else{
+            relayManager.clientRequestedDisconnect = true;
             networkManager.GetComponent<NetworkManager>().ClientManager.StopConnection();
-            AuthenticationService.Instance.SignOut();
         }
     }
     void LoadGame()
