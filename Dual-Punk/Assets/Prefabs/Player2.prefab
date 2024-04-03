@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 5423358579492179876}
   - component: {fileID: 6014537000033638382}
   - component: {fileID: 5666972022531695219}
+  - component: {fileID: 572316411364994100}
   m_Layer: 6
   m_Name: Player2
   m_TagString: Player
@@ -206,6 +207,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _grenade: {fileID: 0}
+  _grenadePath: {fileID: 0}
   _throwForce: 0
   _throwDistance: 0
   _chargeTime: 0
@@ -325,6 +327,8 @@ MonoBehaviour:
   - {fileID: -7003829035611701060}
   - {fileID: -4606354589101628817}
   - {fileID: 3907873960965384262}
+  - {fileID: 6014537000033638382}
+  - {fileID: 5666972022531695219}
   <ParentNetworkObject>k__BackingField: {fileID: 0}
   <ChildNetworkObjects>k__BackingField: []
   SerializedTransformProperties:
@@ -336,7 +340,7 @@ MonoBehaviour:
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 0
+  <PrefabId>k__BackingField: 12
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0
@@ -353,9 +357,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2836e36774ca1c4bbbee976e17b649c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 255
+  _componentIndexCache: 4
   _addedNetworkObject: {fileID: 5423358579492179876}
-  _networkObjectCache: {fileID: 0}
+  _networkObjectCache: {fileID: 5423358579492179876}
   _componentConfiguration: 0
   _synchronizeParent: 0
   _packing:
@@ -398,12 +402,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8cac635f24954048aad3a6ff9110beb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 255
+  _componentIndexCache: 5
   _addedNetworkObject: {fileID: 5423358579492179876}
-  _networkObjectCache: {fileID: 0}
+  _networkObjectCache: {fileID: 5423358579492179876}
   IgnoredParameters: []
   _animator: {fileID: -5388759501148665378}
   _smoothFloats: 1
   _interpolation: 2
   _clientAuthoritative: 1
   _sendToOwner: 0
+--- !u!114 &572316411364994100
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7898736215898924539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c71fd7f855ec523429999fc4e14a1928, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _overrideType: 3
+  _updateHostVisibility: 1
+  _observerConditions: []

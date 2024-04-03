@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 8802264110380639672}
   - component: {fileID: 1362664436336770797}
   - component: {fileID: 5648901016238026561}
+  - component: {fileID: 7649514911515613412}
   m_Layer: 0
   m_Name: Bullet
   m_TagString: Projectile
@@ -173,6 +174,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9298fcd5dccd15d4e80293664e349662, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _componentIndexCache: 0
+  _addedNetworkObject: {fileID: 5648901016238026561}
+  _networkObjectCache: {fileID: 5648901016238026561}
 --- !u!114 &1362664436336770797
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -185,7 +189,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2836e36774ca1c4bbbee976e17b649c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 0
+  _componentIndexCache: 1
   _addedNetworkObject: {fileID: 5648901016238026561}
   _networkObjectCache: {fileID: 5648901016238026561}
   _componentConfiguration: 0
@@ -234,6 +238,7 @@ MonoBehaviour:
   <ComponentIndex>k__BackingField: 0
   <PredictedSpawn>k__BackingField: {fileID: 0}
   _networkBehaviours:
+  - {fileID: 8802264110380639672}
   - {fileID: 1362664436336770797}
   <ParentNetworkObject>k__BackingField: {fileID: 0}
   <ChildNetworkObjects>k__BackingField: []
@@ -246,8 +251,23 @@ MonoBehaviour:
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 0
+  <PrefabId>k__BackingField: 7
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0
   <AssetPathHash>k__BackingField: 4573550808790962227
+--- !u!114 &7649514911515613412
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5298557137024599475}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c71fd7f855ec523429999fc4e14a1928, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _overrideType: 3
+  _updateHostVisibility: 1
+  _observerConditions: []

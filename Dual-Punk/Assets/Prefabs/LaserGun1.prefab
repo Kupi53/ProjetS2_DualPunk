@@ -19432,6 +19432,7 @@ GameObject:
   - component: {fileID: 812166075986024593}
   - component: {fileID: 8549619410815566522}
   - component: {fileID: 4393951741992760958}
+  - component: {fileID: 2436626048908325905}
   m_Layer: 7
   m_Name: LaserGun1
   m_TagString: Weapon
@@ -19618,6 +19619,7 @@ MonoBehaviour:
   <PredictedSpawn>k__BackingField: {fileID: 0}
   _networkBehaviours:
   - {fileID: 3510083966290666424}
+  - {fileID: 4393951741992760958}
   <ParentNetworkObject>k__BackingField: {fileID: 0}
   <ChildNetworkObjects>k__BackingField: []
   SerializedTransformProperties:
@@ -19629,7 +19631,7 @@ MonoBehaviour:
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 0
+  <PrefabId>k__BackingField: 27
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0
@@ -19646,9 +19648,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2836e36774ca1c4bbbee976e17b649c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 255
+  _componentIndexCache: 1
   _addedNetworkObject: {fileID: 8549619410815566522}
-  _networkObjectCache: {fileID: 0}
+  _networkObjectCache: {fileID: 8549619410815566522}
   _componentConfiguration: 0
   _synchronizeParent: 0
   _packing:
@@ -19679,6 +19681,21 @@ MonoBehaviour:
     X: 0
     Y: 0
     Z: 0
+--- !u!114 &2436626048908325905
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8547339821460021461}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c71fd7f855ec523429999fc4e14a1928, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _overrideType: 3
+  _updateHostVisibility: 1
+  _observerConditions: []
 --- !u!1 &8605075403534885996
 GameObject:
   m_ObjectHideFlags: 0
