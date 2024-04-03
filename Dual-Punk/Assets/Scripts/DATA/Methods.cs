@@ -14,7 +14,8 @@ public static class Methods
 
     public static float GetDirectionFactor(Vector3 direction)
     {
-        return (float)(Math.Atan2(Math.Abs(direction.y), -Math.Abs(direction.x)) / Math.PI);
+        direction = direction.normalized;
+        return (float)Math.Sqrt(direction.x * direction.x + direction.y*direction.y/4);
     }
 
 

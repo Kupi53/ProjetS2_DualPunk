@@ -75,6 +75,7 @@ public class ConsumablesController : MonoBehaviour
             _healTimer += Time.deltaTime;
         }
 
+        
 
         if (_itemTimer >= _itemCooldown)
         {
@@ -87,6 +88,8 @@ public class ConsumablesController : MonoBehaviour
 
             if (_chargeGrenade)
             {
+                Debug.Log($"{Methods.GetDirectionFactor(_direction)}  |  {_direction.normalized}");
+
                 _explodeTimer += Time.deltaTime;
 
                 if (_explodeTimer > _grenadeTimer)
@@ -131,7 +134,7 @@ public class ConsumablesController : MonoBehaviour
 
     private float GetThrowDistance()
     {
-        float distance = _throwDistance * GetChargeFactor() * Methods.GetDirectionFactor(_direction.normalized);
+        float distance = _throwDistance * GetChargeFactor() * Methods.GetDirectionFactor(_direction);
         if (_direction.magnitude > distance)
             return distance;
         return _direction.magnitude;

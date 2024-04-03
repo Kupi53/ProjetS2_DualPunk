@@ -19,7 +19,7 @@ public class RocketLauncherScript : FireArmScript
             RocketScript rocketScript = rocket.GetComponent<RocketScript>();
 
             rocketScript.Setup(damage, bulletSpeed, direction, transform.position, Vector3.Distance(transform.position, PlayerState.MousePosition),
-                _explosionDistance, _explosionImpact, _deviationAngle, _deviationSpeed);
+                _explosionDistance + 0.1f, _explosionImpact, _deviationAngle, _deviationSpeed);
 
             NetworkObject bulletNetwork = rocket.GetComponent<NetworkObject>();
             //bulletNetwork.Spawn();

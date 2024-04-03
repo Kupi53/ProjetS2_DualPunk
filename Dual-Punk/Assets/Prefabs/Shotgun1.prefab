@@ -155,7 +155,7 @@ MonoBehaviour:
   _weaponDistance: 0.7
   _recoilForce: 2
   _impactForce: 0.5
-  _cameraShake: 2
+  _cameraShake: 1.6
   _bullet: {fileID: 5298557137024599475, guid: cf1a87b5cd3d7904dbe9dcf2013b111e, type: 3}
   _gunEndPoints:
   - {fileID: 1151202582569453349}

@@ -185,12 +185,12 @@ MonoBehaviour:
   _weaponOffset: {x: 0.2, y: 0.85, z: 0}
   _weaponDistance: 0
   _recoilForce: 1
-  _impactForce: 10
+  _impactForce: 15
   _cameraShake: 0.5
   _bullet: {fileID: 8218887749285126351, guid: 72d97b4e041201e419ae7c7bc77e9f1f, type: 3}
   _gunEndPoints:
   - {fileID: 2036738682644361136}
-  _damage: 90
+  _damage: 110
   _magSize: 1
   _bulletNumber: 1
   _reloadAmount: 1
