@@ -64,7 +64,7 @@ public class FireArmScript : WeaponScript
 
     public override void Run(Vector3 position, Vector3 direction)
     {
-        MovePosition(position, direction, _weaponOffset, _weaponDistance);
+        MovePosition(position, direction);
 
         if ((Input.GetButton("Use") && _auto && !_reloading || Input.GetButtonDown("Use")) && _fireTimer >= _fireRate && _ammoLeft > 0)
         {
@@ -98,20 +98,24 @@ public class FireArmScript : WeaponScript
     }
 
 
-    protected void MovePosition(Vector3 position, Vector3 direction, Vector3 weaponOffset, float weaponDistance)
+    protected void MovePosition(Vector3 position, Vector3 direction)
     {
-        float angle = Methods.GetAngle(direction);
-
-        if (angle > 90 || angle < -90)
-        {
-            _spriteRenderer.flipY = true; 
-            weaponOffset.x = -weaponOffset.x;
+        if (PlayerState.MousePosition.x < PlayerState.transform.position.x) {
+            if (!_spriteRenderer.flipY)
+            {
+                _weaponOffset.x = -_weaponOffset.x;
+                _spriteRenderer.flipY = true;
+            }
+        } else {
+            if (_spriteRenderer.flipY)
+            {
+                _weaponOffset.x = -_weaponOffset.x;
+                _spriteRenderer.flipY = false;
+            }
         }
-        else
-            _spriteRenderer.flipY = false;
 
-        transform.position = position + weaponOffset + direction * weaponDistance;
-        transform.eulerAngles = new Vector3(0, 0, angle);
+        transform.position = position + _weaponOffset + direction * _weaponDistance;
+        transform.eulerAngles = new Vector3(0, 0, Methods.GetAngle(direction));
     }
 
 

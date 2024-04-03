@@ -62,7 +62,7 @@ public class RocketScript : BulletScript
             Vector3 hitDirection = player.transform.position - transform.position;
             if (hitDirection.magnitude <= _explosionDistance)
             {
-                player.GetComponent<IImpact>().Impact(hitDirection, _explosionImpact * (_explosionDistance - hitDirection.magnitude));
+                player.GetComponent<IImpact>().Impact(hitDirection, _explosionImpact * (_explosionDistance - hitDirection.magnitude) / _explosionDistance);
             }
         }
 
@@ -74,7 +74,7 @@ public class RocketScript : BulletScript
             Vector3 hitDirection = ennemy.transform.position - transform.position;
             if (hitDirection.magnitude <= _explosionDistance)
             {
-                health.OnDamage(_damage * (_explosionDistance - hitDirection.magnitude));
+                health.OnDamage(_damage * (_explosionDistance - hitDirection.magnitude) / _explosionDistance);
             }
         }
 
@@ -82,7 +82,7 @@ public class RocketScript : BulletScript
     }
 
 
-    protected override void OnTriggerEnter2D(Collider2D collider)
+    protected new void OnTriggerEnter2D(Collider2D collider)
     {
         if (!collider.CompareTag("Weapon") && !collider.CompareTag("Projectile") && !collider.CompareTag("UI"))
         {

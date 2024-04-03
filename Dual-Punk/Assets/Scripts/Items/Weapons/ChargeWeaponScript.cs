@@ -33,7 +33,7 @@ public class ChargeWeaponScript : FireArmScript
 
     public override void Run(Vector3 position, Vector3 direction)
     {
-        MovePosition(position, direction, _weaponOffset, _weaponDistance);
+        MovePosition(position, direction);
 
         if (Input.GetButton("Use") && !Reloading && _fireTimer >= _fireRate && AmmoLeft > 0 && _chargeTimer < _chargeTime)
         {

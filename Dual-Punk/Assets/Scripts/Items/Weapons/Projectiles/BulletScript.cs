@@ -79,7 +79,7 @@ public class BulletScript : NetworkBehaviour, IImpact
     }
 
 
-    protected virtual void OnTriggerEnter2D(Collider2D collider)
+    protected void OnTriggerEnter2D(Collider2D collider)
     {
         if (collider.CompareTag("Ennemy"))
         {
