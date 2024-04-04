@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-// Meme but mais different de PlayerState, ici on donne les stats des capacites du joueur non de son etat
 public class ConsumablesController : MonoBehaviour
 {
     [SerializeField] private GameObject _grenade;
@@ -88,8 +87,6 @@ public class ConsumablesController : MonoBehaviour
 
             if (_chargeGrenade)
             {
-                Debug.Log($"{Methods.GetDirectionFactor(_direction)}  |  {_direction.normalized}");
-
                 _explodeTimer += Time.deltaTime;
 
                 if (_explodeTimer > _grenadeTimer)
