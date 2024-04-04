@@ -9,23 +9,36 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: 3ad70174b079c2f4ebc7931d3dd1af6f, type: 3}
   m_Name: DefaultPrefabObjects
-  m_EditorClassIdentifier: FishNet.Runtime:FishNet.Managing.Object:DefaultPrefabObjects
+  m_EditorClassIdentifier: 
   _prefabs:
-  - {fileID: 4968440794340485509, guid: 50792e658cc2ac544bf953b9d26dd1ac, type: 3}
-  - {fileID: -1000039373420934897, guid: 49266e8bac6ba9d4f92307cdd141c3c3, type: 3}
-  - {fileID: 7190681898429132094, guid: 45c33cf5e24d4e94cb0d06a7185ababe, type: 3}
-  - {fileID: -3367324139269170823, guid: cf1a87b5cd3d7904dbe9dcf2013b111e, type: 3}
-  - {fileID: -2735729009242398804, guid: c537b2fa156ad2c4493157e872b54c9a, type: 3}
-  - {fileID: -540278133651754825, guid: c83c2ecdccc5c4e42a0c6b0d758735f3, type: 3}
-  - {fileID: -4507380956287878224, guid: 239afa9696bf6fa469c3317efbe7993d, type: 3}
-  - {fileID: 27951066957466784, guid: e26798f24e158594fbd0c9e6555e8911, type: 3}
-  - {fileID: 5427116526144112779, guid: 734d16466bc185640b850ab1d3ed641c, type: 3}
-  - {fileID: -989150424806333068, guid: f6c381850549fa343a52cc80d67159be, type: 3}
-  - {fileID: -6070950710446656145, guid: 369723fd2c1c3fe4d87eeffa57e39c40, type: 3}
-  - {fileID: -1476741411222898309, guid: 2aa24079ea5cf324c9968a9df667c0ab, type: 3}
-  - {fileID: 3944126407410867715, guid: 0aa573b964f47d149967e5fcdc5da4d0, type: 3}
-  - {fileID: 2050963719890474338, guid: 39d7173fd00881149ae057bb784c8bd1, type: 3}
-  - {fileID: -1701078668339909609, guid: 5c637c058b632c047990c2ab5c6bb775, type: 3}
-  - {fileID: -8842237011894910834, guid: 72d97b4e041201e419ae7c7bc77e9f1f, type: 3}
+  - {fileID: 4528818166376744979, guid: 45c33cf5e24d4e94cb0d06a7185ababe, type: 3}
+  - {fileID: 781836291935205782, guid: 50792e658cc2ac544bf953b9d26dd1ac, type: 3}
+  - {fileID: 4916345128858516901, guid: 5c637c058b632c047990c2ab5c6bb775, type: 3}
+  - {fileID: 5648901016238026561, guid: cf1a87b5cd3d7904dbe9dcf2013b111e, type: 3}
+  - {fileID: 7396721327593827009, guid: 0aa573b964f47d149967e5fcdc5da4d0, type: 3}
+  - {fileID: 1964192457824864996, guid: e26798f24e158594fbd0c9e6555e8911, type: 3}
+  - {fileID: -9115833972339548637, guid: 4e71980427ced514a9833a80d179e02e, type: 3}
+  - {fileID: 3590557041652478682, guid: c537b2fa156ad2c4493157e872b54c9a, type: 3}
+  - {fileID: 8549619410815566522, guid: 734d16466bc185640b850ab1d3ed641c, type: 3}
+  - {fileID: 427568833323120928, guid: f6c381850549fa343a52cc80d67159be, type: 3}
+  - {fileID: 3460544654625029893, guid: 2fd5569aaa9b023419d0d7775a666b76, type: 3}
+  - {fileID: 5423358579492179876, guid: 49266e8bac6ba9d4f92307cdd141c3c3, type: 3}
+  - {fileID: 1668462775358657453, guid: 72d97b4e041201e419ae7c7bc77e9f1f, type: 3}
+  - {fileID: 5195949671232927551, guid: 239afa9696bf6fa469c3317efbe7993d, type: 3}
+  - {fileID: 3625952199995253896, guid: c83c2ecdccc5c4e42a0c6b0d758735f3, type: 3}
+  - {fileID: -1714686391537734929, guid: 4ef6d0f6f24e5a3488094ba09ecf85e3, type: 3}
+  - {fileID: 8196554436644051480, guid: 2aa24079ea5cf324c9968a9df667c0ab, type: 3}
+  - {fileID: 3751028822603589793, guid: 369723fd2c1c3fe4d87eeffa57e39c40, type: 3}
+  - {fileID: 8475222101369129519, guid: 8cf33e8e99a9b0c4c8f29ff725650de6, type: 3}
+  - {fileID: 4512293259955182956, guid: 44611030e61220d42ab7c37ba3c0ea92, type: 3}
+  - {fileID: 4512293259955182956, guid: 0d6d0f48b03b17f49a6340103cd9b9d0, type: 3}
+  - {fileID: 4512293259955182956, guid: f32d4c19de900e64cb73cedcb8ba6f70, type: 3}
+  - {fileID: 4512293259955182956, guid: 300370bdf7819da41937e0beac65b32c, type: 3}
+  - {fileID: 611616139817875448, guid: bf5f023b4017a5e41a9815ec5745df3d, type: 3}
+  - {fileID: 9117857247562382210, guid: b2991431a5f893e49937d01b6da44ff8, type: 3}
+  - {fileID: 3624261834906416601, guid: 4e1673ccc2acac543871855a0e8bed71, type: 3}
+  - {fileID: 201277550, guid: d904f93bc171bb144ba33c5155282f6f, type: 3}
+  - {fileID: 27039729695437543, guid: f820efff6a2871447b961fc755212ba3, type: 3}
+  - {fileID: 8192566354860284824, guid: 6331b3542e64a564c81bc39cedf70c8d, type: 3}
