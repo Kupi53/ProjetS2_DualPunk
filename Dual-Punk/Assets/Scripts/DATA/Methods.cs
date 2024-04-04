@@ -8,14 +8,20 @@ public static class Methods
 {
     public static float GetAngle(Vector3 direction)
     {
-        return (float)(Math.Atan2(direction.y, direction.x) * (180 / Math.PI)); ;
+        return (float)(Math.Atan2(direction.y, direction.x) * (180 / Math.PI));
+    }
+
+
+    public static float GetAbsoluteAngle(Vector3 direction)
+    {
+        return (float)Math.Atan2(Math.Abs(direction.y), Math.Abs(direction.x));
     }
 
 
     public static float GetDirectionFactor(Vector3 direction)
     {
-        direction = direction.normalized;
-        return (float)Math.Sqrt(direction.x * direction.x + direction.y*direction.y/4);
+        float angle = GetAbsoluteAngle(direction);
+        return (float)Math.Sqrt(Math.Pow(Math.Cos(angle), 2) + Math.Pow(0.5f * Math.Sin(angle), 2));
     }
 
 
