@@ -1,10 +1,17 @@
+using System.Collections;
+using System.Collections.Generic;
+using System.Data;
 using System.Threading.Tasks;
+using FishNet.Connection;
 using FishNet.Managing;
 using FishNet.Managing.Client;
+using FishNet.Managing.Server;
 using FishNet.Object;
 using FishNet.Transporting;
 using FishNet.Transporting.UTP;
+using Pathfinding;
 using TMPro;
+using Unity.Collections.LowLevel.Unsafe;
 using Unity.Networking.Transport.Relay;
 using Unity.Services.Authentication;
 using Unity.Services.Core;
@@ -18,6 +25,8 @@ public class RelayManager : MonoBehaviour
 {
     private FishyUnityTransport _fishyUTP;
     private NetworkManager _networkManager;
+    public string joinCode;
+    public bool clientRequestedDisconnect;
 
     private async void Start()
     {
@@ -39,31 +48,34 @@ public class RelayManager : MonoBehaviour
             Debug.LogError("Couldn't get UTP!", this);
             return;
         }
-
-
-        await UnityServices.InitializeAsync();
+        if (UnityServices.State != ServicesInitializationState.Initialized){
+            await UnityServices.InitializeAsync();
+        }
 
         AuthenticationService.Instance.SignedIn += () => {
             Debug.Log("Signed in " + AuthenticationService.Instance.PlayerId);            
         };
 
-        await AuthenticationService.Instance.SignInAnonymouslyAsync();
+        if (!AuthenticationService.Instance.IsSignedIn){
+            await AuthenticationService.Instance.SignInAnonymouslyAsync();
+        }
 
-        networkManager.ClientManager.OnClientConnectionState += (args) =>
-        {
+        _networkManager.ClientManager.OnClientConnectionState += (ClientConnectionStateArgs args) => {
             ClientTimeout(args);
         };
+        
+
     }
 
     public async Task<string> CreateRelayHost(){
         // 1 max connection car host pas inclu
         try{
             Allocation allocation = await RelayService.Instance.CreateAllocationAsync(1);
-            string joinCode = await Relay.Instance.GetJoinCodeAsync(allocation.AllocationId);
+            joinCode = await Relay.Instance.GetJoinCodeAsync(allocation.AllocationId);
             _fishyUTP.SetRelayServerData(new RelayServerData(allocation, "dtls"));
             _networkManager.ServerManager.StartConnection();
             _networkManager.ClientManager.StartConnection();
-            return joinCode ;
+            return joinCode;
         }
         catch (RelayServiceException e){
 
@@ -82,22 +94,30 @@ public class RelayManager : MonoBehaviour
         }
         catch (RelayServiceException e){
             Debug.Log(e);
-            SpawnNetworkErrorMessage("Could not find/connect to the server.");
+            StartCoroutine(SpawnNetworkErrorMessage("Could not find/connect to the server."));
         }
     }
 
-    public static void SpawnNetworkErrorMessage(string errorMessage){
+    public static IEnumerator SpawnNetworkErrorMessage(string errorMessage){
         //  Assets/Resources/NetworkError
+        while(SceneManager.GetActiveScene().name != "Menu"){
+            yield return null;
+        }
         GameObject errorUI = (GameObject)Instantiate(Resources.Load("NetworkError"));
         errorUI.GetComponentInChildren<TMP_Text>().text += errorMessage;
         errorUI.transform.SetParent(GameObject.Find("Canvas").transform, false);
     }
 
-    public static void ClientTimeout(ClientConnectionStateArgs args){
-        if (args.ConnectionState == LocalConnectionState.Stopping){
-            Debug.Log("disconnected");
-            LobbyMenu.LoadMenu();
-            SpawnNetworkErrorMessage("Client timed out.");
+    private void ClientTimeout(ClientConnectionStateArgs args){
+        if (_networkManager.IsServer) return;
+        if (args.ConnectionState == LocalConnectionState.Stopped){
+            SceneManager.LoadScene("Menu", LoadSceneMode.Single);
+            if (clientRequestedDisconnect){
+                clientRequestedDisconnect = false;
+            }
+            else{
+                StartCoroutine(SpawnNetworkErrorMessage("Client timed out."));
+            }
         }
     }
 }

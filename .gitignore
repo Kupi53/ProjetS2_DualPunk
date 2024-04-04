@@ -25,6 +25,7 @@
 
 # Visual Studio cache directory
 .vs/
+.vscode/
 
 # Gradle cache directory
 .gradle/
@@ -46,6 +47,8 @@ ExportedObj/
 *.mdb
 *.opendb
 *.VC.db
+*.idea
+*.vsconfig
 
 # Unity3D generated meta files
 *.pidb.meta
@@ -70,3 +73,9 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 [Aa]ssets/[Ss]treamingAssets/aa.meta
 [Aa]ssets/[Ss]treamingAssets/aa/*
+
+# Clone parelsync
+Dual-Punk_clone_0/*
+
+# meta files
+*.meta

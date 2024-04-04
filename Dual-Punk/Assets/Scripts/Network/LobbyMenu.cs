@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using FishNet.Object;
 using FishNet.Managing.Scened;
 using Unity.Services.Authentication;
+using FishNet.Managing;
 
 public class LobbyMenu : NetworkBehaviour
 {
@@ -14,9 +15,11 @@ public class LobbyMenu : NetworkBehaviour
     [SerializeField] private GameObject waiting;
     [SerializeField] private GameObject ready;
     [SerializeField] private GameObject joinCodeText;
+    [SerializeField] private GameObject serverConnectionsManagerPrefab;
     private GameObject networkManager;
-    private ConnectionStarter connectionStarter;
+    private RelayManager relayManager;
     private GameObject fishnetDDOL;
+    private ServerConnectionsManager serverConnectionsManager;
 
     // Start is called before the first frame update
     void Awake()
@@ -32,6 +35,10 @@ public class LobbyMenu : NetworkBehaviour
     void Start(){
         networkManager = GameObject.FindWithTag("NetworkManager");
         fishnetDDOL = GameObject.Find("FirstGearGames DDOL");
+        relayManager = networkManager.GetComponent<RelayManager>();
+        if (networkManager.GetComponent<NetworkManager>().IsServer){
+            serverConnectionsManager = Instantiate(serverConnectionsManagerPrefab).GetComponent<ServerConnectionsManager>();
+        }
     }
 
     void Update(){
@@ -41,10 +48,11 @@ public class LobbyMenu : NetworkBehaviour
 
     public override void OnStartServer(){
         base.OnStartServer();
+        Spawn(serverConnectionsManager.gameObject);
         cancelButton.GetComponent<RectTransform>().anchoredPosition = new Vector3(0.34541f, -40, 0);
         playButton.GetComponent<RectTransform>().anchoredPosition = new Vector3(0.34541f, 5, 0);
-        connectionStarter = networkManager.GetComponent<ConnectionStarter>();
-        joinCodeText.GetComponent<TMP_Text>().text += connectionStarter.joinCode;
+        relayManager = networkManager.GetComponent<RelayManager>();
+        joinCodeText.GetComponent<TMP_Text>().text += relayManager.joinCode;
         joinCodeText.SetActive(true);
     }
 
@@ -62,14 +70,16 @@ public class LobbyMenu : NetworkBehaviour
             playButton.GetComponentInChildren<TMP_Text>().color = new Color32(0, 185, 255, 100);
         }
     }
-    public static void LoadMenu()
+    public void LoadMenu()
     {
-        GameObject _networkManager = GameObject.FindWithTag("NetworkManager");
-        GameObject _fishnetDDOL = GameObject.Find("FirstGearGames DDOL");
-        Destroy(_fishnetDDOL);
-        Destroy(_networkManager);
-        AuthenticationService.Instance.SignOut();
-        UnityEngine.SceneManagement.SceneManager.LoadScene("Menu", LoadSceneMode.Single);
+        if (networkManager.GetComponent<NetworkManager>().IsServer){
+            serverConnectionsManager.CloseConnection();
+            UnityEngine.SceneManagement.SceneManager.LoadScene("Menu", LoadSceneMode.Single);
+        }
+        else{
+            relayManager.clientRequestedDisconnect = true;
+            networkManager.GetComponent<NetworkManager>().ClientManager.StopConnection();
+        }
     }
     void LoadGame()
     {
