@@ -69,4 +69,22 @@ crashlytics-build.properties
 
 # Temporary auto-generated Android Assets
 [Aa]ssets/[Ss]treamingAssets/aa.meta
-[Aa]ssets/[Ss]treamingAssets/aa/*
+# clone parelsync
+Dual-Punk_clone_0/*
+# meta files
+*.meta
+#
+*.idea
+#
+.vscode/
+*.vsconfig[Aa]ssets/[Ss]treamingAssets/aa/*
+
+# clone parelsync
+Dual-Punk_clone_0/*
+# meta files
+*.meta
+#
+*.idea
+#
+.vscode/
+*.vsconfig
