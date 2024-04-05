@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using FishNet.Managing;
+using FishNet.Object;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -13,10 +15,16 @@ public class RocketScript : BulletScript
     private float _explosionImpact;
     private float _deviationAngle;
     private float _deviationSpeed;
+    private NetworkManager _networkManager;
 
+    public override void OnStartNetwork()
+    {
+        _networkManager = GameObject.FindWithTag("NetworkManager").GetComponent<NetworkManager>();
+    }
 
     private new void FixedUpdate()
     {
+        if (!IsServer) return;
         _rb2d.velocity = DeviateDirection() * _moveSpeed * _moveFactor;
 
         if (!GetComponent<Renderer>().isVisible || _moveSpeed < 5 || Vector3.Distance(transform.position, _startPosition) > _distanceUntilExplosion)
@@ -52,19 +60,10 @@ public class RocketScript : BulletScript
     protected override void DestroyThis()
     {
         GameObject explosion = Instantiate(_explosion, transform.position, transform.rotation);
+        Spawn(explosion);
         Destroy(explosion, 1);
 
-        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-        foreach(GameObject player in players)
-        {
-            player.GetComponent<PlayerState>().CameraController.ShakeCamera(_explosionImpact / 5, 0.3f);
-
-            Vector3 hitDirection = player.transform.position - transform.position;
-            if (hitDirection.magnitude <= _explosionDistance)
-            {
-                player.GetComponent<IImpact>().Impact(hitDirection, _explosionImpact * (_explosionDistance - hitDirection.magnitude) / _explosionDistance);
-            }
-        }
+        PlayerRocketRpc();
 
         GameObject[] ennemies = GameObject.FindGameObjectsWithTag("Ennemy");
         foreach(GameObject ennemy in ennemies)
@@ -74,8 +73,8 @@ public class RocketScript : BulletScript
             Vector3 hitDirection = ennemy.transform.position - transform.position;
             if (hitDirection.magnitude <= _explosionDistance)
             {
-                health.OnDamage(_damage * (_explosionDistance - hitDirection.magnitude) / _explosionDistance);
-            }
+              health.OnDamage(_damage * (_explosionDistance - hitDirection.magnitude) / _explosionDistance);
+            }  
         }
 
         Destroy(gameObject);
@@ -88,5 +87,16 @@ public class RocketScript : BulletScript
         {
             DestroyThis();
         }
+    }
+
+    [ObserversRpc]
+    void PlayerRocketRpc(){
+        GameObject player = _networkManager.GetComponent<LocalPlayerReference>().PlayerState.gameObject;
+        player.GetComponent<PlayerState>().CameraController.ShakeCamera(_explosionImpact / 5, 0.3f);
+        Vector3 hitDirection = player.transform.position - transform.position;
+            if (hitDirection.magnitude <= _explosionDistance)
+            {
+                player.GetComponent<IImpact>().Impact(hitDirection, _explosionImpact * (_explosionDistance - hitDirection.magnitude) / _explosionDistance);
+            }
     }
 }

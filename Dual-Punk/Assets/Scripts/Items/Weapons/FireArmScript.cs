@@ -159,8 +159,7 @@ public class FireArmScript : WeaponScript
             Vector3 newDirection = new Vector3(direction.x + Methods.NextFloat(-dispersion, dispersion), direction.y + Methods.NextFloat(-dispersion, dispersion), 0).normalized;
             bulletScript.Setup(damage, bulletSpeed, newDirection);
 
-            NetworkObject bulletNetwork = newBullet.GetComponent<NetworkObject>();
-            //bulletNetwork.Spawn();
+            Spawn(newBullet);
         }
     }
 }
