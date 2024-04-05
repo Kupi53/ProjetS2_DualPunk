@@ -16,6 +16,7 @@ public class SeekingBulletScript : BulletScript
 
     private new void FixedUpdate()
     {
+        if (!IsServer) return;
         base.FixedUpdate();
 
         if (Target != null)

@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using FishNet.Object;
 using Unity.VisualScripting;
 using UnityEngine;
 
 
-public class GrenadeScript : MonoBehaviour
+public class GrenadeScript : NetworkBehaviour
 {
     [SerializeField] private GameObject _explosion;
 
@@ -37,6 +38,7 @@ public class GrenadeScript : MonoBehaviour
     // quand distance est atteinte on active la collision, si collision moveSpeed = 0
     private void FixedUpdate()
     {
+        if (!IsServer) return;
         if (_moveSpeed > 0)
         {
             _rb2d.MovePosition(transform.position + _moveDirection * _moveSpeed * Time.fixedDeltaTime);

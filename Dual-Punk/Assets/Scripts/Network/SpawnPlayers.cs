@@ -3,14 +3,18 @@ using System.Collections.Generic;
 using FishNet.Object;
 using FishNet.Connection;
 using UnityEngine;
+using FishNet.Managing;
+using UnityEditor.Tilemaps;
 
 public class SpawnPlayers : NetworkBehaviour
 {
     [SerializeField] private GameObject playerPrefabA; //add prefab in inspector
     [SerializeField] private GameObject playerPrefabB; //add prefab in inspector
     private GameObject playerObject;
+    private GameObject networkManager;
 
     public override void OnStartClient(){
+        networkManager = GameObject.FindWithTag("NetworkManager");
         if (IsServer){
             SpawnServerRPC(ClientManager.Connection, true);
         }
