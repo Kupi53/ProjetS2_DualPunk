@@ -19433,6 +19433,7 @@ GameObject:
   - component: {fileID: 8549619410815566522}
   - component: {fileID: 4393951741992760958}
   - component: {fileID: 2436626048908325905}
+  - component: {fileID: -3901914951755194338}
   m_Layer: 7
   m_Name: LaserGun1
   m_TagString: Weapon
@@ -19696,6 +19697,19 @@ MonoBehaviour:
   _overrideType: 1
   _updateHostVisibility: 1
   _observerConditions: []
+--- !u!114 &-3901914951755194338
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8547339821460021461}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71eb8b037ef4d2843bdf7ae083f038ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemData: {fileID: 0}
 --- !u!1 &8605075403534885996
 GameObject:
   m_ObjectHideFlags: 0

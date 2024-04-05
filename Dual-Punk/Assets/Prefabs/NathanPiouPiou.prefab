@@ -48,6 +48,7 @@ GameObject:
   - component: {fileID: 427568833323120928}
   - component: {fileID: 3124694297698133179}
   - component: {fileID: 5461207854991404029}
+  - component: {fileID: -5107262384345167697}
   m_Layer: 0
   m_Name: NathanPiouPiou
   m_TagString: Weapon
@@ -326,3 +327,16 @@ MonoBehaviour:
   _overrideType: 1
   _updateHostVisibility: 1
   _observerConditions: []
+--- !u!114 &-5107262384345167697
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2853303830935746606}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71eb8b037ef4d2843bdf7ae083f038ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemData: {fileID: 11400000, guid: 54e6bf35c32a48d46ab07b6b95316d9a, type: 2}
