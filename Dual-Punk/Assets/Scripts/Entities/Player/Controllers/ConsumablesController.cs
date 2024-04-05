@@ -1,23 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using System;
 
 
 public class ConsumablesController : MonoBehaviour
 {
     [SerializeField] private GameObject _grenade;
     [SerializeField] private GameObject _grenadePath;
-    // [SerializeField] private GameObject _test;
 
     [SerializeField] private float _throwForce;
     [SerializeField] private float _throwDistance;
     [SerializeField] private float _chargeTime;
     [SerializeField] private float _grenadeTimer;
+    [SerializeField] private float _grenadeCurve1;
+    [SerializeField] private float _grenadeCurve2;
+    [SerializeField] private int _lineResolution;
 
     private LineRenderer _lineRenderer;
     private SpriteRenderer _grenadeImpact;
     private PlayerState _playerState;
     private IDamageable _damageable;
+
     private Vector3 _direction;
     private Vector3 _offset;
 
@@ -46,6 +51,8 @@ public class ConsumablesController : MonoBehaviour
     {
         _healTimer = _healCooldown;
         _itemTimer = _itemCooldown;
+        _lineResolution += 2;
+
         _offset = new Vector3(0, 0.5f, 0);
 
         _damageable = GetComponent<IDamageable>();
@@ -53,6 +60,7 @@ public class ConsumablesController : MonoBehaviour
         _lineRenderer = _grenadePath.GetComponentInChildren<LineRenderer>();
         _grenadeImpact = _grenadePath.GetComponentInChildren<SpriteRenderer>();
 
+        _lineRenderer.positionCount = _lineResolution;
         Reset();
     }
 
@@ -73,10 +81,6 @@ public class ConsumablesController : MonoBehaviour
         {
             _healTimer += Time.deltaTime;
         }
-
-        /*var dir = _direction.normalized;
-        var test = Instantiate(_test, new Vector2(dir.x, dir.y / 2) * _throwDistance, transform.rotation);
-        Destroy(_test, 1);*/
         
 
         if (_itemTimer >= _itemCooldown)
@@ -117,10 +121,28 @@ public class ConsumablesController : MonoBehaviour
 
     private void DrawGrenadePath()
     {
-        Vector3 endPos = transform.position + _offset + _direction.normalized * GetThrowDistance();
-        _lineRenderer.SetPosition(0, transform.position + _offset);
-        _lineRenderer.SetPosition(1, endPos);
-        _grenadeImpact.transform.position = endPos;
+        _lineRenderer.positionCount = _lineResolution;
+
+        Vector2 direction = _direction.normalized;
+        Vector2 startPoint = transform.position + _offset;
+        Vector2 endPoint = startPoint + direction * GetChargeFactor() * GetThrowDistance();
+        Vector2 normalVector = Vector2.Perpendicular(direction) * GetChargeFactor() * (Methods.GetDirectionFactor(direction) - 0.5f);
+
+
+        if (_playerState.MousePosition.x < transform.position.x)
+            normalVector = -normalVector;
+
+
+        for (int i = 1; i < _lineResolution - 1; i++)
+        {
+            float factor = (float)i / (float)(_lineResolution - 1);
+            _lineRenderer.SetPosition(i, Vector2.Lerp(startPoint, endPoint, factor) +
+                normalVector * (factor * _grenadeCurve1 - (float)Math.Pow(factor * _grenadeCurve2, 2)));
+        }
+
+        _lineRenderer.SetPosition(0, startPoint);
+        _lineRenderer.SetPosition(_lineResolution - 1, endPoint);
+        _grenadeImpact.transform.position = endPoint;
     }
 
 
