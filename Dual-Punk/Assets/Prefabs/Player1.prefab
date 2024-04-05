@@ -157,7 +157,7 @@ LineRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6656068017543856827}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -193,7 +193,8 @@ LineRenderer:
   m_SortingOrder: 3
   m_Positions:
   - {x: 0, y: 0, z: 0}
-  - {x: 1, y: 0, z: 0}
+  - {x: 1.5, y: 2, z: 0}
+  - {x: 3, y: 0, z: 0}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1
@@ -462,7 +463,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _grenade: {fileID: 7057386926987168146, guid: 4e71980427ced514a9833a80d179e02e, type: 3}
   _grenadePath: {fileID: 6359837759476461821}
-  _test: {fileID: 4288046557933007813, guid: 2d102ade30359a343a2b61c5e82f6f4e, type: 3}
   _throwForce: 5
   _throwDistance: 3
   _chargeTime: 0.8
