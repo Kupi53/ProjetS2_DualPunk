@@ -1,12 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using FishNet.Object;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 
-public class PlayerState : MonoBehaviour
+public class PlayerState : NetworkBehaviour
 {
     private Vector3 _mousePosition;
 
@@ -48,6 +49,7 @@ public class PlayerState : MonoBehaviour
 
     void Update()
     {
+        if (!IsOwner) return;
         _mousePosition = CameraController.MainCamera.ScreenToWorldPoint(Input.mousePosition);
         _mousePosition.z = 0;
     }

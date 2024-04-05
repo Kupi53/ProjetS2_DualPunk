@@ -448,6 +448,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b5457baef9161b42b53eb0d17876e9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _componentIndexCache: 255
+  _addedNetworkObject: {fileID: 3460544654625029893}
+  _networkObjectCache: {fileID: 0}
 --- !u!114 &8917572968852395277
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -518,6 +521,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f0547fe9611dd44bb29eb8778bca6bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _componentIndexCache: 255
+  _addedNetworkObject: {fileID: 3460544654625029893}
+  _networkObjectCache: {fileID: 0}
 --- !u!114 &6008697924018778058
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -621,7 +627,7 @@ MonoBehaviour:
     Position: 1
     Rotation: 1
     Scale: 0
-  _interpolation: 2
+  _interpolation: 1
   _extrapolation: 2
   _enableTeleport: 0
   _teleportThreshold: 1
@@ -678,6 +684,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c71fd7f855ec523429999fc4e14a1928, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _overrideType: 3
+  _overrideType: 1
   _updateHostVisibility: 1
   _observerConditions: []
