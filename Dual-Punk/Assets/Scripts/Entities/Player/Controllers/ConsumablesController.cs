@@ -7,6 +7,7 @@ public class ConsumablesController : MonoBehaviour
 {
     [SerializeField] private GameObject _grenade;
     [SerializeField] private GameObject _grenadePath;
+    // [SerializeField] private GameObject _test;
 
     [SerializeField] private float _throwForce;
     [SerializeField] private float _throwDistance;
@@ -15,7 +16,6 @@ public class ConsumablesController : MonoBehaviour
 
     private LineRenderer _lineRenderer;
     private SpriteRenderer _grenadeImpact;
-
     private PlayerState _playerState;
     private IDamageable _damageable;
     private Vector3 _direction;
@@ -74,6 +74,9 @@ public class ConsumablesController : MonoBehaviour
             _healTimer += Time.deltaTime;
         }
 
+        /*var dir = _direction.normalized;
+        var test = Instantiate(_test, new Vector2(dir.x, dir.y / 2) * _throwDistance, transform.rotation);
+        Destroy(_test, 1);*/
         
 
         if (_itemTimer >= _itemCooldown)

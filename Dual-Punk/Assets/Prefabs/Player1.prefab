@@ -462,10 +462,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _grenade: {fileID: 7057386926987168146, guid: 4e71980427ced514a9833a80d179e02e, type: 3}
   _grenadePath: {fileID: 6359837759476461821}
+  _test: {fileID: 4288046557933007813, guid: 2d102ade30359a343a2b61c5e82f6f4e, type: 3}
   _throwForce: 5
   _throwDistance: 3
   _chargeTime: 0.8
-  _grenadeTimer: 5
+  _grenadeTimer: 1000
   _healCooldown: 15
   _itemCooldown: 3
 --- !u!114 &7528638334341656761

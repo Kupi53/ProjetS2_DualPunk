@@ -21,7 +21,11 @@ public static class Methods
     public static float GetDirectionFactor(Vector3 direction)
     {
         float angle = GetAbsoluteAngle(direction);
-        return (float)Math.Sqrt(Math.Pow(Math.Cos(angle), 2) + Math.Pow(0.5f * Math.Sin(angle), 2));
+        double k = Math.Sqrt(Math.Pow(0.6 * Math.Cos(angle), 2) + Math.Pow(Math.Sin(angle), 2));
+        float x = (float)(0.5 * Math.Cos(angle) / k);
+        float y = (float)(0.5 * Math.Sin(angle) / k);
+
+        return new Vector2(x, y).magnitude;
     }
 
 
