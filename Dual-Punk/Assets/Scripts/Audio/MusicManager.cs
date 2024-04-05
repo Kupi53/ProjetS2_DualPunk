@@ -3,41 +3,73 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class MusicManager : MonoBehaviour
+public class AudioManager : MonoBehaviour
 {
-	public AudioSource audioSource;
+	public static AudioManager Instance;
+	
+	public AudioSource musicSource;
+	public AudioSource soundSource;
     public AudioClip musicMenu;
+    public AudioClip clicOnMenu;
     
     public AudioClip[] playlist;
     private int indexPlaylist = 0;
     private bool isInGame = false;
     
+    void Start()
+    {
+	    if (Instance == null)
+	    {
+		    Instance = this;
+		    DontDestroyOnLoad(gameObject);
+	    }
+	    else
+	    {
+		    Destroy(gameObject);
+	    }
+
+	    if (this == Instance)
+	    {
+		    musicSource.clip = musicMenu;
+		    musicSource.Play();
+	    }
+    }
+    
     void Update()
     {
-		if ((!audioSource.isPlaying || audioSource.clip.name != "Menu") && (SceneManager.GetActiveScene().buildIndex == 0 || SceneManager.GetActiveScene().buildIndex == 1))
-		{
-			isInGame = false;
+	    if (this == Instance)
+	    {
+		    if ((!musicSource.isPlaying || musicSource.clip.name != "Menu") && (SceneManager.GetActiveScene().buildIndex == 0 || SceneManager.GetActiveScene().buildIndex == 1))
+		    {
+			    isInGame = false;
 
-			audioSource.Stop();
-			
-			audioSource.clip = musicMenu;
-			audioSource.Play();
-		}
-		else if (audioSource.clip.name == "Menu" && SceneManager.GetActiveScene().buildIndex != 0 && SceneManager.GetActiveScene().buildIndex != 1)
-		{
-			audioSource.Stop();
-			
-			audioSource.clip = playlist[indexPlaylist];
-			audioSource.Play();
+			    musicSource.Stop();
 
-			isInGame = true;
-		}
+			    musicSource.clip = musicMenu;
+			    musicSource.Play();
+		    }
+		    else if (musicSource.clip.name == "Menu" && SceneManager.GetActiveScene().buildIndex != 0 &&
+		             SceneManager.GetActiveScene().buildIndex != 1)
+		    {
+			    musicSource.Stop();
 
-		if (isInGame && !audioSource.isPlaying)
-		{
-			indexPlaylist = (indexPlaylist + 1) % playlist.Length;
-			audioSource.clip = playlist[indexPlaylist];
-			audioSource.Play();
-		}
+			    musicSource.clip = playlist[indexPlaylist];
+			    musicSource.Play();
+
+			    isInGame = true;
+		    }
+
+		    if (isInGame && !musicSource.isPlaying)
+		    {
+			    indexPlaylist = (indexPlaylist + 1) % playlist.Length;
+			    musicSource.clip = playlist[indexPlaylist];
+			    musicSource.Play();
+		    }
+	    }
+    }
+    
+    public void ClicOnMenu()
+    {
+	    soundSource.PlayOneShot(clicOnMenu);
     }
 }
