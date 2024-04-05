@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using FishNet.Component.Animating;
+using FishNet.Object;
 using UnityEngine;
 
-public class PlayerAnimator : MonoBehaviour
+public class PlayerAnimator : NetworkBehaviour
 {
     private PlayerState _playerState;
     private Animator _animator;
+    private NetworkAnimator _networkAnimator;
     private string _currentState;
 
     const string PLAYER_N = "Player N";
@@ -24,15 +27,17 @@ public class PlayerAnimator : MonoBehaviour
         _currentState = PLAYER_IDLE;
         _animator = GetComponent<Animator>();
         _playerState = GetComponent<PlayerState>();
+        _networkAnimator = GetComponent<NetworkAnimator>();
     }
 
 
     private void Update()
     {
+        if (!IsOwner) return;
         if (_playerState.Moving || _playerState.HoldingWeapon)
             ChangeAnimation(SelectAnimation(_playerState.AnimAngle));
         else
-            _animator.Play(PLAYER_IDLE);
+            _networkAnimator.Play(PLAYER_IDLE);
     }
 
 
@@ -42,12 +47,12 @@ public class PlayerAnimator : MonoBehaviour
         if (_currentState != newState)
         {
             _currentState = newState;
-            _animator.Play(newState);
+            _networkAnimator.Play(newState);
         }
     }
 
 
-    // On passe la direction actuelle du joueur et en fonction, appelle changeAnimation avec la constante (nom du sprite) adaptée
+    // On passe la direction actuelle du joueur et en fonction, appelle changeAnimation avec la constante (nom du sprite) adaptï¿½e
     private string SelectAnimation(float angle)
     {
         if (angle > -22 && angle <= 22)
@@ -84,54 +89,3 @@ public class PlayerAnimator : MonoBehaviour
         }
     }
 }
-
-
-
-
-
-/*
-    const string PLAYERWEAPON_N = "PlayerWeapon N";
-    const string PLAYERWEAPON_E = "PlayerWeapon E";
-    const string PLAYERWEAPON_S = "PlayerWeapon S";
-    const string PLAYERWEAPON_W = "PlayerWeapon W";
-    const string PLAYERWEAPON_NE = "PlayerWeapon NE";
-    const string PLAYERWEAPON_NW = "PlayerWeapon NW";
-    const string PLAYERWEAPON_SE = "PlayerWeapon SE";
-    const string PLAYERWEAPON_SW = "PlayerWeapon SW";
-
-
-string ChangeDirectionWeapon(float angle)
-    {
-        if (angle > -22 && angle <= 22)
-        {
-            return PLAYERWEAPON_E;
-        }
-        else if (angle > 22 && angle <= 67)
-        {
-            return PLAYERWEAPON_NE;
-        }
-        else if (angle > 67 && angle <= 112)
-        {
-            return PLAYERWEAPON_N;
-        }
-        else if (angle > 112 && angle <= 157)
-        {
-            return PLAYERWEAPON_NW;
-        }
-        else if ((angle > 157 &&  angle <= 180) || (angle >= -180 && angle <= -158))
-        {
-            return PLAYERWEAPON_W;
-        }
-        else if (angle > -158 && angle <= -113)
-        {
-            return PLAYERWEAPON_SW;
-        }
-        else if (angle > -113 && angle <= -68)
-        {
-            return PLAYERWEAPON_S;
-        }
-        else
-        {
-            return PLAYERWEAPON_SE;
-        }
-    }*/
