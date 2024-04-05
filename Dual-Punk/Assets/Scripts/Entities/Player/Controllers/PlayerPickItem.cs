@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerPickItem : MonoBehaviour
 {
-    private GameObject inventoryManager;
+    public GameObject inventoryManager;
     private GameObject itemToPick;
     private bool _CanBePicked;
     
@@ -17,7 +17,7 @@ public class PlayerPickItem : MonoBehaviour
 
     void Update(){
         if(_CanBePicked && Input.GetButtonDown("Pickup")){
-            inventoryManager.GetComponent<InventoryPickItem>().ItemPicked(itemToPick);
+            //inventoryManager.GetComponent<InventoryPickItem>().ItemPicked(itemToPick);
         }
     }
 

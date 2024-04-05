@@ -31,9 +31,10 @@ public abstract class WeaponScript : NetworkBehaviour
     public abstract void ResetWeapon();
 
 
-// a enlever plus tard quand on aura un systeme de spawn d'armes, pour test
     void Start(){
+        Debug.Log("testtt");
         if (IsServer){
+            Debug.Log("test");
             Spawn(gameObject);
         }
     }

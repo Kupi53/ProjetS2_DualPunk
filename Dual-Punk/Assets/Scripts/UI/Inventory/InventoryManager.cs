@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using FishNet.Object;
 using IngameDebugConsole;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -11,10 +12,14 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
     private InventorySlots LastSlotPosition;
     private InventorySlots currentSlot;
     private GameObject selectedSlotIcon;
+    private ObjectSpawner objectSpawner;
     DescriptionManager descriptionManager => GetComponent<DescriptionManager>();
     [SerializeField] private Image DropPanel;
     [SerializeField] private Image inventoryPanel;
 
+    void Start(){
+        objectSpawner = GameObject.Find("ObjectSpawner").GetComponent<ObjectSpawner>();
+    }
     void Update()
     {
         //fais suivre l'objet clique par la souris, sur la souris.
@@ -175,8 +180,7 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
 
     private void SpawnInventoryItem(InventorySlots selectedSlot, GameObject spawnedItem){
         Vector3 spawnPosition = GameObject.FindWithTag("Player").transform.position;
-        Instantiate(spawnedItem.GetComponent<InventoryItem>().displayedItem.prefab, spawnPosition, new Quaternion());
-
+        objectSpawner.SpawnObjectRpc(spawnedItem.GetComponent<InventoryItem>().displayedItem.prefab, spawnPosition, new Quaternion());
         selectedSlot.GetComponent<InventorySlots>().heldItem = null;
         Destroy(spawnedItem);
     }

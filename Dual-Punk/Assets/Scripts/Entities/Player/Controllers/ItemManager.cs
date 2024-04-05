@@ -10,6 +10,7 @@ using FishNet.Object;
 public class ItemManager : NetworkBehaviour
 {
     private PlayerState _playerState;
+    private PlayerPickItem _playerPickItem;
     private List<GameObject> _items;
     private IImpact _impact;
 
@@ -28,6 +29,7 @@ public class ItemManager : NetworkBehaviour
         _items = new List<GameObject>();
         _impact = GetComponent<IImpact>();
         _playerState = GetComponent<PlayerState>();
+        _playerPickItem = GetComponent<PlayerPickItem>();
     }
 
 
@@ -49,13 +51,8 @@ public class ItemManager : NetworkBehaviour
                 if (Input.GetButtonDown("Pickup") && !_playerState.HoldingWeapon)
                 {
                     _index = 0;
-                    //Intervetir avec l'arme en main
-                    _playerState.WeaponScript = _weaponScript;
-                    _playerState.HoldingWeapon = true;
-                    _weaponScript.gameObject.GetComponent<NetworkObject>().GiveOwnership(base.ClientManager.Connection);
-                    _weaponScript.PlayerState = _playerState;
-                    _weaponScript.PlayerRecoil = _impact;
-                    _weaponScript.InHand = true;
+                    _playerPickItem.inventoryManager.GetComponent<InventoryPickItem>().ItemPicked(_item);
+                    UpdateHeldWeapon(_weaponScript);
                 }
             }
             else if (_item.CompareTag("Implant")) //Plus verifier que l'implant n'est pas sur une entite
@@ -76,6 +73,7 @@ public class ItemManager : NetworkBehaviour
                 {
                     _index = 0;
                     //Mettre l'item dans l'inventaire
+                    _playerPickItem.inventoryManager.GetComponent<InventoryPickItem>().ItemPicked(_item);
                 }
             }
         }
@@ -99,5 +97,15 @@ public class ItemManager : NetworkBehaviour
             _index = 0;
             _items.Remove(collision.gameObject);
         }
+    }
+
+    void UpdateHeldWeapon(WeaponScript weaponScript){
+        //Intervetir avec l'arme en main
+        _playerState.WeaponScript = weaponScript;
+        _playerState.HoldingWeapon = true;
+        _weaponScript.gameObject.GetComponent<NetworkObject>().GiveOwnership(base.ClientManager.Connection);
+        _weaponScript.PlayerState = _playerState;
+        _weaponScript.PlayerRecoil = _impact;
+        _weaponScript.InHand = true;
     }
 }

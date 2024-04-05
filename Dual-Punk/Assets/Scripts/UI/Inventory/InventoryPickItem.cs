@@ -12,6 +12,7 @@ public class InventoryPickItem : MonoBehaviour
     [SerializeField] GameObject inventoryItemPrefab;
 
     public void ItemPicked(GameObject pickedItem){
+        Debug.Log("1");
         GameObject emptySlot = null;
         string Tag = pickedItem.tag;
 
@@ -30,7 +31,6 @@ public class InventoryPickItem : MonoBehaviour
         if(emptySlot == null) emptySlot = FindEmptySlot(inventorySlots);
 
         if(emptySlot != null){
-
             GameObject newItem = Instantiate(inventoryItemPrefab);
 
             //enregistre le prefab de displayed item car displayed item sera detruit juste en dessous
@@ -40,7 +40,8 @@ public class InventoryPickItem : MonoBehaviour
             newItem.transform.localScale = emptySlot.transform.localScale;
             
             emptySlot.GetComponent<InventorySlots>().SetHeldItem(newItem);
-            Destroy(pickedItem);
+            if (pickedItem.tag != "Weapon")
+                Destroy(pickedItem);
         }
     }
 
