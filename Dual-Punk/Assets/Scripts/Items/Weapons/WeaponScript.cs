@@ -29,4 +29,12 @@ public abstract class WeaponScript : NetworkBehaviour
 
     public abstract void Run(Vector3 position, Vector3 direction);
     public abstract void ResetWeapon();
+
+
+// a enlever plus tard quand on aura un systeme de spawn d'armes, pour test
+    void Start(){
+        if (IsServer){
+            Spawn(gameObject);
+        }
+    }
 }
