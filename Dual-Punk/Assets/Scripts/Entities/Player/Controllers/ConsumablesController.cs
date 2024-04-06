@@ -14,8 +14,7 @@ public class ConsumablesController : MonoBehaviour
     [SerializeField] private float _throwDistance;
     [SerializeField] private float _chargeTime;
     [SerializeField] private float _grenadeTimer;
-    [SerializeField] private float _grenadeCurve1;
-    [SerializeField] private float _grenadeCurve2;
+    [SerializeField] private float _grenadeCurveFactor;
     [SerializeField] private int _lineResolution;
 
     private LineRenderer _lineRenderer;
@@ -103,7 +102,8 @@ public class ConsumablesController : MonoBehaviour
                 {
                     GameObject grenade = Instantiate(_grenade, transform.position + _offset, transform.rotation);
                     grenade.GetComponent<GrenadeScript>().Setup(transform.position + _offset, _direction.normalized,
-                        _throwForce * Methods.GetDirectionFactor(_direction) * GetChargeFactor(), _grenadeTimer - _explodeTimer, GetThrowDistance());
+                        _throwForce * Methods.GetDirectionFactor(_direction) * GetChargeFactor(), _grenadeTimer - _explodeTimer,
+                        GetThrowDistance(), _grenadeCurveFactor);
 
                     Reset();
                     _itemTimer = 0;
@@ -112,8 +112,7 @@ public class ConsumablesController : MonoBehaviour
                 DrawGrenadePath();
             }
         }
-        else
-        {
+        else {
             _itemTimer += Time.deltaTime;
         }
     }
@@ -128,16 +127,14 @@ public class ConsumablesController : MonoBehaviour
         Vector2 endPoint = startPoint + direction * GetChargeFactor() * GetThrowDistance();
         Vector2 normalVector = Vector2.Perpendicular(direction) * GetChargeFactor() * (Methods.GetDirectionFactor(direction) - 0.5f);
 
-
         if (_playerState.MousePosition.x < transform.position.x)
             normalVector = -normalVector;
-
 
         for (int i = 1; i < _lineResolution - 1; i++)
         {
             float factor = (float)i / (float)(_lineResolution - 1);
             _lineRenderer.SetPosition(i, Vector2.Lerp(startPoint, endPoint, factor) +
-                normalVector * (factor * _grenadeCurve1 - (float)Math.Pow(factor * _grenadeCurve2, 2)));
+                normalVector * (- factor * factor * _grenadeCurveFactor + factor * _grenadeCurveFactor));
         }
 
         _lineRenderer.SetPosition(0, startPoint);
