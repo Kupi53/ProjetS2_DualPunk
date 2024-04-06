@@ -10,9 +10,8 @@ public class GrenadeScript : NetworkBehaviour
     [SerializeField] private GameObject _explosion;
 
     [SerializeField] private int _damage;
-    [SerializeField] private float _explosionDistance;
+    [SerializeField] private float _explosionRadius;
     [SerializeField] private float _explosionImpact;
-    [SerializeField] private float _moveDecreaseSpeed;
     [SerializeField] private float _stoppingFactor;
 
     private Rigidbody2D _rb2d;
@@ -20,16 +19,21 @@ public class GrenadeScript : NetworkBehaviour
 
     private Vector3 _startPosition;
     private Vector3 _moveDirection;
+    private Vector3 _linePosition;
+    private Vector3 _verticalDirection;
 
     private float _moveSpeed;
-    private float _explodeTimer;
+    private float _explosionTimer;
     private float _distanceUntilStop;
+    private float _curveFactor;
     private bool _stop;
 
 
     private void Start()
     {
         _stop = false;
+        _linePosition = transform.position;
+
         _rb2d = GetComponent<Rigidbody2D>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
     }
@@ -39,26 +43,27 @@ public class GrenadeScript : NetworkBehaviour
     private void FixedUpdate()
     {
         if (!IsServer) return;
-        if (_moveSpeed > 0)
-        {
-            _rb2d.MovePosition(transform.position + _moveDirection * _moveSpeed * Time.fixedDeltaTime);
-            _moveSpeed -= _moveDecreaseSpeed * Time.fixedDeltaTime;
+        _linePosition += _moveDirection * _moveSpeed;
+        float currentDistance = Vector3.Distance(_linePosition, _startPosition);
+
+        if (!_stop) {
+            float factor = currentDistance / _distanceUntilStop;
+            _rb2d.MovePosition(_linePosition + _verticalDirection * (- factor * factor * _curveFactor + factor * _curveFactor));
+        } else {
+            _rb2d.MovePosition(_linePosition);
+            _moveSpeed -= _stoppingFactor * Time.fixedDeltaTime;
         }
 
-        if (!_stop && Vector3.Distance(transform.position, _startPosition) > _distanceUntilStop)
+        if (!_stop && currentDistance > _distanceUntilStop)
         {
             _stop = true;
             _moveSpeed /= _stoppingFactor;
-            _moveDecreaseSpeed *= _stoppingFactor;
             _spriteRenderer.sortingOrder = 1;
         }
 
-        if (_explodeTimer > 0)
-        {
-            _explodeTimer -= Time.fixedDeltaTime;
-        }
-        else
-        {
+        if (_explosionTimer > 0) {
+            _explosionTimer -= Time.fixedDeltaTime;
+        } else {
             Explode();
         }
     }
@@ -72,13 +77,14 @@ public class GrenadeScript : NetworkBehaviour
     }
 
 
-    public void Setup(Vector3 startPosition, Vector3 moveDirection, float moveSpeed, float explodeTimer, float distanceUntilStop)
+    public void Setup(Vector3 startPosition, Vector3 moveDirection, float moveSpeed, float explosionTimer, float distanceUntilStop, float curveFactor)
     {
         _startPosition = startPosition;
         _moveDirection = moveDirection;
         _moveSpeed = moveSpeed;
-        _explodeTimer = explodeTimer;
+        _explosionTimer = explosionTimer;
         _distanceUntilStop = distanceUntilStop;
+        _curveFactor = curveFactor;
     }
 
 
