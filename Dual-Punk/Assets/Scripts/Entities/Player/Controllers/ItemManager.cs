@@ -9,8 +9,8 @@ using FishNet.Object;
 
 public class ItemManager : NetworkBehaviour
 {
+    private GameObject _inventoryManager;
     private PlayerState _playerState;
-    private PlayerPickItem _playerPickItem;
     private List<GameObject> _items;
     private IImpact _impact;
 
@@ -18,18 +18,20 @@ public class ItemManager : NetworkBehaviour
     private GameObject? _item;
     private WeaponScript? _weaponScript;
     #nullable disable
-
+    
     private int _index;
 
 
     private void Start()
     {
         if(!Owner.IsLocalClient) return;
+        _inventoryManager = GameObject.FindWithTag("Inventory");
         _index = 0;
         _items = new List<GameObject>();
         _impact = GetComponent<IImpact>();
         _playerState = GetComponent<PlayerState>();
-        _playerPickItem = GetComponent<PlayerPickItem>();
+
+        _inventoryManager.gameObject.SetActive(false);
     }
 
 
@@ -51,7 +53,7 @@ public class ItemManager : NetworkBehaviour
                 if (Input.GetButtonDown("Pickup") && !_playerState.HoldingWeapon)
                 {
                     _index = 0;
-                    _playerPickItem.inventoryManager.GetComponent<InventoryPickItem>().ItemPicked(_item);
+                    _inventoryManager.GetComponent<InventoryPickItem>().ItemPicked(_item);
                     UpdateHeldWeapon(_weaponScript);
                 }
             }
@@ -73,7 +75,7 @@ public class ItemManager : NetworkBehaviour
                 {
                     _index = 0;
                     //Mettre l'item dans l'inventaire
-                    _playerPickItem.inventoryManager.GetComponent<InventoryPickItem>().ItemPicked(_item);
+                    _inventoryManager.GetComponent<InventoryPickItem>().ItemPicked(_item);
                 }
             }
         }
