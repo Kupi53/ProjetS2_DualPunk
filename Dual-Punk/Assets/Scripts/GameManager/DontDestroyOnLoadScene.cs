@@ -16,7 +16,6 @@ public class DontDestroyOnLoadScene : MonoBehaviour
 
             foreach (var element in objects)
             {
-                element.SetActive(true);
                 DontDestroyOnLoad(element);
             }
         }
