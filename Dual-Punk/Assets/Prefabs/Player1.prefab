@@ -279,7 +279,6 @@ GameObject:
   - component: {fileID: 7958423234412697078}
   - component: {fileID: -4368909073496365499}
   - component: {fileID: 6019409187629460517}
-  - component: {fileID: 8705454042696663728}
   m_Layer: 6
   m_Name: Player1
   m_TagString: Player
@@ -552,6 +551,7 @@ MonoBehaviour:
   _componentIndexCache: 4
   _addedNetworkObject: {fileID: 3460544654625029893}
   _networkObjectCache: {fileID: 3460544654625029893}
+  _weaponsSlots: []
 --- !u!114 &3907873960965384262
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -690,15 +690,3 @@ MonoBehaviour:
   _overrideType: 1
   _updateHostVisibility: 1
   _observerConditions: []
---- !u!114 &8705454042696663728
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7898736215898924539}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7fda5d65418dbcc4797b728d7fc5d921, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

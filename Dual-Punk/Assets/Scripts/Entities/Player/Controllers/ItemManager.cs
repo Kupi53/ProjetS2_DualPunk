@@ -9,6 +9,9 @@ using FishNet.Object;
 
 public class ItemManager : NetworkBehaviour
 {
+    [SerializeField] 
+    private GameObject[] _weaponsSlots;
+    
     private GameObject _inventoryManager;
     private PlayerState _playerState;
     private List<GameObject> _items;
@@ -18,7 +21,7 @@ public class ItemManager : NetworkBehaviour
     private GameObject? _item;
     private WeaponScript? _weaponScript;
     #nullable disable
-    
+
     private int _index;
 
 
