@@ -70,6 +70,7 @@ public class RocketScript : BulletScript
     {
         GameObject explosion = Instantiate(_explosion, transform.position, transform.rotation);
         _objectSpawner.SpawnObjectRpc(explosion);
+
         Spawn(explosion);
         Destroy(explosion, 1);
 

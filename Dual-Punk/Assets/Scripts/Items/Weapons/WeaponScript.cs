@@ -32,11 +32,13 @@ public abstract class WeaponScript : NetworkBehaviour
     public abstract void ResetWeapon();
     
 
-
     void Start(){
-        _objectSpawner = GameObject.Find("ObjectSpawner").GetComponent<ObjectSpawner>();
+        Debug.Log("testtt");
         if (IsServer){
+            Debug.Log("test");
             Spawn(gameObject);
         }
+
+        _objectSpawner = GameObject.Find("ObjectSpawner").GetComponent<ObjectSpawner>();
     }
 }

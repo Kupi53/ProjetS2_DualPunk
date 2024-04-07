@@ -48,6 +48,14 @@ public class PlayerState : NetworkBehaviour
         DashCooldownMax = 1;
     }
 
+
+    // A foutre dans un game manager celui qui a fait l'archi des scenes devrait se suicider parce que c'est clairement dla merde
+    private void Start()
+    {
+        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Items"), LayerMask.NameToLayer("Items"));
+    }
+
+
     void Update()
     {
         if (!IsOwner) return;
