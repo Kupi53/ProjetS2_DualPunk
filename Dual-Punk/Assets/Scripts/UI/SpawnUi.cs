@@ -27,6 +27,8 @@ public class SpawnUi : NetworkBehaviour
             LocalCamera.GetComponent<CameraController>().Player = gameObject;
             LocalUI.GetComponent<LocalPlayerReference>().PlayerState = GetComponent<PlayerState>();
             LocalUI.GetComponent<LocalPlayerReference>().ConsumablesController = GetComponent<ConsumablesController>();
+            GetComponent<ItemManager>()._inventoryManager = LocalUI.GetComponentInChildren<InventoryManager>().gameObject;
+            LocalUI.GetComponentInChildren<InventoryManager>().gameObject.SetActive(false);
         }
     }
 }

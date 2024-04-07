@@ -4,7 +4,6 @@ using FishNet.Object;
 using FishNet.Connection;
 using UnityEngine;
 using FishNet.Managing;
-using UnityEditor.Tilemaps;
 
 public class SpawnPlayers : NetworkBehaviour
 {
