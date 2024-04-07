@@ -16,7 +16,6 @@ TagManager:
   - Item
   - Implant
   - Projectile
-  - Wall
   layers:
   - Default
   - TransparentFX
@@ -26,7 +25,7 @@ TagManager:
   - UI
   - Players
   - Items
-  - Walls
+  - 
   - 
   - 
   - 
