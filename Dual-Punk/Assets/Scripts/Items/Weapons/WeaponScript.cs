@@ -29,12 +29,13 @@ public abstract class WeaponScript : NetworkBehaviour
 
     public abstract void Run(Vector3 position, Vector3 direction);
     public abstract void ResetWeapon();
+    
+    protected ObjectSpawner objectSpawner;
 
 
     void Start(){
-        Debug.Log("testtt");
+        objectSpawner = GameObject.Find("ObjectSpawner").GetComponent<ObjectSpawner>();
         if (IsServer){
-            Debug.Log("test");
             Spawn(gameObject);
         }
     }

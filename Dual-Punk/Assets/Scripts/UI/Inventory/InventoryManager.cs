@@ -13,11 +13,12 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
     private InventorySlots currentSlot;
     private GameObject selectedSlotIcon;
     private ObjectSpawner objectSpawner;
-    DescriptionManager descriptionManager => GetComponent<DescriptionManager>();
+    DescriptionManager descriptionManager;
     [SerializeField] private Image DropPanel;
     [SerializeField] private Image inventoryPanel;
 
     void Start(){
+        descriptionManager = GetComponent<DescriptionManager>();
         objectSpawner = GameObject.Find("ObjectSpawner").GetComponent<ObjectSpawner>();
     }
     void Update()
@@ -180,7 +181,8 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
 
     private void SpawnInventoryItem(InventorySlots selectedSlot, GameObject spawnedItem){
         Vector3 spawnPosition = GameObject.FindWithTag("Player").transform.position;
-        objectSpawner.SpawnObjectRpc(spawnedItem.GetComponent<InventoryItem>().displayedItem.prefab, spawnPosition, new Quaternion());
+        GameObject instancedItem = Instantiate(spawnedItem.GetComponent<InventoryItem>().displayedItem.prefab, spawnPosition, new Quaternion());
+        objectSpawner.SpawnObjectRpc(instancedItem);
         selectedSlot.GetComponent<InventorySlots>().heldItem = null;
         Destroy(spawnedItem);
     }
