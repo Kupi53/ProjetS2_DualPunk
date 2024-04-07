@@ -20,6 +20,7 @@ public class AttacksController : NetworkBehaviour
     private void Update()
     {
         if (!IsOwner) return;
+
         if (_playerState.HoldingWeapon)
         {
             if (!_playerState.Attacking)

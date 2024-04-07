@@ -3139,9 +3139,9 @@ GameObject:
   - component: {fileID: 662744751}
   - component: {fileID: 662744750}
   - component: {fileID: 662744749}
-  m_Layer: 3
+  m_Layer: 8
   m_Name: Collisionmap
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

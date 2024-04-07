@@ -28,6 +28,7 @@ public class ItemManager : NetworkBehaviour
     private void Start()
     {
         if(!Owner.IsLocalClient) return;
+
         _inventoryManager = GameObject.FindWithTag("Inventory");
         _index = 0;
         _items = new List<GameObject>();
@@ -85,22 +86,24 @@ public class ItemManager : NetworkBehaviour
     }
 
 
-    void OnTriggerEnter2D(Collider2D collision)
+    void OnTriggerStay2D(Collider2D collider)
     {
         if (!Owner.IsLocalClient) return;
-        if (collision.gameObject.CompareTag("Weapon") || collision.gameObject.CompareTag("Implant") || collision.gameObject.CompareTag("Item"))
+
+        if (!_items.Contains(collider.gameObject) && (collider.gameObject.CompareTag("Weapon") || collider.gameObject.CompareTag("Implant") || collider.gameObject.CompareTag("Item")))
         {
-            _items.Add(collision.gameObject);
+            _items.Add(collider.gameObject);
         }
     }
 
-    void OnTriggerExit2D(Collider2D collision)
+    void OnTriggerExit2D(Collider2D collider)
     {
         if (!Owner.IsLocalClient) return;
-        if (collision.gameObject.CompareTag("Weapon") || collision.gameObject.CompareTag("Knife") || collision.gameObject.CompareTag("Item"))
+
+        if (_items.Contains(collider.gameObject) && (collider.gameObject.CompareTag("Weapon") || collider.gameObject.CompareTag("Knife") || collider.gameObject.CompareTag("Item")))
         {
             _index = 0;
-            _items.Remove(collision.gameObject);
+            _items.Remove(collider.gameObject);
         }
     }
 
