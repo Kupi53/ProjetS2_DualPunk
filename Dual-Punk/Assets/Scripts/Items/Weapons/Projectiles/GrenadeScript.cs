@@ -74,7 +74,7 @@ public class GrenadeScript : NetworkBehaviour
     private void Explode()
     {
         GameObject explosion = Instantiate(_explosion, transform.position, transform.rotation);
-        _objectSpawner.SpawnObjectRpc(explosion);
+        _objectSpawner.SpawnObjectRpc(explosion, transform.position, transform.rotation);
 
         Destroy(explosion, 1);
         Destroy(gameObject);
