@@ -28,13 +28,9 @@ public class GrenadeScript : NetworkBehaviour
     private float _curveFactor;
     private bool _stop;
 
-    
-    private ObjectSpawner objectSpawner;
-
 
     private void Start()
     {
-        objectSpawner = GameObject.Find("ObjectSpawner").GetComponent<ObjectSpawner>();
         _stop = false;
         _linePosition = transform.position;
 
@@ -76,7 +72,6 @@ public class GrenadeScript : NetworkBehaviour
     private void Explode()
     {
         GameObject explosion = Instantiate(_explosion, transform.position, transform.rotation);
-        objectSpawner.SpawnObjectRpc(explosion);
         Destroy(explosion, 1);
         Destroy(gameObject);
     }

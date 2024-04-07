@@ -12,7 +12,7 @@ public class ItemManager : NetworkBehaviour
     [SerializeField] 
     private GameObject[] _weaponsSlots;
     
-    public GameObject _inventoryManager;
+    private GameObject _inventoryManager;
     private PlayerState _playerState;
     private List<GameObject> _items;
     private IImpact _impact;
@@ -29,11 +29,13 @@ public class ItemManager : NetworkBehaviour
     {
         if(!Owner.IsLocalClient) return;
 
+        _inventoryManager = GameObject.FindWithTag("Inventory");
         _index = 0;
         _items = new List<GameObject>();
         _impact = GetComponent<IImpact>();
         _playerState = GetComponent<PlayerState>();
-        _inventoryManager = GameObject.FindWithTag("Inventory");
+
+        _inventoryManager.gameObject.SetActive(false);
     }
 
 

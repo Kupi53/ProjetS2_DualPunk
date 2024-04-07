@@ -18,11 +18,6 @@ public class RocketScript : BulletScript
     private float _deviationAngle;
     private float _deviationSpeed;
 
-    private ObjectSpawner objectSpawner;
-
-    private void Start(){
-        objectSpawner = GameObject.Find("ObjectSpawner").GetComponent<ObjectSpawner>();
-    }
     public override void OnStartNetwork()
     {
         _networkManager = GameObject.FindWithTag("NetworkManager").GetComponent<NetworkManager>();
@@ -67,7 +62,6 @@ public class RocketScript : BulletScript
     protected override void DestroyThis()
     {
         GameObject explosion = Instantiate(_explosion, transform.position, transform.rotation);
-        objectSpawner.SpawnObjectRpc(explosion);
         Spawn(explosion);
         Destroy(explosion, 1);
 
