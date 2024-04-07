@@ -16,6 +16,7 @@ public class GrenadeScript : NetworkBehaviour
 
     private Rigidbody2D _rb2d;
     private SpriteRenderer _spriteRenderer;
+    private ObjectSpawner _objectSpawner;
 
     private Vector3 _startPosition;
     private Vector3 _moveDirection;
@@ -29,12 +30,11 @@ public class GrenadeScript : NetworkBehaviour
     private bool _stop;
 
     
-    private ObjectSpawner objectSpawner;
 
 
     private void Start()
     {
-        objectSpawner = GameObject.Find("ObjectSpawner").GetComponent<ObjectSpawner>();
+        _objectSpawner = GameObject.Find("ObjectSpawner").GetComponent<ObjectSpawner>();
         _stop = false;
         _linePosition = transform.position;
 
@@ -76,7 +76,7 @@ public class GrenadeScript : NetworkBehaviour
     private void Explode()
     {
         GameObject explosion = Instantiate(_explosion, transform.position, transform.rotation);
-        objectSpawner.SpawnObjectRpc(explosion);
+        _objectSpawner.SpawnObjectRpc(explosion);
         Destroy(explosion, 1);
         Destroy(gameObject);
     }

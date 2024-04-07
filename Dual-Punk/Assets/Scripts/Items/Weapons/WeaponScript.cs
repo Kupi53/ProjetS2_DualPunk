@@ -18,6 +18,7 @@ public abstract class WeaponScript : NetworkBehaviour
     public virtual float InfoTimer { get; }
 
     protected SpriteRenderer _spriteRenderer;
+    protected ObjectSpawner _objectSpawner;
 
     [SerializeField] protected Vector3 _weaponOffset;
     [SerializeField] protected float _weaponDistance;
@@ -30,11 +31,10 @@ public abstract class WeaponScript : NetworkBehaviour
     public abstract void Run(Vector3 position, Vector3 direction);
     public abstract void ResetWeapon();
     
-    protected ObjectSpawner objectSpawner;
 
 
     void Start(){
-        objectSpawner = GameObject.Find("ObjectSpawner").GetComponent<ObjectSpawner>();
+        _objectSpawner = GameObject.Find("ObjectSpawner").GetComponent<ObjectSpawner>();
         if (IsServer){
             Spawn(gameObject);
         }

@@ -155,7 +155,7 @@ public class FireArmScript : WeaponScript
         for (int i = 0; i < _bulletNumber; i++)
         {
             GameObject newBullet = Instantiate(_bullet, _gunEndPoints[i%_gunEndPoints.Length].transform.position, transform.rotation);
-            objectSpawner.SpawnObjectRpc(newBullet);
+            _objectSpawner.SpawnObjectRpc(newBullet);
             BulletScript bulletScript = newBullet.GetComponent<BulletScript>();
             Vector3 newDirection = new Vector3(direction.x + Methods.NextFloat(-dispersion, dispersion), direction.y + Methods.NextFloat(-dispersion, dispersion), 0).normalized;
             bulletScript.Setup(damage, bulletSpeed, newDirection);
