@@ -11,8 +11,9 @@ public class PlayerState : NetworkBehaviour
 {
     private Vector3 _mousePosition;
 
-    public float Health { get; set; }
-    public float MaxHealth { get; set; }
+    public int Health { get; set; }
+    public int MaxHealth { get; set; }
+
     public float AnimAngle { get; set; }
     public float DashCooldown { get; set; }
     public float DashCooldownMax { get; set; }

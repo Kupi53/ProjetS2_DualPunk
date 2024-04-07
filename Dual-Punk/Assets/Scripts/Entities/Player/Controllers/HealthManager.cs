@@ -1,13 +1,14 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 
 public class HealthManager : MonoBehaviour, IDamageable
 {
     private PlayerState _playerState;
-
 
     private void Start()
     {
@@ -22,28 +23,64 @@ public class HealthManager : MonoBehaviour, IDamageable
     }
 
 
-    public void Heal(float amount)
+    private void CheckHealth()
     {
-        if (_playerState.Health + amount > _playerState.MaxHealth)
-        {
+        if (_playerState.Health > _playerState.MaxHealth)
             _playerState.Health = _playerState.MaxHealth;
-        }
-        else
-            _playerState.Health += amount;
+
+        else if (_playerState.Health <= 0)
+            Die();
     }
 
 
-    public void Damage(float amount)
+    private IEnumerator HealthCoroutine(float amount, float time)
     {
-        if (amount < 0)
-        {
-            throw new ArgumentOutOfRangeException("Cannot have Negative damage.");
-        }
-        _playerState.Health -= amount;
+        int startHealth = _playerState.Health;
+        float timer = 0;
+        float healPerTime = amount / time;
 
-        if (_playerState.Health <= 0)
+        while (timer <= time)
         {
-            Die();
+            timer += Time.deltaTime;
+            SetHealth(startHealth + (int)(healPerTime * timer));
+
+            yield return null;
         }
+
+        SetHealth(startHealth + (int)amount);
+    }
+
+
+
+    public void Heal(int amount, float time)
+    {
+        if (time == 0)
+        {
+            _playerState.Health += amount;
+            CheckHealth();
+        }
+        else
+        {
+            StartCoroutine(HealthCoroutine(amount, time));
+        }
+    }
+
+    public void Damage(int amount, float time)
+    {
+        if (time == 0)
+        {
+            _playerState.Health -= amount;
+            CheckHealth();
+        }
+        else
+        {
+            StartCoroutine(HealthCoroutine(-amount, time));
+        }
+    }
+
+    public void SetHealth(int amount)
+    {
+        _playerState.Health = amount;
+        CheckHealth();
     }
 }

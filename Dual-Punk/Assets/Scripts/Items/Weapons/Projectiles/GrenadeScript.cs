@@ -39,10 +39,10 @@ public class GrenadeScript : NetworkBehaviour
     }
 
 
-    // quand distance est atteinte on active la collision, si collision moveSpeed = 0
     private void FixedUpdate()
     {
         if (!IsServer) return;
+
         _linePosition += _moveDirection * _moveSpeed;
         float currentDistance = Vector3.Distance(_linePosition, _startPosition);
 

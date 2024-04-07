@@ -66,22 +66,23 @@ public class ConsumablesController : MonoBehaviour
 
     void Update()
     {
-        _direction = _playerState.MousePosition - transform.position - _offset;
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            _damageable.Damage(10, 0.1f);
+        }
 
         if (_healTimer >= _healCooldown)
         {
             if (Input.GetButtonDown("UseHeal") && _playerState.Health < _playerState.MaxHealth)
             {
                 _healTimer = 0;
-                _damageable.Heal(30);
+                _damageable.Heal(30, 0.2f);
             }
         }
-        else
-        {
+        else {
             _healTimer += Time.deltaTime;
         }
         
-
         if (_itemTimer >= _itemCooldown)
         {
             if (Input.GetButtonDown("UseGrenade"))
@@ -94,6 +95,7 @@ public class ConsumablesController : MonoBehaviour
             if (_chargeGrenade)
             {
                 _explodeTimer += Time.deltaTime;
+                _direction = _playerState.MousePosition - transform.position - _offset;
 
                 if (_explodeTimer > _grenadeTimer)
                     Reset();

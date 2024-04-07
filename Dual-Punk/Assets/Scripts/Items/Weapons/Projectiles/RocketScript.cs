@@ -9,13 +9,14 @@ public class RocketScript : BulletScript
 {
     [SerializeField] private GameObject _explosion;
 
+    private NetworkManager _networkManager;
     private Vector3 _startPosition;
+
     private float _distanceUntilExplosion;
     private float _explosionDistance;
     private float _explosionImpact;
     private float _deviationAngle;
     private float _deviationSpeed;
-    private NetworkManager _networkManager;
 
     public override void OnStartNetwork()
     {
@@ -25,6 +26,7 @@ public class RocketScript : BulletScript
     private new void FixedUpdate()
     {
         if (!IsServer) return;
+
         _rb2d.velocity = DeviateDirection() * _moveSpeed * _moveFactor;
 
         if (!GetComponent<Renderer>().isVisible || _moveSpeed < 5 || Vector3.Distance(transform.position, _startPosition) > _distanceUntilExplosion)
@@ -92,6 +94,7 @@ public class RocketScript : BulletScript
     [ObserversRpc]
     void PlayerRocketRpc(){
         GameObject player = _networkManager.GetComponent<LocalPlayerReference>().PlayerState.gameObject;
+        Debug.Log(player);
         player.GetComponent<PlayerState>().CameraController.ShakeCamera(_explosionImpact / 5, 0.3f);
         Vector3 hitDirection = player.transform.position - transform.position;
             if (hitDirection.magnitude <= _explosionDistance)
