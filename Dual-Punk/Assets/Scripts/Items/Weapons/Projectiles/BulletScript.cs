@@ -7,12 +7,8 @@ using FishNet.Object;
 
 public class BulletScript : NetworkBehaviour, IImpact
 {
-    [SerializeField] protected int _collisionsAllowed;
-    [SerializeField] protected float _lifeTime;
-
     protected Rigidbody2D _rb2d;
     protected Vector3 _moveDirection;
-
     protected int _damage;
     protected float _moveSpeed;
     protected float _moveFactor;
@@ -36,15 +32,14 @@ public class BulletScript : NetworkBehaviour, IImpact
     {
         if (!IsServer) return;
 
-        _lifeTime -= Time.fixedDeltaTime;
+        // Marche pas avec MovePosition
         _rb2d.velocity = _moveDirection * _moveSpeed * _moveFactor;
 
-        if (_lifeTime <= 0 || _moveSpeed < 5)
+        if (!GetComponent<Renderer>().isVisible || _moveSpeed < 5)
         {
             DestroyThis();
         }
     }
-
 
 
     public void Setup(int damage, float moveSpeed, Vector3 moveDirection)
@@ -83,25 +78,15 @@ public class BulletScript : NetworkBehaviour, IImpact
         Destroy(gameObject);
     }
 
-    
 
-    protected void OnCollisionEnter2D(Collision2D collision)
+    protected void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collision.collider.CompareTag("Ennemy"))
+        if (collider.CompareTag("Ennemy"))
         {
-            EnnemyState health = collision.collider.GetComponent<EnnemyState>();
+            EnnemyState health = collider.GetComponent<EnnemyState>();
             health.OnDamage(_damage);
-            DestroyThis();
-        }        
-        else if (collision.collider.CompareTag("Wall"))
-        {
-            _collisionsAllowed--;
-            Vector2 reflectDirection = Vector2.Reflect(_moveDirection, collision.contacts[0].normal);
-            _rb2d.transform.position = collision.contacts[0].point + reflectDirection * ((Vector2)transform.position - collision.contacts[0].point).magnitude * 2;
-            ChangeDirection(Vector2.Reflect(_moveDirection, collision.contacts[0].normal), true);
         }
-
-        if (_collisionsAllowed < 0 && collision.collider.CompareTag("Wall") || collision.collider.CompareTag("Player"))
+        if (!collider.CompareTag("Weapon") && !collider.CompareTag("Projectile") && !collider.CompareTag("UI"))
         {
             DestroyThis();
         }

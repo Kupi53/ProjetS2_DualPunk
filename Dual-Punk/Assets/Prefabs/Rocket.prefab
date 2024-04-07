@@ -10,13 +10,13 @@ GameObject:
   m_Component:
   - component: {fileID: 8981372546416760355}
   - component: {fileID: 7515568068125792712}
-  - component: {fileID: 7443726583498677915}
   - component: {fileID: 7270095702838374388}
+  - component: {fileID: 7443726583498677915}
   - component: {fileID: 6789981785554592137}
   - component: {fileID: 1668462775358657453}
   - component: {fileID: 763206414674496891}
   - component: {fileID: 1761554637845256214}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Rocket
   m_TagString: Projectile
   m_Icon: {fileID: 0}
@@ -90,33 +90,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!50 &7443726583498677915
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8218887749285126351}
-  m_BodyType: 1
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!61 &7270095702838374388
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -162,6 +135,33 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.4058357, y: 0.4}
   m_EdgeRadius: 0
+--- !u!50 &7443726583498677915
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8218887749285126351}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!114 &6789981785554592137
 MonoBehaviour:
   m_ObjectHideFlags: 0
