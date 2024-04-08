@@ -158,6 +158,8 @@ MonoBehaviour:
   description: {fileID: 2918769762557654977}
   formatage: {fileID: 7941722029732158518}
   maxCharacter: 40
+  height: 0
+  width: 0
 --- !u!223 &8321056398114198508
 Canvas:
   m_ObjectHideFlags: 0

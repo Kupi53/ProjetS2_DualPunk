@@ -15,6 +15,7 @@ public class InventoryItem : MonoBehaviour
     void Start(){
         TextSetup();
         ActiveStack();
+        description.SetActive(false);
         IconImage.sprite = displayedItem.icon;
     }
 

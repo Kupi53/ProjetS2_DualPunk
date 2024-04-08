@@ -14,8 +14,8 @@ public class DescriptionPanel : MonoBehaviour
     [SerializeField]
     private int maxCharacter;
 
-    private float height;
-    private float width;
+    public float height;
+    public float width;
 
     public void SetText(string namestr, string descriptionstr){
         Name.text = namestr + "\n";
@@ -33,7 +33,11 @@ public class DescriptionPanel : MonoBehaviour
         Canvas.ForceUpdateCanvases();
         height = GetComponent<RectTransform>().rect.height;
         width = GetComponent<RectTransform>().rect.width;
-        Debug.Log(width + " " + height);
+
+        RectTransform inventoryItemRect = transform.parent.GetComponent<RectTransform>();
+        Debug.Log(inventoryItemRect.rect.width + " " + inventoryItemRect.rect.height/2 + height);
+
+        transform.localPosition = new Vector3(inventoryItemRect.rect.width/2-15 + width/2, inventoryItemRect.rect.height/2-15 + height/2, 0);
     }
 
 
