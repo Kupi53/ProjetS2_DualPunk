@@ -21,11 +21,12 @@ public class ItemManager : NetworkBehaviour
     private void Start()
     {
         if(!Owner.IsLocalClient) return;
-        _inventoryManager = GameObject.FindWithTag("Inventory");
+
         _index = 0;
         _items = new List<GameObject>();
         _impact = GetComponent<IImpact>();
         _playerState = GetComponent<PlayerState>();
+        _inventoryManager = GameObject.FindWithTag("Inventory");
 
         _inventoryManager.gameObject.SetActive(false);
     }
@@ -42,6 +43,7 @@ public class ItemManager : NetworkBehaviour
 
             GameObject item = _items[_index];
             WeaponScript weaponScript;
+
 
             if (item.CompareTag("Weapon") && !(weaponScript = item.GetComponent<WeaponScript>()).InHand)
             {
@@ -82,7 +84,19 @@ public class ItemManager : NetworkBehaviour
     }
 
 
-    void OnTriggerEnter2D(Collider2D collision)
+    void UpdateHeldWeapon(WeaponScript weaponScript)
+    {
+        //Intervetir avec l'arme en main
+        _playerState.WeaponScript = weaponScript;
+        _playerState.HoldingWeapon = true;
+        weaponScript.gameObject.GetComponent<NetworkObject>().GiveOwnership(base.ClientManager.Connection);
+        weaponScript.PlayerState = _playerState;
+        weaponScript.PlayerRecoil = _impact;
+        weaponScript.InHand = true;
+    }
+
+
+    void OnTriggerStay2D(Collider2D collision)
     {
         if (!Owner.IsLocalClient) return;
 
@@ -106,15 +120,5 @@ public class ItemManager : NetworkBehaviour
             _index = 0;
             _items.Remove(item);
         }
-    }
-
-    void UpdateHeldWeapon(WeaponScript weaponScript){
-        //Intervetir avec l'arme en main
-        _playerState.WeaponScript = weaponScript;
-        _playerState.HoldingWeapon = true;
-        weaponScript.gameObject.GetComponent<NetworkObject>().GiveOwnership(base.ClientManager.Connection);
-        weaponScript.PlayerState = _playerState;
-        weaponScript.PlayerRecoil = _impact;
-        weaponScript.InHand = true;
     }
 }

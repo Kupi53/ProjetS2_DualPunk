@@ -27,6 +27,7 @@ public abstract class WeaponScript : NetworkBehaviour
 
     public abstract void Run(Vector3 position, Vector3 direction);
     public abstract void ResetWeapon();
+    public abstract void Drop();
 
     protected void MovePosition(Vector3 position, Vector3 direction)
     {

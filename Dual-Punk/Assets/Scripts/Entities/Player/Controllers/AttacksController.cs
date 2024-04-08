@@ -20,6 +20,7 @@ public class AttacksController : NetworkBehaviour
     private void Update()
     {
         if (!IsOwner) return;
+
         if (_playerState.HoldingWeapon)
         {
             if (!_playerState.Attacking)
@@ -28,8 +29,7 @@ public class AttacksController : NetworkBehaviour
 
                 if (Input.GetButtonDown("Drop"))
                 {
-                    _playerState.WeaponScript.ResetWeapon();
-                    _playerState.WeaponScript.InHand = false;
+                    _playerState.WeaponScript.Drop();
                     _playerState.HoldingWeapon = false;
                     _playerState.PointerScript.SpriteNumber = 0;
                 }

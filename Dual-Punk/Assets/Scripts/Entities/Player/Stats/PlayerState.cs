@@ -51,6 +51,7 @@ public class PlayerState : NetworkBehaviour
     void Update()
     {
         if (!IsOwner) return;
+
         _mousePosition = CameraController.MainCamera.ScreenToWorldPoint(Input.mousePosition);
         _mousePosition.z = 0;
     }

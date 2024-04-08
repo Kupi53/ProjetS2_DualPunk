@@ -56,6 +56,11 @@ public class LaserGunScript : WeaponScript
 
     void Update()
     {
+        if (!InHand)
+        {
+            transform.position += Vector3.up * (float)Math.Cos(Time.time * 5 + _coolDownTime) * 0.001f;
+        }
+
         if (_coolDown)
         {
             _coolDownLevel -= Time.deltaTime * _coolDownSpeed;
@@ -76,12 +81,6 @@ public class LaserGunScript : WeaponScript
                 _coolDown = true;
                 _fire = false;
             }
-        }
-
-        if (!InHand)
-        {
-            float cosValue = (float)Math.Cos(Time.time * 7);
-            transform.position += Vector3.up * cosValue * 0.008f;
         }
     }
 
@@ -157,6 +156,20 @@ public class LaserGunScript : WeaponScript
         _fire = false;
         _coolDown = true;
         DisableLaser();
+    }
+
+    public override void Drop()
+    {
+        ResetWeapon();
+        InHand = false;
+        transform.position = PlayerState.transform.position + PlayerState.WeaponScript.WeaponOffset;
+        transform.rotation = Quaternion.identity;
+
+        if (_spriteRenderer.flipY)
+        {
+            _weaponOffset.x = -_weaponOffset.x;
+            _spriteRenderer.flipY = false;
+        }
     }
 
 
