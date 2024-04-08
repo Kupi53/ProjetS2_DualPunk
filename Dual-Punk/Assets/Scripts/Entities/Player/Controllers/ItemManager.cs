@@ -86,7 +86,7 @@ public class ItemManager : NetworkBehaviour
     {
         if (!Owner.IsLocalClient) return;
 
-        GameObject item = collider.gameObject;
+        GameObject item = collision.gameObject;
 
         if (!_items.Contains(item))
         {
@@ -99,7 +99,7 @@ public class ItemManager : NetworkBehaviour
     {
         if (!Owner.IsLocalClient) return;
 
-        GameObject item = collider.gameObject;
+        GameObject item = collision.gameObject;
 
         if (item.CompareTag("Weapon") || item.CompareTag("Knife") || item.CompareTag("Item"))
         {
