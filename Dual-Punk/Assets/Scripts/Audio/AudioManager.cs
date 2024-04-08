@@ -2,19 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Audio;
 
 public class AudioManager : MonoBehaviour
 {
 	public static AudioManager Instance;
 	
 	public AudioSource musicSource;
-	public AudioSource soundSource;
     public AudioClip musicMenu;
     public AudioClip clicOnMenu;
     
     public AudioClip[] playlist;
     private int indexPlaylist = 0;
     private bool isInGame = false;
+
+    public AudioMixerGroup soundEffectMixer;
     
     void Start()
     {
@@ -65,6 +67,18 @@ public class AudioManager : MonoBehaviour
     
     public void ClicOnMenu()
     {
-	    soundSource.PlayOneShot(clicOnMenu);
+	    AudioManager.Instance.PlayClipAt(clicOnMenu, transform.position);
+    }
+
+    public AudioSource PlayClipAt(AudioClip clip, Vector3 pos)
+    {
+	    GameObject soundEffectTemp = new GameObject("TempAudio");
+	    soundEffectTemp.transform.position = pos;
+	    AudioSource audioSource = soundEffectTemp.AddComponent<AudioSource>();
+	    audioSource.clip = clip;
+	    audioSource.outputAudioMixerGroup = soundEffectMixer;
+	    audioSource.Play();
+	    Destroy(soundEffectTemp, clip.length);
+	    return audioSource;
     }
 }

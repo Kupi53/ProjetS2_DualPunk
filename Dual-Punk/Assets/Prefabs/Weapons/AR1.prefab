@@ -202,6 +202,7 @@ MonoBehaviour:
   _bulletSpeed: 40
   _autoReload: 0
   _auto: 1
+  _sound: {fileID: 8300000, guid: 19fec131fef583541978fab3469989a0, type: 3}
 --- !u!114 &4687209510453595086
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -246,7 +247,7 @@ MonoBehaviour:
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 26
+  <PrefabId>k__BackingField: 16
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0

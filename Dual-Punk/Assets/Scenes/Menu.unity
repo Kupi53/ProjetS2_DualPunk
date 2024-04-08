@@ -239,8 +239,7 @@ GameObject:
   m_Component:
   - component: {fileID: 90963762}
   - component: {fileID: 90963761}
-  - component: {fileID: 90963760}
-  - component: {fileID: 90963759}
+  - component: {fileID: 90963763}
   m_Layer: 0
   m_Name: AudioManager
   m_TagString: Untagged
@@ -248,122 +247,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &90963759
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 90963758}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b56de69668e07304aa116ddde906d72a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  musicSource: {fileID: 90963761}
-  soundSource: {fileID: 90963760}
-  musicMenu: {fileID: 8300000, guid: 2cba6dd598a3a1f468b0fec60c58c938, type: 3}
-  clicOnMenu: {fileID: 8300000, guid: fe190e3d00ab90540bc11dc6c2bd8c35, type: 3}
-  playlist:
-  - {fileID: 8300000, guid: bec71689a4a87c5438859ab2c528a207, type: 3}
-  - {fileID: 8300000, guid: 0345b646fd9d1a54892fd573a26199c4, type: 3}
-  - {fileID: 8300000, guid: 467fa5310ff2ea54ca488473bc822cc2, type: 3}
---- !u!82 &90963760
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 90963758}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 835532341250879092, guid: 5b9343604b8f98541b6aaa557b188e47, type: 2}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
-  m_Volume: 0.05
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!82 &90963761
 AudioSource:
   m_ObjectHideFlags: 0
@@ -376,7 +259,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: -4013552126956160555, guid: 5b9343604b8f98541b6aaa557b188e47, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 0.05
+  m_Volume: 1
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -475,6 +358,26 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &90963763
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 90963758}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 809ffa69478bba44e93cccf71619b946, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  musicSource: {fileID: 90963761}
+  musicMenu: {fileID: 8300000, guid: 2cba6dd598a3a1f468b0fec60c58c938, type: 3}
+  clicOnMenu: {fileID: 8300000, guid: fe190e3d00ab90540bc11dc6c2bd8c35, type: 3}
+  playlist:
+  - {fileID: 8300000, guid: 0345b646fd9d1a54892fd573a26199c4, type: 3}
+  - {fileID: 8300000, guid: bec71689a4a87c5438859ab2c528a207, type: 3}
+  - {fileID: 8300000, guid: 467fa5310ff2ea54ca488473bc822cc2, type: 3}
+  soundEffectMixer: {fileID: 835532341250879092, guid: 5b9343604b8f98541b6aaa557b188e47, type: 2}
 --- !u!1 &138376498
 GameObject:
   m_ObjectHideFlags: 0
@@ -1261,7 +1164,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 90963759}
+      - m_Target: {fileID: 90963763}
         m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
         m_MethodName: ClicOnMenu
         m_Mode: 1
@@ -1418,7 +1321,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 90963759}
+      - m_Target: {fileID: 90963763}
         m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
         m_MethodName: ClicOnMenu
         m_Mode: 1
@@ -1824,7 +1727,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 90963759}
+      - m_Target: {fileID: 90963763}
         m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
         m_MethodName: ClicOnMenu
         m_Mode: 1
@@ -1998,7 +1901,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 90963759}
+      - m_Target: {fileID: 90963763}
         m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
         m_MethodName: ClicOnMenu
         m_Mode: 1
@@ -3472,7 +3375,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 90963759}
+      - m_Target: {fileID: 90963763}
         m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
         m_MethodName: ClicOnMenu
         m_Mode: 1
@@ -3629,7 +3532,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 90963759}
+      - m_Target: {fileID: 90963763}
         m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
         m_MethodName: ClicOnMenu
         m_Mode: 1
@@ -4024,7 +3927,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 90963759}
+      - m_Target: {fileID: 90963763}
         m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
         m_MethodName: ClicOnMenu
         m_Mode: 1
@@ -4157,7 +4060,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 90963759}
+      - m_Target: {fileID: 90963763}
         m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
         m_MethodName: ClicOnMenu
         m_Mode: 1
@@ -4582,21 +4485,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 90963760}
-        m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
-        m_MethodName: set_clip
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 8300000, guid: fe190e3d00ab90540bc11dc6c2bd8c35, type: 3}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 90963760}
-        m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
-        m_MethodName: Play
+      - m_Target: {fileID: 90963763}
+        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
+        m_MethodName: ClicOnMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4930,7 +4821,7 @@ PrefabInstance:
     - target: {fileID: 1831567458233989631, guid: 24116464910e2ca459b571a17400145f, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
-      objectReference: {fileID: 90963759}
+      objectReference: {fileID: 90963763}
     - target: {fileID: 1831567458233989631, guid: 24116464910e2ca459b571a17400145f, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
       value: ClicOnMenu

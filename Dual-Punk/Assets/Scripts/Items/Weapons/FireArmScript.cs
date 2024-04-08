@@ -8,7 +8,6 @@ using Unity.VisualScripting;
 using FishNet.Object;
 
 
-
 public class FireArmScript : WeaponScript
 {
     [SerializeField] protected GameObject _bullet;
@@ -27,6 +26,8 @@ public class FireArmScript : WeaponScript
 
     [SerializeField] protected bool _autoReload;
     [SerializeField] protected bool _auto;
+
+    [SerializeField] protected AudioClip _sound;
 
     private int _ammoLeft;
     private float _reloadTimer;
