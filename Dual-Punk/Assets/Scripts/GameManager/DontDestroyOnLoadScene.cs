@@ -5,19 +5,31 @@ using UnityEngine.SceneManagement;
 
 public class DontDestroyOnLoadScene : MonoBehaviour
 {
-    private static DontDestroyOnLoadScene _instance;
+    public static DontDestroyOnLoadScene Instance;
     public GameObject[] objects;
 
     void Awake()
     {
-        if (_instance == null)
+        if (Instance == null)
         {
-            _instance = this;
+            Instance = this;
 
             foreach (var element in objects)
             {
                 DontDestroyOnLoad(element);
             }
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    public void RemoveFromDontDestroyOnLoad()
+    {
+        foreach (var element in objects)
+        {
+            SceneManager.MoveGameObjectToScene(element, SceneManager.GetActiveScene());
         }
     }
 }
