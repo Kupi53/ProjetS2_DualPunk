@@ -183,8 +183,8 @@ MonoBehaviour:
   _componentIndexCache: 0
   _addedNetworkObject: {fileID: 4528818166376744979}
   _networkObjectCache: {fileID: 4528818166376744979}
-  _weaponOffset: {x: 0, y: 0.5, z: 0}
-  _weaponDistance: 0.7
+  _weaponOffset: {x: 0.15, y: 0.8, z: 0}
+  _weaponDistance: 0.4
   _recoilForce: 1.2
   _impactForce: 1.2
   _cameraShake: 1.1
