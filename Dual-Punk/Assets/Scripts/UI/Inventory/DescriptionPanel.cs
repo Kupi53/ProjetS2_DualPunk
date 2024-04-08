@@ -39,6 +39,4 @@ public class DescriptionPanel : MonoBehaviour
 
         transform.localPosition = new Vector3(inventoryItemRect.rect.width/2-15 + width/2, inventoryItemRect.rect.height/2-15 + height/2, 0);
     }
-
-
 }
