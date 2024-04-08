@@ -8,6 +8,9 @@ using UnityEngine.UI;
 
 public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerEnterHandler, IPointerExitHandler
 {
+
+    [SerializeField] InventorySlots[] _weaponSlots = new InventorySlots[3];
+    public PlayerState PlayerState;
     private GameObject draggedObject;
     private InventorySlots LastSlotPosition;
     private InventorySlots currentSlot;
@@ -105,7 +108,6 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
 
                 //drop the item on the map
                 else{
-                    Debug.Log("Test du drop");
                     SpawnInventoryItem(LastSlotPosition, draggedObject);
                 }
 
@@ -179,10 +181,12 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
     }
 
     private void SpawnInventoryItem(InventorySlots selectedSlot, GameObject spawnedItem){
+
         Vector3 spawnPosition = GameObject.FindWithTag("Player").transform.position;
         objectSpawner.SpawnObjectRpc(spawnedItem.GetComponent<InventoryItem>().displayedItem.prefab, spawnPosition, new Quaternion());
         selectedSlot.GetComponent<InventorySlots>().heldItem = null;
         Destroy(spawnedItem);
+        
     }
 
 }
