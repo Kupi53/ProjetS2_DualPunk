@@ -12,7 +12,6 @@ public class InventoryPickItem : MonoBehaviour
     [SerializeField] GameObject inventoryItemPrefab;
 
     public void ItemPicked(GameObject pickedItem){
-        Debug.Log("1");
         GameObject emptySlot = null;
         string Tag = pickedItem.tag;
 
