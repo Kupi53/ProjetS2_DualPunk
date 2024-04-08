@@ -9,19 +9,12 @@ using FishNet.Object;
 
 public class ItemManager : NetworkBehaviour
 {
-    [SerializeField] 
-    private GameObject[] _weaponsSlots;
+    [SerializeField] private GameObject[] _weaponsSlots;
     
     private GameObject _inventoryManager;
     private PlayerState _playerState;
     private List<GameObject> _items;
     private IImpact _impact;
-
-    #nullable enable
-    private GameObject? _item;
-    private WeaponScript? _weaponScript;
-    #nullable disable
-
     private int _index;
 
 
@@ -48,38 +41,42 @@ public class ItemManager : NetworkBehaviour
             if (Input.GetButtonDown("Switch"))
                 _index = (_index + 1) % _items.Count;
 
-            _item = _items[_index];
+            GameObject item = _items[_index];
+            WeaponScript weaponScript;
 
-            if (_item.CompareTag("Weapon") && !(_weaponScript = _item.GetComponent<WeaponScript>()).InHand)
+            if (item.CompareTag("Weapon") && !(weaponScript = item.GetComponent<WeaponScript>()).InHand)
             {
-                _item.GetComponent<HighlightItem>().Highlight();
+                item.GetComponent<HighlightItem>().Highlight();
 
                 if (Input.GetButtonDown("Pickup") && !_playerState.HoldingWeapon)
                 {
                     _index = 0;
-                    _inventoryManager.GetComponent<InventoryPickItem>().ItemPicked(_item);
-                    UpdateHeldWeapon(_weaponScript);
+                    _items.Remove(item);
+                    _inventoryManager.GetComponent<InventoryPickItem>().ItemPicked(item);
+                    UpdateHeldWeapon(weaponScript);
                 }
             }
-            else if (_item.CompareTag("Implant")) //Plus verifier que l'implant n'est pas sur une entite
+            else if (item.CompareTag("Implant")) //Plus verifier que l'implant n'est pas sur une entite
             {
-                _item.GetComponent<HighlightItem>().Highlight();
+                item.GetComponent<HighlightItem>().Highlight();
 
                 if (Input.GetButtonDown("Pickup"))
                 {
                     _index = 0;
+                    _items.Remove(item);
                     //Mettre l'implant dans l'inventaire ou le remplacer avec un autre
                 }
             }
-            else if (_item.CompareTag("Item"))
+            else if (item.CompareTag("Item"))
             {
-                _item.GetComponent<HighlightItem>().Highlight();
+                item.GetComponent<HighlightItem>().Highlight();
 
                 if (Input.GetButtonDown("Pickup"))
                 {
                     _index = 0;
+                    _items.Remove(item);
                     //Mettre l'item dans l'inventaire
-                    _inventoryManager.GetComponent<InventoryPickItem>().ItemPicked(_item);
+                    _inventoryManager.GetComponent<InventoryPickItem>().ItemPicked(item);
                 }
             }
         }
@@ -90,9 +87,12 @@ public class ItemManager : NetworkBehaviour
     {
         if (!Owner.IsLocalClient) return;
 
-        if (!_items.Contains(collider.gameObject) && (collider.gameObject.CompareTag("Weapon") || collider.gameObject.CompareTag("Implant") || collider.gameObject.CompareTag("Item")))
+        GameObject item = collider.gameObject;
+
+        if (!_items.Contains(item))
         {
-            _items.Add(collider.gameObject);
+            if ((item.CompareTag("Weapon") && !item.GetComponent<WeaponScript>().InHand) || item.CompareTag("Implant") || item.CompareTag("Item"))
+                _items.Add(item);
         }
     }
 
@@ -100,10 +100,12 @@ public class ItemManager : NetworkBehaviour
     {
         if (!Owner.IsLocalClient) return;
 
-        if (_items.Contains(collider.gameObject) && (collider.gameObject.CompareTag("Weapon") || collider.gameObject.CompareTag("Knife") || collider.gameObject.CompareTag("Item")))
+        GameObject item = collider.gameObject;
+
+        if (item.CompareTag("Weapon") || item.CompareTag("Knife") || item.CompareTag("Item"))
         {
             _index = 0;
-            _items.Remove(collider.gameObject);
+            _items.Remove(item);
         }
     }
 
@@ -111,9 +113,9 @@ public class ItemManager : NetworkBehaviour
         //Intervetir avec l'arme en main
         _playerState.WeaponScript = weaponScript;
         _playerState.HoldingWeapon = true;
-        _weaponScript.gameObject.GetComponent<NetworkObject>().GiveOwnership(base.ClientManager.Connection);
-        _weaponScript.PlayerState = _playerState;
-        _weaponScript.PlayerRecoil = _impact;
-        _weaponScript.InHand = true;
+        weaponScript.gameObject.GetComponent<NetworkObject>().GiveOwnership(base.ClientManager.Connection);
+        weaponScript.PlayerState = _playerState;
+        weaponScript.PlayerRecoil = _impact;
+        weaponScript.InHand = true;
     }
 }

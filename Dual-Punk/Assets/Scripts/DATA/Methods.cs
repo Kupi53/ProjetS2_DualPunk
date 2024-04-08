@@ -29,6 +29,13 @@ public static class Methods
     }
 
 
+    public static float ChangeFactorWithCos(float cosValue, float maxFactor, float minFactor)
+    {
+        cosValue = (cosValue + 1) / 2;
+        return minFactor + cosValue * (maxFactor - minFactor);
+    }
+
+
     public static bool SameDirection(float angle1, float angle2, int margin)
     {
         if (angle1 + margin > 180 && (angle2 > angle1 - margin || angle2 < -360 + angle1 + margin))

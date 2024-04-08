@@ -77,6 +77,12 @@ public class LaserGunScript : WeaponScript
                 _fire = false;
             }
         }
+
+        if (!InHand)
+        {
+            float cosValue = (float)Math.Cos(Time.time * 7);
+            transform.position += Vector3.up * cosValue * 0.008f;
+        }
     }
 
 
@@ -102,27 +108,9 @@ public class LaserGunScript : WeaponScript
             _coolDown = true;
         }
 
-        MovePosition(position, direction, _weaponOffset, _weaponDistance);
+        MovePosition(position, direction);
         Fire(direction);
     }
-
-
-    protected void MovePosition(Vector3 position, Vector3 direction, Vector3 weaponOffset, float weaponDistance)
-    {
-        float angle = (float)(Math.Atan2(direction.y, direction.x) * (180 / Math.PI));
-
-        if (angle > 90 || angle < -90)
-        {
-            _spriteRenderer.flipY = true;
-            weaponOffset.x = -weaponOffset.x;
-        }
-        else
-            _spriteRenderer.flipY = false;
-
-        transform.position = position + weaponOffset + direction * weaponDistance;
-        transform.eulerAngles = new Vector3(0, 0, angle);
-    }
-
 
 
     private void FillList()

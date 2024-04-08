@@ -58,6 +58,11 @@ public class FireArmScript : WeaponScript
         {
             PlayerState.PointerScript.SpriteNumber = 1;
         }
+        else
+        {
+            float cosValue = (float)Math.Cos(Time.time * 7);
+            transform.position += Vector3.up * cosValue * 0.008f;
+        }
     }
 
 
@@ -94,27 +99,6 @@ public class FireArmScript : WeaponScript
         {
             Reload();
         }   
-    }
-
-
-    protected void MovePosition(Vector3 position, Vector3 direction)
-    {
-        if (PlayerState.MousePosition.x < PlayerState.transform.position.x) {
-            if (!_spriteRenderer.flipY)
-            {
-                _weaponOffset.x = -_weaponOffset.x;
-                _spriteRenderer.flipY = true;
-            }
-        } else {
-            if (_spriteRenderer.flipY)
-            {
-                _weaponOffset.x = -_weaponOffset.x;
-                _spriteRenderer.flipY = false;
-            }
-        }
-
-        transform.position = position + _weaponOffset + direction * _weaponDistance;
-        transform.eulerAngles = new Vector3(0, 0, Methods.GetAngle(direction));
     }
 
 

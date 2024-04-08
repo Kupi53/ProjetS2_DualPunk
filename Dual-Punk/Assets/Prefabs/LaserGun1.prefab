@@ -19582,7 +19582,7 @@ MonoBehaviour:
   _endVFX: {fileID: 1823186462710866608}
   _layerMask:
     serializedVersion: 2
-    m_Bits: 127
+    m_Bits: 383
   _damageFrequency: 0.1
   _coolDownSpeed: 1
   _coolDownTime: 3
