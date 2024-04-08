@@ -12,5 +12,4 @@ public class InventoryItemData : ScriptableObject
     public string description;
     private int maxStack;
 
-
 }

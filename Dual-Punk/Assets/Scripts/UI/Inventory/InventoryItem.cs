@@ -1,5 +1,3 @@
-using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,18 +9,12 @@ public class InventoryItem : MonoBehaviour
     public GameObject description => transform.GetChild(0).gameObject;
     [SerializeField] Image IconImage;
 
-
     void Start(){
         TextSetup();
         ActiveStack();
         description.SetActive(false);
         IconImage.sprite = displayedItem.icon;
     }
-
-    void Awake(){
-
-    }
-
 
     private void TextSetup(){
         DescriptionPanel descriptionPanel = description.GetComponent<DescriptionPanel>();
