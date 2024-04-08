@@ -7,10 +7,17 @@ using Quaternion = UnityEngine.Quaternion;
 
 public class ObjectSpawner : NetworkBehaviour
 {
+
+    public GameObject SpawnObject(GameObject obj, UnityEngine.Vector3 transform, Quaternion quat)
+    {
+        GameObject instance = Instantiate(obj, transform, quat);
+        SpawnObjectRpc(instance.GetComponent<NetworkObject>());
+        return instance;        
+    }
+
+
     [ServerRpc (RequireOwnership = false)]
-    public void SpawnObjectRpc(GameObject obj, UnityEngine.Vector3 pos, Quaternion quaternion){
-        Debug.Log("test");
-        GameObject instance = Instantiate(obj, pos, quaternion);
-        Spawn(instance);
+    public void SpawnObjectRpc(NetworkObject obj){
+        Spawn(obj);
     }
 }

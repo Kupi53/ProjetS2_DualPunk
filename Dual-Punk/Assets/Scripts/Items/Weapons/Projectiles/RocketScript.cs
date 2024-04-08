@@ -68,8 +68,7 @@ public class RocketScript : BulletScript
 
     protected override void DestroyThis()
     {
-        GameObject explosion = Instantiate(_explosion, transform.position, transform.rotation);
-        _objectSpawner.SpawnObjectRpc(explosion, transform.position, transform.rotation);
+        GameObject explosion = _objectSpawner.SpawnObject(_explosion, transform.position, transform.rotation);
 
         Spawn(explosion);
         Destroy(explosion, 1);

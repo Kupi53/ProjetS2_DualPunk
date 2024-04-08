@@ -117,7 +117,7 @@ public class SmartWeaponScript : FireArmScript
         for (int i = 0; i < _bulletNumber; i++)
         {
             GameObject newBullet = Instantiate(_bullet, _gunEndPoints[i % _gunEndPoints.Length].transform.position, transform.rotation);
-            _objectSpawner.SpawnObjectRpc(newBullet, _gunEndPoints[i % _gunEndPoints.Length].transform.position, transform.rotation);
+            Spawn(newBullet);
             SeekingBulletScript bulletScript = newBullet.GetComponent<SeekingBulletScript>();
 
             Vector3 newDirection = new Vector3(direction.x + Methods.NextFloat(-dispersion, dispersion), direction.y + Methods.NextFloat(-dispersion, dispersion), 0).normalized;

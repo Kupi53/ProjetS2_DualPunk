@@ -180,7 +180,7 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
 
     private void SpawnInventoryItem(InventorySlots selectedSlot, GameObject spawnedItem){
         Vector3 spawnPosition = GameObject.FindWithTag("Player").transform.position;
-        objectSpawner.SpawnObjectRpc(spawnedItem.GetComponent<InventoryItem>().displayedItem.prefab, spawnPosition, new Quaternion());
+        GameObject instanced = objectSpawner.SpawnObject(spawnedItem.GetComponent<InventoryItem>().displayedItem.prefab, spawnPosition, new Quaternion());
         selectedSlot.GetComponent<InventorySlots>().heldItem = null;
         Destroy(spawnedItem);
     }

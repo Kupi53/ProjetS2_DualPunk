@@ -59,6 +59,9 @@ public abstract class WeaponScript : NetworkBehaviour
             Spawn(gameObject);
         }
 
+    }
+
+    void Awake(){
         _objectSpawner = GameObject.Find("ObjectSpawner").GetComponent<ObjectSpawner>();
     }
 }
