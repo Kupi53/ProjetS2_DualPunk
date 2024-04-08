@@ -184,7 +184,7 @@ MonoBehaviour:
   _addedNetworkObject: {fileID: 5195949671232927551}
   _networkObjectCache: {fileID: 5195949671232927551}
   _weaponOffset: {x: 0.2, y: 0.85, z: 0}
-  _weaponDistance: 0
+  _weaponDistance: -0.05
   _recoilForce: 1
   _impactForce: 15
   _cameraShake: 0.5

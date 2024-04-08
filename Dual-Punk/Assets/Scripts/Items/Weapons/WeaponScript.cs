@@ -1,9 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.InteropServices.WindowsRuntime;
 using FishNet.Object;
 using UnityEngine;
-using UnityEngine.Video;
+using System;
 
 
 public abstract class WeaponScript : NetworkBehaviour
@@ -30,7 +27,30 @@ public abstract class WeaponScript : NetworkBehaviour
 
     public abstract void Run(Vector3 position, Vector3 direction);
     public abstract void ResetWeapon();
-    
+
+    protected void MovePosition(Vector3 position, Vector3 direction)
+    {
+        if (PlayerState.MousePosition.x < PlayerState.transform.position.x)
+        {
+            if (!_spriteRenderer.flipY)
+            {
+                _weaponOffset.x = -_weaponOffset.x;
+                _spriteRenderer.flipY = true;
+            }
+        }
+        else
+        {
+            if (_spriteRenderer.flipY)
+            {
+                _weaponOffset.x = -_weaponOffset.x;
+                _spriteRenderer.flipY = false;
+            }
+        }
+
+        transform.position = position + _weaponOffset + direction * _weaponDistance;
+        transform.eulerAngles = new Vector3(0, 0, Methods.GetAngle(direction));
+    }
+
 
     void Start(){
         Debug.Log("testtt");
