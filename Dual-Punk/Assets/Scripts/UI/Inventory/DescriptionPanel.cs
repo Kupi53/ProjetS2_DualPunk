@@ -14,6 +14,9 @@ public class DescriptionPanel : MonoBehaviour
     [SerializeField]
     private int maxCharacter;
 
+    private float height;
+    private float width;
+
     public void SetText(string namestr, string descriptionstr){
         Name.text = namestr + "\n";
         description.text = descriptionstr;
@@ -21,8 +24,16 @@ public class DescriptionPanel : MonoBehaviour
         int nbNameChar = Name.text.Length;
         int nbDescriptionChar = description.text.Length;
 
-        if(nbNameChar > maxCharacter || nbDescriptionChar > maxCharacter) formatage.enabled = true;
+        if(nbNameChar > maxCharacter || nbDescriptionChar > maxCharacter) {
+            formatage.enabled = true;
+
+        }
         else formatage.enabled = false;
+
+        Canvas.ForceUpdateCanvases();
+        height = GetComponent<RectTransform>().rect.height;
+        width = GetComponent<RectTransform>().rect.width;
+        Debug.Log(width + " " + height);
     }
 
 
