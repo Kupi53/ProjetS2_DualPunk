@@ -6370,7 +6370,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1110055306
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12335,7 +12335,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2036691577}
   - component: {fileID: 2036691576}
-  - component: {fileID: 2036691575}
   - component: {fileID: 2036691574}
   m_Layer: 0
   m_Name: ObjectSpawner
@@ -12361,7 +12360,6 @@ MonoBehaviour:
   <PredictedSpawn>k__BackingField: {fileID: 0}
   _networkBehaviours:
   - {fileID: 2036691576}
-  - {fileID: 2036691575}
   <ParentNetworkObject>k__BackingField: {fileID: 0}
   <ChildNetworkObjects>k__BackingField: []
   SerializedTransformProperties:
@@ -12378,21 +12376,6 @@ MonoBehaviour:
   _scenePathHash: 774665742
   <SceneId>k__BackingField: 3327164028495324731
   <AssetPathHash>k__BackingField: 0
---- !u!114 &2036691575
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2036691573}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 959d5b3841113c34f81b19a22be5eeb0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _componentIndexCache: 1
-  _addedNetworkObject: {fileID: 2036691574}
-  _networkObjectCache: {fileID: 2036691574}
 --- !u!114 &2036691576
 MonoBehaviour:
   m_ObjectHideFlags: 0

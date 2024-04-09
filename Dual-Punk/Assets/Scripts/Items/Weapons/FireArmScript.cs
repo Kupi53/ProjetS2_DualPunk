@@ -6,6 +6,7 @@ using System;
 using UnityEngine.Playables;
 using Unity.VisualScripting;
 using FishNet.Object;
+using FishNet.Demo.AdditiveScenes;
 
 
 public class FireArmScript : WeaponScript
@@ -127,6 +128,7 @@ public class FireArmScript : WeaponScript
     {
         _reloadTimer = 0;
         _reloading = false;
+        RemoveAllOwnerShipRPC(GetComponent<NetworkObject>());
     }
 
     public override void Drop()
@@ -146,13 +148,16 @@ public class FireArmScript : WeaponScript
 
     public virtual void Fire(Vector3 direction, int damage, float bulletSpeed, float dispersion)
     {
-        if (PlayerState.Walking)
-            dispersion /= _aimAccuracy;
+        FireBulletRpc(_bullet, transform.rotation, direction, damage, bulletSpeed, dispersion, PlayerState);
+    }
 
+    [ServerRpc(RequireOwnership = false)]
+    public virtual void FireBulletRpc(GameObject bullet, Quaternion rot, Vector3 direction, int damage, float bulletSpeed, float dispersion, PlayerState playerState){
+        if (playerState.Walking)
+            dispersion /= _aimAccuracy;
         for (int i = 0; i < _bulletNumber; i++)
         {
-            GameObject newBullet = Instantiate(_bullet, _gunEndPoints[i%_gunEndPoints.Length].transform.position, transform.rotation);
-            _objectSpawner.SpawnObjectRpc(newBullet, _gunEndPoints[i % _gunEndPoints.Length].transform.position, transform.rotation);
+            GameObject newBullet = Instantiate(bullet, _gunEndPoints[i%_gunEndPoints.Length].transform.position, rot);
             BulletScript bulletScript = newBullet.GetComponent<BulletScript>();
 
             Vector3 newDirection = new Vector3(direction.x + Methods.NextFloat(-dispersion, dispersion), direction.y + Methods.NextFloat(-dispersion, dispersion), 0).normalized;
@@ -160,5 +165,10 @@ public class FireArmScript : WeaponScript
 
             Spawn(newBullet);
         }
+    }
+
+    [ServerRpc]
+    void RemoveAllOwnerShipRPC(NetworkObject networkObject){
+        networkObject.RemoveOwnership();   
     }
 }
