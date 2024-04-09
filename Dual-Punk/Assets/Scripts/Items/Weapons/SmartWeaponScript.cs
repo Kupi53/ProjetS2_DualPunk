@@ -72,13 +72,6 @@ public class SmartWeaponScript : FireArmScript
         return false;
     }
 
-
-    public void AssignTarget(SeekingBulletScript bulletScript, PlayerState playerState, List<GameObject> targetIndicators)
-    {
-        
-    }
-
-
     public override void ResetWeapon()
     {
         base.Reset();
@@ -121,7 +114,7 @@ public class SmartWeaponScript : FireArmScript
         Debug.Log(playerState.PointerScript);
         if (_targetsIndicators.Count == 0)
         {
-            bulletScript.Target = null;
+            AssignTargetBulletScriptRPC(bulletScript, null)
         }
         else
         {
@@ -130,12 +123,17 @@ public class SmartWeaponScript : FireArmScript
             if (_targetsIndicators[_index] == null)
             {
                 _targetsIndicators.Remove(_targetsIndicators[_index]);
-                AssignTarget(bulletScript, playerState, _targetsIndicators);
+                AssignTargetClientRPC(bulletScript, playerState, networkConnection);
             }
             else
             {
-                bulletScript.Target = _targetsIndicators[_index].GetComponent<TargetIndicatorScript>().Target;
+                AssignTargetBulletScriptRPC(bulletScript,_targetsIndicators[_index].GetComponent<TargetIndicatorScript>().Target);
             }
         } 
+    }
+
+    [ServerRpc (RequireOwnership = false)]
+    void AssignTargetBulletScriptRPC(SeekingBulletScript bulletScript, GameObject? target){
+        bulletScript.Target = target;
     }
 }
