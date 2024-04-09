@@ -5,8 +5,6 @@ using UnityEngine;
 using System;
 using Unity.VisualScripting;
 using FishNet.Object;
-using Pathfinding;
-using FishNet.Connection;
 
 
 public class ItemManager : NetworkBehaviour
@@ -114,14 +112,9 @@ public class ItemManager : NetworkBehaviour
         //Intervetir avec l'arme en main
         _playerState.WeaponScript = weaponScript;
         _playerState.HoldingWeapon = true;
-        GiveOwnerShipRPC(weaponScript.gameObject.GetComponent<NetworkObject>(), base.ClientManager.Connection);
+        weaponScript.gameObject.GetComponent<NetworkObject>().GiveOwnership(base.ClientManager.Connection);
         weaponScript.PlayerState = _playerState;
         weaponScript.PlayerRecoil = _impact;
         weaponScript.InHand = true;
-    }
-
-    [ServerRpc]
-    void GiveOwnerShipRPC(NetworkObject networkObject, NetworkConnection connection){
-        networkObject.GiveOwnership(connection);
     }
 }
