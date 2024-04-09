@@ -13,8 +13,11 @@ public class SpawnEnnemies : NetworkBehaviour
     
     public override void OnStartServer()
     {
-        GameObject bot = Instantiate(randomEnnemy, new Vector3(-0.51f,-4.29f,0), Quaternion.identity);
-        Spawn(bot);
+        for (int i = 0; i < 5; i++)
+        {
+            GameObject bot = Instantiate(randomEnnemy, new Vector3(-0.50f * i, -1 * i, 0), Quaternion.identity);
+            Spawn(bot);
+        }
     }
     
 }
