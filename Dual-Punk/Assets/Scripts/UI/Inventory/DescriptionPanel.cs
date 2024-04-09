@@ -35,7 +35,6 @@ public class DescriptionPanel : MonoBehaviour
         width = GetComponent<RectTransform>().rect.width;
 
         RectTransform inventoryItemRect = transform.parent.GetComponent<RectTransform>();
-        Debug.Log(inventoryItemRect.rect.width + " " + inventoryItemRect.rect.height/2 + height);
 
         transform.localPosition = new Vector3(inventoryItemRect.rect.width/2-15 + width/2, inventoryItemRect.rect.height/2-15 + height/2, 0);
     }

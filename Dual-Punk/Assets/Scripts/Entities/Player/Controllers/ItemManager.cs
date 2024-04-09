@@ -28,6 +28,7 @@ public class ItemManager : NetworkBehaviour
         _playerState = GetComponent<PlayerState>();
 
         _inventoryManager.GetComponent<InventoryManager>().ItemManager = this;
+        _inventoryManager.GetComponent<InventoryManager>().PlayerState = _playerState;
         _inventoryManager.transform.GetChild(0).gameObject.SetActive(false);
     }
 

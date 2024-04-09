@@ -11,6 +11,8 @@ public class ObjectSpawner : NetworkBehaviour
     public GameObject SpawnObject(GameObject obj, UnityEngine.Vector3 transform, Quaternion quat)
     {
         GameObject instance = Instantiate(obj, transform, quat);
+        instance.SetActive(true);
+        Debug.Log(instance.GetComponent<NetworkObject>());
         SpawnObjectRpc(instance.GetComponent<NetworkObject>());
         return instance;        
     }
