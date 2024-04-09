@@ -5,6 +5,7 @@ using UnityEngine;
 using System;
 using Unity.Netcode;
 using FishNet.Object;
+using FishNet.Connection;
 
 
 public class SmartWeaponScript : FireArmScript
@@ -36,7 +37,9 @@ public class SmartWeaponScript : FireArmScript
 
             if (Input.GetButtonUp("Switch") && !ContainsTarget(PlayerState.PointerScript.Target))
             {
-                SpawnTargetLockRpc();
+                GameObject newTargetIndicator = Instantiate(_lockedTargetIndicator);
+                newTargetIndicator.GetComponent<TargetIndicatorScript>().Target = PlayerState.PointerScript.Target;
+                _targetsIndicators.Add(newTargetIndicator);
             }
 
             else if (Input.GetButton("Switch"))
@@ -72,26 +75,7 @@ public class SmartWeaponScript : FireArmScript
 
     public void AssignTarget(SeekingBulletScript bulletScript, PlayerState playerState, List<GameObject> targetIndicators)
     {
-        Debug.Log(playerState);
-        Debug.Log(playerState.PointerScript);
-        if (targetIndicators.Count == 0)
-        {
-            bulletScript.Target = null;
-        }
-        else
-        {
-            _index = (_index + 1) % targetIndicators.Count;
-
-            if (targetIndicators[_index] == null)
-            {
-                targetIndicators.Remove(targetIndicators[_index]);
-                AssignTarget(bulletScript, playerState, targetIndicators);
-            }
-            else
-            {
-                bulletScript.Target = targetIndicators[_index].GetComponent<TargetIndicatorScript>().Target;
-            }
-        }
+        
     }
 
 
@@ -108,11 +92,11 @@ public class SmartWeaponScript : FireArmScript
 
     public override void Fire(Vector3 direction, int damage, float bulletSpeed, float dispersion)
     {
-        FireSeekingBulletRpc(_bullet, transform.rotation, direction, damage, bulletSpeed, dispersion, PlayerState, _targetsIndicators);
+        FireSeekingBulletRpc(_bullet, transform.rotation, direction, damage, bulletSpeed, dispersion, PlayerState, ClientManager.Connection);
     }
 
     [ServerRpc(RequireOwnership = false)]
-    public void FireSeekingBulletRpc(GameObject bullet, Quaternion rot, Vector3 direction, int damage, float bulletSpeed, float dispersion, PlayerState playerState, List<GameObject> targetIndicators)
+    public void FireSeekingBulletRpc(GameObject bullet, Quaternion rot, Vector3 direction, int damage, float bulletSpeed, float dispersion, PlayerState playerState, NetworkConnection networkConnection)
     {
         if (playerState.Walking)
             dispersion /= _aimAccuracy;
@@ -126,20 +110,32 @@ public class SmartWeaponScript : FireArmScript
 
             bulletScript.Setup(damage, bulletSpeed, newDirection, _bulletRotateSpeed);
             Spawn(newBullet);
-            AssignTarget(bulletScript, playerState, targetIndicators);
+            AssignTargetClientRPC(bulletScript, playerState, networkConnection);
         }
     }
 
-    [ServerRpc (RequireOwnership = false)]
-    void SpawnTargetLockRpc(){
-        GameObject newTargetIndicator = Instantiate(_lockedTargetIndicator);
-        Spawn(newTargetIndicator);
-        AddToTargetListClientsRPC(newTargetIndicator);
-    }
-
     [ObserversRpc]
-    void AddToTargetListClientsRPC(GameObject targetIndicator){
-        targetIndicator.GetComponent<TargetIndicatorScript>().Target = PlayerState.PointerScript.Target;
-        _targetsIndicators.Add(targetIndicator);
+    void AssignTargetClientRPC(SeekingBulletScript bulletScript, PlayerState playerState, NetworkConnection networkConnection){
+        if (!networkConnection.IsLocalClient) return;
+        Debug.Log(playerState);
+        Debug.Log(playerState.PointerScript);
+        if (_targetsIndicators.Count == 0)
+        {
+            bulletScript.Target = null;
+        }
+        else
+        {
+            _index = (_index + 1) % _targetsIndicators.Count;
+
+            if (_targetsIndicators[_index] == null)
+            {
+                _targetsIndicators.Remove(_targetsIndicators[_index]);
+                AssignTarget(bulletScript, playerState, _targetsIndicators);
+            }
+            else
+            {
+                bulletScript.Target = _targetsIndicators[_index].GetComponent<TargetIndicatorScript>().Target;
+            }
+        } 
     }
 }
