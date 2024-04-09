@@ -9,8 +9,6 @@ using FishNet.Object;
 
 public class ItemManager : NetworkBehaviour
 {
-    [SerializeField] private GameObject[] _weaponsSlots;
-    
     private GameObject _inventoryManager;
     private PlayerState _playerState;
     private List<GameObject> _items;
@@ -18,18 +16,18 @@ public class ItemManager : NetworkBehaviour
     private int _index;
 
 
+
     private void Start()
     {
         if(!Owner.IsLocalClient) return;
-
+        _inventoryManager = GameObject.FindWithTag("Inventory");
         _index = 0;
         _items = new List<GameObject>();
         _impact = GetComponent<IImpact>();
         _playerState = GetComponent<PlayerState>();
-        _inventoryManager = GameObject.FindWithTag("Inventory");
 
-        _inventoryManager.GetComponent<InventoryManager>().PlayerState = _playerState;
-        _inventoryManager.gameObject.SetActive(false);
+        _inventoryManager.GetComponent<InventoryManager>().ItemManager = this;
+        _inventoryManager.transform.GetChild(0).gameObject.SetActive(false);
     }
 
 
@@ -45,17 +43,24 @@ public class ItemManager : NetworkBehaviour
             GameObject item = _items[_index];
             WeaponScript weaponScript;
 
-
             if (item.CompareTag("Weapon") && !(weaponScript = item.GetComponent<WeaponScript>()).InHand)
             {
                 item.GetComponent<HighlightItem>().Highlight();
 
-                if (Input.GetButtonDown("Pickup") && !_playerState.HoldingWeapon)
+                if (Input.GetButtonDown("Pickup"))
                 {
                     _index = 0;
                     _items.Remove(item);
+
+                    InventorySlots[] weaponsSlots = _inventoryManager.GetComponent<InventoryManager>().WeaponSlots;
+                    int equippedSlot = _inventoryManager.GetComponent<InventoryManager>().EquipedSlotIndex;
+                    if(weaponsSlots[equippedSlot].heldItem == null){
+                        UpdateHeldWeapon(weaponScript);
+                    }
+
                     _inventoryManager.GetComponent<InventoryPickItem>().ItemPicked(item);
-                    UpdateHeldWeapon(weaponScript);
+                    
+
                 }
             }
             else if (item.CompareTag("Implant")) //Plus verifier que l'implant n'est pas sur une entite
@@ -84,20 +89,11 @@ public class ItemManager : NetworkBehaviour
         }
     }
 
-
-    void UpdateHeldWeapon(WeaponScript weaponScript)
-    {
-        //Intervetir avec l'arme en main
-        _playerState.WeaponScript = weaponScript;
-        _playerState.HoldingWeapon = true;
-        weaponScript.gameObject.GetComponent<NetworkObject>().GiveOwnership(base.ClientManager.Connection);
-        weaponScript.PlayerState = _playerState;
-        weaponScript.PlayerRecoil = _impact;
-        weaponScript.InHand = true;
+    public PlayerState GetPlayerState(){
+        return _playerState;
     }
 
-
-    void OnTriggerStay2D(Collider2D collision)
+    void OnTriggerEnter2D(Collider2D collision)
     {
         if (!Owner.IsLocalClient) return;
 
@@ -121,5 +117,15 @@ public class ItemManager : NetworkBehaviour
             _index = 0;
             _items.Remove(item);
         }
+    }
+
+    public void UpdateHeldWeapon(WeaponScript weaponScript){
+        //Intervetir avec l'arme en main
+        _playerState.WeaponScript = weaponScript;
+        _playerState.HoldingWeapon = true;
+        weaponScript.gameObject.GetComponent<NetworkObject>().GiveOwnership(base.ClientManager.Connection);
+        weaponScript.PlayerState = _playerState;
+        weaponScript.PlayerRecoil = _impact;
+        weaponScript.InHand = true;
     }
 }

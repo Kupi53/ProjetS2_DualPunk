@@ -884,11 +884,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 615769709342220179, guid: d5c6a5e76b34fb04ea849d7308514620, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1.5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 615769709342220179, guid: d5c6a5e76b34fb04ea849d7308514620, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1.5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 615769709342220179, guid: d5c6a5e76b34fb04ea849d7308514620, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1375,7 +1375,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 524551598}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: EnbleDisableButton, Assembly-CSharp
         m_MethodName: ChangeActiveness
         m_Mode: 1
@@ -2404,13 +2404,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 524551597}
-  - component: {fileID: 524551602}
-  - component: {fileID: 524551600}
-  - component: {fileID: 524551599}
-  - component: {fileID: 524551598}
   m_Layer: 5
-  m_Name: InventoryManager
-  m_TagString: Inventory
+  m_Name: Inventory
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2438,92 +2434,6 @@ RectTransform:
   m_AnchoredPosition: {x: 958.8694, y: 535.0133}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &524551598
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 524551596}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d9f21ef36b2bc0547942a4a4ec8eea1a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  descriptions: {fileID: 524551599}
---- !u!114 &524551599
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 524551596}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e98636589fd105b4b999d34e59528d05, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &524551600
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 524551596}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a27024cc8b75b4418cc364547943a14, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _weaponSlots:
-  - {fileID: 174529225}
-  - {fileID: 1070000039}
-  - {fileID: 258978039}
-  PlayerState: {fileID: 0}
-  DropPanel: {fileID: 672367644}
-  inventoryPanel: {fileID: 1830787569}
---- !u!114 &524551602
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 524551596}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b40488e8b10eec46afabced658f2cde, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponSlots:
-  - {fileID: 174529224}
-  - {fileID: 1070000038}
-  - {fileID: 258978038}
-  implantSlots:
-  - {fileID: 1478823004}
-  - {fileID: 258428534}
-  - {fileID: 40259556}
-  - {fileID: 1053637138}
-  consummableSlots:
-  - {fileID: 489835038}
-  - {fileID: 1089730189}
-  - {fileID: 2018794701}
-  inventorySlots:
-  - {fileID: 1830301992}
-  - {fileID: 910558522}
-  - {fileID: 581420737}
-  - {fileID: 1556115054}
-  - {fileID: 780058467}
-  - {fileID: 623258227}
-  - {fileID: 185508579}
-  - {fileID: 936028}
-  - {fileID: 683959016}
-  - {fileID: 1635385344}
-  - {fileID: 583346637}
-  - {fileID: 1615402363}
-  - {fileID: 450524628}
-  - {fileID: 1251032530}
-  - {fileID: 16275143}
-  inventoryItemPrefab: {fileID: 4252539774606866288, guid: 12b50c4db90930e4abf5d7ca449a116f, type: 3}
 --- !u!1001 &572549774
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5288,9 +5198,13 @@ GameObject:
   m_Component:
   - component: {fileID: 959364811}
   - component: {fileID: 959364812}
+  - component: {fileID: 959364813}
+  - component: {fileID: 959364816}
+  - component: {fileID: 959364815}
+  - component: {fileID: 959364814}
   m_Layer: 0
-  m_Name: Inventory
-  m_TagString: Untagged
+  m_Name: InventoryManager
+  m_TagString: Inventory
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5324,6 +5238,92 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Inventory: {fileID: 524551596}
+--- !u!114 &959364813
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 959364810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a27024cc8b75b4418cc364547943a14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  WeaponSlots:
+  - {fileID: 174529225}
+  - {fileID: 1070000039}
+  - {fileID: 258978039}
+  DropPanel: {fileID: 672367644}
+  inventoryPanel: {fileID: 1830787569}
+  EquipedSlot: 0
+--- !u!114 &959364814
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 959364810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9f21ef36b2bc0547942a4a4ec8eea1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  descriptions: {fileID: 0}
+--- !u!114 &959364815
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 959364810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e98636589fd105b4b999d34e59528d05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &959364816
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 959364810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b40488e8b10eec46afabced658f2cde, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponSlots:
+  - {fileID: 174529224}
+  - {fileID: 1070000038}
+  - {fileID: 258978038}
+  implantSlots:
+  - {fileID: 1478823004}
+  - {fileID: 258428534}
+  - {fileID: 40259556}
+  - {fileID: 1053637138}
+  consummableSlots:
+  - {fileID: 489835038}
+  - {fileID: 1089730189}
+  - {fileID: 2018794701}
+  inventorySlots:
+  - {fileID: 1830301992}
+  - {fileID: 910558522}
+  - {fileID: 581420737}
+  - {fileID: 1556115054}
+  - {fileID: 780058467}
+  - {fileID: 623258227}
+  - {fileID: 185508579}
+  - {fileID: 936028}
+  - {fileID: 683959016}
+  - {fileID: 1635385344}
+  - {fileID: 583346637}
+  - {fileID: 1615402363}
+  - {fileID: 450524628}
+  - {fileID: 1251032530}
+  - {fileID: 16275143}
+  inventoryItemPrefab: {fileID: 4252539774606866288, guid: 12b50c4db90930e4abf5d7ca449a116f, type: 3}
 --- !u!1 &1045441745
 GameObject:
   m_ObjectHideFlags: 0
