@@ -131,20 +131,6 @@ public class FireArmScript : WeaponScript
         RemoveAllOwnerShipRPC(GetComponent<NetworkObject>());
     }
 
-    public override void Drop()
-    {
-        ResetWeapon();
-        InHand = false;
-        transform.position = PlayerState.transform.position + PlayerState.WeaponScript.WeaponOffset;
-        transform.rotation = Quaternion.identity;
-
-        if (_spriteRenderer.flipY)
-        {
-            _weaponOffset.x = -_weaponOffset.x;
-            _spriteRenderer.flipY = false;
-        }
-    }
-
 
     public virtual void Fire(Vector3 direction, int damage, float bulletSpeed, float dispersion)
     {

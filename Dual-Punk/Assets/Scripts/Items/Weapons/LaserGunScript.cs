@@ -158,20 +158,6 @@ public class LaserGunScript : WeaponScript
         DisableLaser();
     }
 
-    public override void Drop()
-    {
-        ResetWeapon();
-        InHand = false;
-        transform.position = PlayerState.transform.position + PlayerState.WeaponScript.WeaponOffset;
-        transform.rotation = Quaternion.identity;
-
-        if (_spriteRenderer.flipY)
-        {
-            _weaponOffset.x = -_weaponOffset.x;
-            _spriteRenderer.flipY = false;
-        }
-    }
-
 
     private void DrawLaser(Vector3 targetPoint, Vector3 direction)
     {

@@ -27,46 +27,42 @@ public abstract class WeaponScript : NetworkBehaviour
 
     public abstract void Run(Vector3 position, Vector3 direction);
     public abstract void ResetWeapon();
-    public abstract void Drop();
+
+    public void Drop()
+    {
+        ResetWeapon();
+        InHand = false;
+        transform.position = PlayerState.transform.position + PlayerState.WeaponScript.WeaponOffset;
+        transform.rotation = Quaternion.identity;
+
+        if (_spriteRenderer.flipY)
+        {
+            FlipWeaponClientRpc(false);
+        }
+    }
 
     protected void MovePosition(Vector3 position, Vector3 direction)
     {
-        if (PlayerState.MousePosition.x < PlayerState.transform.position.x)
-        {
-            if (!_spriteRenderer.flipY)
-            {
-                FlipWeaponClientRpc(true);
-            }
-        }
-        else
-        {
-            if (_spriteRenderer.flipY)
-            {
-                FlipWeaponClientRpc(false);
-            }
-        }
-
+        FlipWeaponClientRpc(PlayerState.MousePosition.x < PlayerState.transform.position.x);
+        
         transform.position = position + _weaponOffset + direction * _weaponDistance;
         transform.eulerAngles = new Vector3(0, 0, Methods.GetAngle(direction));
     }
 
 
-    void Start(){
-        Debug.Log("testtt");
-        if (IsServer){
-            Debug.Log("test");
-            Spawn(gameObject);
-        }
-
-    }
-
-    void Awake(){
-        _objectSpawner = GameObject.Find("ObjectSpawner").GetComponent<ObjectSpawner>();
-    }
-
     [ObserversRpc]
-    void FlipWeaponClientRpc(bool flip){
-        _spriteRenderer.flipY = flip;
-        _weaponOffset.x *= -_weaponOffset.x;
+    protected void FlipWeaponClientRpc(bool flip)
+    {
+        if (_spriteRenderer.flipY == !flip)
+        {
+            _spriteRenderer.flipY = flip;
+            _weaponOffset.x = -_weaponOffset.x;
+        }
+    }
+
+
+    void Awake()
+    {
+        _objectSpawner = GameObject.Find("ObjectSpawner").GetComponent<ObjectSpawner>();
     }
 }

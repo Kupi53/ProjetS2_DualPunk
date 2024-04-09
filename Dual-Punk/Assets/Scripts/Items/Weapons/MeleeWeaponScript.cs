@@ -146,18 +146,4 @@ public class MeleeWeaponScript : WeaponScript
         _resetCooldownTimer = 0;
         _currentWeaponDistance = _weaponDistance;
     }
-
-    public override void Drop()
-    {
-        ResetWeapon();
-        InHand = false;
-        transform.position = PlayerState.transform.position + PlayerState.WeaponScript.WeaponOffset;
-        transform.rotation = Quaternion.identity;
-
-        if (_spriteRenderer.flipY)
-        {
-            _weaponOffset.x = -_weaponOffset.x;
-            _spriteRenderer.flipY = false;
-        }
-    }
 }
