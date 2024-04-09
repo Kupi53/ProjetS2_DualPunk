@@ -11,6 +11,8 @@ public class InventoryPickItem : MonoBehaviour
     [SerializeField] GameObject[] inventorySlots = new GameObject[15];
     [SerializeField] GameObject inventoryItemPrefab;
 
+    private int EquipedSlotIndex => GetComponent<InventoryManager>().EquipedSlotIndex;
+
     public void ItemPicked(GameObject pickedItem){
         GameObject emptySlot = null;
         string Tag = pickedItem.tag;
@@ -39,8 +41,11 @@ public class InventoryPickItem : MonoBehaviour
             newItem.transform.localScale = emptySlot.transform.localScale;
             
             emptySlot.GetComponent<InventorySlots>().SetHeldItem(newItem);
-            if (pickedItem.tag != "Weapon")
+
+            if(weaponSlots[EquipedSlotIndex] != emptySlot){
                 Destroy(pickedItem);
+            }
+
         }
     }
 

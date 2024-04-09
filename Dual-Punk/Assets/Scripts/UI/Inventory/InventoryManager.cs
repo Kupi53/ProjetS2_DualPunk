@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using FishNet.Object;
-using IngameDebugConsole;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -9,25 +6,32 @@ using UnityEngine.UI;
 public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerEnterHandler, IPointerExitHandler
 {
 
-    [SerializeField] InventorySlots[] _weaponSlots = new InventorySlots[3];
-    public PlayerState PlayerState;
+    public InventorySlots[] WeaponSlots = new InventorySlots[3];
+    public ItemManager ItemManager {get; set;}
     private GameObject draggedObject;
     private InventorySlots LastSlotPosition;
     private InventorySlots currentSlot;
     private GameObject selectedSlotIcon;
     private ObjectSpawner objectSpawner;
-    DescriptionManager descriptionManager => GetComponent<DescriptionManager>();
+    private DescriptionManager descriptionManager => GetComponent<DescriptionManager>();
     [SerializeField] private Image DropPanel;
     [SerializeField] private Image inventoryPanel;
+    public int EquipedSlotIndex;
 
     void Start(){
         objectSpawner = GameObject.Find("ObjectSpawner").GetComponent<ObjectSpawner>();
+        EquipedSlotIndex = 0;
     }
     void Update()
     {
         //fais suivre l'objet clique par la souris, sur la souris.
         if(draggedObject != null){
             draggedObject.transform.position = Input.mousePosition;
+        }
+
+        float scroll = Input.GetAxis("Mouse ScrollWheel");
+        if(scroll != 0){
+            SwapEquipedSlot();
         }
 
     }
@@ -132,7 +136,32 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
         }
     }
 
-    //Auxilaries Functions that work as their name says.
+    public void SwapEquipedSlot(){
+        GameObject currentStoredObject = WeaponSlots[EquipedSlotIndex].heldItem; 
+
+        if (currentStoredObject != null){
+            WeaponSlots[EquipedSlotIndex].transform.localScale = new Vector3(1.5f,1.5f,1f);
+
+            if (currentStoredObject != null) {
+                currentStoredObject.transform.localScale = new Vector3(1.5f,1.5f,1f);
+                do {
+                    EquipedSlotIndex = (EquipedSlotIndex + 1)%3;
+                }while(WeaponSlots[EquipedSlotIndex].heldItem == null);
+            }
+
+            GameObject nextStoredObject = WeaponSlots[EquipedSlotIndex].heldItem;
+            WeaponSlots[EquipedSlotIndex].transform.localScale = new Vector3(2f,2f,1f);
+
+            nextStoredObject.transform.localScale = WeaponSlots[EquipedSlotIndex].transform.localScale;
+            GameObject equipedObject = nextStoredObject.GetComponent<InventoryItem>().displayedItem.prefab;
+            Instantiate(equipedObject);
+            ItemManager.UpdateHeldWeapon(equipedObject.GetComponent<WeaponScript>());
+        }
+
+
+    }
+
+//----Auxilaries Functions that work as their name says.---------------------------------------------------------
 
     private bool Swapable(InventorySlots selectedSlot, GameObject selectedItem){
         bool res = false;
