@@ -114,7 +114,7 @@ public class SmartWeaponScript : FireArmScript
         Debug.Log(playerState.PointerScript);
         if (_targetsIndicators.Count == 0)
         {
-            AssignTargetBulletScriptRPC(bulletScript, null)
+            AssignTargetBulletScriptRPC(bulletScript, null);
         }
         else
         {
