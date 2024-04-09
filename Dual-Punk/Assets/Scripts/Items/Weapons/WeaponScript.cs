@@ -35,7 +35,6 @@ public abstract class WeaponScript : NetworkBehaviour
         {
             if (!_spriteRenderer.flipY)
             {
-                _weaponOffset.x = -_weaponOffset.x;
                 FlipWeaponClientRpc(true);
             }
         }
@@ -43,7 +42,6 @@ public abstract class WeaponScript : NetworkBehaviour
         {
             if (_spriteRenderer.flipY)
             {
-                _weaponOffset.x = -_weaponOffset.x;
                 FlipWeaponClientRpc(false);
             }
         }
@@ -69,5 +67,6 @@ public abstract class WeaponScript : NetworkBehaviour
     [ObserversRpc]
     void FlipWeaponClientRpc(bool flip){
         _spriteRenderer.flipY = flip;
+        _weaponOffset.x *= -_weaponOffset.x;
     }
 }
