@@ -67,9 +67,9 @@ public class FireArmScript : WeaponScript
     }
 
 
-    public override void Run(Vector3 position, Vector3 direction)
+    public override void Run(Vector3 position, Vector3 direction, PlayerState playerState)
     {
-        MovePosition(position, direction);
+        MovePositionRPC(position, direction, playerState);
 
         if ((Input.GetButton("Use") && _auto && !_reloading || Input.GetButtonDown("Use")) && _fireTimer >= _fireRate && _ammoLeft > 0)
         {
@@ -81,7 +81,7 @@ public class FireArmScript : WeaponScript
 
             Fire(direction, _damage, _bulletSpeed, _dispersion);
             PlayerRecoil.Impact(-direction, _recoilForce);
-            PlayerState.CameraController.ShakeCamera(_cameraShake, 0.1f);
+            playerState.CameraController.ShakeCamera(_cameraShake, 0.1f);
 
             _fireTimer = 0;
             _ammoLeft--;

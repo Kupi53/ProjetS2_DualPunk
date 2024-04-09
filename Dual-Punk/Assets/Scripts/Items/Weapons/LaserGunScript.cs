@@ -87,7 +87,7 @@ public class LaserGunScript : WeaponScript
 
 
 
-    public override void Run(Vector3 position, Vector3 direction)
+    public override void Run(Vector3 position, Vector3 direction, PlayerState playerState)
     {
         if (_coolDown && Input.GetButton("Use"))
             PlayerState.PointerScript.SpriteNumber = 0;
@@ -108,7 +108,7 @@ public class LaserGunScript : WeaponScript
             _coolDown = true;
         }
 
-        MovePosition(position, direction);
+        MovePositionRPC(position, direction, playerState);
         Fire(direction);
     }
 

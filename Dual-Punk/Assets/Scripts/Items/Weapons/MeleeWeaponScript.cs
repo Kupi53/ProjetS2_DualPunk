@@ -45,7 +45,7 @@ public class MeleeWeaponScript : WeaponScript
     }
 
 
-    public override void Run(Vector3 position, Vector3 direction)
+    public override void Run(Vector3 position, Vector3 direction, PlayerState playerState)
     {
         if (!Owner.IsLocalClient) return;
         if (Input.GetButtonDown("Use") && !PlayerState.Attacking && _attack < 3)

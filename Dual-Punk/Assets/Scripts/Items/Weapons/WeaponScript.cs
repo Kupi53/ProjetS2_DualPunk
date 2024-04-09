@@ -25,12 +25,14 @@ public abstract class WeaponScript : NetworkBehaviour
 
     public Vector3 WeaponOffset { get => _weaponOffset; set => _weaponOffset = value; }
 
-    public abstract void Run(Vector3 position, Vector3 direction);
+    public abstract void Run(Vector3 position, Vector3 direction, PlayerState playerState);
     public abstract void ResetWeapon();
 
-    protected void MovePosition(Vector3 position, Vector3 direction)
+
+    [ServerRpc (RequireOwnership = false)]
+    protected void MovePositionRPC(Vector3 position, Vector3 direction, PlayerState playerState)
     {
-        if (PlayerState.MousePosition.x < PlayerState.transform.position.x)
+        if (playerState.MousePosition.x < playerState.transform.position.x)
         {
             if (!_spriteRenderer.flipY)
             {

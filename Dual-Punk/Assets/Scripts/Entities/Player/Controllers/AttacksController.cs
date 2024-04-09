@@ -36,7 +36,7 @@ public class AttacksController : NetworkBehaviour
             }
 
             if (_playerState.HoldingWeapon)
-                _playerState.WeaponScript.Run(transform.position, _direction);
+                _playerState.WeaponScript.Run(transform.position, _direction, _playerState);
         }
     }
 }
