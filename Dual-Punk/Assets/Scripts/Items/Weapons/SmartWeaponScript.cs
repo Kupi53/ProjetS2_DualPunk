@@ -13,8 +13,6 @@ public class SmartWeaponScript : FireArmScript
     [SerializeField] private float _bulletRotateSpeed;
 
     private List<GameObject> _targetsIndicators;
-    private GameObject _newTargetIndicator;
-
     private float _resetTimer;
     private int _index;
 
@@ -38,9 +36,7 @@ public class SmartWeaponScript : FireArmScript
 
             if (Input.GetButtonUp("Switch") && !ContainsTarget(PlayerState.PointerScript.Target))
             {
-                _newTargetIndicator = Instantiate(_lockedTargetIndicator);
-                _newTargetIndicator.GetComponent<TargetIndicatorScript>().Target = PlayerState.PointerScript.Target;
-                _targetsIndicators.Add(_newTargetIndicator);
+                SpawnTargetLockRpc();
             }
 
             else if (Input.GetButton("Switch"))
@@ -74,24 +70,26 @@ public class SmartWeaponScript : FireArmScript
     }
 
 
-    public void AssignTarget(SeekingBulletScript bulletScript)
+    public void AssignTarget(SeekingBulletScript bulletScript, PlayerState playerState, List<GameObject> targetIndicators)
     {
-        if (_targetsIndicators.Count == 0)
+        Debug.Log(playerState);
+        Debug.Log(playerState.PointerScript);
+        if (targetIndicators.Count == 0)
         {
-            bulletScript.Target = PlayerState.PointerScript.Target;
+            bulletScript.Target = null;
         }
         else
         {
-            _index = (_index + 1) % _targetsIndicators.Count;
+            _index = (_index + 1) % targetIndicators.Count;
 
-            if (_targetsIndicators[_index] == null)
+            if (targetIndicators[_index] == null)
             {
-                _targetsIndicators.Remove(_targetsIndicators[_index]);
-                AssignTarget(bulletScript);
+                targetIndicators.Remove(targetIndicators[_index]);
+                AssignTarget(bulletScript, playerState, targetIndicators);
             }
             else
             {
-                bulletScript.Target = _targetsIndicators[_index].GetComponent<TargetIndicatorScript>().Target;
+                bulletScript.Target = targetIndicators[_index].GetComponent<TargetIndicatorScript>().Target;
             }
         }
     }
@@ -108,22 +106,40 @@ public class SmartWeaponScript : FireArmScript
         _targetsIndicators.Clear();
     }
 
-
     public override void Fire(Vector3 direction, int damage, float bulletSpeed, float dispersion)
     {
-        if (PlayerState.Walking)
+        FireSeekingBulletRpc(_bullet, transform.rotation, direction, damage, bulletSpeed, dispersion, PlayerState, _targetsIndicators);
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void FireSeekingBulletRpc(GameObject bullet, Quaternion rot, Vector3 direction, int damage, float bulletSpeed, float dispersion, PlayerState playerState, List<GameObject> targetIndicators)
+    {
+        if (playerState.Walking)
             dispersion /= _aimAccuracy;
 
         for (int i = 0; i < _bulletNumber; i++)
         {
-            GameObject newBullet = Instantiate(_bullet, _gunEndPoints[i % _gunEndPoints.Length].transform.position, transform.rotation);
-            Spawn(newBullet);
+            GameObject newBullet = Instantiate(bullet, _gunEndPoints[i % _gunEndPoints.Length].transform.position, rot);
             SeekingBulletScript bulletScript = newBullet.GetComponent<SeekingBulletScript>();
 
             Vector3 newDirection = new Vector3(direction.x + Methods.NextFloat(-dispersion, dispersion), direction.y + Methods.NextFloat(-dispersion, dispersion), 0).normalized;
 
             bulletScript.Setup(damage, bulletSpeed, newDirection, _bulletRotateSpeed);
-            AssignTarget(bulletScript);
+            Spawn(newBullet);
+            AssignTarget(bulletScript, playerState, targetIndicators);
         }
+    }
+
+    [ServerRpc (RequireOwnership = false)]
+    void SpawnTargetLockRpc(){
+        GameObject newTargetIndicator = Instantiate(_lockedTargetIndicator);
+        Spawn(newTargetIndicator);
+        AddToTargetListClientsRPC(newTargetIndicator);
+    }
+
+    [ObserversRpc]
+    void AddToTargetListClientsRPC(GameObject targetIndicator){
+        targetIndicator.GetComponent<TargetIndicatorScript>().Target = PlayerState.PointerScript.Target;
+        _targetsIndicators.Add(targetIndicator);
     }
 }

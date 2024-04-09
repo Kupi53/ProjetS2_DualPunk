@@ -10,7 +10,6 @@ public class RocketScript : BulletScript
     [SerializeField] private GameObject _explosion;
 
     private NetworkManager _networkManager;
-    private ObjectSpawner _objectSpawner;
     private Vector3 _startPosition;
 
     private float _distanceUntilExplosion;
@@ -19,11 +18,6 @@ public class RocketScript : BulletScript
     private float _deviationAngle;
     private float _deviationSpeed;
 
-
-    private void Start()
-    {
-        _objectSpawner = GameObject.Find("ObjectSpawner").GetComponent<ObjectSpawner>();
-    }
 
     public override void OnStartNetwork()
     {
@@ -68,7 +62,7 @@ public class RocketScript : BulletScript
 
     protected override void DestroyThis()
     {
-        GameObject explosion = _objectSpawner.SpawnObject(_explosion, transform.position, transform.rotation);
+        GameObject explosion = Instantiate(_explosion, transform.position, transform.rotation);
 
         Spawn(explosion);
         Destroy(explosion, 1);

@@ -128,29 +128,33 @@ public class FireArmScript : WeaponScript
     {
         _reloadTimer = 0;
         _reloading = false;
+        RemoveAllOwnerShipRPC(GetComponent<NetworkObject>());
     }
 
 
     public virtual void Fire(Vector3 direction, int damage, float bulletSpeed, float dispersion)
     {
-        FireBulletRpc(PlayerState.Walking, _bullet, transform.rotation, direction, damage, bulletSpeed, dispersion);
+        FireBulletRpc(_bullet, transform.rotation, direction, damage, bulletSpeed, dispersion, PlayerState);
     }
 
     [ServerRpc(RequireOwnership = false)]
-    private void FireBulletRpc(bool walking, GameObject bullet, Quaternion rot, Vector3 dir, int damage, float bulletSpeed, float dispersion){
-        Debug.Log("11111111111111111fkojsdflkasdfkljsdf");
-        if (walking)
+    public virtual void FireBulletRpc(GameObject bullet, Quaternion rot, Vector3 direction, int damage, float bulletSpeed, float dispersion, PlayerState playerState){
+        if (playerState.Walking)
             dispersion /= _aimAccuracy;
         for (int i = 0; i < _bulletNumber; i++)
         {
-            Debug.Log("fkojsdflkasdfkljsdf");
             GameObject newBullet = Instantiate(bullet, _gunEndPoints[i%_gunEndPoints.Length].transform.position, rot);
             BulletScript bulletScript = newBullet.GetComponent<BulletScript>();
 
-            Vector3 newDirection = new Vector3(dir.x + Methods.NextFloat(-dispersion, dispersion), dir.y + Methods.NextFloat(-dispersion, dispersion), 0).normalized;
+            Vector3 newDirection = new Vector3(direction.x + Methods.NextFloat(-dispersion, dispersion), direction.y + Methods.NextFloat(-dispersion, dispersion), 0).normalized;
             bulletScript.Setup(damage, bulletSpeed, newDirection);
 
             Spawn(newBullet);
         }
+    }
+
+    [ServerRpc]
+    void RemoveAllOwnerShipRPC(NetworkObject networkObject){
+        networkObject.RemoveOwnership();   
     }
 }
