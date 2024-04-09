@@ -36,7 +36,7 @@ public abstract class WeaponScript : NetworkBehaviour
             if (!_spriteRenderer.flipY)
             {
                 _weaponOffset.x = -_weaponOffset.x;
-                _spriteRenderer.flipY = true;
+                FlipWeaponClientRpc(true);
             }
         }
         else
@@ -44,7 +44,7 @@ public abstract class WeaponScript : NetworkBehaviour
             if (_spriteRenderer.flipY)
             {
                 _weaponOffset.x = -_weaponOffset.x;
-                _spriteRenderer.flipY = false;
+                FlipWeaponClientRpc(false);
             }
         }
 
@@ -64,5 +64,10 @@ public abstract class WeaponScript : NetworkBehaviour
 
     void Awake(){
         _objectSpawner = GameObject.Find("ObjectSpawner").GetComponent<ObjectSpawner>();
+    }
+
+    [ObserversRpc]
+    void FlipWeaponClientRpc(bool flip){
+        _spriteRenderer.flipY = flip;
     }
 }
