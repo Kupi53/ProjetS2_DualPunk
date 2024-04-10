@@ -19449,8 +19449,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8547339821460021461}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.88442, y: 0.0074795, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0.6958896, w: 0.7181489}
+  m_LocalPosition: {x: 1.9293742, y: -0.30596513, z: 0}
   m_LocalScale: {x: 0.42740023, y: 0.42740023, z: 1.0685005}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -19632,7 +19632,7 @@ MonoBehaviour:
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 29
+  <PrefabId>k__BackingField: 17
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0
