@@ -8,6 +8,7 @@ using UnityEngine.Playables;
 //Ce script va gerer les attaques, des implants ou des armes
 public class AttacksController : NetworkBehaviour
 {
+    
     private PlayerState _playerState;
     private Vector3 _direction;
 

@@ -74,15 +74,16 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
             if(slot != null && slot.heldItem != null) {
 
                 if(slot == WeaponSlots[EquipedSlotIndex]){
-                    Debug.Log("C'est l'arme equipe que je drop");
                     PlayerState.WeaponScript.Drop();
                     PlayerState.HoldingWeapon = false;
-                    //PlayerState.PointerScript.SpriteNumber = 0;
+                    PlayerState.PointerScript.SpriteNumber = 0;
+                }
+                else{
+                    SpawnInventoryItem(slot.heldItem);
                 }
 
-                GameObject spawnedItem = slot.heldItem;
                 Destroy(slot.heldItem);
-                SpawnInventoryItem(spawnedItem);
+                slot.heldItem = null;
             }
         }
     }
@@ -128,15 +129,17 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
                 //drop the item on the map
                 else{
                     if(LastSlotPosition == WeaponSlots[EquipedSlotIndex]){
-                        Debug.Log("drop de l'arme par dragging");
                         PlayerState.WeaponScript.Drop();
                         PlayerState.HoldingWeapon = false;
-                        //PlayerState.PointerScript.SpriteNumber = 0;
+                        PlayerState.PointerScript.SpriteNumber = 0;
                     }
-                    GameObject spawnedItem = draggedObject.GetComponent<InventoryItem>().displayedItem.prefab;
-                    LastSlotPosition.heldItem = null;
+                    else{
+                        SpawnInventoryItem(draggedObject);
+                    }
+
                     Destroy(draggedObject);
-                    SpawnInventoryItem(spawnedItem);
+
+
                 }
 
                 draggedObject = null;
@@ -175,10 +178,12 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
 
             GameObject nextStoredObject = WeaponSlots[EquipedSlotIndex].heldItem;
             WeaponSlots[EquipedSlotIndex].transform.localScale = new Vector3(2f,2f,1f);
-
             nextStoredObject.transform.localScale = WeaponSlots[EquipedSlotIndex].transform.localScale;
+            
             GameObject equipedObject = nextStoredObject.GetComponent<InventoryItem>().displayedItem.prefab;
+            GameObject destroyedGameObject = PlayerState.WeaponScript.gameObject;
             objectSpawner.SpawnObjectAndUpdateRpc(equipedObject, PlayerState.gameObject.transform.position, new Quaternion(), InstanceFinder.ClientManager.Connection, ItemManager.gameObject);
+            Destroy(destroyedGameObject);
         }
     }
 
@@ -231,8 +236,9 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
     }
 
     private void SpawnInventoryItem(GameObject spawnedItem){
+        GameObject spawnedItemPrefab = spawnedItem.GetComponent<InventoryItem>().displayedItem.prefab;
         Vector3 spawnPosition = GameObject.FindWithTag("Player").transform.position;
-        objectSpawner.SpawnObjectRpc(spawnedItem, spawnPosition, new Quaternion());
+        objectSpawner.SpawnObjectRpc(spawnedItemPrefab, spawnPosition, new Quaternion());
     }
 
 }
