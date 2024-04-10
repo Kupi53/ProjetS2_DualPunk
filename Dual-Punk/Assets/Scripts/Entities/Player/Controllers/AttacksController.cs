@@ -27,13 +27,6 @@ public class AttacksController : NetworkBehaviour
             if (!_playerState.Attacking)
             {        
                 _direction = (_playerState.MousePosition - transform.position - _playerState.WeaponScript.WeaponOffset).normalized;
-
-                if (Input.GetButtonDown("Drop"))
-                {
-                    _playerState.WeaponScript.Drop();
-                    _playerState.HoldingWeapon = false;
-                    _playerState.PointerScript.SpriteNumber = 0;
-                }
             }
 
             if (_playerState.HoldingWeapon)
