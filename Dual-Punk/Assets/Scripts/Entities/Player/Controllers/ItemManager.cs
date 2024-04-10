@@ -95,7 +95,7 @@ public class ItemManager : NetworkBehaviour
         return _playerState;
     }
 
-    void OnTriggerEnter2D(Collider2D collision)
+    void OnTriggerStay2D(Collider2D collision)
     {
         if (!Owner.IsLocalClient) return;
 

@@ -1559,7 +1559,7 @@ GameObject:
   - component: {fileID: 849413111509910347}
   - component: {fileID: 7270413707414500930}
   - component: {fileID: 7410689240377252050}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: EventSystem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2152,7 +2152,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1515710138990374537}
   - component: {fileID: 8128199219013295654}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: -- UI --
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -35,10 +35,25 @@ public class SeekingBulletScript : BulletScript
         }
     }
 
-    
+
     public void Setup(int damage, float moveSpeed, Vector3 moveDirection, float rotateSpeed)
     {
         Setup(damage, moveSpeed, moveDirection);
         _rotateSpeed = rotateSpeed;
+    }
+
+
+    private void OnTriggerEnter2D(Collider2D collider)
+    {
+        if (collider.CompareTag("Ennemy"))
+        {
+            EnnemyState health = collider.GetComponent<EnnemyState>();
+            health.OnDamage(_damage);
+            DestroyThis();
+        }
+        if (_collisionsAllowed < 0 && collider.CompareTag("Wall"))
+        {
+            DestroyThis();
+        }
     }
 }

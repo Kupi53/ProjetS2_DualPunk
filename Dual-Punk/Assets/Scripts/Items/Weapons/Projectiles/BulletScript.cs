@@ -7,8 +7,12 @@ using FishNet.Object;
 
 public class BulletScript : NetworkBehaviour, IImpact
 {
+    [SerializeField] protected int _collisionsAllowed;
+    [SerializeField] protected float _lifeTime;
+
     protected Rigidbody2D _rb2d;
     protected Vector3 _moveDirection;
+
     protected int _damage;
     protected float _moveSpeed;
     protected float _moveFactor;
@@ -32,10 +36,10 @@ public class BulletScript : NetworkBehaviour, IImpact
     {
         if (!IsServer) return;
 
-        // Marche pas avec MovePosition
+        _lifeTime -= Time.fixedDeltaTime;
         _rb2d.velocity = _moveDirection * _moveSpeed * _moveFactor;
 
-        if (!GetComponent<Renderer>().isVisible || _moveSpeed < 5)
+        if (_lifeTime <= 0 || _moveSpeed < 5)
         {
             DestroyThis();
         }
@@ -49,7 +53,6 @@ public class BulletScript : NetworkBehaviour, IImpact
 
         ChangeDirection(moveDirection, true);
     }
-
 
     protected void ChangeDirection(Vector3 direction, bool changeAngle)
     {
@@ -79,14 +82,24 @@ public class BulletScript : NetworkBehaviour, IImpact
     }
 
 
-    protected void OnTriggerEnter2D(Collider2D collider)
+    protected void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collider.CompareTag("Ennemy"))
+        Debug.Log(collision.collider);
+        if (collision.collider.CompareTag("Ennemy"))
         {
-            EnnemyState health = collider.GetComponent<EnnemyState>();
+            EnnemyState health = collision.collider.GetComponent<EnnemyState>();
             health.OnDamage(_damage);
+            DestroyThis();
         }
-        if (!collider.CompareTag("Weapon") && !collider.CompareTag("Projectile") && !collider.CompareTag("UI"))
+        else if (collision.collider.CompareTag("Wall"))
+        {
+            _collisionsAllowed--;
+            Vector2 reflectDirection = Vector2.Reflect(_moveDirection, collision.contacts[0].normal);
+            _rb2d.transform.position = collision.contacts[0].point + reflectDirection * ((Vector2)transform.position - collision.contacts[0].point).magnitude * 2;
+            ChangeDirection(Vector2.Reflect(_moveDirection, collision.contacts[0].normal), true);
+        }
+
+        if (_collisionsAllowed < 0 && collision.collider.CompareTag("Wall") || collision.collider.CompareTag("Player"))
         {
             DestroyThis();
         }
