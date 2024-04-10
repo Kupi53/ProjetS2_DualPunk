@@ -37,16 +37,23 @@ public abstract class WeaponScript : NetworkBehaviour
 
         if (_spriteRenderer.flipY)
         {
-            FlipWeaponClientRpc(false);
+            FlipWeaponServerRpc(false);
         }
     }
 
     protected void MovePosition(Vector3 position, Vector3 direction)
     {
-        FlipWeaponClientRpc(PlayerState.MousePosition.x < PlayerState.transform.position.x);
+        FlipWeaponServerRpc(PlayerState.MousePosition.x < PlayerState.transform.position.x);
         
         transform.position = position + _weaponOffset + direction * _weaponDistance;
         transform.eulerAngles = new Vector3(0, 0, Methods.GetAngle(direction));
+    }
+
+    
+    [ServerRpc (RequireOwnership = false)]
+    protected void FlipWeaponServerRpc(bool flip)
+    {
+        FlipWeaponClientRpc(flip);
     }
 
 
