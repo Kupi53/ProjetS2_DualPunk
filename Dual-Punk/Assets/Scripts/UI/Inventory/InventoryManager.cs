@@ -1,3 +1,5 @@
+using System;
+using FishNet;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -176,11 +178,8 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
 
             nextStoredObject.transform.localScale = WeaponSlots[EquipedSlotIndex].transform.localScale;
             GameObject equipedObject = nextStoredObject.GetComponent<InventoryItem>().displayedItem.prefab;
-            Instantiate(equipedObject);
-            ItemManager.UpdateHeldWeapon(equipedObject.GetComponent<WeaponScript>());
+            objectSpawner.SpawnObjectAndUpdateRpc(equipedObject, PlayerState.gameObject.transform.position, new Quaternion(), InstanceFinder.ClientManager.Connection, ItemManager.gameObject);
         }
-
-
     }
 
 //----Auxilaries Functions that work as their name says.---------------------------------------------------------
@@ -232,9 +231,8 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
     }
 
     private void SpawnInventoryItem(GameObject spawnedItem){
-
         Vector3 spawnPosition = GameObject.FindWithTag("Player").transform.position;
-        objectSpawner.SpawnObject(spawnedItem, spawnPosition, new Quaternion());
+        objectSpawner.SpawnObjectRpc(spawnedItem, spawnPosition, new Quaternion());
     }
 
 }
