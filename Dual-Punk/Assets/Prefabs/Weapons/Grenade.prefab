@@ -182,6 +182,7 @@ MonoBehaviour:
   _explosionRadius: 0
   _explosionImpact: 4
   _stoppingFactor: 2
+  _sound: {fileID: 8300000, guid: 57b2728ae55218f4e9ea3f1742a77063, type: 3}
 --- !u!114 &-7485336294082195927
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -245,7 +246,6 @@ MonoBehaviour:
   _networkBehaviours:
   - {fileID: 7754004746905307297}
   - {fileID: -7485336294082195927}
-  - {fileID: 0}
   <ParentNetworkObject>k__BackingField: {fileID: 0}
   <ChildNetworkObjects>k__BackingField: []
   SerializedTransformProperties:
@@ -257,7 +257,7 @@ MonoBehaviour:
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 22
+  <PrefabId>k__BackingField: 10
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0

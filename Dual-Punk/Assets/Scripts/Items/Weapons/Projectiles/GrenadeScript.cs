@@ -13,6 +13,7 @@ public class GrenadeScript : NetworkBehaviour
     [SerializeField] private float _explosionRadius;
     [SerializeField] private float _explosionImpact;
     [SerializeField] private float _stoppingFactor;
+    [SerializeField] private AudioClip _sound;
 
     private Rigidbody2D _rb2d;
     private SpriteRenderer _spriteRenderer;
@@ -74,6 +75,7 @@ public class GrenadeScript : NetworkBehaviour
     private void Explode()
     {
         GameObject explosion = Instantiate(_explosion, transform.position, transform.rotation);
+        AudioManager.Instance.PlayClipAt(_sound, gameObject.transform.position);
         Spawn(explosion);
         Destroy(explosion, 1);
         Destroy(gameObject);
