@@ -171,6 +171,7 @@ MonoBehaviour:
   _bulletSpeed: 30
   _autoReload: 0
   _auto: 0
+  _sound: {fileID: 8300000, guid: 3cfc0ffc2201b2d4d8b945e3f775e6c8, type: 3}
 --- !u!114 &-5896032686861132043
 MonoBehaviour:
   m_ObjectHideFlags: 0

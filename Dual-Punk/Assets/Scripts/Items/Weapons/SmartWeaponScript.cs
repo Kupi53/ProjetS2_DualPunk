@@ -86,6 +86,7 @@ public class SmartWeaponScript : FireArmScript
     public override void Fire(Vector3 direction, int damage, float bulletSpeed, float dispersion)
     {
         FireSeekingBulletRpc(_bullet, transform.rotation, direction, damage, bulletSpeed, dispersion, PlayerState, ClientManager.Connection);
+        AudioManager.Instance.PlayClipAt(_sound, gameObject.transform.position);
     }
 
     [ServerRpc(RequireOwnership = false)]

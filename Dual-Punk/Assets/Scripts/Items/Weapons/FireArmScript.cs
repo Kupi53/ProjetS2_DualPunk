@@ -135,6 +135,7 @@ public class FireArmScript : WeaponScript
     public virtual void Fire(Vector3 direction, int damage, float bulletSpeed, float dispersion)
     {
         FireBulletRpc(_bullet, transform.rotation, direction, damage, bulletSpeed, dispersion, PlayerState);
+        AudioManager.Instance.PlayClipAt(_sound, gameObject.transform.position);
     }
 
     [ServerRpc(RequireOwnership = false)]
