@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerEnterHandler, IPointerExitHandler
 {
-
     public PlayerState PlayerState {get; set;}
     public InventorySlots[] WeaponSlots = new InventorySlots[3];
     public ItemManager ItemManager {get; set;}
@@ -18,6 +17,7 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
     [SerializeField] private Image DropPanel;
     [SerializeField] private Image inventoryPanel;
     public int EquipedSlotIndex;
+
 
     void Start(){
         objectSpawner = GameObject.Find("ObjectSpawner").GetComponent<ObjectSpawner>();
@@ -87,7 +87,6 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
 
     public void OnPointerUp(PointerEventData eventData)
     {
-
         if(draggedObject != null && eventData.button == PointerEventData.InputButton.Left){
             
             if (eventData.pointerCurrentRaycast.gameObject != null){
