@@ -10,8 +10,8 @@ using FishNet.Connection;
 
 public class ItemManager : NetworkBehaviour
 {
-    private GameObject _inventoryManager;
-    private PlayerState _playerState;
+    public GameObject _inventoryManager;
+    public PlayerState _playerState;
     private List<GameObject> _items;
     private IImpact _impact;
     private int _index;
@@ -21,15 +21,10 @@ public class ItemManager : NetworkBehaviour
     private void Start()
     {
         if(!Owner.IsLocalClient) return;
-        _inventoryManager = GameObject.FindWithTag("Inventory");
         _index = 0;
         _items = new List<GameObject>();
         _impact = GetComponent<IImpact>();
         _playerState = GetComponent<PlayerState>();
-
-        _inventoryManager.GetComponent<InventoryManager>().ItemManager = this;
-        _inventoryManager.GetComponent<InventoryManager>().PlayerState = _playerState;
-        _inventoryManager.transform.GetChild(0).gameObject.SetActive(false);
     }
 
 

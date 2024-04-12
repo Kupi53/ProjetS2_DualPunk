@@ -22,11 +22,18 @@ using UnityEngine.SceneManagement;
 
 public class ServerConnectionsManager : NetworkBehaviour
 {
+    public static ServerConnectionsManager Instance;
+
     private NetworkManager networkManager;
     private void Awake()
     {
         networkManager = GameObject.Find("NetworkManager").GetComponent<NetworkManager>();
     }
+
+    void Start(){
+        Instance = this;
+    }
+
 
     public void CloseConnection(){
         DisconnectClientsRPC();

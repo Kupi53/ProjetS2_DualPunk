@@ -22,6 +22,7 @@ public class ConnectionStarter : MonoBehaviour
     [SerializeField] private Button connectButton;
     [SerializeField] private Button debugButton;
     [SerializeField] private TMP_InputField codeField;
+    [SerializeField] private GameObject serverConnectionsManagerPrefab; 
     public string joinCode;
     private NetworkManager _networkManager;
     private RelayManager _relayManager;
@@ -80,5 +81,7 @@ public class ConnectionStarter : MonoBehaviour
         SceneLoadData sld = new SceneLoadData("Game");
         sld.ReplaceScenes = ReplaceOption.All;
         InstanceFinder.SceneManager.LoadGlobalScenes(sld);
+        GameManager.Instance.DebugMode = true;
+        GameManager.Instance.InGame = true;
     }
 }
