@@ -13,17 +13,15 @@ public class DirectPathFinding : MonoBehaviour
     [SerializeField] private float _unlockDistance;
     [SerializeField] private float _reCalculationTime;
 
+#nullable enable
+    private GameObject? _target;
+#nullable disable
     private Rigidbody2D _rb2d;
-    private LineRenderer _line;
 
     private Vector2[] _possibleDirections;
     private Vector2 _moveDirection;
     private float _moveSpeed;
     private float _reCalculateTimer;
-
-#nullable enable
-    private GameObject? _target;
-#nullable disable
 
 
     void Start()
@@ -34,7 +32,6 @@ public class DirectPathFinding : MonoBehaviour
             new Vector2(1,0.5f).normalized, new Vector2(-1,0.5f).normalized, new Vector2(1, -0.5f).normalized, new Vector2(-1,-0.5f) };
 
         _rb2d = GetComponent<Rigidbody2D>();
-        _line = GetComponentInChildren<LineRenderer>();
     }
 
 
@@ -52,7 +49,6 @@ public class DirectPathFinding : MonoBehaviour
 
         if (_target == null)
         {
-            _line.enabled = false;
             GameObject[] targets = GameObject.FindGameObjectsWithTag("Player");
 
             for (int i = 0; i < targets.Length; i++)
@@ -78,11 +74,6 @@ public class DirectPathFinding : MonoBehaviour
             return;
         }
 
-
-        _line.enabled = true;
-        _line.SetPosition(0, transform.position);
-        _line.SetPosition(1, _target.transform.position);
-
         direction = direction.normalized;
         float maxAngle = 256;
         float minAngle = 256;
@@ -92,7 +83,7 @@ public class DirectPathFinding : MonoBehaviour
         {
             if ((currentAngle = Vector2.Angle(direction, _possibleDirections[i])) < maxAngle)
             {
-                if (!Physics2D.Raycast(transform.position, _possibleDirections[i], distance * (1 - currentAngle/180), _layerMask) && _possibleDirections[i] != -_moveDirection)
+                if (!Physics2D.Raycast(transform.position, _possibleDirections[i], distance * (1 - currentAngle/180), _layerMask))
                 {
                     _moveDirection = _possibleDirections[i];
                     maxAngle = currentAngle;
