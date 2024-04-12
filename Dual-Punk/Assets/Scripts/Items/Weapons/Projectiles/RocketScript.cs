@@ -78,14 +78,14 @@ public class RocketScript : BulletScript
             if (hitDirection.magnitude <= _explosionDistance)
             {
               health.OnDamage(_damage * (_explosionDistance - hitDirection.magnitude) / _explosionDistance);
-            }  
+            }
         }
 
         Destroy(gameObject);
     }
 
 
-    protected new void OnTriggerEnter2D(Collider2D collider)
+    protected void OnTriggerEnter2D(Collider2D collider)
     {
         if (!collider.CompareTag("Weapon") && !collider.CompareTag("Projectile") && !collider.CompareTag("UI"))
         {

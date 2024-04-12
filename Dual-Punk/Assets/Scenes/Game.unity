@@ -2483,7 +2483,7 @@ MonoBehaviour:
   _componentIndexCache: 0
   _addedNetworkObject: {fileID: 1045441747}
   _networkObjectCache: {fileID: 1110055308}
-  randomEnnemy: {fileID: 2037555728248527565, guid: 5c637c058b632c047990c2ab5c6bb775, type: 3}
+  randomEnnemy: {fileID: 4605790729952272960, guid: 67b9b89ba138f60448b26b26c1d74767, type: 3}
 --- !u!4 &1110055307
 Transform:
   m_ObjectHideFlags: 0

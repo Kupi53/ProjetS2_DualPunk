@@ -86,9 +86,6 @@ public class ItemManager : NetworkBehaviour
         }
     }
 
-    public PlayerState GetPlayerState(){
-        return _playerState;
-    }
 
     void OnTriggerStay2D(Collider2D collision)
     {
@@ -103,6 +100,7 @@ public class ItemManager : NetworkBehaviour
         }
     }
 
+
     void OnTriggerExit2D(Collider2D collision)
     {
         if (!Owner.IsLocalClient) return;
@@ -115,6 +113,7 @@ public class ItemManager : NetworkBehaviour
             _items.Remove(item);
         }
     }
+
 
     public void UpdateHeldWeapon(WeaponScript weaponScript){
         //Intervetir avec l'arme en main
