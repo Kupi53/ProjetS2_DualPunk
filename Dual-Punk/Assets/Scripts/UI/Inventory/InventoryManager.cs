@@ -1,3 +1,4 @@
+using System.Collections;
 using FishNet;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -30,8 +31,8 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
             draggedObject.transform.position = Input.mousePosition;
         }
 
-        float scroll = Input.GetAxis("Mouse ScrollWheel");
-        if(scroll != 0){
+    
+        if(Input.GetKeyDown("m")){
             SwapEquipedSlot();
         }
 
@@ -179,8 +180,10 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
             
             GameObject equipedObject = nextStoredObject.GetComponent<InventoryItem>().displayedItem.prefab;
             GameObject destroyedGameObject = PlayerState.WeaponScript.gameObject;
+            destroyedGameObject.GetComponent<WeaponScript>().Drop();
+
             objectSpawner.SpawnObjectAndUpdateRpc(equipedObject, PlayerState.gameObject.transform.position, new Quaternion(), InstanceFinder.ClientManager.Connection, ItemManager.gameObject);
-            Destroy(destroyedGameObject);
+            Destroy(destroyedGameObject, 0.15f);
         }
     }
 
