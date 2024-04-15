@@ -181,7 +181,7 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
             GameObject equipedObject = nextStoredObject.GetComponent<InventoryItem>().displayedItem.prefab;
             GameObject destroyedGameObject = PlayerState.WeaponScript.gameObject;
             destroyedGameObject.GetComponent<WeaponScript>().Drop();
-
+            destroyedGameObject.SetActive(false);
             objectSpawner.SpawnObjectAndUpdateRpc(equipedObject, PlayerState.gameObject.transform.position, new Quaternion(), InstanceFinder.ClientManager.Connection, ItemManager.gameObject);
             Destroy(destroyedGameObject, 0.15f);
         }
