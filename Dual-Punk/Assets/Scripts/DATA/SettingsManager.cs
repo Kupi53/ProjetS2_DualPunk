@@ -9,14 +9,15 @@ using UnityEngine.Rendering;
 
 public class SettingsManager : MonoBehaviour
 {
-    public SettingsManager Instance;
+    public static SettingsManager Instance;
 
     private const int FULLSCREENDEFAULT = 0;
     private const int RESOLUTIONDEFAULT = 0;
-    private const float SFXVOLUMEMAX = 100f;
-    private const float MUSICVOLUMEMAX = 100f;
+    private const float SFXVOLUMEMAX = 0f;
+    private const float MUSICVOLUMEMAX = 0f;
     private const float SFXVOLUMEDEFAULT = SFXVOLUMEMAX;
     private const float MUSICVOLUMEDEFAULT = MUSICVOLUMEMAX;
+    private const FullScreenMode FULLSCREENMODE = FullScreenMode.FullScreenWindow;
     private (int, int)[] RESOLUTIONS = {
         (1920, 1080),
         (1280, 1024),
@@ -31,6 +32,7 @@ public class SettingsManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
         Instance = this;
 
+        Screen.fullScreenMode = FULLSCREENMODE;
         DefaultSettings();
         LoadSettings();
     }
@@ -40,26 +42,29 @@ public class SettingsManager : MonoBehaviour
             PlayerPrefs.SetInt("Fullscreen", FULLSCREENDEFAULT);
         if (!PlayerPrefs.HasKey("Resolution"))
             PlayerPrefs.SetInt("Resolution", RESOLUTIONDEFAULT);
-        if (!PlayerPrefs.HasKey("SFXVol"))
+        if (!PlayerPrefs.HasKey("SFX Volume"))
             PlayerPrefs.SetFloat("SFX Volume", SFXVOLUMEDEFAULT);
         if (!PlayerPrefs.HasKey("Music Volume"))
             PlayerPrefs.SetFloat("Music Volume", MUSICVOLUMEDEFAULT);
         PlayerPrefs.Save();
     }
     public void LoadSettings(){
-        if (PlayerPrefs.GetInt("Fullscreen") == 1)
-            Screen.fullScreen = true;
-        else Screen.fullScreen = false;
     //
+        int fullscreen = PlayerPrefs.GetInt("Fullscreen");
         int resIndex = PlayerPrefs.GetInt("Resolution");
         if (resIndex < RESOLUTIONS.Length){
-            Screen.SetResolution(RESOLUTIONS[resIndex].Item1, RESOLUTIONS[resIndex].Item2, Screen.fullScreen);
+            if (fullscreen == 1){
+                Screen.SetResolution(RESOLUTIONS[resIndex].Item1, RESOLUTIONS[resIndex].Item2, true);
+            }
+            else{
+                Screen.SetResolution(RESOLUTIONS[resIndex].Item1, RESOLUTIONS[resIndex].Item2, false);
+            }
         }
         else {
             PlayerPrefs.SetInt("Resolution", RESOLUTIONDEFAULT);
         }
     //
-        float sfxVol = PlayerPrefs.GetFloat("SFX Volume") - 100f;
+        float sfxVol = PlayerPrefs.GetFloat("SFX Volume");
         if (sfxVol <= SFXVOLUMEMAX){
             audioMixer.SetFloat("Sound", sfxVol);
         }
@@ -67,7 +72,7 @@ public class SettingsManager : MonoBehaviour
             PlayerPrefs.SetFloat("SFX Volume", SFXVOLUMEDEFAULT);
         }
     //
-        float musicVol = PlayerPrefs.GetFloat("Music Volume") - 100f;
+        float musicVol = PlayerPrefs.GetFloat("Music Volume");
         if (musicVol <= MUSICVOLUMEMAX){
             audioMixer.SetFloat("Music", musicVol);
         }
@@ -77,6 +82,8 @@ public class SettingsManager : MonoBehaviour
     }
 
     public void SaveSettings(int fullscreen, int resolution, float mvolume, float svolume){
+        Debug.Log(svolume);
+        Debug.Log(resolution);
         PlayerPrefs.SetInt("Fullscreen", fullscreen);
         PlayerPrefs.SetInt("Resolution", resolution);
         PlayerPrefs.SetFloat("Music Volume", mvolume);
