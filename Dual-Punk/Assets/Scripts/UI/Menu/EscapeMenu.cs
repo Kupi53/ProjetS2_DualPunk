@@ -18,6 +18,7 @@ public class EscapeMenu : MonoBehaviour
             }
             else if (settingsMenu.activeSelf)
             {
+                settingsMenu.GetComponent<SettingMenu>().ExitSettingsMenu();
                 settingsMenu.SetActive(false);
                 pauseMenu.SetActive(true);
             }
