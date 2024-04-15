@@ -6,7 +6,6 @@ using FishNet.Object;
 public class SpawnEnnemies : NetworkBehaviour
 {
     [SerializeField] private GameObject randomEnnemy; //add prefab in inspector
-    private NetworkObject spawnedEnnemy;
     
     public override void OnStartServer()
     {
