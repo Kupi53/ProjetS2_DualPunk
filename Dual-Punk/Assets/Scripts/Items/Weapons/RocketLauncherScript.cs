@@ -12,8 +12,14 @@ public class RocketLauncherScript : FireArmScript
     [SerializeField] private float _deviationSpeed;
 
 
+    public override void Fire(Vector3 direction, int damage, float bulletSpeed, float dispersion, int collisionsAllowed)
+    {
+        FireRocketRpc(direction, damage, bulletSpeed);
+    }
+
+
     [ServerRpc(RequireOwnership = false)]
-    public override void FireBulletRpc(Vector3 direction, int damage, float bulletSpeed, float dispersion, int collisionsAllowed)
+    public void FireRocketRpc(Vector3 direction, int damage, float bulletSpeed)
     {
         for (int i = 0; i < _bulletNumber; i++)
         {

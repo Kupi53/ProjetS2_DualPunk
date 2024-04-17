@@ -6,6 +6,7 @@ using System;
 using Unity.Netcode;
 using FishNet.Object;
 using FishNet.Connection;
+using UnityEngine.Playables;
 
 
 public class SmartWeaponScript : FireArmScript
@@ -83,12 +84,18 @@ public class SmartWeaponScript : FireArmScript
     }
 
 
-    [ServerRpc(RequireOwnership = false)]
-    public override void FireBulletRpc(Vector3 direction, int damage, float bulletSpeed, float dispersion, int collisionsAllowed)
+    public override void Fire(Vector3 direction, int damage, float bulletSpeed, float dispersion, int collisionsAllowed)
     {
         if (PlayerState.Walking)
             dispersion /= _aimAccuracy;
 
+        FireSeekingBulletRpc(PlayerState, ClientManager.Connection, direction, damage, bulletSpeed, dispersion);
+    }
+
+
+    [ServerRpc(RequireOwnership = false)]
+    public void FireSeekingBulletRpc(PlayerState playerState, NetworkConnection networkConnection, Vector3 direction, int damage, float bulletSpeed, float dispersion)
+    {
         for (int i = 0; i < _bulletNumber; i++)
         {
             GameObject newBullet = Instantiate(_bullet, _gunEndPoints[i % _gunEndPoints.Length].transform.position, Quaternion.identity);
@@ -98,7 +105,7 @@ public class SmartWeaponScript : FireArmScript
 
             bulletScript.Setup(damage, bulletSpeed, newDirection, _bulletRotateSpeed);
             Spawn(newBullet);
-            AssignTargetClientRPC(bulletScript, PlayerState, ClientManager.Connection);
+            AssignTargetClientRPC(bulletScript, playerState, networkConnection);
         }
     }
 

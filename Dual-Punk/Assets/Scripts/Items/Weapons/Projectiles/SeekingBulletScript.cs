@@ -52,9 +52,11 @@ public class SeekingBulletScript : BulletScript
         }
         else if (collider.CompareTag("Wall"))
         {
-            DestroyThis();
+            _collisionsAllowed--;
+            _damage = (int)(_damage * 0.75f);
         }
-        if (_collisionsAllowed < 0 && collider.CompareTag("Wall"))
+
+        if (_collisionsAllowed < 0)
         {
             DestroyThis();
         }

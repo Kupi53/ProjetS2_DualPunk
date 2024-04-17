@@ -20,7 +20,7 @@ public class ChargedBulletScript : BulletScript
             _damage = (int)(_damage * 0.75f);
         }
 
-        if (_collisionsAllowed < 0 && collider.CompareTag("Wall"))
+        if (_collisionsAllowed < 0)
         {
             DestroyThis();
         }

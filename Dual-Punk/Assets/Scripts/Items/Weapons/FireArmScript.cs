@@ -80,14 +80,13 @@ public class FireArmScript : WeaponScript
                 _reloading = false;
             }
 
-            FireBulletRpc(direction, _damage, _bulletSpeed, _dispersion, _collisionsAllowed);
+            Fire(direction, _damage, _bulletSpeed, _dispersion, _collisionsAllowed);
 
             PlayerRecoil.Impact(-direction, _recoilForce);
             PlayerState.CameraController.ShakeCamera(_cameraShake, 0.1f);
-            AudioManager.Instance.PlayClipAt(_sound, gameObject.transform.position);
-
             _fireTimer = 0;
             _ammoLeft--;
+            AudioManager.Instance.PlayClipAt(_sound, gameObject.transform.position);
         }
         else if (_fireTimer < _fireRate)
         {
@@ -131,15 +130,23 @@ public class FireArmScript : WeaponScript
     {
         _reloadTimer = 0;
         _reloading = false;
+        RemoveAllOwnerShipRPC(GetComponent<NetworkObject>());
+    }
+
+
+    public virtual void Fire(Vector3 direction, int damage, float bulletSpeed, float dispersion, int collisionsAllowed)
+    {
+        //conditions pour modifier parametres damage, dipsersion ...
+        if (PlayerState.Walking)
+            dispersion /= _aimAccuracy;
+
+        FireBulletRpc(direction, damage, bulletSpeed, dispersion, collisionsAllowed);
     }
 
 
     [ServerRpc(RequireOwnership = false)]
-    public virtual void FireBulletRpc(Vector3 direction, int damage, float bulletSpeed, float dispersion, int collisionsAllowed)
+    public void FireBulletRpc(Vector3 direction, int damage, float bulletSpeed, float dispersion, int collisionsAllowed)
     {
-        if (PlayerState.Walking)
-            dispersion /= _aimAccuracy;
-
         for (int i = 0; i < _bulletNumber; i++)
         {
             GameObject newBullet = Instantiate(_bullet, _gunEndPoints[i%_gunEndPoints.Length].transform.position, Quaternion.identity);
