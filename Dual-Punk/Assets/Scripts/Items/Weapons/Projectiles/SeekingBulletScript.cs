@@ -21,7 +21,6 @@ public class SeekingBulletScript : BulletScript
 
         if (Target != null)
         {
-            Debug.Log("arnaud la merde");
             Vector3 heading = (Target.transform.position - transform.position).normalized;
             float angle = Vector3.Cross(_moveDirection, heading).z * 100;
 
@@ -38,7 +37,7 @@ public class SeekingBulletScript : BulletScript
 
     public void Setup(int damage, float moveSpeed, Vector3 moveDirection, float rotateSpeed)
     {
-        Setup(damage, moveSpeed, moveDirection);
+        base.Setup(damage, moveSpeed, moveDirection, 0);
         _rotateSpeed = rotateSpeed;
     }
 
@@ -49,6 +48,10 @@ public class SeekingBulletScript : BulletScript
         {
             EnnemyState health = collider.GetComponent<EnnemyState>();
             health.OnDamage(_damage);
+            DestroyThis();
+        }
+        else if (collider.CompareTag("Wall"))
+        {
             DestroyThis();
         }
         if (_collisionsAllowed < 0 && collider.CompareTag("Wall"))

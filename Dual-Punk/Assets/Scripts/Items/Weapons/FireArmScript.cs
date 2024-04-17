@@ -18,6 +18,7 @@ public class FireArmScript : WeaponScript
     [SerializeField] protected int _magSize;
     [SerializeField] protected int _bulletNumber;
     [SerializeField] private int _reloadAmount;
+    [SerializeField] protected int _collisionsAllowed;
 
     [SerializeField] protected float _fireRate;
     [SerializeField] protected float _dispersion;
@@ -30,7 +31,7 @@ public class FireArmScript : WeaponScript
 
     [SerializeField] protected AudioClip _sound;
 
-    private int _ammoLeft;
+    protected int _ammoLeft;
     private float _reloadTimer;
     protected float _fireTimer;
     private bool _reloading;
@@ -79,9 +80,11 @@ public class FireArmScript : WeaponScript
                 _reloading = false;
             }
 
-            Fire(direction, _damage, _bulletSpeed, _dispersion);
+            FireBulletRpc(direction, _damage, _bulletSpeed, _dispersion, _collisionsAllowed);
+
             PlayerRecoil.Impact(-direction, _recoilForce);
             PlayerState.CameraController.ShakeCamera(_cameraShake, 0.1f);
+            AudioManager.Instance.PlayClipAt(_sound, gameObject.transform.position);
 
             _fireTimer = 0;
             _ammoLeft--;
@@ -128,34 +131,24 @@ public class FireArmScript : WeaponScript
     {
         _reloadTimer = 0;
         _reloading = false;
-        RemoveAllOwnerShipRPC(GetComponent<NetworkObject>());
     }
 
-
-    public virtual void Fire(Vector3 direction, int damage, float bulletSpeed, float dispersion)
-    {
-        FireBulletRpc(_bullet, transform.rotation, direction, damage, bulletSpeed, dispersion, PlayerState);
-        AudioManager.Instance.PlayClipAt(_sound, gameObject.transform.position);
-    }
 
     [ServerRpc(RequireOwnership = false)]
-    public virtual void FireBulletRpc(GameObject bullet, Quaternion rot, Vector3 direction, int damage, float bulletSpeed, float dispersion, PlayerState playerState){
-        if (playerState.Walking)
+    public virtual void FireBulletRpc(Vector3 direction, int damage, float bulletSpeed, float dispersion, int collisionsAllowed)
+    {
+        if (PlayerState.Walking)
             dispersion /= _aimAccuracy;
+
         for (int i = 0; i < _bulletNumber; i++)
         {
-            GameObject newBullet = Instantiate(bullet, _gunEndPoints[i%_gunEndPoints.Length].transform.position, rot);
+            GameObject newBullet = Instantiate(_bullet, _gunEndPoints[i%_gunEndPoints.Length].transform.position, Quaternion.identity);
             BulletScript bulletScript = newBullet.GetComponent<BulletScript>();
 
             Vector3 newDirection = new Vector3(direction.x + Methods.NextFloat(-dispersion, dispersion), direction.y + Methods.NextFloat(-dispersion, dispersion), 0).normalized;
-            bulletScript.Setup(damage, bulletSpeed, newDirection);
+            bulletScript.Setup(damage, bulletSpeed, newDirection, collisionsAllowed);
 
             Spawn(newBullet);
         }
-    }
-
-    [ServerRpc]
-    void RemoveAllOwnerShipRPC(NetworkObject networkObject){
-        networkObject.RemoveOwnership();   
     }
 }

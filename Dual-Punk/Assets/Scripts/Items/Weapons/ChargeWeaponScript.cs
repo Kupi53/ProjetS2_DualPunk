@@ -11,6 +11,7 @@ public class ChargeWeaponScript : FireArmScript
     [SerializeField] private float _minImpact;
     [SerializeField] private float _minCameraShake;
     [SerializeField] private float _chargeTime;
+    [SerializeField] private int _minCollisions;
 
     private float _chargeTimer;
 
@@ -35,7 +36,7 @@ public class ChargeWeaponScript : FireArmScript
     {
         MovePosition(position, direction);
 
-        if (Input.GetButton("Use") && !Reloading && _fireTimer >= _fireRate && AmmoLeft > 0 && _chargeTimer < _chargeTime)
+        if (Input.GetButton("Use") && !Reloading && _fireTimer >= _fireRate && _ammoLeft > 0 && _chargeTimer < _chargeTime)
         {
             _chargeTimer += Time.deltaTime;
         }
@@ -48,20 +49,22 @@ public class ChargeWeaponScript : FireArmScript
         {
             float multiplier = _chargeTimer / _chargeTime;
 
-            Fire(direction, (int)(multiplier * (_damage - _minDamage) + _minDamage), multiplier * (_bulletSpeed - _minSpeed) + _minSpeed, _dispersion);
-            PlayerRecoil.Impact(-direction, multiplier * (_recoilForce - _minRecoil) + _minRecoil);
-            PlayerState.CameraController.ShakeCamera(multiplier * (_cameraShake - _minCameraShake) + _minCameraShake, 0.1f);
+            FireBulletRpc(direction, (int)Methods.GetProgressingFactor(multiplier, _minDamage, _damage), Methods.GetProgressingFactor(multiplier, _minSpeed, _bulletSpeed),
+                _dispersion, (int)Methods.GetProgressingFactor(multiplier, _minCollisions, _collisionsAllowed));
+
+            PlayerRecoil.Impact(-direction, Methods.GetProgressingFactor(multiplier, _minRecoil, _recoilForce));
+            PlayerState.CameraController.ShakeCamera(Methods.GetProgressingFactor(multiplier, _minCameraShake, _cameraShake), 0.1f);
 
             _chargeTimer = 0;
             _fireTimer = 0;
-            AmmoLeft--;
+            _ammoLeft--;
         }
 
-        else if (Input.GetButtonDown("Use") && Reloading && AmmoLeft > 0) {
+        else if (Input.GetButtonDown("Use") && Reloading && _ammoLeft > 0) {
             Reset();
         }
 
-        if (Input.GetButtonDown("Reload") && AmmoLeft != _magSize || _autoReload && AmmoLeft == 0) {
+        if (Input.GetButtonDown("Reload") && _ammoLeft != _magSize || _autoReload && _ammoLeft == 0) {
             Reloading = true;
         } if (Reloading) {
             Reload();

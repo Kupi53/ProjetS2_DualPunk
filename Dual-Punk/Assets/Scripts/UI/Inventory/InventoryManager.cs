@@ -38,6 +38,17 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
 
     }
 
+
+    private IEnumerator DropWeapon(GameObject weapon)
+    {
+        while (weapon == null)
+        {
+            yield return null;
+        }
+        weapon.GetComponent<WeaponScript>().Drop();
+    }
+
+
     public void OnPointerDown(PointerEventData eventData)
     {
         //change the raycast state needed for the descriptionManager
@@ -72,13 +83,16 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
 
             if(slot != null && slot.heldItem != null) {
 
-                if(slot == WeaponSlots[EquipedSlotIndex]){
+                if(slot == WeaponSlots[EquipedSlotIndex])
+                {
                     PlayerState.WeaponScript.Drop();
                     PlayerState.HoldingWeapon = false;
                     PlayerState.PointerScript.SpriteNumber = 0;
                 }
-                else{
-                    SpawnInventoryItem(slot.heldItem);
+                else
+                {
+                    GameObject weapon = SpawnInventoryItem(slot.heldItem);
+                    StartCoroutine(DropWeapon(weapon));
                 }
 
                 Destroy(slot.heldItem);
@@ -125,19 +139,21 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
                 }
 
                 //drop the item on the map
-                else{
-                    if(LastSlotPosition == WeaponSlots[EquipedSlotIndex]){
+                else
+                {
+                    if (LastSlotPosition == WeaponSlots[EquipedSlotIndex])
+                    {
                         PlayerState.WeaponScript.Drop();
                         PlayerState.HoldingWeapon = false;
                         PlayerState.PointerScript.SpriteNumber = 0;
                     }
-                    else{
-                        SpawnInventoryItem(draggedObject);
+                    else
+                    {
+                        GameObject weapon = SpawnInventoryItem(draggedObject);
+                        StartCoroutine(DropWeapon(weapon));
                     }
 
                     Destroy(draggedObject);
-
-
                 }
 
                 draggedObject = null;
@@ -235,10 +251,10 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
         }
     }
 
-    private void SpawnInventoryItem(GameObject spawnedItem){
+    private GameObject SpawnInventoryItem(GameObject spawnedItem){
         GameObject spawnedItemPrefab = spawnedItem.GetComponent<InventoryItem>().displayedItem.prefab;
         Vector3 spawnPosition = GameObject.FindWithTag("Player").transform.position;
         objectSpawner.SpawnObjectRpc(spawnedItemPrefab, spawnPosition, new Quaternion());
+        return spawnedItemPrefab;
     }
-
 }

@@ -41,13 +41,12 @@ public class SmartWeaponScript : FireArmScript
                 newTargetIndicator.GetComponent<TargetIndicatorScript>().Target = PlayerState.PointerScript.Target;
                 _targetsIndicators.Add(newTargetIndicator);
             }
-
             else if (Input.GetButton("Switch"))
             {
                 _resetTimer += Time.deltaTime;
 
                 if (_resetTimer > 0.25)
-                    Reset();
+                    ResetWeapon();
             }
             else
                 _resetTimer = 0;
@@ -76,43 +75,38 @@ public class SmartWeaponScript : FireArmScript
     {
         base.Reset();
 
-        foreach (GameObject target in _targetsIndicators)
+        for (int i = 0; i < _targetsIndicators.Count; i++)
         {
-            Destroy(target);
+            Destroy(_targetsIndicators[i]);
         }
         _targetsIndicators.Clear();
     }
 
-    public override void Fire(Vector3 direction, int damage, float bulletSpeed, float dispersion)
-    {
-        FireSeekingBulletRpc(_bullet, transform.rotation, direction, damage, bulletSpeed, dispersion, PlayerState, ClientManager.Connection);
-        AudioManager.Instance.PlayClipAt(_sound, gameObject.transform.position);
-    }
 
     [ServerRpc(RequireOwnership = false)]
-    public void FireSeekingBulletRpc(GameObject bullet, Quaternion rot, Vector3 direction, int damage, float bulletSpeed, float dispersion, PlayerState playerState, NetworkConnection networkConnection)
+    public override void FireBulletRpc(Vector3 direction, int damage, float bulletSpeed, float dispersion, int collisionsAllowed)
     {
-        if (playerState.Walking)
+        if (PlayerState.Walking)
             dispersion /= _aimAccuracy;
 
         for (int i = 0; i < _bulletNumber; i++)
         {
-            GameObject newBullet = Instantiate(bullet, _gunEndPoints[i % _gunEndPoints.Length].transform.position, rot);
+            GameObject newBullet = Instantiate(_bullet, _gunEndPoints[i % _gunEndPoints.Length].transform.position, Quaternion.identity);
             SeekingBulletScript bulletScript = newBullet.GetComponent<SeekingBulletScript>();
 
             Vector3 newDirection = new Vector3(direction.x + Methods.NextFloat(-dispersion, dispersion), direction.y + Methods.NextFloat(-dispersion, dispersion), 0).normalized;
 
             bulletScript.Setup(damage, bulletSpeed, newDirection, _bulletRotateSpeed);
             Spawn(newBullet);
-            AssignTargetClientRPC(bulletScript, playerState, networkConnection);
+            AssignTargetClientRPC(bulletScript, PlayerState, ClientManager.Connection);
         }
     }
 
     [ObserversRpc]
-    void AssignTargetClientRPC(SeekingBulletScript bulletScript, PlayerState playerState, NetworkConnection networkConnection){
+    void AssignTargetClientRPC(SeekingBulletScript bulletScript, PlayerState playerState, NetworkConnection networkConnection)
+    {
         if (!networkConnection.IsLocalClient) return;
-        Debug.Log(playerState);
-        Debug.Log(playerState.PointerScript);
+
         if (_targetsIndicators.Count == 0)
         {
             AssignTargetBulletScriptRPC(bulletScript, null);

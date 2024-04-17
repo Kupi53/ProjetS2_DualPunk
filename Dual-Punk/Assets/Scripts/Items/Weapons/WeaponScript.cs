@@ -31,6 +31,7 @@ public abstract class WeaponScript : NetworkBehaviour
     public void Drop()
     {
         ResetWeapon();
+        RemoveAllOwnerShipRPC(GetComponent<NetworkObject>());
         InHand = false;
         transform.position = PlayerState.transform.position + PlayerState.WeaponScript.WeaponOffset;
         transform.rotation = Quaternion.identity;
@@ -65,6 +66,13 @@ public abstract class WeaponScript : NetworkBehaviour
             _spriteRenderer.flipY = flip;
             _weaponOffset.x = -_weaponOffset.x;
         }
+    }
+
+
+    [ServerRpc]
+    void RemoveAllOwnerShipRPC(NetworkObject networkObject)
+    {
+        networkObject.RemoveOwnership();
     }
 
 

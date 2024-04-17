@@ -49,7 +49,7 @@ public class RocketScript : BulletScript
     public void Setup(int damage, float moveSpeed, Vector3 moveDirection, Vector3 startPosition, float distanceUntilExplosion,
         float explosionDistance, float explosionImpact, float deviationAngle, float deviationSpeed)
     {
-        Setup(damage, moveSpeed, moveDirection);
+        Setup(damage, moveSpeed, moveDirection, 0);
 
         _startPosition = startPosition;
         _distanceUntilExplosion = distanceUntilExplosion;
@@ -96,12 +96,12 @@ public class RocketScript : BulletScript
     [ObserversRpc]
     void PlayerRocketRpc(){
         GameObject player = _networkManager.GetComponent<LocalPlayerReference>().PlayerState.gameObject;
-        Debug.Log(player);
         player.GetComponent<PlayerState>().CameraController.ShakeCamera(_explosionImpact / 5, 0.3f);
+
         Vector3 hitDirection = player.transform.position - transform.position;
-            if (hitDirection.magnitude <= _explosionDistance)
-            {
-                player.GetComponent<IImpact>().Impact(hitDirection, _explosionImpact * (_explosionDistance - hitDirection.magnitude) / _explosionDistance);
-            }
+        if (hitDirection.magnitude <= _explosionDistance)
+        {
+            player.GetComponent<IImpact>().Impact(hitDirection, _explosionImpact * (_explosionDistance - hitDirection.magnitude) / _explosionDistance);
+        }
     }
 }

@@ -228,6 +228,7 @@ MonoBehaviour:
   _magSize: 4
   _bulletNumber: 2
   _reloadAmount: 1
+  _collisionsAllowed: 4
   _fireRate: 0.4
   _dispersion: 0
   _reloadTime: 0.7
@@ -235,12 +236,14 @@ MonoBehaviour:
   _bulletSpeed: 50
   _autoReload: 0
   _auto: 0
+  _sound: {fileID: 8300000, guid: fe190e3d00ab90540bc11dc6c2bd8c35, type: 3}
   _minDamage: 15
   _minSpeed: 10
   _minRecoil: 1
   _minImpact: 0.5
   _minCameraShake: 0.5
   _chargeTime: 1.2
+  _minCollisions: 0
 --- !u!114 &-5961033379950352520
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -285,7 +288,7 @@ MonoBehaviour:
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 4
+  <PrefabId>k__BackingField: 9
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0

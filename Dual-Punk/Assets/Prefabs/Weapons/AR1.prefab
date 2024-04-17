@@ -195,6 +195,7 @@ MonoBehaviour:
   _magSize: 30
   _bulletNumber: 1
   _reloadAmount: 30
+  _collisionsAllowed: 1
   _fireRate: 0.18
   _dispersion: 0.1
   _reloadTime: 1.3
@@ -247,7 +248,7 @@ MonoBehaviour:
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 16
+  <PrefabId>k__BackingField: 17
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0

@@ -17,6 +17,7 @@ public class ChargedBulletScript : BulletScript
         else if (collider.CompareTag("Wall"))
         {
             _collisionsAllowed--;
+            _damage = (int)(_damage * 0.75f);
         }
 
         if (_collisionsAllowed < 0 && collider.CompareTag("Wall"))

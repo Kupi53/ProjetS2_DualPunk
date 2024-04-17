@@ -7,13 +7,13 @@ using FishNet.Object;
 
 public class BulletScript : NetworkBehaviour, IImpact
 {
-    [SerializeField] protected int _collisionsAllowed;
     [SerializeField] protected float _lifeTime;
 
     protected Rigidbody2D _rb2d;
     protected Vector3 _moveDirection;
 
     protected int _damage;
+    protected int _collisionsAllowed;
     protected float _moveSpeed;
     protected float _moveFactor;
     protected float _impactForce;
@@ -46,10 +46,11 @@ public class BulletScript : NetworkBehaviour, IImpact
     }
 
 
-    public void Setup(int damage, float moveSpeed, Vector3 moveDirection)
+    public void Setup(int damage, float moveSpeed, Vector3 moveDirection, int collisionsAllowed)
     {
         _damage = damage;
         _moveSpeed = moveSpeed;
+        _collisionsAllowed = collisionsAllowed;
 
         ChangeDirection(moveDirection, true);
     }

@@ -178,7 +178,7 @@ public class LaserGunScript : WeaponScript
             PlayerRecoil.Impact(-direction, _recoilForce * Time.deltaTime * 100);
             PlayerState.CameraController.ShakeCamera(_cameraShake, 0.1f);
 
-            RaycastHit2D hit = Physics2D.Raycast(_startPosition, direction, Vector3.Distance(PlayerState.MousePosition, _startPosition), _layerMask);
+            RaycastHit2D hit = Physics2D.Raycast(_startPosition, direction, 1000, _layerMask);
 
             if (hit)
             {
@@ -193,7 +193,7 @@ public class LaserGunScript : WeaponScript
             }
             else
             {
-                DrawLaser(PlayerState.MousePosition, direction);
+                DrawLaser(PlayerState.MousePosition * 100, direction);
             }
         }
         else if (_resetTimer < _smoothTime*3)
