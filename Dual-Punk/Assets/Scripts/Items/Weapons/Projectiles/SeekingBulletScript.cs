@@ -7,6 +7,8 @@ using UnityEngine.EventSystems;
 
 public class SeekingBulletScript : BulletScript
 {
+    [SerializeField] private float _initializeTime;
+
     private float _rotateSpeed;
 
 #nullable enable
@@ -45,6 +47,9 @@ public class SeekingBulletScript : BulletScript
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
+        if (_lifeTime - _initializeTime > 0)
+            return;
+
         if (collider.CompareTag("Ennemy"))
         {
             EnnemyState health = collider.GetComponent<EnnemyState>();
@@ -53,8 +58,7 @@ public class SeekingBulletScript : BulletScript
         }
         else if (collider.CompareTag("Wall"))
         {
-            _collisionsAllowed--;
-            _damage = (int)(_damage * 0.75f);
+            Destroy(gameObject);
         }
     }
 }

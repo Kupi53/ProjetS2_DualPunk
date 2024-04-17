@@ -19586,7 +19586,7 @@ MonoBehaviour:
   _damageFrequency: 0.1
   _coolDownSpeed: 1
   _coolDownTime: 3
-  _smoothTime: 0.05
+  _smoothTime: 0.1
   _damage: 6
 --- !u!114 &812166075986024593
 MonoBehaviour:

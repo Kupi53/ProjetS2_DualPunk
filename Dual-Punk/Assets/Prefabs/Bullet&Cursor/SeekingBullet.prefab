@@ -178,6 +178,7 @@ MonoBehaviour:
   _addedNetworkObject: {fileID: 3625952199995253896}
   _networkObjectCache: {fileID: 3625952199995253896}
   _lifeTime: 1
+  _initializeTime: 0.92
 --- !u!114 &3625952199995253896
 MonoBehaviour:
   m_ObjectHideFlags: 0
