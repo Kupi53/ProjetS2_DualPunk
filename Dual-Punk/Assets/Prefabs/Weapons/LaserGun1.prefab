@@ -19449,9 +19449,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8547339821460021461}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0.6958896, w: 0.7181489}
-  m_LocalPosition: {x: 1.9293742, y: -0.30596513, z: 0}
-  m_LocalScale: {x: 0.42740023, y: 0.42740023, z: 1.0685005}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.45, y: 0.45, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7624567439703118913}
@@ -19582,7 +19582,7 @@ MonoBehaviour:
   _endVFX: {fileID: 1823186462710866608}
   _layerMask:
     serializedVersion: 2
-    m_Bits: 383
+    m_Bits: 351
   _damageFrequency: 0.1
   _coolDownSpeed: 1
   _coolDownTime: 3
@@ -19624,9 +19624,9 @@ MonoBehaviour:
   <ParentNetworkObject>k__BackingField: {fileID: 0}
   <ChildNetworkObjects>k__BackingField: []
   SerializedTransformProperties:
-    Position: {x: -0.88442, y: 0.0074795, z: 0}
+    Position: {x: 0, y: 0, z: 0}
     Rotation: {x: 0, y: 0, z: 0, w: 1}
-    LocalScale: {x: 0.42740023, y: 0.42740023, z: 1.0685005}
+    LocalScale: {x: 0.45, y: 0.45, z: 0}
   _isNetworked: 1
   _isGlobal: 0
   _initializeOrder: 0
