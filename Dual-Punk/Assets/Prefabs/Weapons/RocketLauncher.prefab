@@ -63,7 +63,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8297419380730599739}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: -0.8867129, w: 0.4623206}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 3.720904, y: 0.029811006, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -195,6 +195,7 @@ MonoBehaviour:
   _magSize: 1
   _bulletNumber: 1
   _reloadAmount: 1
+  _collisionsAllowed: 0
   _fireRate: 0
   _dispersion: 0
   _reloadTime: 1.2
@@ -202,7 +203,7 @@ MonoBehaviour:
   _bulletSpeed: 10
   _autoReload: 1
   _auto: 0
-  _sound: {fileID: 0}
+  _sound: {fileID: 8300000, guid: 19fec131fef583541978fab3469989a0, type: 3}
   _explosionDistance: 2
   _explosionImpact: 5
   _deviationAngle: 10
@@ -243,7 +244,7 @@ MonoBehaviour:
   <ParentNetworkObject>k__BackingField: {fileID: 0}
   <ChildNetworkObjects>k__BackingField: []
   SerializedTransformProperties:
-    Position: {x: -0.43126273, y: -1.2346472, z: -4.526409}
+    Position: {x: 3.720904, y: 0.029811006, z: 0}
     Rotation: {x: 0, y: 0, z: 0, w: 1}
     LocalScale: {x: 1, y: 1, z: 1}
   _isNetworked: 1

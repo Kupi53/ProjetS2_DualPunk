@@ -41,7 +41,7 @@ public class BulletScript : NetworkBehaviour, IImpact
 
         if (_lifeTime <= 0 || _moveSpeed < 5)
         {
-            DestroyThis();
+            Destroy(gameObject);
         }
     }
 
@@ -85,7 +85,6 @@ public class BulletScript : NetworkBehaviour, IImpact
 
     protected void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log(collision.collider);
         if (collision.collider.CompareTag("Ennemy"))
         {
             EnnemyState health = collision.collider.GetComponent<EnnemyState>();
@@ -100,7 +99,7 @@ public class BulletScript : NetworkBehaviour, IImpact
             ChangeDirection(Vector2.Reflect(_moveDirection, collision.contacts[0].normal), true);
         }
 
-        if (_collisionsAllowed < 0 && collision.collider.CompareTag("Wall") || collision.collider.CompareTag("Player"))
+        if (_collisionsAllowed < 0 || collision.collider.CompareTag("Player"))
         {
             DestroyThis();
         }

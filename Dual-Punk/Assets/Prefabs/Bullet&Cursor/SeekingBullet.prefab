@@ -177,8 +177,7 @@ MonoBehaviour:
   _componentIndexCache: 0
   _addedNetworkObject: {fileID: 3625952199995253896}
   _networkObjectCache: {fileID: 3625952199995253896}
-  _collisionsAllowed: 0
-  _lifeTime: 5
+  _lifeTime: 1
 --- !u!114 &3625952199995253896
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -208,7 +207,7 @@ MonoBehaviour:
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 23
+  <PrefabId>k__BackingField: 24
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0

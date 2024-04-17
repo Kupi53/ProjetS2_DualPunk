@@ -17,6 +17,7 @@ public class SeekingBulletScript : BulletScript
     private new void FixedUpdate()
     {
         if (!IsServer) return;
+
         base.FixedUpdate();
 
         if (Target != null)
@@ -48,17 +49,12 @@ public class SeekingBulletScript : BulletScript
         {
             EnnemyState health = collider.GetComponent<EnnemyState>();
             health.OnDamage(_damage);
-            DestroyThis();
+            Destroy(gameObject);
         }
         else if (collider.CompareTag("Wall"))
         {
             _collisionsAllowed--;
             _damage = (int)(_damage * 0.75f);
-        }
-
-        if (_collisionsAllowed < 0)
-        {
-            DestroyThis();
         }
     }
 }
