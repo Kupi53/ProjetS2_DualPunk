@@ -7,10 +7,8 @@ using UnityEngine.EventSystems;
 
 public class SeekingBulletScript : BulletScript
 {
-    [SerializeField] private float _initializeTime;
-
     private float _rotateSpeed;
-
+    
 #nullable enable
     public GameObject? Target { get; set; }
 #nullable disable
@@ -47,9 +45,6 @@ public class SeekingBulletScript : BulletScript
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        if (_lifeTime - _initializeTime > 0)
-            return;
-
         if (collider.CompareTag("Ennemy"))
         {
             EnnemyState health = collider.GetComponent<EnnemyState>();

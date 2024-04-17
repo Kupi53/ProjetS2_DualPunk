@@ -136,6 +136,7 @@ public class SmartWeaponScript : FireArmScript
 
     [ServerRpc (RequireOwnership = false)]
     void AssignTargetBulletScriptRPC(SeekingBulletScript bulletScript, GameObject? target){
-        bulletScript.Target = target;
+        if (bulletScript != null)
+            bulletScript.Target = target;
     }
 }
