@@ -134,7 +134,7 @@ public class FireArmScript : WeaponScript
     }
 
 
-    public virtual void Fire(Vector3 direction, int damage, float bulletSpeed, float dispersion, int collisionsAllowed)
+    protected virtual void Fire(Vector3 direction, int damage, float bulletSpeed, float dispersion, int collisionsAllowed)
     {
         //conditions pour modifier parametres damage, dipsersion ...
         if (PlayerState.Walking)
@@ -143,9 +143,9 @@ public class FireArmScript : WeaponScript
         FireBulletRpc(direction, damage, bulletSpeed, dispersion, collisionsAllowed);
     }
 
-
+    
     [ServerRpc(RequireOwnership = false)]
-    public void FireBulletRpc(Vector3 direction, int damage, float bulletSpeed, float dispersion, int collisionsAllowed)
+    private void FireBulletRpc(Vector3 direction, int damage, float bulletSpeed, float dispersion, int collisionsAllowed)
     {
         for (int i = 0; i < _bulletNumber; i++)
         {

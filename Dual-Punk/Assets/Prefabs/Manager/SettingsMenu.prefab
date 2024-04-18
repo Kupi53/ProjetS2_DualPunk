@@ -1638,6 +1638,7 @@ MonoBehaviour:
   resolutionDropdown: {fileID: 2951897502126400990}
   musicSlider: {fileID: 3790169033908423262}
   soundSlider: {fileID: 317219536669085336}
+  fullscreenToggle: {fileID: 0}
 --- !u!1 &4805404312234869329
 GameObject:
   m_ObjectHideFlags: 0

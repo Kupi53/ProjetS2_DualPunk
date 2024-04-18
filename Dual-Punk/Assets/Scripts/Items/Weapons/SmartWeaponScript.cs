@@ -84,7 +84,7 @@ public class SmartWeaponScript : FireArmScript
     }
 
 
-    public override void Fire(Vector3 direction, int damage, float bulletSpeed, float dispersion, int collisionsAllowed)
+    protected override void Fire(Vector3 direction, int damage, float bulletSpeed, float dispersion, int collisionsAllowed)
     {
         if (PlayerState.Walking)
             dispersion /= _aimAccuracy;
@@ -108,6 +108,7 @@ public class SmartWeaponScript : FireArmScript
             AssignTargetClientRPC(bulletScript, playerState, networkConnection);
         }
     }
+
 
     [ObserversRpc]
     void AssignTargetClientRPC(SeekingBulletScript bulletScript, PlayerState playerState, NetworkConnection networkConnection)
@@ -134,7 +135,7 @@ public class SmartWeaponScript : FireArmScript
         } 
     }
 
-    [ServerRpc (RequireOwnership = false)]
+    [ServerRpc(RequireOwnership = false)]
     void AssignTargetBulletScriptRPC(SeekingBulletScript bulletScript, GameObject? target){
         if (bulletScript != null)
             bulletScript.Target = target;

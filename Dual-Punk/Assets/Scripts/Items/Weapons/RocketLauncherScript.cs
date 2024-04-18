@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using FishNet.Object;
-using Unity.Netcode;
 using UnityEngine;
+
 
 public class RocketLauncherScript : FireArmScript
 {
@@ -12,14 +12,14 @@ public class RocketLauncherScript : FireArmScript
     [SerializeField] private float _deviationSpeed;
 
 
-    public override void Fire(Vector3 direction, int damage, float bulletSpeed, float dispersion, int collisionsAllowed)
+    protected override void Fire(Vector3 direction, int damage, float bulletSpeed, float dispersion, int collisionsAllowed)
     {
         FireRocketRpc(direction, damage, bulletSpeed);
     }
 
 
     [ServerRpc(RequireOwnership = false)]
-    public void FireRocketRpc(Vector3 direction, int damage, float bulletSpeed)
+    private void FireRocketRpc(Vector3 direction, int damage, float bulletSpeed)
     {
         for (int i = 0; i < _bulletNumber; i++)
         {

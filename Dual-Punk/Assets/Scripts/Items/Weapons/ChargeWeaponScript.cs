@@ -49,7 +49,7 @@ public class ChargeWeaponScript : FireArmScript
         {
             float multiplier = _chargeTimer / _chargeTime;
 
-            FireBulletRpc(direction, (int)Methods.GetProgressingFactor(multiplier, _minDamage, _damage), Methods.GetProgressingFactor(multiplier, _minSpeed, _bulletSpeed),
+            Fire(direction, (int)Methods.GetProgressingFactor(multiplier, _minDamage, _damage), Methods.GetProgressingFactor(multiplier, _minSpeed, _bulletSpeed),
                 _dispersion, (int)Methods.GetProgressingFactor(multiplier, _minCollisions, _collisionsAllowed));
 
             PlayerRecoil.Impact(-direction, Methods.GetProgressingFactor(multiplier, _minRecoil, _recoilForce));

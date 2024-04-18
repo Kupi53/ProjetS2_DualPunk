@@ -94,6 +94,8 @@ public class BulletScript : NetworkBehaviour, IImpact
         else if (collision.collider.CompareTag("Wall"))
         {
             _collisionsAllowed--;
+            _damage = (int)(_damage * 0.75f);
+
             Vector2 reflectDirection = Vector2.Reflect(_moveDirection, collision.contacts[0].normal);
             _rb2d.transform.position = collision.contacts[0].point + reflectDirection * ((Vector2)transform.position - collision.contacts[0].point).magnitude * 2;
             ChangeDirection(Vector2.Reflect(_moveDirection, collision.contacts[0].normal), true);

@@ -77,7 +77,7 @@ public class RocketScript : BulletScript
             Vector3 hitDirection = ennemy.transform.position - transform.position;
             if (hitDirection.magnitude <= _explosionDistance)
             {
-              health.OnDamage(_damage * (_explosionDistance - hitDirection.magnitude) / _explosionDistance);
+                health.OnDamage(_damage * (_explosionDistance - hitDirection.magnitude) / _explosionDistance);
             }
         }
 
@@ -94,7 +94,8 @@ public class RocketScript : BulletScript
     }
 
     [ObserversRpc]
-    void PlayerRocketRpc(){
+    private void PlayerRocketRpc()
+    {
         GameObject player = _networkManager.GetComponent<LocalPlayerReference>().PlayerState.gameObject;
         player.GetComponent<PlayerState>().CameraController.ShakeCamera(_explosionImpact / 5, 0.3f);
 
