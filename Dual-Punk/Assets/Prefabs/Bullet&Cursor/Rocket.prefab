@@ -177,7 +177,6 @@ MonoBehaviour:
   _componentIndexCache: 0
   _addedNetworkObject: {fileID: 1668462775358657453}
   _networkObjectCache: {fileID: 1668462775358657453}
-  _collisionsAllowed: 0
   _lifeTime: 3
   _explosion: {fileID: 2800961942588765522, guid: cdf5be5b24337cc4bb238459cc2e477e, type: 3}
 --- !u!114 &1668462775358657453
@@ -209,7 +208,7 @@ MonoBehaviour:
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 15
+  <PrefabId>k__BackingField: 16
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0
@@ -235,7 +234,7 @@ MonoBehaviour:
     Position: 1
     Rotation: 1
     Scale: 0
-  _interpolation: 1
+  _interpolation: 2
   _extrapolation: 2
   _enableTeleport: 0
   _teleportThreshold: 1
