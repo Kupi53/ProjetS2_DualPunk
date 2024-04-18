@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public enum FloorType{
     City,
@@ -17,6 +18,12 @@ public class FloorManager : MonoBehaviour
     [SerializeField] public GameObject[] CityRoomPrefabs;
     [SerializeField] public GameObject[] HangarRoomPrefabs;
     [SerializeField] public GameObject[] SpaceshipRoomPrefabs;
+    public const int DATALAYERINDEX = 0;
+    public const int TILEMAPLAYERINDEX = 1;
+    public const int ELEVATIONLAYERINDEX = 2;
+    public const int COLLISIONMAPLAYERINDEX = 3;
+    [SerializeField] public Tile test1;
+    [SerializeField] public Tile test2;
     //
     private int _floorTypeCount { get => Enum.GetNames(typeof(FloorType)).Length; }
     private int _minRoomAmount = 5;
@@ -30,7 +37,7 @@ public class FloorManager : MonoBehaviour
     }
     void Start(){
         NewFloor(FloorType.City);
-        PrintFloor();
+        //PrintFloor();
     }
 
     //
@@ -64,16 +71,17 @@ public class FloorManager : MonoBehaviour
             }
             // initialise the room component with the correct variables
             Room newRoom = newRoomObject.GetComponent<Room>();
-            newRoom.Init(roomPrefabId, floor);
             // append this room to the floor we're creating
             floor.AppendRoom(newRoom);
+            // this depends on knowing wether it is the floor's entry, exit or normal room so it needs to be called after append
+            newRoom.Init(floor);
             // deactivate the room object
             newRoomObject.SetActive(false);
         }
         return floor;
     }
 
-    // Activates the new room
+    // Activates the new room, places the player at the entry
     private void SwitchRoom(Room newRoom)
     {
         newRoom.gameObject.SetActive(true);
@@ -86,6 +94,7 @@ public class FloorManager : MonoBehaviour
     }
 
     // For testing purposes, Goes through the _currentFloor and converts attributes to a string, then debug.logs it
+    /*
     private void PrintFloor()
     {
         string res = "Current Floor :\n";
@@ -116,4 +125,5 @@ public class FloorManager : MonoBehaviour
         }
         Debug.Log(res);
     }
+    */
 }
