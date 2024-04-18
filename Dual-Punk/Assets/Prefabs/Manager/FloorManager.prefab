@@ -1,0 +1,70 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7243987111373328831
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6101913137713893155}
+  - component: {fileID: 3019852277073667441}
+  m_Layer: 0
+  m_Name: FloorManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6101913137713893155
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7243987111373328831}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 320.88327, y: 643.0333, z: 10.505581}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3019852277073667441
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7243987111373328831}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9477fcfe33aea414896a908bc373dbd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CityRoomPrefabs:
+  - {fileID: 4019020946379616920, guid: 42e909071ae77d149973e0f2ae2aa957, type: 3}
+  - {fileID: 4019020946379616920, guid: 24338cc6470bebc43bd853503fe68e59, type: 3}
+  - {fileID: 4019020946379616920, guid: 5a71dec133d10be438345426322f5d52, type: 3}
+  - {fileID: 4019020946379616920, guid: 30232ba13f2f5bc45bd2a4b5a8763279, type: 3}
+  - {fileID: 4019020946379616920, guid: c569c547b547f314b890f4ae3b3d3849, type: 3}
+  - {fileID: 4019020946379616920, guid: 48c365a66fc33da4da4cdaf87be83ade, type: 3}
+  - {fileID: 4019020946379616920, guid: aadf2ccefe39ac344be5d99a1d48d0ad, type: 3}
+  HangarRoomPrefabs:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  SpaceshipRoomPrefabs:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
