@@ -601,6 +601,8 @@ MonoBehaviour:
   _componentIndexCache: 4
   _addedNetworkObject: {fileID: 3460544654625029893}
   _networkObjectCache: {fileID: 3460544654625029893}
+  _inventoryManager: {fileID: 0}
+  _playerState: {fileID: 0}
 --- !u!114 &3907873960965384262
 MonoBehaviour:
   m_ObjectHideFlags: 0

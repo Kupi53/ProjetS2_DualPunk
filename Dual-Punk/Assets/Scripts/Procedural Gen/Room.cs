@@ -1,6 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
+using Unity.Collections;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -20,12 +23,13 @@ public class Room : MonoBehaviour
 {
     public Room NextRoom;
     public Room PreviousRoom;
-    private Vector3Int[] _entryWallCoordinates;
-    private Vector3Int[] _exitWallCoordinates;
-    private WallCardinal _exitWallCardinal;
-    private WallCardinal _entryWallCardinal;
-    private Floor _floor;
+    public Vector3Int[] _entryWallCoordinates;
+    public Vector3Int[] _exitWallCoordinates;
+    public WallCardinal _exitWallCardinal;
+    public WallCardinal _entryWallCardinal;
     [SerializeField] private int _roomPrefabId;
+    private EffectTilesController _effectTilesController;
+    private Floor _floor;
     private bool _isCleared;
     private RoomType _roomType
     { 
@@ -46,17 +50,43 @@ public class Room : MonoBehaviour
         }
     }
 
+
     // called upon generation of eadch room (FloorManager.GenerateFloor); initialises variables, generates doors, spawns entities
     public void Init(Floor floor)
     {
         _floor = floor;
         _isCleared = false;
+        _effectTilesController = this.gameObject.GetComponent<EffectTilesController>();
+        _effectTilesController.EffectTiles = new List<EffectTile>();
         GenerateWalls();
+    }
+    public void SpawnExits()
+    {
+        Tilemap wallTilemap = this.gameObject.transform.GetChild(FloorManager.TILEMAPLAYERINDEX).gameObject.GetComponent<Tilemap>();
+        if (_roomType != RoomType.FloorEntry)
+        {
+            foreach ( Vector3Int coordinate in _entryWallCoordinates)
+            {
+                wallTilemap.SetTile(coordinate, FloorManager.Instance.test1);
+                _effectTilesController.EffectTiles.Add(new RoomExitTile(coordinate, PreviousRoom, GetOppositeWall(_entryWallCardinal)));
+            }
+        }
+        if (_roomType != RoomType.FloorExit)
+        {
+            foreach ( Vector3Int coordinate in _exitWallCoordinates)
+            {
+                wallTilemap.SetTile(coordinate, FloorManager.Instance.test2);
+                _effectTilesController.EffectTiles.Add(new RoomExitTile(coordinate, NextRoom, GetOppositeWall(_exitWallCardinal)));
+            }
+        }
+
     }
 
     // deactives current room , activates the next by calling SwitchRoom
-    public void Exit(){
-
+    public void Exit(Room targetRoom)
+    {
+        this.gameObject.SetActive(false);
+        FloorManager.Instance.SwitchRoom(targetRoom);
     }
 
     private void GenerateWalls()
@@ -64,15 +94,6 @@ public class Room : MonoBehaviour
         (_entryWallCardinal, _exitWallCardinal) = PickWalls();
         _entryWallCoordinates = FindWallCoordinates(_entryWallCardinal);
         _exitWallCoordinates = FindWallCoordinates(_exitWallCardinal);
-        Tilemap wallTilemap = this.gameObject.transform.GetChild(FloorManager.TILEMAPLAYERINDEX).gameObject.GetComponent<Tilemap>();
-        foreach ( Vector3Int coordinate in _entryWallCoordinates)
-        {
-            wallTilemap.SetTile(coordinate, FloorManager.Instance.test1);
-        }
-        foreach ( Vector3Int coordinate in _exitWallCoordinates)
-        {
-            wallTilemap.SetTile(coordinate, FloorManager.Instance.test2);
-        }
     }
 
     private static WallCardinal GetOppositeWall(WallCardinal cardinal)
@@ -101,8 +122,6 @@ public class Room : MonoBehaviour
         }
         else 
         {
-            Debug.Log(_roomPrefabId);
-            Debug.Log(_roomType.ToString());
             entryWall = GetOppositeWall(PreviousRoom._exitWallCardinal);
         }
         WallCardinal exitWall = (WallCardinal)UnityEngine.Random.Range(0, 4);

@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour
 
     public bool DebugMode;
     public bool InGame;
+    public GameObject Player1;
+    public GameObject Player2;
 
     void Start(){
         Instance = this;

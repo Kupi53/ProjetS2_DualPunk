@@ -1261,6 +1261,7 @@ GameObject:
   - component: {fileID: 8970893873882797774}
   - component: {fileID: 5382889220720885125}
   - component: {fileID: 6262579977518190938}
+  - component: {fileID: 7031544837064069819}
   m_Layer: 0
   m_Name: CityRoom6
   m_TagString: Untagged
@@ -1313,7 +1314,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   NextRoom: {fileID: 0}
   PreviousRoom: {fileID: 0}
+  _entryWallCoordinates: []
+  _exitWallCoordinates: []
+  _exitWallCardinal: 0
+  _entryWallCardinal: 0
   _roomPrefabId: 6
+--- !u!114 &7031544837064069819
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4019020946379616920}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85e0462b1ae37004698bb27023216965, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5152032391504041506
 GameObject:
   m_ObjectHideFlags: 0

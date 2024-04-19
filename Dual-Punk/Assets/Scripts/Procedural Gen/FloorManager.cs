@@ -15,6 +15,7 @@ public class FloorManager : MonoBehaviour
 {
     public static FloorManager Instance;
     public Floor _currentFloor;
+    public Room _currentRoom;
     [SerializeField] public GameObject[] CityRoomPrefabs;
     [SerializeField] public GameObject[] HangarRoomPrefabs;
     [SerializeField] public GameObject[] SpaceshipRoomPrefabs;
@@ -75,16 +76,25 @@ public class FloorManager : MonoBehaviour
             floor.AppendRoom(newRoom);
             // this depends on knowing wether it is the floor's entry, exit or normal room so it needs to be called after append
             newRoom.Init(floor);
-            // deactivate the room object
-            newRoomObject.SetActive(false);
+        }
+        // need to go back through the spawned rooms and spawn all the exit teleporter tiles and also deactive them (except the entry)
+        Room room = floor.Entry;
+        room.SpawnExits();
+        room = room.NextRoom;
+        while (room != null)
+        {
+            room.SpawnExits();
+            room.gameObject.SetActive(false);
+            room = room.NextRoom;
         }
         return floor;
     }
 
     // Activates the new room, places the player at the entry
-    private void SwitchRoom(Room newRoom)
+    public void SwitchRoom(Room newRoom)
     {
         newRoom.gameObject.SetActive(true);
+        _currentRoom = newRoom.GetComponent<Room>();
     }
 
     // Creates a new floor and switches to it's entry room
@@ -94,7 +104,7 @@ public class FloorManager : MonoBehaviour
     }
 
     // For testing purposes, Goes through the _currentFloor and converts attributes to a string, then debug.logs it
-    /*
+/*
     private void PrintFloor()
     {
         string res = "Current Floor :\n";
@@ -125,5 +135,5 @@ public class FloorManager : MonoBehaviour
         }
         Debug.Log(res);
     }
-    */
+*/
 }
