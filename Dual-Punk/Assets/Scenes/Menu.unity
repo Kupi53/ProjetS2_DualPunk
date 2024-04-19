@@ -4244,6 +4244,28 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1504957980}
   m_CullTransparentMesh: 1
+--- !u!114 &1533214669 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4680981941538277727, guid: dda056c3d8465334d88694bddf737e40, type: 3}
+  m_PrefabInstance: {fileID: 1702409304218492472}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26b716c41e9b56b4baafaf13a523ba2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1533214670 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1053980124377817206, guid: dda056c3d8465334d88694bddf737e40, type: 3}
+  m_PrefabInstance: {fileID: 1702409304218492472}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5927843ace9ef8b489f9f103063a585a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1586404190
 GameObject:
   m_ObjectHideFlags: 0
@@ -5027,10 +5049,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameManager
       objectReference: {fileID: 0}
+    - target: {fileID: 1053980124377817206, guid: dda056c3d8465334d88694bddf737e40, type: 3}
+      propertyPath: _networkObjectCache
+      value: 
+      objectReference: {fileID: 1533214669}
+    - target: {fileID: 1053980124377817206, guid: dda056c3d8465334d88694bddf737e40, type: 3}
+      propertyPath: _componentIndexCache
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4680981941538277727, guid: dda056c3d8465334d88694bddf737e40, type: 3}
       propertyPath: <SceneId>k__BackingField
       value: 10255325039701882001
       objectReference: {fileID: 0}
+    - target: {fileID: 4680981941538277727, guid: dda056c3d8465334d88694bddf737e40, type: 3}
+      propertyPath: _networkBehaviours.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4680981941538277727, guid: dda056c3d8465334d88694bddf737e40, type: 3}
+      propertyPath: _networkBehaviours.Array.data[0]
+      value: 
+      objectReference: {fileID: 1533214670}
     - target: {fileID: 8283373856175131914, guid: dda056c3d8465334d88694bddf737e40, type: 3}
       propertyPath: objects.Array.data[1]
       value: 

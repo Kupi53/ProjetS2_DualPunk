@@ -26,7 +26,6 @@ public class EffectTilesController : MonoBehaviour
             PlayerState player1State = GameManager.Instance.Player1.GetComponent<PlayerState>();
             foreach(EffectTile effectTile in EffectTiles)
             {
-                Debug.Log(effectTile.Position);
                 if (player1Position == effectTile.Position)
                 {
                     player1StandingOnEFfectTile = true;
