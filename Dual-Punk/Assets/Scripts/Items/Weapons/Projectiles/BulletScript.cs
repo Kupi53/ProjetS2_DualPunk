@@ -97,8 +97,9 @@ public class BulletScript : NetworkBehaviour, IImpact
             _damage = (int)(_damage * 0.75f);
 
             Vector2 reflectDirection = Vector2.Reflect(_moveDirection, collision.contacts[0].normal);
+            float magnitude = ((Vector2)transform.position - collision.contacts[0].point).magnitude;
+            _rb2d.transform.position = collision.contacts[0].point + reflectDirection * magnitude * 3 + (Vector2)_moveDirection * magnitude;
             ChangeDirection(Vector2.Reflect(_moveDirection, collision.contacts[0].normal), true);
-            _rb2d.transform.position = collision.contacts[0].point + reflectDirection * ((Vector2)transform.position - collision.contacts[0].point).magnitude * 3;
         }
 
         if (_collisionsAllowed < 0 || collision.collider.CompareTag("Player"))
