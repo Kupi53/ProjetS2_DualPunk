@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using System;
+using FishNet.Object;
 
 
-public class ConsumablesController : MonoBehaviour
+public class ConsumablesController : NetworkBehaviour
 {
     [SerializeField] private GameObject _grenade;
     [SerializeField] private GameObject _grenadePath;
@@ -24,6 +25,7 @@ public class ConsumablesController : MonoBehaviour
 
     private Vector3 _direction;
     private Vector3 _offset;
+    private Vector2 _normalVector;
 
 
     // Heal
@@ -60,7 +62,7 @@ public class ConsumablesController : MonoBehaviour
         _grenadeImpact = _grenadePath.GetComponentInChildren<SpriteRenderer>();
 
         _lineRenderer.positionCount = _lineResolution;
-        Reset();
+        ResetThrow();
     }
 
 
@@ -100,16 +102,15 @@ public class ConsumablesController : MonoBehaviour
                 _direction = _playerState.MousePosition - transform.position - _offset;
 
                 if (_explodeTimer > _grenadeTimer)
-                    Reset();
+                    ResetThrow();
 
                 if (Input.GetButtonUp("UseGrenade"))
                 {
-                    GameObject grenade = Instantiate(_grenade, transform.position + _offset, transform.rotation);
-                    grenade.GetComponent<GrenadeScript>().Setup(transform.position + _offset, _direction.normalized,
-                        _throwForce * Methods.GetDirectionFactor(_direction) * GetChargeFactor(), _grenadeTimer - _explodeTimer,
-                        GetThrowDistance(), _grenadeCurveFactor);
-
-                    Reset();
+                    float throwDistance = GetThrowDistance();
+                    ThrowGrenadeRpc(transform.position + _offset, _direction.normalized, _normalVector, _throwForce * GetChargeFactor() * throwDistance / _throwDistance,
+                        _grenadeTimer - _explodeTimer, throwDistance, _grenadeCurveFactor);
+                    
+                    ResetThrow();
                     _itemTimer = 0;
                 }
 
@@ -122,23 +123,31 @@ public class ConsumablesController : MonoBehaviour
     }
 
 
+    [ServerRpc(RequireOwnership = false)]
+    private void ThrowGrenadeRpc(Vector3 startPosition, Vector3 moveDirection, Vector3 verticalDirection, float moveSpeed, float explosionTimer, float distanceUntilStop, float curveFactor)
+    {
+        GameObject grenade = Instantiate(_grenade, startPosition, Quaternion.identity);
+        grenade.GetComponent<GrenadeScript>().Setup(startPosition, moveDirection, verticalDirection, moveSpeed, explosionTimer, distanceUntilStop, curveFactor);
+        Spawn(grenade);
+    }
+
+
     private void DrawGrenadePath()
     {
-        _lineRenderer.positionCount = _lineResolution;
-
         Vector2 direction = _direction.normalized;
         Vector2 startPoint = transform.position + _offset;
         Vector2 endPoint = startPoint + direction * GetChargeFactor() * GetThrowDistance();
-        Vector2 normalVector = Vector2.Perpendicular(direction) * GetChargeFactor() * (Methods.GetDirectionFactor(direction) - 0.5f);
+
+        _normalVector = Vector2.Perpendicular(direction) * GetChargeFactor() * (Methods.GetDirectionFactor(direction) - 0.5f);
 
         if (_playerState.MousePosition.x < transform.position.x)
-            normalVector = -normalVector;
+            _normalVector = -_normalVector;
 
         for (int i = 1; i < _lineResolution - 1; i++)
         {
             float factor = (float)i / (float)(_lineResolution - 1);
             _lineRenderer.SetPosition(i, Vector2.Lerp(startPoint, endPoint, factor) +
-                normalVector * (- factor * factor * _grenadeCurveFactor + factor * _grenadeCurveFactor));
+                _normalVector * (- factor * factor * _grenadeCurveFactor + factor * _grenadeCurveFactor));
         }
 
         _lineRenderer.SetPosition(0, startPoint);
@@ -164,7 +173,7 @@ public class ConsumablesController : MonoBehaviour
     }
 
 
-    private void Reset()
+    private void ResetThrow()
     {
         _explodeTimer = 0;
         _chargeGrenade = false;

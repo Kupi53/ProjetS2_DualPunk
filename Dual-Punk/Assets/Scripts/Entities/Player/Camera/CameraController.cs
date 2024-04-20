@@ -10,34 +10,32 @@ using Cinemachine;
 
 public class CameraController : MonoBehaviour
 {
-    [SerializeField] private float minZoom;
-    [SerializeField] private float maxZoom;
+    [SerializeField] private float _minZoom;
+    [SerializeField] private float _maxZoom;
+    [SerializeField] private int _changeCenterZone;
 
-    private CinemachineVirtualCamera VCam;
+    private CinemachineVirtualCamera _vCam;
     private CinemachineBasicMultiChannelPerlin _cbmp;
 
     private Vector3 _offset;
-    private Vector3 _position;
-
+    private Vector3 _refV2;
+    private float _refV1;
     private float _smoothTime;
     private float _shakeTimer;
 
     public Camera MainCamera { get; set; }
-    public GameObject Player { get; set; }
-
-    private float _refV1;
-    private Vector3 _refV2;
+    public PlayerState PlayerState { get; set; }
 
 
     void Start()
     {
         _shakeTimer = 0;
-        _smoothTime = 0.25f;
+        _smoothTime = 0.5f;
         _offset = new Vector3(0, 0, -7);
 
         MainCamera = GetComponentInChildren<Camera>();
-        VCam = GetComponentInChildren<CinemachineVirtualCamera>();
-        _cbmp = VCam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+        _vCam = GetComponentInChildren<CinemachineVirtualCamera>();
+        _cbmp = _vCam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
 
         _refV1 = 0;
         _refV2 = Vector3.zero;
@@ -57,18 +55,28 @@ public class CameraController : MonoBehaviour
     }
 
 
+    private void ChangeOffsetPosition(Vector3 mousePos)
+    {
+        //Changer en fonction de la resolution (je vais me suicider jpp de toutes ces merdes ca me rends fou)
+        if (mousePos.y > 980 - _changeCenterZone || mousePos.y < _changeCenterZone || mousePos.x > 1920 - _changeCenterZone || mousePos.x < _changeCenterZone)
+        {
+            _offset = (PlayerState.transform.position * 2 + PlayerState.MousePosition) / 3 - PlayerState.transform.position;
+            _offset.z = -7;
+        }
+    }
+
+
     void FixedUpdate()
     {
-        _position = Player.transform.position + _offset;
-        transform.position = Vector3.SmoothDamp(transform.position, _position, ref _refV2, _smoothTime);
+        ChangeOffsetPosition(Input.mousePosition);
+        transform.position = Vector3.SmoothDamp(transform.position, PlayerState.transform.position + _offset, ref _refV2, _smoothTime);
 
         if (Input.GetButton("Walk")) {
-            MainCamera.orthographicSize = Mathf.SmoothDamp(MainCamera.orthographicSize, minZoom, ref _refV1, _smoothTime);
+            MainCamera.orthographicSize = Mathf.SmoothDamp(MainCamera.orthographicSize, _minZoom, ref _refV1, _smoothTime);
         } else {
-            MainCamera.orthographicSize = Mathf.SmoothDamp(MainCamera.orthographicSize, maxZoom, ref _refV1, _smoothTime);
+            MainCamera.orthographicSize = Mathf.SmoothDamp(MainCamera.orthographicSize, _maxZoom, ref _refV1, _smoothTime);
         }
-        VCam.m_Lens.OrthographicSize = MainCamera.orthographicSize;
-
+        _vCam.m_Lens.OrthographicSize = MainCamera.orthographicSize;
     }
 
     public void ShakeCamera(float intensity, float time)

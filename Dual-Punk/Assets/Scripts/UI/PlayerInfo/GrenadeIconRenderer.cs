@@ -1,12 +1,10 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Playables;
 using UnityEngine.UI;
 
 
-public class HealIconRenderer : MonoBehaviour
+public class GrenadeIconRenderer : MonoBehaviour
 {
     [SerializeField] private RawImage _image;
 
@@ -17,24 +15,23 @@ public class HealIconRenderer : MonoBehaviour
     private float _transformMultiplier;
 
 
-    private void Start()
+    void Start()
     {
         _rectTransform = _image.GetComponent<RectTransform>();
         _consumablesController = transform.root.GetComponent<LocalPlayerReference>().ConsumablesController;
-        
+
         _reloadingOffset = _rectTransform.offsetMin.x;
         // Offset max est negatif car c'est la distance entre le coin haut droit de l'ancre et le coin haut droit de l'image
-        _transformMultiplier = (_reloadingOffset + _rectTransform.offsetMax.x) / _consumablesController.HealCoolDown;
+        _transformMultiplier = (_reloadingOffset + _rectTransform.offsetMax.x) / _consumablesController.ItemCoolDown;
     }
 
-    
-    private void Update()
+    void Update()
     {
-        if (_consumablesController.HealTimer >= _consumablesController.HealCoolDown) {
+        if (_consumablesController.ItemTimer >= _consumablesController.ItemCoolDown) {
             _image.enabled = false;
         } else {
             _image.enabled = true;
-            _rectTransform.offsetMax = new Vector2(-_reloadingOffset + _transformMultiplier * _consumablesController.HealTimer, _rectTransform.offsetMax.y);
+            _rectTransform.offsetMax = new Vector2(-_reloadingOffset + _transformMultiplier * _consumablesController.ItemTimer, _rectTransform.offsetMax.y);
         }
     }
 }
