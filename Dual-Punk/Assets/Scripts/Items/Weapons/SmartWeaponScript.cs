@@ -132,11 +132,12 @@ public class SmartWeaponScript : FireArmScript
             {
                 AssignTargetBulletScriptRPC(bulletScript,_targetsIndicators[_index].GetComponent<TargetIndicatorScript>().Target);
             }
-        } 
+        }
     }
 
     [ServerRpc(RequireOwnership = false)]
-    void AssignTargetBulletScriptRPC(SeekingBulletScript bulletScript, GameObject? target){
+    void AssignTargetBulletScriptRPC(SeekingBulletScript bulletScript, GameObject? target)
+    {
         if (bulletScript != null)
             bulletScript.Target = target;
     }

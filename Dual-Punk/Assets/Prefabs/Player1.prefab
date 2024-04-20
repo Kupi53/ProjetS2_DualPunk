@@ -537,10 +537,13 @@ MonoBehaviour:
   _componentIndexCache: 1
   _addedNetworkObject: {fileID: 3460544654625029893}
   _networkObjectCache: {fileID: 3460544654625029893}
+  _crawlSpeed: 0.01
   _walkSpeed: 0.05
   _sprintSpeed: 0.08
   _dashSpeed: 0.25
   _dashTime: 0.15
+  _dashCooldown: 2
+  _crawlTime: 30
   _moveBackFactor: 0.8
   _forcesEffect: 0.05
   _forcesDecreaseSpeed: 15
@@ -601,6 +604,8 @@ MonoBehaviour:
   _componentIndexCache: 4
   _addedNetworkObject: {fileID: 3460544654625029893}
   _networkObjectCache: {fileID: 3460544654625029893}
+  _inventoryManager: {fileID: 0}
+  _playerState: {fileID: 0}
 --- !u!114 &3907873960965384262
 MonoBehaviour:
   m_ObjectHideFlags: 0

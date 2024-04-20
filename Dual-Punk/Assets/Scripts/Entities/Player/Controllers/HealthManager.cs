@@ -28,7 +28,10 @@ public class HealthManager : MonoBehaviour, IDamageable
             _playerState.Health = _playerState.MaxHealth;
 
         else if (_playerState.Health <= 0)
-            Die();
+        {
+            _playerState.Health = 0;
+            _playerState.Down = true;
+        }
     }
 
 

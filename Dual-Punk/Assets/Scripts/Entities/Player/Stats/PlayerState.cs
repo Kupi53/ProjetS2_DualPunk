@@ -15,9 +15,12 @@ public class PlayerState : NetworkBehaviour
     public int MaxHealth { get; set; }
 
     public float AnimAngle { get; set; }
-    public float DashCooldown { get; set; }
-    public float DashCooldownMax { get; set; }
+    public float ForcesEffect { get; set; }
+    public float ForcesDecreaseSpeed { get; set; }
+    public float CrawlTime { get; set; }
+    public float CrawlTimer { get; set; }
 
+    public bool Down { get; set; }
     public bool Moving { get; set; }
     public bool Walking { get; set; }
     public bool Dashing { get; set; }
@@ -38,14 +41,17 @@ public class PlayerState : NetworkBehaviour
     {
         MaxHealth = 100;
         Health = MaxHealth;
+        Down = false;
         Moving = false;
         Walking = false;
         Dashing = false;
         Attacking = false;
         HoldingWeapon = false;
         AnimAngle = 0;
-        DashCooldown = 0;
-        DashCooldownMax = 1;
+        ForcesEffect = 0.05f;
+        ForcesDecreaseSpeed = 15;
+        CrawlTime = 20;
+        CrawlTimer = 0;
     }
 
     void Update()

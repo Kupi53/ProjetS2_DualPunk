@@ -9,20 +9,13 @@ public class RocketScript : BulletScript
 {
     [SerializeField] private GameObject _explosion;
 
-    private NetworkManager _networkManager;
     private Vector3 _startPosition;
-
     private float _distanceUntilExplosion;
     private float _explosionDistance;
     private float _explosionImpact;
     private float _deviationAngle;
     private float _deviationSpeed;
 
-
-    public override void OnStartNetwork()
-    {
-        _networkManager = GameObject.FindWithTag("NetworkManager").GetComponent<NetworkManager>();
-    }
 
     private new void FixedUpdate()
     {
@@ -63,23 +56,10 @@ public class RocketScript : BulletScript
     protected override void DestroyThis()
     {
         GameObject explosion = Instantiate(_explosion, transform.position, transform.rotation);
+        explosion.GetComponent<Explosion>().Explode(_damage, _explosionDistance, _explosionImpact);
 
         Spawn(explosion);
         Destroy(explosion, 1);
-
-        PlayerRocketRpc();
-
-        GameObject[] ennemies = GameObject.FindGameObjectsWithTag("Ennemy");
-        foreach(GameObject ennemy in ennemies)
-        {
-            EnnemyState health = ennemy.GetComponent<EnnemyState>();
-
-            Vector3 hitDirection = ennemy.transform.position - transform.position;
-            if (hitDirection.magnitude <= _explosionDistance)
-            {
-                health.OnDamage(_damage * (_explosionDistance - hitDirection.magnitude) / _explosionDistance);
-            }
-        }
 
         Destroy(gameObject);
     }
@@ -93,7 +73,7 @@ public class RocketScript : BulletScript
         }
     }
 
-    [ObserversRpc]
+    /*[ObserversRpc]
     private void PlayerRocketRpc()
     {
         GameObject player = _networkManager.GetComponent<LocalPlayerReference>().PlayerState.gameObject;
@@ -104,5 +84,5 @@ public class RocketScript : BulletScript
         {
             player.GetComponent<IImpact>().Impact(hitDirection, _explosionImpact * (_explosionDistance - hitDirection.magnitude) / _explosionDistance);
         }
-    }
+    }*/
 }

@@ -68,8 +68,10 @@ public class ConsumablesController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            _damageable.Damage(10, 0.1f);
+            _damageable.Damage(10, 1f);
         }
+
+        if (_playerState.Down) return;
 
         if (_healTimer >= _healCooldown)
         {

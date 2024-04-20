@@ -10,14 +10,14 @@ using System.Data.SqlTypes;
 
 public class MouvementsController : NetworkBehaviour, IImpact
 {
-    // Nombres decimaux pour gerer la vitesse de marche, course et de dash
+    // Nombres decimaux pour controller la vitesse de marche, course et de dash
+    [SerializeField] private float _crawlSpeed;
     [SerializeField] private float _walkSpeed;
     [SerializeField] private float _sprintSpeed;
     [SerializeField] private float _dashSpeed;
     [SerializeField] private float _dashTime;
+    [SerializeField] private float _dashCooldown;
     [SerializeField] private float _moveBackFactor;
-    [SerializeField] private float _forcesEffect;
-    [SerializeField] private float _forcesDecreaseSpeed;
 
     private List<(Vector2, float)> _forces;
     private PlayerState _playerState;
@@ -26,9 +26,9 @@ public class MouvementsController : NetworkBehaviour, IImpact
     private Vector2 _moveDirection;
     private Vector2 _pointerDirection;
 
-    // Bool qui sert pour le state du joueur (par exemple pendant un dash ou certaines abilitiés le joueur ne doit pas pouvoir bouger)
     private bool _enableMovement;
     private float _dashTimer;
+    private float _dashCooldownTimer;
     private float _moveSpeed;
     private float _moveFactor;
 
@@ -36,6 +36,7 @@ public class MouvementsController : NetworkBehaviour, IImpact
     private void Start()
     {
         _dashTimer = 0;
+        _dashCooldownTimer = 0;
         _enableMovement = true;
 
         _rb2d = GetComponent<Rigidbody2D>();
@@ -44,11 +45,11 @@ public class MouvementsController : NetworkBehaviour, IImpact
     }
 
 
+    // Prends Imputs chaque frame
     private void Update()
     {
         if (!IsOwner) return;
 
-        // Prends Imputs chaque frame
         if (_enableMovement)
         {
             _moveDirection = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical") * 0.5f).normalized;
@@ -61,7 +62,17 @@ public class MouvementsController : NetworkBehaviour, IImpact
                 _playerState.Moving = true;
             }
 
-            if (Input.GetButton("Walk") || _moveDirection == Vector2.zero) {
+            if (_playerState.Down)
+            {
+                _moveSpeed = _crawlSpeed;
+                _playerState.CrawlTimer += Time.deltaTime;
+                if (_playerState.CrawlTimer > _playerState.CrawlTime)
+                {
+                    _enableMovement = false;
+                    _moveDirection = Vector2.zero;
+                }
+            }
+            else if (Input.GetButton("Walk") || _moveDirection == Vector2.zero) {
                 _playerState.Walking = true;
                 _moveSpeed = _walkSpeed;
             }
@@ -69,23 +80,23 @@ public class MouvementsController : NetworkBehaviour, IImpact
                 _playerState.Walking = false;
                 _moveSpeed = _sprintSpeed;
             }
-            
-            if (Input.GetButtonDown("Dash") && _playerState.DashCooldown <= 0 && _playerState.Moving)
+
+            if (Input.GetButtonDown("Dash") && !_playerState.Down && _dashCooldownTimer <= 0 && _playerState.Moving)
             {
                 _enableMovement = false;
                 _playerState.Dashing = true;
-                _playerState.DashCooldown = _playerState.DashCooldownMax;
-            }
-
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                _forces.Add((Vector2.up, 1));
+                _dashCooldownTimer = _dashCooldown;
             }
         }
-
-        if (_playerState.DashCooldown > 0)
+        else if (!_playerState.Down && !_playerState.Dashing)
         {
-            _playerState.DashCooldown -= Time.deltaTime;
+            _enableMovement = true;
+            _playerState.CrawlTimer = 0;
+        }
+
+        if (_dashCooldownTimer > 0)
+        {
+            _dashCooldownTimer -= Time.deltaTime;
         }
     }
 
@@ -152,17 +163,17 @@ public class MouvementsController : NetworkBehaviour, IImpact
             else
             {
                 resultingForce += _forces[i].Item1 * _forces[i].Item2;
-                _forces[i] = (_forces[i].Item1, _forces[i].Item2 - Time.deltaTime * _forcesDecreaseSpeed);
+                _forces[i] = (_forces[i].Item1, _forces[i].Item2 - Time.deltaTime * _playerState.ForcesDecreaseSpeed);
                 i++;
             }
         }
 
-        _rb2d.MovePosition(_rb2d.position + resultingForce * Methods.GetDirectionFactor(resultingForce) * _forcesEffect + _moveDirection * _moveSpeed * _moveFactor);
+        _rb2d.MovePosition(_rb2d.position + resultingForce * Methods.GetDirectionFactor(resultingForce) * _playerState.ForcesEffect + _moveDirection * _moveSpeed * _moveFactor);
     }
 
 
     public void Impact(Vector2 direction, float intensity)
     {
-        _forces.Add((direction, intensity));
+        _forces.Add((direction.normalized, intensity));
     }
 }

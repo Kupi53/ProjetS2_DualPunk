@@ -9785,10 +9785,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7446018443740189659}
+  - component: {fileID: 5308313422904601391}
   - component: {fileID: -60137803152243552}
   - component: {fileID: 2915636513266981342}
   m_Layer: 0
-  m_Name: RocketExplosion
+  m_Name: Explosion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9813,6 +9814,18 @@ Transform:
   - {fileID: 1703950535467808366}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5308313422904601391
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2800961942588765522}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c92b10636567f2341977ed5fa5daca1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &-60137803152243552
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9844,7 +9857,7 @@ MonoBehaviour:
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0
-  <AssetPathHash>k__BackingField: 15405365419200891471
+  <AssetPathHash>k__BackingField: 3865361988329270415
 --- !u!114 &2915636513266981342
 MonoBehaviour:
   m_ObjectHideFlags: 0
