@@ -61,8 +61,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5927843ace9ef8b489f9f103063a585a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _componentIndexCache: 255
+  _addedNetworkObject: {fileID: 0}
+  _networkObjectCache: {fileID: 0}
   DebugMode: 0
   InGame: 0
+  Player1: {fileID: 0}
+  Player2: {fileID: 0}
 --- !u!114 &3726240271284766474
 MonoBehaviour:
   m_ObjectHideFlags: 0
