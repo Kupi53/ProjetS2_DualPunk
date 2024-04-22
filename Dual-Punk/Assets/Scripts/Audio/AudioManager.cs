@@ -73,11 +73,12 @@ public class AudioManager : MonoBehaviour
     public AudioSource PlayClipAt(AudioClip clip, Vector3 pos)
     {
 	    GameObject soundEffectTemp = new GameObject("TempAudio");
+	    soundEffectTemp.tag = "TempAudio";
 	    soundEffectTemp.transform.position = pos;
 	    AudioSource audioSource = soundEffectTemp.AddComponent<AudioSource>();
 	    audioSource.clip = clip;
 	    audioSource.outputAudioMixerGroup = soundEffectMixer;
-	    audioSource.Play();
+	    audioSource.Play();  
 	    Destroy(soundEffectTemp, clip.length);
 	    return audioSource;
     }
