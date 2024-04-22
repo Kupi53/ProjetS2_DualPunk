@@ -35,15 +35,20 @@ public class ItemManager : NetworkBehaviour
 
         if (_items.Count > 0)
         {
-            if (Input.GetButtonDown("Switch"))
-                _index = (_index + 1) % _items.Count;
-
             GameObject item = _items[_index];
+
+            if (Input.GetButtonDown("Switch")){
+                if(item != null) item.GetComponent<HighlightItem>().selectedWeapon = false;
+                _index = (_index + 1) % _items.Count;
+            }
+
+            item = _items[_index];
             WeaponScript weaponScript;
+            item.GetComponent<HighlightItem>().Highlight();
 
             if (item.CompareTag("Weapon") && !(weaponScript = item.GetComponent<WeaponScript>()).InHand)
             {
-                item.GetComponent<HighlightItem>().Highlight();
+
 
                 if (Input.GetButtonDown("Pickup"))
                 {
@@ -58,7 +63,6 @@ public class ItemManager : NetworkBehaviour
 
                     _inventoryManager.GetComponent<InventoryPickItem>().ItemPicked(item);
                     
-
                 }
             }
             else if (item.CompareTag("Implant")) //Plus verifier que l'implant n'est pas sur une entite
@@ -107,6 +111,7 @@ public class ItemManager : NetworkBehaviour
         if (!Owner.IsLocalClient) return;
 
         GameObject item = collision.gameObject;
+        if(item.GetComponent<HighlightItem>() != null) item.GetComponent<HighlightItem>().selectedWeapon = false;
 
         if (item.CompareTag("Weapon") || item.CompareTag("Knife") || item.CompareTag("Item"))
         {

@@ -36,6 +36,7 @@ public class InventoryPickItem : MonoBehaviour
 
             //enregistre le prefab de displayed item car displayed item sera detruit juste en dessous
             newItem.GetComponent<InventoryItem>().displayedItem = pickedItem.GetComponent<PickableItem>().itemData;
+            newItem.GetComponent<InventoryItem>().displayedItem.prefab = pickedItem;
 
             newItem.transform.SetParent(emptySlot.transform.parent.parent.GetChild(5));
             newItem.transform.localScale = emptySlot.transform.localScale;
@@ -43,7 +44,7 @@ public class InventoryPickItem : MonoBehaviour
             emptySlot.GetComponent<InventorySlots>().SetHeldItem(newItem);
 
             if(weaponSlots[EquipedSlotIndex] != emptySlot){
-                Destroy(pickedItem);
+                pickedItem.SetActive(false);
             }
 
         }

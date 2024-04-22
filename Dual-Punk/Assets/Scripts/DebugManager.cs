@@ -26,7 +26,7 @@ public class DebugManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.P))
         {
-            ObjectSpawner.Instance.SpawnObjectRpc(_weaponToSpawn, GameManager.Instance.Player1.transform.position, new Quaternion());
+            ObjectSpawner.Instance.SpawnObjectRpc(_weaponToSpawn, GameManager.Instance.Player1.transform.position, Quaternion.identity);
         }
     }
 }

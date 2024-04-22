@@ -124,7 +124,7 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
                         if(LastSlotPosition == WeaponSlots[EquipedSlotIndex]){
                             GameObject destroyedGameObject = PlayerState.WeaponScript.gameObject;
                             DropWeapon();
-                            Destroy(destroyedGameObject, 0.15f);
+                            destroyedGameObject.SetActive(false);
                         }
                     }
                     else{
@@ -183,7 +183,8 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
             nextStoredObject.transform.localScale = nextWeaponSlot.transform.localScale;
             GameObject equipedObject = nextStoredObject.GetComponent<InventoryItem>().displayedItem.prefab;
             objectSpawner.SpawnObjectAndUpdateRpc(equipedObject, PlayerState.gameObject.transform.position, new Quaternion(), InstanceFinder.ClientManager.Connection, ItemManager.gameObject);
-
+            equipedObject.transform.position = PlayerState.gameObject.transform.position;
+            
         }
 
         if(currentStoredObject != null){
@@ -191,13 +192,13 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
             currentStoredObject.transform.localScale = currentWeaponSlot.transform.localScale;
             GameObject destroyedGameObject = PlayerState.WeaponScript.gameObject;
             destroyedGameObject.GetComponent<WeaponScript>().Drop();
-            Destroy(destroyedGameObject, 0.15f);
+            destroyedGameObject.SetActive(false);
 
         }
 
     }
 
-//----Auxilaries Functions that work as their name says.---------------------------------------------------------
+//--------------------Auxilaries Functions that work as their name says.------------------------------------
 
     private bool Swapable(InventorySlots selectedSlot, GameObject selectedItem){
         bool res = false;

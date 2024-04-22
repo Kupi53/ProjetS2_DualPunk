@@ -28,9 +28,8 @@ public class ObjectSpawner : NetworkBehaviour
 
     [ServerRpc (RequireOwnership = false)]
     public void SpawnObjectAndUpdateRpc(GameObject obj, Vector3 pos, Quaternion quaternion, NetworkConnection networkConnection, GameObject itemManager){
-        GameObject instance = Instantiate(obj,pos, quaternion);
-        Spawn(instance);
-        UpdateHeldWeaponClientsRpc(networkConnection, instance, itemManager);
+        obj.SetActive(true);
+        UpdateHeldWeaponClientsRpc(networkConnection, obj, itemManager);
     }
 
 
@@ -43,8 +42,7 @@ public class ObjectSpawner : NetworkBehaviour
     [ServerRpc (RequireOwnership = false)]
     public void SpawnWeapons(GameObject obj, Vector3 pos, Quaternion quaternion){
 
-        GameObject instance = Instantiate(obj, pos, quaternion);
-        WeaponScript test = instance.GetComponent<WeaponScript>();
-        Spawn(instance);
+        obj.SetActive(true);
+        obj.transform.position = pos;
     }
 }
