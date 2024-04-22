@@ -25,11 +25,9 @@ public class SpawnPlayers : NetworkBehaviour
     public void SpawnServerRPC(NetworkConnection connection, bool host){
         if (host){
             playerObject = Instantiate(playerPrefabA, new Vector3(0,0,0), transform.rotation);
-            GameManager.Instance.Player1 = playerObject;
         }
         else{
             playerObject = Instantiate(playerPrefabB, new Vector3(0,0,0), transform.rotation);
-            GameManager.Instance.Player2 = playerObject;
         }
         base.Spawn(playerObject, connection);
     } 
