@@ -5,12 +5,20 @@ using System.Numerics;
 using FishNet.Connection;
 using FishNet.Object;
 using Unity.Mathematics;
+using Unity.VisualScripting;
 using UnityEngine;
 using Quaternion = UnityEngine.Quaternion;
 using Vector3 = UnityEngine.Vector3;
 
 public class ObjectSpawner : NetworkBehaviour
 {
+    public static ObjectSpawner Instance;
+
+    void Start()
+    {
+        Instance = this;
+    }
+
 
     [ServerRpc (RequireOwnership = false)]
     public void SpawnObjectRpc(GameObject obj, Vector3 pos, Quaternion quaternion){
