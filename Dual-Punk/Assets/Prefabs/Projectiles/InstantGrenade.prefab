@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1821891285802993238}
   - component: {fileID: 7829756050709868916}
   - component: {fileID: -8762814241024713497}
-  - component: {fileID: -7725598729638496188}
+  - component: {fileID: 4172550310544479649}
   m_Layer: 7
   m_Name: InstantGrenade
   m_TagString: Projectile
@@ -205,7 +205,7 @@ MonoBehaviour:
   _scenePathHash: 0
   <SceneId>k__BackingField: 0
   <AssetPathHash>k__BackingField: 506560687267866992
---- !u!114 &-7725598729638496188
+--- !u!114 &4172550310544479649
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

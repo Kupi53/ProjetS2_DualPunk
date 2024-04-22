@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 310955437462233622}
   - component: {fileID: 7754004746905307297}
   - component: {fileID: 5263651566201972744}
-  - component: {fileID: 6899747451757918856}
+  - component: {fileID: 3297827772579349168}
   m_Layer: 7
   m_Name: TimerGrenade
   m_TagString: Projectile
@@ -216,7 +216,7 @@ MonoBehaviour:
   _scenePathHash: 0
   <SceneId>k__BackingField: 0
   <AssetPathHash>k__BackingField: 14690864369455107856
---- !u!114 &6899747451757918856
+--- !u!114 &3297827772579349168
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
