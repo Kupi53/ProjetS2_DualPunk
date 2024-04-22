@@ -14,14 +14,14 @@ public class ChargeWeaponScript : FireArmScript
     [SerializeField] private int _minCollisions;
     
     [SerializeField] private AudioClip _chargeTimeSound;
+	[SerializeField] private AudioSource _audioSource;
 
     private float _chargeTimer;
-    public bool isShooting = false;
-
 
     private new void Start()
     {
         base.Start();
+		_chargeTime = _chargeTimeSound.length;
     }
 
     private new void Update()
@@ -39,25 +39,25 @@ public class ChargeWeaponScript : FireArmScript
     {
         MovePosition(position, direction);
 
-        if (Input.GetButton("Use") && !Reloading && _fireTimer >= _fireRate && _ammoLeft > 0 && _chargeTimer < _chargeTime && !isShooting)
-        { 
-            if (!AudioManager.Instance.isSpecificSoundPlaying)
-            {
-                AudioManager.Instance.PlayClipAt(_chargeTimeSound, gameObject.transform.position);
-            }
-            
+        if (Input.GetButton("Use") && !Reloading && _fireTimer >= _fireRate && _ammoLeft > 0 && _chargeTimer < _chargeTime)
+        {
+			if (!_audioSource.isPlaying)
+			{
+				_audioSource.clip = _chargeTimeSound;
+				_audioSource.Play();
+			}
+			
             _chargeTimer += Time.deltaTime;
-            isShooting = true;
         }
         else if (_fireTimer < _fireRate)
         {
             _fireTimer += Time.deltaTime;
         }
         
-        if ((Input.GetButtonUp("Use") || !AudioManager.Instance.isSpecificSoundPlaying) && _chargeTimer > 0 && isShooting)
+        if ((Input.GetButtonUp("Use") || _chargeTimer >= _chargeTime) && _chargeTimer > 0)
         {
-			AudioManager.Instance.StopSpecificSound();
-            
+			_audioSource.Stop();
+
             float multiplier = _chargeTimer / _chargeTime;
 
             Fire(direction, (int)Methods.GetProgressingFactor(multiplier, _minDamage, _damage), Methods.GetProgressingFactor(multiplier, _minSpeed, _bulletSpeed),
@@ -69,21 +69,9 @@ public class ChargeWeaponScript : FireArmScript
             _chargeTimer = 0;
             _fireTimer = 0;
             _ammoLeft--;
-            
-            AudioManager.Instance.PlayClipAt(_fireSound, gameObject.transform.position);
 
-			if (AudioManager.Instance.resetSpecificSoundCoroutine != null)
-			{
-    			StopCoroutine(AudioManager.Instance.resetSpecificSoundCoroutine);
-    			AudioManager.Instance.isSpecificSoundPlaying = false;
-				AudioManager.Instance.resetSpecificSoundCoroutine = null;
-			}
+			AudioManager.Instance.PlayClipAt(_fireSound, gameObject.transform.position);
         }
-
-		if (Input.GetButtonUp("Use"))
-		{
-			isShooting = false;
-		}
 
         else if (Input.GetButtonDown("Use") && Reloading && _ammoLeft > 0) {
             Reset();

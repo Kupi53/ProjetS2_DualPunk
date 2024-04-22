@@ -15,6 +15,9 @@ public class LaserGunScript : WeaponScript
     [SerializeField] private float _coolDownTime;
     [SerializeField] private float _smoothTime;
     [SerializeField] private float _damage;
+    
+    [SerializeField] private AudioSource _audioSource;
+    [SerializeField] private AudioClip _fireSound;
 
     private List<ParticleSystem> _particles;
     private LineRenderer _lineRenderer;
@@ -137,6 +140,9 @@ public class LaserGunScript : WeaponScript
         {
             particleSystem.Play();
         }
+        
+        _audioSource.clip = _fireSound;
+        _audioSource.Play();
     }
 
     private void DisableLaser()
@@ -148,6 +154,8 @@ public class LaserGunScript : WeaponScript
         {
             particleSystem.Stop();
         }
+        
+        _audioSource.Stop();
     }
 
 
