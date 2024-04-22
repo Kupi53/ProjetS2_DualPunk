@@ -61,6 +61,7 @@ public class ItemManager : NetworkBehaviour
                         UpdateHeldWeapon(weaponScript);
                     }
 
+                    item.GetComponent<HighlightItem>().selectedWeapon = false;
                     _inventoryManager.GetComponent<InventoryPickItem>().ItemPicked(item);
                     
                 }
