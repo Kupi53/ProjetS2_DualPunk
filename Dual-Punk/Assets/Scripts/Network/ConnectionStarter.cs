@@ -78,7 +78,7 @@ public class ConnectionStarter : MonoBehaviour
         _networkManager.ServerManager.StartConnection();
         _networkManager.ClientManager.StartConnection();
         yield return new WaitForSeconds(0.5f);
-        SceneLoadData sld = new SceneLoadData("Game");
+        SceneLoadData sld = new SceneLoadData("GameProcedural");
         sld.ReplaceScenes = ReplaceOption.All;
         InstanceFinder.SceneManager.LoadGlobalScenes(sld);
         GameManager.Instance.DebugMode = true;

@@ -29,6 +29,8 @@ public class PlayerState : NetworkBehaviour
 
     public Vector3 MousePosition { get => _mousePosition; }
 
+    public bool CanBeTeleported;
+
 
 #nullable enable
     public WeaponScript? WeaponScript { get; set; }
