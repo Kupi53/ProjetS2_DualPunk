@@ -14,14 +14,17 @@ public class DebugManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKey(KeyCode.AltGr))
+        if (GameManager.Instance == null) return;
+
+
+        if (Input.GetKeyDown(KeyCode.H))
         {
             GameManager.Instance.DebugMode = true;
             Debug.Log("Debug Mode Activated");
         }
         if (!GameManager.Instance.DebugMode) return;
 
-        if (Input.GetKey(KeyCode.P))
+        if (Input.GetKeyDown(KeyCode.P))
         {
             ObjectSpawner.Instance.SpawnObjectRpc(_weaponToSpawn, GameManager.Instance.Player1.transform.position, new Quaternion());
         }
