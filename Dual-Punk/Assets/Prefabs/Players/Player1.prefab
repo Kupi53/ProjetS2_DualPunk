@@ -522,7 +522,7 @@ MonoBehaviour:
   _throwDistance: 6
   _chargeTime: 0.8
   _grenadeTimer: 4
-  _grenadeCurveFactor: 25
+  _grenadeCurveFactor: 20
   _lineResolution: 20
   _healCooldown: 10
   _itemCooldown: 2

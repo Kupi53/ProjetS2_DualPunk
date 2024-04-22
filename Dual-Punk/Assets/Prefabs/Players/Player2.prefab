@@ -518,14 +518,14 @@ MonoBehaviour:
   _networkObjectCache: {fileID: 5423358579492179876}
   _grenade: {fileID: 7057386926987168146, guid: 4e71980427ced514a9833a80d179e02e, type: 3}
   _grenadePath: {fileID: 2751072340364652060}
-  _throwForce: 5
-  _throwDistance: 5
+  _throwForce: 0.1
+  _throwDistance: 6
   _chargeTime: 0.8
   _grenadeTimer: 4
   _grenadeCurveFactor: 20
   _lineResolution: 20
   _healCooldown: 10
-  _itemCooldown: 10
+  _itemCooldown: 2
 --- !u!114 &7528638334341656761
 MonoBehaviour:
   m_ObjectHideFlags: 0

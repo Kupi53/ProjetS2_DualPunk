@@ -60,7 +60,7 @@ public class CameraController : MonoBehaviour
         //Changer en fonction de la resolution (je vais me suicider jpp de toutes ces merdes ca me rends fou)
         if (mousePos.y > 980 - _changeCenterZone || mousePos.y < _changeCenterZone || mousePos.x > 1920 - _changeCenterZone || mousePos.x < _changeCenterZone)
         {
-            _offset = (PlayerState.transform.position * 2 + PlayerState.MousePosition) / 3 - PlayerState.transform.position;
+            _offset = (PlayerState.transform.position * 3 + PlayerState.MousePosition) / 4 - PlayerState.transform.position;
             _offset.z = -7;
         }
     }
