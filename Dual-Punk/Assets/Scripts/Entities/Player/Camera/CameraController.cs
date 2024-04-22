@@ -13,6 +13,7 @@ public class CameraController : MonoBehaviour
     [SerializeField] private float _minZoom;
     [SerializeField] private float _maxZoom;
     [SerializeField] private int _changeCenterZone;
+    [SerializeField] private int _cameraZpos;
 
     private CinemachineVirtualCamera _vCam;
     private CinemachineBasicMultiChannelPerlin _cbmp;
@@ -31,7 +32,6 @@ public class CameraController : MonoBehaviour
     {
         _shakeTimer = 0;
         _smoothTime = 0.5f;
-        _offset = new Vector3(0, 0, -7);
 
         MainCamera = GetComponentInChildren<Camera>();
         _vCam = GetComponentInChildren<CinemachineVirtualCamera>();
@@ -61,7 +61,7 @@ public class CameraController : MonoBehaviour
         if (mousePos.y > 980 - _changeCenterZone || mousePos.y < _changeCenterZone || mousePos.x > 1920 - _changeCenterZone || mousePos.x < _changeCenterZone)
         {
             _offset = (PlayerState.transform.position * 3 + PlayerState.MousePosition) / 4 - PlayerState.transform.position;
-            _offset.z = -7;
+            _offset.z = _cameraZpos;
         }
     }
 

@@ -184,6 +184,7 @@ MonoBehaviour:
   _minZoom: 3.5
   _maxZoom: 4.5
   _changeCenterZone: 100
+  _cameraZpos: -7
 --- !u!81 &-2258532556998166959
 AudioListener:
   m_ObjectHideFlags: 0
