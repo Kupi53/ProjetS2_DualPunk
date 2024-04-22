@@ -622,7 +622,7 @@ MonoBehaviour:
   _componentIndexCache: 6
   _addedNetworkObject: {fileID: 3460544654625029893}
   _networkObjectCache: {fileID: 3460544654625029893}
-  UI: {fileID: 8639646596442563190, guid: 59f7615c8ce726e4ab89fe10e7c298d7, type: 3}
+  UI: {fileID: 8639646596442563190, guid: 18545849575e9f4429a659efc2903c2f, type: 3}
   Camera: {fileID: 8083000584356064612, guid: 25076b0f96f46fc47b9fb72639f21afb, type: 3}
 --- !u!114 &3460544654625029893
 MonoBehaviour:
