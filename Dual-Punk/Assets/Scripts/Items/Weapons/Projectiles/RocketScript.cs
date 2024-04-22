@@ -5,7 +5,7 @@ using FishNet.Object;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class RocketScript : BulletScript
+public class RocketScript : BulletScript, IDestroyable
 {
     [SerializeField] private GameObject _explosion;
 
@@ -50,6 +50,12 @@ public class RocketScript : BulletScript
         _explosionImpact = explosionImpact;
         _deviationAngle = deviationAngle;
         _deviationSpeed = deviationSpeed;
+    }
+
+
+    public void Destroy()
+    {
+        DestroyThis();
     }
 
 

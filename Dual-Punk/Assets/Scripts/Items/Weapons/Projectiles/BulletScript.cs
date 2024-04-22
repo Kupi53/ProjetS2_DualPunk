@@ -85,13 +85,15 @@ public class BulletScript : NetworkBehaviour, IImpact
 
     protected void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.collider.CompareTag("Ennemy"))
+        GameObject collider = collision.collider.gameObject;
+
+        if (collider.CompareTag("Ennemy"))
         {
-            EnnemyState health = collision.collider.GetComponent<EnnemyState>();
+            EnnemyState health = collider.GetComponent<EnnemyState>();
             health.OnDamage(_damage);
             DestroyThis();
         }
-        else if (collision.collider.CompareTag("Wall"))
+        else if (collider.CompareTag("Wall"))
         {
             _collisionsAllowed--;
             _damage = (int)(_damage * 0.75f);
@@ -102,7 +104,7 @@ public class BulletScript : NetworkBehaviour, IImpact
             ChangeDirection(Vector2.Reflect(_moveDirection, collision.contacts[0].normal), true);
         }
 
-        if (_collisionsAllowed < 0 || collision.collider.CompareTag("Player"))
+        if (_collisionsAllowed < 0 || collider.CompareTag("Player"))
         {
             DestroyThis();
         }
@@ -112,6 +114,16 @@ public class BulletScript : NetworkBehaviour, IImpact
     {
         if (collision.collider.CompareTag("Wall"))
         {
+            DestroyThis();
+        }
+    }
+
+
+    private void OnTriggerEnter2D(Collider2D collider)
+    {
+        if (collider.CompareTag("Projectile"))
+        {
+            collider.GetComponent<IDestroyable>().Destroy();
             DestroyThis();
         }
     }

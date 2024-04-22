@@ -53,6 +53,12 @@ public class HealthManager : MonoBehaviour, IDamageable
     }
 
 
+    public void Destroy()
+    {
+        _playerState.Health = 0;
+        CheckHealth();
+    }
+
 
     public void Heal(int amount, float time)
     {

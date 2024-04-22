@@ -32,6 +32,7 @@ public class CameraController : MonoBehaviour
     {
         _shakeTimer = 0;
         _smoothTime = 0.5f;
+        _offset = new Vector3(0, 0, _cameraZpos);
 
         MainCamera = GetComponentInChildren<Camera>();
         _vCam = GetComponentInChildren<CinemachineVirtualCamera>();

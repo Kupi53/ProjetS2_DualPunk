@@ -5,9 +5,14 @@ using UnityEngine;
 
 public class ChargedBulletScript : BulletScript
 {
-
     private void OnTriggerEnter2D(Collider2D collider)
     {
+        if (collider.CompareTag("Projectile"))
+        {
+            Debug.Log(collider);
+            collider.GetComponent<IDestroyable>().Destroy();
+            DestroyThis();
+        }
         if (collider.CompareTag("Ennemy"))
         {
             EnnemyState health = collider.GetComponent<EnnemyState>();

@@ -45,7 +45,12 @@ public class SeekingBulletScript : BulletScript
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.CompareTag("Ennemy"))
+        if (collider.CompareTag("Projectile"))
+        {
+            collider.GetComponent<IDestroyable>().Destroy();
+            DestroyThis();
+        }
+        else if (collider.CompareTag("Ennemy"))
         {
             EnnemyState health = collider.GetComponent<EnnemyState>();
             health.OnDamage(_damage);

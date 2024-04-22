@@ -4,7 +4,7 @@ using UnityEngine;
 using FishNet.Object;
 
 
-public class InstantGrenadeScript : NetworkBehaviour
+public class InstantGrenadeScript : NetworkBehaviour, IDestroyable
 {
     [SerializeField] protected GameObject _explosion;
     [SerializeField] protected AudioClip _sound;
@@ -72,5 +72,11 @@ public class InstantGrenadeScript : NetworkBehaviour
         _moveSpeed = moveSpeed;
         _distanceUntilStop = distanceUntilStop;
         _curveFactor = curveFactor;
+    }
+
+
+    public void Destroy()
+    {
+        Explode();
     }
 }
