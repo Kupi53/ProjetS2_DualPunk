@@ -165,7 +165,7 @@ MonoBehaviour:
   _componentIndexCache: 0
   _addedNetworkObject: {fileID: -8762814241024713497}
   _networkObjectCache: {fileID: -8762814241024713497}
-  _explosion: {fileID: 2800961942588765522, guid: cdf5be5b24337cc4bb238459cc2e477e, type: 3}
+  _explosion: {fileID: 2800961942588765522, guid: 6288954bb36a9464b85cce9f5b573ff6, type: 3}
   _sound: {fileID: 8300000, guid: 57b2728ae55218f4e9ea3f1742a77063, type: 3}
   _damage: 80
   _explosionRadius: 3

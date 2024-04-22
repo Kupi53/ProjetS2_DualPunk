@@ -175,7 +175,7 @@ MonoBehaviour:
   _componentIndexCache: 0
   _addedNetworkObject: {fileID: 5263651566201972744}
   _networkObjectCache: {fileID: 5263651566201972744}
-  _explosion: {fileID: 2800961942588765522, guid: cdf5be5b24337cc4bb238459cc2e477e, type: 3}
+  _explosion: {fileID: 2800961942588765522, guid: 6288954bb36a9464b85cce9f5b573ff6, type: 3}
   _sound: {fileID: 8300000, guid: 57b2728ae55218f4e9ea3f1742a77063, type: 3}
   _damage: 90
   _explosionRadius: 3
@@ -210,7 +210,7 @@ MonoBehaviour:
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 22
+  <PrefabId>k__BackingField: 26
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0
