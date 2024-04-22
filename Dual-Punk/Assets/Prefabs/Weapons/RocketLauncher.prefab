@@ -198,12 +198,13 @@ MonoBehaviour:
   _collisionsAllowed: 0
   _fireRate: 0
   _dispersion: 0
-  _reloadTime: 1.2
+  _reloadTime: 1.3
   _aimAccuracy: 1
   _bulletSpeed: 10
   _autoReload: 1
   _auto: 0
-  _sound: {fileID: 8300000, guid: 19fec131fef583541978fab3469989a0, type: 3}
+  _fireSound: {fileID: 8300000, guid: 03fd638b41d294247a79eb4d5c0a0e52, type: 3}
+  _reloadSound: {fileID: 8300000, guid: cac86c616782f014aae1e8923ca62b1d, type: 3}
   _explosionDistance: 2
   _explosionImpact: 5
   _deviationAngle: 10
@@ -252,7 +253,7 @@ MonoBehaviour:
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 24
+  <PrefabId>k__BackingField: 28
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0

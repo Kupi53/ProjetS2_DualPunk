@@ -7,12 +7,12 @@ using FishNet.Object;
 public class InstantGrenadeScript : NetworkBehaviour, IDestroyable
 {
     [SerializeField] protected GameObject _explosion;
-    [SerializeField] protected AudioClip _sound;
-
     [SerializeField] protected int _damage;
     [SerializeField] private float _explosionRadius;
     [SerializeField] private float _explosionImpact;
     [SerializeField] protected float _rotateSpeed;
+
+    [SerializeField] protected AudioClip _explosionSound;
 
     protected Rigidbody2D _rb2d;
 
@@ -56,7 +56,8 @@ public class InstantGrenadeScript : NetworkBehaviour, IDestroyable
     {
         GameObject explosion = Instantiate(_explosion, transform.position, transform.rotation);
         explosion.GetComponent<Explosion>().Explode(_damage, _explosionRadius, _explosionImpact);
-        AudioManager.Instance.PlayClipAt(_sound, gameObject.transform.position);
+        
+        AudioManager.Instance.PlayClipAt(_explosionSound, gameObject.transform.position);
 
         Spawn(explosion);
         Destroy(explosion, 1);

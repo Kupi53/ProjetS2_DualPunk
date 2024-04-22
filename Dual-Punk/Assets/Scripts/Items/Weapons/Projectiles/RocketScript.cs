@@ -8,6 +8,7 @@ using UnityEngine;
 public class RocketScript : BulletScript, IDestroyable
 {
     [SerializeField] private GameObject _explosion;
+    [SerializeField] private AudioClip _explosionSound;
 
     private Vector3 _startPosition;
     private float _distanceUntilExplosion;
@@ -63,6 +64,8 @@ public class RocketScript : BulletScript, IDestroyable
     {
         GameObject explosion = Instantiate(_explosion, transform.position, transform.rotation);
         explosion.GetComponent<Explosion>().Explode(_damage, _explosionDistance, _explosionImpact);
+
+        AudioManager.Instance.PlayClipAt(_explosionSound, gameObject.transform.position);
 
         Spawn(explosion);
         Destroy(explosion, 1);
