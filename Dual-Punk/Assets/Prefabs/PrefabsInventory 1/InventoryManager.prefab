@@ -482,7 +482,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 644039601664152754}
         m_TargetAssemblyTypeName: EnbleDisableButton, Assembly-CSharp
         m_MethodName: ChangeActiveness
         m_Mode: 1
@@ -933,6 +933,7 @@ GameObject:
   - component: {fileID: 7433743320890469514}
   - component: {fileID: 169908118652730382}
   - component: {fileID: 644039601664152754}
+  - component: {fileID: 4655188658266242787}
   m_Layer: 0
   m_Name: InventoryManager
   m_TagString: Inventory
@@ -1054,7 +1055,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9f21ef36b2bc0547942a4a4ec8eea1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  descriptions: {fileID: 0}
+  descriptions: {fileID: 169908118652730382}
+--- !u!114 &4655188658266242787
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5291937239392091011}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a77192bd906c08b49b50a3628209dd32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5875402151232258176
 GameObject:
   m_ObjectHideFlags: 0
@@ -2109,7 +2122,6 @@ GameObject:
   - component: {fileID: 5811055526900166317}
   - component: {fileID: 8784423955140031158}
   - component: {fileID: 7129639549750286992}
-  - component: {fileID: 6808445543444083805}
   m_Layer: 5
   m_Name: InventorySlots
   m_TagString: Untagged
@@ -2189,30 +2201,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &6808445543444083805
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8463889115069489312}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a8695521f0d02e499659fee002a26c2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Padding:
-    m_Left: 20
-    m_Right: 0
-    m_Top: 20
-    m_Bottom: 0
-  m_ChildAlignment: 0
-  m_StartCorner: 0
-  m_StartAxis: 0
-  m_CellSize: {x: 72, y: 72}
-  m_Spacing: {x: 15, y: 15}
-  m_Constraint: 0
-  m_ConstraintCount: 2
 --- !u!1 &9138570979218166333
 GameObject:
   m_ObjectHideFlags: 0

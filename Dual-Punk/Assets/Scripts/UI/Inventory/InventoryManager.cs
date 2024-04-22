@@ -1,10 +1,13 @@
+using System;
 using System.Collections;
 using FishNet;
+using IO.Swagger.Model;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerEnterHandler, IPointerExitHandler
+public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
     public PlayerState PlayerState {get; set;}
     public InventorySlots[] WeaponSlots = new InventorySlots[3];
@@ -12,17 +15,21 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
     private GameObject draggedObject;
     private InventorySlots LastSlotPosition;
     private InventorySlots currentSlot;
-    private GameObject selectedSlotIcon;
     private ObjectSpawner objectSpawner;
-    private DescriptionManager descriptionManager => GetComponent<DescriptionManager>();
+    private DescriptionManager descriptionManager;
     [SerializeField] private Image DropPanel;
     [SerializeField] private Image inventoryPanel;
     public int EquipedSlotIndex;
+    public bool selectedSlotActiveness;
 
 
     void Start(){
+
+        descriptionManager = GetComponent<DescriptionManager>();
+        selectedSlotActiveness = GetComponent<selectedSlotManager>().GetActiveness();
         objectSpawner = GameObject.Find("ObjectSpawner").GetComponent<ObjectSpawner>();
         EquipedSlotIndex = 0;
+        
     }
     void Update()
     {
@@ -31,9 +38,25 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
             draggedObject.transform.position = Input.mousePosition;
         }
 
-    
         if(Input.GetKeyDown("m")){
-            SwapEquipedSlot();
+
+            InventorySlots currentWeaponSlot = WeaponSlots[EquipedSlotIndex];
+            bool found = false;
+            int i = 0;
+            
+            while(i < 3 && !found){
+                EquipedSlotIndex = (EquipedSlotIndex + 1)%3;
+                i++;
+                if(WeaponSlots[EquipedSlotIndex].heldItem != null) found = true;
+            }
+            InventorySlots nextStoredWeapon = WeaponSlots[EquipedSlotIndex];
+
+            if(nextStoredWeapon != null && nextStoredWeapon != currentWeaponSlot) {
+                currentWeaponSlot.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
+                nextStoredWeapon.transform.localScale = new Vector3(2f, 2f, 2f);
+
+                SwapEquipedSlot(currentWeaponSlot, nextStoredWeapon);
+            }
         }
 
     }
@@ -43,15 +66,6 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
         //change the raycast state needed for the descriptionManager
         DropPanel.raycastTarget = true;
         inventoryPanel.raycastTarget = true;
-
-        //Hide selected icon when dragging object
-        if(selectedSlotIcon != null) selectedSlotIcon.SetActive(false);
-
-        if(eventData.pointerCurrentRaycast.gameObject.GetComponent<InventorySlots>().heldItem != null){
-            //Hide descprition panels if the item is dragged
-            if(descriptionManager.GetInCD()) descriptionManager.StopTheCoroutine();
-            else descriptionManager.GetDescriptionWindow().SetActive(false);
-        }
 
         if(eventData.button == PointerEventData.InputButton.Left){
 
@@ -63,6 +77,13 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
                 draggedObject = slot.heldItem;
                 slot.heldItem = null;
                 LastSlotPosition = slot;
+
+
+                //Hide descprition panels if the item is dragged
+                if(descriptionManager.isActiveAndEnabled){
+                    if(descriptionManager.GetInCD()) descriptionManager.StopTheCoroutine();
+                    else descriptionManager.GetDescriptionWindow().SetActive(false);
+                }
             }
         }
         //Drop the inventory Item whith right clicking on it 
@@ -73,9 +94,7 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
             if(slot != null && slot.heldItem != null) {
 
                 if(slot == WeaponSlots[EquipedSlotIndex]){
-                    PlayerState.WeaponScript.Drop();
-                    PlayerState.HoldingWeapon = false;
-                    PlayerState.PointerScript.SpriteNumber = 0;
+                    DropWeapon();
                 }
                 else{
                     SpawnInventoryItem(slot.heldItem);
@@ -101,18 +120,25 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
                     if(Swapable(currentSlot, draggedObject)){
                         RefreshScale();
                         PlaceItem();
+                        if(currentSlot == WeaponSlots[EquipedSlotIndex]) SwapEquipedSlot(LastSlotPosition, currentSlot);
+                        if(LastSlotPosition == WeaponSlots[EquipedSlotIndex]){
+                            GameObject destroyedGameObject = PlayerState.WeaponScript.gameObject;
+                            DropWeapon();
+                            Destroy(destroyedGameObject, 0.15f);
+                        }
                     }
                     else{
                         PlaceLastSlotPosition();
                     }
 
                 }
-
                 //if the slot is not empty - swap item
                 else if (currentSlot != null && currentSlot.heldItem != null){
                     if(Swapable(currentSlot, draggedObject) && Swapable(LastSlotPosition, currentSlot.heldItem)){
                         RefreshSwapScale();
                         SwapItemPosition();
+                        if(currentSlot == WeaponSlots[EquipedSlotIndex]) SwapEquipedSlot(LastSlotPosition, currentSlot);
+                        else if(LastSlotPosition == WeaponSlots[EquipedSlotIndex]) SwapEquipedSlot(currentSlot, LastSlotPosition);
                     }
                     else{
                         PlaceLastSlotPosition();
@@ -147,44 +173,28 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
         }
     }
 
-    public void OnPointerEnter(PointerEventData eventData){
-        if(eventData.pointerCurrentRaycast.gameObject.tag == "InventorySlot"){
-            selectedSlotIcon = eventData.pointerCurrentRaycast.gameObject.transform.GetChild(0).gameObject;
-            selectedSlotIcon.SetActive(true);
-        }
-    }
+    public void SwapEquipedSlot(InventorySlots currentWeaponSlot, InventorySlots nextWeaponSlot){
 
-    public void OnPointerExit(PointerEventData eventData){
-        if(selectedSlotIcon != null){
-            selectedSlotIcon.SetActive(false);
-            selectedSlotIcon = null;
-        }
-    }
+        GameObject currentStoredObject = currentWeaponSlot.heldItem; 
+        GameObject nextStoredObject = nextWeaponSlot.heldItem;
 
-    public void SwapEquipedSlot(){
-        GameObject currentStoredObject = WeaponSlots[EquipedSlotIndex].heldItem; 
+        if(nextStoredObject != null){
 
-        if (currentStoredObject != null){
-            WeaponSlots[EquipedSlotIndex].transform.localScale = new Vector3(1.5f,1.5f,1f);
-
-            if (currentStoredObject != null) {
-                currentStoredObject.transform.localScale = new Vector3(1.5f,1.5f,1f);
-                do {
-                    EquipedSlotIndex = (EquipedSlotIndex + 1)%3;
-                }while(WeaponSlots[EquipedSlotIndex].heldItem == null);
-            }
-
-            GameObject nextStoredObject = WeaponSlots[EquipedSlotIndex].heldItem;
-            WeaponSlots[EquipedSlotIndex].transform.localScale = new Vector3(2f,2f,1f);
-            nextStoredObject.transform.localScale = WeaponSlots[EquipedSlotIndex].transform.localScale;
-            
+            nextStoredObject.transform.localScale = nextWeaponSlot.transform.localScale;
             GameObject equipedObject = nextStoredObject.GetComponent<InventoryItem>().displayedItem.prefab;
+            objectSpawner.SpawnObjectAndUpdateRpc(equipedObject, PlayerState.gameObject.transform.position, new Quaternion(), InstanceFinder.ClientManager.Connection, ItemManager.gameObject);
+
+        }
+
+        if(currentStoredObject != null){
+
+            currentStoredObject.transform.localScale = currentWeaponSlot.transform.localScale;
             GameObject destroyedGameObject = PlayerState.WeaponScript.gameObject;
             destroyedGameObject.GetComponent<WeaponScript>().Drop();
-
-            objectSpawner.SpawnObjectAndUpdateRpc(equipedObject, PlayerState.gameObject.transform.position, new Quaternion(), InstanceFinder.ClientManager.Connection, ItemManager.gameObject);
             Destroy(destroyedGameObject, 0.15f);
+
         }
+
     }
 
 //----Auxilaries Functions that work as their name says.---------------------------------------------------------
@@ -204,12 +214,16 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
     }
 
     private void SwapItemPosition(){
+        if(currentSlot == WeaponSlots[EquipedSlotIndex]){
+            
+        }
         LastSlotPosition.GetComponent<InventorySlots>().SetHeldItem(currentSlot.heldItem);
         currentSlot.SetHeldItem(draggedObject);
     }
 
     private void PlaceItem(){
         currentSlot.SetHeldItem(draggedObject);
+        LastSlotPosition.heldItem = null;
     }
 
     private void PlaceLastSlotPosition(){
@@ -238,7 +252,14 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
     private void SpawnInventoryItem(GameObject spawnedItem){
         GameObject spawnedItemPrefab = spawnedItem.GetComponent<InventoryItem>().displayedItem.prefab;
         Vector3 spawnPosition = GameObject.FindWithTag("Player").transform.position;
-        objectSpawner.SpawnObjectRpc(spawnedItemPrefab, spawnPosition, new Quaternion());
+        objectSpawner.SpawnWeapons(spawnedItemPrefab, spawnPosition, Quaternion.identity);
     }
+
+    private void DropWeapon(){
+        PlayerState.WeaponScript.Drop();
+        PlayerState.HoldingWeapon = false;
+        PlayerState.PointerScript.SpriteNumber = 0;
+    }
+
 
 }

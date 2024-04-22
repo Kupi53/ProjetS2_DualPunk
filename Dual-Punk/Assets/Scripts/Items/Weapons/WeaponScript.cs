@@ -72,4 +72,8 @@ public abstract class WeaponScript : NetworkBehaviour
     {
         _objectSpawner = GameObject.Find("ObjectSpawner").GetComponent<ObjectSpawner>();
     }
+
+    public string Test(){
+        return "coucou";
+    }
 }
