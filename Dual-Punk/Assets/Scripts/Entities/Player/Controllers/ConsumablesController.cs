@@ -68,6 +68,7 @@ public class ConsumablesController : NetworkBehaviour
 
     void Update()
     {
+        if (!IsOwner) return;
         if (_playerState.Down) return;
 
         if (_healTimer >= _healCooldown)
