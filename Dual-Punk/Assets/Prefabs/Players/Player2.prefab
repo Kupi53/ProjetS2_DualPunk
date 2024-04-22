@@ -601,6 +601,8 @@ MonoBehaviour:
   _componentIndexCache: 4
   _addedNetworkObject: {fileID: 5423358579492179876}
   _networkObjectCache: {fileID: 5423358579492179876}
+  _inventoryManager: {fileID: 0}
+  _playerState: {fileID: 0}
 --- !u!114 &3907873960965384262
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -657,7 +659,7 @@ MonoBehaviour:
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0
-  <AssetPathHash>k__BackingField: 7554693771170998867
+  <AssetPathHash>k__BackingField: 13120485558700831636
 --- !u!114 &6014537000033638382
 MonoBehaviour:
   m_ObjectHideFlags: 0
