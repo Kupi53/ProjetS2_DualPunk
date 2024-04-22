@@ -236,7 +236,8 @@ MonoBehaviour:
   _bulletSpeed: 50
   _autoReload: 0
   _auto: 0
-  _sound: {fileID: 8300000, guid: fe190e3d00ab90540bc11dc6c2bd8c35, type: 3}
+  _fireSound: {fileID: 8300000, guid: 5a840426a1b0e77469829ea3d648d509, type: 3}
+  _reloadSound: {fileID: 8300000, guid: ba4b495b7a199bc498bbb395f6fad0f8, type: 3}
   _minDamage: 15
   _minSpeed: 10
   _minRecoil: 1
@@ -244,6 +245,7 @@ MonoBehaviour:
   _minCameraShake: 0.5
   _chargeTime: 1.2
   _minCollisions: 0
+  _chargeTimeSound: {fileID: 8300000, guid: 8abc0bfa0f53f6441983181a847d3fa0, type: 3}
 --- !u!114 &-5961033379950352520
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -288,7 +290,7 @@ MonoBehaviour:
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 9
+  <PrefabId>k__BackingField: 10
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0

@@ -17,6 +17,9 @@ public class AudioManager : MonoBehaviour
     private bool isInGame = false;
 
     public AudioMixerGroup soundEffectMixer;
+
+	public Coroutine resetSpecificSoundCoroutine;
+    public bool isSpecificSoundPlaying = false;
     
     void Start()
     {
@@ -73,12 +76,45 @@ public class AudioManager : MonoBehaviour
     public AudioSource PlayClipAt(AudioClip clip, Vector3 pos)
     {
 	    GameObject soundEffectTemp = new GameObject("TempAudio");
+	    soundEffectTemp.tag = "TempAudio";
 	    soundEffectTemp.transform.position = pos;
 	    AudioSource audioSource = soundEffectTemp.AddComponent<AudioSource>();
 	    audioSource.clip = clip;
 	    audioSource.outputAudioMixerGroup = soundEffectMixer;
 	    audioSource.Play();
+	    
+	    if (clip.name.Contains("ChargeTime"))
+	    {
+		    isSpecificSoundPlaying = true;
+		    resetSpecificSoundCoroutine = StartCoroutine(ResetSpecificSoundPlaying(audioSource.clip.length));
+	    }
+	    
 	    Destroy(soundEffectTemp, clip.length);
 	    return audioSource;
+    }
+    
+    private IEnumerator ResetSpecificSoundPlaying(float clipLength)
+    {
+	    yield return new WaitForSeconds(clipLength);
+	    isSpecificSoundPlaying = false;
+    }
+    
+    public void StopSpecificSound()
+    {
+	    if (isSpecificSoundPlaying)
+	    {
+		    GameObject[] soundEffectTemps = GameObject.FindGameObjectsWithTag("TempAudio");
+		    
+		    foreach (GameObject soundEffectTemp in soundEffectTemps)
+		    {
+			    AudioSource audioSource = soundEffectTemp.GetComponent<AudioSource>();
+			    if (audioSource != null && audioSource.clip != null && audioSource.clip.name.Contains("ChargeTime"))
+			    {
+				    audioSource.Stop();
+				    Destroy(soundEffectTemp);
+				    isSpecificSoundPlaying = false;
+			    }
+		    }
+	    }
     }
 }

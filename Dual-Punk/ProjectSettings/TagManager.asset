@@ -9,14 +9,13 @@ TagManager:
   - NetworkManager
   - Weapon
   - Knife
-  - Player1
-  - Player2
   - Inventory
   - InventorySlot
   - Item
   - Implant
   - Projectile
   - Wall
+  - TempAudio
   layers:
   - Default
   - TransparentFX
