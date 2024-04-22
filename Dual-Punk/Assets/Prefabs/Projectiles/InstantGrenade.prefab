@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &7057386926987168146
+--- !u!1 &7172469282573387842
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,41 +8,41 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 124143315639905735}
-  - component: {fileID: -2109422011256242875}
-  - component: {fileID: -2355700684026657527}
-  - component: {fileID: 310955437462233622}
-  - component: {fileID: 7754004746905307297}
-  - component: {fileID: 5263651566201972744}
+  - component: {fileID: 5301010604225922483}
+  - component: {fileID: 2370329309004775313}
+  - component: {fileID: 7122051402580585083}
+  - component: {fileID: 1821891285802993238}
+  - component: {fileID: 7829756050709868916}
+  - component: {fileID: -8762814241024713497}
   m_Layer: 7
-  m_Name: Grenade
+  m_Name: InstantGrenade
   m_TagString: Projectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &124143315639905735
+--- !u!4 &5301010604225922483
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7057386926987168146}
+  m_GameObject: {fileID: 7172469282573387842}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.7817167, y: -2.3399293, z: 0.0323455}
+  m_LocalPosition: {x: 2.227585, y: -2.4982507, z: 0.051421054}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &-2109422011256242875
+--- !u!212 &2370329309004775313
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7057386926987168146}
+  m_GameObject: {fileID: 7172469282573387842}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -77,25 +77,25 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: f15a9e67330dfce43ba7355ef1940432, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 20503a93873f7a844a71be5746b497b6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.25, y: 0.38}
+  m_Size: {x: 0.25, y: 0.3}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!50 &-2355700684026657527
+--- !u!50 &7122051402580585083
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7057386926987168146}
+  m_GameObject: {fileID: 7172469282573387842}
   m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
@@ -115,13 +115,13 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!61 &310955437462233622
-BoxCollider2D:
+--- !u!70 &1821891285802993238
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7057386926987168146}
+  m_GameObject: {fileID: 7172469282573387842}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -144,51 +144,40 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.25, y: 0.38}
-    newSize: {x: 0.25, y: 0.38}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.25, y: 0.38}
-  m_EdgeRadius: 0
---- !u!114 &7754004746905307297
+  m_Offset: {x: -0.023900867, y: -0.03385961}
+  m_Size: {x: 0.19725442, y: 0.23915267}
+  m_Direction: 0
+--- !u!114 &7829756050709868916
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7057386926987168146}
+  m_GameObject: {fileID: 7172469282573387842}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2fb4e86f260bd7e4893e37d9b67526ee, type: 3}
+  m_Script: {fileID: 11500000, guid: 35faa454d4f8faa479e634d9914e057b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _componentIndexCache: 0
-  _addedNetworkObject: {fileID: 5263651566201972744}
-  _networkObjectCache: {fileID: 5263651566201972744}
+  _addedNetworkObject: {fileID: -8762814241024713497}
+  _networkObjectCache: {fileID: -8762814241024713497}
   _explosion: {fileID: 2800961942588765522, guid: cdf5be5b24337cc4bb238459cc2e477e, type: 3}
   _sound: {fileID: 8300000, guid: 57b2728ae55218f4e9ea3f1742a77063, type: 3}
-  _damage: 90
+  _damage: 80
   _explosionRadius: 3
   _explosionImpact: 4
-  _stoppingFactor: 0.1
-  _rotateSpeed: 200
---- !u!114 &5263651566201972744
+  _rotateSpeed: 300
+--- !u!114 &-8762814241024713497
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7057386926987168146}
+  m_GameObject: {fileID: 7172469282573387842}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 26b716c41e9b56b4baafaf13a523ba2e, type: 3}
@@ -198,20 +187,20 @@ MonoBehaviour:
   <ComponentIndex>k__BackingField: 0
   <PredictedSpawn>k__BackingField: {fileID: 0}
   _networkBehaviours:
-  - {fileID: 7754004746905307297}
+  - {fileID: 7829756050709868916}
   <ParentNetworkObject>k__BackingField: {fileID: 0}
   <ChildNetworkObjects>k__BackingField: []
   SerializedTransformProperties:
-    Position: {x: 0, y: 0, z: 0}
-    Rotation: {x: 0, y: 0, z: 0, w: 0}
-    LocalScale: {x: 0, y: 0, z: 0}
+    Position: {x: 2.227585, y: -2.4982507, z: 0.051421054}
+    Rotation: {x: 0, y: 0, z: 0, w: 1}
+    LocalScale: {x: 1, y: 1, z: 1}
   _isNetworked: 1
   _isGlobal: 0
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 18
+  <PrefabId>k__BackingField: 0
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0
-  <AssetPathHash>k__BackingField: 11755799485567835710
+  <AssetPathHash>k__BackingField: 506560687267866992

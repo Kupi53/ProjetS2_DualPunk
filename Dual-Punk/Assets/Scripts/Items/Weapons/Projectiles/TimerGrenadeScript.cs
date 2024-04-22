@@ -5,38 +5,20 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 
-public class GrenadeScript : NetworkBehaviour
+public class TimerGrenadeScript : InstantGrenadeScript
 {
-    [SerializeField] private GameObject _explosion;
-    [SerializeField] private AudioClip _sound;
-
-    [SerializeField] private int _damage;
-    [SerializeField] private float _explosionRadius;
-    [SerializeField] private float _explosionImpact;
     [SerializeField] private float _stoppingFactor;
-    [SerializeField] private float _rotateSpeed;
 
-    private Rigidbody2D _rb2d;
     private SpriteRenderer _spriteRenderer;
-
-    private Vector3 _startPosition;
-    private Vector3 _moveDirection;
-    private Vector3 _linePosition;
-    private Vector3 _verticalDirection;
-
-    private float _moveSpeed;
     private float _explosionTimer;
-    private float _distanceUntilStop;
-    private float _curveFactor;
     private bool _stop;
 
 
-    private void Start()
+    private new void Start()
     {
-        _stop = false;
-        _linePosition = transform.position;
+        base.Start();
 
-        _rb2d = GetComponent<Rigidbody2D>();
+        _stop = false;
         _spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
@@ -78,19 +60,7 @@ public class GrenadeScript : NetworkBehaviour
     }
 
 
-    private void Explode()
-    {
-        GameObject explosion = Instantiate(_explosion, transform.position, transform.rotation);
-        explosion.GetComponent<Explosion>().Explode(_damage, _explosionRadius, _explosionImpact);
-        AudioManager.Instance.PlayClipAt(_sound, gameObject.transform.position);
-
-        Spawn(explosion);
-        Destroy(explosion, 1);
-        Destroy(gameObject);
-    }
-
-
-    public void Setup(Vector3 startPosition, Vector3 moveDirection, Vector3 verticalDirection, float moveSpeed, float explosionTimer, float distanceUntilStop, float curveFactor)
+    public override void Setup(Vector3 startPosition, Vector3 moveDirection, Vector3 verticalDirection, float moveSpeed, float explosionTimer, float distanceUntilStop, float curveFactor)
     {
         _startPosition = startPosition;
         _moveDirection = moveDirection;

@@ -68,11 +68,6 @@ public class ConsumablesController : NetworkBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            _damageable.Damage(10, 1f);
-        }
-
         if (_playerState.Down) return;
 
         if (_healTimer >= _healCooldown)
@@ -127,7 +122,7 @@ public class ConsumablesController : NetworkBehaviour
     private void ThrowGrenadeRpc(Vector3 startPosition, Vector3 moveDirection, Vector3 verticalDirection, float moveSpeed, float explosionTimer, float distanceUntilStop, float curveFactor)
     {
         GameObject grenade = Instantiate(_grenade, startPosition, Quaternion.identity);
-        grenade.GetComponent<GrenadeScript>().Setup(startPosition, moveDirection, verticalDirection, moveSpeed, explosionTimer, distanceUntilStop, curveFactor);
+        grenade.GetComponent<InstantGrenadeScript>().Setup(startPosition, moveDirection, verticalDirection, moveSpeed, explosionTimer, distanceUntilStop, curveFactor);
         Spawn(grenade);
     }
 
