@@ -4,7 +4,9 @@ MonoImporter:
   externalObjects: {}
   serializedVersion: 2
   defaultReferences:
-  - UI: {fileID: 8639646596442563190, guid: e091b3087216e534cac8120128df4392, type: 3}
+  - _addedNetworkObject: {instanceID: 0}
+  - _networkObjectCache: {instanceID: 0}
+  - UI: {fileID: 8639646596442563190, guid: 59f7615c8ce726e4ab89fe10e7c298d7, type: 3}
   - Camera: {fileID: 8083000584356064612, guid: 25076b0f96f46fc47b9fb72639f21afb, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}

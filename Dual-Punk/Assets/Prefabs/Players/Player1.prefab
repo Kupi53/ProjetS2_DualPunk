@@ -500,6 +500,7 @@ MonoBehaviour:
   _componentIndexCache: 0
   _addedNetworkObject: {fileID: 3460544654625029893}
   _networkObjectCache: {fileID: 3460544654625029893}
+  CanBeTeleported: 0
 --- !u!114 &8917572968852395277
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -621,7 +622,7 @@ MonoBehaviour:
   _componentIndexCache: 6
   _addedNetworkObject: {fileID: 3460544654625029893}
   _networkObjectCache: {fileID: 3460544654625029893}
-  UI: {fileID: 8639646596442563190, guid: e091b3087216e534cac8120128df4392, type: 3}
+  UI: {fileID: 8639646596442563190, guid: 59f7615c8ce726e4ab89fe10e7c298d7, type: 3}
   Camera: {fileID: 8083000584356064612, guid: 25076b0f96f46fc47b9fb72639f21afb, type: 3}
 --- !u!114 &3460544654625029893
 MonoBehaviour:
@@ -659,7 +660,7 @@ MonoBehaviour:
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 12
+  <PrefabId>k__BackingField: 14
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0
