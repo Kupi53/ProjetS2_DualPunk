@@ -182,6 +182,7 @@ MonoBehaviour:
   _explosionRadius: 3
   _explosionImpact: 4
   _rotateSpeed: 200
+  _explosionSound: {fileID: 8300000, guid: aa7bac89a7344f1468ad59069e9f436a, type: 3}
   _stoppingFactor: 0.1
 --- !u!114 &5263651566201972744
 MonoBehaviour:
@@ -212,7 +213,7 @@ MonoBehaviour:
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 26
+  <PrefabId>k__BackingField: 27
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0

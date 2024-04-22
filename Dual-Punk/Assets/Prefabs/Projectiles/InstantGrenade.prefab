@@ -172,6 +172,7 @@ MonoBehaviour:
   _explosionRadius: 3
   _explosionImpact: 4
   _rotateSpeed: 300
+  _explosionSound: {fileID: 8300000, guid: aa7bac89a7344f1468ad59069e9f436a, type: 3}
 --- !u!114 &-8762814241024713497
 MonoBehaviour:
   m_ObjectHideFlags: 0
