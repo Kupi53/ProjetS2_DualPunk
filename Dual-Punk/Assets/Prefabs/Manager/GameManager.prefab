@@ -65,6 +65,9 @@ MonoBehaviour:
   _componentIndexCache: 0
   _addedNetworkObject: {fileID: 4680981941538277727}
   _networkObjectCache: {fileID: 4680981941538277727}
+  _componentIndexCache: 255
+  _addedNetworkObject: {fileID: 0}
+  _networkObjectCache: {fileID: 0}
   DebugMode: 0
   InGame: 0
   Player1: {fileID: 0}
@@ -103,6 +106,7 @@ MonoBehaviour:
   <SceneId>k__BackingField: 0
   <AssetPathHash>k__BackingField: 1107963118011085699
 --- !u!114 &8408530119376952557
+--- !u!114 &3726240271284766474
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

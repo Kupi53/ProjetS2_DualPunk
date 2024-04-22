@@ -12,13 +12,16 @@ public class ChargeWeaponScript : FireArmScript
     [SerializeField] private float _minCameraShake;
     [SerializeField] private float _chargeTime;
     [SerializeField] private int _minCollisions;
+    
+    [SerializeField] private AudioClip _chargeTimeSound;
+	[SerializeField] private AudioSource _audioSource;
 
     private float _chargeTimer;
-
 
     private new void Start()
     {
         base.Start();
+		_chargeTime = _chargeTimeSound.length;
     }
 
     private new void Update()
@@ -38,15 +41,23 @@ public class ChargeWeaponScript : FireArmScript
 
         if (Input.GetButton("Use") && !Reloading && _fireTimer >= _fireRate && _ammoLeft > 0 && _chargeTimer < _chargeTime)
         {
+			if (!_audioSource.isPlaying)
+			{
+				_audioSource.clip = _chargeTimeSound;
+				_audioSource.Play();
+			}
+			
             _chargeTimer += Time.deltaTime;
         }
         else if (_fireTimer < _fireRate)
         {
             _fireTimer += Time.deltaTime;
         }
-
-        if (Input.GetButtonUp("Use") && _chargeTimer > 0) 
+        
+        if ((Input.GetButtonUp("Use") || _chargeTimer >= _chargeTime) && _chargeTimer > 0)
         {
+			_audioSource.Stop();
+
             float multiplier = _chargeTimer / _chargeTime;
 
             Fire(direction, (int)Methods.GetProgressingFactor(multiplier, _minDamage, _damage), Methods.GetProgressingFactor(multiplier, _minSpeed, _bulletSpeed),
@@ -58,6 +69,8 @@ public class ChargeWeaponScript : FireArmScript
             _chargeTimer = 0;
             _fireTimer = 0;
             _ammoLeft--;
+
+			AudioManager.Instance.PlayClipAt(_fireSound, gameObject.transform.position);
         }
 
         else if (Input.GetButtonDown("Use") && Reloading && _ammoLeft > 0) {

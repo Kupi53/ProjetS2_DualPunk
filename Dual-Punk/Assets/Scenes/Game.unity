@@ -2437,6 +2437,7 @@ Transform:
   m_Children:
   - {fileID: 337720447}
   - {fileID: 2027551280}
+  - {fileID: 1279654998}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1110055304
@@ -5897,6 +5898,37 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!1 &1279654997
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1279654998}
+  m_Layer: 0
+  m_Name: Implants
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1279654998
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1279654997}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1102653271}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1528467847
 GameObject:
   m_ObjectHideFlags: 0
@@ -5939,11 +5971,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 266728874953890219, guid: 45c33cf5e24d4e94cb0d06a7185ababe, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -6.33
+      value: -3.49
       objectReference: {fileID: 0}
     - target: {fileID: 266728874953890219, guid: 45c33cf5e24d4e94cb0d06a7185ababe, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.63
+      value: 0.93
       objectReference: {fileID: 0}
     - target: {fileID: 266728874953890219, guid: 45c33cf5e24d4e94cb0d06a7185ababe, type: 3}
       propertyPath: m_LocalPosition.z

@@ -29,7 +29,8 @@ public class FireArmScript : WeaponScript
     [SerializeField] protected bool _autoReload;
     [SerializeField] protected bool _auto;
 
-    [SerializeField] protected AudioClip _sound;
+    [SerializeField] protected AudioClip _fireSound;
+    [SerializeField] protected AudioClip _reloadSound;
 
     protected int _ammoLeft;
     private float _reloadTimer;
@@ -86,7 +87,7 @@ public class FireArmScript : WeaponScript
             PlayerState.CameraController.ShakeCamera(_cameraShake, 0.1f);
             _fireTimer = 0;
             _ammoLeft--;
-            AudioManager.Instance.PlayClipAt(_sound, gameObject.transform.position);
+            AudioManager.Instance.PlayClipAt(_fireSound, gameObject.transform.position);
         }
         else if (_fireTimer < _fireRate)
         {
@@ -114,11 +115,15 @@ public class FireArmScript : WeaponScript
             _reloadTimer = 0;
 
             if (_ammoLeft + _reloadAmount < _magSize)
+			{
                 _ammoLeft += _reloadAmount;
-            else
+				AudioManager.Instance.PlayClipAt(_reloadSound, gameObject.transform.position);
+            }
+			else
             {
                 _reloading = false;
                 _ammoLeft = _magSize;
+				AudioManager.Instance.PlayClipAt(_reloadSound, gameObject.transform.position);
             }
         }
         else
