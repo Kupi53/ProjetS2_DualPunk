@@ -14,6 +14,7 @@ public class InventoryItem : MonoBehaviour
         ActiveStack();
         description.SetActive(false);
         IconImage.sprite = displayedItem.icon;
+        Canvas.ForceUpdateCanvases();
     }
 
     private void TextSetup(){

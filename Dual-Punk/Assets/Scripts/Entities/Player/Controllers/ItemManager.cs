@@ -25,6 +25,7 @@ public class ItemManager : NetworkBehaviour
         _items = new List<GameObject>();
         _impact = GetComponent<IImpact>();
         _playerState = GetComponent<PlayerState>();
+        
     }
 
 

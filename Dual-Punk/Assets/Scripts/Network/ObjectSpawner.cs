@@ -31,4 +31,12 @@ public class ObjectSpawner : NetworkBehaviour
     {
         itemManager.GetComponent<ItemManager>().UpdateHeldWeapon(instance.GetComponent<WeaponScript>());
     }
+
+    [ServerRpc (RequireOwnership = false)]
+    public void SpawnWeapons(GameObject obj, Vector3 pos, Quaternion quaternion){
+
+        GameObject instance = Instantiate(obj, pos, quaternion);
+        WeaponScript test = instance.GetComponent<WeaponScript>();
+        Spawn(instance);
+    }
 }
