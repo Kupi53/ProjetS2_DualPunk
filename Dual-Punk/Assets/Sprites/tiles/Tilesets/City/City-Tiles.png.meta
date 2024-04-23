@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 396611f803e635c418a6f549e3de863a
+guid: 19e7b5219d688104683b677e6298a008
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -46,9 +46,9 @@ TextureImporter:
   spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
-  alignment: 0
+  alignment: 9
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -110,7 +110,175 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Isometric-SpriteSheet_0
+      name: City-Tiles_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 352
+        width: 32
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0.75}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6d47a3a1a294aca47bfd117057c06067
+      internalID: 1503190594
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: City-Tiles_1
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 352
+        width: 32
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0.75}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a6fa4efe90c7dc94a9107119b2d8af2e
+      internalID: 54451034
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: City-Tiles_2
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 352
+        width: 32
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0.75}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fac73ef9952e7ed40a07911ea168669f
+      internalID: 2118054704
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: City-Tiles_3
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 352
+        width: 32
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0.75}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4abd54764dd50a143b66b8fc2c70aafb
+      internalID: 1258399957
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: City-Tiles_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 320
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d884286febc8c2f4588fa065f849ca60
+      internalID: 1216667865
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: City-Tiles_5
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 320
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5253f4540ce7ca141a1bd9d0ec5ecb68
+      internalID: 751176530
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: City-Tiles_6
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 320
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 22e3ce1db3148a548a5decb26d63612c
+      internalID: -1058537673
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: City-Tiles_7
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 320
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 41e6b93e41768954fbe8c1ba2b55ec5c
+      internalID: -1252860527
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: City-Tiles_8
       rect:
         serializedVersion: 2
         x: 0
@@ -120,32 +288,24 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -7, y: 16}
-        - {x: -16, y: 13}
-        - {x: -16, y: -13}
-        - {x: -7, y: -16}
-        - {x: 10, y: -16}
-        - {x: 16, y: -11}
-        - {x: 16, y: 11}
-        - {x: 10, y: 16}
+      outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 57ac715f165de6c44a53e2ddb8a8c8bf
-      internalID: -1894620049
+      spriteID: a997562a3f20aa14ea1cb3fe63d7e542
+      internalID: -1125018351
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Isometric-SpriteSheet_1
+      name: City-Tiles_9
       rect:
         serializedVersion: 2
         x: 32
         y: 288
         width: 32
-        height: 24
+        height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -153,14 +313,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 927864de42f53fa439b5d7b9b3425a2d
-      internalID: 1401666861
+      spriteID: 3d01258dbe4ac4646855afbbc4324b8d
+      internalID: -1838690322
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Isometric-SpriteSheet_2
+      name: City-Tiles_10
       rect:
         serializedVersion: 2
         x: 0
@@ -174,14 +334,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3efd252d9d7be224aaed857138723fb3
-      internalID: -1260703617
+      spriteID: 17b10af6c79849b47b36519e8a879b36
+      internalID: 347738522
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Isometric-SpriteSheet_3
+      name: City-Tiles_11
       rect:
         serializedVersion: 2
         x: 32
@@ -195,14 +355,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b9ba3b46a5bed404d926f91b9fdcc0fc
-      internalID: -2039525803
+      spriteID: 8ff4b6a780298344a8c520d27d3c4738
+      internalID: -1285918267
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Isometric-SpriteSheet_4
+      name: City-Tiles_12
       rect:
         serializedVersion: 2
         x: 0
@@ -216,165 +376,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 34bd078d77e4bc549be390031f322df2
-      internalID: 1652583844
+      spriteID: cab1cad098938f64d8d1d7f80f2e19e8
+      internalID: 1940681852
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Isometric-SpriteSheet_5
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 225
-        width: 32
-        height: 31
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: cd2c7c5012e83cf41ad1e3e640c06006
-      internalID: -1420758292
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Isometric-SpriteSheet_6
+      name: City-Tiles_13
       rect:
         serializedVersion: 2
         x: 0
         y: 192
-        width: 33
-        height: 32
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 5734150d6075f3a4e954a1f0d7cc485c
-      internalID: -739035412
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Isometric-SpriteSheet_7
-      rect:
-        serializedVersion: 2
-        x: 33
-        y: 192
-        width: 31
-        height: 32
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a17c876e446a13a4793fd88b197a0b0a
-      internalID: 1565778916
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Isometric-SpriteSheet_8
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 164
-        width: 24
-        height: 28
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 5da78702bb4dd3e459729f36e1f96b97
-      internalID: -1136486763
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Isometric-SpriteSheet_9
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 160
-        width: 24
-        height: 28
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3e9b1e82ce8640c4f89a4e0c69d05f4e
-      internalID: -1692513546
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Isometric-SpriteSheet_10
-      rect:
-        serializedVersion: 2
-        x: 72
-        y: 164
-        width: 24
-        height: 28
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 445970047a2bdfe4bb4230e982c60d57
-      internalID: -149273548
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Isometric-SpriteSheet_11
-      rect:
-        serializedVersion: 2
-        x: 104
-        y: 160
-        width: 24
-        height: 28
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 160244ebd4ddbf94e9cc04acaaada0cc
-      internalID: 2025981580
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Isometric-SpriteSheet_12
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 128
         width: 32
         height: 32
       alignment: 0
@@ -384,176 +397,134 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c07c2781e2aee0946b705cdccb9b610a
-      internalID: 818385456
+      spriteID: 12e4b31fac2eed84fa07b2f765613c29
+      internalID: -1975783214
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Isometric-SpriteSheet_13
+      name: City-Tiles_14
       rect:
         serializedVersion: 2
-        x: 32
-        y: 128
-        width: 33
+        x: 0
+        y: 160
+        width: 32
         height: 32
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.5, y: 0.75}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f8d2bde3068fe1e4497b59cc7ba99a3f
-      internalID: 629172992
+      spriteID: 749e5daba8996b240b2ab44e24d2693d
+      internalID: 1197216843
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Isometric-SpriteSheet_14
+      name: City-Tiles_15
       rect:
         serializedVersion: 2
-        x: 65
-        y: 128
-        width: 31
-        height: 32
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 13f03c2ebe9b00b45a6fbe73a78b6e68
-      internalID: 1357330565
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Isometric-SpriteSheet_15
-      rect:
-        serializedVersion: 2
-        x: 96
+        x: 0
         y: 128
         width: 32
-        height: 28
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0.76}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: dd26a2902db2a674ab350171bb76bb02
-      internalID: -99964566
+      spriteID: 936d8cbc9b2a6c44f8890f054e0fa394
+      internalID: 1868511523
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Isometric-SpriteSheet_16
+      name: City-Tiles_16
       rect:
         serializedVersion: 2
-        x: 48
-        y: 40
-        width: 48
-        height: 40
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 0
+        y: 96
+        width: 32
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0.75}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f85d190de3f68e84d812b265186a279a
-      internalID: 2142014021
+      spriteID: 15b7d9c291388e6488b24f3cdd387496
+      internalID: 2019730129
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Isometric-SpriteSheet_17
+      name: City-Tiles_17
       rect:
         serializedVersion: 2
-        x: 96
-        y: 40
-        width: 48
-        height: 40
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 0
+        y: 64
+        width: 32
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0.75}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 00561d11c61375648946898b319dd863
-      internalID: -1687977593
+      spriteID: b726ee39d9164a942af827d3c49e9162
+      internalID: -563475852
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Isometric-SpriteSheet_18
+      name: City-Tiles_18
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 32
+        width: 32
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0.75}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 95dce4fd4acfdfc4690999eb2613c1dc
+      internalID: 64661021
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: City-Tiles_19
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 48
-        height: 40
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        width: 32
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0.75}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 35b9089ed2f443d48ba6dfc35506f840
-      internalID: -2129098697
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Isometric-SpriteSheet_19
-      rect:
-        serializedVersion: 2
-        x: 48
-        y: 0
-        width: 48
-        height: 40
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3d2657cecb1fb404f9e7356b732a0062
-      internalID: -2033754137
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Isometric-SpriteSheet_20
-      rect:
-        serializedVersion: 2
-        x: 96
-        y: 0
-        width: 48
-        height: 40
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: cd011a04d02bcdc4091b4ee42c37f73b
-      internalID: 725859291
+      spriteID: 9c5392e0e0cf83045bb94b4cff971eb4
+      internalID: -690233027
       vertices: []
       indices: 
       edges: []
@@ -569,27 +540,26 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Isometric-SpriteSheet_0: -1894620049
-      Isometric-SpriteSheet_1: 1401666861
-      Isometric-SpriteSheet_10: -149273548
-      Isometric-SpriteSheet_11: 2025981580
-      Isometric-SpriteSheet_12: 818385456
-      Isometric-SpriteSheet_13: 629172992
-      Isometric-SpriteSheet_14: 1357330565
-      Isometric-SpriteSheet_15: -99964566
-      Isometric-SpriteSheet_16: 2142014021
-      Isometric-SpriteSheet_17: -1687977593
-      Isometric-SpriteSheet_18: -2129098697
-      Isometric-SpriteSheet_19: -2033754137
-      Isometric-SpriteSheet_2: -1260703617
-      Isometric-SpriteSheet_20: 725859291
-      Isometric-SpriteSheet_3: -2039525803
-      Isometric-SpriteSheet_4: 1652583844
-      Isometric-SpriteSheet_5: -1420758292
-      Isometric-SpriteSheet_6: -739035412
-      Isometric-SpriteSheet_7: 1565778916
-      Isometric-SpriteSheet_8: -1136486763
-      Isometric-SpriteSheet_9: -1692513546
+      City-Tiles_0: 1503190594
+      City-Tiles_1: 54451034
+      City-Tiles_10: 347738522
+      City-Tiles_11: -1285918267
+      City-Tiles_12: 1940681852
+      City-Tiles_13: -1975783214
+      City-Tiles_14: 1197216843
+      City-Tiles_15: 1868511523
+      City-Tiles_16: 2019730129
+      City-Tiles_17: -563475852
+      City-Tiles_18: 64661021
+      City-Tiles_19: -690233027
+      City-Tiles_2: 2118054704
+      City-Tiles_3: 1258399957
+      City-Tiles_4: 1216667865
+      City-Tiles_5: 751176530
+      City-Tiles_6: -1058537673
+      City-Tiles_7: -1252860527
+      City-Tiles_8: -1125018351
+      City-Tiles_9: -1838690322
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

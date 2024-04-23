@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: Building3_3
+  m_Name: City-Tiles_12
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: -1406285149, guid: a3daec701761e7347bc9b80403627e7f, type: 3}
+  m_Sprite: {fileID: 1940681852, guid: 19e7b5219d688104683b677e6298a008, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1
