@@ -27,7 +27,7 @@ public class FireArmScript : WeaponScript
     [SerializeField] protected float _bulletSpeed;
 
     [SerializeField] protected bool _autoReload;
-    [SerializeField] protected bool _auto;
+    [SerializeField] protected bool _isAuto;
 
     [SerializeField] protected AudioClip _fireSound;
     [SerializeField] protected AudioClip _reloadSound;
@@ -73,7 +73,7 @@ public class FireArmScript : WeaponScript
     {
         MovePosition(position, direction);
 
-        if ((Input.GetButton("Use") && _auto && !_reloading || Input.GetButtonDown("Use")) && _fireTimer >= _fireRate && _ammoLeft > 0)
+        if ((Input.GetButton("Use") && _isAuto && !_reloading || Input.GetButtonDown("Use")) && _fireTimer >= _fireRate && _ammoLeft > 0)
         {
             if (_reloading)
             {
@@ -85,8 +85,7 @@ public class FireArmScript : WeaponScript
 
             PlayerRecoil.Impact(-direction, _recoilForce);
             PlayerState.CameraController.ShakeCamera(_cameraShake, 0.1f);
-            _fireTimer = 0;
-            _ammoLeft--;
+
             AudioManager.Instance.PlayClipAt(_fireSound, gameObject.transform.position);
         }
         else if (_fireTimer < _fireRate)
@@ -141,7 +140,9 @@ public class FireArmScript : WeaponScript
 
     protected virtual void Fire(Vector3 direction, int damage, float bulletSpeed, float dispersion, int collisionsAllowed)
     {
-        //conditions pour modifier parametres damage, dipsersion ...
+        _ammoLeft--;
+        _fireTimer = 0;
+
         if (PlayerState.Walking)
             dispersion /= _aimAccuracy;
 

@@ -10,11 +10,11 @@ public class LaserGunScript : WeaponScript
     [SerializeField] private GameObject _endVFX;
     [SerializeField] private LayerMask _layerMask;
 
-    [SerializeField] private float _damageFrequency;
-    [SerializeField] private float _coolDownSpeed;
-    [SerializeField] private float _coolDownTime;
-    [SerializeField] private float _smoothTime;
     [SerializeField] private float _damage;
+    [SerializeField] private float _damageFrequency;
+    [SerializeField] private float _fireTime;
+    [SerializeField] private float _coolDownSpeed;
+    [SerializeField] private float _smoothTime;
     
     [SerializeField] private AudioSource _audioSource;
     [SerializeField] private AudioClip _fireSound;
@@ -22,19 +22,19 @@ public class LaserGunScript : WeaponScript
     private List<ParticleSystem> _particles;
     private LineRenderer _lineRenderer;
     private Vector3 _startPosition;
-
-    private float _coolDownLevel;
-    private float _damageTimer;
-    private float _velocity;
-    private float _resetTimer;
-    private float _laserLength;
-    private bool _coolDown;
+    
     private bool _fire;
+    private bool _coolDown;
+    private float _damageTimer;
+    private float _coolDownLevel;
+    private float _laserLength;
+    private float _resetTimer;
+    private float _velocity;
 
 
     public override bool DisplayInfo { get => _coolDownLevel > 0; }
-    public override float InfoMaxTime { get => _coolDownTime; }
-    public override float InfoTimer { get => _coolDownTime - _coolDownLevel; }
+    public override float InfoMaxTime { get => _fireTime; }
+    public override float InfoTimer { get => _fireTime - _coolDownLevel; }
 
 
     void Start()
@@ -43,14 +43,13 @@ public class LaserGunScript : WeaponScript
         _resetTimer = 0;
         _laserLength = 0;
         _coolDownLevel = 0;
+        _fire = false;
+        _coolDown = false;
+        _damageTimer = _damageFrequency;
 
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _lineRenderer = GetComponentInChildren<LineRenderer>();
         _particles = new List<ParticleSystem>();
-
-        _fire = false;
-        _coolDown = false;
-        _damageTimer = _damageFrequency;
 
         FillList();
         DisableLaser();
@@ -61,7 +60,7 @@ public class LaserGunScript : WeaponScript
     {
         if (!InHand)
         {
-            transform.position += Vector3.up * (float)Math.Cos(Time.time * 5 + _coolDownTime) * 0.001f;
+            transform.position += Vector3.up * (float)Math.Cos(Time.time * 5 + _fireTime) * 0.001f;
         }
 
         if (_coolDown)
@@ -76,11 +75,11 @@ public class LaserGunScript : WeaponScript
         }
         else if (_fire)
         {
-            _coolDownLevel += Time.deltaTime * _coolDownSpeed / 2;
+            _coolDownLevel += Time.deltaTime;
 
-            if (_coolDownLevel > _coolDownTime)
+            if (_coolDownLevel > _fireTime)
             {
-                _coolDownLevel = _coolDownTime;
+                _coolDownLevel = _fireTime;
                 _coolDown = true;
                 _fire = false;
             }
@@ -142,6 +141,7 @@ public class LaserGunScript : WeaponScript
         }
         
         _audioSource.clip = _fireSound;
+        _audioSource.time = _coolDownLevel;
         _audioSource.Play();
     }
 

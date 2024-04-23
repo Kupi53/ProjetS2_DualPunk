@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 7754004746905307297}
   - component: {fileID: 5263651566201972744}
   - component: {fileID: 3297827772579349168}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: TimerGrenade
   m_TagString: Projectile
   m_Icon: {fileID: 0}
@@ -177,7 +177,6 @@ MonoBehaviour:
   _addedNetworkObject: {fileID: 5263651566201972744}
   _networkObjectCache: {fileID: 5263651566201972744}
   _explosion: {fileID: 2800961942588765522, guid: 6288954bb36a9464b85cce9f5b573ff6, type: 3}
-  _sound: {fileID: 8300000, guid: 57b2728ae55218f4e9ea3f1742a77063, type: 3}
   _damage: 90
   _explosionRadius: 3
   _explosionImpact: 4

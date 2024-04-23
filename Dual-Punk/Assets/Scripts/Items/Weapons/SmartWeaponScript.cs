@@ -86,6 +86,9 @@ public class SmartWeaponScript : FireArmScript
 
     protected override void Fire(Vector3 direction, int damage, float bulletSpeed, float dispersion, int collisionsAllowed)
     {
+        _ammoLeft--;
+        _fireTimer = 0;
+
         if (PlayerState.Walking)
             dispersion /= _aimAccuracy;
 

@@ -19680,14 +19680,13 @@ MonoBehaviour:
   _layerMask:
     serializedVersion: 2
     m_Bits: 351
-  _damageFrequency: 0.1
-  _coolDownSpeed: 1
-  _coolDownTime: 3
-  _smoothTime: 0.1
   _damage: 6
+  _damageFrequency: 0.1
+  _fireTime: 5.5
+  _coolDownSpeed: 2
+  _smoothTime: 0.1
   _audioSource: {fileID: 1125333743003348021}
   _fireSound: {fileID: 8300000, guid: 45e85d2f89bea524e90f16d3208002aa, type: 3}
-  _fadeDuration: 0.5
 --- !u!114 &812166075986024593
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19703,6 +19702,7 @@ MonoBehaviour:
   normal: {fileID: 21300000, guid: 43be8d57dcdde844cb40bb423029dac7, type: 3}
   highlighted: {fileID: 21300000, guid: 7d066db40636c444c8e2cba45f90bf40, type: 3}
   spriteRenderer: {fileID: 5986589367013039024}
+  selectedWeapon: 0
 --- !u!114 &8549619410815566522
 MonoBehaviour:
   m_ObjectHideFlags: 0
