@@ -52,6 +52,7 @@ public class LaserGunScript : WeaponScript
         _particles = new List<ParticleSystem>();
 
         FillList();
+        DisableLaser();
     }
 
 
