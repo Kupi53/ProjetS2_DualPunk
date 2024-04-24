@@ -130,6 +130,7 @@ public class ItemManager : NetworkBehaviour
         weaponScript.PlayerState = _playerState;
         weaponScript.PlayerRecoil = _impact;
         weaponScript.InHand = true;
+        weaponScript.gameObject.SetActive(true);
     }
 
     [ServerRpc (RequireOwnership = false)]

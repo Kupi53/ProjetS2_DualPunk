@@ -28,21 +28,21 @@ public class ObjectSpawner : NetworkBehaviour
 
     [ServerRpc (RequireOwnership = false)]
     public void SpawnObjectAndUpdateRpc(GameObject obj, Vector3 pos, Quaternion quaternion, NetworkConnection networkConnection, GameObject itemManager){
-        obj.SetActive(true);
+
         UpdateHeldWeaponClientsRpc(networkConnection, obj, itemManager);
     }
 
 
     [TargetRpc]
-    private void UpdateHeldWeaponClientsRpc(NetworkConnection networkConnection, GameObject instance, GameObject itemManager)
+    private void UpdateHeldWeaponClientsRpc(NetworkConnection networkConnection, GameObject obj, GameObject itemManager)
     {
-        itemManager.GetComponent<ItemManager>().UpdateHeldWeapon(instance.GetComponent<WeaponScript>());
+        itemManager.GetComponent<ItemManager>().UpdateHeldWeapon(obj.GetComponent<WeaponScript>());
     }
 
     [ServerRpc (RequireOwnership = false)]
     public void SpawnWeapons(GameObject obj, Vector3 pos, Quaternion quaternion){
 
-        obj.SetActive(true);
         obj.transform.position = pos;
+        obj.SetActive(true);
     }
 }

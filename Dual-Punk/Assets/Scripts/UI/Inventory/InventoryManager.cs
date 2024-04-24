@@ -21,6 +21,7 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
     [SerializeField] private Image inventoryPanel;
     public int EquipedSlotIndex;
     public bool selectedSlotActiveness;
+    public bool swapping;
 
 
     void Start(){
@@ -29,6 +30,7 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
         selectedSlotActiveness = GetComponent<selectedSlotManager>().GetActiveness();
         objectSpawner = GameObject.Find("ObjectSpawner").GetComponent<ObjectSpawner>();
         EquipedSlotIndex = 0;
+        swapping  = false;
         
     }
     void Update()
@@ -38,8 +40,13 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
             draggedObject.transform.position = Input.mousePosition;
         }
 
-        if(Input.GetKeyDown("m")){
+        SwapKeybindWeapon();
 
+
+        var direction = Input.GetAxis("Mouse ScrollWheel");
+        if(direction != 0 && !swapping){
+
+            swapping = true;
             InventorySlots currentWeaponSlot = WeaponSlots[EquipedSlotIndex];
             bool found = false;
             int i = 0;
@@ -56,9 +63,11 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
                 nextStoredWeapon.transform.localScale = new Vector3(2f, 2f, 2f);
 
                 SwapEquipedSlot(currentWeaponSlot, nextStoredWeapon);
+
+
             }
         }
-
+        if(swapping) StartCoroutine(SlowScrollWheel());
     }
 
     public void OnPointerDown(PointerEventData eventData)
@@ -260,6 +269,31 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
         PlayerState.WeaponScript.Drop();
         PlayerState.HoldingWeapon = false;
         PlayerState.PointerScript.SpriteNumber = 0;
+    }
+
+    private void SwapKeybindWeapon(){
+
+        if(Input.GetButtonDown("Slot 1") || Input.GetButtonDown("Slot 2") || Input.GetButtonDown("Slot 3"))
+        {
+            InventorySlots currentWeaponSlot = WeaponSlots[EquipedSlotIndex];
+            if(Input.GetButtonDown("Slot 1")) EquipedSlotIndex = 0;
+            if(Input.GetButtonDown("Slot 2")) EquipedSlotIndex = 1;
+            if(Input.GetButtonDown("Slot 3")) EquipedSlotIndex = 2;
+
+            InventorySlots nextStoredWeapon = WeaponSlots[EquipedSlotIndex];
+
+            if(currentSlot != nextStoredWeapon){
+                currentWeaponSlot.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
+                nextStoredWeapon.transform.localScale = new Vector3(2f, 2f, 2f);
+
+                SwapEquipedSlot(currentWeaponSlot, nextStoredWeapon);
+            }
+        }
+    }
+
+    private IEnumerator SlowScrollWheel(){
+        yield return new WaitForSeconds(1f);
+        swapping = false;
     }
 
 
