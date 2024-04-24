@@ -5,25 +5,29 @@ using System;
 
 public abstract class WeaponScript : NetworkBehaviour
 {
-    public PlayerState PlayerState { get; set; }
-    public IImpact PlayerRecoil { get; set; }
-    
-    public bool InHand { get; set; } = false;
-
-    public virtual bool DisplayInfo { get; }
-    public virtual float InfoMaxTime { get; }
-    public virtual float InfoTimer { get; }
-
-    protected SpriteRenderer _spriteRenderer;
-    protected ObjectSpawner _objectSpawner;
-
     [SerializeField] protected Vector3 _weaponOffset;
     [SerializeField] protected float _weaponDistance;
     [SerializeField] protected float _recoilForce;
     [SerializeField] protected float _impactForce;
     [SerializeField] protected float _cameraShake;
 
+    protected SpriteRenderer _spriteRenderer;
+    protected ObjectSpawner _objectSpawner;
+
+    public PlayerState PlayerState { get; set; }
+    public IImpact PlayerRecoil { get; set; }
     public Vector3 WeaponOffset { get => _weaponOffset; set => _weaponOffset = value; }
+
+    public bool InHand { get; set; } = false;
+    public virtual bool DisplayInfo { get; }
+    public virtual float InfoMaxTime { get; }
+    public virtual float InfoTimer { get; }
+
+
+    void Awake()
+    {
+        _objectSpawner = GameObject.Find("ObjectSpawner").GetComponent<ObjectSpawner>();
+    }
 
     public abstract void Run(Vector3 position, Vector3 direction);
     public abstract void ResetWeapon();
@@ -39,8 +43,9 @@ public abstract class WeaponScript : NetworkBehaviour
         {
             FlipWeapon();
         }
-    }
 
+        RemoveAllOwnerShipRPC(GetComponent<NetworkObject>());
+    }
 
     protected void MovePosition(Vector3 position, Vector3 direction)
     {
@@ -53,7 +58,6 @@ public abstract class WeaponScript : NetworkBehaviour
         transform.eulerAngles = new Vector3(0, 0, Methods.GetAngle(direction));
     }
 
-
     private void FlipWeapon()
     {
         transform.localScale = new Vector2(transform.localScale.x, -transform.localScale.y);
@@ -65,15 +69,5 @@ public abstract class WeaponScript : NetworkBehaviour
     protected void RemoveAllOwnerShipRPC(NetworkObject networkObject)
     {
         networkObject.RemoveOwnership();
-    }
-
-
-    void Awake()
-    {
-        _objectSpawner = GameObject.Find("ObjectSpawner").GetComponent<ObjectSpawner>();
-    }
-
-    public string Test(){
-        return "coucou";
     }
 }

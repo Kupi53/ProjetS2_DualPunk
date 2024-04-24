@@ -29,12 +29,6 @@ public static class Methods
     }
 
 
-    public static float GetProgressingFactor(float multiplier, float minValue, float maxValue)
-    {
-        return minValue + multiplier * (maxValue - minValue);
-    }
-
-
     public static float ChangeFactorWithCos(float cosValue, float maxFactor, float minFactor)
     {
         cosValue = (cosValue + 1) / 2;
