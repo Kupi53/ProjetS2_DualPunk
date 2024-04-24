@@ -25,6 +25,7 @@ public class FireArmScript : WeaponScript
     [SerializeField] private float _reloadTime;
     [SerializeField] protected float _aimAccuracy;
     [SerializeField] protected float _bulletSpeed;
+    [SerializeField] protected float _bulletSize;
 
     [SerializeField] protected bool _autoReload;
     [SerializeField] protected bool _isAuto;
@@ -81,7 +82,7 @@ public class FireArmScript : WeaponScript
                 _reloading = false;
             }
 
-            Fire(direction, _damage, _bulletSpeed, _dispersion, _collisionsAllowed);
+            Fire(direction, _damage, _bulletSpeed, _bulletSize, _dispersion, _collisionsAllowed);
 
             PlayerRecoil.Impact(-direction, _recoilForce);
             PlayerState.CameraController.ShakeCamera(_cameraShake, 0.1f);
@@ -134,11 +135,10 @@ public class FireArmScript : WeaponScript
     {
         _reloadTimer = 0;
         _reloading = false;
-        RemoveAllOwnerShipRPC(GetComponent<NetworkObject>());
     }
 
 
-    protected virtual void Fire(Vector3 direction, int damage, float bulletSpeed, float dispersion, int collisionsAllowed)
+    protected virtual void Fire(Vector3 direction, int damage, float bulletSpeed, float bulletSize, float dispersion, int collisionsAllowed)
     {
         _ammoLeft--;
         _fireTimer = 0;
@@ -146,18 +146,19 @@ public class FireArmScript : WeaponScript
         if (PlayerState.Walking)
             dispersion /= _aimAccuracy;
 
-        FireBulletRpc(direction, damage, bulletSpeed, dispersion, collisionsAllowed);
+        FireBulletRpc(direction, damage, bulletSpeed, bulletSize, dispersion, collisionsAllowed);
     }
 
-    
+
     [ServerRpc(RequireOwnership = false)]
-    private void FireBulletRpc(Vector3 direction, int damage, float bulletSpeed, float dispersion, int collisionsAllowed)
+    private void FireBulletRpc(Vector3 direction, int damage, float bulletSpeed, float bulletSize, float dispersion, int collisionsAllowed)
     {
         for (int i = 0; i < _bulletNumber; i++)
         {
             GameObject newBullet = Instantiate(_bullet, _gunEndPoints[i%_gunEndPoints.Length].transform.position, Quaternion.identity);
             BulletScript bulletScript = newBullet.GetComponent<BulletScript>();
-
+            
+            newBullet.transform.localScale = new Vector2(bulletSize, bulletSize);
             Vector3 newDirection = new Vector3(direction.x + Methods.NextFloat(-dispersion, dispersion), direction.y + Methods.NextFloat(-dispersion, dispersion), 0).normalized;
             bulletScript.Setup(damage, bulletSpeed, newDirection, collisionsAllowed);
 

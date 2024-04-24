@@ -6,7 +6,6 @@ using System;
 using Unity.Netcode;
 using FishNet.Object;
 using FishNet.Connection;
-using UnityEngine.Playables;
 
 
 public class SmartWeaponScript : FireArmScript
@@ -72,9 +71,10 @@ public class SmartWeaponScript : FireArmScript
         return false;
     }
 
+
     public override void ResetWeapon()
     {
-        base.Reset();
+        base.ResetWeapon();
 
         for (int i = 0; i < _targetsIndicators.Count; i++)
         {
@@ -84,7 +84,7 @@ public class SmartWeaponScript : FireArmScript
     }
 
 
-    protected override void Fire(Vector3 direction, int damage, float bulletSpeed, float dispersion, int collisionsAllowed)
+    protected override void Fire(Vector3 direction, int damage, float bulletSpeed, float bulletSize, float dispersion, int collisionsAllowed)
     {
         _ammoLeft--;
         _fireTimer = 0;
@@ -104,6 +104,7 @@ public class SmartWeaponScript : FireArmScript
             GameObject newBullet = Instantiate(_bullet, _gunEndPoints[i % _gunEndPoints.Length].transform.position, Quaternion.identity);
             SeekingBulletScript bulletScript = newBullet.GetComponent<SeekingBulletScript>();
 
+            newBullet.transform.localScale = new Vector2(_bulletSize, _bulletSize);
             Vector3 newDirection = new Vector3(direction.x + Methods.NextFloat(-dispersion, dispersion), direction.y + Methods.NextFloat(-dispersion, dispersion), 0).normalized;
 
             bulletScript.Setup(damage, bulletSpeed, newDirection, _bulletRotateSpeed);
