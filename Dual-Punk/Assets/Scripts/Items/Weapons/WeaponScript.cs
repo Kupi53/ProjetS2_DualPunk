@@ -35,36 +35,29 @@ public abstract class WeaponScript : NetworkBehaviour
         transform.position = PlayerState.transform.position + PlayerState.WeaponScript.WeaponOffset;
         transform.rotation = Quaternion.identity;
 
-        if (_spriteRenderer.flipY)
+        if (transform.localScale.y < 0)
         {
-            FlipWeaponServerRpc(false);
+            FlipWeapon();
         }
     }
 
+
     protected void MovePosition(Vector3 position, Vector3 direction)
     {
-        FlipWeaponServerRpc(PlayerState.MousePosition.x < PlayerState.transform.position.x);
-        
+        if (InHand && Math.Sign(PlayerState.MousePosition.x - PlayerState.transform.position.x) != Math.Sign(transform.localScale.y))
+        {
+            FlipWeapon();
+        }
+
         transform.position = position + _weaponOffset + direction * _weaponDistance;
         transform.eulerAngles = new Vector3(0, 0, Methods.GetAngle(direction));
     }
 
-    
-    [ServerRpc (RequireOwnership = false)]
-    protected void FlipWeaponServerRpc(bool flip)
-    {
-        FlipWeaponClientRpc(flip);
-    }
 
-
-    [ObserversRpc]
-    protected void FlipWeaponClientRpc(bool flip)
+    private void FlipWeapon()
     {
-        if (_spriteRenderer.flipY == !flip)
-        {
-            _spriteRenderer.flipY = flip;
-            _weaponOffset.x = -_weaponOffset.x;
-        }
+        transform.localScale = new Vector2(transform.localScale.x, -transform.localScale.y);
+        _weaponOffset.x = -_weaponOffset.x;
     }
 
 

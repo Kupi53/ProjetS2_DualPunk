@@ -52,7 +52,6 @@ public class LaserGunScript : WeaponScript
         _particles = new List<ParticleSystem>();
 
         FillList();
-        DisableLaser();
     }
 
 
@@ -83,6 +82,10 @@ public class LaserGunScript : WeaponScript
                 _coolDown = true;
                 _fire = false;
             }
+        }
+        else if (_resetTimer >= _smoothTime * 3)
+        {
+            DisableLaser();
         }
     }
 
@@ -208,9 +211,6 @@ public class LaserGunScript : WeaponScript
         {
             _resetTimer += Time.deltaTime;
             DrawLaser(_startPosition, direction);
-
-            if (_resetTimer >= _smoothTime * 3)
-                DisableLaser();
         }
     }
 }
