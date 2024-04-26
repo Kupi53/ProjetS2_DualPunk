@@ -164,14 +164,15 @@ MonoBehaviour:
   _magSize: 4
   _bulletNumber: 9
   _reloadAmount: 1
-  _collisionsAllowed: 1
+  _collisionsAllowed: 0
   _fireRate: 1
   _dispersion: 0.3
   _reloadTime: 0.8
   _aimAccuracy: 2
   _bulletSpeed: 30
+  _bulletSize: 0.7
   _autoReload: 0
-  _auto: 0
+  _isAuto: 0
   _fireSound: {fileID: 8300000, guid: 3cfc0ffc2201b2d4d8b945e3f775e6c8, type: 3}
   _reloadSound: {fileID: 8300000, guid: b8a4afcd61465374e832b1ea6540bd7d, type: 3}
 --- !u!114 &-5896032686861132043
@@ -189,6 +190,7 @@ MonoBehaviour:
   normal: {fileID: 21300000, guid: 9dd371f6dc406804e8a08151ad1cc7fc, type: 3}
   highlighted: {fileID: 21300000, guid: 28bc08ba4841e3640bc808a0969b8816, type: 3}
   spriteRenderer: {fileID: 5280717515457528235}
+  selectedWeapon: 0
 --- !u!114 &8196554436644051480
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -218,7 +220,7 @@ MonoBehaviour:
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 9
+  <PrefabId>k__BackingField: 10
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0

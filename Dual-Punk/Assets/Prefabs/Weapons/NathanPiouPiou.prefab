@@ -202,6 +202,7 @@ MonoBehaviour:
   _reloadTime: 1.5
   _aimAccuracy: 3
   _bulletSpeed: 10
+  _bulletSize: 1
   _autoReload: 1
   _isAuto: 1
   _fireSound: {fileID: 8300000, guid: b5afcf41c9a8bd94282310a2a5eca99d, type: 3}

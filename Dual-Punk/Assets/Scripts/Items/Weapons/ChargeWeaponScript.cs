@@ -9,25 +9,23 @@ public class ChargeWeaponScript : FireArmScript
     [SerializeField] private float _chargeTime;
     [SerializeField] private float _minDamage;
     [SerializeField] private float _minSpeed;
+    [SerializeField] private float _minSize;
     [SerializeField] private float _minRecoil;
     [SerializeField] private float _minImpact;
-    [SerializeField] private float _minCameraShake;
-    [SerializeField] private float _repeatSoundTime;
     
     [SerializeField] private AudioClip _chargeTimeSound;
 	[SerializeField] private AudioSource _audioSource;
 
+    private bool _cancel;
     private float _chargeTimer;
-    private float _chargedTimeSave;
 
 
     private new void Start()
     {
         base.Start();
 
-        _chargedTimeSave = 0;
-        if (_chargeTime > _chargeTimeSound.length + _repeatSoundTime * 1.1)
-            _chargeTime = _chargeTimeSound.length - _repeatSoundTime * 1.1f;
+        _cancel = false;
+        _chargeTimer = 0;
     }
 
     private new void Update()
@@ -45,63 +43,83 @@ public class ChargeWeaponScript : FireArmScript
     {
         MovePosition(position, direction);
 
-        if (Input.GetButton("Use") && !Reloading && _fireTimer >= _fireRate && _ammoLeft > 0)
+        if (Input.GetButton("Use") && !Reloading && _fireTimer >= _fireRate && _ammoLeft > 0 && _chargeTimer <= _chargeTime && !_cancel)
         {
 			if (!_audioSource.isPlaying)
 			{
 				_audioSource.clip = _chargeTimeSound;
 				_audioSource.Play();
 			}
-            else if (_chargeTimer >= _chargeTime)
-            {
-                if (_chargedTimeSave == 0)
-                    _chargedTimeSave = _audioSource.time;
-                if (_audioSource.time > _chargedTimeSave + _repeatSoundTime)
-                    _audioSource.time = _chargedTimeSave;
-            }
-            else
-            {
-                _chargeTimer += Time.deltaTime;
-            }
+
+            _chargeTimer += Time.deltaTime;
 		}
         else if (_fireTimer < _fireRate)
         {
             _fireTimer += Time.deltaTime;
         }
+
+        if (_chargeTimer > 0)
+        {
+            PlayerState.CameraController.ShakeCamera(_cameraShake * _chargeTimer / 3, 0.1f);
+
+            if (!_audioSource.isPlaying)
+            {
+                ResetWeapon();
+            }
+        }
         
 
-        if ((Input.GetButtonUp("Use") || _chargeTimer >= _chargeTime && _isAuto) && _chargeTimer > 0)
+        if (Input.GetButtonUp("Use") || _chargeTimer > _chargeTime && _isAuto)
         {
-			_audioSource.Stop();
+            if (_cancel)
+            {
+                _cancel = false;
+            }
+            else if (_chargeTimer > 0)
+            {
+                _audioSource.Stop();
 
-            float multiplier = _chargeTimer / _chargeTime;
+                float multiplier = _chargeTimer / _chargeTime;
+                _chargeTimer = 0;
 
-            Fire(direction, (int)Methods.GetProgressingFactor(multiplier, _minDamage, _damage), Methods.GetProgressingFactor(multiplier, _minSpeed, _bulletSpeed),
-                _dispersion, (int)(multiplier * _collisionsAllowed));
+                Fire(direction, (int)GetProgressingFactor(multiplier, _minDamage, _damage), GetProgressingFactor(multiplier, _minSpeed, _bulletSpeed),
+                    GetProgressingFactor(multiplier, _minSize, _bulletSize), _dispersion, (int)(multiplier * _collisionsAllowed));
 
-            PlayerRecoil.Impact(-direction, Methods.GetProgressingFactor(multiplier, _minRecoil, _recoilForce));
-            PlayerState.CameraController.ShakeCamera(Methods.GetProgressingFactor(multiplier, _minCameraShake, _cameraShake), 0.1f);
+                PlayerRecoil.Impact(-direction, GetProgressingFactor(multiplier, _minRecoil, _recoilForce));
+                PlayerState.CameraController.ShakeCamera(_cameraShake, 0.1f);
 
-            _chargeTimer = 0;
-
-			AudioManager.Instance.PlayClipAt(_fireSound, gameObject.transform.position);
+                AudioManager.Instance.PlayClipAt(_fireSound, gameObject.transform.position);
+            }
         }
         else if (Input.GetButtonDown("Use") && Reloading && _ammoLeft > 0)
         {
-            Reset();
+            base.ResetWeapon();
         }
 
-        if (Input.GetButtonDown("Reload") && _ammoLeft != _magSize || _autoReload && _ammoLeft == 0) {
+        if (Input.GetButtonDown("Reload") && _ammoLeft != _magSize || _autoReload && _ammoLeft == 0)
+        {
             Reloading = true;
-        } if (Reloading) {
+        } 
+        if (Reloading)
+        {
             Reload();
-        }      
+        }
+    }
+
+
+    public static float GetProgressingFactor(float multiplier, float minValue, float maxValue)
+    {
+        return minValue + multiplier * (maxValue - minValue);
     }
 
 
     public override void ResetWeapon()
     {
-        base.Reset();
+        base.ResetWeapon();
+
+        _cancel = true;
+        _fireTimer = 0;
         _chargeTimer = 0;
+        _audioSource.Stop();
     }
 }

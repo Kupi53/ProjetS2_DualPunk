@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+
 public class DontDestroyOnLoadScene : MonoBehaviour
 {
     public static DontDestroyOnLoadScene Instance;
     public GameObject[] objects;
+
 
     void Awake()
     {

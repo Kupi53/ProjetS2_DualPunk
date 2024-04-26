@@ -52,6 +52,7 @@ public class LaserGunScript : WeaponScript
         _particles = new List<ParticleSystem>();
 
         FillList();
+        DisableLaser();
     }
 
 
@@ -62,17 +63,7 @@ public class LaserGunScript : WeaponScript
             transform.position += Vector3.up * (float)Math.Cos(Time.time * 5 + _fireTime) * 0.001f;
         }
 
-        if (_coolDown)
-        {
-            _coolDownLevel -= Time.deltaTime * _coolDownSpeed;
-
-            if (_coolDownLevel < 0)
-            {
-                _coolDownLevel = 0;
-                _coolDown = false;
-            }
-        }
-        else if (_fire)
+        if (_fire)
         {
             _coolDownLevel += Time.deltaTime;
 
@@ -83,10 +74,23 @@ public class LaserGunScript : WeaponScript
                 _fire = false;
             }
         }
-        else if (_resetTimer >= _smoothTime * 3)
+        else
         {
-            DisableLaser();
-        }
+            if (_coolDown)
+            {
+                _coolDownLevel -= Time.deltaTime * _coolDownSpeed;
+
+                if (_coolDownLevel < 0)
+                {
+                    _coolDownLevel = 0;
+                    _coolDown = false;
+                }
+            }
+            if (_resetTimer >= _smoothTime * 3)
+            {
+                DisableLaser();
+            }
+        }        
     }
 
 
@@ -144,7 +148,6 @@ public class LaserGunScript : WeaponScript
         }
         
         _audioSource.clip = _fireSound;
-        _audioSource.time = _coolDownLevel;
         _audioSource.Play();
     }
 

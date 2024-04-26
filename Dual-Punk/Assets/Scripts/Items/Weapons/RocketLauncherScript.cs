@@ -12,23 +12,28 @@ public class RocketLauncherScript : FireArmScript
     [SerializeField] private float _deviationSpeed;
 
 
-    protected override void Fire(Vector3 direction, int damage, float bulletSpeed, float dispersion, int collisionsAllowed)
+    protected override void Fire(Vector3 direction, int damage, float bulletSpeed, float bulletSize, float dispersion, int collisionsAllowed)
     {
-        FireRocketRpc(direction, damage, bulletSpeed);
+        _ammoLeft--;
+        _fireTimer = 0;
+
+        FireRocketRpc(direction, damage, bulletSpeed, bulletSize);
     }
 
 
     [ServerRpc(RequireOwnership = false)]
-    private void FireRocketRpc(Vector3 direction, int damage, float bulletSpeed)
+    private void FireRocketRpc(Vector3 direction, int damage, float bulletSpeed, float bulletSize)
     {
         for (int i = 0; i < _bulletNumber; i++)
         {
-            GameObject rocket = Instantiate(_bullet, _gunEndPoints[i % _gunEndPoints.Length].transform.position, Quaternion.identity);
+            GameObject rocket = Instantiate(_bullet, _gunEndPoints[_bulletPointIndex].transform.position, Quaternion.identity);
             RocketScript rocketScript = rocket.GetComponent<RocketScript>();
+
+            _bulletPointIndex = (_bulletPointIndex + 1) % _gunEndPoints.Length;
+            rocket.transform.localScale = new Vector2(bulletSize, bulletSize);
 
             rocketScript.Setup(damage, bulletSpeed, direction, transform.position, Vector3.Distance(transform.position, PlayerState.MousePosition),
                 _explosionDistance + 0.1f, _explosionImpact, _deviationAngle, _deviationSpeed);
-
             Spawn(rocket);
         }
     }
