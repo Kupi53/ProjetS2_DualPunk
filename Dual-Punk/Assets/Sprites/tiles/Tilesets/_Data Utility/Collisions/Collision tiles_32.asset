@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: Collision tile
+  m_Name: Collision tiles_32
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: 3625043607559282579, guid: 0f71622236680e84cafd3640bda922ff, type: 3}
-  m_Color: {r: 0.9600663, g: 1, b: 0, a: 0.43137255}
+  m_Sprite: {fileID: -1247406456, guid: fc0ed96f4de56064ea19a4c4f5878d4f, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1
     e01: 0
@@ -33,4 +33,4 @@ MonoBehaviour:
     e33: 1
   m_InstancedGameObject: {fileID: 0}
   m_Flags: 1
-  m_ColliderType: 2
+  m_ColliderType: 1

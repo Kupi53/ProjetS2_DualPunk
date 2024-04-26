@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 2036738682644361136}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.944, y: -0.011, z: 0}
+  m_LocalPosition: {x: 0.952, y: 0.021, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -44,10 +44,10 @@ GameObject:
   - component: {fileID: 3699701708082916789}
   - component: {fileID: 2202028590999172349}
   - component: {fileID: 6219542409635661903}
+  - component: {fileID: -866496460129484686}
   - component: {fileID: 5195949671232927551}
   - component: {fileID: 2424698432023525299}
   - component: {fileID: 4339179553196635599}
-  - component: {fileID: -866496460129484686}
   m_Layer: 7
   m_Name: RocketLauncher
   m_TagString: Weapon
@@ -64,7 +64,7 @@ Transform:
   m_GameObject: {fileID: 8297419380730599739}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.720904, y: 0.029811006, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -159,7 +159,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.97, y: 0.82}
+    oldSize: {x: 1.95, y: 0.76}
     newSize: {x: 1.97, y: 0.82}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -226,6 +226,19 @@ MonoBehaviour:
   highlighted: {fileID: 21300000, guid: f61463e9056ef4b409d7e1a28df7b608, type: 3}
   spriteRenderer: {fileID: 3258924794804809464}
   selectedWeapon: 0
+--- !u!114 &-866496460129484686
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8297419380730599739}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71eb8b037ef4d2843bdf7ae083f038ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemData: {fileID: 11400000, guid: 3bf86ae76cfa54d4890d3acd59024c60, type: 2}
 --- !u!114 &5195949671232927551
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -320,16 +333,3 @@ MonoBehaviour:
   _overrideType: 1
   _updateHostVisibility: 1
   _observerConditions: []
---- !u!114 &-866496460129484686
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8297419380730599739}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71eb8b037ef4d2843bdf7ae083f038ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemData: {fileID: 11400000, guid: 3bf86ae76cfa54d4890d3acd59024c60, type: 2}

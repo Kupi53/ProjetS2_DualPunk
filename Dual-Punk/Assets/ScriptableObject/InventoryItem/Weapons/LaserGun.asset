@@ -14,7 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: LaserGun
   prefab: {fileID: 0}
-  prefabTest: {fileID: 0}
-  icon: {fileID: 21300000, guid: 43be8d57dcdde844cb40bb423029dac7, type: 3}
+  icon: {fileID: 21300000, guid: 97711701e1af8e54a8628840cdf7aa41, type: 3}
   description: "Le lasergun, Une arme puissante capabler de d\xE9couper les ennemis
     comme dans Star Wars."
