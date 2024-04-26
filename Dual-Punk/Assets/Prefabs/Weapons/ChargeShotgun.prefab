@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 5261379878311747825}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1, y: -0.112, z: 0}
+  m_LocalPosition: {x: 0.718, y: -0.061, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -56,7 +56,7 @@ Transform:
   m_GameObject: {fileID: 5507576148066104672}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1, y: 0.12, z: 0}
+  m_LocalPosition: {x: 0.714, y: 0.129, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -76,10 +76,10 @@ GameObject:
   - component: {fileID: 3476808642805953275}
   - component: {fileID: 8704183271305690068}
   - component: {fileID: -5961033379950352520}
+  - component: {fileID: -3136687070370447411}
   - component: {fileID: 1964192457824864996}
   - component: {fileID: 45777571774306639}
   - component: {fileID: -257851370034313563}
-  - component: {fileID: -3136687070370447411}
   m_Layer: 7
   m_Name: ChargeShotgun
   m_TagString: Weapon
@@ -96,8 +96,8 @@ Transform:
   m_GameObject: {fileID: 7321002207951180533}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.71916485, y: -2.03413, z: 4}
-  m_LocalScale: {x: 0.7, y: 0.7, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.9, y: 0.9, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7600531432338096870}
@@ -188,18 +188,18 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0014296174, y: -0.04289061}
+  m_Offset: {x: 0.115862936, y: 0.01682198}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.81, y: 0.95}
+    oldSize: {x: 1.47, y: 0.69}
     newSize: {x: 1.81, y: 0.95}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.7613906, y: 0.82990634}
+  m_Size: {x: 0.9040883, y: 0.4375093}
   m_EdgeRadius: 0
 --- !u!82 &3476808642805953275
 AudioSource:
@@ -312,7 +312,7 @@ MonoBehaviour:
   _componentIndexCache: 0
   _addedNetworkObject: {fileID: 1964192457824864996}
   _networkObjectCache: {fileID: 1964192457824864996}
-  _weaponOffset: {x: 0.15, y: 0.75, z: 0}
+  _weaponOffset: {x: 0.18, y: 0.75, z: 0}
   _weaponDistance: 0.4
   _recoilForce: 3
   _impactForce: 2
@@ -342,8 +342,6 @@ MonoBehaviour:
   _minSize: 0.8
   _minRecoil: 1
   _minImpact: 0.5
-  _minCameraShake: 0.5
-  _repeatSoundTime: 0.15
   _chargeTimeSound: {fileID: 8300000, guid: 8abc0bfa0f53f6441983181a847d3fa0, type: 3}
   _audioSource: {fileID: 3476808642805953275}
 --- !u!114 &-5961033379950352520
@@ -362,6 +360,19 @@ MonoBehaviour:
   highlighted: {fileID: 21300000, guid: 5c3e85336b22c7c4f834d2c8e41e8524, type: 3}
   spriteRenderer: {fileID: 7377155860427624990}
   selectedWeapon: 0
+--- !u!114 &-3136687070370447411
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7321002207951180533}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71eb8b037ef4d2843bdf7ae083f038ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemData: {fileID: 11400000, guid: c24826867308b894a9678d391a085903, type: 2}
 --- !u!114 &1964192457824864996
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -383,9 +394,9 @@ MonoBehaviour:
   <ParentNetworkObject>k__BackingField: {fileID: 0}
   <ChildNetworkObjects>k__BackingField: []
   SerializedTransformProperties:
-    Position: {x: 0.71916485, y: -2.03413, z: 4}
+    Position: {x: 0, y: 0, z: 0}
     Rotation: {x: 0, y: 0, z: 0, w: 1}
-    LocalScale: {x: 0.7, y: 0.7, z: 1}
+    LocalScale: {x: 1, y: 1, z: 1}
   _isNetworked: 1
   _isGlobal: 0
   _initializeOrder: 0
@@ -456,16 +467,3 @@ MonoBehaviour:
   _overrideType: 1
   _updateHostVisibility: 1
   _observerConditions: []
---- !u!114 &-3136687070370447411
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7321002207951180533}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71eb8b037ef4d2843bdf7ae083f038ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemData: {fileID: 11400000, guid: c24826867308b894a9678d391a085903, type: 2}
