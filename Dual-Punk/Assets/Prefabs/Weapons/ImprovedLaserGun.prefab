@@ -19765,7 +19765,7 @@ MonoBehaviour:
   _damageFrequency: 0.12
   _fireTime: 6
   _coolDownSpeed: 2
-  _smoothTime: 0.2
+  _smoothTime: 0.15
   _audioSource: {fileID: 50279802192761020}
   _fireSound: {fileID: 8300000, guid: 45e85d2f89bea524e90f16d3208002aa, type: 3}
 --- !u!114 &3107634846007935318

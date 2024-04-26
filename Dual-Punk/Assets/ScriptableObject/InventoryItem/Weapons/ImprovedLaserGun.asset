@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb4d4ad9335e54a4aa04976f4584bb33, type: 3}
   m_Name: ImprovedLaserGun
   m_EditorClassIdentifier: 
-  name: 
+  name: ImprovedLaserGun
   prefab: {fileID: 0}
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 6424f1e54f2d00a429cfdb20af1e26c1, type: 3}
   description: 
