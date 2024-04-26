@@ -13,10 +13,10 @@ GameObject:
   - component: {fileID: 4038244472519242302}
   - component: {fileID: 2998020564572275706}
   - component: {fileID: -5896032686861132043}
+  - component: {fileID: 4573999984275494513}
   - component: {fileID: 8196554436644051480}
   - component: {fileID: 2051020133331407365}
   - component: {fileID: 1356721892089647977}
-  - component: {fileID: 4573999984275494513}
   m_Layer: 7
   m_Name: Shotgun1
   m_TagString: Weapon
@@ -191,6 +191,19 @@ MonoBehaviour:
   highlighted: {fileID: 21300000, guid: 28bc08ba4841e3640bc808a0969b8816, type: 3}
   spriteRenderer: {fileID: 5280717515457528235}
   selectedWeapon: 0
+--- !u!114 &4573999984275494513
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 156933350303824626}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71eb8b037ef4d2843bdf7ae083f038ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemData: {fileID: 11400000, guid: dbf751a8a8cdfcc46b6482e8e9cc24ff, type: 2}
 --- !u!114 &8196554436644051480
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -285,19 +298,6 @@ MonoBehaviour:
   _overrideType: 1
   _updateHostVisibility: 1
   _observerConditions: []
---- !u!114 &4573999984275494513
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 156933350303824626}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71eb8b037ef4d2843bdf7ae083f038ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemData: {fileID: 11400000, guid: dbf751a8a8cdfcc46b6482e8e9cc24ff, type: 2}
 --- !u!1 &1151202582569453349
 GameObject:
   m_ObjectHideFlags: 0

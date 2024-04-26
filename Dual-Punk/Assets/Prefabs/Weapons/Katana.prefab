@@ -13,10 +13,10 @@ GameObject:
   - component: {fileID: 7547148938412414778}
   - component: {fileID: 3101570405284729770}
   - component: {fileID: 8556322678607386002}
+  - component: {fileID: -6532868988949993772}
   - component: {fileID: 3590557041652478682}
   - component: {fileID: 1720772536352017506}
   - component: {fileID: -4358944981701935795}
-  - component: {fileID: -6532868988949993772}
   m_Layer: 7
   m_Name: Katana
   m_TagString: Weapon
@@ -176,6 +176,19 @@ MonoBehaviour:
   highlighted: {fileID: 21300000, guid: 45caafc1cabcef5489ddf4f670a6032d, type: 3}
   spriteRenderer: {fileID: 3628626176491043060}
   selectedWeapon: 0
+--- !u!114 &-6532868988949993772
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3553326147683758454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71eb8b037ef4d2843bdf7ae083f038ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemData: {fileID: 11400000, guid: 440bedb94b4b9e443ac7ca3d4ebfdb82, type: 2}
 --- !u!114 &3590557041652478682
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -205,7 +218,7 @@ MonoBehaviour:
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 15
+  <PrefabId>k__BackingField: 4
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0
@@ -270,16 +283,3 @@ MonoBehaviour:
   _overrideType: 1
   _updateHostVisibility: 1
   _observerConditions: []
---- !u!114 &-6532868988949993772
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3553326147683758454}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71eb8b037ef4d2843bdf7ae083f038ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemData: {fileID: 11400000, guid: 440bedb94b4b9e443ac7ca3d4ebfdb82, type: 2}
