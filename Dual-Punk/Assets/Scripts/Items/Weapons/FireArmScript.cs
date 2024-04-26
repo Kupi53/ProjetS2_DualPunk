@@ -34,6 +34,7 @@ public class FireArmScript : WeaponScript
     [SerializeField] protected AudioClip _reloadSound;
 
     protected int _ammoLeft;
+    protected int _bulletPointIndex;
     private float _reloadTimer;
     protected float _fireTimer;
     private bool _reloading;
@@ -49,6 +50,7 @@ public class FireArmScript : WeaponScript
     public void Start()
     {
         _reloadTimer = 0;
+        _bulletPointIndex = 0;
         _reloading = false;
         _ammoLeft = _magSize;
         _fireTimer = _fireRate;
@@ -155,13 +157,14 @@ public class FireArmScript : WeaponScript
     {
         for (int i = 0; i < _bulletNumber; i++)
         {
-            GameObject newBullet = Instantiate(_bullet, _gunEndPoints[i%_gunEndPoints.Length].transform.position, Quaternion.identity);
+            GameObject newBullet = Instantiate(_bullet, _gunEndPoints[_bulletPointIndex].transform.position, Quaternion.identity);
             BulletScript bulletScript = newBullet.GetComponent<BulletScript>();
-            
+
+            _bulletPointIndex = (_bulletPointIndex + 1) % _gunEndPoints.Length;
             newBullet.transform.localScale = new Vector2(bulletSize, bulletSize);
             Vector3 newDirection = new Vector3(direction.x + Methods.NextFloat(-dispersion, dispersion), direction.y + Methods.NextFloat(-dispersion, dispersion), 0).normalized;
-            bulletScript.Setup(damage, bulletSpeed, newDirection, collisionsAllowed);
 
+            bulletScript.Setup(damage, bulletSpeed, newDirection, collisionsAllowed);
             Spawn(newBullet);
         }
     }

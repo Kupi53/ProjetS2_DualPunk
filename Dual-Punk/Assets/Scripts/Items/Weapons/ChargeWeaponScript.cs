@@ -12,7 +12,6 @@ public class ChargeWeaponScript : FireArmScript
     [SerializeField] private float _minSize;
     [SerializeField] private float _minRecoil;
     [SerializeField] private float _minImpact;
-    [SerializeField] private float _repeatSoundTime;
     
     [SerializeField] private AudioClip _chargeTimeSound;
 	[SerializeField] private AudioSource _audioSource;

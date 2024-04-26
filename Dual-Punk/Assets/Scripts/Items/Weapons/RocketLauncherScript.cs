@@ -26,13 +26,14 @@ public class RocketLauncherScript : FireArmScript
     {
         for (int i = 0; i < _bulletNumber; i++)
         {
-            GameObject rocket = Instantiate(_bullet, _gunEndPoints[i % _gunEndPoints.Length].transform.position, Quaternion.identity);
+            GameObject rocket = Instantiate(_bullet, _gunEndPoints[_bulletPointIndex].transform.position, Quaternion.identity);
             RocketScript rocketScript = rocket.GetComponent<RocketScript>();
 
+            _bulletPointIndex = (_bulletPointIndex + 1) % _gunEndPoints.Length;
             rocket.transform.localScale = new Vector2(bulletSize, bulletSize);
+
             rocketScript.Setup(damage, bulletSpeed, direction, transform.position, Vector3.Distance(transform.position, PlayerState.MousePosition),
                 _explosionDistance + 0.1f, _explosionImpact, _deviationAngle, _deviationSpeed);
-
             Spawn(rocket);
         }
     }

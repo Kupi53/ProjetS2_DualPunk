@@ -541,12 +541,12 @@ MonoBehaviour:
   _componentIndexCache: 2
   _addedNetworkObject: {fileID: 5423358579492179876}
   _networkObjectCache: {fileID: 5423358579492179876}
-  _crawlSpeed: 0
+  _crawlSpeed: 0.01
   _walkSpeed: 0.05
   _sprintSpeed: 0.08
-  _dashSpeed: 0.25
-  _dashTime: 0.15
-  _dashCooldown: 0
+  _dashSpeed: 0.28
+  _dashTime: 0.18
+  _dashCooldown: 1
   _moveBackFactor: 0.8
 --- !u!114 &-7003829035611701060
 MonoBehaviour:
@@ -660,7 +660,7 @@ MonoBehaviour:
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 24
+  <PrefabId>k__BackingField: 25
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0
