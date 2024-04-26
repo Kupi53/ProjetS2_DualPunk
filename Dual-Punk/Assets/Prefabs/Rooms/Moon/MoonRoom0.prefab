@@ -4461,7 +4461,7 @@ GameObject:
   - component: {fileID: 6262579977518190938}
   - component: {fileID: 8106768817034476181}
   m_Layer: 0
-  m_Name: CityRoom0
+  m_Name: MoonRoom0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
