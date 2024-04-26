@@ -15,6 +15,7 @@ public class LaserGunScript : WeaponScript
     [SerializeField] private float _fireTime;
     [SerializeField] private float _coolDownSpeed;
     [SerializeField] private float _smoothTime;
+    [SerializeField] private float _disableSpeed;
     
     [SerializeField] private AudioSource _audioSource;
     [SerializeField] private AudioClip _fireSound;
@@ -37,8 +38,10 @@ public class LaserGunScript : WeaponScript
     public override float InfoTimer { get => _fireTime - _coolDownLevel; }
 
 
-    void Start()
+    private new void Start()
     {
+        base.Start();
+
         _velocity = 0;
         _resetTimer = 0;
         _laserLength = 0;
@@ -47,7 +50,6 @@ public class LaserGunScript : WeaponScript
         _coolDown = false;
         _damageTimer = _damageFrequency;
 
-        _spriteRenderer = GetComponent<SpriteRenderer>();
         _lineRenderer = GetComponentInChildren<LineRenderer>();
         _particles = new List<ParticleSystem>();
 
@@ -56,12 +58,17 @@ public class LaserGunScript : WeaponScript
     }
 
 
-    void Update()
+    private new void Update()
     {
-        if (!InHand)
-        {
-            transform.position += Vector3.up * (float)Math.Cos(Time.time * 5 + _fireTime) * 0.001f;
-        }
+        base.Update();
+
+        if (!InHand) return;
+
+        if (_coolDown && Input.GetButton("Use") || !_canAttack)
+            PlayerState.PointerScript.CanShoot = false;
+        else
+            PlayerState.PointerScript.CanShoot = true;
+        
 
         if (_fire)
         {
@@ -86,7 +93,7 @@ public class LaserGunScript : WeaponScript
                     _coolDown = false;
                 }
             }
-            if (_resetTimer >= _smoothTime * 3)
+            if (_resetTimer >= _smoothTime * _disableSpeed)
             {
                 DisableLaser();
             }
@@ -97,20 +104,15 @@ public class LaserGunScript : WeaponScript
 
     public override void Run(Vector3 position, Vector3 direction)
     {
-        if (_coolDown && Input.GetButton("Use"))
-            PlayerState.PointerScript.SpriteNumber = 0;
-        else
-            PlayerState.PointerScript.SpriteNumber = 1;
-
         _startPosition = _gunEndPoint.transform.position;
 
-        if (Input.GetButtonDown("Use"))
+        if (Input.GetButtonDown("Use") && _canAttack)
         {
             _fire = true;
             _coolDown = false;
             EnableLaser();
         }
-        else if (Input.GetButtonUp("Use"))
+        else if (Input.GetButtonUp("Use") || !_canAttack)
         {
             _fire = false;
             _coolDown = true;
@@ -137,6 +139,7 @@ public class LaserGunScript : WeaponScript
         }
     }
 
+
     private void EnableLaser()
     {
         _resetTimer = 0;
@@ -148,6 +151,7 @@ public class LaserGunScript : WeaponScript
         }
         
         _audioSource.clip = _fireSound;
+        _audioSource.volume = 1;
         _audioSource.Play();
     }
 
@@ -210,9 +214,10 @@ public class LaserGunScript : WeaponScript
                 DrawLaser(PlayerState.MousePosition.normalized * 100, direction);
             }
         }
-        else if (_resetTimer < _smoothTime*3)
+        else if (_resetTimer < _smoothTime * _disableSpeed)
         {
             _resetTimer += Time.deltaTime;
+            _audioSource.volume = 1 - _resetTimer / (_smoothTime * _disableSpeed);
             DrawLaser(_startPosition, direction);
         }
     }

@@ -118,7 +118,6 @@ public class BulletScript : NetworkBehaviour, IImpact
         }
     }
 
-
     private void OnTriggerEnter2D(Collider2D collider)
     {
         if (collider.CompareTag("Projectile"))

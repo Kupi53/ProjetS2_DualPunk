@@ -41,6 +41,7 @@ GameObject:
   m_Component:
   - component: {fileID: 266728874953890219}
   - component: {fileID: 6375131043796351911}
+  - component: {fileID: 895065786148684172}
   - component: {fileID: 5856023656893183999}
   - component: {fileID: 2190047050533192951}
   - component: {fileID: 4687209510453595086}
@@ -123,6 +124,33 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!50 &895065786148684172
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8566271621736578887}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!61 &5856023656893183999
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -155,7 +183,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.018377721, y: -0.09158215}
+  m_Offset: {x: -0.011931866, y: -0.03348852}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -166,7 +194,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.7132455, y: 0.5967882}
+  m_Size: {x: 0.97570914, y: 0.22802015}
   m_EdgeRadius: 0
 --- !u!114 &2190047050533192951
 MonoBehaviour:
@@ -188,6 +216,7 @@ MonoBehaviour:
   _recoilForce: 1.2
   _impactForce: 1.2
   _cameraShake: 1.1
+  _pointerSpriteNumber: 1
   _bullet: {fileID: 5298557137024599475, guid: cf1a87b5cd3d7904dbe9dcf2013b111e, type: 3}
   _gunEndPoints:
   - {fileID: 7751566459779938819}
@@ -264,7 +293,7 @@ MonoBehaviour:
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 16
+  <PrefabId>k__BackingField: 17
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0

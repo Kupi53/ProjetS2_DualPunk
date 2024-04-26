@@ -41,6 +41,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8547628684765729099}
   - component: {fileID: 3258924794804809464}
+  - component: {fileID: -4557181437946132156}
   - component: {fileID: 3699701708082916789}
   - component: {fileID: 2202028590999172349}
   - component: {fileID: 6219542409635661903}
@@ -123,6 +124,33 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!50 &-4557181437946132156
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8297419380730599739}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!61 &3699701708082916789
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -155,7 +183,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.021616042}
+  m_Offset: {x: 0.20704964, y: 0.024585113}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -166,7 +194,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.97, y: 0.77676785}
+  m_Size: {x: 1.0493991, y: 0.22577617}
   m_EdgeRadius: 0
 --- !u!114 &2202028590999172349
 MonoBehaviour:
@@ -188,6 +216,7 @@ MonoBehaviour:
   _recoilForce: 1
   _impactForce: 15
   _cameraShake: 0.5
+  _pointerSpriteNumber: 1
   _bullet: {fileID: 8218887749285126351, guid: 72d97b4e041201e419ae7c7bc77e9f1f, type: 3}
   _gunEndPoints:
   - {fileID: 2036738682644361136}
@@ -260,7 +289,7 @@ MonoBehaviour:
   <ParentNetworkObject>k__BackingField: {fileID: 0}
   <ChildNetworkObjects>k__BackingField: []
   SerializedTransformProperties:
-    Position: {x: 3.720904, y: 0.029811006, z: 0}
+    Position: {x: 0, y: 0, z: 0}
     Rotation: {x: 0, y: 0, z: 0, w: 1}
     LocalScale: {x: 1, y: 1, z: 1}
   _isNetworked: 1
@@ -268,7 +297,7 @@ MonoBehaviour:
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 28
+  <PrefabId>k__BackingField: 29
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0

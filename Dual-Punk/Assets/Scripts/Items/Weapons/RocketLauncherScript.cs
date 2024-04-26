@@ -12,10 +12,11 @@ public class RocketLauncherScript : FireArmScript
     [SerializeField] private float _deviationSpeed;
 
 
-    protected override void Fire(Vector3 direction, int damage, float bulletSpeed, float bulletSize, float dispersion, int collisionsAllowed)
+    public override void Fire(Vector3 direction, int damage, float bulletSpeed, float bulletSize, float dispersion, int collisionsAllowed)
     {
         _ammoLeft--;
         _fireTimer = 0;
+        AudioManager.Instance.PlayClipAt(_fireSound, gameObject.transform.position);
 
         FireRocketRpc(direction, damage, bulletSpeed, bulletSize);
     }

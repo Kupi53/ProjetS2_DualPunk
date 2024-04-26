@@ -28,22 +28,12 @@ public class ChargeWeaponScript : FireArmScript
         _chargeTimer = 0;
     }
 
-    private new void Update()
-    {
-        base.Update();
-
-        if (InHand && !Reloading)
-        {
-            PlayerState.PointerScript.SpriteNumber = 3;
-        }
-    }
-
 
     public override void Run(Vector3 position, Vector3 direction)
     {
         MovePosition(position, direction);
 
-        if (Input.GetButton("Use") && !Reloading && _fireTimer >= _fireRate && _ammoLeft > 0 && _chargeTimer <= _chargeTime && !_cancel)
+        if (Input.GetButton("Use") && !_reloading && _fireTimer >= _fireRate && _ammoLeft > 0 && _chargeTimer <= _chargeTime && !_cancel)
         {
 			if (!_audioSource.isPlaying)
 			{
@@ -68,39 +58,39 @@ public class ChargeWeaponScript : FireArmScript
             }
         }
         
-
-        if (Input.GetButtonUp("Use") || _chargeTimer > _chargeTime && _isAuto)
+        
+        if ((Input.GetButtonUp("Use") || _chargeTimer > _chargeTime && _isAuto) && _chargeTimer > 0 && !_cancel)
         {
-            if (_cancel)
+            if (!_canAttack)
             {
-                _cancel = false;
+                ResetWeapon();
             }
-            else if (_chargeTimer > 0)
+            else
             {
                 _audioSource.Stop();
-
                 float multiplier = _chargeTimer / _chargeTime;
-                _chargeTimer = 0;
 
                 Fire(direction, (int)GetProgressingFactor(multiplier, _minDamage, _damage), GetProgressingFactor(multiplier, _minSpeed, _bulletSpeed),
                     GetProgressingFactor(multiplier, _minSize, _bulletSize), _dispersion, (int)(multiplier * _collisionsAllowed));
 
                 PlayerRecoil.Impact(-direction, GetProgressingFactor(multiplier, _minRecoil, _recoilForce));
                 PlayerState.CameraController.ShakeCamera(_cameraShake, 0.1f);
-
-                AudioManager.Instance.PlayClipAt(_fireSound, gameObject.transform.position);
             }
         }
-        else if (Input.GetButtonDown("Use") && Reloading && _ammoLeft > 0)
+
+        else if (Input.GetButtonDown("Use"))
         {
-            base.ResetWeapon();
+            _cancel = false;
+            if (_reloading && _ammoLeft > 0)
+                base.ResetWeapon();
         }
 
-        if (Input.GetButtonDown("Reload") && _ammoLeft != _magSize || _autoReload && _ammoLeft == 0)
+
+        if (Input.GetButtonDown("Reload") && _ammoLeft != _magSize && _chargeTimer == 0 || _autoReload && _ammoLeft == 0)
         {
-            Reloading = true;
+            _reloading = true;
         } 
-        if (Reloading)
+        if (_reloading)
         {
             Reload();
         }
@@ -121,5 +111,13 @@ public class ChargeWeaponScript : FireArmScript
         _fireTimer = 0;
         _chargeTimer = 0;
         _audioSource.Stop();
+    }
+
+
+    public override void Fire(Vector3 direction, int damage, float bulletSpeed, float bulletSize, float dispersion, int collisionsAllowed)
+    {
+        _chargeTimer = 0;
+
+        base.Fire(direction, damage, bulletSpeed, bulletSize, dispersion, collisionsAllowed);
     }
 }

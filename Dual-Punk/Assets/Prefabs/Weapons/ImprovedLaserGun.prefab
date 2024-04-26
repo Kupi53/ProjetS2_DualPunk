@@ -19508,6 +19508,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1209433242501080850}
   - component: {fileID: -8675770491283423342}
+  - component: {fileID: 5827406036171584531}
   - component: {fileID: -2108519872711247652}
   - component: {fileID: 50279802192761020}
   - component: {fileID: 8974020460284066990}
@@ -19594,6 +19595,33 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!50 &5827406036171584531
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4730994522500747810}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!61 &-2108519872711247652
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -19626,7 +19654,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.009976268, y: 0.013967007}
+  m_Offset: {x: -0.03004697, y: -0.011121444}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -19637,7 +19665,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.0131027, y: 0.34051806}
+  m_Size: {x: 0.58659893, y: 0.23514654}
   m_EdgeRadius: 0
 --- !u!82 &50279802192761020
 AudioSource:
@@ -19755,6 +19783,7 @@ MonoBehaviour:
   _recoilForce: 0.15
   _impactForce: 0.2
   _cameraShake: 0.3
+  _pointerSpriteNumber: 3
   _gunEndPoint: {fileID: 6987755135671807605}
   _startVFX: {fileID: 9135203561053153667}
   _endVFX: {fileID: 2910606374387017806}
@@ -19766,6 +19795,7 @@ MonoBehaviour:
   _fireTime: 6
   _coolDownSpeed: 2
   _smoothTime: 0.15
+  _disableSpeed: 2.5
   _audioSource: {fileID: 50279802192761020}
   _fireSound: {fileID: 8300000, guid: 45e85d2f89bea524e90f16d3208002aa, type: 3}
 --- !u!114 &3107634846007935318

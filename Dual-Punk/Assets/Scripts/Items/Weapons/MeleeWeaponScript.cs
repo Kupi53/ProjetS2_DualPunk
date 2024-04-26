@@ -24,30 +24,18 @@ public class MeleeWeaponScript : WeaponScript
     public override float InfoTimer { get => _resetCooldownTimer; }
 
 
-    void Start()
+    private void Start()
     {
-
         _attack = 0;
         _resetCooldownTimer = 0;
         _currentWeaponDistance = _weaponDistance;
-        _spriteRenderer = GetComponent<SpriteRenderer>();
-    }
-
-
-    public void Update()
-    {
-        if (!Owner.IsLocalClient) return;
-        //Faire des animations ici
-        if (InHand)
-        {
-            PlayerState.PointerScript.SpriteNumber = 0;
-        }
     }
 
 
     public override void Run(Vector3 position, Vector3 direction)
     {
         if (!Owner.IsLocalClient) return;
+
         if (Input.GetButtonDown("Use") && !PlayerState.Attacking && _attack < 3)
         {
             _angle = (float)(Math.Atan2(direction.y, direction.x) * (180 / Math.PI));

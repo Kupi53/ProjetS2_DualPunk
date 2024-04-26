@@ -24,10 +24,12 @@ public class InstantGrenadeScript : NetworkBehaviour, IDestroyable
     protected float _moveSpeed;
     protected float _distanceUntilStop;
     protected float _curveFactor;
+    private bool _exploded;
 
 
     protected void Start()
     {
+        _exploded = false;
         _linePosition = transform.position;
         _rb2d = GetComponent<Rigidbody2D>();
     }
@@ -54,6 +56,10 @@ public class InstantGrenadeScript : NetworkBehaviour, IDestroyable
 
     protected void Explode()
     {
+        if (_exploded) return;
+
+        _exploded = true;
+
         GameObject explosion = Instantiate(_explosion, transform.position, transform.rotation);
         explosion.GetComponent<Explosion>().Explode(_damage, _explosionRadius, _explosionImpact);
         

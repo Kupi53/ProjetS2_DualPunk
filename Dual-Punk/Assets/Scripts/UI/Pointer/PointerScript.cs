@@ -30,6 +30,7 @@ public class PointerScript : MonoBehaviour
 
 
     public int SpriteNumber { get; set; }
+    public bool CanShoot { get; set; }
 
     #nullable enable
     public GameObject? Target { get; set; }
@@ -70,14 +71,14 @@ public class PointerScript : MonoBehaviour
     {
         if (!_playerState.Walking)
         {
-            if (Target == null)
+            if (CanShoot)
                 _spriteRenderer.sprite = pointer1;
             else
                 _spriteRenderer.sprite = pointer2;
         }
         else
         {
-            if (Target == null)
+            if (CanShoot)
                 _spriteRenderer.sprite = pointer3;
             else
                 _spriteRenderer.sprite = pointer4;

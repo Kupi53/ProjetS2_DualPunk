@@ -27,14 +27,13 @@ public class SmartWeaponScript : FireArmScript
         _targetsIndicators = new List<GameObject>();
     }
 
+
     private new void Update()
     {
         base.Update();
 
-        if (InHand && !Reloading)
+        if (!_reloading)
         {
-            PlayerState.PointerScript.SpriteNumber = 2;
-
             if (Input.GetButtonUp("Switch") && !ContainsTarget(PlayerState.PointerScript.Target))
             {
                 GameObject newTargetIndicator = Instantiate(_lockedTargetIndicator);
@@ -84,10 +83,11 @@ public class SmartWeaponScript : FireArmScript
     }
 
 
-    protected override void Fire(Vector3 direction, int damage, float bulletSpeed, float bulletSize, float dispersion, int collisionsAllowed)
+    public override void Fire(Vector3 direction, int damage, float bulletSpeed, float bulletSize, float dispersion, int collisionsAllowed)
     {
         _ammoLeft--;
         _fireTimer = 0;
+        AudioManager.Instance.PlayClipAt(_fireSound, gameObject.transform.position);
 
         if (PlayerState.Walking)
             dispersion /= _aimAccuracy;
@@ -141,7 +141,7 @@ public class SmartWeaponScript : FireArmScript
     }
 
     [ServerRpc(RequireOwnership = false)]
-    void AssignTargetBulletScriptRPC(SeekingBulletScript bulletScript, GameObject? target)
+    void AssignTargetBulletScriptRPC(SeekingBulletScript bulletScript, GameObject target)
     {
         if (bulletScript != null)
             bulletScript.Target = target;

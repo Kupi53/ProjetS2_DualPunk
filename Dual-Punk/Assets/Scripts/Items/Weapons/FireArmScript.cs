@@ -37,38 +37,34 @@ public class FireArmScript : WeaponScript
     protected int _bulletPointIndex;
     private float _reloadTimer;
     protected float _fireTimer;
-    private bool _reloading;
 
     public int AmmoLeft { get => _ammoLeft; set => _ammoLeft = value; }
-    public bool Reloading { get => _reloading; set => _reloading = value; }
-
     public override bool DisplayInfo { get => _reloading; }
     public override float InfoMaxTime { get => _reloadTime; }
     public override float InfoTimer { get => _reloadTimer; }
 
 
-    public void Start()
+    protected new void Start()
     {
+        base.Start();
+
         _reloadTimer = 0;
         _bulletPointIndex = 0;
         _reloading = false;
         _ammoLeft = _magSize;
         _fireTimer = _fireRate;
-        _spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-
-    public void Update()
+    protected new void Update()
     {
-        //Faire des animations ici
-        if (InHand)
-        {
-            PlayerState.PointerScript.SpriteNumber = 1;
-        }
+        base.Update();
+
+        if (!InHand) return;
+
+        if (_canAttack && _ammoLeft > 0)
+            PlayerState.PointerScript.CanShoot = true;
         else
-        {
-            transform.position += Vector3.up * (float)Math.Cos(Time.time * 5 + _damage) * 0.001f;
-        }
+            PlayerState.PointerScript.CanShoot = false;
     }
 
 
@@ -76,7 +72,7 @@ public class FireArmScript : WeaponScript
     {
         MovePosition(position, direction);
 
-        if ((Input.GetButton("Use") && _isAuto && !_reloading || Input.GetButtonDown("Use")) && _fireTimer >= _fireRate && _ammoLeft > 0)
+        if ((Input.GetButton("Use") && _isAuto && !_reloading || Input.GetButtonDown("Use")) && _fireTimer >= _fireRate && _ammoLeft > 0 && _canAttack)
         {
             if (_reloading)
             {
@@ -88,8 +84,6 @@ public class FireArmScript : WeaponScript
 
             PlayerRecoil.Impact(-direction, _recoilForce);
             PlayerState.CameraController.ShakeCamera(_cameraShake, 0.1f);
-
-            AudioManager.Instance.PlayClipAt(_fireSound, gameObject.transform.position);
         }
         else if (_fireTimer < _fireRate)
         {
@@ -110,8 +104,6 @@ public class FireArmScript : WeaponScript
 
     protected void Reload()
     {
-        PlayerState.PointerScript.SpriteNumber = 0;
-
         if (_reloadTimer >= _reloadTime)
         {
             _reloadTimer = 0;
@@ -119,14 +111,14 @@ public class FireArmScript : WeaponScript
             if (_ammoLeft + _reloadAmount < _magSize)
 			{
                 _ammoLeft += _reloadAmount;
-				AudioManager.Instance.PlayClipAt(_reloadSound, gameObject.transform.position);
             }
 			else
             {
                 _reloading = false;
                 _ammoLeft = _magSize;
-				AudioManager.Instance.PlayClipAt(_reloadSound, gameObject.transform.position);
             }
+
+            AudioManager.Instance.PlayClipAt(_reloadSound, gameObject.transform.position);
         }
         else
             _reloadTimer += Time.deltaTime;
@@ -140,10 +132,11 @@ public class FireArmScript : WeaponScript
     }
 
 
-    protected virtual void Fire(Vector3 direction, int damage, float bulletSpeed, float bulletSize, float dispersion, int collisionsAllowed)
+    public virtual void Fire(Vector3 direction, int damage, float bulletSpeed, float bulletSize, float dispersion, int collisionsAllowed)
     {
         _ammoLeft--;
         _fireTimer = 0;
+        AudioManager.Instance.PlayClipAt(_fireSound, gameObject.transform.position);
 
         if (PlayerState.Walking)
             dispersion /= _aimAccuracy;

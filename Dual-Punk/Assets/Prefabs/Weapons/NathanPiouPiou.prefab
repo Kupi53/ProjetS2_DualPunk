@@ -41,6 +41,7 @@ GameObject:
   m_Component:
   - component: {fileID: 597023484082588879}
   - component: {fileID: 8354761501384256457}
+  - component: {fileID: 2216512608003940082}
   - component: {fileID: 3601345631294641985}
   - component: {fileID: 7599136847487818925}
   - component: {fileID: 5536798300859352896}
@@ -123,6 +124,33 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!50 &2216512608003940082
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2853303830935746606}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!61 &3601345631294641985
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -155,7 +183,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.59729445, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -166,7 +194,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 7.8, y: 4.95}
+  m_Size: {x: 4.629182, y: 2.295362}
   m_EdgeRadius: 0
 --- !u!114 &7599136847487818925
 MonoBehaviour:
@@ -188,6 +216,7 @@ MonoBehaviour:
   _recoilForce: 0.8
   _impactForce: 0.5
   _cameraShake: 0.5
+  _pointerSpriteNumber: 2
   _bullet: {fileID: 3137761784652373764, guid: c83c2ecdccc5c4e42a0c6b0d758735f3, type: 3}
   _gunEndPoints:
   - {fileID: 298094953147082344}
@@ -266,7 +295,7 @@ MonoBehaviour:
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 30
+  <PrefabId>k__BackingField: 31
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0

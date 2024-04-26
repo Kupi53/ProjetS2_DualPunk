@@ -156,6 +156,7 @@ MonoBehaviour:
   _recoilForce: 0
   _impactForce: 0
   _cameraShake: 0
+  _pointerSpriteNumber: 1
   _attackSpeed: 1000
   _attackRange: 60
   _attackDistance: 1
