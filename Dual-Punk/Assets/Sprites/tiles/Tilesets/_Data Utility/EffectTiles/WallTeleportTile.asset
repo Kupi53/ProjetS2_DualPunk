@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: Collision tile
+  m_Name: WallTeleportTile
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: 3625043607559282579, guid: 0f71622236680e84cafd3640bda922ff, type: 3}
-  m_Color: {r: 0.9600663, g: 1, b: 0, a: 0.43137255}
+  m_Sprite: {fileID: 1503190594, guid: 19e7b5219d688104683b677e6298a008, type: 3}
+  m_Color: {r: 0.11320752, g: 0.11320752, b: 0.11320752, a: 1}
   m_Transform:
     e00: 1
     e01: 0
@@ -33,4 +33,4 @@ MonoBehaviour:
     e33: 1
   m_InstancedGameObject: {fileID: 0}
   m_Flags: 1
-  m_ColliderType: 2
+  m_ColliderType: 1
