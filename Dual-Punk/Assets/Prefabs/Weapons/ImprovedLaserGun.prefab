@@ -4857,7 +4857,7 @@ Transform:
   m_GameObject: {fileID: 1980731552327541447}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: -0}
+  m_LocalPosition: {x: 0.052, y: -0.033, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -14517,7 +14517,7 @@ Transform:
   m_GameObject: {fileID: 2384902496132668591}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.08, y: 0, z: 0}
+  m_LocalPosition: {x: 0.059, y: -0.026, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -19514,10 +19514,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <IsNested>k__BackingField: 1
-  <ComponentIndex>k__BackingField: 0
+  <ComponentIndex>k__BackingField: 1
   <PredictedSpawn>k__BackingField: {fileID: 0}
-  _networkBehaviours: []
-  <ParentNetworkObject>k__BackingField: {fileID: 0}
+  _networkBehaviours:
+  - {fileID: 1246894492219322164}
+  <ParentNetworkObject>k__BackingField: {fileID: 8730197519940194915}
   <ChildNetworkObjects>k__BackingField: []
   SerializedTransformProperties:
     Position: {x: 1.7509997, y: -0.026249995, z: 0}
@@ -19545,9 +19546,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2836e36774ca1c4bbbee976e17b649c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 255
+  _componentIndexCache: 0
   _addedNetworkObject: {fileID: 6007835150568590741}
-  _networkObjectCache: {fileID: 0}
+  _networkObjectCache: {fileID: 6007835150568590741}
   _componentConfiguration: 0
   _synchronizeParent: 0
   _packing:
@@ -19941,7 +19942,8 @@ MonoBehaviour:
   - {fileID: 8974020460284066990}
   - {fileID: -2521635454258452127}
   <ParentNetworkObject>k__BackingField: {fileID: 0}
-  <ChildNetworkObjects>k__BackingField: []
+  <ChildNetworkObjects>k__BackingField:
+  - {fileID: 6007835150568590741}
   SerializedTransformProperties:
     Position: {x: 0, y: 0, z: 0}
     Rotation: {x: 0, y: 0, z: 0, w: 1}

@@ -78,15 +78,28 @@ public class RocketScript : BulletScript, IDestroyable
         explosion.GetComponent<Explosion>().Explode(_damage, _explosionDistance, _explosionImpact);
         AudioManager.Instance.PlayClipAt(_explosionSound, gameObject.transform.position);
 
-        for (int i = 0; i < _smokeTrail.transform.childCount; i++)
-        {
-            _smokeTrail.transform.GetChild(i).GetComponent<ParticleSystem>().Stop();
-        }
+        StopParticlesRPC();
 
         Spawn(explosion);
         Destroy(explosion, 1);
         Destroy(_smokeTrail, 10);
         Destroy(gameObject);
+    }
+
+
+    [ServerRpc(RequireOwnership = false)]
+    private void StopParticlesRPC()
+    {
+        StopParticles();
+    }
+
+    [ObserversRpc]
+    private void StopParticles()
+    {
+        for (int i = 0; i < _smokeTrail.transform.childCount; i++)
+        {
+            _smokeTrail.transform.GetChild(i).GetComponent<ParticleSystem>().Stop();
+        }
     }
 
 
