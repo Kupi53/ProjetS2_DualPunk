@@ -5,6 +5,7 @@ using FishNet.Object;
 using Unity.VisualScripting;
 using UnityEngine;
 
+
 public class RocketScript : BulletScript, IDestroyable
 {
     [SerializeField] private GameObject _explosion;
@@ -96,6 +97,7 @@ public class RocketScript : BulletScript, IDestroyable
         StopParticles(smokeTrail);
     }
 
+    [ObserversRpc]
     private void StopParticles(GameObject smokeTrail)
     {
         Debug.Log("etape 2");

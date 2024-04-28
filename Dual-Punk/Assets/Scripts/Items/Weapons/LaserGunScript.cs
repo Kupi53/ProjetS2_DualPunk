@@ -199,6 +199,13 @@ public class LaserGunScript : WeaponScript
     }
 
 
+    [ServerRpc(RequireOwnership = false)]
+    private void DrawLaserRPC(Vector3 targetPoint, Vector3 direction)
+    {
+        DrawLaser(targetPoint, direction);
+    }
+
+    [ObserversRpc]
     private void DrawLaser(Vector3 targetPoint, Vector3 direction)
     {
         _laserLength = Mathf.SmoothDamp(_laserLength, Vector3.Distance(targetPoint, _startPosition), ref _velocity, _smoothTime);
@@ -222,7 +229,7 @@ public class LaserGunScript : WeaponScript
 
             if (hit)
             {
-                DrawLaser(hit.point, direction);
+                DrawLaserRPC(hit.point, direction);
                 
                 if (hit.collider.CompareTag("Ennemy") && _damageTimer >= _damageFrequency)
                 {
@@ -233,14 +240,14 @@ public class LaserGunScript : WeaponScript
             }
             else
             {
-                DrawLaser(PlayerState.MousePosition.normalized * 100, direction);
+                DrawLaserRPC(PlayerState.MousePosition.normalized * 100, direction);
             }
         }
         else if (_resetTimer < _smoothTime * _disableSpeed)
         {
             _resetTimer += Time.deltaTime;
             _audioSource.volume = 1 - _resetTimer / (_smoothTime * _disableSpeed);
-            DrawLaser(_startPosition, direction);
+            DrawLaserRPC(_startPosition, direction);
         }
     }
 }
