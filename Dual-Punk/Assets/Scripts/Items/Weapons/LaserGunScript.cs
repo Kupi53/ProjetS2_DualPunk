@@ -240,14 +240,14 @@ public class LaserGunScript : WeaponScript
             }
             else
             {
-                DrawLaserRPC(PlayerState.MousePosition.normalized * 100, direction);
+                DrawLaserRPC(_startPosition, PlayerState.MousePosition.normalized * 100, direction);
             }
         }
         else if (_resetTimer < _smoothTime * _disableSpeed)
         {
             _resetTimer += Time.deltaTime;
             _audioSource.volume = 1 - _resetTimer / (_smoothTime * _disableSpeed);
-            DrawLaserRPC(_startPosition, direction);
+            DrawLaserRPC(_startPosition, _startPosition, direction);
         }
     }
 }
