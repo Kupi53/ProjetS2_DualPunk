@@ -150,6 +150,18 @@ public class LaserGunScript : WeaponScript
     [ServerRpc(RequireOwnership = false)]
     private void EnableLaserRPC()
     {
+        EnableLaser();
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void DisableLaserRPC()
+    {
+        DisableLaser();
+    }
+
+
+    private void EnableLaser()
+    {
         _resetTimer = 0;
         _lineRenderer.enabled = true;
 
@@ -157,14 +169,14 @@ public class LaserGunScript : WeaponScript
         {
             particleSystem.Play();
         }
-        
+
         _audioSource.clip = _fireSound;
         _audioSource.volume = 1;
         _audioSource.Play();
     }
 
-    [ServerRpc(RequireOwnership = false)]
-    private void DisableLaserRPC()
+
+    private void DisableLaser()
     {
         _laserLength = 0;
         _lineRenderer.enabled = false;
@@ -173,7 +185,7 @@ public class LaserGunScript : WeaponScript
         {
             particleSystem.Stop();
         }
-        
+
         _audioSource.Stop();
     }
 
