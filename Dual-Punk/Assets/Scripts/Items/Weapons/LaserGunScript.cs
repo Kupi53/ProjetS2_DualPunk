@@ -1,3 +1,4 @@
+using FishNet.Object;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -55,7 +56,7 @@ public class LaserGunScript : WeaponScript
         _particles = new List<ParticleSystem>();
 
         FillList();
-        DisableLaser();
+        DisableLaserRPC();
     }
 
 
@@ -98,7 +99,7 @@ public class LaserGunScript : WeaponScript
             }
             if (_resetTimer >= _smoothTime * _disableSpeed)
             {
-                DisableLaser();
+                DisableLaserRPC();
             }
         }        
     }
@@ -116,7 +117,7 @@ public class LaserGunScript : WeaponScript
         if (Input.GetButton("Use") && _canAttack && !_fire && !_disableFire)
         {
             _fire = true;
-            EnableLaser();
+            EnableLaserRPC();
         }
         else if (Input.GetButtonUp("Use") || !_canAttack)
         {
@@ -146,7 +147,8 @@ public class LaserGunScript : WeaponScript
     }
 
 
-    private void EnableLaser()
+    [ServerRpc(RequireOwnership = false)]
+    private void EnableLaserRPC()
     {
         _resetTimer = 0;
         _lineRenderer.enabled = true;
@@ -161,8 +163,8 @@ public class LaserGunScript : WeaponScript
         _audioSource.Play();
     }
 
-
-    private void DisableLaser()
+    [ServerRpc(RequireOwnership = false)]
+    private void DisableLaserRPC()
     {
         _laserLength = 0;
         _lineRenderer.enabled = false;
@@ -180,7 +182,7 @@ public class LaserGunScript : WeaponScript
     {
         _fire = false;
         _coolDown = true;
-        DisableLaser();
+        DisableLaserRPC();
     }
 
 
