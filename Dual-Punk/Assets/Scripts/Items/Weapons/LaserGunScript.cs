@@ -160,6 +160,7 @@ public class LaserGunScript : WeaponScript
     }
 
 
+    [ObserversRpc]
     private void EnableLaser()
     {
         _resetTimer = 0;
@@ -175,7 +176,7 @@ public class LaserGunScript : WeaponScript
         _audioSource.Play();
     }
 
-
+    [ObserversRpc]
     private void DisableLaser()
     {
         _laserLength = 0;
