@@ -5,7 +5,10 @@ using System;
 
 public abstract class WeaponScript : NetworkBehaviour
 {
+    [SerializeField] private GameObject _rightHand;
+    [SerializeField] private GameObject _leftHand;
     [SerializeField] protected Vector3 _weaponOffset;
+
     [SerializeField] protected float _weaponDistance;
     [SerializeField] protected float _recoilForce;
     [SerializeField] protected float _impactForce;
@@ -13,6 +16,8 @@ public abstract class WeaponScript : NetworkBehaviour
     [SerializeField] protected int _pointerSpriteNumber;
 
     protected SpriteRenderer _spriteRenderer;
+    private SpriteRenderer _rightHandSprite;
+    private SpriteRenderer _leftHandSprite;
     protected ObjectSpawner _objectSpawner;
     protected bool _canAttack;
     protected bool _reloading;
@@ -29,19 +34,23 @@ public abstract class WeaponScript : NetworkBehaviour
 
     protected void Start()
     {
-        _canAttack = true;
         _spriteRenderer = GetComponent<SpriteRenderer>();
+        _rightHandSprite = _rightHand.GetComponent<SpriteRenderer>();
+        _leftHandSprite = _leftHand.GetComponent<SpriteRenderer>();
         _objectSpawner = GameObject.Find("ObjectSpawner").GetComponent<ObjectSpawner>();
+
+        _canAttack = true;
+        _reloading = false;
+        Debug.Log(_rightHandSprite);
+        _rightHandSprite.enabled = false;
+        _leftHandSprite.enabled = false;
     }
 
     protected void Update()
     {
-        if (InHand)
-        {
+        if (InHand) {
             PlayerState.PointerScript.SpriteNumber = _pointerSpriteNumber;
-        }
-        else
-        {
+        } else {
             transform.position += Vector3.up * (float)Math.Cos(Time.time * 5 + _weaponDistance) * 0.001f;
         }
     }
@@ -50,38 +59,46 @@ public abstract class WeaponScript : NetworkBehaviour
     public abstract void Run(Vector3 position, Vector3 direction);
     public abstract void ResetWeapon();
 
+
+    public void PickUp()
+    {
+        InHand = true;
+        _canAttack = true;
+        _rightHandSprite.enabled = true;
+        _leftHandSprite.enabled = true;
+    }
+
     public void Drop()
     {
         ResetWeapon();
 
         InHand = false;
-        _canAttack = true;
+        _rightHandSprite.enabled = false;
+        _leftHandSprite.enabled = false;
+
         transform.position = PlayerState.transform.position + PlayerState.WeaponScript.WeaponOffset;
         transform.rotation = Quaternion.identity;
 
         if (transform.localScale.y < 0)
         {
-            FlipWeapon();
+            transform.localScale = new Vector2(transform.localScale.x, Math.Abs(transform.localScale.y));
+            _weaponOffset.x = Math.Abs(_weaponOffset.x);
         }
 
         RemoveAllOwnerShipRPC(GetComponent<NetworkObject>());
     }
 
+
     public void MovePosition(Vector3 position, Vector3 direction)
     {
         if (InHand && Math.Sign(PlayerState.MousePosition.x - PlayerState.transform.position.x) != Math.Sign(transform.localScale.y))
         {
-            FlipWeapon();
+            transform.localScale = new Vector2(transform.localScale.x, -transform.localScale.y);
+            _weaponOffset.x = -_weaponOffset.x;
         }
 
         transform.position = position + _weaponOffset + direction * _weaponDistance;
         transform.eulerAngles = new Vector3(0, 0, Methods.GetAngle(direction));
-    }
-
-    private void FlipWeapon()
-    {
-        transform.localScale = new Vector2(transform.localScale.x, -transform.localScale.y);
-        _weaponOffset.x = -_weaponOffset.x;
     }
 
 

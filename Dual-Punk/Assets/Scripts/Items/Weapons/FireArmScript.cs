@@ -50,7 +50,6 @@ public class FireArmScript : WeaponScript
 
         _reloadTimer = 0;
         _bulletPointIndex = 0;
-        _reloading = false;
         _ammoLeft = _magSize;
         _fireTimer = _fireRate;
     }

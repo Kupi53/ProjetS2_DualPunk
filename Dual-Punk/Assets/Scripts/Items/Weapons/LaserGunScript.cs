@@ -109,7 +109,7 @@ public class LaserGunScript : WeaponScript
     {
         _startPosition = _gunEndPoint.transform.position;
 
-        if(Input.GetButtonDown("Use") && _canAttack)
+        if (Input.GetButtonDown("Use") && _canAttack)
         {
             _coolDown = false;
             _disableFire = false;
