@@ -200,18 +200,18 @@ public class LaserGunScript : WeaponScript
 
 
     [ServerRpc(RequireOwnership = false)]
-    private void DrawLaserRPC(Vector3 targetPoint, Vector3 direction)
+    private void DrawLaserRPC(Vector3 startPosition, Vector3 targetPoint, Vector3 direction)
     {
-        DrawLaser(targetPoint, direction);
+        DrawLaser(startPosition, targetPoint, direction);
     }
 
     [ObserversRpc]
-    private void DrawLaser(Vector3 targetPoint, Vector3 direction)
+    private void DrawLaser(Vector3 startPosition, Vector3 targetPoint, Vector3 direction)
     {
-        _laserLength = Mathf.SmoothDamp(_laserLength, Vector3.Distance(targetPoint, _startPosition), ref _velocity, _smoothTime);
-        _lineRenderer.SetPosition(0, _startPosition);
-        _lineRenderer.SetPosition(1, _startPosition + direction * _laserLength);
-        _endVFX.transform.position = _startPosition + direction * _laserLength;
+        _laserLength = Mathf.SmoothDamp(_laserLength, Vector3.Distance(targetPoint, startPosition), ref _velocity, _smoothTime);
+        _lineRenderer.SetPosition(0, startPosition);
+        _lineRenderer.SetPosition(1, startPosition + direction * _laserLength);
+        _endVFX.transform.position = startPosition + direction * _laserLength;
     }
 
 
@@ -229,7 +229,7 @@ public class LaserGunScript : WeaponScript
 
             if (hit)
             {
-                DrawLaserRPC(hit.point, direction);
+                DrawLaserRPC(_startPosition, hit.point, direction);
                 
                 if (hit.collider.CompareTag("Ennemy") && _damageTimer >= _damageFrequency)
                 {
