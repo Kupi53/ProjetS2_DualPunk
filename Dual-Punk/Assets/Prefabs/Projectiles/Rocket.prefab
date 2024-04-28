@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8429379508207502886}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: TrailPosition
-  m_TagString: Untagged
+  m_TagString: Projectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -47,7 +47,7 @@ GameObject:
   - component: {fileID: 1668462775358657453}
   - component: {fileID: 763206414674496891}
   - component: {fileID: 1761554637845256214}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: Rocket
   m_TagString: Projectile
   m_Icon: {fileID: 0}
@@ -181,7 +181,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.11708206, y: 0}
+  m_Offset: {x: 0.042395264, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -192,7 +192,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.4058357, y: 0.4}
+  m_Size: {x: 1.0868812, y: 0.4}
   m_EdgeRadius: 0
 --- !u!114 &6789981785554592137
 MonoBehaviour:
