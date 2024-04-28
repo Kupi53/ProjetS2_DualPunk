@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3734611747500497201
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8429379508207502886}
+  m_Layer: 8
+  m_Name: TrailPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8429379508207502886
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3734611747500497201}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.818, y: -0.002, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8981372546416760355}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8218887749285126351
 GameObject:
   m_ObjectHideFlags: 0
@@ -32,10 +63,11 @@ Transform:
   m_GameObject: {fileID: 8218887749285126351}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.7372451, y: -1.7231354, z: -4.5298758}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.4, y: 0.4, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 8429379508207502886}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &7515568068125792712
@@ -179,6 +211,8 @@ MonoBehaviour:
   _networkObjectCache: {fileID: 1668462775358657453}
   _lifeTime: 3
   _explosion: {fileID: 2800961942588765522, guid: 6288954bb36a9464b85cce9f5b573ff6, type: 3}
+  _smokeTrail: {fileID: 1970494980761369089, guid: 3d3752c809c749a449a3c2efbd1e15ce, type: 3}
+  _trailPosition: {fileID: 3734611747500497201}
   _explosionSound: {fileID: 8300000, guid: 440d6fa7c9577454d93ed388672fe550, type: 3}
 --- !u!114 &1668462775358657453
 MonoBehaviour:
@@ -201,7 +235,7 @@ MonoBehaviour:
   <ParentNetworkObject>k__BackingField: {fileID: 0}
   <ChildNetworkObjects>k__BackingField: []
   SerializedTransformProperties:
-    Position: {x: 0.7372451, y: -1.7231354, z: -4.5298758}
+    Position: {x: 0, y: 0, z: 0}
     Rotation: {x: 0, y: 0, z: 0, w: 1}
     LocalScale: {x: 0.4, y: 0.4, z: 1}
   _isNetworked: 1

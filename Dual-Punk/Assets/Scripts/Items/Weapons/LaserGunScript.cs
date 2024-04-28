@@ -26,12 +26,12 @@ public class LaserGunScript : WeaponScript
     
     private bool _fire;
     private bool _coolDown;
+    private bool _disableFire;
     private float _damageTimer;
     private float _coolDownLevel;
     private float _laserLength;
     private float _resetTimer;
     private float _velocity;
-
 
     public override bool DisplayInfo { get => _coolDownLevel > 0; }
     public override float InfoMaxTime { get => _fireTime; }
@@ -42,12 +42,13 @@ public class LaserGunScript : WeaponScript
     {
         base.Start();
 
+        _fire = false;
+        _coolDown = false;
+        _disableFire = false;
         _velocity = 0;
         _resetTimer = 0;
         _laserLength = 0;
         _coolDownLevel = 0;
-        _fire = false;
-        _coolDown = false;
         _damageTimer = _damageFrequency;
 
         _lineRenderer = GetComponentInChildren<LineRenderer>();
@@ -64,7 +65,7 @@ public class LaserGunScript : WeaponScript
 
         if (!InHand) return;
 
-        if (_coolDown && Input.GetButton("Use") || !_canAttack)
+        if (_disableFire && Input.GetButton("Use") || !_canAttack)
             PlayerState.PointerScript.CanShoot = false;
         else
             PlayerState.PointerScript.CanShoot = true;
@@ -77,8 +78,9 @@ public class LaserGunScript : WeaponScript
             if (_coolDownLevel > _fireTime)
             {
                 _coolDownLevel = _fireTime;
-                _coolDown = true;
                 _fire = false;
+                _coolDown = true;
+                _disableFire = true;
             }
         }
         else
@@ -91,6 +93,7 @@ public class LaserGunScript : WeaponScript
                 {
                     _coolDownLevel = 0;
                     _coolDown = false;
+                    _disableFire = false;
                 }
             }
             if (_resetTimer >= _smoothTime * _disableSpeed)
@@ -101,15 +104,18 @@ public class LaserGunScript : WeaponScript
     }
 
 
-
     public override void Run(Vector3 position, Vector3 direction)
     {
         _startPosition = _gunEndPoint.transform.position;
 
-        if (Input.GetButtonDown("Use") && _canAttack)
+        if(Input.GetButtonDown("Use") && _canAttack)
+        {
+            _coolDown = false;
+            _disableFire = false;
+        }
+        if (Input.GetButton("Use") && _canAttack && !_fire && !_disableFire)
         {
             _fire = true;
-            _coolDown = false;
             EnableLaser();
         }
         else if (Input.GetButtonUp("Use") || !_canAttack)
@@ -154,6 +160,7 @@ public class LaserGunScript : WeaponScript
         _audioSource.volume = 1;
         _audioSource.Play();
     }
+
 
     private void DisableLaser()
     {

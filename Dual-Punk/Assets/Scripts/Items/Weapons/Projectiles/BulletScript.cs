@@ -19,18 +19,11 @@ public class BulletScript : NetworkBehaviour, IImpact
     protected float _impactForce;
 
 
-    private void Start()
+    protected void Start()
     {
         _rb2d = GetComponent<Rigidbody2D>();
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Impact(Vector2.up, 0.5f);
-        }
-    }
 
     protected void FixedUpdate()
     {
@@ -77,12 +70,6 @@ public class BulletScript : NetworkBehaviour, IImpact
     }
 
 
-    protected virtual void DestroyThis()
-    {
-        Destroy(gameObject);
-    }
-
-
     protected void OnCollisionEnter2D(Collision2D collision)
     {
         GameObject collider = collision.collider.gameObject;
@@ -91,7 +78,7 @@ public class BulletScript : NetworkBehaviour, IImpact
         {
             EnnemyState health = collider.GetComponent<EnnemyState>();
             health.OnDamage(_damage);
-            DestroyThis();
+            Destroy(gameObject);
         }
         else if (collider.CompareTag("Wall"))
         {
@@ -106,7 +93,7 @@ public class BulletScript : NetworkBehaviour, IImpact
 
         if (_collisionsAllowed < 0 || collider.CompareTag("Player"))
         {
-            DestroyThis();
+            Destroy(gameObject);
         }
     }
 
@@ -114,7 +101,7 @@ public class BulletScript : NetworkBehaviour, IImpact
     {
         if (collision.collider.CompareTag("Wall"))
         {
-            DestroyThis();
+            Destroy(gameObject);
         }
     }
 
@@ -123,7 +110,7 @@ public class BulletScript : NetworkBehaviour, IImpact
         if (collider.CompareTag("Projectile"))
         {
             collider.GetComponent<IDestroyable>().Destroy();
-            DestroyThis();
+            Destroy(gameObject);
         }
     }
 }

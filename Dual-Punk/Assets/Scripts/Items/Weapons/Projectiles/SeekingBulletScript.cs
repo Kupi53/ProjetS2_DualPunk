@@ -48,7 +48,7 @@ public class SeekingBulletScript : BulletScript
         if (collider.CompareTag("Projectile"))
         {
             collider.GetComponent<IDestroyable>().Destroy();
-            DestroyThis();
+            Destroy(gameObject);
         }
         else if (collider.CompareTag("Ennemy"))
         {

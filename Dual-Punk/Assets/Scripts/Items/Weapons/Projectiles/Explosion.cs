@@ -1,8 +1,10 @@
+using FishNet.Object;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Explosion : MonoBehaviour
+
+public class Explosion : NetworkBehaviour
 {
     public void Explode(float damage, float explosionDistance, float explosionImpact)
     {

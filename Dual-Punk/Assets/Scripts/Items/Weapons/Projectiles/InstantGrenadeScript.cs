@@ -49,20 +49,18 @@ public class InstantGrenadeScript : NetworkBehaviour, IDestroyable
 
         if (currentDistance > _distanceUntilStop)
         {
-            Explode();
+            Destroy();
         }
     }
 
 
-    protected void Explode()
+    public void Destroy()
     {
         if (_exploded) return;
-
         _exploded = true;
 
         GameObject explosion = Instantiate(_explosion, transform.position, transform.rotation);
         explosion.GetComponent<Explosion>().Explode(_damage, _explosionRadius, _explosionImpact);
-        
         AudioManager.Instance.PlayClipAt(_explosionSound, gameObject.transform.position);
 
         Spawn(explosion);
@@ -79,11 +77,5 @@ public class InstantGrenadeScript : NetworkBehaviour, IDestroyable
         _moveSpeed = moveSpeed;
         _distanceUntilStop = distanceUntilStop;
         _curveFactor = curveFactor;
-    }
-
-
-    public void Destroy()
-    {
-        Explode();
     }
 }

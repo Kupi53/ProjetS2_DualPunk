@@ -9,9 +9,8 @@ public class ChargedBulletScript : BulletScript
     {
         if (collider.CompareTag("Projectile"))
         {
-            Debug.Log(collider);
             collider.GetComponent<IDestroyable>().Destroy();
-            DestroyThis();
+            Destroy(gameObject);
         }
         if (collider.CompareTag("Ennemy"))
         {

@@ -8,6 +8,8 @@ using UnityEngine;
 public class RocketScript : BulletScript, IDestroyable
 {
     [SerializeField] private GameObject _explosion;
+    [SerializeField] private GameObject _smokeTrail;
+    [SerializeField] private GameObject _trailPosition;
     [SerializeField] private AudioClip _explosionSound;
 
     private Vector3 _startPosition;
@@ -16,6 +18,16 @@ public class RocketScript : BulletScript, IDestroyable
     private float _explosionImpact;
     private float _deviationAngle;
     private float _deviationSpeed;
+    private bool _exploded;
+
+
+    private new void Start()
+    {
+        base.Start();
+
+        _exploded = false;
+        _smokeTrail = Instantiate(_smokeTrail, transform.position, transform.rotation);
+    }
 
 
     private new void FixedUpdate()
@@ -23,10 +35,12 @@ public class RocketScript : BulletScript, IDestroyable
         if (!IsServer) return;
 
         _rb2d.velocity = DeviateDirection() * _moveSpeed * _moveFactor;
+        _smokeTrail.transform.position = _trailPosition.transform.position;
+        _smokeTrail.transform.rotation = transform.rotation;
 
-        if (!GetComponent<Renderer>().isVisible || _moveSpeed < 5 || Vector3.Distance(transform.position, _startPosition) > _distanceUntilExplosion)
+        if (_moveSpeed < 5 || Vector3.Distance(transform.position, _startPosition) > _distanceUntilExplosion)
         {
-            DestroyThis();
+            Destroy();
         }
     }
 
@@ -56,20 +70,21 @@ public class RocketScript : BulletScript, IDestroyable
 
     public void Destroy()
     {
-        DestroyThis();
-    }
+        if (_exploded) return;
+        _exploded = true;
 
-
-    protected override void DestroyThis()
-    {
         GameObject explosion = Instantiate(_explosion, transform.position, transform.rotation);
         explosion.GetComponent<Explosion>().Explode(_damage, _explosionDistance, _explosionImpact);
-
         AudioManager.Instance.PlayClipAt(_explosionSound, gameObject.transform.position);
+
+        for (int i = 0; i < _smokeTrail.transform.childCount; i++)
+        {
+            _smokeTrail.transform.GetChild(i).GetComponent<ParticleSystem>().Stop();
+        }
 
         Spawn(explosion);
         Destroy(explosion, 1);
-
+        Destroy(_smokeTrail, 10);
         Destroy(gameObject);
     }
 
@@ -78,9 +93,10 @@ public class RocketScript : BulletScript, IDestroyable
     {
         if (!collider.CompareTag("Weapon") && !collider.CompareTag("Projectile") && !collider.CompareTag("UI"))
         {
-            DestroyThis();
+            Destroy();
         }
     }
+
 
     /*[ObserversRpc]
     private void PlayerRocketRpc()
