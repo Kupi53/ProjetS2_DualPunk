@@ -27,6 +27,7 @@ public class RocketScript : BulletScript, IDestroyable
 
         _exploded = false;
         _smokeTrail = Instantiate(_smokeTrail, transform.position, transform.rotation);
+        Spawn(_smokeTrail);
     }
 
 
