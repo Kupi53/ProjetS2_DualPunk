@@ -242,26 +242,35 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
     }
 
     private void Drop(InventorySlots slot){
-        if(slot != null && slot.heldItem != null) {
-            switch (slot.heldItem.GetComponent<InventoryItem>().displayedItem.prefab.tag){
-                case "Weapon":
-                    DropWeapon(slot);
-                    break;
-                case "Implant":
-                    DropImplant(slot);
-                    break;
-                case "Item":
-                    DropItem(slot);
-                    break;
-                default:
-                    throw new Exception("pas de tag / mauvais tag");
+        string itemName = "";
+        GameObject destroyedInventoryItem = slot.heldItem;
+        if(slot.heldItem == null) {
+            itemName = draggedObject.GetComponent<InventoryItem>().displayedItem.prefab.tag;
+            destroyedInventoryItem = draggedObject;
+        } 
+        else itemName = slot.heldItem.GetComponent<InventoryItem>().displayedItem.prefab.tag;
+
+        switch (itemName){
+            case "Weapon":
+                DropWeapon(slot);
+                Debug.Log("test2");
+                break;
+            case "Implant":
+                DropImplant(slot);
+                break;
+            case "Item":
+                DropItem(slot);
+                break;
+            default:
+                throw new Exception("pas de tag / mauvais tag");
             }
-            Destroy(slot.heldItem);
-            slot.heldItem = null;
-        }
+        Destroy(destroyedInventoryItem);
+        slot.heldItem = null;
     }
+
     private void DropWeapon(InventorySlots slot){
         if(slot == WeaponSlots[EquipedSlotIndex]){
+            Debug.Log("test");
             PlayerState.WeaponScript.Drop();
             PlayerState.HoldingWeapon = false;
             PlayerState.PointerScript.SpriteNumber = 0;
@@ -271,7 +280,9 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
         }
     }
     private void DropImplant(InventorySlots slot){
-        GameObject implant = slot.heldItem.GetComponent<InventoryItem>().displayedItem.prefab;
+        GameObject implant;
+        if(slot.heldItem == null) implant = draggedObject.GetComponent<InventoryItem>().displayedItem.prefab;
+        else implant = slot.heldItem.GetComponent<InventoryItem>().displayedItem.prefab;
         implant.GetComponent<ImplantScript>().Drop();
         
     }

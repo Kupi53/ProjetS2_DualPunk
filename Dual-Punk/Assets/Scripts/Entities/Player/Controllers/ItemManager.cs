@@ -136,8 +136,6 @@ public class ItemManager : NetworkBehaviour
     {
         if (!Owner.IsLocalClient) return;
 
-        Debug.Log("lkjasdf");
-
         GameObject item = collision.gameObject;
         if(item.GetComponent<HighlightItem>() != null) item.GetComponent<HighlightItem>().selected = false;
 

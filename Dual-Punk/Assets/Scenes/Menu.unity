@@ -5208,7 +5208,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7470240865930121378, guid: d15967f0adea3264ab7d508e264da05d, type: 3}
       propertyPath: _weaponsToSpawn.Array.size
-      value: 9
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7470240865930121378, guid: d15967f0adea3264ab7d508e264da05d, type: 3}
       propertyPath: _weaponsToSpawn.Array.data[0]
@@ -5246,6 +5246,10 @@ PrefabInstance:
       propertyPath: _weaponsToSpawn.Array.data[8]
       value: 
       objectReference: {fileID: 2853303830935746606, guid: 0b67f3217d81ace439206d582d9f86e9, type: 3}
+    - target: {fileID: 7470240865930121378, guid: d15967f0adea3264ab7d508e264da05d, type: 3}
+      propertyPath: _weaponsToSpawn.Array.data[9]
+      value: 
+      objectReference: {fileID: 1420957003867560970, guid: a962bbc2e1b6f7745a7383180b89ddc8, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
