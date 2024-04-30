@@ -41,7 +41,6 @@ public abstract class WeaponScript : NetworkBehaviour
 
         _canAttack = true;
         _reloading = false;
-        Debug.Log(_rightHandSprite);
         _rightHandSprite.enabled = false;
         _leftHandSprite.enabled = false;
     }
@@ -52,6 +51,8 @@ public abstract class WeaponScript : NetworkBehaviour
             PlayerState.PointerScript.SpriteNumber = _pointerSpriteNumber;
         } else {
             transform.position += Vector3.up * (float)Math.Cos(Time.time * 5 + _weaponDistance) * 0.001f;
+            _rightHandSprite.enabled = false;
+            _leftHandSprite.enabled = false;
         }
     }
 
@@ -60,12 +61,14 @@ public abstract class WeaponScript : NetworkBehaviour
     public abstract void ResetWeapon();
 
 
-    public void PickUp()
+    public void PickUp(PlayerState playerState, IImpact playerRecoil)
     {
         InHand = true;
         _canAttack = true;
         _rightHandSprite.enabled = true;
         _leftHandSprite.enabled = true;
+        PlayerState = playerState;
+        PlayerRecoil = playerRecoil;
     }
 
     public void Drop()
@@ -73,9 +76,6 @@ public abstract class WeaponScript : NetworkBehaviour
         ResetWeapon();
 
         InHand = false;
-        _rightHandSprite.enabled = false;
-        _leftHandSprite.enabled = false;
-
         transform.position = PlayerState.transform.position + PlayerState.WeaponScript.WeaponOffset;
         transform.rotation = Quaternion.identity;
 

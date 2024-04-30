@@ -21,6 +21,7 @@ public class ItemManager : NetworkBehaviour
     private void Start()
     {
         if(!Owner.IsLocalClient) return;
+
         _index = 0;
         _items = new List<GameObject>();
         _impact = GetComponent<IImpact>();
@@ -48,8 +49,6 @@ public class ItemManager : NetworkBehaviour
 
             if (item.CompareTag("Weapon") && !(weaponScript = item.GetComponent<WeaponScript>()).InHand)
             {
-
-
                 if (Input.GetButtonDown("Pickup"))
                 {
                     _index = 0;
@@ -127,15 +126,12 @@ public class ItemManager : NetworkBehaviour
         _playerState.WeaponScript = weaponScript;
         _playerState.HoldingWeapon = true;
         GiveOwnershipRPC(weaponScript.gameObject.GetComponent<NetworkObject>(), base.ClientManager.Connection);
-        weaponScript.PlayerState = _playerState;
-        weaponScript.PlayerRecoil = _impact;
-        weaponScript.InHand = true;
+        weaponScript.PickUp(_playerState, _impact);
         weaponScript.gameObject.SetActive(true);
     }
 
     [ServerRpc (RequireOwnership = false)]
-    void GiveOwnershipRPC(NetworkObject networkObject, NetworkConnection networkConnection){
-        Debug.Log("gave ownership");
+    void GiveOwnershipRPC(NetworkObject networkObject, NetworkConnection networkConnection) {
         networkObject.GiveOwnership(networkConnection);
     }
 }

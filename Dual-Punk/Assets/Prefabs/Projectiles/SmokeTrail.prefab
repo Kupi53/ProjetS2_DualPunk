@@ -9669,6 +9669,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6217493939181807212}
+  - component: {fileID: 2557122079559245030}
   - component: {fileID: 6215548833565988800}
   - component: {fileID: 4923485599571694134}
   - component: {fileID: 3934259879887452927}
@@ -9696,6 +9697,18 @@ Transform:
   - {fileID: 1944835619766250597}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2557122079559245030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1970494980761369089}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1f7835d42cc22d4ea576dd49921c560, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &6215548833565988800
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9724,7 +9737,7 @@ MonoBehaviour:
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 0
+  <PrefabId>k__BackingField: 9
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0
