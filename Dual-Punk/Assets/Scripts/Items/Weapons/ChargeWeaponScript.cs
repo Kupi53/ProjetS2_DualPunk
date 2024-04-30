@@ -71,7 +71,8 @@ public class ChargeWeaponScript : FireArmScript
                 float multiplier = _chargeTimer / _chargeTime;
 
                 Fire(direction, (int)GetProgressingFactor(multiplier, _minDamage, _damage), GetProgressingFactor(multiplier, _minSpeed, _bulletSpeed),
-                    GetProgressingFactor(multiplier, _minSize, _bulletSize), _dispersion, (int)(multiplier * _collisionsAllowed));
+                    GetProgressingFactor(multiplier, _minSize, _bulletSize), GetProgressingFactor(multiplier, _minImpact, _impactForce),
+                    _dispersion, (int)(multiplier * _collisionsAllowed));
 
                 PlayerRecoil.Impact(-direction, GetProgressingFactor(multiplier, _minRecoil, _recoilForce));
                 PlayerState.CameraController.ShakeCamera(_cameraShake, 0.1f);
@@ -114,10 +115,10 @@ public class ChargeWeaponScript : FireArmScript
     }
 
 
-    public override void Fire(Vector3 direction, int damage, float bulletSpeed, float bulletSize, float dispersion, int collisionsAllowed)
+    public override void Fire(Vector3 direction, int damage, float bulletSpeed, float bulletSize, float impactForce, float dispersion, int collisionsAllowed)
     {
         _chargeTimer = 0;
 
-        base.Fire(direction, damage, bulletSpeed, bulletSize, dispersion, collisionsAllowed);
+        base.Fire(direction, damage, bulletSpeed, bulletSize, impactForce, dispersion, collisionsAllowed);
     }
 }

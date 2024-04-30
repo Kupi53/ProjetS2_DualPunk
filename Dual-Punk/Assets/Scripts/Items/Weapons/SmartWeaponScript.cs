@@ -83,7 +83,7 @@ public class SmartWeaponScript : FireArmScript
     }
 
 
-    public override void Fire(Vector3 direction, int damage, float bulletSpeed, float bulletSize, float dispersion, int collisionsAllowed)
+    public override void Fire(Vector3 direction, int damage, float bulletSpeed, float bulletSize, float impactForce, float dispersion, int collisionsAllowed)
     {
         _ammoLeft--;
         _fireTimer = 0;
@@ -92,12 +92,12 @@ public class SmartWeaponScript : FireArmScript
         if (PlayerState.Walking)
             dispersion /= _aimAccuracy;
 
-        FireSeekingBulletRpc(PlayerState, ClientManager.Connection, direction, damage, bulletSpeed, dispersion);
+        FireSeekingBulletRpc(PlayerState, ClientManager.Connection, direction, damage, bulletSpeed, impactForce, dispersion);
     }
 
 
     [ServerRpc(RequireOwnership = false)]
-    public void FireSeekingBulletRpc(PlayerState playerState, NetworkConnection networkConnection, Vector3 direction, int damage, float bulletSpeed, float dispersion)
+    public void FireSeekingBulletRpc(PlayerState playerState, NetworkConnection networkConnection, Vector3 direction, int damage, float bulletSpeed, float impactForce, float dispersion)
     {
         for (int i = 0; i < _bulletNumber; i++)
         {
@@ -108,7 +108,7 @@ public class SmartWeaponScript : FireArmScript
             newBullet.transform.localScale = new Vector2(_bulletSize, _bulletSize);
             Vector3 newDirection = new Vector3(direction.x + Methods.NextFloat(-dispersion, dispersion), direction.y + Methods.NextFloat(-dispersion, dispersion), 0).normalized;
 
-            bulletScript.Setup(damage, bulletSpeed, newDirection, _bulletRotateSpeed);
+            bulletScript.Setup(newDirection, damage, bulletSpeed, impactForce, _bulletRotateSpeed);
             Spawn(newBullet);
             AssignTargetClientRPC(bulletScript, playerState, networkConnection);
         }

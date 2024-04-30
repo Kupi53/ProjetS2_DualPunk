@@ -36,9 +36,9 @@ public class SeekingBulletScript : BulletScript
     }
 
 
-    public void Setup(int damage, float moveSpeed, Vector3 moveDirection, float rotateSpeed)
+    public void Setup(Vector3 moveDirection, int damage, float moveSpeed, float impactForce, float rotateSpeed)
     {
-        base.Setup(damage, moveSpeed, moveDirection, 0);
+        base.Setup(moveDirection, damage, moveSpeed, impactForce, 0);
         _rotateSpeed = rotateSpeed;
     }
 

@@ -12,18 +12,18 @@ public class RocketLauncherScript : FireArmScript
     [SerializeField] private float _deviationSpeed;
 
 
-    public override void Fire(Vector3 direction, int damage, float bulletSpeed, float bulletSize, float dispersion, int collisionsAllowed)
+    public override void Fire(Vector3 direction, int damage, float bulletSpeed, float bulletSize, float impactForce, float dispersion, int collisionsAllowed)
     {
         _ammoLeft--;
         _fireTimer = 0;
         AudioManager.Instance.PlayClipAt(_fireSound, gameObject.transform.position);
 
-        FireRocketRpc(direction, damage, bulletSpeed, bulletSize);
+        FireRocketRpc(direction, damage, bulletSpeed, bulletSize, impactForce);
     }
 
 
     [ServerRpc(RequireOwnership = false)]
-    private void FireRocketRpc(Vector3 direction, int damage, float bulletSpeed, float bulletSize)
+    private void FireRocketRpc(Vector3 direction, int damage, float bulletSpeed, float bulletSize, float impactForce)
     {
         for (int i = 0; i < _bulletNumber; i++)
         {
@@ -33,8 +33,9 @@ public class RocketLauncherScript : FireArmScript
             _bulletPointIndex = (_bulletPointIndex + 1) % _gunEndPoints.Length;
             rocket.transform.localScale = new Vector2(bulletSize, bulletSize);
 
-            rocketScript.Setup(damage, bulletSpeed, direction, transform.position, Vector3.Distance(transform.position, PlayerState.MousePosition),
-                _explosionDistance + 0.1f, _explosionImpact, _deviationAngle, _deviationSpeed);
+            rocketScript.Setup(direction, damage, bulletSpeed, impactForce, transform.position, Vector3.Distance(transform.position, PlayerState.MousePosition),
+                _explosionDistance + 0.1f, _deviationAngle, _deviationSpeed);
+
             Spawn(rocket);
         }
     }
