@@ -22,9 +22,15 @@ public class Explosion : NetworkBehaviour
         foreach (GameObject player in players)
         {
             Vector3 hitDirection = player.transform.position - transform.position;
-            if (hitDirection.magnitude <= explosionDistance)
+            float distance = hitDirection.magnitude;
+            
+            if (distance <= explosionDistance * 10)
             {
-                player.GetComponent<IImpact>().Impact(hitDirection, explosionImpact);
+                player.GetComponent<PlayerState>().CameraController.ShakeCamera(explosionImpact / (distance + 1), 0.5f);
+                if (distance <= explosionDistance)
+                {
+                    player.GetComponent<IImpact>().Impact(hitDirection, explosionImpact);
+                }
             }
         }
     }

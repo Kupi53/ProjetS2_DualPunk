@@ -15,8 +15,7 @@ public class RocketScript : BulletScript, IDestroyable
 
     private Vector3 _startPosition;
     private float _distanceUntilExplosion;
-    private float _explosionDistance;
-    private float _explosionImpact;
+    private float _explosionRadius;
     private float _deviationAngle;
     private float _deviationSpeed;
     private bool _exploded;
@@ -56,15 +55,14 @@ public class RocketScript : BulletScript, IDestroyable
     }
 
 
-    public void Setup(int damage, float moveSpeed, Vector3 moveDirection, Vector3 startPosition, float distanceUntilExplosion,
-        float explosionDistance, float explosionImpact, float deviationAngle, float deviationSpeed)
+    public void Setup(Vector3 moveDirection, int damage, float moveSpeed, float impactForce, Vector3 startPosition, float distanceUntilExplosion,
+        float explosionRadius, float deviationAngle, float deviationSpeed)
     {
-        Setup(damage, moveSpeed, moveDirection, 0);
+        base.Setup(moveDirection, damage, moveSpeed, impactForce, 0);
 
         _startPosition = startPosition;
         _distanceUntilExplosion = distanceUntilExplosion;
-        _explosionDistance = explosionDistance;
-        _explosionImpact = explosionImpact;
+        _explosionRadius = explosionRadius;
         _deviationAngle = deviationAngle;
         _deviationSpeed = deviationSpeed;
     }
@@ -75,20 +73,14 @@ public class RocketScript : BulletScript, IDestroyable
         if (_exploded) return;
         _exploded = true;
 
-        GameObject explosion = Instantiate(_explosion, transform.position, transform.rotation);
-        explosion.GetComponent<Explosion>().Explode(_damage, _explosionDistance, _explosionImpact);
         AudioManager.Instance.PlayClipAt(_explosionSound, gameObject.transform.position);
-
-        StopParticles();
+        GameObject explosion = Instantiate(_explosion, transform.position, transform.rotation);
+        explosion.GetComponent<Explosion>().Explode(_damage, _explosionRadius, _impactForce);
+        _smokeTrail.GetComponent<StopSmokeTrail>().StopParticles();
 
         Spawn(explosion);
         Destroy(explosion, 1);
         Destroy(gameObject);
-    }
-
-    private void StopParticles()
-    {
-        _smokeTrail.GetComponent<StopSmokeTrail>().StopParticles();
     }
 
 

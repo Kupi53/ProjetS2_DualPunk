@@ -79,7 +79,7 @@ public class FireArmScript : WeaponScript
                 _reloading = false;
             }
 
-            Fire(direction, _damage, _bulletSpeed, _bulletSize, _dispersion, _collisionsAllowed);
+            Fire(direction, _damage, _bulletSpeed, _bulletSize, _impactForce, _dispersion, _collisionsAllowed);
 
             PlayerRecoil.Impact(-direction, _recoilForce);
             PlayerState.CameraController.ShakeCamera(_cameraShake, 0.1f);
@@ -131,7 +131,7 @@ public class FireArmScript : WeaponScript
     }
 
 
-    public virtual void Fire(Vector3 direction, int damage, float bulletSpeed, float bulletSize, float dispersion, int collisionsAllowed)
+    public virtual void Fire(Vector3 direction, int damage, float bulletSpeed, float bulletSize, float impactForce, float dispersion, int collisionsAllowed)
     {
         _ammoLeft--;
         _fireTimer = 0;
@@ -140,12 +140,12 @@ public class FireArmScript : WeaponScript
         if (PlayerState.Walking)
             dispersion /= _aimAccuracy;
 
-        FireBulletRpc(direction, damage, bulletSpeed, bulletSize, dispersion, collisionsAllowed);
+        FireBulletRpc(direction, damage, bulletSpeed, bulletSize, impactForce, dispersion, collisionsAllowed);
     }
 
 
     [ServerRpc(RequireOwnership = false)]
-    private void FireBulletRpc(Vector3 direction, int damage, float bulletSpeed, float bulletSize, float dispersion, int collisionsAllowed)
+    private void FireBulletRpc(Vector3 direction, int damage, float bulletSpeed, float bulletSize, float impactForce, float dispersion, int collisionsAllowed)
     {
         for (int i = 0; i < _bulletNumber; i++)
         {
@@ -156,7 +156,7 @@ public class FireArmScript : WeaponScript
             newBullet.transform.localScale = new Vector2(bulletSize, bulletSize);
             Vector3 newDirection = new Vector3(direction.x + Methods.NextFloat(-dispersion, dispersion), direction.y + Methods.NextFloat(-dispersion, dispersion), 0).normalized;
 
-            bulletScript.Setup(damage, bulletSpeed, newDirection, collisionsAllowed);
+            bulletScript.Setup(newDirection, damage, bulletSpeed, impactForce, collisionsAllowed);
             Spawn(newBullet);
         }
     }

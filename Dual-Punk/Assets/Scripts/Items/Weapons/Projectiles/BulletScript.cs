@@ -39,10 +39,11 @@ public class BulletScript : NetworkBehaviour, IImpact
     }
 
 
-    public void Setup(int damage, float moveSpeed, Vector3 moveDirection, int collisionsAllowed)
+    public void Setup(Vector3 moveDirection, int damage, float moveSpeed, float impactForce, int collisionsAllowed)
     {
         _damage = damage;
         _moveSpeed = moveSpeed;
+        _impactForce = impactForce;
         _collisionsAllowed = collisionsAllowed;
 
         ChangeDirection(moveDirection, true);
