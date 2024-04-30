@@ -56,7 +56,6 @@ public class LaserGunScript : WeaponScript
         _particles = new List<ParticleSystem>();
 
         FillList();
-        DisableLaserRPC();
     }
 
 
@@ -99,6 +98,7 @@ public class LaserGunScript : WeaponScript
             }
             if (_resetTimer >= _smoothTime * _disableSpeed)
             {
+                DisableLaser();
                 DisableLaserRPC();
             }
         }        
@@ -117,6 +117,7 @@ public class LaserGunScript : WeaponScript
         if (Input.GetButton("Use") && _canAttack && !_fire && !_disableFire)
         {
             _fire = true;
+            EnableLaser();
             EnableLaserRPC();
         }
         else if (Input.GetButtonUp("Use") || !_canAttack)
@@ -129,6 +130,7 @@ public class LaserGunScript : WeaponScript
         Fire(direction);
     }
 
+    // ==============================================
 
     private void FillList()
     {
@@ -146,21 +148,8 @@ public class LaserGunScript : WeaponScript
         }
     }
 
+    // ------------------------------
 
-    [ServerRpc(RequireOwnership = false)]
-    private void EnableLaserRPC()
-    {
-        EnableLaser();
-    }
-
-    [ServerRpc(RequireOwnership = false)]
-    private void DisableLaserRPC()
-    {
-        DisableLaser();
-    }
-
-
-    [ObserversRpc]
     private void EnableLaser()
     {
         _resetTimer = 0;
@@ -176,7 +165,6 @@ public class LaserGunScript : WeaponScript
         _audioSource.Play();
     }
 
-    [ObserversRpc]
     private void DisableLaser()
     {
         _laserLength = 0;
@@ -190,22 +178,8 @@ public class LaserGunScript : WeaponScript
         _audioSource.Stop();
     }
 
+    // ------------------------------
 
-    public override void ResetWeapon()
-    {
-        _fire = false;
-        _coolDown = true;
-        DisableLaserRPC();
-    }
-
-
-    [ServerRpc(RequireOwnership = false)]
-    private void DrawLaserRPC(Vector3 startPosition, Vector3 targetPoint, Vector3 direction)
-    {
-        DrawLaser(startPosition, targetPoint, direction);
-    }
-
-    [ObserversRpc]
     private void DrawLaser(Vector3 startPosition, Vector3 targetPoint, Vector3 direction)
     {
         _laserLength = Mathf.SmoothDamp(_laserLength, Vector3.Distance(targetPoint, startPosition), ref _velocity, _smoothTime);
@@ -214,6 +188,60 @@ public class LaserGunScript : WeaponScript
         _endVFX.transform.position = startPosition + direction * _laserLength;
     }
 
+
+    // ==============================================
+
+
+    [ServerRpc(RequireOwnership = false)]
+    private void EnableLaserRPC()
+    {
+        EnableLaserClient2();
+    }
+
+    [ObserversRpc(ExcludeOwner = true)]
+    private void EnableLaserClient2()
+    {
+        EnableLaser();
+    }
+
+
+    [ServerRpc(RequireOwnership = false)]
+    private void DisableLaserRPC()
+    {
+        DisableLaserClient2();
+    }
+
+    [ObserversRpc(ExcludeOwner = true)]
+    private void DisableLaserClient2()
+    {
+        DisableLaser();
+    }
+
+    // ------------------------------
+
+
+    [ServerRpc(RequireOwnership = false)]
+    private void DrawLaserRPC(Vector3 startPosition, Vector3 targetPoint, Vector3 direction)
+    {
+        DrawLaserClient2(startPosition, targetPoint, direction);
+    }
+
+    [ObserversRpc(ExcludeOwner = true)]
+    private void DrawLaserClient2(Vector3 startPosition, Vector3 targetPoint, Vector3 direction)
+    {
+        DrawLaser(startPosition, targetPoint, direction);
+    }
+
+    // ==============================================
+
+
+    public override void ResetWeapon()
+    {
+        _fire = false;
+        _coolDown = true;
+        DisableLaser();
+        DisableLaserRPC();
+    }
 
     private void Fire(Vector3 direction)
     {
@@ -229,8 +257,9 @@ public class LaserGunScript : WeaponScript
 
             if (hit)
             {
+                DrawLaser(_startPosition, hit.point, direction);
                 DrawLaserRPC(_startPosition, hit.point, direction);
-                
+
                 if (hit.collider.CompareTag("Ennemy") && _damageTimer >= _damageFrequency)
                 {
                     EnnemyState health = hit.collider.GetComponent<EnnemyState>();
@@ -240,13 +269,15 @@ public class LaserGunScript : WeaponScript
             }
             else
             {
-                DrawLaserRPC(_startPosition, PlayerState.MousePosition.normalized * 100, direction);
+                DrawLaser(_startPosition, PlayerState.MousePosition.normalized * 50, direction);
+                DrawLaserRPC(_startPosition, PlayerState.MousePosition.normalized * 50, direction);
             }
         }
         else if (_resetTimer < _smoothTime * _disableSpeed)
         {
             _resetTimer += Time.deltaTime;
             _audioSource.volume = 1 - _resetTimer / (_smoothTime * _disableSpeed);
+            DrawLaser(_startPosition, _startPosition, direction);
             DrawLaserRPC(_startPosition, _startPosition, direction);
         }
     }
