@@ -20,6 +20,5 @@ public class HighlightItem : MonoBehaviour
     {
         spriteRenderer.sprite = highlighted;
         selectedWeapon = true;
-        Debug.Log("HEEEERRRREEEEE");
     }
 }

@@ -12,6 +12,8 @@ public class ItemManager : NetworkBehaviour
 {
     public GameObject _inventoryManager;
     public PlayerState _playerState;
+	public HealthManager _healthManager;
+    public ImplantController _implantController;
     private List<GameObject> _items;
     private IImpact _impact;
     private int _index;
@@ -25,7 +27,8 @@ public class ItemManager : NetworkBehaviour
         _items = new List<GameObject>();
         _impact = GetComponent<IImpact>();
         _playerState = GetComponent<PlayerState>();
-        
+        _healthManager = GetComponent<HealthManager>();
+        _implantController = GetComponent<ImplantController>();
     }
 
 
@@ -44,12 +47,11 @@ public class ItemManager : NetworkBehaviour
 
             item = _items[_index];
             WeaponScript weaponScript;
+            ImplantScript implantScript;
             item.GetComponent<HighlightItem>().Highlight();
 
             if (item.CompareTag("Weapon") && !(weaponScript = item.GetComponent<WeaponScript>()).InHand)
             {
-
-
                 if (Input.GetButtonDown("Pickup"))
                 {
                     _index = 0;
@@ -57,24 +59,28 @@ public class ItemManager : NetworkBehaviour
 
                     InventorySlots[] weaponsSlots = _inventoryManager.GetComponent<InventoryManager>().WeaponSlots;
                     int equippedSlot = _inventoryManager.GetComponent<InventoryManager>().EquipedSlotIndex;
-                    if(weaponsSlots[equippedSlot].heldItem == null){
+                    
+                    if(weaponsSlots[equippedSlot].heldItem == null)
+                    {
                         UpdateHeldWeapon(weaponScript);
                     }
-
+                    
                     item.GetComponent<HighlightItem>().selectedWeapon = false;
                     _inventoryManager.GetComponent<InventoryPickItem>().ItemPicked(item);
                     
                 }
             }
-            else if (item.CompareTag("Implant")) //Plus verifier que l'implant n'est pas sur une entite
+            else if (item.CompareTag("Implant") && !(implantScript = item.GetComponent<ImplantScript>()).IsEquipped) //Plus verifier que l'implant n'est pas sur une entite
             {
-                item.GetComponent<HighlightItem>().Highlight();
-
                 if (Input.GetButtonDown("Pickup"))
                 {
                     _index = 0;
                     _items.Remove(item);
-                    //Mettre l'implant dans l'inventaire ou le remplacer avec un autre
+
+                    _implantController._implants.Add(implantScript);
+
+                    item.GetComponent<HighlightItem>().selectedWeapon = false;
+                    _inventoryManager.GetComponent<InventoryPickItem>().ItemPicked(item);
                 }
             }
             else if (item.CompareTag("Item"))
