@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Pathfinding;
 using FishNet.Object;
+using Unity.Mathematics;
 public class EnnemyState : NetworkBehaviour
 {
     public float health;
@@ -62,7 +63,18 @@ public class EnnemyState : NetworkBehaviour
         if (!IsServer) return;
         if (health <= 0)
         {
+            Loot();
             Destroy(gameObject);
+        }
+    }
+
+    private void Loot()
+    {
+        int lootRolls = UnityEngine.Random.Range(0, data.MaxLootRollAmount);
+        for (int i =0; i<lootRolls; i++)
+        {
+            string idToSpawn = data.LootTable.PickLoot();
+            ObjectSpawner.Instance.SpawnObjectFromIdRpc(idToSpawn, gameObject.transform.position, new quaternion());
         }
     }
 
