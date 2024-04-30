@@ -42,7 +42,6 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
 
         SwapKeybindWeapon();
 
-
         var direction = Input.GetAxis("Mouse ScrollWheel");
         if(direction != 0 && !swapping){
 
@@ -276,13 +275,17 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
         if(Input.GetButtonDown("Slot 1") || Input.GetButtonDown("Slot 2") || Input.GetButtonDown("Slot 3"))
         {
             InventorySlots currentWeaponSlot = WeaponSlots[EquipedSlotIndex];
-            if(Input.GetButtonDown("Slot 1")) EquipedSlotIndex = 0;
-            if(Input.GetButtonDown("Slot 2")) EquipedSlotIndex = 1;
-            if(Input.GetButtonDown("Slot 3")) EquipedSlotIndex = 2;
+            if(Input.GetButtonDown("Slot 1")) {
+                EquipedSlotIndex = 0;
+
+            }
+            else if(Input.GetButtonDown("Slot 2")) EquipedSlotIndex = 1;
+            else if(Input.GetButtonDown("Slot 3")) EquipedSlotIndex = 2;
 
             InventorySlots nextStoredWeapon = WeaponSlots[EquipedSlotIndex];
 
-            if(currentSlot != nextStoredWeapon){
+            if(currentWeaponSlot != nextStoredWeapon){
+
                 currentWeaponSlot.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
                 nextStoredWeapon.transform.localScale = new Vector3(2f, 2f, 2f);
 
