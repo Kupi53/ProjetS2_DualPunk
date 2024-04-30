@@ -6,11 +6,12 @@ public class HighlightItem : MonoBehaviour
     [SerializeField] private Sprite normal;
     [SerializeField] private Sprite highlighted;
     [SerializeField] private SpriteRenderer spriteRenderer;
-    public bool selectedWeapon;
+    public bool selected;
 
     void Update()
     {
-        if(!selectedWeapon){
+        Debug.Log(selected);
+        if(!selected){
             spriteRenderer.sprite = normal;
         }
 
@@ -19,7 +20,6 @@ public class HighlightItem : MonoBehaviour
     public void Highlight()
     {
         spriteRenderer.sprite = highlighted;
-        selectedWeapon = true;
-        Debug.Log("HEEEERRRREEEEE");
+        selected = true;
     }
 }

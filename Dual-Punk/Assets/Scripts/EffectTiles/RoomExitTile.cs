@@ -18,7 +18,7 @@ public class RoomExitTile : EffectTile
         if (!target.GetComponent<PlayerState>().CanBeTeleported) return;
         GameManager.Instance.FadeIn();
         target.transform.position = _targetGrid.CellToWorld(_targetCoordinates);
-        FloorManager.Instance._currentRoom.Exit(_targetRoom);
+        FloorManager.Instance.CurrentRoom.Exit(_targetRoom);
     }
 
     private Vector3Int ComputeTargetCoordinates(WallCardinal targetWallCardinal)

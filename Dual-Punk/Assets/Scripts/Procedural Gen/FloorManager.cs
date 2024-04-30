@@ -14,8 +14,8 @@ public enum FloorType{
 public class FloorManager : MonoBehaviour
 {
     public static FloorManager Instance;
-    public Floor _currentFloor;
-    public Room _currentRoom;
+    public Floor CurrentFloor;
+    public Room CurrentRoom;
     [SerializeField] public GameObject[] CityRoomPrefabs;
     [SerializeField] public GameObject[] HangarRoomPrefabs;
     [SerializeField] public GameObject[] SpaceshipRoomPrefabs;
@@ -94,13 +94,13 @@ public class FloorManager : MonoBehaviour
     public void SwitchRoom(Room newRoom)
     {
         newRoom.gameObject.SetActive(true);
-        _currentRoom = newRoom.GetComponent<Room>();
+        CurrentRoom = newRoom.GetComponent<Room>();
     }
 
     // Creates a new floor and switches to it's entry room
     private void NewFloor(FloorType floorType){
-        _currentFloor = GenerateFloor(floorType);
-        SwitchRoom(_currentFloor.Entry);
+        CurrentFloor = GenerateFloor(floorType);
+        SwitchRoom(CurrentFloor.Entry);
     }
 
     // For testing purposes, Goes through the _currentFloor and converts attributes to a string, then debug.logs it

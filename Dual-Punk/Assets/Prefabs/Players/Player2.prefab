@@ -282,6 +282,7 @@ GameObject:
   - component: {fileID: 6014537000033638382}
   - component: {fileID: 5666972022531695219}
   - component: {fileID: 572316411364994100}
+  - component: {fileID: 6239153022848235231}
   m_Layer: 6
   m_Name: Player2
   m_TagString: Player
@@ -607,6 +608,8 @@ MonoBehaviour:
   _networkObjectCache: {fileID: 5423358579492179876}
   _inventoryManager: {fileID: 0}
   _playerState: {fileID: 0}
+  _healthManager: {fileID: 0}
+  _implantController: {fileID: 0}
 --- !u!114 &3907873960965384262
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -746,3 +749,15 @@ MonoBehaviour:
   _overrideType: 1
   _updateHostVisibility: 1
   _observerConditions: []
+--- !u!114 &6239153022848235231
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7898736215898924539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 346c31b27855b55448e2e512333f3a47, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

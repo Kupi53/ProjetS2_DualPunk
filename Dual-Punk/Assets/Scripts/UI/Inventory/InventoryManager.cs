@@ -98,19 +98,7 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
         if(eventData.button == PointerEventData.InputButton.Right){
             GameObject clickedObject = eventData.pointerCurrentRaycast.gameObject;
             InventorySlots slot = clickedObject.GetComponent<InventorySlots>();
-
-            if(slot != null && slot.heldItem != null) {
-
-                if(slot == WeaponSlots[EquipedSlotIndex]){
-                    DropWeapon();
-                }
-                else{
-                    SpawnInventoryItem(slot.heldItem);
-                }
-
-                Destroy(slot.heldItem);
-                slot.heldItem = null;
-            }
+            Drop(slot);
         }
     }
 
@@ -131,7 +119,7 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
                         if(currentSlot == WeaponSlots[EquipedSlotIndex]) SwapEquipedSlot(LastSlotPosition, currentSlot);
                         if(LastSlotPosition == WeaponSlots[EquipedSlotIndex]){
                             GameObject destroyedGameObject = PlayerState.WeaponScript.gameObject;
-                            DropWeapon();
+                            DropWeapon(LastSlotPosition);
                             destroyedGameObject.SetActive(false);
                         }
                     }
@@ -160,18 +148,7 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
 
                 //drop the item on the map
                 else{
-                    if(LastSlotPosition == WeaponSlots[EquipedSlotIndex]){
-                        PlayerState.WeaponScript.Drop();
-                        PlayerState.HoldingWeapon = false;
-                        PlayerState.PointerScript.SpriteNumber = 0;
-                    }
-                    else{
-                        SpawnInventoryItem(draggedObject);
-                    }
-
-                    Destroy(draggedObject);
-
-
+                    Drop(LastSlotPosition);
                 }
 
                 draggedObject = null;
@@ -264,10 +241,42 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
         objectSpawner.SpawnWeapons(spawnedItemPrefab, spawnPosition, Quaternion.identity);
     }
 
-    private void DropWeapon(){
-        PlayerState.WeaponScript.Drop();
-        PlayerState.HoldingWeapon = false;
-        PlayerState.PointerScript.SpriteNumber = 0;
+    private void Drop(InventorySlots slot){
+        if(slot != null && slot.heldItem != null) {
+            switch (slot.heldItem.GetComponent<InventoryItem>().displayedItem.prefab.tag){
+                case "Weapon":
+                    DropWeapon(slot);
+                    break;
+                case "Implant":
+                    DropImplant(slot);
+                    break;
+                case "Item":
+                    DropItem(slot);
+                    break;
+                default:
+                    throw new Exception("pas de tag / mauvais tag");
+            }
+            Destroy(slot.heldItem);
+            slot.heldItem = null;
+        }
+    }
+    private void DropWeapon(InventorySlots slot){
+        if(slot == WeaponSlots[EquipedSlotIndex]){
+            PlayerState.WeaponScript.Drop();
+            PlayerState.HoldingWeapon = false;
+            PlayerState.PointerScript.SpriteNumber = 0;
+        }
+        else{
+            SpawnInventoryItem(slot.heldItem);
+        }
+    }
+    private void DropImplant(InventorySlots slot){
+        GameObject implant = slot.heldItem.GetComponent<InventoryItem>().displayedItem.prefab;
+        implant.GetComponent<ImplantScript>().Drop();
+        
+    }
+    private void DropItem(InventorySlots slot){
+
     }
 
     private void SwapKeybindWeapon(){
