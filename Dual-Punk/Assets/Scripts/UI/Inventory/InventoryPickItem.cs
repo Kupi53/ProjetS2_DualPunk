@@ -24,9 +24,11 @@ public class InventoryPickItem : MonoBehaviour
             case "Weapon" :
                 emptySlot = FindEmptySlot(weaponSlots);
                 break;
-            default :
+            case "Implant" :
                 emptySlot = FindEmptySlot(implantSlots);
                 break;
+            default:
+                throw new System.Exception();
         }
 
         if(emptySlot == null) emptySlot = FindEmptySlot(inventorySlots);
@@ -42,11 +44,11 @@ public class InventoryPickItem : MonoBehaviour
             newItem.transform.localScale = emptySlot.transform.localScale;
             
             emptySlot.GetComponent<InventorySlots>().SetHeldItem(newItem);
-
-            if(weaponSlots[EquipedSlotIndex] != emptySlot){
-                pickedItem.SetActive(false);
+            if (pickedItem.tag == "Weapon"){
+                if(weaponSlots[EquipedSlotIndex] != emptySlot){
+                    pickedItem.SetActive(false);
+                }
             }
-
         }
     }
 
