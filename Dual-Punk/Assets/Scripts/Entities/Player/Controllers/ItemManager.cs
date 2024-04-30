@@ -17,7 +17,6 @@ public class ItemManager : NetworkBehaviour
     private int _index;
 
 
-
     private void Start()
     {
         if(!Owner.IsLocalClient) return;
@@ -121,7 +120,8 @@ public class ItemManager : NetworkBehaviour
     }
 
 
-    public void UpdateHeldWeapon(WeaponScript weaponScript){
+    public void UpdateHeldWeapon(WeaponScript weaponScript)
+    {
         //Intervetir avec l'arme en main
         _playerState.WeaponScript = weaponScript;
         _playerState.HoldingWeapon = true;
@@ -131,7 +131,8 @@ public class ItemManager : NetworkBehaviour
     }
 
     [ServerRpc (RequireOwnership = false)]
-    void GiveOwnershipRPC(NetworkObject networkObject, NetworkConnection networkConnection) {
+    void GiveOwnershipRPC(NetworkObject networkObject, NetworkConnection networkConnection)
+    {
         networkObject.GiveOwnership(networkConnection);
     }
 }
