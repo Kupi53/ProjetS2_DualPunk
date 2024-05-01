@@ -8,6 +8,13 @@ public class Explosion : NetworkBehaviour
 {
     public void Explode(float damage, float explosionRadius, float explosionImpact)
     {
+        ExplodeRPC(damage, explosionRadius, explosionImpact);
+    }
+
+
+    [ServerRpc(RequireOwnership = false)]
+    private void ExplodeRPC(float damage, float explosionRadius, float explosionImpact)
+    {
         GameObject[] ennemies = GameObject.FindGameObjectsWithTag("Ennemy");
         foreach (GameObject ennemy in ennemies)
         {
@@ -24,7 +31,7 @@ public class Explosion : NetworkBehaviour
         {
             Vector3 hitDirection = player.transform.position - transform.position;
             float distance = hitDirection.magnitude;
-            
+
             if (distance <= explosionRadius * 10)
             {
                 float multiplier = 1 - distance / explosionRadius;
