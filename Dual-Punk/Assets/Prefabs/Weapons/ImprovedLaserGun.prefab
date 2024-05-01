@@ -19419,7 +19419,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &5296334907703644711
 Transform:
   m_ObjectHideFlags: 0
@@ -19997,7 +19997,7 @@ MonoBehaviour:
   normal: {fileID: 21300000, guid: 6424f1e54f2d00a429cfdb20af1e26c1, type: 3}
   highlighted: {fileID: 21300000, guid: 99b6fa24c7eaa2e4bae84b074f67fa26, type: 3}
   spriteRenderer: {fileID: -8675770491283423342}
-  selectedWeapon: 0
+  selected: 0
 --- !u!114 &-5769393535951238080
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20236,7 +20236,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &536645951602493089
 Transform:
   m_ObjectHideFlags: 0
