@@ -19869,7 +19869,7 @@ MonoBehaviour:
   _networkObjectCache: {fileID: 8549619410815566522}
   _rightHand: {fileID: 4392466459797948936}
   _leftHand: {fileID: 906982321564036935}
-  _weaponOffset: {x: 0.15, y: 0.8, z: 0}
+  _weaponOffset: {x: 0.15, y: 0.85, z: 0}
   _weaponDistance: 0.6
   _recoilForce: 0.1
   _impactForce: 0.1
@@ -19948,7 +19948,7 @@ MonoBehaviour:
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 8
+  <PrefabId>k__BackingField: 9
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0

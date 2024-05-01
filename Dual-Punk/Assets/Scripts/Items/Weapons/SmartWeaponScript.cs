@@ -28,32 +28,29 @@ public class SmartWeaponScript : FireArmScript
     }
 
 
-    private new void Update()
+    public override void Run(Vector3 position, Vector3 direction)
     {
-        base.Update();
-
-        if (!_reloading)
+        if (Input.GetButtonUp("Switch") && !ContainsTarget(PlayerState.PointerScript.Target))
         {
-            if (Input.GetButtonUp("Switch") && !ContainsTarget(PlayerState.PointerScript.Target))
-            {
-                GameObject newTargetIndicator = Instantiate(_lockedTargetIndicator);
-                newTargetIndicator.GetComponent<TargetIndicatorScript>().Target = PlayerState.PointerScript.Target;
-                _targetsIndicators.Add(newTargetIndicator);
-            }
-            else if (Input.GetButton("Switch"))
-            {
-                _resetTimer += Time.deltaTime;
-
-                if (_resetTimer > 0.25)
-                    ResetWeapon();
-            }
-            else
-                _resetTimer = 0;
+            GameObject newTargetIndicator = Instantiate(_lockedTargetIndicator);
+            newTargetIndicator.GetComponent<TargetIndicatorScript>().Target = PlayerState.PointerScript.Target;
+            _targetsIndicators.Add(newTargetIndicator);
         }
+        else if (Input.GetButton("Switch"))
+        {
+            _resetTimer += Time.deltaTime;
+
+            if (_resetTimer > 0.25)
+                ResetWeapon();
+        }
+        else
+            _resetTimer = 0;
+        
+        base.Run(position, direction);
     }
 
 
-    public bool ContainsTarget(GameObject target)
+    private bool ContainsTarget(GameObject target)
     {
         if (target == null)
             return true;
@@ -97,7 +94,7 @@ public class SmartWeaponScript : FireArmScript
 
 
     [ServerRpc(RequireOwnership = false)]
-    public void FireSeekingBulletRpc(PlayerState playerState, NetworkConnection networkConnection, Vector3 direction, int damage, float bulletSpeed, float impactForce, float dispersion)
+    private void FireSeekingBulletRpc(PlayerState playerState, NetworkConnection networkConnection, Vector3 direction, int damage, float bulletSpeed, float impactForce, float dispersion)
     {
         for (int i = 0; i < _bulletNumber; i++)
         {
@@ -116,7 +113,7 @@ public class SmartWeaponScript : FireArmScript
 
 
     [ObserversRpc]
-    void AssignTargetClientRPC(SeekingBulletScript bulletScript, PlayerState playerState, NetworkConnection networkConnection)
+    private void AssignTargetClientRPC(SeekingBulletScript bulletScript, PlayerState playerState, NetworkConnection networkConnection)
     {
         if (!networkConnection.IsLocalClient) return;
 
@@ -141,7 +138,7 @@ public class SmartWeaponScript : FireArmScript
     }
 
     [ServerRpc(RequireOwnership = false)]
-    void AssignTargetBulletScriptRPC(SeekingBulletScript bulletScript, GameObject target)
+    private void AssignTargetBulletScriptRPC(SeekingBulletScript bulletScript, GameObject target)
     {
         if (bulletScript != null)
             bulletScript.Target = target;

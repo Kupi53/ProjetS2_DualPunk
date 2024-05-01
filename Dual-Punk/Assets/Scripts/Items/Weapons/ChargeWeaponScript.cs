@@ -48,7 +48,8 @@ public class ChargeWeaponScript : FireArmScript
             _fireTimer += Time.deltaTime;
         }
 
-        if (_chargeTimer > 0)
+
+        if (_chargeTimer > 0 && !_cancel)
         {
             PlayerState.CameraController.ShakeCamera(_cameraShake * _chargeTimer / 3, 0.1f);
 
@@ -56,36 +57,39 @@ public class ChargeWeaponScript : FireArmScript
             {
                 ResetWeapon();
             }
+
+            if (Input.GetButtonUp("Use") || _chargeTimer > _chargeTime && _isAuto)
+            {
+                if (!_canAttack)
+                {
+                    ResetWeapon();
+                }
+                else
+                {
+                    _audioSource.Stop();
+                    float multiplier = _chargeTimer / _chargeTime;
+
+                    Fire(direction, (int)GetProgressingFactor(multiplier, _minDamage, _damage), GetProgressingFactor(multiplier, _minSpeed, _bulletSpeed),
+                        GetProgressingFactor(multiplier, _minSize, _bulletSize), GetProgressingFactor(multiplier, _minImpact, _impactForce),
+                        _dispersion, (int)(multiplier * _collisionsAllowed));
+
+                    PlayerRecoil.Impact(-direction, GetProgressingFactor(multiplier, _minRecoil, _recoilForce));
+                    PlayerState.CameraController.ShakeCamera(_cameraShake, 0.1f);
+                }
+            }
         }
-        
-        
-        if ((Input.GetButtonUp("Use") || _chargeTimer > _chargeTime && _isAuto) && _chargeTimer > 0 && !_cancel)
+        else if (_audioSource.isPlaying)
         {
-            if (!_canAttack)
-            {
-                ResetWeapon();
-            }
-            else
-            {
-                _audioSource.Stop();
-                float multiplier = _chargeTimer / _chargeTime;
-
-                Fire(direction, (int)GetProgressingFactor(multiplier, _minDamage, _damage), GetProgressingFactor(multiplier, _minSpeed, _bulletSpeed),
-                    GetProgressingFactor(multiplier, _minSize, _bulletSize), GetProgressingFactor(multiplier, _minImpact, _impactForce),
-                    _dispersion, (int)(multiplier * _collisionsAllowed));
-
-                PlayerRecoil.Impact(-direction, GetProgressingFactor(multiplier, _minRecoil, _recoilForce));
-                PlayerState.CameraController.ShakeCamera(_cameraShake, 0.1f);
-            }
+            _audioSource.Stop();
         }
 
-        else if (Input.GetButtonDown("Use"))
+        
+        if (Input.GetButtonDown("Use"))
         {
             _cancel = false;
             if (_reloading && _ammoLeft > 0)
                 base.ResetWeapon();
         }
-
 
         if (Input.GetButtonDown("Reload") && _ammoLeft != _magSize && _chargeTimer == 0 || _autoReload && _ammoLeft == 0)
         {
