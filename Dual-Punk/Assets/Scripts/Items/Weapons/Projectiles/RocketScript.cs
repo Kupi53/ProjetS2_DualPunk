@@ -80,7 +80,6 @@ public class RocketScript : BulletScript, IDestroyable
 
         Spawn(explosion);
         Destroy(gameObject);
-
     }
 
 
