@@ -1075,6 +1075,111 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: City-Tiles_46
+      rect:
+        serializedVersion: 2
+        x: 46
+        y: 97
+        width: 12
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aa56e0f1f8ae6db4bb723a314638a5b9
+      internalID: 1023970222
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: City-Tiles_47
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 32
+        width: 32
+        height: 96
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7d47064072ba80847b78d3fa75b601b0
+      internalID: 1374359224
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: City-Tiles_48
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 32
+        width: 32
+        height: 96
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0346fa311d11d4b45abd8dc2e76b1edc
+      internalID: -1130057450
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: City-Tiles_49
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 32
+        width: 32
+        height: 96
+      alignment: 9
+      pivot: {x: 0.22679567, y: 0.081061006}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0eba8c40d1a27a74689dead392bc854a
+      internalID: 1812635770
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: City-Tiles_50
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 32
+        width: 32
+        height: 96
+      alignment: 9
+      pivot: {x: 0.79347515, y: 0.0820202}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dfc669fc01ff88f4c9dae8f6f8a8ed1c
+      internalID: -156928614
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -1088,50 +1193,55 @@ TextureImporter:
     nameFileIdTable:
       City-Tiles_0: 1503190594
       City-Tiles_1: 54451034
-      City-Tiles_10: 347738522
-      City-Tiles_11: -1285918267
-      City-Tiles_12: 1940681852
-      City-Tiles_13: -1975783214
-      City-Tiles_14: 1197216843
-      City-Tiles_15: 1868511523
-      City-Tiles_16: 2019730129
-      City-Tiles_17: -563475852
-      City-Tiles_18: 64661021
-      City-Tiles_19: -690233027
-      City-Tiles_2: 2118054704
-      City-Tiles_20: 1185130695
-      City-Tiles_21: 296078255
-      City-Tiles_22: -1091342107
-      City-Tiles_23: 397821929
-      City-Tiles_24: -1836532850
-      City-Tiles_25: 269916938
-      City-Tiles_26: 203256886
-      City-Tiles_27: 2041667821
-      City-Tiles_28: 856985724
-      City-Tiles_29: 1909350912
-      City-Tiles_3: 1258399957
-      City-Tiles_30: -1680060864
-      City-Tiles_31: -1106430652
-      City-Tiles_32: 846647314
-      City-Tiles_33: 2092519356
-      City-Tiles_34: 931001151
-      City-Tiles_35: -1969335108
-      City-Tiles_36: 1441840780
-      City-Tiles_37: -594508566
-      City-Tiles_38: -1696415666
-      City-Tiles_39: 1241763466
-      City-Tiles_4: 1216667865
-      City-Tiles_40: -1872410993
-      City-Tiles_41: -711454327
-      City-Tiles_42: -224901713
-      City-Tiles_43: 1662779617
-      City-Tiles_44: -1936335402
-      City-Tiles_45: 985440166
-      City-Tiles_5: 751176530
-      City-Tiles_6: -1058537673
-      City-Tiles_7: -1252860527
-      City-Tiles_8: -1125018351
-      City-Tiles_9: -1838690322
+      City-Tiles_10: 2118054704
+      City-Tiles_11: 1258399957
+      City-Tiles_12: 1216667865
+      City-Tiles_13: 751176530
+      City-Tiles_14: -1058537673
+      City-Tiles_15: -1252860527
+      City-Tiles_16: -1125018351
+      City-Tiles_17: -1838690322
+      City-Tiles_18: 347738522
+      City-Tiles_19: -1285918267
+      City-Tiles_2: 1940681852
+      City-Tiles_20: -1975783214
+      City-Tiles_21: 1197216843
+      City-Tiles_22: 1868511523
+      City-Tiles_23: 2019730129
+      City-Tiles_24: -563475852
+      City-Tiles_25: 64661021
+      City-Tiles_26: -690233027
+      City-Tiles_27: 1185130695
+      City-Tiles_28: 296078255
+      City-Tiles_29: -1091342107
+      City-Tiles_3: 397821929
+      City-Tiles_30: -1836532850
+      City-Tiles_31: 269916938
+      City-Tiles_32: 203256886
+      City-Tiles_33: 2041667821
+      City-Tiles_34: 856985724
+      City-Tiles_35: 1909350912
+      City-Tiles_36: -1680060864
+      City-Tiles_37: -1106430652
+      City-Tiles_38: 846647314
+      City-Tiles_39: 2092519356
+      City-Tiles_4: 931001151
+      City-Tiles_40: -1969335108
+      City-Tiles_41: 1441840780
+      City-Tiles_42: -594508566
+      City-Tiles_43: -1696415666
+      City-Tiles_44: 1241763466
+      City-Tiles_45: -1872410993
+      City-Tiles_46: 1319665832
+      City-Tiles_47: 1069846682
+      City-Tiles_48: 235056340
+      City-Tiles_49: 1094621559
+      City-Tiles_5: -711454327
+      City-Tiles_50: 885029131
+      City-Tiles_6: -224901713
+      City-Tiles_7: 1662779617
+      City-Tiles_8: -1936335402
+      City-Tiles_9: 985440166
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
