@@ -39,7 +39,7 @@ public class RocketScript : BulletScript, IDestroyable
         _smokeTrail.transform.position = _trailPosition.transform.position;
         _smokeTrail.transform.rotation = transform.rotation;
 
-        if (_moveSpeed < 5 || Vector3.Distance(transform.position, _startPosition) > _distanceUntilExplosion)
+        if (Vector3.Distance(transform.position, _startPosition) > _distanceUntilExplosion || _moveSpeed < 5)
         {
             Destroy();
         }
@@ -85,9 +85,9 @@ public class RocketScript : BulletScript, IDestroyable
 
     protected void OnTriggerEnter2D(Collider2D collider)
     {
-        if (!collider.CompareTag("Weapon") && !collider.CompareTag("Projectile") && !collider.CompareTag("UI"))
+        if (collider.CompareTag("Ennemy") || collider.CompareTag("Wall"))
         {
-            Destroy();
+            Destroy(gameObject);
         }
     }
 

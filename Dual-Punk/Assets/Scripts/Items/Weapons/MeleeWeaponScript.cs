@@ -24,8 +24,10 @@ public class MeleeWeaponScript : WeaponScript
     public override float InfoTimer { get => _resetCooldownTimer; }
 
 
-    private void Start()
+    private new void Start()
     {
+        base.Start();
+
         _attack = 0;
         _resetCooldownTimer = 0;
         _currentWeaponDistance = _weaponDistance;

@@ -299,9 +299,9 @@ Transform:
   m_GameObject: {fileID: 7898736215898924539}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.774521, y: -1.96, z: 0}
-  m_LocalScale: {x: 0.83141994, y: 0.84383994, z: 1.5}
-  m_ConstrainProportionsScale: 1
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2519837610764930162}
   m_Father: {fileID: 0}
@@ -543,10 +543,10 @@ MonoBehaviour:
   _addedNetworkObject: {fileID: 5423358579492179876}
   _networkObjectCache: {fileID: 5423358579492179876}
   _crawlSpeed: 0.01
-  _walkSpeed: 0.05
-  _sprintSpeed: 0.08
-  _dashSpeed: 0.28
-  _dashTime: 0.18
+  _walkSpeed: 0.06
+  _sprintSpeed: 0.1
+  _dashSpeed: 0.3
+  _dashTime: 0.2
   _dashCooldown: 1
   _moveBackFactor: 0.8
 --- !u!114 &-7003829035611701060
@@ -663,7 +663,7 @@ MonoBehaviour:
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 25
+  <PrefabId>k__BackingField: 29
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0

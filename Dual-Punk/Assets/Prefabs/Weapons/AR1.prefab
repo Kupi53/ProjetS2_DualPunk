@@ -26,8 +26,8 @@ Transform:
   m_GameObject: {fileID: 2939624512793751183}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.411, y: -0.263, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -0.405, y: -0.248, z: 0}
+  m_LocalScale: {x: 1.3, y: 1.3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 266728874953890219}
@@ -110,8 +110,8 @@ Transform:
   m_GameObject: {fileID: 7017974954916342671}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.224, y: -0.169, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0.242, y: -0.131, z: 0}
+  m_LocalScale: {x: 1.3, y: 1.3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 266728874953890219}
@@ -383,8 +383,8 @@ MonoBehaviour:
   _networkObjectCache: {fileID: 4528818166376744979}
   _rightHand: {fileID: 2939624512793751183}
   _leftHand: {fileID: 7017974954916342671}
-  _weaponOffset: {x: 0.15, y: 0.8, z: 0}
-  _weaponDistance: 0.4
+  _weaponOffset: {x: 0.15, y: 0.95, z: 0}
+  _weaponDistance: 0.45
   _recoilForce: 1.2
   _impactForce: 1.2
   _cameraShake: 1.1
@@ -422,7 +422,7 @@ MonoBehaviour:
   normal: {fileID: 21300000, guid: 90aa106e4f16de64885605d2868921d9, type: 3}
   highlighted: {fileID: 21300000, guid: 05c57db798e27e64293a76759ab1666a, type: 3}
   spriteRenderer: {fileID: 6375131043796351911}
-  selectedWeapon: 0
+  selected: 0
 --- !u!114 &-3406212296661549581
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -465,7 +465,7 @@ MonoBehaviour:
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 17
+  <PrefabId>k__BackingField: 19
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0

@@ -209,7 +209,7 @@ MonoBehaviour:
   _componentIndexCache: 0
   _addedNetworkObject: {fileID: 1668462775358657453}
   _networkObjectCache: {fileID: 1668462775358657453}
-  _lifeTime: 3
+  _lifeTime: 0
   _explosion: {fileID: 2800961942588765522, guid: 6288954bb36a9464b85cce9f5b573ff6, type: 3}
   _smokeTrail: {fileID: 1970494980761369089, guid: 3d3752c809c749a449a3c2efbd1e15ce, type: 3}
   _trailPosition: {fileID: 3734611747500497201}
@@ -243,7 +243,7 @@ MonoBehaviour:
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 20
+  <PrefabId>k__BackingField: 24
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0

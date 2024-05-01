@@ -26,8 +26,8 @@ Transform:
   m_GameObject: {fileID: 906982321564036935}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.235, y: -0.165, z: 0}
-  m_LocalScale: {x: 0.7, y: 0.7, z: 0}
+  m_LocalPosition: {x: 0.1647, y: -0.1778, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 345951952792462838}
@@ -14633,8 +14633,8 @@ Transform:
   m_GameObject: {fileID: 4392466459797948936}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.353, y: -0.154, z: 0}
-  m_LocalScale: {x: 0.7, y: 0.7, z: 0}
+  m_LocalPosition: {x: -0.3603, y: -0.1476, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 345951952792462838}
@@ -19621,7 +19621,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1.05, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7012016543147419415}
@@ -19869,8 +19869,8 @@ MonoBehaviour:
   _networkObjectCache: {fileID: 8549619410815566522}
   _rightHand: {fileID: 4392466459797948936}
   _leftHand: {fileID: 906982321564036935}
-  _weaponOffset: {x: 0.25, y: 0.7, z: 0}
-  _weaponDistance: 0.45
+  _weaponOffset: {x: 0.15, y: 0.8, z: 0}
+  _weaponDistance: 0.6
   _recoilForce: 0.1
   _impactForce: 0.1
   _cameraShake: 0.2
@@ -19904,7 +19904,7 @@ MonoBehaviour:
   normal: {fileID: 21300000, guid: 97711701e1af8e54a8628840cdf7aa41, type: 3}
   highlighted: {fileID: 21300000, guid: 397ead6543a6b9c4ea8028022535be16, type: 3}
   spriteRenderer: {fileID: 5986589367013039024}
-  selectedWeapon: 0
+  selected: 0
 --- !u!114 &-3901914951755194338
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19942,7 +19942,7 @@ MonoBehaviour:
   SerializedTransformProperties:
     Position: {x: 0, y: 0, z: 0}
     Rotation: {x: 0, y: 0, z: 0, w: 1}
-    LocalScale: {x: 1, y: 1.05, z: 0}
+    LocalScale: {x: 1, y: 1, z: 0}
   _isNetworked: 1
   _isGlobal: 0
   _initializeOrder: 0
