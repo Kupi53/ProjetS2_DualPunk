@@ -21,8 +21,22 @@ public class FireArmScript : WeaponScript
     [SerializeField] protected int _collisionsAllowed;
 
     [SerializeField] protected float _fireRate;
+
+    public float FireRate
+    {
+        get { return _fireRate; }
+        set { _fireRate = value; }
+    }
+
     [SerializeField] protected float _dispersion;
     [SerializeField] private float _reloadTime;
+
+    public float ReloadTime
+    {
+        get { return _reloadTime; }
+        set { _reloadTime = value; }
+    }
+
     [SerializeField] protected float _aimAccuracy;
     [SerializeField] protected float _bulletSpeed;
     [SerializeField] protected float _bulletSize;

@@ -5217,7 +5217,7 @@ PrefabInstance:
     - target: {fileID: 7470240865930121378, guid: d15967f0adea3264ab7d508e264da05d, type: 3}
       propertyPath: _weaponsToSpawn.Array.data[0]
       value: 
-      objectReference: {fileID: 4730994522500747810, guid: 4db07167934a9e247ac151cec794bf56, type: 3}
+      objectReference: {fileID: 1420957003867560970, guid: dd97f70cd41613740935645ac9d0644f, type: 3}
     - target: {fileID: 7470240865930121378, guid: d15967f0adea3264ab7d508e264da05d, type: 3}
       propertyPath: _weaponsToSpawn.Array.data[1]
       value: 
