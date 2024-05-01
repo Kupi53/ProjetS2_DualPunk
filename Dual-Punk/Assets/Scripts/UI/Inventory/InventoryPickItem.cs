@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class InventoryPickItem : MonoBehaviour
+
+public class InventoryPickItem : MonoBehaviour 
 {
     [SerializeField] GameObject[] weaponSlots = new GameObject[3];
     [SerializeField] GameObject[] implantSlots = new GameObject [4];
@@ -13,7 +14,8 @@ public class InventoryPickItem : MonoBehaviour
 
     private int EquipedSlotIndex => GetComponent<InventoryManager>().EquipedSlotIndex;
 
-    public void ItemPicked(GameObject pickedItem){
+    public void ItemPicked(GameObject pickedItem)
+    {
         GameObject emptySlot = null;
         string Tag = pickedItem.tag;
 
@@ -31,9 +33,13 @@ public class InventoryPickItem : MonoBehaviour
                 throw new System.Exception();
         }
 
-        if(emptySlot == null) emptySlot = FindEmptySlot(inventorySlots);
+        if (emptySlot == null)
+        {
+            emptySlot = FindEmptySlot(inventorySlots);
+        }
 
-        if(emptySlot != null){
+        if (emptySlot != null)
+        {
             GameObject newItem = Instantiate(inventoryItemPrefab);
 
             //enregistre le prefab de displayed item car displayed item sera detruit juste en dessous
@@ -44,8 +50,9 @@ public class InventoryPickItem : MonoBehaviour
             newItem.transform.localScale = emptySlot.transform.localScale;
             
             emptySlot.GetComponent<InventorySlots>().SetHeldItem(newItem);
-            if (pickedItem.tag == "Weapon"){
-                if(weaponSlots[EquipedSlotIndex] != emptySlot){
+
+            if (pickedItem.tag == "Weapon") {
+                if (weaponSlots[EquipedSlotIndex] != emptySlot) {
                     pickedItem.SetActive(false);
                 }
             }
@@ -53,13 +60,14 @@ public class InventoryPickItem : MonoBehaviour
     }
 
     //Use for each type of slot of the inventory to find if a slot is available.
-    public GameObject FindEmptySlot(GameObject[] slots){
+    public GameObject FindEmptySlot(GameObject[] slots)
+    {
         GameObject res = null;
-        for (int i = 0 ; i < slots.Length; i++){
-
+        for (int i = 0 ; i < slots.Length; i++)
+        {
             InventorySlots Slot = slots[i].GetComponent<InventorySlots>();
 
-            if (Slot.heldItem == null){
+            if (Slot.heldItem == null) {
                 res = slots[i];
                 break;
             }

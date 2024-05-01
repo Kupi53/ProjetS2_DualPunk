@@ -3,18 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
+
 public class selectedSlotManager : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler
 {
     private GameObject _selectedSlotIcon;
-    private bool _activeness ;
+    private bool _activeness;
 
 
-    void Update(){
-        if(_selectedSlotIcon != null){
-            if(_activeness){
+    void Update()
+    {
+        if (_selectedSlotIcon != null)
+        {
+            if (_activeness)
+            {
                 _selectedSlotIcon.SetActive(true);
             }
-            else {
+            else
+            {
                 _selectedSlotIcon.SetActive(false);
                 _selectedSlotIcon = null;
             }

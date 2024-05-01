@@ -17,18 +17,15 @@ public class DescriptionPanel : MonoBehaviour
     public float height;
     public float width;
 
-    public void SetText(string namestr, string descriptionstr){
+    public void SetText(string namestr, string descriptionstr)
+    {
         Name.text = namestr + "\n";
         description.text = descriptionstr;
 
         int nbNameChar = Name.text.Length;
         int nbDescriptionChar = description.text.Length;
 
-        if(nbNameChar > maxCharacter || nbDescriptionChar > maxCharacter) {
-            formatage.enabled = true;
-
-        }
-        else formatage.enabled = false;
+        formatage.enabled = nbNameChar > maxCharacter || nbDescriptionChar > maxCharacter;
 
         Canvas.ForceUpdateCanvases();
         height = GetComponent<RectTransform>().rect.height;

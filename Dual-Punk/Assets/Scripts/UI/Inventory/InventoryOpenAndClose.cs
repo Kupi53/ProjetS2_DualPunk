@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
+
 public class InventoryOpenAndClose : MonoBehaviour
 {
     public GameObject Inventory;
@@ -15,16 +16,18 @@ public class InventoryOpenAndClose : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetButtonDown("Inventory")){
-            if(InventoryIsClose ){
+        if (Input.GetButtonDown("Inventory"))
+        {
+            if (InventoryIsClose)
+            {
                 Inventory.SetActive(true);
                 InventoryIsClose = false;
             }
-            else{
+            else
+            {
                 InventoryIsClose = true;
                 Inventory.SetActive(false);
             }
         }
     }
-
 }
