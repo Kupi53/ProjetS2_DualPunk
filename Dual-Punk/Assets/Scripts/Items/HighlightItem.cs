@@ -10,7 +10,6 @@ public class HighlightItem : MonoBehaviour
 
     void Update()
     {
-        Debug.Log(selected);
         if(!selected){
             spriteRenderer.sprite = normal;
         }

@@ -15,3 +15,12 @@ MonoBehaviour:
   Health: 100
   Damage: 10
   Speed: 1
+  MaxLootRollAmount: 2
+  IdTable:
+  - null
+  - 0001
+  - 0002
+  - 9999
+  - 0006
+  MinIntervalTable: 00000000330000003d0000004700000051000000
+  MaxIntervalTable: 320000003c000000460000005000000064000000

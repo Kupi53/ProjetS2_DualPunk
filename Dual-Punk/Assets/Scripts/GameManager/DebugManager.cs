@@ -5,6 +5,7 @@ using UnityEngine;
 public class DebugManager : MonoBehaviour
 {
     [SerializeField] private GameObject[] _weaponsToSpawn;
+    [SerializeField] private GameObject _enemyToSpawn;
     private int _index;
 
 
@@ -33,6 +34,10 @@ public class DebugManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.P))
         {
             ObjectSpawner.Instance.SpawnObjectRpc(_weaponsToSpawn[_index], GameManager.Instance.Player1.transform.position, Quaternion.identity);
+        }
+        if (Input.GetKeyDown(KeyCode.N))
+        {
+            ObjectSpawner.Instance.SpawnObjectRpc(_enemyToSpawn, GameManager.Instance.Player1.transform.position, Quaternion.identity);
         }
     }
 }
