@@ -79,8 +79,8 @@ public class RocketScript : BulletScript, IDestroyable
         _smokeTrail.GetComponent<StopSmokeTrail>().StopParticles();
 
         Spawn(explosion);
-        Destroy(explosion, 1);
         Destroy(gameObject);
+
     }
 
 

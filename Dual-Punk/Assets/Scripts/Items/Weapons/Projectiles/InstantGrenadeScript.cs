@@ -59,9 +59,9 @@ public class InstantGrenadeScript : NetworkBehaviour, IDestroyable
         if (_exploded) return;
         _exploded = true;
 
+        AudioManager.Instance.PlayClipAt(_explosionSound, gameObject.transform.position);
         GameObject explosion = Instantiate(_explosion, transform.position, transform.rotation);
         explosion.GetComponent<Explosion>().Explode(_damage, _explosionRadius, _explosionImpact);
-        AudioManager.Instance.PlayClipAt(_explosionSound, gameObject.transform.position);
 
         Spawn(explosion);
         Destroy(explosion, 1);
