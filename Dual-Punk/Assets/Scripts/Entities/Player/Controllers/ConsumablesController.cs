@@ -103,7 +103,9 @@ public class ConsumablesController : NetworkBehaviour
                 if (Input.GetButtonUp("UseGrenade"))
                 {
                     float throwDistance = GetThrowDistance();
-                    ThrowGrenadeRpc(transform.position + _offset, _direction.normalized, _normalVector, _throwForce * GetChargeFactor() * throwDistance / _throwDistance,
+
+                    ThrowGrenadeRpc(transform.position + _offset, _direction.normalized, _normalVector,
+                        _throwForce * GetChargeFactor() * (throwDistance + 0.25f) / _throwDistance,
                         _grenadeTimer - _explodeTimer, throwDistance, _grenadeCurveFactor);
                     
                     ResetThrow();
@@ -116,15 +118,6 @@ public class ConsumablesController : NetworkBehaviour
         else {
             _itemTimer += Time.deltaTime;
         }
-    }
-
-
-    [ServerRpc(RequireOwnership = false)]
-    private void ThrowGrenadeRpc(Vector3 startPosition, Vector3 moveDirection, Vector3 verticalDirection, float moveSpeed, float explosionTimer, float distanceUntilStop, float curveFactor)
-    {
-        GameObject grenade = Instantiate(_grenade, startPosition, Quaternion.identity);
-        grenade.GetComponent<InstantGrenadeScript>().Setup(startPosition, moveDirection, verticalDirection, moveSpeed, explosionTimer, distanceUntilStop, curveFactor);
-        Spawn(grenade);
     }
 
 
@@ -175,5 +168,15 @@ public class ConsumablesController : NetworkBehaviour
         _chargeGrenade = false;
         _lineRenderer.enabled = false;
         _grenadeImpact.enabled = false;
+    }
+
+
+
+    [ServerRpc(RequireOwnership = false)]
+    private void ThrowGrenadeRpc(Vector3 startPosition, Vector3 moveDirection, Vector3 verticalDirection, float moveSpeed, float explosionTimer, float distanceUntilStop, float curveFactor)
+    {
+        GameObject grenade = Instantiate(_grenade, startPosition, Quaternion.identity);
+        grenade.GetComponent<InstantGrenadeScript>().Setup(startPosition, moveDirection, verticalDirection, moveSpeed, explosionTimer, distanceUntilStop, curveFactor);
+        Spawn(grenade);
     }
 }

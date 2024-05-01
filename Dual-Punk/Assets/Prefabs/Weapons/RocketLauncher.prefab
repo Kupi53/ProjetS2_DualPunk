@@ -386,7 +386,7 @@ MonoBehaviour:
   _weaponOffset: {x: 0.2, y: 0.85, z: 0}
   _weaponDistance: -0.05
   _recoilForce: 1
-  _impactForce: 15
+  _impactForce: 5
   _cameraShake: 0.5
   _pointerSpriteNumber: 1
   _bullet: {fileID: 8218887749285126351, guid: 72d97b4e041201e419ae7c7bc77e9f1f, type: 3}
@@ -407,8 +407,7 @@ MonoBehaviour:
   _isAuto: 0
   _fireSound: {fileID: 8300000, guid: 03fd638b41d294247a79eb4d5c0a0e52, type: 3}
   _reloadSound: {fileID: 8300000, guid: cac86c616782f014aae1e8923ca62b1d, type: 3}
-  _explosionDistance: 2
-  _explosionImpact: 5
+  _explosionRadius: 5
   _deviationAngle: 10
   _deviationSpeed: 10
 --- !u!114 &6219542409635661903
@@ -426,7 +425,7 @@ MonoBehaviour:
   normal: {fileID: 21300000, guid: 9f0410f40820e05468f44c08a1bd9dd4, type: 3}
   highlighted: {fileID: 21300000, guid: f61463e9056ef4b409d7e1a28df7b608, type: 3}
   spriteRenderer: {fileID: 3258924794804809464}
-  selectedWeapon: 0
+  selected: 0
 --- !u!114 &-866496460129484686
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -469,7 +468,7 @@ MonoBehaviour:
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 29
+  <PrefabId>k__BackingField: 30
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0

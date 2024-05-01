@@ -178,7 +178,7 @@ MonoBehaviour:
   _networkObjectCache: {fileID: 5263651566201972744}
   _explosion: {fileID: 2800961942588765522, guid: 6288954bb36a9464b85cce9f5b573ff6, type: 3}
   _damage: 90
-  _explosionRadius: 3
+  _explosionRadius: 4
   _explosionImpact: 4
   _rotateSpeed: 200
   _explosionSound: {fileID: 8300000, guid: aa7bac89a7344f1468ad59069e9f436a, type: 3}
@@ -212,7 +212,7 @@ MonoBehaviour:
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 27
+  <PrefabId>k__BackingField: 29
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0

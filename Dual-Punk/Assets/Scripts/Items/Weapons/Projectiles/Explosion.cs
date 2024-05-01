@@ -26,10 +26,12 @@ public class Explosion : NetworkBehaviour
             
             if (distance <= explosionDistance * 10)
             {
-                player.GetComponent<PlayerState>().CameraController.ShakeCamera(explosionImpact / (distance + 1), 0.5f);
+                float multiplier = 1 - distance / explosionDistance;
+                player.GetComponent<PlayerState>().CameraController.ShakeCamera(explosionImpact * multiplier, 0.5f);
+
                 if (distance <= explosionDistance)
                 {
-                    player.GetComponent<IImpact>().Impact(hitDirection, explosionImpact);
+                    player.GetComponent<IImpact>().Impact(hitDirection, explosionImpact * multiplier);
                 }
             }
         }

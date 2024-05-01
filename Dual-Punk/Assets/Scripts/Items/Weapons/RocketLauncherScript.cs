@@ -6,8 +6,7 @@ using UnityEngine;
 
 public class RocketLauncherScript : FireArmScript
 {
-    [SerializeField] private float _explosionDistance;
-    [SerializeField] private float _explosionImpact;
+    [SerializeField] private float _explosionRadius;
     [SerializeField] private float _deviationAngle;
     [SerializeField] private float _deviationSpeed;
 
@@ -34,7 +33,7 @@ public class RocketLauncherScript : FireArmScript
             rocket.transform.localScale = new Vector2(bulletSize, bulletSize);
 
             rocketScript.Setup(direction, damage, bulletSpeed, impactForce, transform.position, Vector3.Distance(transform.position, PlayerState.MousePosition),
-                _explosionDistance + 0.1f, _deviationAngle, _deviationSpeed);
+                _explosionRadius + 0.1f, _deviationAngle, _deviationSpeed);
 
             Spawn(rocket);
         }
