@@ -10,9 +10,11 @@ public class AmmoInMag : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI _text;
     [SerializeField] private GameObject _meleeWeaponIcon;
+    [SerializeField] private GameObject _laserGunIcon;
 
     private LocalPlayerReference _references;
-    private Image _image;
+    private Image _meleeWeaponImage;
+    private Image _laserGunImage;
 
 #nullable enable
     private FireArmScript? _fireArmScript;
@@ -21,29 +23,38 @@ public class AmmoInMag : MonoBehaviour
 
     void Start()
     {
-        _image = _meleeWeaponIcon.GetComponent<Image>();
+        _meleeWeaponImage = _meleeWeaponIcon.GetComponent<Image>();
+        _laserGunImage = _laserGunIcon.GetComponent<Image>();
         _references = transform.root.gameObject.GetComponent<LocalPlayerReference>();
     }
 
 
     void Update()
     {
-        if (_references.PlayerState.HoldingWeapon && _references.PlayerState.WeaponScript is FireArmScript)
+        _text.enabled = false;
+        _meleeWeaponImage.enabled = false;
+        _laserGunImage.enabled = false;
+
+        if (!_references.PlayerState.HoldingWeapon) return;
+
+        if (_references.PlayerState.WeaponScript is FireArmScript)
         {
+            _text.enabled = true;
+
             _fireArmScript = (FireArmScript)_references.PlayerState.WeaponScript;
 
             if (_fireArmScript.AmmoLeft < 10)
                 _text.text = "0" + _fireArmScript.AmmoLeft.ToString();
             else
                 _text.text = _fireArmScript.AmmoLeft.ToString();
-
-            _text.enabled = true;
-            _image.enabled = false;
+        }
+        else if (_references.PlayerState.WeaponScript is LaserGunScript)
+        {
+            _laserGunImage.enabled = true;
         }
         else
         {
-            _text.enabled = false;
-            _image.enabled = true;
+            _meleeWeaponImage.enabled = true;
         }
     }
 }
