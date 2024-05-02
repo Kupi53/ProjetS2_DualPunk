@@ -426,6 +426,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5826673250490905095}
     m_Modifications:
+    - target: {fileID: 2589781877777862374, guid: 5d6012832ea472f458e113eb03eaf14a, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 338.0729
+      objectReference: {fileID: 0}
+    - target: {fileID: 2589781877777862374, guid: 5d6012832ea472f458e113eb03eaf14a, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2589781877777862374, guid: 5d6012832ea472f458e113eb03eaf14a, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -189
+      objectReference: {fileID: 0}
     - target: {fileID: 5291937239392091011, guid: 5d6012832ea472f458e113eb03eaf14a, type: 3}
       propertyPath: m_Name
       value: InventoryManager
@@ -469,6 +481,14 @@ PrefabInstance:
     - target: {fileID: 6887539226679850897, guid: 5d6012832ea472f458e113eb03eaf14a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7715509991257311823, guid: 5d6012832ea472f458e113eb03eaf14a, type: 3}
+      propertyPath: m_text
+      value: COnsummables
+      objectReference: {fileID: 0}
+    - target: {fileID: 8463889115069489312, guid: 5d6012832ea472f458e113eb03eaf14a, type: 3}
+      propertyPath: m_Name
+      value: ConsumableSlots
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

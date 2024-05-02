@@ -8,8 +8,7 @@ public class InventoryPickItem : MonoBehaviour
 {
     [SerializeField] GameObject[] weaponSlots = new GameObject[3];
     [SerializeField] GameObject[] implantSlots = new GameObject [4];
-    [SerializeField] GameObject[] consummableSlots = new GameObject[3];
-    [SerializeField] GameObject[] inventorySlots = new GameObject[15];
+    [SerializeField] GameObject[] consummableSlots = new GameObject[18];
     [SerializeField] GameObject inventoryItemPrefab;
 
     private int EquipedSlotIndex => GetComponent<InventoryManager>().EquipedSlotIndex;
@@ -20,7 +19,7 @@ public class InventoryPickItem : MonoBehaviour
         string Tag = pickedItem.tag;
 
         switch(Tag){
-            case "Item" :
+            case "Consummable" :
                 emptySlot = FindEmptySlot(consummableSlots);
                 break;
             case "Weapon" :
@@ -33,11 +32,6 @@ public class InventoryPickItem : MonoBehaviour
                 throw new System.Exception();
         }
 
-        if (emptySlot == null)
-        {
-            emptySlot = FindEmptySlot(inventorySlots);
-        }
-
         if (emptySlot != null)
         {
             GameObject newItem = Instantiate(inventoryItemPrefab);
@@ -46,7 +40,7 @@ public class InventoryPickItem : MonoBehaviour
             newItem.GetComponent<InventoryItem>().displayedItem = pickedItem.GetComponent<PickableItem>().itemData;
             newItem.GetComponent<InventoryItem>().displayedItem.prefab = pickedItem;
 
-            newItem.transform.SetParent(emptySlot.transform.parent.parent.GetChild(5));
+            newItem.transform.SetParent(emptySlot.transform.parent.parent.GetChild(4));
             newItem.transform.localScale = emptySlot.transform.localScale;
             
             emptySlot.GetComponent<InventorySlots>().SetHeldItem(newItem);

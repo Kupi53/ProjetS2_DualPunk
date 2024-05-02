@@ -226,7 +226,7 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
         string currentSlotName = selectedSlot.transform.parent.name;
 
         if (currentSlotName == "InventorySlots" || placedItemName == "Weapon" && currentSlotName == "WeaponSlots" ||
-            placedItemName == "Implant" && currentSlotName == "ImplantSlot" || placedItemName == "Item" && currentSlotName == "ConsumabelSlots")
+            placedItemName == "Implant" && currentSlotName == "ImplantSlot" || placedItemName == "Consummable" && currentSlotName == "ConsumabelSlots")
         {
             res = true;
         }
