@@ -12,7 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb4d4ad9335e54a4aa04976f4584bb33, type: 3}
   m_Name: Regeneration
   m_EditorClassIdentifier: 
-  name: Regeneration
-  prefab: {fileID: 1420957003867560970, guid: a962bbc2e1b6f7745a7383180b89ddc8, type: 3}
+  name: BloodPump
+  prefab: {fileID: 0}
   icon: {fileID: 21300000, guid: 333e595c67e4e44459ea6f93653d0ad9, type: 3}
   description: "Cet implant permet de r\xE9g\xE9n\xE9rer le joueur petit \xE0 petit."
+  setName: Organic
+  setItems:
+  - AceOfTheTrigger
+  - BloodPump
+  - CrazyFire
+  - Flash

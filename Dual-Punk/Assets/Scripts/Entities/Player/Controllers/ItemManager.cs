@@ -74,32 +74,49 @@ public class ItemManager : NetworkBehaviour
             {
                 if (Input.GetButtonDown("Pickup"))
                 {
-                    _index = 0;
-                    _items.Remove(item);
+                    bool _pickable = false;
 
-                    item.GetComponent<HighlightItem>().selected = false;
-                    _inventoryManager.GetComponent<InventoryPickItem>().ItemPicked(item);
-                    item.GetComponent<SpriteRenderer>().enabled = false;
 
                     ImplantScript _implantScript = item.GetComponent<ImplantScript>();
                     switch (_implantScript.Type){
                         case ImplantType.Neuralink:
-                            _implantController.NeuralinkImplant = _implantScript;
+                            if(_implantController.NeuralinkImplant == null){
+                                _implantController.NeuralinkImplant = _implantScript;
+                                _pickable = true;
+                            }
                             break;
                         case ImplantType.ExoSqueleton:
-                            _implantController.ExoSqueletonImplant = _implantScript;
+                            if(_implantController.ExoSqueletonImplant == null){
+                                _implantController.ExoSqueletonImplant = _implantScript;
+                                _pickable = true;
+                            }
                             break;
                         case ImplantType.Arm:
-                            _implantController.ArmImplant = _implantScript;
+                            if(_implantController.ArmImplant == null){
+                                _implantController.ArmImplant = _implantScript;
+                                _pickable = true;
+                            }
                             break;
                         case ImplantType.Boots:
-                            _implantController.BootsImplant = _implantScript;
+                            if(_implantController.ArmImplant == null){
+                                _implantController.ArmImplant = _implantScript;
+                                _pickable = true;
+                            }
                             break;
                         default:
                             throw new Exception();
                     }
-                    _implantScript.IsEquipped = true;
-                    _implantScript.PlayerState = _playerState;
+
+                    if(_pickable){
+                        _index = 0;
+                        _items.Remove(item);
+                        _inventoryManager.GetComponent<InventoryPickItem>().ItemPicked(item);
+                        item.GetComponent<HighlightItem>().selected = false;
+                        item.GetComponent<SpriteRenderer>().enabled = false;
+                        _implantScript.IsEquipped = true;
+                        _implantScript.PlayerState = _playerState;                        
+                    }
+
                 }
             }
             else if (item.CompareTag("Item"))

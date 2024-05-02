@@ -6,7 +6,7 @@ public class EnbleDisableButton : MonoBehaviour
 
     void Start()
     {
-        descriptions.enabled = false;
+        descriptions.enabled = true;
     }
 
     public void ChangeActiveness()

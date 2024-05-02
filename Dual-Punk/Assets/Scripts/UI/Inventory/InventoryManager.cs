@@ -10,29 +10,27 @@ using UnityEngine.UI;
 
 public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
-    [SerializeField] private Image DropPanel;
-    [SerializeField] private Image inventoryPanel;
+    [SerializeField] private Image _dropPanel;
+    [SerializeField] private Image _inventoryPanel;
+    private GameObject _draggedObject;
+    private InventorySlots _lastSlotPosition;
+    private InventorySlots _currentSlot;
+    private ObjectSpawner _objectSpawner;
+    private DescriptionManager _descriptionManager;
+
 
     public InventorySlots[] WeaponSlots = new InventorySlots[3];
-    private GameObject draggedObject;
-    private InventorySlots LastSlotPosition;
-    private InventorySlots currentSlot;
-    private ObjectSpawner objectSpawner;
-    private DescriptionManager descriptionManager;
-
+    public PlayerState PlayerState;
+    public ItemManager ItemManager;
     public int EquipedSlotIndex;
-    public bool selectedSlotActiveness;
     public bool swapping;
 
-    public PlayerState PlayerState { get; set; }
-    public ItemManager ItemManager { get; set; }
 
 
     void Start()
     {
-        descriptionManager = GetComponent<DescriptionManager>();
-        selectedSlotActiveness = GetComponent<selectedSlotManager>().GetActiveness();
-        objectSpawner = GameObject.Find("ObjectSpawner").GetComponent<ObjectSpawner>();
+        _descriptionManager = GetComponent<DescriptionManager>();
+        _objectSpawner = GameObject.Find("ObjectSpawner").GetComponent<ObjectSpawner>();
         EquipedSlotIndex = 0;
         swapping  = false;
         
@@ -42,9 +40,9 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
     void Update()
     {
         //fais suivre l'objet clique par la souris, sur la souris.
-        if (draggedObject != null)
+        if (_draggedObject != null)
         {
-            draggedObject.transform.position = Input.mousePosition;
+            _draggedObject.transform.position = Input.mousePosition;
         }
 
         SwapKeybindWeapon();
@@ -86,9 +84,9 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        //change the raycast state needed for the descriptionManager
-        DropPanel.raycastTarget = true;
-        inventoryPanel.raycastTarget = true;
+        //change the raycast state needed for the _descriptionManager
+        _dropPanel.raycastTarget = true;
+        _inventoryPanel.raycastTarget = true;
 
         if (eventData.button == PointerEventData.InputButton.Left)
         {
@@ -98,17 +96,17 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
 
             if (slot != null && slot.heldItem != null)
             {
-                draggedObject = slot.heldItem;
+                _draggedObject = slot.heldItem;
                 slot.heldItem = null;
-                LastSlotPosition = slot;
+                _lastSlotPosition = slot;
 
                 //Hide descprition panels if the item is dragged
-                if (descriptionManager.isActiveAndEnabled)
+                if (_descriptionManager.isActiveAndEnabled)
                 {
-                    if (descriptionManager.GetInCD())
-                        descriptionManager.StopTheCoroutine();
+                    if (_descriptionManager.GetInCD())
+                        _descriptionManager.StopTheCoroutine();
                     else
-                        descriptionManager.GetDescriptionWindow().SetActive(false);
+                        _descriptionManager.GetDescriptionWindow().SetActive(false);
                 }
             }
         }
@@ -116,36 +114,37 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
         if(eventData.button == PointerEventData.InputButton.Right){
             GameObject clickedObject = eventData.pointerCurrentRaycast.gameObject;
             InventorySlots slot = clickedObject.GetComponent<InventorySlots>();
+            _descriptionManager.StopTheCoroutine();
             Drop(slot);
         }
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        if (draggedObject != null && eventData.button == PointerEventData.InputButton.Left)
+        if (_draggedObject != null && eventData.button == PointerEventData.InputButton.Left)
         {
             if (eventData.pointerCurrentRaycast.gameObject != null)
             {
                 GameObject clickedObject = eventData.pointerCurrentRaycast.gameObject;
-                currentSlot = clickedObject.GetComponent<InventorySlots>();
+                _currentSlot = clickedObject.GetComponent<InventorySlots>();
 
                 //if the slot is empty - place item
-                if (currentSlot != null && currentSlot.heldItem == null)
+                if (_currentSlot != null && _currentSlot.heldItem == null)
                 {
-                    if (Swapable(currentSlot, draggedObject))
+                    if (Swapable(_currentSlot, _draggedObject))
                     {
                         RefreshScale();
                         PlaceItem();
 
-                        if (currentSlot == WeaponSlots[EquipedSlotIndex])
+                        if (_currentSlot == WeaponSlots[EquipedSlotIndex])
                         { 
-                            SwapEquipedSlot(LastSlotPosition, currentSlot);
+                            SwapEquipedSlot(_lastSlotPosition, _currentSlot);
                         }
 
-                        if (LastSlotPosition == WeaponSlots[EquipedSlotIndex])
+                        if (_lastSlotPosition == WeaponSlots[EquipedSlotIndex])
                         {
                             GameObject destroyedGameObject = PlayerState.WeaponScript.gameObject;
-                            DropWeapon(LastSlotPosition);
+                            DropWeapon(_lastSlotPosition);
                             destroyedGameObject.SetActive(false);
                         }
                     }
@@ -156,17 +155,17 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
 
                 }
                 //if the slot is not empty - swap item
-                else if (currentSlot != null && currentSlot.heldItem != null)
+                else if (_currentSlot != null && _currentSlot.heldItem != null)
                 {
-                    if (Swapable(currentSlot, draggedObject) && Swapable(LastSlotPosition, currentSlot.heldItem))
+                    if (Swapable(_currentSlot, _draggedObject) && Swapable(_lastSlotPosition, _currentSlot.heldItem))
                     {
                         RefreshSwapScale();
                         SwapItemPosition();
 
-                        if (currentSlot == WeaponSlots[EquipedSlotIndex])
-                            SwapEquipedSlot(LastSlotPosition, currentSlot);
-                        else if (LastSlotPosition == WeaponSlots[EquipedSlotIndex])
-                            SwapEquipedSlot(currentSlot, LastSlotPosition);
+                        if (_currentSlot == WeaponSlots[EquipedSlotIndex])
+                            SwapEquipedSlot(_lastSlotPosition, _currentSlot);
+                        else if (_lastSlotPosition == WeaponSlots[EquipedSlotIndex])
+                            SwapEquipedSlot(_currentSlot, _lastSlotPosition);
                     }
                     else
                     {
@@ -183,12 +182,12 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
                 //drop the item on the map
                 else
                 {
-                    Drop(LastSlotPosition);
+                    Drop(_lastSlotPosition);
                 }
 
-                draggedObject = null;
-                DropPanel.raycastTarget = false;
-                inventoryPanel.raycastTarget = false;
+                _draggedObject = null;
+                _dropPanel.raycastTarget = false;
+                _inventoryPanel.raycastTarget = false;
             }
         }
     }
@@ -202,7 +201,7 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
         {
             nextStoredObject.transform.localScale = nextWeaponSlot.transform.localScale;
             GameObject equipedObject = nextStoredObject.GetComponent<InventoryItem>().displayedItem.prefab;
-            objectSpawner.SpawnObjectAndUpdateRpc(equipedObject, PlayerState.gameObject.transform.position, new Quaternion(), InstanceFinder.ClientManager.Connection, ItemManager.gameObject);
+            _objectSpawner.SpawnObjectAndUpdateRpc(equipedObject, PlayerState.gameObject.transform.position, new Quaternion(), InstanceFinder.ClientManager.Connection, ItemManager.gameObject);
             equipedObject.transform.position = PlayerState.gameObject.transform.position;
         }
 
@@ -236,41 +235,41 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
 
     private void SwapItemPosition()
     {
-        LastSlotPosition.GetComponent<InventorySlots>().SetHeldItem(currentSlot.heldItem);
-        currentSlot.SetHeldItem(draggedObject);
+        _lastSlotPosition.GetComponent<InventorySlots>().SetHeldItem(_currentSlot.heldItem);
+        _currentSlot.SetHeldItem(_draggedObject);
     }
 
     private void PlaceItem()
     {
-        currentSlot.SetHeldItem(draggedObject);
-        LastSlotPosition.heldItem = null;
+        _currentSlot.SetHeldItem(_draggedObject);
+        _lastSlotPosition.heldItem = null;
     }
 
     private void PlaceLastSlotPosition()
     {
-        LastSlotPosition.SetHeldItem(draggedObject);
+        _lastSlotPosition.SetHeldItem(_draggedObject);
     }
 
     private void RefreshScale()
     {
-        Vector3 draggedObjectScale = draggedObject.transform.localScale;
-        Vector3 currentSlotScale = currentSlot.transform.localScale;
+        Vector3 draggedObjectScale = _draggedObject.transform.localScale;
+        Vector3 currentSlotScale = _currentSlot.transform.localScale;
 
         if (draggedObjectScale != currentSlotScale)
         {
-            draggedObject.transform.localScale = currentSlotScale;
+            _draggedObject.transform.localScale = currentSlotScale;
         }
     }
 
     private void RefreshSwapScale()
     {
-        Vector3 draggedObjectScale = draggedObject.transform.localScale;
-        Vector3 currentSlotScale = currentSlot.transform.localScale;
+        Vector3 draggedObjectScale = _draggedObject.transform.localScale;
+        Vector3 currentSlotScale = _currentSlot.transform.localScale;
 
         if (draggedObjectScale != currentSlotScale)
         {
-            draggedObject.transform.localScale = currentSlotScale;
-            currentSlot.heldItem.transform.localScale = draggedObjectScale;
+            _draggedObject.transform.localScale = currentSlotScale;
+            _currentSlot.heldItem.transform.localScale = draggedObjectScale;
         }
     }
 
@@ -278,7 +277,7 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
     {
         GameObject spawnedItemPrefab = spawnedItem.GetComponent<InventoryItem>().displayedItem.prefab;
         Vector3 spawnPosition = GameObject.FindWithTag("Player").transform.position;
-        objectSpawner.SpawnWeapons(spawnedItemPrefab, spawnPosition, Quaternion.identity);
+        _objectSpawner.SpawnWeapons(spawnedItemPrefab, spawnPosition, Quaternion.identity);
     }
 
     private void Drop(InventorySlots slot)
@@ -288,8 +287,8 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
 
         if (slot.heldItem == null)
         {
-            itemName = draggedObject.GetComponent<InventoryItem>().displayedItem.prefab.tag;
-            destroyedInventoryItem = draggedObject;
+            itemName = _draggedObject.GetComponent<InventoryItem>().displayedItem.prefab.tag;
+            destroyedInventoryItem = _draggedObject;
         }
         else
         {
@@ -332,9 +331,10 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
     private void DropImplant(InventorySlots slot)
     {
         GameObject implant;
-        if(slot.heldItem == null) implant = draggedObject.GetComponent<InventoryItem>().displayedItem.prefab;
+        if(slot.heldItem == null) implant = _draggedObject.GetComponent<InventoryItem>().displayedItem.prefab;
         else implant = slot.heldItem.GetComponent<InventoryItem>().displayedItem.prefab;
         implant.GetComponent<ImplantScript>().Drop();
+        _descriptionManager.UpdateImplantSet();
     }
 
     private void DropItem(InventorySlots slot){

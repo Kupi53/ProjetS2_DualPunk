@@ -3,20 +3,19 @@ using UnityEngine.UI;
 
 public class InventoryItem : MonoBehaviour
 {
-    [SerializeField] Image IconImage;
-
+    [SerializeField] private Image _iconImage;
+    private DescriptionManager _descriptionManager => GameObject.Find("InventoryManager").GetComponent<DescriptionManager>();
     public InventoryItemData displayedItem;
-
     public GameObject description => transform.GetChild(0).gameObject;
-    private GameObject stackIcon => transform.GetChild(3).gameObject;
+
     
 
     void Start()
     {
         TextSetup();
-        ActiveStack();
         description.SetActive(false);
-        IconImage.sprite = displayedItem.icon;
+        _iconImage.sprite = displayedItem.icon;
+        
         Canvas.ForceUpdateCanvases();
     }
 
@@ -24,11 +23,10 @@ public class InventoryItem : MonoBehaviour
     {
         DescriptionPanel descriptionPanel = description.GetComponent<DescriptionPanel>();
         descriptionPanel.SetText(displayedItem.name, displayedItem.description);
-    }
 
-    private void ActiveStack()
-    {
-        if (displayedItem.prefab.tag == "Item")
-            stackIcon.SetActive(true);
+        if (displayedItem.prefab.tag == "Implant"){
+            descriptionPanel.SetImplantText(displayedItem.setName, displayedItem.setItems);
+            _descriptionManager.UpdateImplantSet();
+        }
     }
 }

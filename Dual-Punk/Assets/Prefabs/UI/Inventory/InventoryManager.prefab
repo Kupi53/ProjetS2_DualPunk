@@ -495,6 +495,41 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   heldItem: {fileID: 0}
+--- !u!1 &510133142047725533
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5521337430911808498}
+  m_Layer: 5
+  m_Name: ImplantItems
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &5521337430911808498
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 510133142047725533}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2468064966390023359}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 96, y: 0}
+  m_SizeDelta: {x: 20, y: 5}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &749925779617010744
 GameObject:
   m_ObjectHideFlags: 0
@@ -3235,12 +3270,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a27024cc8b75b4418cc364547943a14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DropPanel: {fileID: 2889845201471857076}
-  inventoryPanel: {fileID: 3995730746709750748}
+  _dropPanel: {fileID: 2889845201471857076}
+  _inventoryPanel: {fileID: 3995730746709750748}
   WeaponSlots:
   - {fileID: 1237541623210663338}
   - {fileID: 3492204530287379658}
   - {fileID: 5142558431195680777}
+  PlayerState: {fileID: 0}
+  ItemManager: {fileID: 0}
   EquipedSlotIndex: 0
   selectedSlotActiveness: 0
   swapping: 0
@@ -3256,16 +3293,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b40488e8b10eec46afabced658f2cde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponSlots:
+  _weaponSlots:
   - {fileID: 2824566372976108262}
   - {fileID: 461773093303516038}
   - {fileID: 8160601756605198149}
-  implantSlots:
+  _implantSlots:
   - {fileID: 2114872351381786818}
   - {fileID: 7703683729356412800}
   - {fileID: 3426141136109232016}
   - {fileID: 2111773673313271199}
-  consummableSlots:
+  _consummableSlots:
   - {fileID: 2027423820212822756}
   - {fileID: 7293248373960361303}
   - {fileID: 5004042361863291903}
@@ -3283,7 +3320,7 @@ MonoBehaviour:
   - {fileID: 3957884350583081589}
   - {fileID: 7821824737886191543}
   - {fileID: 5910613247910077551}
-  inventoryItemPrefab: {fileID: 4252539774606866288, guid: 12b50c4db90930e4abf5d7ca449a116f, type: 3}
+  _inventoryItemPrefab: {fileID: 4252539774606866288, guid: 12b50c4db90930e4abf5d7ca449a116f, type: 3}
 --- !u!114 &169908118652730382
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3296,6 +3333,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e98636589fd105b4b999d34e59528d05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _implantSlots:
+  - {fileID: 6698746156081785036}
+  - {fileID: 3118681825737863054}
+  - {fileID: 1842632641763778780}
+  - {fileID: 3121213746633081555}
 --- !u!114 &644039601664152754
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4908,6 +4950,7 @@ RectTransform:
   - {fileID: 7625900173569474731}
   - {fileID: 2802690288850174457}
   - {fileID: 4213819346513369017}
+  - {fileID: 5521337430911808498}
   m_Father: {fileID: 622794418055284187}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -4966,7 +5009,7 @@ GameObject:
   - component: {fileID: 7975360338951628063}
   - component: {fileID: 6698746156081785036}
   m_Layer: 5
-  m_Name: ExoSqueleton
+  m_Name: Body
   m_TagString: InventorySlot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

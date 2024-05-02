@@ -6,12 +6,12 @@ using UnityEngine;
 
 public class InventoryPickItem : MonoBehaviour 
 {
-    [SerializeField] GameObject[] weaponSlots = new GameObject[3];
-    [SerializeField] GameObject[] implantSlots = new GameObject [4];
-    [SerializeField] GameObject[] consummableSlots = new GameObject[18];
-    [SerializeField] GameObject inventoryItemPrefab;
-
-    private int EquipedSlotIndex => GetComponent<InventoryManager>().EquipedSlotIndex;
+    [SerializeField] private GameObject[] _weaponSlots = new GameObject[3];
+    [SerializeField] private GameObject[] _implantSlots = new GameObject [4];
+    [SerializeField] private GameObject[] _consummableSlots = new GameObject[18];
+    [SerializeField] private GameObject _inventoryItemPrefab;
+    private DescriptionManager _descriptionManager => GetComponent<DescriptionManager>();
+    private int _equipedSlotIndex => GetComponent<InventoryManager>().EquipedSlotIndex;
 
     public void ItemPicked(GameObject pickedItem)
     {
@@ -20,10 +20,10 @@ public class InventoryPickItem : MonoBehaviour
 
         switch(Tag){
             case "Consummable" :
-                emptySlot = FindEmptySlot(consummableSlots);
+                emptySlot = FindEmptySlot(_consummableSlots);
                 break;
             case "Weapon" :
-                emptySlot = FindEmptySlot(weaponSlots);
+                emptySlot = FindEmptySlot(_weaponSlots);
                 break;
             case "Implant" :
                 emptySlot = FindImplantSlot(pickedItem.GetComponent<ImplantScript>());
@@ -34,19 +34,20 @@ public class InventoryPickItem : MonoBehaviour
 
         if (emptySlot != null)
         {
-            GameObject newItem = Instantiate(inventoryItemPrefab);
+            GameObject newItem = Instantiate(_inventoryItemPrefab);
 
-            //enregistre le prefab de displayed item car displayed item sera detruit juste en dessous
             newItem.GetComponent<InventoryItem>().displayedItem = pickedItem.GetComponent<PickableItem>().itemData;
             newItem.GetComponent<InventoryItem>().displayedItem.prefab = pickedItem;
 
             newItem.transform.SetParent(emptySlot.transform.parent.parent.GetChild(4));
+
             newItem.transform.localScale = emptySlot.transform.localScale;
-            
             emptySlot.GetComponent<InventorySlots>().SetHeldItem(newItem);
 
+            
+
             if (pickedItem.tag == "Weapon") {
-                if (weaponSlots[EquipedSlotIndex] != emptySlot) {
+                if (_weaponSlots[_equipedSlotIndex] != emptySlot) {
                     pickedItem.SetActive(false);
                 }
             }
@@ -70,20 +71,21 @@ public class InventoryPickItem : MonoBehaviour
         return res;
     }
 
+    //Find the implant's slot corresponding to the implant type
     public GameObject FindImplantSlot(ImplantScript implantPrefab){
         GameObject res = null;
         switch(implantPrefab.Type){
             case ImplantType.Neuralink:
-                res = implantSlots[0];
+                res = _implantSlots[0];
                 break;
             case ImplantType.ExoSqueleton:
-                res = implantSlots[1];
+                res = _implantSlots[1];
                 break;
             case ImplantType.Arm:
-                res = implantSlots[2];
+                res = _implantSlots[2];
                 break;
             case ImplantType.Boots:
-                res = implantSlots[3];
+                res = _implantSlots[3];
                 break;
         }
         return res;

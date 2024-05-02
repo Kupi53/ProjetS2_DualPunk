@@ -24,7 +24,6 @@ public class ImplantController : MonoBehaviour
     void Update(){
         foreach (var implant in _implants){
             if (implant != null){
-                Debug.Log(implant.Type.ToString());
                 implant.Run();
             }
         }
