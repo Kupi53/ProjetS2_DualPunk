@@ -25,7 +25,6 @@ public class Speed : ImplantScript
     void Awake()
     {
         Type = ImplantType.Boots;
-        SetNumber = 1;
     }
     
     public override void Run()
