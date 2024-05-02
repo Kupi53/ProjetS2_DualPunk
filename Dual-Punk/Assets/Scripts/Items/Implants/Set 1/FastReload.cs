@@ -13,7 +13,6 @@ public class FastReload : ImplantScript
     [SerializeField] protected float _speedReloadTime;
 
     private GameObject _holdModifiedWeapon;
-    private float _holdReloadTime;
 
     void Awake()
     {
@@ -33,14 +32,12 @@ public class FastReload : ImplantScript
                     if (_holdModifiedWeapon == null)
                     {
                         _holdModifiedWeapon = fireArmScript.gameObject;
-                        _holdReloadTime = fireArmScript.ReloadTime;
                     }
                     else
                     {
-                        _holdModifiedWeapon.GetComponent<FireArmScript>().ReloadTime = _holdReloadTime;
+                        _holdModifiedWeapon.GetComponent<FireArmScript>().ReloadTime *= _speedReloadTime;
 
                         _holdModifiedWeapon = fireArmScript.gameObject;
-                        _holdReloadTime = fireArmScript.ReloadTime;
                     }
 
                     fireArmScript.ReloadTime /= _speedReloadTime;
@@ -48,7 +45,7 @@ public class FastReload : ImplantScript
             }
             else if (_holdModifiedWeapon != null)
             {
-                _holdModifiedWeapon.GetComponent<FireArmScript>().ReloadTime = _holdReloadTime;
+                _holdModifiedWeapon.GetComponent<FireArmScript>().ReloadTime *= _speedReloadTime;
 
                 _holdModifiedWeapon = null;
             }
@@ -60,7 +57,7 @@ public class FastReload : ImplantScript
     {
         if (_holdModifiedWeapon != null)
         {
-            _holdModifiedWeapon.GetComponent<FireArmScript>().ReloadTime = _holdReloadTime;
+            _holdModifiedWeapon.GetComponent<FireArmScript>().ReloadTime *= _speedReloadTime;
         }
 
         _holdModifiedWeapon = null;

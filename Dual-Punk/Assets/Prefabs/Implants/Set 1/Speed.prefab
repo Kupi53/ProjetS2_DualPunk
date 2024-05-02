@@ -11,14 +11,14 @@ GameObject:
   - component: {fileID: 6331159119838568980}
   - component: {fileID: 843888973211852406}
   - component: {fileID: 1550963670199151827}
-  - component: {fileID: 9146159375856283735}
+  - component: {fileID: -7259718587184147100}
   - component: {fileID: -4059473331583019238}
   - component: {fileID: -218940236388108346}
   - component: {fileID: -1078616929798017896}
   - component: {fileID: -4858495041066962261}
   - component: {fileID: 8206352670867136053}
   m_Layer: 7
-  m_Name: Regeneration
+  m_Name: Speed
   m_TagString: Implant
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -80,7 +80,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 333e595c67e4e44459ea6f93653d0ad9, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3508ed2c1a0591c49a63d7f7d98cfbbd, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -126,8 +126,8 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0.27}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.2}
-    oldSize: {x: 1.53, y: 1.76}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.69, y: 0.69}
     newSize: {x: 0.9, y: 1.0352942}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -136,7 +136,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.75, y: 0.9}
   m_EdgeRadius: 0
---- !u!114 &9146159375856283735
+--- !u!114 &-7259718587184147100
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -145,14 +145,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1420957003867560970}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e4a3e74c542772e45997ba870123260b, type: 3}
+  m_Script: {fileID: 11500000, guid: 2005d60fec06bf544972e5bbd71a63b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _componentIndexCache: 0
   _addedNetworkObject: {fileID: -218940236388108346}
   _networkObjectCache: {fileID: -218940236388108346}
-  _quantity: 2
-  _delay: 1
+  _speedMultiplier: 2
 --- !u!114 &-4059473331583019238
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -165,10 +164,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 758d5ccc253c2f04f8451e29ebbfa99f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  normal: {fileID: 21300000, guid: 333e595c67e4e44459ea6f93653d0ad9, type: 3}
-  highlighted: {fileID: 21300000, guid: 4e3c1595103b00a488cd0b28702374ca, type: 3}
+  normal: {fileID: 21300000, guid: 3508ed2c1a0591c49a63d7f7d98cfbbd, type: 3}
+  highlighted: {fileID: 21300000, guid: 1cd602103cbd02e41ba18d2e956d5f69, type: 3}
   spriteRenderer: {fileID: 843888973211852406}
-  selectedWeapon: 0
+  selected: 0
 --- !u!114 &-218940236388108346
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -185,7 +184,7 @@ MonoBehaviour:
   <ComponentIndex>k__BackingField: 0
   <PredictedSpawn>k__BackingField: {fileID: 0}
   _networkBehaviours:
-  - {fileID: 9146159375856283735}
+  - {fileID: -7259718587184147100}
   - {fileID: -1078616929798017896}
   <ParentNetworkObject>k__BackingField: {fileID: 0}
   <ChildNetworkObjects>k__BackingField: []
@@ -198,11 +197,11 @@ MonoBehaviour:
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 6
+  <PrefabId>k__BackingField: 34
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0
-  <AssetPathHash>k__BackingField: 3368472617119766138
+  <AssetPathHash>k__BackingField: 15474106067709999300
 --- !u!114 &-1078616929798017896
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -275,4 +274,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71eb8b037ef4d2843bdf7ae083f038ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemData: {fileID: 11400000, guid: b1f65c8c4cc587346b17d87f7fb261de, type: 2}
+  itemData: {fileID: 11400000, guid: a33954b742390d14bbe10a77c25e4bd1, type: 2}
