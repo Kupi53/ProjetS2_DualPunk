@@ -10,7 +10,7 @@ using FishNet.Demo.AdditiveScenes;
 
 public class RegenerationImplant : ImplantScript
 {
-    private HealthManager _healthManager
+    private HealthManager HealthManager
     {
         get 
         {
@@ -24,7 +24,7 @@ public class RegenerationImplant : ImplantScript
 
     void Awake()
     {
-        Type = ImplantType.Neuralink;
+        Type = ImplantType.ExoSqueleton;
     }
     
     public override void Run()
@@ -50,7 +50,7 @@ public class RegenerationImplant : ImplantScript
     {
         while (IsEquipped)
         {
-            _healthManager.Heal(_quantity, 0f);
+            HealthManager.Heal(_quantity, 0f);
 
             yield return new WaitForSeconds(_delay);
         }

@@ -83,8 +83,8 @@ public class EnnemyState : NetworkBehaviour
         if (!IsServer) return;
 
         // Générer un nouveau chemin vers la position du joueur
-        player1 = null;
-        player2 = null;
+        player1 = GameObject.Find("Player1(Clone)");
+        player2 = GameObject.Find("Player2(Clone)");
         
         if (player1 != null && player2 != null)
         {

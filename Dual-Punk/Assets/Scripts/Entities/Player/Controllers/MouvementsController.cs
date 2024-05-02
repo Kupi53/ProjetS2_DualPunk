@@ -13,7 +13,26 @@ public class MouvementsController : NetworkBehaviour, IImpact
     // Nombres decimaux pour controller la vitesse de marche, course et de dash
     [SerializeField] private float _crawlSpeed;
     [SerializeField] private float _walkSpeed;
+
+    public float WalkSpeed
+    {
+        get { return _walkSpeed; }
+        set { _walkSpeed = value; }
+    }
+
     [SerializeField] private float _sprintSpeed;
+
+    public void Awake()
+    {
+        
+    }
+
+    public float SprintSpeed
+    {
+        get { return _sprintSpeed; }
+        set { _sprintSpeed = value; }
+    }
+
     [SerializeField] private float _dashSpeed;
     [SerializeField] private float _dashTime;
     [SerializeField] private float _dashCooldown;
