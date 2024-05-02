@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: -4858495041066962261}
   - component: {fileID: 8206352670867136053}
   m_Layer: 7
-  m_Name: AceOfTheTriggerImplant
+  m_Name: AceOfTheTrigger
   m_TagString: Implant
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -201,7 +201,7 @@ MonoBehaviour:
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0
-  <AssetPathHash>k__BackingField: 16373205242006782702
+  <AssetPathHash>k__BackingField: 14093254953789577346
 --- !u!114 &-1078616929798017896
 MonoBehaviour:
   m_ObjectHideFlags: 0
