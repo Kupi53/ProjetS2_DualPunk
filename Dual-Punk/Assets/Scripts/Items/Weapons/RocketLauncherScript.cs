@@ -27,6 +27,19 @@ public class RocketLauncherScript : FireArmScript
         for (int i = 0; i < _bulletNumber; i++)
         {
             GameObject rocket = Instantiate(_bullet, _gunEndPoints[_bulletPointIndex].transform.position, Quaternion.identity);
+
+            if (_warriorLuckBullet)
+            {
+                SpriteRenderer bulletRenderer = rocket.GetComponent<SpriteRenderer>();
+
+                if (bulletRenderer != null)
+                {
+                    bulletRenderer.color = new Color(255f, 0f, 0f, 255f);
+                }
+
+                _warriorLuckBullet = false;
+            }
+
             RocketScript rocketScript = rocket.GetComponent<RocketScript>();
 
             _bulletPointIndex = (_bulletPointIndex + 1) % _gunEndPoints.Length;

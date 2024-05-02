@@ -69,9 +69,22 @@ public class ChargeWeaponScript : FireArmScript
                     _audioSource.Stop();
                     float multiplier = _chargeTimer / _chargeTime;
 
-                    Fire(direction, (int)GetProgressingFactor(multiplier, _minDamage, _damage), GetProgressingFactor(multiplier, _minSpeed, _bulletSpeed),
-                        GetProgressingFactor(multiplier, _minSize, _bulletSize), GetProgressingFactor(multiplier, _minImpact, _impactForce),
-                        _dispersion, (int)(multiplier * _collisionsAllowed));
+                    int randomNumber = UnityEngine.Random.Range(0, DropPercentage);
+
+                    if (WarriorLuck && randomNumber == 0)
+                    {
+                        Fire(direction, (int)GetProgressingFactor(multiplier, _minDamage, _damage * DamageMultiplier), GetProgressingFactor(multiplier, _minSpeed, _bulletSpeed),
+                            GetProgressingFactor(multiplier, _minSize, _bulletSize), GetProgressingFactor(multiplier, _minImpact, _impactForce),
+                            _dispersion, (int)(multiplier * _collisionsAllowed));
+                            
+                        _warriorLuckBullet = true;
+                    }
+                    else
+                    {
+                        Fire(direction, (int)GetProgressingFactor(multiplier, _minDamage, _damage), GetProgressingFactor(multiplier, _minSpeed, _bulletSpeed),
+                            GetProgressingFactor(multiplier, _minSize, _bulletSize), GetProgressingFactor(multiplier, _minImpact, _impactForce),
+                            _dispersion, (int)(multiplier * _collisionsAllowed));
+                    }
 
                     PlayerRecoil.Impact(-direction, GetProgressingFactor(multiplier, _minRecoil, _recoilForce));
                     PlayerState.CameraController.ShakeCamera(_cameraShake, 0.1f);

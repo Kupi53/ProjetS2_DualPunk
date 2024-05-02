@@ -52,6 +52,14 @@ public class FireArmScript : WeaponScript
     private float _reloadTimer;
     protected float _fireTimer;
 
+
+    // Nécessaire pour l'implant qui multiplie les dégâts de certaines munitions
+    public bool WarriorLuck = false;
+    public int DamageMultiplier = 1;
+    public int DropPercentage = 1;
+    public bool _warriorLuckBullet;
+
+
     public int AmmoLeft { get => _ammoLeft; set => _ammoLeft = value; }
     public override bool DisplayInfo { get => _reloading; }
     public override float InfoMaxTime { get => _reloadTime; }
@@ -93,7 +101,18 @@ public class FireArmScript : WeaponScript
                 _reloading = false;
             }
 
-            Fire(direction, _damage, _bulletSpeed, _bulletSize, _impactForce, _dispersion, _collisionsAllowed);
+            int randomNumber = UnityEngine.Random.Range(0, DropPercentage);
+
+            if (WarriorLuck && randomNumber == 0)
+            {
+                Fire(direction, _damage * DamageMultiplier, _bulletSpeed, _bulletSize, _impactForce, _dispersion, _collisionsAllowed);
+                _warriorLuckBullet = true;
+            }
+            else
+            {
+                Fire(direction, _damage, _bulletSpeed, _bulletSize, _impactForce, _dispersion, _collisionsAllowed);
+            }
+
 
             PlayerRecoil.Impact(-direction, _recoilForce);
             PlayerState.CameraController.ShakeCamera(_cameraShake, 0.1f);
@@ -164,6 +183,17 @@ public class FireArmScript : WeaponScript
         for (int i = 0; i < _bulletNumber; i++)
         {
             GameObject newBullet = Instantiate(_bullet, _gunEndPoints[_bulletPointIndex].transform.position, Quaternion.identity);
+
+            if (_warriorLuckBullet)
+            {
+                SpriteRenderer bulletRenderer = newBullet.GetComponent<SpriteRenderer>();
+
+                if (bulletRenderer != null)
+                {
+                    bulletRenderer.color = new Color(255f, 0f, 0f, 255f);
+                }
+            }
+            
             BulletScript bulletScript = newBullet.GetComponent<BulletScript>();
 
             _bulletPointIndex = (_bulletPointIndex + 1) % _gunEndPoints.Length;
@@ -173,5 +203,7 @@ public class FireArmScript : WeaponScript
             bulletScript.Setup(newDirection, damage, bulletSpeed, impactForce, collisionsAllowed);
             Spawn(newBullet);
         }
+
+        _warriorLuckBullet = false;
     }
 }
