@@ -25,6 +25,7 @@ public class RegenerationImplant : ImplantScript
     void Awake()
     {
         Type = ImplantType.ExoSqueleton;
+        SetNumber = 1;
     }
     
     public override void Run()

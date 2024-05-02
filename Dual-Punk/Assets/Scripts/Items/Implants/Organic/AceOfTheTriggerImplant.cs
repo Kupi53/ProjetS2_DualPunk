@@ -13,11 +13,11 @@ public class AceOfTheTrigger : ImplantScript
     [SerializeField] protected float _speedFireRate;
 
     private GameObject _holdModifiedWeapon;
-    private float _holfFireRate;
 
     void Awake()
     {
         Type = ImplantType.Neuralink;
+        SetNumber = 1;
     }
 
     public override void Run()
@@ -33,14 +33,12 @@ public class AceOfTheTrigger : ImplantScript
                     if (_holdModifiedWeapon == null)
                     {
                         _holdModifiedWeapon = fireArmScript.gameObject;
-                        _holfFireRate = fireArmScript.FireRate;
                     }
                     else
                     {
-                        _holdModifiedWeapon.GetComponent<FireArmScript>().FireRate = _holfFireRate;
+                        _holdModifiedWeapon.GetComponent<FireArmScript>().FireRate *= _speedFireRate;
 
                         _holdModifiedWeapon = fireArmScript.gameObject;
-                        _holfFireRate = fireArmScript.FireRate;
                     }
 
                     fireArmScript.FireRate /= _speedFireRate;
@@ -48,7 +46,7 @@ public class AceOfTheTrigger : ImplantScript
             }
             else if (_holdModifiedWeapon != null)
             {
-                _holdModifiedWeapon.GetComponent<FireArmScript>().FireRate = _holfFireRate;
+                _holdModifiedWeapon.GetComponent<FireArmScript>().FireRate *= _speedFireRate;
 
                 _holdModifiedWeapon = null;
             }
@@ -60,7 +58,7 @@ public class AceOfTheTrigger : ImplantScript
     {
         if (_holdModifiedWeapon != null)
         {
-            _holdModifiedWeapon.GetComponent<FireArmScript>().FireRate = _holfFireRate;
+            _holdModifiedWeapon.GetComponent<FireArmScript>().FireRate *= _speedFireRate;
         }
 
         _holdModifiedWeapon = null;

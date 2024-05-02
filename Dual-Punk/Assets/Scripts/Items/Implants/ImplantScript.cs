@@ -12,7 +12,8 @@ public abstract class ImplantScript : NetworkBehaviour
 {
     public PlayerState PlayerState { get; set; }
     public bool IsEquipped { get; set; } = false;
-    public ImplantType Type {get; protected set;}
+    public ImplantType Type { get; protected set; }
+    public int? SetNumber { get; protected set; }
     
     protected SpriteRenderer _spriteRenderer;
     protected ObjectSpawner _objectSpawner;
@@ -24,6 +25,7 @@ public abstract class ImplantScript : NetworkBehaviour
     public void Drop()
     {
         ResetImplant();
+
         switch(Type)
         {
             case ImplantType.Neuralink:
@@ -39,6 +41,7 @@ public abstract class ImplantScript : NetworkBehaviour
                 PlayerState.gameObject.GetComponent<ImplantController>().BootsImplant = null;
                 break;
         }
+
         IsEquipped = false;
         transform.position = PlayerState.transform.position;
         transform.rotation = Quaternion.identity;

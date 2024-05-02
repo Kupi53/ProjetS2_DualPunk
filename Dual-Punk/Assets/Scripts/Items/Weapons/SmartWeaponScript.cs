@@ -99,6 +99,19 @@ public class SmartWeaponScript : FireArmScript
         for (int i = 0; i < _bulletNumber; i++)
         {
             GameObject newBullet = Instantiate(_bullet, _gunEndPoints[_bulletPointIndex].transform.position, Quaternion.identity);
+
+            if (_warriorLuckBullet)
+            {
+                SpriteRenderer bulletRenderer = newBullet.GetComponent<SpriteRenderer>();
+
+                if (bulletRenderer != null)
+                {
+                    bulletRenderer.color = new Color(255f, 0f, 0f, 255f);
+                }
+
+                _warriorLuckBullet = false;
+            }
+            
             SeekingBulletScript bulletScript = newBullet.GetComponent<SeekingBulletScript>();
 
             _bulletPointIndex = (_bulletPointIndex + 1) % _gunEndPoints.Length;

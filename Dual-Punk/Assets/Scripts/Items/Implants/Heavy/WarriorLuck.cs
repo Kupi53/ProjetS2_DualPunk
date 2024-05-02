@@ -8,15 +8,17 @@ using Unity.VisualScripting;
 using FishNet.Object;
 using FishNet.Demo.AdditiveScenes;
 
-public class FastReload : ImplantScript
+public class WarriorLuck : ImplantScript
 {
-    [SerializeField] protected float _speedReloadTime;
+    [SerializeField] protected int _damageMultiplier;
+    [SerializeField] protected int _dropPercentage;
 
     private GameObject _holdModifiedWeapon;
 
     void Awake()
     {
-        Type = ImplantType.Arm;
+        Type = ImplantType.Neuralink;
+        SetNumber = 2;
     }
 
     public override void Run()
@@ -35,17 +37,23 @@ public class FastReload : ImplantScript
                     }
                     else
                     {
-                        _holdModifiedWeapon.GetComponent<FireArmScript>().ReloadTime *= _speedReloadTime;
+                        _holdModifiedWeapon.GetComponent<FireArmScript>().DropPercentage = 1;
+                        _holdModifiedWeapon.GetComponent<FireArmScript>().DamageMultiplier = 1;
+                        _holdModifiedWeapon.GetComponent<FireArmScript>().WarriorLuck = false;
 
                         _holdModifiedWeapon = fireArmScript.gameObject;
                     }
 
-                    fireArmScript.ReloadTime /= _speedReloadTime;
+                    fireArmScript.DropPercentage = _dropPercentage;
+                    fireArmScript.DamageMultiplier = _damageMultiplier;
+                    fireArmScript.WarriorLuck = true;
                 }
             }
             else if (_holdModifiedWeapon != null)
             {
-                _holdModifiedWeapon.GetComponent<FireArmScript>().ReloadTime *= _speedReloadTime;
+                _holdModifiedWeapon.GetComponent<FireArmScript>().DropPercentage = 1;
+                _holdModifiedWeapon.GetComponent<FireArmScript>().DamageMultiplier = 1;
+                _holdModifiedWeapon.GetComponent<FireArmScript>().WarriorLuck = false;
 
                 _holdModifiedWeapon = null;
             }
@@ -57,10 +65,14 @@ public class FastReload : ImplantScript
     {
         if (_holdModifiedWeapon != null)
         {
-            _holdModifiedWeapon.GetComponent<FireArmScript>().ReloadTime *= _speedReloadTime;
+            _holdModifiedWeapon.GetComponent<FireArmScript>().DropPercentage = 1;
+            _holdModifiedWeapon.GetComponent<FireArmScript>().DamageMultiplier = 1;
+            _holdModifiedWeapon.GetComponent<FireArmScript>().WarriorLuck = false;
         }
 
         _holdModifiedWeapon = null;
         RemoveAllOwnerShipRPC(GetComponent<NetworkObject>());
     }
+
+    
 }
