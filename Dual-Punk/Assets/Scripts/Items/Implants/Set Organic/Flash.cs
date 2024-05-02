@@ -8,7 +8,7 @@ using Unity.VisualScripting;
 using FishNet.Object;
 using FishNet.Demo.AdditiveScenes;
 
-public class Speed : ImplantScript
+public class Flash : ImplantScript
 {
     [SerializeField] protected float _speedMultiplier;
 

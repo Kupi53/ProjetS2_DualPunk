@@ -8,7 +8,7 @@ using Unity.VisualScripting;
 using FishNet.Object;
 using FishNet.Demo.AdditiveScenes;
 
-public class FastReload : ImplantScript
+public class CrazyFire : ImplantScript
 {
     [SerializeField] protected float _speedReloadTime;
 

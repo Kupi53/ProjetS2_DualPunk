@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bb4d4ad9335e54a4aa04976f4584bb33, type: 3}
-  m_Name: Speed
+  m_Name: Flash
   m_EditorClassIdentifier: 
   name: Flash
   prefab: {fileID: 1420957003867560970, guid: 4316d9777b3346a45967d1e9d6ba0a6f, type: 3}
