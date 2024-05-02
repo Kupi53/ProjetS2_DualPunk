@@ -1,6 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using FishNet.Managing.Client;
+using FishNet.Managing.Server;
+using FishNet.Object;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -11,7 +14,7 @@ public enum FloorType{
 }
 
 
-public class FloorManager : MonoBehaviour
+public class FloorManager : NetworkBehaviour
 {
     public static FloorManager Instance;
     public Floor CurrentFloor;
@@ -31,23 +34,27 @@ public class FloorManager : MonoBehaviour
     private int _maxRoomAmount = 9;
 
 
-    //
-
-    void Awake(){
+    // le serveur spawn et definit l'instance du floormanager
+    void Awake()
+    {
         Instance = this;
     }
-    void Start(){
-        NewFloor(FloorType.City);
-        //PrintFloor();
-    }
 
-    //
+    // pour le debug
+    void Update(){
+        if (Input.GetKeyDown(KeyCode.G)){
+            NewFloor(FloorType.City);
+        }
+    }
 
     // creates a floor and spawns all rooms, then returns that floor
     private Floor GenerateFloor(FloorType floorType)
     {
+        // create the parent holder
+        GameObject CurrentFloorHolder = new GameObject("CurrentFloorHolder");
         // create the new floor
         Floor floor = new Floor(floorType);
+        floor.FloorHolderObject = CurrentFloorHolder;
         // pick the amount of rooms
         int roomAmount = UnityEngine.Random.Range(_minRoomAmount, _maxRoomAmount+1);
         // add rooms
@@ -57,6 +64,7 @@ public class FloorManager : MonoBehaviour
             int roomPrefabId = UnityEngine.Random.Range(0, floor.RoomPrefabs.Length);
             // instantiate the room
             GameObject newRoomObject = Instantiate(CityRoomPrefabs[roomPrefabId]);
+            newRoomObject.transform.SetParent(CurrentFloorHolder.transform);
             // setup the gameobject's name
             if (i == 0)
             {
@@ -90,6 +98,8 @@ public class FloorManager : MonoBehaviour
         return floor;
     }
 
+
+
     // Activates the new room, places the player at the entry
     public void SwitchRoom(Room newRoom)
     {
@@ -98,11 +108,37 @@ public class FloorManager : MonoBehaviour
     }
 
     // Creates a new floor and switches to it's entry room
-    private void NewFloor(FloorType floorType){
+    public void NewFloor(FloorType floorType)
+    {
+        if (!IsServer) return;
+        
+        int seed = UnityEngine.Random.Range(0,9999);
+        SeedRPC(seed);
+
+        if (CurrentFloor != null)
+        {
+            DestroyCurrentFloorRPC();
+        }
+        SwitchToNewFloorRPC(floorType);
+    }
+
+    [ObserversRpc]
+    private void SeedRPC(int seed)
+    {
+        Debug.Log("fkldjajlf");
+        UnityEngine.Random.InitState(seed);
+    }
+    [ObserversRpc]
+    private void DestroyCurrentFloorRPC()
+    {
+        CurrentFloor.DestroyHolder();
+    }
+    [ObserversRpc]
+    private void SwitchToNewFloorRPC(FloorType floorType)
+    {
         CurrentFloor = GenerateFloor(floorType);
         SwitchRoom(CurrentFloor.Entry);
     }
-
     // For testing purposes, Goes through the _currentFloor and converts attributes to a string, then debug.logs it
 /*
     private void PrintFloor()

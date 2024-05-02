@@ -10,7 +10,7 @@ public class Floor
     { 
         get 
         {
-            switch (_floorType){
+            switch (FloorType){
                 case FloorType.City:
                     return FloorManager.Instance.CityRoomPrefabs;
                 case FloorType.Hangar:
@@ -22,7 +22,8 @@ public class Floor
             }
         }
     }
-    private FloorType _floorType;
+    public GameObject FloorHolderObject;
+    public FloorType FloorType;
     private int _roomAmount;
 
     //
@@ -32,7 +33,7 @@ public class Floor
         Entry = null;
         Exit = null;
         _roomAmount = 0;
-        _floorType = floorType;
+        FloorType = floorType;
     }
 
 
@@ -56,5 +57,10 @@ public class Floor
             Exit = room;
         }
         _roomAmount += 1;
+    }
+
+    public void DestroyHolder()
+    {
+        GameObject.Destroy(FloorHolderObject);
     }
 }
