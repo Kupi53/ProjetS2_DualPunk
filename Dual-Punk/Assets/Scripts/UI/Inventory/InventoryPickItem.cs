@@ -26,7 +26,7 @@ public class InventoryPickItem : MonoBehaviour
                 emptySlot = FindEmptySlot(weaponSlots);
                 break;
             case "Implant" :
-                emptySlot = FindEmptySlot(implantSlots);
+                emptySlot = FindImplantSlot(pickedItem.GetComponent<ImplantScript>());
                 break;
             default:
                 throw new System.Exception();
@@ -57,6 +57,7 @@ public class InventoryPickItem : MonoBehaviour
     public GameObject FindEmptySlot(GameObject[] slots)
     {
         GameObject res = null;
+
         for (int i = 0 ; i < slots.Length; i++)
         {
             InventorySlots Slot = slots[i].GetComponent<InventorySlots>();
@@ -65,6 +66,25 @@ public class InventoryPickItem : MonoBehaviour
                 res = slots[i];
                 break;
             }
+        }
+        return res;
+    }
+
+    public GameObject FindImplantSlot(ImplantScript implantPrefab){
+        GameObject res = null;
+        switch(implantPrefab.Type){
+            case ImplantType.Neuralink:
+                res = implantSlots[0];
+                break;
+            case ImplantType.ExoSqueleton:
+                res = implantSlots[1];
+                break;
+            case ImplantType.Arm:
+                res = implantSlots[2];
+                break;
+            case ImplantType.Boots:
+                res = implantSlots[3];
+                break;
         }
         return res;
     }

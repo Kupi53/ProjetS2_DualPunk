@@ -6,10 +6,10 @@ using UnityEngine;
 public class ImplantController : MonoBehaviour
 {
     #nullable enable
-    public ImplantScript? NeuralinkImplant {private get;set;}
-    public ImplantScript? ExoSqueletonImplant {private get;set;}
-    public ImplantScript? ArmImplant {private get;set;}
-    public ImplantScript? BootsImplant {private get;set;}
+    public ImplantScript? NeuralinkImplant {get;set;}
+    public ImplantScript? ExoSqueletonImplant {get;set;}
+    public ImplantScript? ArmImplant {get;set;}
+    public ImplantScript? BootsImplant {get;set;}
     private ImplantScript?[] _implants {
         get{
             ImplantScript?[] implants = new ImplantScript?[4];
