@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: -4858495041066962261}
   - component: {fileID: 8206352670867136053}
   m_Layer: 7
-  m_Name: FastReloadImplant
+  m_Name: CrazyFire
   m_TagString: Implant
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -201,7 +201,7 @@ MonoBehaviour:
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0
-  <AssetPathHash>k__BackingField: 10296463422584595830
+  <AssetPathHash>k__BackingField: 7956384279828345374
 --- !u!114 &-1078616929798017896
 MonoBehaviour:
   m_ObjectHideFlags: 0
