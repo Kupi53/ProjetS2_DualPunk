@@ -6,16 +6,16 @@ using UnityEngine;
 
 public class InventoryPickItem : MonoBehaviour 
 {
-    [SerializeField] private GameObject[] _weaponSlots = new GameObject[3];
-    [SerializeField] private GameObject[] _implantSlots = new GameObject [4];
-    [SerializeField] private GameObject[] _consummableSlots = new GameObject[18];
+    [SerializeField] private GameObject[] _weaponSlots;
+    [SerializeField] private GameObject[] _implantSlots;
+    [SerializeField] private GameObject[] _consummableSlots;
     [SerializeField] private GameObject _inventoryItemPrefab;
-    private DescriptionManager _descriptionManager => GetComponent<DescriptionManager>();
     private int _equipedSlotIndex => GetComponent<InventoryManager>().EquipedSlotIndex;
+
 
     public void ItemPicked(GameObject pickedItem)
     {
-        GameObject emptySlot = null;
+        GameObject emptySlot;
         string Tag = pickedItem.tag;
 
         switch(Tag){
@@ -44,50 +44,45 @@ public class InventoryPickItem : MonoBehaviour
             newItem.transform.localScale = emptySlot.transform.localScale;
             emptySlot.GetComponent<InventorySlots>().SetHeldItem(newItem);
 
-            
 
-            if (pickedItem.tag == "Weapon") {
-                if (_weaponSlots[_equipedSlotIndex] != emptySlot) {
-                    pickedItem.SetActive(false);
-                }
+            if (pickedItem.tag == "Weapon" && _weaponSlots[_equipedSlotIndex] != emptySlot)
+            {
+                pickedItem.SetActive(false);
             }
         }
     }
+
 
     //Use for each type of slot of the inventory to find if a slot is available.
     public GameObject FindEmptySlot(GameObject[] slots)
     {
-        GameObject res = null;
+        if (_weaponSlots[_equipedSlotIndex].GetComponent<InventorySlots>().heldItem == null)
+            return _weaponSlots[_equipedSlotIndex];
 
         for (int i = 0 ; i < slots.Length; i++)
         {
-            InventorySlots Slot = slots[i].GetComponent<InventorySlots>();
-
-            if (Slot.heldItem == null) {
-                res = slots[i];
-                break;
-            }
+            if (slots[i].GetComponent<InventorySlots>().heldItem == null)
+                return slots[i];
         }
-        return res;
+        return null;
     }
 
+
     //Find the implant's slot corresponding to the implant type
-    public GameObject FindImplantSlot(ImplantScript implantPrefab){
-        GameObject res = null;
-        switch(implantPrefab.Type){
+    public GameObject FindImplantSlot(ImplantScript implantPrefab)
+    {
+        switch(implantPrefab.Type)
+        {
             case ImplantType.Neuralink:
-                res = _implantSlots[0];
-                break;
+                return _implantSlots[0];
             case ImplantType.ExoSqueleton:
-                res = _implantSlots[1];
-                break;
+                return _implantSlots[1];
             case ImplantType.Arm:
-                res = _implantSlots[2];
-                break;
+                return _implantSlots[2];
             case ImplantType.Boots:
-                res = _implantSlots[3];
-                break;
+                return _implantSlots[3];
+            default:
+                return null;
         }
-        return res;
     }
 }

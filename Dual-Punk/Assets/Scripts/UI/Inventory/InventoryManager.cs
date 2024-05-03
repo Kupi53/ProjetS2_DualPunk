@@ -154,7 +154,7 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
                         else if (_lastSlotPosition == WeaponSlots[EquipedSlotIndex])
                         {
                             GameObject destroyedGameObject = PlayerState.WeaponScript.gameObject;
-                            DropWeapon(_lastSlotPosition);
+                            DropWeapon(_lastSlotPosition, null);
                             destroyedGameObject.SetActive(false);
                         }
                     }
@@ -207,25 +207,26 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
         GameObject currentStoredObject = currentWeaponSlot.heldItem; 
         GameObject nextStoredObject = nextWeaponSlot.heldItem;
 
+        if (currentStoredObject != null)
+        {
+            currentStoredObject.transform.localScale = currentWeaponSlot.transform.localScale;
+            GameObject destroyedGameObject = PlayerState.WeaponScript.gameObject;
+            destroyedGameObject.GetComponent<WeaponScript>().ResetWeapon();
+            destroyedGameObject.SetActive(false);
+        }
+
         if (nextStoredObject != null)
         {
             nextStoredObject.transform.localScale = nextWeaponSlot.transform.localScale;
             GameObject equipedObject = nextStoredObject.GetComponent<InventoryItem>().displayedItem.prefab;
-            _objectSpawner.SpawnObjectAndUpdateRpc(equipedObject, PlayerState.gameObject.transform.position, new Quaternion(), InstanceFinder.ClientManager.Connection, ItemManager.gameObject);
+            _objectSpawner.SpawnObjectAndUpdateRpc(equipedObject, PlayerState.gameObject.transform.position, Quaternion.identity, InstanceFinder.ClientManager.Connection, ItemManager.gameObject);
             equipedObject.transform.position = PlayerState.gameObject.transform.position;
         }
         else
         {
             PlayerState.PointerScript.SpriteNumber = 0;
             PlayerState.HoldingWeapon = false;
-        }
-
-        if (currentStoredObject != null)
-        {
-            currentStoredObject.transform.localScale = currentWeaponSlot.transform.localScale;
-            GameObject destroyedGameObject = PlayerState.WeaponScript.gameObject;
-            destroyedGameObject.GetComponent<WeaponScript>().Drop();
-            destroyedGameObject.SetActive(false);
+            PlayerState.WeaponScript = null;
         }
     }
 
@@ -291,25 +292,25 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
     private void Drop(InventorySlots slot)
     {
         GameObject destroyedInventoryItem = slot.heldItem;
-        string itemName;
+        GameObject item;
 
         if (slot.heldItem == null)
         {
-            itemName = _draggedObject.GetComponent<InventoryItem>().displayedItem.prefab.tag;
+            item = _draggedObject.GetComponent<InventoryItem>().displayedItem.prefab;
             destroyedInventoryItem = _draggedObject;
         }
         else
         {
-            itemName = slot.heldItem.GetComponent<InventoryItem>().displayedItem.prefab.tag;
+            item = slot.heldItem.GetComponent<InventoryItem>().displayedItem.prefab;
         }
 
-        switch (itemName)
+        switch (item.tag)
         {
             case "Weapon":
-                DropWeapon(slot);
+                DropWeapon(slot, item);
                 break;
             case "Implant":
-                DropImplant(slot);
+                DropImplant(item);
                 break;
             case "Item":
                 DropItem(slot);
@@ -322,7 +323,7 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
         Destroy(destroyedInventoryItem);
     }
 
-    private void DropWeapon(InventorySlots slot)
+    private void DropWeapon(InventorySlots slot, GameObject weapon)
     {
         if (slot == WeaponSlots[EquipedSlotIndex])
         {
@@ -332,27 +333,13 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
         }
         else
         {
-            GameObject weapon;
-
-            if (slot.heldItem == null)
-                weapon = _draggedObject.GetComponent<InventoryItem>().displayedItem.prefab;
-            else
-                weapon = slot.heldItem.GetComponent<InventoryItem>().displayedItem.prefab;
-
             weapon.SetActive(true);
             weapon.GetComponent<WeaponScript>().Drop();
         }
     }
 
-    private void DropImplant(InventorySlots slot)
+    private void DropImplant(GameObject implant)
     {
-        GameObject implant;
-
-        if (slot.heldItem == null)
-            implant = _draggedObject.GetComponent<InventoryItem>().displayedItem.prefab;
-        else
-            implant = slot.heldItem.GetComponent<InventoryItem>().displayedItem.prefab;
-
         implant.GetComponent<ImplantScript>().Drop();
         _descriptionManager.UpdateImplantSet();
     }
