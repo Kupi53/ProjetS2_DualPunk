@@ -66,8 +66,6 @@ public class DescriptionManager : MonoBehaviour, IPointerEnterHandler, IPointerE
 
     public void UpdateImplantSet(){
 
-        Debug.LogWarning("1");
-
         for (int i = 0 ; i < _implantSlots.Length; i++)
         {
             if (_implantSlots[i].heldItem != null)
@@ -96,5 +94,6 @@ public class DescriptionManager : MonoBehaviour, IPointerEnterHandler, IPointerE
                 }
             }
         }
+        Canvas.ForceUpdateCanvases();
     }
 }

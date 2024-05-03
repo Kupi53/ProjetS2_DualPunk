@@ -76,30 +76,29 @@ public class ItemManager : NetworkBehaviour
                 {
                     bool _pickable = false;
 
-
                     ImplantScript _implantScript = item.GetComponent<ImplantScript>();
                     switch (_implantScript.Type){
                         case ImplantType.Neuralink:
-                            if(_implantController.NeuralinkImplant == null){
+                            if (_implantController.NeuralinkImplant == null){
                                 _implantController.NeuralinkImplant = _implantScript;
                                 _pickable = true;
                             }
                             break;
                         case ImplantType.ExoSqueleton:
-                            if(_implantController.ExoSqueletonImplant == null){
+                            if (_implantController.ExoSqueletonImplant == null){
                                 _implantController.ExoSqueletonImplant = _implantScript;
                                 _pickable = true;
                             }
                             break;
                         case ImplantType.Arm:
-                            if(_implantController.ArmImplant == null){
+                            if (_implantController.ArmImplant == null){
                                 _implantController.ArmImplant = _implantScript;
                                 _pickable = true;
                             }
                             break;
                         case ImplantType.Boots:
-                            if(_implantController.ArmImplant == null){
-                                _implantController.ArmImplant = _implantScript;
+                            if (_implantController.BootsImplant == null){
+                                _implantController.BootsImplant = _implantScript;
                                 _pickable = true;
                             }
                             break;
@@ -107,7 +106,7 @@ public class ItemManager : NetworkBehaviour
                             throw new Exception();
                     }
 
-                    if(_pickable){
+                    if (_pickable){
                         _index = 0;
                         _items.Remove(item);
                         _inventoryManager.GetComponent<InventoryPickItem>().ItemPicked(item);

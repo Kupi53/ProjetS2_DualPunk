@@ -1,13 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 
 public class selectedSlotManager : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler
 {
+    [SerializeField] private Image _inventoryPanel;
     private GameObject _selectedSlotIcon;
     private bool _activeness;
+
 
 
     void Update()
@@ -26,17 +27,22 @@ public class selectedSlotManager : MonoBehaviour, IPointerEnterHandler, IPointer
         }
     }
 
-        public void OnPointerEnter(PointerEventData eventData){
+    public void OnPointerEnter(PointerEventData eventData){
         if(eventData.pointerCurrentRaycast.gameObject.tag == "InventorySlot"){
+
             _selectedSlotIcon = eventData.pointerCurrentRaycast.gameObject.transform.GetChild(0).gameObject;
             _activeness = true;
         }
+
+        //Debug.Log("enter" + eventData.pointerCurrentRaycast.gameObject);
     }
 
     public void OnPointerExit(PointerEventData eventData){
         if(_selectedSlotIcon != null){
             _activeness = false;
         }
+
+        //Debug.Log("exit" + eventData.pointerCurrentRaycast.gameObject);
     }
 
     public bool GetActiveness(){
@@ -56,11 +62,17 @@ public class selectedSlotManager : MonoBehaviour, IPointerEnterHandler, IPointer
     public void OnPointerUp(PointerEventData eventData)
     {
         GameObject clickedObject = eventData.pointerCurrentRaycast.gameObject;
-        InventorySlots slot = clickedObject.GetComponent<InventorySlots>();
 
-        if(slot != null){
-            _selectedSlotIcon = eventData.pointerCurrentRaycast.gameObject.transform.GetChild(0).gameObject;
-            _activeness = true;
+        if (clickedObject != null){
+
+            InventorySlots slot = clickedObject.GetComponent<InventorySlots>();
+
+            if(slot != null){
+                _selectedSlotIcon = eventData.pointerCurrentRaycast.gameObject.transform.GetChild(0).gameObject;
+                _activeness = true;
+            }
         }
+
     }
+
 }
