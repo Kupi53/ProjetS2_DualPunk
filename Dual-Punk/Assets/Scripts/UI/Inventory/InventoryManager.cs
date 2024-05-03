@@ -200,7 +200,6 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
 
         if (nextStoredObject != null)
         {
-            Debug.Log("change weapon");
             nextStoredObject.transform.localScale = nextWeaponSlot.transform.localScale;
             GameObject equipedObject = nextStoredObject.GetComponent<InventoryItem>().displayedItem.prefab;
             _objectSpawner.SpawnObjectAndUpdateRpc(equipedObject, PlayerState.gameObject.transform.position, new Quaternion(), InstanceFinder.ClientManager.Connection, ItemManager.gameObject);
@@ -208,14 +207,12 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
         }
         else
         {
-            Debug.Log("reset");
             PlayerState.PointerScript.SpriteNumber = 0;
             PlayerState.HoldingWeapon = false;
         }
 
         if (currentStoredObject != null)
         {
-            Debug.Log("aaaaaaaaa");
             currentStoredObject.transform.localScale = currentWeaponSlot.transform.localScale;
             GameObject destroyedGameObject = PlayerState.WeaponScript.gameObject;
             destroyedGameObject.GetComponent<WeaponScript>().Drop();
