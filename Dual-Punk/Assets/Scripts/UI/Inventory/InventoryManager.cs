@@ -111,7 +111,8 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
             }
         }
         //Drop the inventory Item whith right clicking on it 
-        if(eventData.button == PointerEventData.InputButton.Right){
+        if (eventData.button == PointerEventData.InputButton.Right)
+        {
             GameObject clickedObject = eventData.pointerCurrentRaycast.gameObject;
             InventorySlots slot = clickedObject.GetComponent<InventorySlots>();
             _descriptionManager.StopTheCoroutine();
@@ -199,22 +200,29 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
 
         if (nextStoredObject != null)
         {
+            Debug.Log("change weapon");
             nextStoredObject.transform.localScale = nextWeaponSlot.transform.localScale;
             GameObject equipedObject = nextStoredObject.GetComponent<InventoryItem>().displayedItem.prefab;
             _objectSpawner.SpawnObjectAndUpdateRpc(equipedObject, PlayerState.gameObject.transform.position, new Quaternion(), InstanceFinder.ClientManager.Connection, ItemManager.gameObject);
             equipedObject.transform.position = PlayerState.gameObject.transform.position;
         }
+        else
+        {
+            Debug.Log("reset");
+            PlayerState.PointerScript.SpriteNumber = 0;
+            PlayerState.HoldingWeapon = false;
+        }
 
         if (currentStoredObject != null)
         {
+            Debug.Log("aaaaaaaaa");
             currentStoredObject.transform.localScale = currentWeaponSlot.transform.localScale;
             GameObject destroyedGameObject = PlayerState.WeaponScript.gameObject;
             destroyedGameObject.GetComponent<WeaponScript>().Drop();
             destroyedGameObject.SetActive(false);
-
         }
-
     }
+
 
 //--------------------Auxilaries Functions that work as their name says.------------------------------------
 
@@ -224,8 +232,8 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
         string placedItemName = selectedItem.GetComponent<InventoryItem>().displayedItem.prefab.tag;
         string currentSlotName = selectedSlot.transform.parent.name;
 
-        if (placedItemName == "Weapon" && currentSlotName == "WeaponSlots" ||
-            placedItemName == "Implant" && currentSlotName == "ImplantSlot" || placedItemName == "Consummable" && currentSlotName == "ConsumabelSlots")
+        if (placedItemName == "Weapon" && currentSlotName == "WeaponSlots" || placedItemName == "Implant" &&
+            currentSlotName == "ImplantSlot" || placedItemName == "Consummable" && currentSlotName == "ConsumabelSlots")
         {
             res = true;
         }
@@ -273,13 +281,6 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
         }
     }
 
-    private void SpawnInventoryItem(GameObject spawnedItem)
-    {
-        GameObject spawnedItemPrefab = spawnedItem.GetComponent<InventoryItem>().displayedItem.prefab;
-        Vector3 spawnPosition = GameObject.FindWithTag("Player").transform.position;
-        _objectSpawner.SpawnWeapons(spawnedItemPrefab, spawnPosition, Quaternion.identity);
-    }
-
     private void Drop(InventorySlots slot)
     {
         GameObject destroyedInventoryItem = slot.heldItem;
@@ -324,15 +325,27 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
         }
         else
         {
-            SpawnInventoryItem(slot.heldItem);
+            GameObject weapon;
+
+            if (slot.heldItem == null)
+                weapon = _draggedObject.GetComponent<InventoryItem>().displayedItem.prefab;
+            else
+                weapon = slot.heldItem.GetComponent<InventoryItem>().displayedItem.prefab;
+
+            weapon.SetActive(true);
+            weapon.GetComponent<WeaponScript>().Drop();
         }
     }
 
     private void DropImplant(InventorySlots slot)
     {
         GameObject implant;
-        if(slot.heldItem == null) implant = _draggedObject.GetComponent<InventoryItem>().displayedItem.prefab;
-        else implant = slot.heldItem.GetComponent<InventoryItem>().displayedItem.prefab;
+
+        if (slot.heldItem == null)
+            implant = _draggedObject.GetComponent<InventoryItem>().displayedItem.prefab;
+        else
+            implant = slot.heldItem.GetComponent<InventoryItem>().displayedItem.prefab;
+
         implant.GetComponent<ImplantScript>().Drop();
         _descriptionManager.UpdateImplantSet();
     }

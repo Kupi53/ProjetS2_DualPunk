@@ -21,16 +21,21 @@ public class ObjectSpawner : NetworkBehaviour
 
 
     [ServerRpc (RequireOwnership = false)]
-    public void SpawnObjectRpc(GameObject obj, Vector3 pos, Quaternion quaternion){
+    public void SpawnObjectRpc(GameObject obj, Vector3 pos, Quaternion quaternion)
+    {
         GameObject instance = Instantiate(obj, pos, quaternion);
         Spawn(instance);
     }
+
     [ServerRpc (RequireOwnership = false)]
-    public void SpawnObjectFromIdRpc(string Id, Vector3 pos, Quaternion quaternion){
-        if (Id == "null"){
+    public void SpawnObjectFromIdRpc(string Id, Vector3 pos, Quaternion quaternion)
+    {
+        if (Id == "null")
+        {
             return;
         }
-        else {
+        else
+        {
             GameObject prefab = ItemIds.Instance.IdTable[Id];
             GameObject instance = Instantiate(prefab, pos, quaternion);
             Spawn(instance);
@@ -38,8 +43,8 @@ public class ObjectSpawner : NetworkBehaviour
     }
 
     [ServerRpc (RequireOwnership = false)]
-    public void SpawnObjectAndUpdateRpc(GameObject obj, Vector3 pos, Quaternion quaternion, NetworkConnection networkConnection, GameObject itemManager){
-
+    public void SpawnObjectAndUpdateRpc(GameObject obj, Vector3 pos, Quaternion quaternion, NetworkConnection networkConnection, GameObject itemManager)
+    {
         UpdateHeldWeaponClientsRpc(networkConnection, obj, itemManager);
     }
 

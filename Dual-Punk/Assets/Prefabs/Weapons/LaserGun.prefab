@@ -19882,9 +19882,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 351
   _damage: 6
-  _damageFrequency: 1
-  _fireTime: 6
-  _coolDownSpeed: 3
+  _damageFrequency: 0.1
+  _fireTime: 10
+  _coolDownSpeed: 4
   _smoothTime: 0.1
   _disableSpeed: 2.5
   _audioSource: {fileID: -9104239058404526871}
@@ -19901,10 +19901,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 758d5ccc253c2f04f8451e29ebbfa99f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  normal: {fileID: 21300000, guid: 97711701e1af8e54a8628840cdf7aa41, type: 3}
-  highlighted: {fileID: 21300000, guid: 397ead6543a6b9c4ea8028022535be16, type: 3}
-  spriteRenderer: {fileID: 5986589367013039024}
-  selected: 0
+  _normal: {fileID: 21300000, guid: 97711701e1af8e54a8628840cdf7aa41, type: 3}
+  _highlighted: {fileID: 21300000, guid: 397ead6543a6b9c4ea8028022535be16, type: 3}
 --- !u!114 &-3901914951755194338
 MonoBehaviour:
   m_ObjectHideFlags: 0

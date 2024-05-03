@@ -239,6 +239,10 @@ MonoBehaviour:
   _isAuto: 1
   _fireSound: {fileID: 8300000, guid: b5afcf41c9a8bd94282310a2a5eca99d, type: 3}
   _reloadSound: {fileID: 8300000, guid: d850be0390f230843a1672f92de85f1f, type: 3}
+  WarriorLuck: 0
+  DamageMultiplier: 1
+  DropPercentage: 1
+  _warriorLuckBullet: 0
   _lockedTargetIndicator: {fileID: 2443144578293597239, guid: e3bb1f7480ddb6645bdbf6c3371c4af5, type: 3}
   _bulletRotateSpeed: 2
 --- !u!114 &5536798300859352896
@@ -253,10 +257,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 758d5ccc253c2f04f8451e29ebbfa99f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  normal: {fileID: 21300000, guid: e0e3f4dac14eeb04990198e2b85a5941, type: 3}
-  highlighted: {fileID: 21300000, guid: e0e3f4dac14eeb04990198e2b85a5941, type: 3}
-  spriteRenderer: {fileID: 8354761501384256457}
-  selectedWeapon: 0
+  _normal: {fileID: 21300000, guid: e0e3f4dac14eeb04990198e2b85a5941, type: 3}
+  _highlighted: {fileID: 21300000, guid: e0e3f4dac14eeb04990198e2b85a5941, type: 3}
 --- !u!114 &-2403136632774440814
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -148,9 +148,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4a3e74c542772e45997ba870123260b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 255
+  _componentIndexCache: 0
   _addedNetworkObject: {fileID: -218940236388108346}
-  _networkObjectCache: {fileID: 0}
+  _networkObjectCache: {fileID: -218940236388108346}
   _quantity: 2
   _delay: 1
 --- !u!114 &-4059473331583019238
@@ -165,10 +165,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 758d5ccc253c2f04f8451e29ebbfa99f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  normal: {fileID: 21300000, guid: 333e595c67e4e44459ea6f93653d0ad9, type: 3}
-  highlighted: {fileID: 21300000, guid: 4e3c1595103b00a488cd0b28702374ca, type: 3}
-  spriteRenderer: {fileID: 843888973211852406}
-  selected: 0
+  _normal: {fileID: 21300000, guid: 333e595c67e4e44459ea6f93653d0ad9, type: 3}
+  _highlighted: {fileID: 21300000, guid: 4e3c1595103b00a488cd0b28702374ca, type: 3}
 --- !u!114 &-218940236388108346
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -185,14 +183,14 @@ MonoBehaviour:
   <ComponentIndex>k__BackingField: 0
   <PredictedSpawn>k__BackingField: {fileID: 0}
   _networkBehaviours:
-  - {fileID: 0}
+  - {fileID: 1610775740195224065}
   - {fileID: -1078616929798017896}
   <ParentNetworkObject>k__BackingField: {fileID: 0}
   <ChildNetworkObjects>k__BackingField: []
   SerializedTransformProperties:
     Position: {x: 0, y: 0, z: 0}
     Rotation: {x: 0, y: 0, z: 0, w: 1}
-    LocalScale: {x: 1, y: 1, z: 1}
+    LocalScale: {x: 0.5, y: 0.5, z: 1}
   _isNetworked: 1
   _isGlobal: 0
   _initializeOrder: 0

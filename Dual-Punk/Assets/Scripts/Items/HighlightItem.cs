@@ -3,22 +3,30 @@ using UnityEngine;
 
 public class HighlightItem : MonoBehaviour
 {
-    [SerializeField] private Sprite normal;
-    [SerializeField] private Sprite highlighted;
-    [SerializeField] private SpriteRenderer spriteRenderer;
-    public bool selected;
+    [SerializeField] private Sprite _normal;
+    [SerializeField] private Sprite _highlighted;
 
-    void Update()
+    private SpriteRenderer _spriteRenderer;
+    public bool Selected { get; set; }
+
+
+    private void Start()
     {
-        if(!selected){
-            spriteRenderer.sprite = normal;
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+    }
+
+    private void Update()
+    {
+        if (!Selected)
+        {
+            _spriteRenderer.sprite = _normal;
         }
 
     }
 
     public void Highlight()
     {
-        spriteRenderer.sprite = highlighted;
-        selected = true;
+        _spriteRenderer.sprite = _highlighted;
+        Selected = true;
     }
 }

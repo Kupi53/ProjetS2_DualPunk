@@ -165,10 +165,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 758d5ccc253c2f04f8451e29ebbfa99f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  normal: {fileID: 21300000, guid: 28684d7836de49946ad6df325f12a493, type: 3}
-  highlighted: {fileID: 21300000, guid: f8a49b993ea6324408bd9fd7e3973ca7, type: 3}
-  spriteRenderer: {fileID: 843888973211852406}
-  selected: 0
+  _normal: {fileID: 21300000, guid: 28684d7836de49946ad6df325f12a493, type: 3}
+  _highlighted: {fileID: 21300000, guid: f8a49b993ea6324408bd9fd7e3973ca7, type: 3}
 --- !u!114 &-218940236388108346
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -192,7 +190,7 @@ MonoBehaviour:
   SerializedTransformProperties:
     Position: {x: 0, y: 0, z: 0}
     Rotation: {x: 0, y: 0, z: 0, w: 1}
-    LocalScale: {x: 1, y: 1, z: 1}
+    LocalScale: {x: 0.5, y: 0.5, z: 1}
   _isNetworked: 1
   _isGlobal: 0
   _initializeOrder: 0

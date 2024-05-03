@@ -383,7 +383,7 @@ MonoBehaviour:
   _networkObjectCache: {fileID: 4528818166376744979}
   _rightHand: {fileID: 2939624512793751183}
   _leftHand: {fileID: 7017974954916342671}
-  _weaponOffset: {x: 0.15, y: 0.95, z: 0}
+  _weaponOffset: {x: 0.15, y: 0.9, z: 0}
   _weaponDistance: 0.45
   _recoilForce: 1.2
   _impactForce: 1.2
@@ -407,6 +407,10 @@ MonoBehaviour:
   _isAuto: 1
   _fireSound: {fileID: 8300000, guid: 19fec131fef583541978fab3469989a0, type: 3}
   _reloadSound: {fileID: 8300000, guid: aa812f3b52a1b0b4a9335d646adf7140, type: 3}
+  WarriorLuck: 0
+  DamageMultiplier: 1
+  DropPercentage: 1
+  _warriorLuckBullet: 0
 --- !u!114 &4687209510453595086
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -419,10 +423,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 758d5ccc253c2f04f8451e29ebbfa99f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  normal: {fileID: 21300000, guid: 90aa106e4f16de64885605d2868921d9, type: 3}
-  highlighted: {fileID: 21300000, guid: 05c57db798e27e64293a76759ab1666a, type: 3}
-  spriteRenderer: {fileID: 6375131043796351911}
-  selected: 0
+  _normal: {fileID: 21300000, guid: 90aa106e4f16de64885605d2868921d9, type: 3}
+  _highlighted: {fileID: 21300000, guid: 05c57db798e27e64293a76759ab1666a, type: 3}
 --- !u!114 &-3406212296661549581
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -465,7 +467,7 @@ MonoBehaviour:
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 19
+  <PrefabId>k__BackingField: 20
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0

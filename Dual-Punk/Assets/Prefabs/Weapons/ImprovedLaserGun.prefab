@@ -19974,10 +19974,10 @@ MonoBehaviour:
   _layerMask:
     serializedVersion: 2
     m_Bits: 863
-  _damage: 15
-  _damageFrequency: 0.12
-  _fireTime: 6
-  _coolDownSpeed: 2
+  _damage: 10
+  _damageFrequency: 0.1
+  _fireTime: 12
+  _coolDownSpeed: 3
   _smoothTime: 0.15
   _disableSpeed: 2.5
   _audioSource: {fileID: 50279802192761020}
@@ -19994,10 +19994,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 758d5ccc253c2f04f8451e29ebbfa99f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  normal: {fileID: 21300000, guid: 6424f1e54f2d00a429cfdb20af1e26c1, type: 3}
-  highlighted: {fileID: 21300000, guid: 99b6fa24c7eaa2e4bae84b074f67fa26, type: 3}
-  spriteRenderer: {fileID: -8675770491283423342}
-  selected: 0
+  _normal: {fileID: 21300000, guid: 6424f1e54f2d00a429cfdb20af1e26c1, type: 3}
+  _highlighted: {fileID: 21300000, guid: 99b6fa24c7eaa2e4bae84b074f67fa26, type: 3}
 --- !u!114 &-5769393535951238080
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20041,7 +20039,7 @@ MonoBehaviour:
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 20
+  <PrefabId>k__BackingField: 23
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0

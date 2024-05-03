@@ -289,10 +289,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 758d5ccc253c2f04f8451e29ebbfa99f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  normal: {fileID: 21300000, guid: 8fbf4229c060bda4891349950603e346, type: 3}
-  highlighted: {fileID: 21300000, guid: 45caafc1cabcef5489ddf4f670a6032d, type: 3}
-  spriteRenderer: {fileID: 3628626176491043060}
-  selected: 0
+  _normal: {fileID: 21300000, guid: 8fbf4229c060bda4891349950603e346, type: 3}
+  _highlighted: {fileID: 21300000, guid: 45caafc1cabcef5489ddf4f670a6032d, type: 3}
 --- !u!114 &-6532868988949993772
 MonoBehaviour:
   m_ObjectHideFlags: 0

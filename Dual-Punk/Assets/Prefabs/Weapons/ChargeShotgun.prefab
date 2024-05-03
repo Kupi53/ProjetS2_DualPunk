@@ -537,6 +537,10 @@ MonoBehaviour:
   _isAuto: 0
   _fireSound: {fileID: 8300000, guid: 5a840426a1b0e77469829ea3d648d509, type: 3}
   _reloadSound: {fileID: 8300000, guid: ba4b495b7a199bc498bbb395f6fad0f8, type: 3}
+  WarriorLuck: 0
+  DamageMultiplier: 1
+  DropPercentage: 1
+  _warriorLuckBullet: 0
   _chargeTime: 1.2
   _minDamage: 15
   _minSpeed: 10
@@ -557,10 +561,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 758d5ccc253c2f04f8451e29ebbfa99f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  normal: {fileID: 21300000, guid: 88ca3d24b19df974abebc17b621c9de7, type: 3}
-  highlighted: {fileID: 21300000, guid: 5c3e85336b22c7c4f834d2c8e41e8524, type: 3}
-  spriteRenderer: {fileID: 7377155860427624990}
-  selected: 0
+  _normal: {fileID: 21300000, guid: 88ca3d24b19df974abebc17b621c9de7, type: 3}
+  _highlighted: {fileID: 21300000, guid: 5c3e85336b22c7c4f834d2c8e41e8524, type: 3}
 --- !u!114 &-3136687070370447411
 MonoBehaviour:
   m_ObjectHideFlags: 0
