@@ -13,6 +13,9 @@ public class WeaponInfo : MonoBehaviour
     [SerializeField] private GameObject _meleeWeaponIcon;
     [SerializeField] private GameObject _laserGunIcon;
     [SerializeField] private GameObject _weaponIcon;
+    [SerializeField] private float _maxHeight;
+    [SerializeField] private float _maxWidth;
+    [SerializeField] private float _baseScale;
 
     private LocalPlayerReference _references;
     private TextMeshProUGUI _ammoInMag;
@@ -26,7 +29,7 @@ public class WeaponInfo : MonoBehaviour
 #nullable disable
 
 
-    void Start()
+    private void Start()
     {
         _ammoInMag = _ammoInMagObject.GetComponent<TextMeshProUGUI>();
         _weaponName = _weaponNameObject.GetComponent<TextMeshProUGUI>();
@@ -37,7 +40,7 @@ public class WeaponInfo : MonoBehaviour
     }
 
 
-    void Update()
+    private void Update()
     {
         _ammoInMag.enabled = false;
         _meleeWeaponImage.enabled = false;
@@ -53,25 +56,21 @@ public class WeaponInfo : MonoBehaviour
         _weaponName.enabled = true;
         _weaponImage.enabled = true;
 
-        _weaponName.text = _references.PlayerState.WeaponScript.gameObject.name;
-
         Sprite _newWeaponSprite = _references.PlayerState.WeaponScript.gameObject.GetComponent<SpriteRenderer>().sprite;
         if (_newWeaponSprite != _currentWeaponSprite)
         {
             _currentWeaponSprite = _newWeaponSprite;
-            float scale = 190 / _currentWeaponSprite.rect.width * 1.25f;
-            _weaponImage.rectTransform.localScale = new Vector2(- scale, scale);
-            _weaponImage.rectTransform.sizeDelta = new Vector2(_currentWeaponSprite.rect.width, _currentWeaponSprite.rect.height);
             _weaponImage.sprite = _currentWeaponSprite;
+            SetScale();
         }
 
+        _weaponName.text = _references.PlayerState.WeaponScript.gameObject.name;
 
         if (_references.PlayerState.WeaponScript is FireArmScript)
         {
             _ammoInMag.enabled = true;
 
             FireArmScript fireArmScript = (FireArmScript)_references.PlayerState.WeaponScript;
-
             if (fireArmScript.AmmoLeft < 10)
                 _ammoInMag.text = "0" + fireArmScript.AmmoLeft.ToString();
             else
@@ -85,5 +84,16 @@ public class WeaponInfo : MonoBehaviour
         {
             _meleeWeaponImage.enabled = true;
         }
+    }
+
+
+    private void SetScale()
+    {
+        float widthScale = _maxWidth / _currentWeaponSprite.rect.width * _baseScale;
+        float heightScale = _maxHeight / _currentWeaponSprite.rect.height * _baseScale;
+        float scale = widthScale < heightScale ? widthScale : heightScale;
+
+        _weaponImage.rectTransform.localScale = new Vector2(-scale, scale);
+        _weaponImage.rectTransform.sizeDelta = new Vector2(_currentWeaponSprite.rect.width, _currentWeaponSprite.rect.height);
     }
 }
