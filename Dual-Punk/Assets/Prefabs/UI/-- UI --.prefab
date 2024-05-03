@@ -454,6 +454,14 @@ PrefabInstance:
       propertyPath: m_Text
       value: BODY
       objectReference: {fileID: 0}
+    - target: {fileID: 4655188658266242787, guid: 5d6012832ea472f458e113eb03eaf14a, type: 3}
+      propertyPath: _dropItemPanel
+      value: 
+      objectReference: {fileID: 6323254577399987494}
+    - target: {fileID: 4655188658266242787, guid: 5d6012832ea472f458e113eb03eaf14a, type: 3}
+      propertyPath: _inventoryPanel
+      value: 
+      objectReference: {fileID: 3623177112616440984}
     - target: {fileID: 5291937239392091011, guid: 5d6012832ea472f458e113eb03eaf14a, type: 3}
       propertyPath: m_Name
       value: InventoryManager
@@ -690,7 +698,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2889845201471857076, guid: 5d6012832ea472f458e113eb03eaf14a, type: 3}
   m_PrefabInstance: {fileID: 377092436354770756}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 6323254577399987494}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
@@ -751,6 +759,11 @@ GameObject:
 --- !u!1 &6286186136499667755 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5910613247910077551, guid: 5d6012832ea472f458e113eb03eaf14a, type: 3}
+  m_PrefabInstance: {fileID: 377092436354770756}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &6323254577399987494 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5979378546238315106, guid: 5d6012832ea472f458e113eb03eaf14a, type: 3}
   m_PrefabInstance: {fileID: 377092436354770756}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &6470838898060496776 stripped

@@ -85,17 +85,19 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
     public void OnPointerDown(PointerEventData eventData)
     {
         //change the raycast state needed for the _descriptionManager
-        _dropPanel.raycastTarget = true;
-        _inventoryPanel.raycastTarget = true;
 
         if (eventData.button == PointerEventData.InputButton.Left)
         {
+
+
             //recupere le raycast du slot clique.
             GameObject clickedObject = eventData.pointerCurrentRaycast.gameObject;
             InventorySlots slot = clickedObject.GetComponent<InventorySlots>();
 
             if (slot != null && slot.heldItem != null)
             {
+                _dropPanel.raycastTarget = true;
+                _inventoryPanel.raycastTarget = true;
                 _draggedObject = slot.heldItem;
                 slot.heldItem = null;
                 _lastSlotPosition = slot;
@@ -105,8 +107,11 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
                 {
                     if (_descriptionManager.GetInCD())
                         _descriptionManager.StopTheCoroutine();
-                    else
+
+                    else if (_descriptionManager != null){
                         _descriptionManager.GetDescriptionWindow().SetActive(false);
+                    }
+
                 }
             }
         }
@@ -116,7 +121,10 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
             GameObject clickedObject = eventData.pointerCurrentRaycast.gameObject;
             InventorySlots slot = clickedObject.GetComponent<InventorySlots>();
             _descriptionManager.StopTheCoroutine();
-            Drop(slot);
+            if (slot.heldItem != null){
+                Drop(slot);
+            }
+
         }
     }
 
@@ -139,10 +147,11 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
 
                         if (_currentSlot == WeaponSlots[EquipedSlotIndex])
                         { 
+                            Debug.Log("currentSlot");
                             SwapEquipedSlot(_lastSlotPosition, _currentSlot);
                         }
 
-                        if (_lastSlotPosition == WeaponSlots[EquipedSlotIndex])
+                        else if (_lastSlotPosition == WeaponSlots[EquipedSlotIndex])
                         {
                             GameObject destroyedGameObject = PlayerState.WeaponScript.gameObject;
                             DropWeapon(_lastSlotPosition);
@@ -246,8 +255,9 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
 
     private void PlaceItem()
     {
-        _currentSlot.SetHeldItem(_draggedObject);
         _lastSlotPosition.heldItem = null;
+        _currentSlot.SetHeldItem(_draggedObject);
+ 
     }
 
     private void PlaceLastSlotPosition()

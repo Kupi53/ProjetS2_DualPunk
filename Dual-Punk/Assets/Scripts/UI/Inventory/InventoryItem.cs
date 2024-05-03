@@ -24,7 +24,7 @@ public class InventoryItem : MonoBehaviour
         DescriptionPanel descriptionPanel = description.GetComponent<DescriptionPanel>();
         descriptionPanel.SetText(displayedItem.name, displayedItem.description);
 
-        if (displayedItem.prefab.tag == "Implant"){
+        if (displayedItem.prefab.tag == "Implant" && displayedItem.setItems.Length == 4){
             descriptionPanel.SetImplantText(displayedItem.setName, displayedItem.setItems);
             _descriptionManager.UpdateImplantSet();
         }
