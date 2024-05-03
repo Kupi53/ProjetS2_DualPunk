@@ -105,9 +105,9 @@ public class ItemManager : NetworkBehaviour
                         break;
 
                     case ImplantType.Boots:
-                        if (_implantController.ArmImplant == null)
+                        if (_implantController.BootsImplant == null)
                         {
-                            _implantController.ArmImplant = implantScript;
+                            _implantController.BootsImplant = implantScript;
                             pickable = true;
                         }
                         break;

@@ -466,6 +466,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: InventoryManager
       objectReference: {fileID: 0}
+    - target: {fileID: 5807370639747046157, guid: 5d6012832ea472f458e113eb03eaf14a, type: 3}
+      propertyPath: _dropPanel
+      value: 
+      objectReference: {fileID: 3252013949321823984}
     - target: {fileID: 6887539226679850897, guid: 5d6012832ea472f458e113eb03eaf14a, type: 3}
       propertyPath: m_LocalPosition.x
       value: -958.8694
@@ -625,6 +629,10 @@ PrefabInstance:
     - target: {fileID: 7715509991257311823, guid: 5d6012832ea472f458e113eb03eaf14a, type: 3}
       propertyPath: m_text
       value: COnsummables
+      objectReference: {fileID: 0}
+    - target: {fileID: 8139228508104299511, guid: 5d6012832ea472f458e113eb03eaf14a, type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8226713132127680362, guid: 5d6012832ea472f458e113eb03eaf14a, type: 3}
       propertyPath: _dropPanel

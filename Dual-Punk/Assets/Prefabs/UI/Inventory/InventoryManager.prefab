@@ -3221,7 +3221,7 @@ GameObject:
   - component: {fileID: 7433743320890469514}
   - component: {fileID: 169908118652730382}
   - component: {fileID: 644039601664152754}
-  - component: {fileID: 4655188658266242787}
+  - component: {fileID: 5807370639747046157}
   m_Layer: 0
   m_Name: InventoryManager
   m_TagString: Inventory
@@ -3279,7 +3279,6 @@ MonoBehaviour:
   PlayerState: {fileID: 0}
   ItemManager: {fileID: 0}
   EquipedSlotIndex: 0
-  selectedSlotActiveness: 0
   swapping: 0
 --- !u!114 &7433743320890469514
 MonoBehaviour:
@@ -3351,7 +3350,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   descriptions: {fileID: 169908118652730382}
---- !u!114 &4655188658266242787
+--- !u!114 &5807370639747046157
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3363,6 +3362,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a77192bd906c08b49b50a3628209dd32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _inventoryPanel: {fileID: 3995730746709750748}
+  _dropPanel: {fileID: 0}
 --- !u!1 &5430371205823253044
 GameObject:
   m_ObjectHideFlags: 0

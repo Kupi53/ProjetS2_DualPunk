@@ -18,7 +18,6 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
     private ObjectSpawner _objectSpawner;
     private DescriptionManager _descriptionManager;
 
-
     public InventorySlots[] WeaponSlots = new InventorySlots[3];
     public PlayerState PlayerState;
     public ItemManager ItemManager;
@@ -29,6 +28,7 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
 
     void Start()
     {
+
         _descriptionManager = GetComponent<DescriptionManager>();
         _objectSpawner = GameObject.Find("ObjectSpawner").GetComponent<ObjectSpawner>();
         EquipedSlotIndex = 0;
@@ -96,11 +96,12 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
 
             if (slot != null && slot.heldItem != null)
             {
+
                 _dropPanel.raycastTarget = true;
                 _inventoryPanel.raycastTarget = true;
                 _draggedObject = slot.heldItem;
-                slot.heldItem = null;
                 _lastSlotPosition = slot;
+                slot.heldItem = null;
 
                 //Hide descprition panels if the item is dragged
                 if (_descriptionManager.isActiveAndEnabled)
@@ -140,6 +141,7 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
                 //if the slot is empty - place item
                 if (_currentSlot != null && _currentSlot.heldItem == null)
                 {
+
                     if (Swapable(_currentSlot, _draggedObject))
                     {
                         RefreshScale();
@@ -147,7 +149,6 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
 
                         if (_currentSlot == WeaponSlots[EquipedSlotIndex])
                         { 
-                            Debug.Log("currentSlot");
                             SwapEquipedSlot(_lastSlotPosition, _currentSlot);
                         }
 
@@ -167,6 +168,7 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
                 //if the slot is not empty - swap item
                 else if (_currentSlot != null && _currentSlot.heldItem != null)
                 {
+
                     if (Swapable(_currentSlot, _draggedObject) && Swapable(_lastSlotPosition, _currentSlot.heldItem))
                     {
                         RefreshSwapScale();

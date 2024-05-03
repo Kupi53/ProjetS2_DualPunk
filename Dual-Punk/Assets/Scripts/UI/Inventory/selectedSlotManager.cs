@@ -1,78 +1,57 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-
-public class selectedSlotManager : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler
+public class SelectedSlotManager : MonoBehaviour
 {
     [SerializeField] private Image _inventoryPanel;
+    [SerializeField] private Image _dropPanel;
+    private GameObject _selectedSlot;
     private GameObject _selectedSlotIcon;
-    private bool _activeness;
+    private bool _aboveSlot;
+
 
 
 
     void Update()
     {
-        if (_selectedSlotIcon != null)
-        {
-            if (_activeness)
+        UpdateSelectedSlotIcon();
+        
+    }
+
+    public void UpdateSelectedSlotIcon(){
+		
+        bool found = false;
+		PointerEventData pointerData = new PointerEventData(EventSystem.current);
+		pointerData.position = Input.mousePosition;
+
+		List<RaycastResult> results = new List<RaycastResult>();
+		EventSystem.current.RaycastAll(pointerData, results);
+
+        
+        for(int i = 0; i < results.Count; i++){
+            if(results[i].gameObject.tag == "InventorySlot") 
             {
-                _selectedSlotIcon.SetActive(true);
+                found = true;
+                
+                if (!_aboveSlot)
+                {
+                    if (results[i].gameObject != _selectedSlot){
+                        _aboveSlot = true;
+                        _selectedSlot = results[i].gameObject;
+                        _selectedSlotIcon = _selectedSlot.transform.GetChild(0).gameObject;
+                        _selectedSlotIcon.SetActive(true);
+                    }
+                }
+
             }
-            else
-            {
-                _selectedSlotIcon.SetActive(false);
-                _selectedSlotIcon = null;
-            }
+        } 
+
+        if(!found && _selectedSlot != null){
+            _selectedSlotIcon.SetActive(false);
+            _selectedSlot = null;
+            _aboveSlot = false;
         }
-    }
-
-    public void OnPointerEnter(PointerEventData eventData){
-        if(eventData.pointerCurrentRaycast.gameObject.tag == "InventorySlot"){
-
-            _selectedSlotIcon = eventData.pointerCurrentRaycast.gameObject.transform.GetChild(0).gameObject;
-            _activeness = true;
-        }
-
-        //Debug.Log("enter" + eventData.pointerCurrentRaycast.gameObject);
-    }
-
-    public void OnPointerExit(PointerEventData eventData){
-        if(_selectedSlotIcon != null){
-            _activeness = false;
-        }
-
-        //Debug.Log("exit" + eventData.pointerCurrentRaycast.gameObject);
-    }
-
-    public bool GetActiveness(){
-        return _activeness;
-    }
-
-    public void OnPointerDown(PointerEventData eventData)
-    {
-        GameObject clickedObject = eventData.pointerCurrentRaycast.gameObject;
-        InventorySlots slot = clickedObject.GetComponent<InventorySlots>();
-
-        if(slot != null){
-            _activeness = false;
-        }
-    }
-
-    public void OnPointerUp(PointerEventData eventData)
-    {
-        GameObject clickedObject = eventData.pointerCurrentRaycast.gameObject;
-
-        if (clickedObject != null){
-
-            InventorySlots slot = clickedObject.GetComponent<InventorySlots>();
-
-            if(slot != null){
-                _selectedSlotIcon = eventData.pointerCurrentRaycast.gameObject.transform.GetChild(0).gameObject;
-                _activeness = true;
-            }
-        }
-
-    }
-
+	}
 }
