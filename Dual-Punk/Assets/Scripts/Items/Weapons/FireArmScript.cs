@@ -43,7 +43,6 @@ public class FireArmScript : WeaponScript
     public bool WarriorLuck = false;
     public int DamageMultiplier = 1;
     public int DropPercentage = 1;
-    public bool _warriorLuckBullet;
 
     public int AmmoLeft { get => _ammoLeft; set => _ammoLeft = value; }
     public float FireRate { get => _fireRate; set => _fireRate = value; }
@@ -82,19 +81,10 @@ public class FireArmScript : WeaponScript
                 _reloading = false;
             }
 
-            if (WarriorLuck && UnityEngine.Random.Range(0, DropPercentage) == 0)
-            {
-                Fire(direction, _damage * DamageMultiplier, _bulletSpeed, _bulletSize, _impactForce, _dispersion, _collisionsAllowed);
-                _warriorLuckBullet = true;
-            }
-            else
-            {
-                Fire(direction, _damage, _bulletSpeed, _bulletSize, _impactForce, _dispersion, _collisionsAllowed);
-            }
-
-            PlayerRecoil.Impact(-direction, _recoilForce);
+            Fire(direction, _damage, _dispersion);
             PlayerState.CameraController.ShakeCamera(_cameraShake, 0.1f);
         }
+
         else if (_fireTimer < _fireRate)
         {
             _fireTimer += Time.deltaTime;
@@ -117,7 +107,7 @@ public class FireArmScript : WeaponScript
 
         if (enemyState.CanAttack && _fireTimer >= _fireRate && !_reloading)
         {
-            Fire(direction, _damage, _bulletSpeed, _bulletSize, _impactForce, _dispersion, _collisionsAllowed);
+            Fire(direction, _damage, _dispersion);
         }
         else if (_fireTimer < _fireRate)
         {
@@ -167,32 +157,39 @@ public class FireArmScript : WeaponScript
     }
 
 
-    public virtual void Fire(Vector3 direction, int damage, float bulletSpeed, float bulletSize, float impactForce, float dispersion, int collisionsAllowed)
+    public virtual void Fire(Vector3 direction, int damage, float dispersion)
     {
         _ammoLeft--;
         _fireTimer = 0;
+        UserRecoil.Impact(-direction, _recoilForce);
         AudioManager.Instance.PlayClipAt(_fireSound, gameObject.transform.position);
 
+        bool warriorLuckBullet = false;
+        if (WarriorLuck && UnityEngine.Random.Range(0, DropPercentage) == 0)
+        {
+            damage *= DamageMultiplier;
+            warriorLuckBullet = true;
+        }
         if (_aiming)
+        {
             dispersion /= _aimAccuracy;
-
-        FireBulletRpc(direction, damage, bulletSpeed, bulletSize, impactForce, dispersion, collisionsAllowed);
+        }
+            
+        FireBulletRpc(direction, damage, _bulletSpeed, _bulletSize, _impactForce, dispersion, _collisionsAllowed, warriorLuckBullet);
     }
 
 
     [ServerRpc(RequireOwnership = false)]
-    private void FireBulletRpc(Vector3 direction, int damage, float bulletSpeed, float bulletSize, float impactForce, float dispersion, int collisionsAllowed)
+    protected void FireBulletRpc(Vector3 direction, int damage, float bulletSpeed, float bulletSize, float impactForce, float dispersion, int collisionsAllowed, bool warriorLuckBullet)
     {
         for (int i = 0; i < _bulletNumber; i++)
         {
             GameObject newBullet = Instantiate(_bullet, _gunEndPoints[_bulletPointIndex].transform.position, Quaternion.identity);
             BulletScript bulletScript = newBullet.GetComponent<BulletScript>();
 
-            if (_warriorLuckBullet)
+            if (warriorLuckBullet)
             {
-                SpriteRenderer bulletRenderer = newBullet.GetComponent<SpriteRenderer>();
-                if (bulletRenderer != null)
-                    bulletRenderer.color = new Color(255f, 0f, 0f, 255f);
+                newBullet.GetComponent<SpriteRenderer>().color = new Color(255f, 0f, 0f, 255f);
             }
             
             _bulletPointIndex = (_bulletPointIndex + 1) % _gunEndPoints.Length;
@@ -202,7 +199,5 @@ public class FireArmScript : WeaponScript
             bulletScript.Setup(newDirection, damage, bulletSpeed, impactForce, collisionsAllowed);
             Spawn(newBullet);
         }
-
-        _warriorLuckBullet = false;
     }
 }

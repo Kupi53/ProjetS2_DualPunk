@@ -16,6 +16,7 @@ public class SmartWeaponScript : FireArmScript
     private List<GameObject> _targetsIndicators;
     private float _resetTimer;
     private int _index;
+    private bool _waitForNextTarget;
 
 
     private new void Start()
@@ -24,23 +25,32 @@ public class SmartWeaponScript : FireArmScript
 
         _index = 0;
         _resetTimer = 0;
+        _waitForNextTarget = false;
         _targetsIndicators = new List<GameObject>();
     }
 
 
     public override void Run(Vector3 position, Vector3 direction, Vector3 targetPoint)
     {
-        if (Input.GetButtonUp("Switch") && !ContainsTarget(PlayerState.PointerScript.Target))
+        if (Input.GetButtonDown("Switch"))
         {
-            GameObject newTargetIndicator = Instantiate(_lockedTargetIndicator);
-            newTargetIndicator.GetComponent<TargetIndicatorScript>().Target = PlayerState.PointerScript.Target;
-            _targetsIndicators.Add(newTargetIndicator);
+            _waitForNextTarget = false;
         }
-        else if (Input.GetButton("Switch"))
+        if (Input.GetButton("Switch"))
         {
+            if (PlayerState.PointerScript.Target != null && !_waitForNextTarget)
+            {
+                if (!_waitForNextTarget && CheckTarget(PlayerState.PointerScript.Target))
+                {
+                    GameObject newTargetIndicator = Instantiate(_lockedTargetIndicator);
+                    newTargetIndicator.GetComponent<TargetIndicatorScript>().Target = PlayerState.PointerScript.Target;
+                    _targetsIndicators.Add(newTargetIndicator);
+                }
+                _waitForNextTarget = true;
+            }
+            
             _resetTimer += Time.deltaTime;
-
-            if (_resetTimer > 0.25)
+            if (_resetTimer > 0.4)
                 ResetWeapon();
         }
         else
@@ -50,21 +60,18 @@ public class SmartWeaponScript : FireArmScript
     }
 
 
-    private bool ContainsTarget(GameObject target)
+    private bool CheckTarget(GameObject target)
     {
-        if (target == null)
-            return true;
-
         for (int i = 0; i < _targetsIndicators.Count; i++)
         {
             if (_targetsIndicators[i] == null || _targetsIndicators[i].GetComponent<TargetIndicatorScript>().Target == target)
             {
                 Destroy(_targetsIndicators[i]);
                 _targetsIndicators.Remove(_targetsIndicators[i]);
-                return true;
+                return false;
             }
         }
-        return false;
+        return true;
     }
 
 
@@ -80,47 +87,54 @@ public class SmartWeaponScript : FireArmScript
     }
 
 
-    public override void Fire(Vector3 direction, int damage, float bulletSpeed, float bulletSize, float impactForce, float dispersion, int collisionsAllowed)
+    public override void Fire(Vector3 direction, int damage, float dispersion)
     {
         _ammoLeft--;
         _fireTimer = 0;
+        UserRecoil.Impact(-direction, _recoilForce);
         AudioManager.Instance.PlayClipAt(_fireSound, gameObject.transform.position);
 
+        bool warriorLuckBullet = false;
+        if (WarriorLuck && UnityEngine.Random.Range(0, DropPercentage) == 0)
+        {
+            damage *= DamageMultiplier;
+            warriorLuckBullet = true;
+        }
         if (_aiming)
+        {
             dispersion /= _aimAccuracy;
+        }
 
-        FireSeekingBulletRpc(PlayerState, ClientManager.Connection, direction, damage, bulletSpeed, impactForce, dispersion);
+        FireSeekingBulletRpc(ClientManager.Connection, direction, damage, dispersion, warriorLuckBullet);
     }
 
 
     [ServerRpc(RequireOwnership = false)]
-    private void FireSeekingBulletRpc(PlayerState playerState, NetworkConnection networkConnection, Vector3 direction, int damage, float bulletSpeed, float impactForce, float dispersion)
+    private void FireSeekingBulletRpc(NetworkConnection networkConnection, Vector3 direction, int damage, float dispersion, bool warriorLuckBullet)
     {
         for (int i = 0; i < _bulletNumber; i++)
         {
             GameObject newBullet = Instantiate(_bullet, _gunEndPoints[_bulletPointIndex].transform.position, Quaternion.identity);
             SeekingBulletScript bulletScript = newBullet.GetComponent<SeekingBulletScript>();
 
-            if (_warriorLuckBullet)
+            if (warriorLuckBullet)
             {
-                newBullet.GetComponent<SpriteRenderer>().color = new Color(255f, 0f, 0f, 255f);
+                newBullet.GetComponent<SpriteRenderer>().color = new Color(0f, 0f, 0f, 255f);
             }
 
             _bulletPointIndex = (_bulletPointIndex + 1) % _gunEndPoints.Length;
             newBullet.transform.localScale = new Vector2(_bulletSize, _bulletSize);
             Vector3 newDirection = new Vector3(direction.x + Methods.NextFloat(-dispersion, dispersion), direction.y + Methods.NextFloat(-dispersion, dispersion), 0).normalized;
 
-            bulletScript.Setup(newDirection, damage, bulletSpeed, impactForce, _bulletRotateSpeed);
+            bulletScript.Setup(newDirection, damage, _bulletSpeed, _impactForce, _bulletRotateSpeed);
             Spawn(newBullet);
-            AssignTargetClientRPC(bulletScript, playerState, networkConnection);
+            AssignTargetClientRPC(bulletScript, networkConnection);
         }
-
-        _warriorLuckBullet = false;
     }
 
 
     [ObserversRpc]
-    private void AssignTargetClientRPC(SeekingBulletScript bulletScript, PlayerState playerState, NetworkConnection networkConnection)
+    private void AssignTargetClientRPC(SeekingBulletScript bulletScript, NetworkConnection networkConnection)
     {
         if (!networkConnection.IsLocalClient) return;
 
@@ -135,7 +149,7 @@ public class SmartWeaponScript : FireArmScript
             if (_targetsIndicators[_index] == null)
             {
                 _targetsIndicators.Remove(_targetsIndicators[_index]);
-                AssignTargetClientRPC(bulletScript, playerState, networkConnection);
+                AssignTargetClientRPC(bulletScript, networkConnection);
             }
             else
             {

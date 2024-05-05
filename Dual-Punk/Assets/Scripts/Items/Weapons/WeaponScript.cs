@@ -24,7 +24,7 @@ public abstract class WeaponScript : NetworkBehaviour
 
 #nullable enable
     public PlayerState? PlayerState { get; set; }
-    public IImpact? PlayerRecoil { get; set; }
+    public IImpact? UserRecoil { get; set; }
 #nullable disable
     public Vector3 WeaponOffset { get => _weaponOffset; set => _weaponOffset = value; }
 
@@ -77,8 +77,6 @@ public abstract class WeaponScript : NetworkBehaviour
     {
         InHand = true;
         _canAttack = true;
-        _rightHandSprite.enabled = true;
-        _leftHandSprite.enabled = true;
     }
 
     public void Drop()

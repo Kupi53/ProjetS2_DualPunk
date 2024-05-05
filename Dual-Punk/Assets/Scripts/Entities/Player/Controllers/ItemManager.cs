@@ -63,7 +63,7 @@ public class ItemManager : NetworkBehaviour
 
                 InventorySlots[] weaponsSlots = _inventoryManager.GetComponent<InventoryManager>().WeaponSlots;
                 weaponScript.PlayerState = _playerState;
-                weaponScript.PlayerRecoil = GetComponent<IImpact>();
+                weaponScript.UserRecoil = GetComponent<IImpact>();
 
                 if (weaponsSlots[_inventoryManager.GetComponent<InventoryManager>().EquipedSlotIndex].heldItem == null)
                 {

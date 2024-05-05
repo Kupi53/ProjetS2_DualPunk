@@ -12,11 +12,12 @@ GameObject:
   - component: {fileID: -1762809330502152923}
   - component: {fileID: -2697813750539223925}
   - component: {fileID: 7242957571246330690}
-  - component: {fileID: -7003742685480808957}
   - component: {fileID: 3668701009237676624}
   - component: {fileID: -5137988890912388252}
   - component: {fileID: -2162134851418688002}
   - component: {fileID: -5239865588859474064}
+  - component: {fileID: 6308201015484703783}
+  - component: {fileID: 4178710496251997567}
   m_Layer: 3
   m_Name: EnemyTest
   m_TagString: Untagged
@@ -153,26 +154,6 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.1, y: 0.1}
   m_Direction: 0
---- !u!114 &-7003742685480808957
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4605790729952272960}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fdfadf23769b74f4fb70166507c00200, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _layerMask:
-    serializedVersion: 2
-    m_Bits: 256
-  _walkSpeed: 0.03
-  _runSpeed: 0.05
-  _lockDistance: 6
-  _unlockDistance: 8
-  _reCalculationTime: 0.5
 --- !u!114 &3668701009237676624
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -236,13 +217,12 @@ MonoBehaviour:
   _networkBehaviours:
   - {fileID: 3668701009237676624}
   - {fileID: -5239865588859474064}
-  - {fileID: 0}
   <ParentNetworkObject>k__BackingField: {fileID: 0}
   <ChildNetworkObjects>k__BackingField: []
   SerializedTransformProperties:
-    Position: {x: 0, y: 0, z: 0}
-    Rotation: {x: 0, y: 0, z: 0, w: 0}
-    LocalScale: {x: 0, y: 0, z: 0}
+    Position: {x: 6.44761, y: -3.2600825, z: 1.5806416}
+    Rotation: {x: 0, y: 0, z: 0, w: 1}
+    LocalScale: {x: 2, y: 2, z: 1}
   _isNetworked: 1
   _isGlobal: 0
   _initializeOrder: 0
@@ -289,3 +269,48 @@ MonoBehaviour:
   _interpolation: 2
   _clientAuthoritative: 0
   _sendToOwner: 0
+--- !u!114 &6308201015484703783
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4605790729952272960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 515535f654b8d1248845664541bdf363, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _componentIndexCache: 255
+  _addedNetworkObject: {fileID: -5137988890912388252}
+  _networkObjectCache: {fileID: 0}
+  _health: 100
+  _walkSpeed: 0.04
+  _runSpeed: 0.07
+  _lockDistance: 15
+  _unlockDistance: 20
+  _layerMask:
+    serializedVersion: 2
+    m_Bits: 256
+  _weapons:
+  - {fileID: 8566271621736578887, guid: 45c33cf5e24d4e94cb0d06a7185ababe, type: 3}
+--- !u!114 &4178710496251997567
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4605790729952272960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: deaac0538bb7fa5459436b88456f74c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _componentIndexCache: 255
+  _addedNetworkObject: {fileID: -5137988890912388252}
+  _networkObjectCache: {fileID: 0}
+  _maxTestCollisionRange: 6
+  _reCalculationTime: 0.5
+  _layerMask:
+    serializedVersion: 2
+    m_Bits: 256

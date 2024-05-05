@@ -26,34 +26,40 @@ public class RocketLauncherScript : FireArmScript
     }
 
 
-    public override void Fire(Vector3 direction, int damage, float bulletSpeed, float bulletSize, float impactForce, float dispersion, int collisionsAllowed)
+    public override void Fire(Vector3 direction, int damage, float dispersion)
     {
         _ammoLeft--;
         _fireTimer = 0;
         AudioManager.Instance.PlayClipAt(_fireSound, gameObject.transform.position);
 
-        FireRocketRpc(direction, damage, bulletSpeed, bulletSize, impactForce);
+        bool warriorLuckBullet = false;
+        if (WarriorLuck && UnityEngine.Random.Range(0, DropPercentage) == 0)
+        {
+            damage *= DamageMultiplier;
+            warriorLuckBullet = true;
+        }
+
+        FireRocketRpc(direction, damage, warriorLuckBullet);
     }
 
 
     [ServerRpc(RequireOwnership = false)]
-    private void FireRocketRpc(Vector3 direction, int damage, float bulletSpeed, float bulletSize, float impactForce)
+    private void FireRocketRpc(Vector3 direction, int damage, bool warriorLuckBullet)
     {
         for (int i = 0; i < _bulletNumber; i++)
         {
             GameObject rocket = Instantiate(_bullet, _gunEndPoints[_bulletPointIndex].transform.position, Quaternion.identity);
             RocketScript rocketScript = rocket.GetComponent<RocketScript>();
 
-            if (_warriorLuckBullet)
+            if (warriorLuckBullet)
             {
                 rocket.GetComponent<SpriteRenderer>().color = new Color(255f, 0f, 0f, 255f);
-                _warriorLuckBullet = false;
             }
 
             _bulletPointIndex = (_bulletPointIndex + 1) % _gunEndPoints.Length;
-            rocket.transform.localScale = new Vector2(bulletSize, bulletSize);
+            rocket.transform.localScale = new Vector2(_bulletSize, _bulletSize);
 
-            rocketScript.Setup(direction, damage, bulletSpeed, impactForce, transform.position, Vector3.Distance(transform.position, _targetPoint),
+            rocketScript.Setup(direction, damage, _bulletSpeed, _impactForce, transform.position, Vector3.Distance(transform.position, _targetPoint),
                 _explosionRadius + 0.1f, _deviationAngle, _deviationSpeed);
 
             Spawn(rocket);
