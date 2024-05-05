@@ -9,16 +9,10 @@ public class HealthManager : MonoBehaviour, IDamageable
 {
     private PlayerState _playerState;
 
+
     private void Start()
     {
         _playerState = GetComponent<PlayerState>();
-    }
-
-
-    public void Die()
-    {
-        Debug.Log("You died.");
-        Destroy(gameObject);
     }
 
 
@@ -58,7 +52,6 @@ public class HealthManager : MonoBehaviour, IDamageable
         _playerState.Health = 0;
         CheckHealth();
     }
-
 
     public void Heal(int amount, float time)
     {

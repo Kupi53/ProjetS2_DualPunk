@@ -28,7 +28,7 @@ public class SmartWeaponScript : FireArmScript
     }
 
 
-    public override void Run(Vector3 position, Vector3 direction)
+    public override void Run(Vector3 position, Vector3 direction, Vector3 targetPoint)
     {
         if (Input.GetButtonUp("Switch") && !ContainsTarget(PlayerState.PointerScript.Target))
         {
@@ -46,7 +46,7 @@ public class SmartWeaponScript : FireArmScript
         else
             _resetTimer = 0;
         
-        base.Run(position, direction);
+        base.Run(position, direction, targetPoint);
     }
 
 
@@ -86,7 +86,7 @@ public class SmartWeaponScript : FireArmScript
         _fireTimer = 0;
         AudioManager.Instance.PlayClipAt(_fireSound, gameObject.transform.position);
 
-        if (PlayerState.Walking)
+        if (_aiming)
             dispersion /= _aimAccuracy;
 
         FireSeekingBulletRpc(PlayerState, ClientManager.Connection, direction, damage, bulletSpeed, impactForce, dispersion);
@@ -99,20 +99,12 @@ public class SmartWeaponScript : FireArmScript
         for (int i = 0; i < _bulletNumber; i++)
         {
             GameObject newBullet = Instantiate(_bullet, _gunEndPoints[_bulletPointIndex].transform.position, Quaternion.identity);
+            SeekingBulletScript bulletScript = newBullet.GetComponent<SeekingBulletScript>();
 
             if (_warriorLuckBullet)
             {
-                SpriteRenderer bulletRenderer = newBullet.GetComponent<SpriteRenderer>();
-
-                if (bulletRenderer != null)
-                {
-                    bulletRenderer.color = new Color(255f, 0f, 0f, 255f);
-                }
-
-                _warriorLuckBullet = false;
+                newBullet.GetComponent<SpriteRenderer>().color = new Color(255f, 0f, 0f, 255f);
             }
-            
-            SeekingBulletScript bulletScript = newBullet.GetComponent<SeekingBulletScript>();
 
             _bulletPointIndex = (_bulletPointIndex + 1) % _gunEndPoints.Length;
             newBullet.transform.localScale = new Vector2(_bulletSize, _bulletSize);
@@ -122,6 +114,8 @@ public class SmartWeaponScript : FireArmScript
             Spawn(newBullet);
             AssignTargetClientRPC(bulletScript, playerState, networkConnection);
         }
+
+        _warriorLuckBullet = false;
     }
 
 

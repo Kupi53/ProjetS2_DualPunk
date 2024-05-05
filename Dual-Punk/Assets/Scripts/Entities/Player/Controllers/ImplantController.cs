@@ -22,6 +22,8 @@ public class ImplantController : MonoBehaviour
             return implants;
         }
     }
+#nullable disable
+
 
     void Update()
     {

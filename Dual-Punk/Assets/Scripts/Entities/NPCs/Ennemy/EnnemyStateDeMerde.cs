@@ -4,7 +4,8 @@ using UnityEngine;
 using Pathfinding;
 using FishNet.Object;
 using Unity.Mathematics;
-public class EnnemyState : NetworkBehaviour
+
+public class EnnemyStateDeMerde : NetworkBehaviour
 {
     public float health;
 

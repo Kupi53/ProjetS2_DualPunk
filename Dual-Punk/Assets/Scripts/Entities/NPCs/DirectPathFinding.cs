@@ -1,0 +1,83 @@
+using FishNet.Object;
+using System.Collections;
+using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEngine;
+
+
+[RequireComponent(typeof(NPCState))]
+public class DirectPathFinding : NetworkBehaviour
+{
+    [SerializeField] private float _maxTestCollisionRange;
+    [SerializeField] private float _reCalculationTime;
+    [SerializeField] private LayerMask _layerMask;
+
+    private NPCState _npcState;
+    private Rigidbody2D _rb2d;
+
+    private Vector2[] _possibleDirections;
+    private Vector2 _moveDirection;
+    private float _reCalculateTimer;
+
+
+    private void Start()
+    {
+        _reCalculateTimer = _reCalculationTime;
+        _possibleDirections = new Vector2[] { new Vector2(1,0), new Vector2(0,1), new Vector2(-1,0), new Vector2(0,-1),
+            new Vector2(1,0.5f).normalized, new Vector2(-1,0.5f).normalized, new Vector2(1, -0.5f).normalized, new Vector2(-1,-0.5f) };
+        
+        _rb2d = GetComponent<Rigidbody2D>();
+        _npcState = GetComponent<NPCState>();
+    }
+
+
+    private void Update()
+    {
+        if (!_npcState.Move || _reCalculateTimer < _reCalculationTime)
+        {
+            _reCalculateTimer += Time.deltaTime;
+            return;
+        }
+        else
+        {
+            _reCalculateTimer = 0;
+        }
+        
+        
+        Vector2 direction = _npcState.TargetPoint - transform.position;
+        float distance = direction.magnitude;
+        direction = direction.normalized;
+
+        float maxAngle = 256;
+        float currentAngle;
+
+        for (int i = 0; i < _possibleDirections.Length; i++)
+        {
+            if ((currentAngle = Vector2.Angle(direction, _possibleDirections[i])) < maxAngle)
+            {
+                if (!Physics2D.Raycast(transform.position, _possibleDirections[i], GetDistance(distance * (1 - currentAngle/180)), _layerMask))
+                {
+                    _moveDirection = _possibleDirections[i];
+                    maxAngle = currentAngle;
+                }
+            }
+        }
+
+        _npcState.MoveDirection = _moveDirection;
+    }
+
+
+    private void FixedUpdate()
+    {
+        if (_moveDirection != Vector2.zero && _npcState.Move)
+            _rb2d.MovePosition(_rb2d.position + _moveDirection * _npcState.MoveSpeed * Methods.GetDirectionFactor(_moveDirection));
+    }
+
+
+    private float GetDistance(float distance)
+    {
+        if (distance > _maxTestCollisionRange)
+            return _maxTestCollisionRange;
+        return distance;
+    }
+}

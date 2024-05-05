@@ -22,8 +22,10 @@ public abstract class WeaponScript : NetworkBehaviour
     protected bool _canAttack;
     protected bool _reloading;
 
-    public PlayerState PlayerState { get; set; }
-    public IImpact PlayerRecoil { get; set; }
+#nullable enable
+    public PlayerState? PlayerState { get; set; }
+    public IImpact? PlayerRecoil { get; set; }
+#nullable disable
     public Vector3 WeaponOffset { get => _weaponOffset; set => _weaponOffset = value; }
 
     public bool InHand { get; set; } = false;
@@ -47,9 +49,8 @@ public abstract class WeaponScript : NetworkBehaviour
 
     protected void Update()
     {
-        if (InHand) {
-            PlayerState.PointerScript.SpriteNumber = _pointerSpriteNumber;
-        } else {
+        if (!InHand)
+        {
             transform.position += Vector3.up * (float)Math.Cos(Time.time * 5 + _weaponDistance) * 0.001f;
             _rightHandSprite.enabled = false;
             _leftHandSprite.enabled = false;
@@ -57,18 +58,27 @@ public abstract class WeaponScript : NetworkBehaviour
     }
 
 
-    public abstract void Run(Vector3 position, Vector3 direction);
+    public virtual void Run(Vector3 position, Vector3 direction, Vector3 targetPoint)
+    {
+        MovePosition(position, direction, targetPoint);
+
+        PlayerState.PointerScript.SpriteNumber = _pointerSpriteNumber;
+        if (!_canAttack)
+            PlayerState.PointerScript.CanShoot = false;
+        else
+            PlayerState.PointerScript.CanShoot = true;
+    }
+
+    public abstract void EnemyRun(EnemyState enemyState, Vector3 position, Vector3 direction, Vector3 targetPoint);
     public abstract void ResetWeapon();
 
 
-    public void PickUp(PlayerState playerState, IImpact playerRecoil)
+    public void PickUp()
     {
         InHand = true;
         _canAttack = true;
         _rightHandSprite.enabled = true;
         _leftHandSprite.enabled = true;
-        PlayerState = playerState;
-        PlayerRecoil = playerRecoil;
     }
 
     public void Drop()
@@ -76,7 +86,6 @@ public abstract class WeaponScript : NetworkBehaviour
         ResetWeapon();
 
         InHand = false;
-        transform.position = PlayerState.transform.position + PlayerState.WeaponScript.WeaponOffset;
         transform.rotation = Quaternion.identity;
 
         if (transform.localScale.y < 0)
@@ -89,9 +98,9 @@ public abstract class WeaponScript : NetworkBehaviour
     }
 
 
-    public void MovePosition(Vector3 position, Vector3 direction)
+    public void MovePosition(Vector3 position, Vector3 direction, Vector3 targetPoint)
     {
-        if (InHand && Math.Sign(PlayerState.MousePosition.x - PlayerState.transform.position.x) != Math.Sign(transform.localScale.y))
+        if (InHand && Math.Sign(targetPoint.x - position.x) != Math.Sign(transform.localScale.y))
         {
             transform.localScale = new Vector2(transform.localScale.x, -transform.localScale.y);
             _weaponOffset.x = -_weaponOffset.x;

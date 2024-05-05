@@ -34,9 +34,11 @@ public class MeleeWeaponScript : WeaponScript
     }
 
 
-    public override void Run(Vector3 position, Vector3 direction)
+    public override void Run(Vector3 position, Vector3 direction, Vector3 targetPoint)
     {
         if (!Owner.IsLocalClient) return;
+
+        PlayerState.PointerScript.SpriteNumber = _pointerSpriteNumber;
 
         if (Input.GetButtonDown("Use") && !PlayerState.Attacking && _attack < 3)
         {
@@ -127,6 +129,12 @@ public class MeleeWeaponScript : WeaponScript
 
         transform.position = position + _weaponOffset + direction * _currentWeaponDistance;
         transform.eulerAngles = new Vector3(0, 0, _angle);
+    }
+
+
+    public override void EnemyRun(EnemyState enemyState, Vector3 position, Vector3 direction, Vector3 targetPoint)
+    {
+        
     }
 
 

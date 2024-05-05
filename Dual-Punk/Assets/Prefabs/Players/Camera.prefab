@@ -181,8 +181,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa7088fe037b4a844b1c7b293cf8a5d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _minZoom: 3.5
-  _maxZoom: 4.5
+  _minZoom: 4.5
+  _maxZoom: 5.5
   _changeCenterZone: 100
   _cameraZpos: -7
 --- !u!81 &-2258532556998166959

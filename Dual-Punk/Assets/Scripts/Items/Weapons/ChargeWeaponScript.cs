@@ -29,9 +29,19 @@ public class ChargeWeaponScript : FireArmScript
     }
 
 
-    public override void Run(Vector3 position, Vector3 direction)
+    public override void Run(Vector3 position, Vector3 direction, Vector3 targetPoint)
     {
-        MovePosition(position, direction);
+        // on peut pas faire base.base :/ UwU 8==> 0 xD (*_*) ;)
+
+        MovePosition(position, direction, targetPoint);
+
+        _aiming = PlayerState.Walking;
+        PlayerState.PointerScript.SpriteNumber = _pointerSpriteNumber;
+        if (!_canAttack || _ammoLeft == 0)
+            PlayerState.PointerScript.CanShoot = false;
+        else
+            PlayerState.PointerScript.CanShoot = true;
+
 
         if (Input.GetButton("Use") && !_reloading && _fireTimer >= _fireRate && _ammoLeft > 0 && _chargeTimer <= _chargeTime && !_cancel)
         {

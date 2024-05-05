@@ -56,6 +56,8 @@ public class LaserGunScript : WeaponScript
         _particles = new List<ParticleSystem>();
 
         FillList();
+        DisableLaser();
+        DisableLaserRPC();
     }
 
 
@@ -65,11 +67,7 @@ public class LaserGunScript : WeaponScript
 
         if (!InHand) return;
 
-        if (_disableFire && Input.GetButton("Use") || !_canAttack)
-            PlayerState.PointerScript.CanShoot = false;
-        else
-            PlayerState.PointerScript.CanShoot = true;
-        
+        _startPosition = _gunEndPoint.transform.position;
 
         if (_fire)
         {
@@ -105,9 +103,13 @@ public class LaserGunScript : WeaponScript
     }
 
 
-    public override void Run(Vector3 position, Vector3 direction)
+    public override void Run(Vector3 position, Vector3 direction, Vector3 targetPoint)
     {
-        _startPosition = _gunEndPoint.transform.position;
+        base.Run(position, direction, targetPoint);
+
+        if (_disableFire && Input.GetButton("Use"))
+            PlayerState.PointerScript.CanShoot = false;
+
 
         if (Input.GetButtonDown("Use") && _canAttack)
         {
@@ -126,9 +128,22 @@ public class LaserGunScript : WeaponScript
             _coolDown = true;
         }
 
-        MovePosition(position, direction);
-        Fire(direction);
+        Fire(direction, targetPoint);
+
+        if (_fire)
+        {
+            PlayerRecoil.Impact(-direction, _recoilForce * Time.deltaTime * 100);
+            PlayerState.CameraController.ShakeCamera(_cameraShake, 0.1f);
+        }
     }
+
+
+    public override void EnemyRun(EnemyState enemyState, Vector3 position, Vector3 direction, Vector3 targetPoint)
+    {
+        if (!_coolDown && enemyState.CanAttack)
+            _fire = true;
+    }
+
 
     // ==============================================
 
@@ -243,15 +258,13 @@ public class LaserGunScript : WeaponScript
         DisableLaserRPC();
     }
 
-    private void Fire(Vector3 direction)
+    private void Fire(Vector3 direction, Vector3 targetPoint)
     {
         if (_fire)
         {
             if (_damageTimer < _damageFrequency)
                 _damageTimer += Time.deltaTime;
 
-            PlayerRecoil.Impact(-direction, _recoilForce * Time.deltaTime * 100);
-            PlayerState.CameraController.ShakeCamera(_cameraShake, 0.1f);
 
             RaycastHit2D hit = Physics2D.Raycast(_startPosition, direction, 100, _layerMask);
 
@@ -262,15 +275,15 @@ public class LaserGunScript : WeaponScript
 
                 if (hit.collider.CompareTag("Ennemy") && _damageTimer >= _damageFrequency)
                 {
-                    EnnemyState health = hit.collider.GetComponent<EnnemyState>();
-                    health.OnDamage(_damage);
+                    EnemyState health = hit.collider.GetComponent<EnemyState>();
+                    // health.OnDamage(_damage);
                     _damageTimer = 0;
                 }
             }
             else
             {
-                DrawLaser(_startPosition, PlayerState.MousePosition.normalized * 50, direction);
-                DrawLaserRPC(_startPosition, PlayerState.MousePosition.normalized * 50, direction);
+                DrawLaser(_startPosition, targetPoint.normalized * 50, direction);
+                DrawLaserRPC(_startPosition, targetPoint.normalized * 50, direction);
             }
         }
         else if (_resetTimer < _smoothTime * _disableSpeed)

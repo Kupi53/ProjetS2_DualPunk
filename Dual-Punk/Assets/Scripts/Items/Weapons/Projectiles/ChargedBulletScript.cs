@@ -14,7 +14,7 @@ public class ChargedBulletScript : BulletScript
         }
         if (collider.CompareTag("Ennemy"))
         {
-            EnnemyState health = collider.GetComponent<EnnemyState>();
+            EnnemyStateDeMerde health = collider.GetComponent<EnnemyStateDeMerde>();
             health.OnDamage(_damage);
             Destroy(gameObject);
         }

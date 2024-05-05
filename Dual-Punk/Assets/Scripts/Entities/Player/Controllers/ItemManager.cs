@@ -63,6 +63,7 @@ public class ItemManager : NetworkBehaviour
 
                 InventorySlots[] weaponsSlots = _inventoryManager.GetComponent<InventoryManager>().WeaponSlots;
                 weaponScript.PlayerState = _playerState;
+                weaponScript.PlayerRecoil = GetComponent<IImpact>();
 
                 if (weaponsSlots[_inventoryManager.GetComponent<InventoryManager>().EquipedSlotIndex].heldItem == null)
                 {
@@ -174,12 +175,11 @@ public class ItemManager : NetworkBehaviour
 
     public void UpdateHeldWeapon(WeaponScript weaponScript)
     {
-        //Intervetir avec l'arme en main
         _playerState.WeaponScript = weaponScript;
         _playerState.HoldingWeapon = true;
         GiveOwnershipRPC(weaponScript.gameObject.GetComponent<NetworkObject>(), base.ClientManager.Connection);
-        weaponScript.PickUp(_playerState, _impact);
         weaponScript.gameObject.SetActive(true);
+        weaponScript.PickUp();
     }
 
 

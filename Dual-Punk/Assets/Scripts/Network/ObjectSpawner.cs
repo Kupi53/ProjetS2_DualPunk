@@ -48,7 +48,6 @@ public class ObjectSpawner : NetworkBehaviour
         UpdateHeldWeaponClientsRpc(networkConnection, obj, itemManager);
     }
 
-
     [TargetRpc]
     private void UpdateHeldWeaponClientsRpc(NetworkConnection networkConnection, GameObject obj, GameObject itemManager)
     {

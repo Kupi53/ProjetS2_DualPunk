@@ -21,7 +21,7 @@ public class Explosion : NetworkBehaviour
             Vector3 hitDirection = ennemy.transform.position - transform.position;
             if (hitDirection.magnitude <= explosionRadius)
             {
-                ennemy.GetComponent<EnnemyState>().OnDamage(damage * (explosionRadius - hitDirection.magnitude) / explosionRadius);
+                ennemy.GetComponent<EnnemyStateDeMerde>().OnDamage(damage * (explosionRadius - hitDirection.magnitude) / explosionRadius);
             }
         }
 
