@@ -101,11 +101,11 @@ public class FireArmScript : WeaponScript
     }
 
 
-    public override void EnemyRun(EnemyState enemyState, Vector3 position, Vector3 direction, Vector3 targetPoint)
+    public override void EnemyRun(Vector3 position, Vector3 direction, Vector3 targetPoint)
     {
         MovePosition(position, direction, targetPoint);
 
-        if (enemyState.CanAttack && _fireTimer >= _fireRate && !_reloading)
+        if (EnemyState.CanAttack && _fireTimer >= _fireRate && !_reloading)
         {
             Fire(direction, _damage, _dispersion);
         }
@@ -114,7 +114,7 @@ public class FireArmScript : WeaponScript
             _fireTimer += Time.deltaTime;
         }
 
-        _aiming = !enemyState.Move;
+        _aiming = !EnemyState.Move;
 
         if (_ammoLeft == 0)
         {

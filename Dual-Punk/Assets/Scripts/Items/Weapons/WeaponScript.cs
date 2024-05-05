@@ -24,10 +24,10 @@ public abstract class WeaponScript : NetworkBehaviour
 
 #nullable enable
     public PlayerState? PlayerState { get; set; }
+    public EnemyState? EnemyState { get; set; }
     public IImpact? UserRecoil { get; set; }
 #nullable disable
     public Vector3 WeaponOffset { get => _weaponOffset; set => _weaponOffset = value; }
-
     public bool InHand { get; set; } = false;
     public virtual bool DisplayInfo { get; }
     public virtual float InfoMaxTime { get; }
@@ -69,7 +69,7 @@ public abstract class WeaponScript : NetworkBehaviour
             PlayerState.PointerScript.CanShoot = true;
     }
 
-    public abstract void EnemyRun(EnemyState enemyState, Vector3 position, Vector3 direction, Vector3 targetPoint);
+    public abstract void EnemyRun(Vector3 position, Vector3 direction, Vector3 targetPoint);
     public abstract void ResetWeapon();
 
 
@@ -77,6 +77,8 @@ public abstract class WeaponScript : NetworkBehaviour
     {
         InHand = true;
         _canAttack = true;
+        _rightHandSprite.enabled = true;
+        _leftHandSprite.enabled = true;
     }
 
     public void Drop()
@@ -85,6 +87,7 @@ public abstract class WeaponScript : NetworkBehaviour
 
         InHand = false;
         transform.rotation = Quaternion.identity;
+        transform.position = PlayerState == null ? EnemyState.transform.position : PlayerState.transform.position;
 
         if (transform.localScale.y < 0)
         {

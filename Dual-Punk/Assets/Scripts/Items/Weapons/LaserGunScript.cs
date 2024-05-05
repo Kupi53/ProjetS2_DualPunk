@@ -137,10 +137,18 @@ public class LaserGunScript : WeaponScript
     }
 
 
-    public override void EnemyRun(EnemyState enemyState, Vector3 position, Vector3 direction, Vector3 targetPoint)
+    public override void EnemyRun(Vector3 position, Vector3 direction, Vector3 targetPoint)
     {
-        if (!_coolDown && enemyState.CanAttack)
+        if (!_disableFire && EnemyState.CanAttack)
+        {
             _fire = true;
+        }
+        if (!EnemyState.CanAttack)
+        {
+            _fire = false;
+            _coolDown = true;
+            _disableFire = false;
+        }
     }
 
 

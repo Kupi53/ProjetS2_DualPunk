@@ -19,10 +19,10 @@ public class RocketLauncherScript : FireArmScript
         base.Run(position, direction, targetPoint);
     }
 
-    public override void EnemyRun(EnemyState enemyState, Vector3 position, Vector3 direction, Vector3 targetPoint)
+    public override void EnemyRun(Vector3 position, Vector3 direction, Vector3 targetPoint)
     {
         _targetPoint = targetPoint;
-        base.EnemyRun(enemyState, position, direction, targetPoint);
+        base.EnemyRun(position, direction, targetPoint);
     }
 
 

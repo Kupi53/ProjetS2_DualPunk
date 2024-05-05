@@ -27,6 +27,8 @@ public class EnemyState : NPCState
         Spawn(weapon);
 
         WeaponScript = weapon.GetComponent<WeaponScript>();
+        WeaponScript.EnemyState = this;
+        // WeaponScript.UserRecoil = GetComponent<IImpact>();
         WeaponScript.PickUp();
     }
 
@@ -36,7 +38,7 @@ public class EnemyState : NPCState
         if (_target == null)
         {
             CanAttack = false;
-            WeaponScript.EnemyRun(this, transform.position, MoveDirection, TargetPoint);
+            WeaponScript.EnemyRun(transform.position, MoveDirection, TargetPoint);
 
             GameObject[] targets = GameObject.FindGameObjectsWithTag("Player");
             for (int i = 0; i < targets.Length; i++)
@@ -62,6 +64,6 @@ public class EnemyState : NPCState
             CanAttack = Physics2D.Raycast(transform.position, _target.transform.position, distance, _layerMask);
         }
 
-        WeaponScript.EnemyRun(this, transform.position, transform.position - _target.transform.position, TargetPoint);
+        WeaponScript.EnemyRun(transform.position, transform.position - _target.transform.position, TargetPoint);
     }
 }
