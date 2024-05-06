@@ -6,18 +6,19 @@ using UnityEngine;
 
 
 [RequireComponent(typeof(NPCState))]
-public class DirectPathFinding : NetworkBehaviour
+public class NPCMouvement : NetworkBehaviour
 {
-    [SerializeField] private float _maxTestCollisionRange;
+    [SerializeField] protected float _walkSpeed;
+    [SerializeField] protected float _runSpeed;
     [SerializeField] private float _reCalculationTime;
     [SerializeField] private LayerMask _layerMask;
 
     private NPCState _npcState;
     private Rigidbody2D _rb2d;
-
     private Vector2[] _possibleDirections;
     private Vector2 _moveDirection;
     private float _reCalculateTimer;
+    private float _moveSpeed;
 
 
     private void Start()
@@ -33,16 +34,16 @@ public class DirectPathFinding : NetworkBehaviour
 
     private void Update()
     {
-        if (!_npcState.Move || _reCalculateTimer < _reCalculationTime)
-        {
+        if (!_npcState.Move || _reCalculateTimer < _reCalculationTime) {
             _reCalculateTimer += Time.deltaTime;
             return;
-        } else {
+        }
+        else {
             _reCalculateTimer = 0;
         }
         
         
-        Vector2 direction = _npcState.TargetPoint - transform.position;
+        Vector2 direction = _npcState.Target.transform.position - transform.position;
         float distance = direction.magnitude;
         direction = direction.normalized;
 
@@ -61,13 +62,16 @@ public class DirectPathFinding : NetworkBehaviour
             }
         }
 
-        _npcState.MoveDirection = _moveDirection;
+        if (_npcState.Run)
+            _moveSpeed = _runSpeed;
+        else
+            _moveSpeed = _walkSpeed;
     }
 
 
     private void FixedUpdate()
     {
         if (_moveDirection != Vector2.zero && _npcState.Move)
-            _rb2d.MovePosition(_rb2d.position + _moveDirection * _npcState.MoveSpeed * Methods.GetDirectionFactor(_moveDirection));
+            _rb2d.MovePosition(_rb2d.position + _moveDirection * _moveSpeed * Methods.GetDirectionFactor(_moveDirection));
     }
 }

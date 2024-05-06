@@ -26,17 +26,16 @@ public class PlayerState : NetworkBehaviour
     public bool Dashing { get; set; }
     public bool Attacking { get; set; }
     public bool HoldingWeapon { get; set; }
+    public bool CanBeTeleported { get; set; }
 
     public Vector3 MousePosition { get => _mousePosition; }
-
-    public bool CanBeTeleported;
-
 
 #nullable enable
     public WeaponScript? WeaponScript { get; set; }
     public PointerScript? PointerScript { get; set; }
     public CameraController? CameraController { get; set; }
 #nullable disable
+
 
 
     private void Awake()
@@ -56,7 +55,8 @@ public class PlayerState : NetworkBehaviour
         CrawlTimer = 0;
     }
 
-    void Update()
+
+    private void Update()
     {
         if (!IsOwner) return;
 

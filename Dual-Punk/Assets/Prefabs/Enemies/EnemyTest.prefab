@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: -5239865588859474064}
   - component: {fileID: 6308201015484703783}
   - component: {fileID: 4178710496251997567}
+  - component: {fileID: -2339362865896900815}
   m_Layer: 3
   m_Name: EnemyTest
   m_TagString: Untagged
@@ -219,6 +220,7 @@ MonoBehaviour:
   - {fileID: -5239865588859474064}
   - {fileID: 6308201015484703783}
   - {fileID: 4178710496251997567}
+  - {fileID: -2339362865896900815}
   <ParentNetworkObject>k__BackingField: {fileID: 0}
   <ChildNetworkObjects>k__BackingField: []
   SerializedTransformProperties:
@@ -230,7 +232,7 @@ MonoBehaviour:
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 5
+  <PrefabId>k__BackingField: 8
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0
@@ -286,16 +288,8 @@ MonoBehaviour:
   _componentIndexCache: 2
   _addedNetworkObject: {fileID: -5137988890912388252}
   _networkObjectCache: {fileID: -5137988890912388252}
-  _health: 100
-  _walkSpeed: 0.04
-  _runSpeed: 0.07
   _lockDistance: 15
   _unlockDistance: 20
-  _layerMask:
-    serializedVersion: 2
-    m_Bits: 256
-  _weapons:
-  - {fileID: 8547339821460021461, guid: 734d16466bc185640b850ab1d3ed641c, type: 3}
 --- !u!114 &4178710496251997567
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -311,8 +305,29 @@ MonoBehaviour:
   _componentIndexCache: 3
   _addedNetworkObject: {fileID: -5137988890912388252}
   _networkObjectCache: {fileID: -5137988890912388252}
-  _maxTestCollisionRange: 6
+  _walkSpeed: 0.04
+  _runSpeed: 0.07
   _reCalculationTime: 0.5
   _layerMask:
     serializedVersion: 2
     m_Bits: 256
+--- !u!114 &-2339362865896900815
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4605790729952272960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a700a2ef2261fc4584b8c3a26d48529, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _componentIndexCache: 4
+  _addedNetworkObject: {fileID: -5137988890912388252}
+  _networkObjectCache: {fileID: -5137988890912388252}
+  _layerMask:
+    serializedVersion: 2
+    m_Bits: 256
+  _weapons:
+  - {fileID: 7321002207951180533, guid: e26798f24e158594fbd0c9e6555e8911, type: 3}
