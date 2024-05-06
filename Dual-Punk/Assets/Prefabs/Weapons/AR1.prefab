@@ -384,6 +384,7 @@ MonoBehaviour:
   _rightHand: {fileID: 2939624512793751183}
   _leftHand: {fileID: 7017974954916342671}
   _weaponOffset: {x: 0.15, y: 0.9, z: 0}
+  _range: 30
   _weaponDistance: 0.45
   _recoilForce: 1.2
   _impactForce: 1.2
@@ -410,7 +411,6 @@ MonoBehaviour:
   WarriorLuck: 0
   DamageMultiplier: 1
   DropPercentage: 1
-  _warriorLuckBullet: 0
 --- !u!114 &4687209510453595086
 MonoBehaviour:
   m_ObjectHideFlags: 0

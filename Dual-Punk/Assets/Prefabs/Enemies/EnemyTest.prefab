@@ -217,6 +217,8 @@ MonoBehaviour:
   _networkBehaviours:
   - {fileID: 3668701009237676624}
   - {fileID: -5239865588859474064}
+  - {fileID: 6308201015484703783}
+  - {fileID: 4178710496251997567}
   <ParentNetworkObject>k__BackingField: {fileID: 0}
   <ChildNetworkObjects>k__BackingField: []
   SerializedTransformProperties:
@@ -281,9 +283,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 515535f654b8d1248845664541bdf363, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 255
+  _componentIndexCache: 2
   _addedNetworkObject: {fileID: -5137988890912388252}
-  _networkObjectCache: {fileID: 0}
+  _networkObjectCache: {fileID: -5137988890912388252}
   _health: 100
   _walkSpeed: 0.04
   _runSpeed: 0.07
@@ -293,7 +295,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   _weapons:
-  - {fileID: 8566271621736578887, guid: 45c33cf5e24d4e94cb0d06a7185ababe, type: 3}
+  - {fileID: 8547339821460021461, guid: 734d16466bc185640b850ab1d3ed641c, type: 3}
 --- !u!114 &4178710496251997567
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -306,9 +308,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: deaac0538bb7fa5459436b88456f74c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 255
+  _componentIndexCache: 3
   _addedNetworkObject: {fileID: -5137988890912388252}
-  _networkObjectCache: {fileID: 0}
+  _networkObjectCache: {fileID: -5137988890912388252}
   _maxTestCollisionRange: 6
   _reCalculationTime: 0.5
   _layerMask:

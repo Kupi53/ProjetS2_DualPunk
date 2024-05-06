@@ -19,8 +19,10 @@ public class EnemyState : NPCState
     public bool CanAttack { get; set; }
 
 
-    private void Start()
+    private new void Start()
     {
+        base.Start();
+
         _weaponIndex = 0;
 
         GameObject weapon = Instantiate(_weapons[0], transform.position, Quaternion.identity);
@@ -29,15 +31,17 @@ public class EnemyState : NPCState
         WeaponScript = weapon.GetComponent<WeaponScript>();
         WeaponScript.EnemyState = this;
         // WeaponScript.UserRecoil = GetComponent<IImpact>();
-        WeaponScript.PickUp();
     }
 
 
     private void Update()
     {
+        CanAttack = false;
+        MoveSpeed = _walkSpeed;
+        WeaponScript.PickUp();
+
         if (_target == null)
         {
-            CanAttack = false;
             WeaponScript.EnemyRun(transform.position, MoveDirection, TargetPoint);
 
             GameObject[] targets = GameObject.FindGameObjectsWithTag("Player");
@@ -52,18 +56,33 @@ public class EnemyState : NPCState
             return;
         }
 
-        float distance = Vector2.Distance(transform.position, _target.transform.position);
-        if (distance < _unlockDistance)
+        float distance = Vector2.Distance(transform.position, TargetPoint);
+        if (distance > _unlockDistance)
         {
             _target = null;
             return;
         }
 
-        if (WeaponScript is not ChargeWeaponScript)
+        if (distance < WeaponScript.Range)
         {
-            CanAttack = Physics2D.Raycast(transform.position, _target.transform.position, distance, _layerMask);
+            int hits = Physics2D.RaycastAll(transform.position, _target.transform.position, distance, _layerMask).Length;
+
+            if (WeaponScript is ChargeWeaponScript && hits <= ((ChargeWeaponScript)WeaponScript).CollisionsAllowed)
+            {
+                CanAttack = true;
+                ((ChargeWeaponScript)WeaponScript).ObstaclesEnemy = hits;
+            }
+            else if (hits == 0)
+            {
+                CanAttack = true;
+            }
         }
 
-        WeaponScript.EnemyRun(transform.position, transform.position - _target.transform.position, TargetPoint);
+        if (!CanAttack)
+        {
+            MoveSpeed = _runSpeed;
+        }
+
+        WeaponScript.EnemyRun(transform.position, (TargetPoint - transform.position).normalized, TargetPoint);
     }
 }

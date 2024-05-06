@@ -14,4 +14,11 @@ public class NPCState : NetworkBehaviour
     public Vector3 MoveDirection { get; set; }
     public float MoveSpeed { get; set; }
     public bool Move { get; set; }
+
+
+    protected void Start()
+    {
+        MoveSpeed = _walkSpeed;
+        Move = true;
+    }
 }

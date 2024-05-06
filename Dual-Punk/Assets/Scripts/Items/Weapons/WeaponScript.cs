@@ -9,6 +9,7 @@ public abstract class WeaponScript : NetworkBehaviour
     [SerializeField] private GameObject _leftHand;
     [SerializeField] protected Vector3 _weaponOffset;
 
+    [SerializeField] protected float _range;
     [SerializeField] protected float _weaponDistance;
     [SerializeField] protected float _recoilForce;
     [SerializeField] protected float _impactForce;
@@ -27,8 +28,10 @@ public abstract class WeaponScript : NetworkBehaviour
     public EnemyState? EnemyState { get; set; }
     public IImpact? UserRecoil { get; set; }
 #nullable disable
-    public Vector3 WeaponOffset { get => _weaponOffset; set => _weaponOffset = value; }
+    public Vector3 WeaponOffset { get => _weaponOffset;}
     public bool InHand { get; set; } = false;
+    public float Range { get => _range; }
+
     public virtual bool DisplayInfo { get; }
     public virtual float InfoMaxTime { get; }
     public virtual float InfoTimer { get; }

@@ -17,7 +17,10 @@ public class ChargeWeaponScript : FireArmScript
 	[SerializeField] private AudioSource _audioSource;
 
     private bool _cancel;
+    private float _minCharge;
     private float _chargeTimer;
+
+    public int ObstaclesEnemy { get; set; }
 
 
     private new void Start()
@@ -25,6 +28,7 @@ public class ChargeWeaponScript : FireArmScript
         base.Start();
 
         _cancel = false;
+        _minCharge = 0;
         _chargeTimer = 0;
     }
 
@@ -37,6 +41,7 @@ public class ChargeWeaponScript : FireArmScript
 
         _aiming = PlayerState.Walking;
         PlayerState.PointerScript.SpriteNumber = _pointerSpriteNumber;
+
         if (!_canAttack || _ammoLeft == 0)
             PlayerState.PointerScript.CanShoot = false;
         else
@@ -83,11 +88,11 @@ public class ChargeWeaponScript : FireArmScript
                 }
             }
         }
+
         else if (_audioSource.isPlaying)
         {
             _audioSource.Stop();
         }
-
         
         if (Input.GetButtonDown("Use"))
         {
@@ -107,6 +112,50 @@ public class ChargeWeaponScript : FireArmScript
     }
 
 
+    public override void EnemyRun(Vector3 position, Vector3 direction, Vector3 targetPoint)
+    {
+        MovePosition(position, direction, targetPoint);
+
+        if (EnemyState.CanAttack && _fireTimer >= _fireRate && !_reloading)
+        {
+            if (_chargeTimer == 0)
+            {
+                _minCharge = UnityEngine.Random.Range(_chargeTimer * ObstaclesEnemy / _collisionsAllowed, _chargeTime);
+            }
+
+            _chargeTimer += Time.deltaTime;
+        }
+        else if (_chargeTimer > 0)
+        {
+            _minCharge = 0;
+            _chargeTimer = 0;
+        }
+        else if (_fireTimer < _fireRate)
+        {
+            _fireTimer += Time.deltaTime;
+        }
+
+
+        if (_chargeTimer > _minCharge)
+        {
+            _minCharge = 0;
+            Fire(direction, _damage, _dispersion);
+        }
+
+        _aiming = !EnemyState.Move;
+
+        if (_ammoLeft == 0)
+        {
+            _reloading = true;
+        }
+        if (_reloading)
+        {
+            Reload();
+        }
+    }
+
+
+
     private float GetProgressingFactor(float multiplier, float minValue, float maxValue)
     {
         return minValue + multiplier * (maxValue - minValue);
@@ -118,6 +167,7 @@ public class ChargeWeaponScript : FireArmScript
         base.ResetWeapon();
 
         _cancel = true;
+        _minCharge = 0;
         _fireTimer = 0;
         _chargeTimer = 0;
         _audioSource.Stop();
@@ -134,7 +184,7 @@ public class ChargeWeaponScript : FireArmScript
         _chargeTimer = 0;
 
         AudioManager.Instance.PlayClipAt(_fireSound, gameObject.transform.position);
-        UserRecoil.Impact(-direction, GetProgressingFactor(multiplier, _minRecoil, _recoilForce));
+        //UserRecoil.Impact(-direction, GetProgressingFactor(multiplier, _minRecoil, _recoilForce));
 
         if (WarriorLuck && UnityEngine.Random.Range(0, DropPercentage) == 0)
         {

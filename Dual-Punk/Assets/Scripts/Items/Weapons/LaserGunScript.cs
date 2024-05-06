@@ -57,7 +57,7 @@ public class LaserGunScript : WeaponScript
 
         FillList();
         DisableLaser();
-        DisableLaserRPC();
+        DisableLaserClientRPC();
     }
 
 
@@ -97,7 +97,7 @@ public class LaserGunScript : WeaponScript
             if (_resetTimer >= _smoothTime * _disableSpeed)
             {
                 DisableLaser();
-                DisableLaserRPC();
+                DisableLaserClientRPC();
             }
         }        
     }
@@ -120,7 +120,7 @@ public class LaserGunScript : WeaponScript
         {
             _fire = true;
             EnableLaser();
-            EnableLaserRPC();
+            EnableLaserClientRPC();
         }
         else if (Input.GetButtonUp("Use") || !_canAttack)
         {
@@ -139,6 +139,10 @@ public class LaserGunScript : WeaponScript
 
     public override void EnemyRun(Vector3 position, Vector3 direction, Vector3 targetPoint)
     {
+        MovePosition(position, direction, targetPoint);
+
+        Debug.Log(_coolDownLevel);
+
         if (!_disableFire && EnemyState.CanAttack)
         {
             _fire = true;
@@ -146,13 +150,16 @@ public class LaserGunScript : WeaponScript
         if (!EnemyState.CanAttack)
         {
             _fire = false;
-            _coolDown = true;
             _disableFire = false;
+
+            if (_coolDownLevel > 0)
+                _coolDown = true;
         }
+
+        Fire(direction, targetPoint);
     }
 
 
-    // ==============================================
 
     private void FillList()
     {
@@ -170,7 +177,6 @@ public class LaserGunScript : WeaponScript
         }
     }
 
-    // ------------------------------
 
     private void EnableLaser()
     {
@@ -200,7 +206,6 @@ public class LaserGunScript : WeaponScript
         _audioSource.Stop();
     }
 
-    // ------------------------------
 
     private void DrawLaser(Vector3 startPosition, Vector3 targetPoint, Vector3 direction)
     {
@@ -211,59 +216,15 @@ public class LaserGunScript : WeaponScript
     }
 
 
-    // ==============================================
-
-
-    [ServerRpc(RequireOwnership = false)]
-    private void EnableLaserRPC()
-    {
-        EnableLaserClient2();
-    }
-
-    [ObserversRpc(ExcludeOwner = true)]
-    private void EnableLaserClient2()
-    {
-        EnableLaser();
-    }
-
-
-    [ServerRpc(RequireOwnership = false)]
-    private void DisableLaserRPC()
-    {
-        DisableLaserClient2();
-    }
-
-    [ObserversRpc(ExcludeOwner = true)]
-    private void DisableLaserClient2()
-    {
-        DisableLaser();
-    }
-
-    // ------------------------------
-
-
-    [ServerRpc(RequireOwnership = false)]
-    private void DrawLaserRPC(Vector3 startPosition, Vector3 targetPoint, Vector3 direction)
-    {
-        DrawLaserClient2(startPosition, targetPoint, direction);
-    }
-
-    [ObserversRpc(ExcludeOwner = true)]
-    private void DrawLaserClient2(Vector3 startPosition, Vector3 targetPoint, Vector3 direction)
-    {
-        DrawLaser(startPosition, targetPoint, direction);
-    }
-
-    // ==============================================
-
-
     public override void ResetWeapon()
     {
         _fire = false;
         _coolDown = true;
         DisableLaser();
-        DisableLaserRPC();
+        DisableLaserClientRPC();
     }
+
+
 
     private void Fire(Vector3 direction, Vector3 targetPoint)
     {
@@ -272,7 +233,7 @@ public class LaserGunScript : WeaponScript
             if (_damageTimer < _damageFrequency)
                 _damageTimer += Time.deltaTime;
 
-            UserRecoil.Impact(-direction, _recoilForce * Time.deltaTime * 100);
+            //UserRecoil.Impact(-direction, _recoilForce * Time.deltaTime * 100);
             RaycastHit2D hit = Physics2D.Raycast(_startPosition, direction, 100, _layerMask);
 
             if (hit)
@@ -300,5 +261,50 @@ public class LaserGunScript : WeaponScript
             DrawLaser(_startPosition, _startPosition, direction);
             DrawLaserRPC(_startPosition, _startPosition, direction);
         }
+    }
+
+
+
+
+
+
+    [ServerRpc(RequireOwnership = false)]
+    private void EnableLaserClientRPC()
+    {
+        EnableLaserClient();
+    }
+
+    [ObserversRpc(ExcludeOwner = true)]
+    private void EnableLaserClient()
+    {
+        EnableLaser();
+    }
+
+
+    [ServerRpc(RequireOwnership = false)]
+    private void DisableLaserClientRPC()
+    {
+        DisableLaserClient();
+    }
+
+    [ObserversRpc(ExcludeOwner = true)]
+    private void DisableLaserClient()
+    {
+        DisableLaser();
+    }
+
+    // ------------------------------
+
+
+    [ServerRpc(RequireOwnership = false)]
+    private void DrawLaserRPC(Vector3 startPosition, Vector3 targetPoint, Vector3 direction)
+    {
+        DrawLaserClient(startPosition, targetPoint, direction);
+    }
+
+    [ObserversRpc(ExcludeOwner = true)]
+    private void DrawLaserClient(Vector3 startPosition, Vector3 targetPoint, Vector3 direction)
+    {
+        DrawLaser(startPosition, targetPoint, direction);
     }
 }

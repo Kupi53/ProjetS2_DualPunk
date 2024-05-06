@@ -268,6 +268,7 @@ MonoBehaviour:
   _rightHand: {fileID: 1784858503084262383}
   _leftHand: {fileID: 8632587119048511087}
   _weaponOffset: {x: 0, y: 0.5, z: 0}
+  _range: 2
   _weaponDistance: 0.7
   _recoilForce: 0
   _impactForce: 0
