@@ -3047,6 +3047,125 @@ TilemapRenderer:
   m_Mode: 1
   m_DetectChunkCullingBounds: 0
   m_MaskInteraction: 0
+--- !u!1 &3593979723149329802
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7443181565606834284}
+  - component: {fileID: 8279170542768650237}
+  m_Layer: 0
+  m_Name: Pathfinder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7443181565606834284
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3593979723149329802}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8970893873882797774}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8279170542768650237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3593979723149329802}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78396926cbbfc4ac3b48fc5fc34a87d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 1
+  data:
+    dataString: UEsDBBQAAAgIAAAIIezqPDbtjgIAAFAFAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFlVMFy2jAQ/RVG5+KxDcTQW0sIySEJE9rJxRdhrbEGWfJIcoBk+PeuZBs7lAvy292nt2/X/iJcmgoyq/Rac/asGJCfI/JkVAlW88yB5Meoz3qEE90rueWf0CW/c2YLl0R9zhu1XCEeubKO55fcC5d8Fwah+03mGK0lz5UuV2wPS2WswXhOhQEMaWUdjUToa0RO+DeezhA/4ylOQjx94mkRji54zEBa0H1qHETxZBrNpslqHCZt1XgeJDO8OWprZ0Ech/PZ3d0Uk+aep5aZoGUFzHXX002SwMs9d2efLLH7Ni8MosQlZEoIblrVxJ4rb8+2KkCD84dxim54pVEwQaAAvi+sUzysfs1zAw51bWp6vucabW1oyW/VeF1Sc2gkflBRg7cl9sIa0uf/4uPIh3Otysfu3ih0d9iCZ4c3es6osYMZDOH7gXTv1JGKA90JeC9Avqi1VrVkGLS6dqW1gfi+f7y2tiwgO/R4I/UGrKve+rC1vRu46+Hiuz8tBS933vxpA2yF8oYvXDJoHM8TCvZbZFoKRJ2Kvwb+0P1w3drAA9fGYqhNl07eTtXapZKV98x1U9ul0hI83IquQFJhzxuksbcjvIkNrr2JPFD3hrUWt7Huxbkp8XCfH4Y3oY06XodlCnV8BlO81lZwCb1oF3hBn5ZKymbDzPegq9rWOqfZoGpfc/Z9s0ieRzHADBZsAbuIZmM2p9GC5tliCjFL5pT41eMS26Ri0+hs3cGhyZ5c4po5RvfdGa01rfyyM02Pa/5ZqoE+LnO1zTSAfG0YOocMaLwE30y2Yhz92YK1XPpxk6+UCJUdgKVXotR3ujpZTdOeJSUV/1DWISlZ+u9LShx8XeWNhg8OR3d5R3Yhl39QSwMEFAAACAgAAAgh7BCgdOJtAAAAeAAAAAkAJABtZXRhLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQGrVipLLSrOzM9TslIw0TPSMzTXUVBKL0osyCgGihiCOKWZKSB2tFJamqFRaqppqmWKZWqSYWKybopFoqFlYlqypUmqUYq5RaJSLFB9SWVBql9ibipET0BiSUZaZl5KZl66nntRZoo7yGil2FoAUEsBAi0AFAAACAgAAAgh7Oo8Nu2OAgAAUAUAAAsAJAAAAAAAAAAAAAAAAAAAAGdyYXBoMC5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0BUEsBAi0AFAAACAgAAAgh7BCgdOJtAAAAeAAAAAkAJAAAAAAAAAAAAAAA2wIAAG1ldGEuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAVBLBQYAAAAAAgACALgAAACTAwAAAAA=
+    upgradeData: 
+    file_cachedStartup: {fileID: 0}
+    data_cachedStartup: 
+    cacheStartup: 0
+  showNavGraphs: 1
+  showUnwalkableNodes: 1
+  debugMode: 0
+  debugFloor: 0
+  debugRoof: 1
+  manualDebugFloorRoof: 0
+  showSearchTree: 0
+  unwalkableNodeDebugSize: 0.3
+  logPathResults: 1
+  maxNearestNodeDistance: 100
+  scanOnStartup: 1
+  fullGetNearestSearch: 0
+  prioritizeGraphs: 0
+  prioritizeGraphsLimit: 1
+  colorSettings:
+    _SolidColor: {r: 0.11764706, g: 0.4, b: 0.7882353, a: 0.9}
+    _UnwalkableNode: {r: 1, g: 0, b: 0, a: 0.5}
+    _BoundsHandles: {r: 0.29, g: 0.454, b: 0.741, a: 0.9}
+    _ConnectionLowLerp: {r: 0, g: 1, b: 0, a: 0.5}
+    _ConnectionHighLerp: {r: 1, g: 0, b: 0, a: 0.5}
+    _MeshEdgeColor: {r: 0, g: 0, b: 0, a: 0.5}
+    _AreaColors:
+    - {r: 0, g: 0, b: 0, a: 0}
+  tagNames:
+  - Basic Ground
+  - 1
+  - 2
+  - 3
+  - 4
+  - 5
+  - 6
+  - 7
+  - 8
+  - 9
+  - 10
+  - 11
+  - 12
+  - 13
+  - 14
+  - 15
+  - 16
+  - 17
+  - 18
+  - 19
+  - 20
+  - 21
+  - 22
+  - 23
+  - 24
+  - 25
+  - 26
+  - 27
+  - 28
+  - 29
+  - 30
+  - 31
+  heuristic: 2
+  heuristicScale: 1
+  threadCount: 1
+  maxFrameTime: 10
+  batchGraphUpdates: 0
+  graphUpdateBatchingInterval: 0.2
+  euclideanEmbedding:
+    mode: 0
+    seed: 0
+    pivotPointRoot: {fileID: 0}
+    spreadOutCount: 1
+  showGraphs: 1
 --- !u!1 &4019020946379616920
 GameObject:
   m_ObjectHideFlags: 0
@@ -3079,6 +3198,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 7443181565606834284}
   - {fileID: 9220127088529261775}
   - {fileID: 8965871295965450925}
   - {fileID: 6827591678774549619}
