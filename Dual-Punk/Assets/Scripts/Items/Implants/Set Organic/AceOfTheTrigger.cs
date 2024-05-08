@@ -12,8 +12,8 @@ public class AceOfTheTrigger : ImplantScript
 {
     [SerializeField] protected float _speedFireRate;
 
-    private GameObject _holdModifiedWeapon;
-    private float _holfFireRate;
+    private GameObject _oldModifiedWeapon;
+    private float _olfFireRate;
 
     void Awake()
     {
@@ -28,29 +28,29 @@ public class AceOfTheTrigger : ImplantScript
             {
                 FireArmScript fireArmScript = PlayerState.WeaponScript as FireArmScript;
 
-                if (fireArmScript != null && _holdModifiedWeapon != fireArmScript.gameObject)
+                if (fireArmScript != null && _oldModifiedWeapon != fireArmScript.gameObject)
                 {
-                    if (_holdModifiedWeapon == null)
+                    if (_oldModifiedWeapon == null)
                     {
-                        _holdModifiedWeapon = fireArmScript.gameObject;
-                        _holfFireRate = fireArmScript.FireRate;
+                        _oldModifiedWeapon = fireArmScript.gameObject;
+                        _olfFireRate = fireArmScript.FireRate;
                     }
                     else
                     {
-                        _holdModifiedWeapon.GetComponent<FireArmScript>().FireRate = _holfFireRate;
+                        _oldModifiedWeapon.GetComponent<FireArmScript>().FireRate = _olfFireRate;
 
-                        _holdModifiedWeapon = fireArmScript.gameObject;
-                        _holfFireRate = fireArmScript.FireRate;
+                        _oldModifiedWeapon = fireArmScript.gameObject;
+                        _olfFireRate = fireArmScript.FireRate;
                     }
 
                     fireArmScript.FireRate /= _speedFireRate;
                 }
             }
-            else if (_holdModifiedWeapon != null)
+            else if (_oldModifiedWeapon != null)
             {
-                _holdModifiedWeapon.GetComponent<FireArmScript>().FireRate = _holfFireRate;
+                _oldModifiedWeapon.GetComponent<FireArmScript>().FireRate = _olfFireRate;
 
-                _holdModifiedWeapon = null;
+                _oldModifiedWeapon = null;
             }
         }
     }
@@ -58,12 +58,12 @@ public class AceOfTheTrigger : ImplantScript
 
     public override void ResetImplant()
     {
-        if (_holdModifiedWeapon != null)
+        if (_oldModifiedWeapon != null)
         {
-            _holdModifiedWeapon.GetComponent<FireArmScript>().FireRate = _holfFireRate;
+            _oldModifiedWeapon.GetComponent<FireArmScript>().FireRate = _olfFireRate;
         }
 
-        _holdModifiedWeapon = null;
+        _oldModifiedWeapon = null;
         RemoveAllOwnerShipRPC(GetComponent<NetworkObject>());
     }
 }

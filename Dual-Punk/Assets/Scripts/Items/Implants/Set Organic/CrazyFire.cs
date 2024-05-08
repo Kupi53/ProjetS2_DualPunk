@@ -12,7 +12,7 @@ public class CrazyFire : ImplantScript
 {
     [SerializeField] protected float _speedReloadTime;
 
-    private GameObject _holdModifiedWeapon;
+    private GameObject _oldModifiedWeapon;
 
     void Awake()
     {
@@ -27,27 +27,27 @@ public class CrazyFire : ImplantScript
             {
                 FireArmScript fireArmScript = PlayerState.WeaponScript as FireArmScript;
 
-                if (fireArmScript != null && _holdModifiedWeapon != fireArmScript.gameObject)
+                if (fireArmScript != null && _oldModifiedWeapon != fireArmScript.gameObject)
                 {
-                    if (_holdModifiedWeapon == null)
+                    if (_oldModifiedWeapon == null)
                     {
-                        _holdModifiedWeapon = fireArmScript.gameObject;
+                        _oldModifiedWeapon = fireArmScript.gameObject;
                     }
                     else
                     {
-                        _holdModifiedWeapon.GetComponent<FireArmScript>().ReloadTime *= _speedReloadTime;
+                        _oldModifiedWeapon.GetComponent<FireArmScript>().ReloadTime *= _speedReloadTime;
 
-                        _holdModifiedWeapon = fireArmScript.gameObject;
+                        _oldModifiedWeapon = fireArmScript.gameObject;
                     }
 
                     fireArmScript.ReloadTime /= _speedReloadTime;
                 }
             }
-            else if (_holdModifiedWeapon != null)
+            else if (_oldModifiedWeapon != null)
             {
-                _holdModifiedWeapon.GetComponent<FireArmScript>().ReloadTime *= _speedReloadTime;
+                _oldModifiedWeapon.GetComponent<FireArmScript>().ReloadTime *= _speedReloadTime;
 
-                _holdModifiedWeapon = null;
+                _oldModifiedWeapon = null;
             }
         }
     }
@@ -55,12 +55,12 @@ public class CrazyFire : ImplantScript
 
     public override void ResetImplant()
     {
-        if (_holdModifiedWeapon != null)
+        if (_oldModifiedWeapon != null)
         {
-            _holdModifiedWeapon.GetComponent<FireArmScript>().ReloadTime *= _speedReloadTime;
+            _oldModifiedWeapon.GetComponent<FireArmScript>().ReloadTime *= _speedReloadTime;
         }
 
-        _holdModifiedWeapon = null;
+        _oldModifiedWeapon = null;
         RemoveAllOwnerShipRPC(GetComponent<NetworkObject>());
     }
 }
