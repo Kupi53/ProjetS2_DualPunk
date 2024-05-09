@@ -49,8 +49,9 @@ public class RocketScript : BulletScript, IDestroyable
     private Vector3 DeviateDirection()
     {
         Vector3 newDirection = Quaternion.Euler(0, 0, _deviationAngle * Mathf.Sin(Time.time * _deviationSpeed)) * _moveDirection;
-        _moveFactor = Methods.GetDirectionFactor(newDirection);
         transform.eulerAngles = new Vector3(0, 0, Methods.GetAngle(newDirection));
+        _moveFactor = Methods.GetDirectionFactor(newDirection);
+
         return newDirection;
     }
 

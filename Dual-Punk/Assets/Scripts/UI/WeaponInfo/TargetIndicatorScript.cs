@@ -23,7 +23,7 @@ public class TargetIndicatorScript : MonoBehaviour
         }
         else
         {
-            transform.position = Target.transform.position;
+            transform.position = Target.transform.position + Vector3.up * 0.5f;
             transform.eulerAngles = new Vector3(0, 0, transform.eulerAngles.z + _rotateSpeed * Time.deltaTime);
         }
     }

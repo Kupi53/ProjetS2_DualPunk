@@ -42,8 +42,7 @@ public class NPCMouvement : NetworkBehaviour
             _reCalculateTimer = 0;
         }
         
-        
-        Vector2 direction = _npcState.Target.transform.position - transform.position;
+        Vector2 direction = _npcState.TargetPoint - transform.position;
         float distance = direction.magnitude;
         direction = direction.normalized;
 
@@ -71,7 +70,7 @@ public class NPCMouvement : NetworkBehaviour
 
     private void FixedUpdate()
     {
-        if (_moveDirection != Vector2.zero && _npcState.Move)
+        if (_npcState.Move)
             _rb2d.MovePosition(_rb2d.position + _moveDirection * _moveSpeed * Methods.GetDirectionFactor(_moveDirection));
     }
 }

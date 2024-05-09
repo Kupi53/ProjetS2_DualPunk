@@ -40,6 +40,7 @@ public class SeekingBulletScript : BulletScript
     {
         base.Setup(moveDirection, damage, moveSpeed, impactForce, 0);
         _rotateSpeed = rotateSpeed;
+        _damagePlayer = true;
     }
 
 
@@ -50,10 +51,10 @@ public class SeekingBulletScript : BulletScript
             collider.GetComponent<IDestroyable>().Destroy();
             Destroy(gameObject);
         }
-        else if (collider.CompareTag("Ennemy"))
+        else if (!_stopDamage && (collider.CompareTag("Ennemy") || collider.CompareTag("Player") && _damagePlayer))
         {
-            EnnemyStateDeMerde health = collider.GetComponent<EnnemyStateDeMerde>();
-            health.OnDamage(_damage);
+            _stopDamage = true;
+            collider.GetComponent<IDamageable>().Damage(_damage, 0);
             Destroy(gameObject);
         }
         else if (collider.CompareTag("Wall"))

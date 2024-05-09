@@ -11,7 +11,6 @@ public class LaserGunScript : WeaponScript
     [SerializeField] private GameObject _endVFX;
     [SerializeField] private LayerMask _layerMask;
 
-    [SerializeField] private float _damage;
     [SerializeField] private float _damageFrequency;
     [SerializeField] private float _fireTime;
     [SerializeField] private float _coolDownSpeed;
@@ -141,13 +140,11 @@ public class LaserGunScript : WeaponScript
     {
         MovePosition(position, direction, targetPoint);
 
-        Debug.Log(_coolDownLevel);
-
-        if (!_disableFire && EnemyState.CanAttack)
+        if (!_disableFire && EnemyState.Attack)
         {
             _fire = true;
         }
-        if (!EnemyState.CanAttack)
+        if (!EnemyState.Attack)
         {
             _fire = false;
             _disableFire = false;
@@ -243,9 +240,8 @@ public class LaserGunScript : WeaponScript
 
                 if (hit.collider.CompareTag("Ennemy") && _damageTimer >= _damageFrequency)
                 {
-                    EnemyState health = hit.collider.GetComponent<EnemyState>();
-                    // health.OnDamage(_damage);
                     _damageTimer = 0;
+                    hit.collider.GetComponent<IDamageable>().Damage(_damage, 0);
                 }
             }
             else

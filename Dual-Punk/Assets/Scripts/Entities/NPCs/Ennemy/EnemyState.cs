@@ -10,14 +10,23 @@ public class EnemyState : NPCState
     [SerializeField] private float _unlockDistance;
 
     public WeaponScript WeaponScript { get; set; }
-    public bool CanAttack { get; set; }
+    public bool Attack { get; set; }
 
+
+    protected new void Awake()
+    {
+        base.Awake();
+
+        Attack = false;
+    }
 
 
     private void Update()
     {
         if (Target == null)
         {
+            Move = false;
+
             GameObject[] targets = GameObject.FindGameObjectsWithTag("Player");
             for (int i = 0; i < targets.Length; i++)
             {
@@ -28,15 +37,13 @@ public class EnemyState : NPCState
                 }
             }
         }
-        
         else if (Vector2.Distance(transform.position, Target.transform.position) > _unlockDistance)
         {
             Target = null;
         }
-
         else
         {
-            Direction = (Target.transform.position - transform.position).normalized;
+            Move = true;
         }
     }
 }

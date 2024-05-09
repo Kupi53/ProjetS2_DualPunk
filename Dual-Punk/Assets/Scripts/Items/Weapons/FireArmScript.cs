@@ -14,7 +14,6 @@ public class FireArmScript : WeaponScript
     [SerializeField] protected GameObject _bullet;
     [SerializeField] protected GameObject[] _gunEndPoints;
 
-    [SerializeField] protected int _damage;
     [SerializeField] protected int _magSize;
     [SerializeField] protected int _bulletNumber;
     [SerializeField] private int _reloadAmount;
@@ -106,7 +105,7 @@ public class FireArmScript : WeaponScript
     {
         MovePosition(position, direction, targetPoint);
 
-        if (EnemyState.CanAttack && _fireTimer >= _fireRate && !_reloading)
+        if (EnemyState.Attack && _fireTimer >= _fireRate && !_reloading)
         {
             Fire(direction, _damage, _dispersion);
         }
