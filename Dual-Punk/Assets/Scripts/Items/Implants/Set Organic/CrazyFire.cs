@@ -17,6 +17,7 @@ public class CrazyFire : ImplantScript
     void Awake()
     {
         Type = ImplantType.Arm;
+        SetNumber = 1;
     }
 
     public override void Run()

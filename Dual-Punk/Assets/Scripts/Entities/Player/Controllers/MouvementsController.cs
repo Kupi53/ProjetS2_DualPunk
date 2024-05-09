@@ -51,6 +51,8 @@ public class MouvementsController : NetworkBehaviour, IImpact
     private float _moveSpeed;
     private float _moveFactor;
 
+    public float DashCooldown { get => _dashCooldown; set => _dashCooldown = value; }
+
 
     private void Start()
     {
