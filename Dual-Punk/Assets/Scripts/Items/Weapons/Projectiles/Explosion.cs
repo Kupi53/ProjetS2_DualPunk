@@ -6,14 +6,14 @@ using UnityEngine;
 
 public class Explosion : NetworkBehaviour
 {
-    public void Explode(float damage, float explosionRadius, float explosionImpact)
+    public void Explode(int damage, float explosionRadius, float explosionImpact)
     {
         ExplodeRPC(damage, explosionRadius, explosionImpact);
     }
 
 
     [ServerRpc(RequireOwnership = false)]
-    private void ExplodeRPC(float damage, float explosionRadius, float explosionImpact)
+    private void ExplodeRPC(int damage, float explosionRadius, float explosionImpact)
     {
         GameObject[] ennemies = GameObject.FindGameObjectsWithTag("Ennemy");
         foreach (GameObject ennemy in ennemies)
@@ -21,7 +21,7 @@ public class Explosion : NetworkBehaviour
             Vector3 hitDirection = ennemy.transform.position - transform.position;
             if (hitDirection.magnitude <= explosionRadius)
             {
-                ennemy.GetComponent<EnnemyStateDeMerde>().OnDamage(damage * (explosionRadius - hitDirection.magnitude) / explosionRadius);
+                ennemy.GetComponent<EnemyHealthManager>().Damage((int)(damage * (explosionRadius - hitDirection.magnitude) / explosionRadius), 0);
             }
         }
 

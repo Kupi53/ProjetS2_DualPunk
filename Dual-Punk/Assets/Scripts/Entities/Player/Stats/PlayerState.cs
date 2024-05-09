@@ -40,7 +40,7 @@ public class PlayerState : NetworkBehaviour
 
     private void Awake()
     {
-        MaxHealth = 100;
+        MaxHealth = 1000;
         Health = MaxHealth;
         Down = false;
         Moving = false;

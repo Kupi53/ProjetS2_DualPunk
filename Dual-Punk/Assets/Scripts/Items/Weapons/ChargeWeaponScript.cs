@@ -20,7 +20,7 @@ public class ChargeWeaponScript : FireArmScript
     private float _minCharge;
     private float _chargeTimer;
 
-    public int ObstaclesEnemy { get; set; }
+    public bool ChargeMax { get; set; }
 
 
     private new void Start()
@@ -116,11 +116,18 @@ public class ChargeWeaponScript : FireArmScript
     {
         MovePosition(position, direction, targetPoint);
 
-        if (EnemyState.CanAttack && _fireTimer >= _fireRate && !_reloading)
+        if (EnemyState.Attack && _fireTimer >= _fireRate && !_reloading)
         {
             if (_chargeTimer == 0)
             {
-                _minCharge = UnityEngine.Random.Range(_chargeTimer * ObstaclesEnemy / _collisionsAllowed, _chargeTime);
+                if (ChargeMax)
+                {
+                    _minCharge = 0.9f * _chargeTime;
+                }
+                else
+                {
+                    _minCharge = UnityEngine.Random.Range(0, _chargeTime);
+                }
             }
 
             _chargeTimer += Time.deltaTime;

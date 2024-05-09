@@ -9,11 +9,12 @@ public abstract class WeaponScript : NetworkBehaviour
     [SerializeField] private GameObject _leftHand;
     [SerializeField] protected Vector3 _weaponOffset;
 
+    [SerializeField] protected int _damage;
     [SerializeField] protected float _range;
-    [SerializeField] protected float _weaponDistance;
     [SerializeField] protected float _recoilForce;
     [SerializeField] protected float _impactForce;
     [SerializeField] protected float _cameraShake;
+    [SerializeField] protected float _weaponDistance;
     [SerializeField] protected int _pointerSpriteNumber;
 
     protected SpriteRenderer _spriteRenderer;

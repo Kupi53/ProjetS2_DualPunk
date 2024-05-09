@@ -9,7 +9,6 @@ public class HealthManager : MonoBehaviour, IDamageable
 {
     private PlayerState _playerState;
 
-
     private void Start()
     {
         _playerState = GetComponent<PlayerState>();
@@ -29,11 +28,11 @@ public class HealthManager : MonoBehaviour, IDamageable
     }
 
 
-    private IEnumerator HealthCoroutine(float amount, float time)
+    private IEnumerator HealthCoroutine(int amount, float time)
     {
         int startHealth = _playerState.Health;
+        float healPerTime = ((float)amount) / time;
         float timer = 0;
-        float healPerTime = amount / time;
 
         while (timer <= time)
         {
@@ -43,7 +42,7 @@ public class HealthManager : MonoBehaviour, IDamageable
             yield return null;
         }
 
-        SetHealth(startHealth + (int)amount);
+        SetHealth(startHealth + amount);
     }
 
 

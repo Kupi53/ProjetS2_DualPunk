@@ -12,10 +12,10 @@ public class ChargedBulletScript : BulletScript
             collider.GetComponent<IDestroyable>().Destroy();
             Destroy(gameObject);
         }
-        if (collider.CompareTag("Ennemy"))
+        else if (!_stopDamage && (collider.CompareTag("Ennemy") || collider.CompareTag("Player") && _damagePlayer))
         {
-            EnnemyStateDeMerde health = collider.GetComponent<EnnemyStateDeMerde>();
-            health.OnDamage(_damage);
+            _stopDamage = true;
+            collider.GetComponent<IDamageable>().Damage(_damage, 0);
             Destroy(gameObject);
         }
         else if (collider.CompareTag("Wall"))

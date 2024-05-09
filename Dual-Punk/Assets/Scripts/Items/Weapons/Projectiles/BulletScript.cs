@@ -17,10 +17,13 @@ public class BulletScript : NetworkBehaviour, IImpact
     protected float _moveSpeed;
     protected float _moveFactor;
     protected float _impactForce;
+    protected bool _damagePlayer;
+    protected bool _stopDamage;
 
 
     protected void Start()
     {
+        _stopDamage = false;
         _rb2d = GetComponent<Rigidbody2D>();
     }
 
@@ -45,6 +48,7 @@ public class BulletScript : NetworkBehaviour, IImpact
         _moveSpeed = moveSpeed;
         _impactForce = impactForce;
         _collisionsAllowed = collisionsAllowed;
+        _damagePlayer = true;
 
         ChangeDirection(moveDirection, true);
     }
@@ -86,7 +90,7 @@ public class BulletScript : NetworkBehaviour, IImpact
             ChangeDirection(Vector2.Reflect(_moveDirection, collision.contacts[0].normal), true);
         }
 
-        if (_collisionsAllowed < 0 || collider.CompareTag("Player"))
+        if (_collisionsAllowed < 0)
         {
             Destroy(gameObject);
         }
@@ -102,15 +106,15 @@ public class BulletScript : NetworkBehaviour, IImpact
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.CompareTag("Ennemy"))
-        {
-            EnnemyStateDeMerde health = collider.GetComponent<EnnemyStateDeMerde>();
-            health.OnDamage(_damage);
-            Destroy(gameObject);
-        }
-        else if (collider.CompareTag("Projectile"))
+        if (collider.CompareTag("Projectile"))
         {
             collider.GetComponent<IDestroyable>().Destroy();
+            Destroy(gameObject);
+        }
+        else if (!_stopDamage && (collider.CompareTag("Ennemy") || collider.CompareTag("Player") && _damagePlayer))
+        {
+            _stopDamage = true;
+            collider.GetComponent<IDamageable>().Damage(_damage, 0);
             Destroy(gameObject);
         }
     }
