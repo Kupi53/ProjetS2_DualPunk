@@ -25,6 +25,7 @@ public class BloodPump : ImplantScript
     void Awake()
     {
         Type = ImplantType.ExoSqueleton;
+        SetName = "Organic";
     }
     
     public override void Run()

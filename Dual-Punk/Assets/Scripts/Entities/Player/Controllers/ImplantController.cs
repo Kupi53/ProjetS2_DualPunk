@@ -35,31 +35,31 @@ public class ImplantController : MonoBehaviour
             }
         }
 
-        (bool, int?) setIsEquipped = SetIsEquipped();
+        (bool, string) setIsEquipped = SetIsEquipped();
 
         if (setIsEquipped.Item1)
         {
             switch (setIsEquipped.Item2)
             {
-                case 1:
-                    Set1();
+                case "Organic":
+                    SetOrganic();
                     break;
-                case 2:
-                    Set2();
+                case "Heavy":
+                    SetHeavy();
                     break;
-                case 3:
+                case "3":
                     Set3();
                     break;
-                case 4:
+                case "4":
                     Set4();
                     break;
             }
         }
     }
 
-    private (bool, int?) SetIsEquipped()
+    private (bool, string) SetIsEquipped()
     {
-        (bool, int?) result = (false, null);
+        (bool, string) result = (false, "");
 
         int implantNumber = 0;
 
@@ -67,14 +67,14 @@ public class ImplantController : MonoBehaviour
         {
             if (implant != null)
             {
-                if (result.Item2 == null)
+                if (result.Item2 == "")
                 {
                     result.Item1 = true;
-                    result.Item2 = implant.SetNumber;
+                    result.Item2 = implant.SetName;
                 }
-                else if (result.Item2 != implant.SetNumber)
+                else if (result.Item2 != implant.SetName)
                 {
-                    return (false, null);
+                    return (false, "");
                 }
 
                 implantNumber++;
@@ -83,20 +83,20 @@ public class ImplantController : MonoBehaviour
 
         if (implantNumber != 4)
         {
-            return (false, null);
+            return (false, "");
         }
 
         return result;
     }
 
-    private void Set1()
+    private void SetOrganic()
     {
-        Debug.Log("Set1");
+        Debug.Log("SetOrganic");
     }
 
-    private void Set2()
+    private void SetHeavy()
     {
-        Debug.Log("Set2");
+        Debug.Log("SetHeavy");
     }
 
     private void Set3()

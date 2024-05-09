@@ -13,12 +13,12 @@ public class WarriorLuck : ImplantScript
     [SerializeField] protected int _damageMultiplier;
     [SerializeField] protected int _dropPercentage;
 
-    private GameObject _holdModifiedWeapon;
+    private GameObject _oldModifiedWeapon;
 
     void Awake()
     {
         Type = ImplantType.Neuralink;
-        SetNumber = 2;
+        SetName = "Heavy";
     }
 
     public override void Run()
@@ -29,19 +29,20 @@ public class WarriorLuck : ImplantScript
             {
                 FireArmScript fireArmScript = PlayerState.WeaponScript as FireArmScript;
 
-                if (fireArmScript != null && _holdModifiedWeapon != fireArmScript.gameObject)
+                if (fireArmScript != null && _oldModifiedWeapon != fireArmScript.gameObject)
                 {
-                    if (_holdModifiedWeapon == null)
+                    if (_oldModifiedWeapon == null)
                     {
-                        _holdModifiedWeapon = fireArmScript.gameObject;
+                        _oldModifiedWeapon = fireArmScript.gameObject;
                     }
                     else
                     {
-                        _holdModifiedWeapon.GetComponent<FireArmScript>().DropPercentage = 1;
-                        _holdModifiedWeapon.GetComponent<FireArmScript>().DamageMultiplier = 1;
-                        _holdModifiedWeapon.GetComponent<FireArmScript>().WarriorLuck = false;
+                        FireArmScript oldFireArmScript = _oldModifiedWeapon.GetComponent<FireArmScript>();
+                        oldFireArmScript.DropPercentage = 1;
+                        oldFireArmScript.DamageMultiplier = 1;
+                        oldFireArmScript.WarriorLuck = false;
 
-                        _holdModifiedWeapon = fireArmScript.gameObject;
+                        _oldModifiedWeapon = fireArmScript.gameObject;
                     }
 
                     fireArmScript.DropPercentage = _dropPercentage;
@@ -49,13 +50,14 @@ public class WarriorLuck : ImplantScript
                     fireArmScript.WarriorLuck = true;
                 }
             }
-            else if (_holdModifiedWeapon != null)
+            else if (_oldModifiedWeapon != null)
             {
-                _holdModifiedWeapon.GetComponent<FireArmScript>().DropPercentage = 1;
-                _holdModifiedWeapon.GetComponent<FireArmScript>().DamageMultiplier = 1;
-                _holdModifiedWeapon.GetComponent<FireArmScript>().WarriorLuck = false;
+                FireArmScript oldFireArmScript = _oldModifiedWeapon.GetComponent<FireArmScript>();
+                oldFireArmScript.DropPercentage = 1;
+                oldFireArmScript.DamageMultiplier = 1;
+                oldFireArmScript.WarriorLuck = false;
 
-                _holdModifiedWeapon = null;
+                _oldModifiedWeapon = null;
             }
         }
     }
@@ -63,14 +65,15 @@ public class WarriorLuck : ImplantScript
 
     public override void ResetImplant()
     {
-        if (_holdModifiedWeapon != null)
+        if (_oldModifiedWeapon != null)
         {
-            _holdModifiedWeapon.GetComponent<FireArmScript>().DropPercentage = 1;
-            _holdModifiedWeapon.GetComponent<FireArmScript>().DamageMultiplier = 1;
-            _holdModifiedWeapon.GetComponent<FireArmScript>().WarriorLuck = false;
+            FireArmScript oldFireArmScript = _oldModifiedWeapon.GetComponent<FireArmScript>();
+            oldFireArmScript.DropPercentage = 1;
+            oldFireArmScript.DamageMultiplier = 1;
+            oldFireArmScript.WarriorLuck = false;
         }
 
-        _holdModifiedWeapon = null;
+        _oldModifiedWeapon = null;
         RemoveAllOwnerShipRPC(GetComponent<NetworkObject>());
     }
 
