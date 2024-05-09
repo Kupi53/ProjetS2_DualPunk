@@ -18,7 +18,7 @@ public class AceOfTheTrigger : ImplantScript
     void Awake()
     {
         Type = ImplantType.Neuralink;
-        SetNumber = 1;
+        SetName = "Organic";
     }
 
     public override void Run()

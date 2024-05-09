@@ -18,7 +18,7 @@ public class WarriorLuck : ImplantScript
     void Awake()
     {
         Type = ImplantType.Neuralink;
-        SetNumber = 2;
+        SetName = "Heavy";
     }
 
     public override void Run()

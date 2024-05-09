@@ -13,7 +13,7 @@ public abstract class ImplantScript : NetworkBehaviour
     public PlayerState PlayerState { get; set; }
     public bool IsEquipped { get; set; } = false;
     public ImplantType Type { get; protected set; }
-    public int SetNumber { get; protected set; }
+    public string SetName { get; protected set; }
     
     protected SpriteRenderer _spriteRenderer;
     protected ObjectSpawner _objectSpawner;

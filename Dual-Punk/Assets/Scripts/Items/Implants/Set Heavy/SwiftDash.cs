@@ -25,7 +25,7 @@ public class SwiftDash : ImplantScript
     void Awake()
     {
         Type = ImplantType.Boots;
-        SetNumber = 2;
+        SetName = "Heavy";
     }
 
     public override void Run()

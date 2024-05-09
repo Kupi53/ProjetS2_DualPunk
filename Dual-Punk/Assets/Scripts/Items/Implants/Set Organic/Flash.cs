@@ -25,7 +25,7 @@ public class Flash : ImplantScript
     void Awake()
     {
         Type = ImplantType.Boots;
-        SetNumber = 1;
+        SetName = "Organic";
     }
     
     public override void Run()

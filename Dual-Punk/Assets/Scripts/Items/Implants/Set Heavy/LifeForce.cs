@@ -18,7 +18,7 @@ public class LifeForce : ImplantScript
     void Awake()
     {
         Type = ImplantType.ExoSqueleton;
-        SetNumber = 2;
+        SetName = "Heavy";
     }
 
     public override void Run()
