@@ -20,4 +20,5 @@ MonoBehaviour:
   setItems:
   - WarriorLuck
   - LifeForce
+  - BulletExtender
   - SwiftDash

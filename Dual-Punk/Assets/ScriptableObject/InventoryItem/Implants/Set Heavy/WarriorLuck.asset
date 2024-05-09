@@ -18,9 +18,11 @@ MonoBehaviour:
   description: "Cet implant offre au joueur la possibilit\xE9 d'avoir un pourcentage
     de chance de tirer des balles sp\xE9ciales qui infligerons une quantit\xE9 de
     d\xE9gat suppl\xE9mentaire. Ces munitions seront simbolis\xE9 par une couleur
-    rouge vive."
+    rouge vive. Les armes lasers et corps \xE0 corps ne sont pas affect\xE9es par
+    cet implant."
   setName: Heavy
   setItems:
   - WarriorLuck
   - LifeForce
+  - BulletExtender
   - SwiftDash
