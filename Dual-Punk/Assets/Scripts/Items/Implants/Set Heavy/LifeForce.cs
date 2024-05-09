@@ -13,9 +13,9 @@ public class LifeForce : ImplantScript
     [SerializeField] private int _extraLife;
 
     private bool _isModified = false;
-    private int _oldHealth;
+    private int _oldMaxHealth;
 
-        void Awake()
+    void Awake()
     {
         Type = ImplantType.ExoSqueleton;
         SetNumber = 2;
@@ -25,10 +25,11 @@ public class LifeForce : ImplantScript
     {
         if (IsEquipped && !_isModified)
         {
-            _oldHealth = PlayerState.Health;
-
+            _oldMaxHealth = PlayerState.MaxHealth;
+            
             PlayerState.MaxHealth += _extraLife;
-            PlayerState.Health += _extraLife;
+            PlayerState.Health *= PlayerState.MaxHealth;
+            PlayerState.Health /= _oldMaxHealth;
 
             _isModified = true;
         }
@@ -36,12 +37,9 @@ public class LifeForce : ImplantScript
 
     public override void ResetImplant()
     {
+        PlayerState.Health *= _oldMaxHealth;
+        PlayerState.Health /= PlayerState.MaxHealth;
         PlayerState.MaxHealth -= _extraLife;
-
-        if (PlayerState.Health > _oldHealth)
-        {
-            PlayerState.Health -= _extraLife;
-        }
             
         _isModified = false;
 

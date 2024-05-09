@@ -31,7 +31,6 @@ public class HealthBar : MonoBehaviour
 
         _maxRight = _healthRectTransform.offsetMin.x;
         _minRight = -_healthRectTransform.offsetMax.x;
-        _healthMultiplier = (_minRight - _maxRight) / _playerState.MaxHealth;
         _crawlMultiplier = (_minRight - _maxRight) / _playerState.CrawlTime;
     }
 
@@ -48,6 +47,7 @@ public class HealthBar : MonoBehaviour
         {
             _healthBar.enabled = true;
             _crawlBar.enabled = false;
+            _healthMultiplier = (_minRight - _maxRight) / _playerState.MaxHealth;
             _healthRectTransform.offsetMax = new Vector2(-_maxRight - _healthMultiplier * (_playerState.MaxHealth - _playerState.Health), _healthRectTransform.offsetMax.y);
         }
     }
