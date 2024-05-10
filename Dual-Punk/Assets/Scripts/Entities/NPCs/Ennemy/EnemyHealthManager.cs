@@ -5,26 +5,32 @@ using UnityEngine;
 
 public class EnemyHealthManager : MonoBehaviour, IDamageable
 {
-    [SerializeField] private int _maxHealth;
-    [SerializeField] private float _damageFrequency;
-    private int _health;
+    [SerializeField] private int[] _lives;
+    [SerializeField] private float _receivedDamageFrequency;
+
+    private int _lifeIndex;
+    private int _maxHealth;
+
+    public int[] Lives { get => _lives; }
+
 
     private void Start()
     {
-        _health = _maxHealth;
+        _lifeIndex = 0;
+        _maxHealth = _lives[0];
     }
 
 
     private IEnumerator HealthCoroutine(int amount, float time)
     {
-        int startHealth = _health;
-        int damageNumber = (int)(time / _damageFrequency);
+        int startHealth = _lives[_lifeIndex];
+        int damageNumber = (int)(time / _receivedDamageFrequency);
         int counter = 0;
         float timer = 0;
 
         while (counter < damageNumber)
         {
-            if (timer < _damageFrequency)
+            if (timer < _receivedDamageFrequency)
             {
                 timer += Time.deltaTime;
             }
@@ -45,18 +51,29 @@ public class EnemyHealthManager : MonoBehaviour, IDamageable
     {
         GetComponent<SpriteRenderer>().color = color;
         yield return new WaitForSeconds(0.15f);
-        GetComponent<SpriteRenderer>().color = Color.white;
+        GetComponent<SpriteRenderer>().color = Color.green;
     }
 
 
     private void CheckHealth()
     {
-        if (_health > _maxHealth)
-            _health = _maxHealth;
+        if (_lives[_lifeIndex] > _maxHealth)
+            _lives[_lifeIndex] = _maxHealth;
 
-        else if (_health <= 0)
+        else if (_lives[_lifeIndex] <= 0)
         {
-            Destroy();
+            _lifeIndex++;
+            if (_lifeIndex == _lives.Length)
+            {
+                //event pour drop (weaponhandler)
+                Destroy();
+            }
+            else
+            {
+                _maxHealth = _lives[_lifeIndex];
+                //event pour assign weapon (weaponhandler)
+                GetComponent<EnemyWeaponHandler>().AssignWeapon();
+            }
         }
     }
 
@@ -71,7 +88,7 @@ public class EnemyHealthManager : MonoBehaviour, IDamageable
     {
         if (time == 0)
         {
-            _health += amount;
+            _lives[_lifeIndex] += amount;
             CheckHealth();
         }
         else
@@ -84,7 +101,7 @@ public class EnemyHealthManager : MonoBehaviour, IDamageable
     {
         if (time == 0)
         {
-            _health -= amount;
+            _lives[_lifeIndex] -= amount;
             CheckHealth();
             StartCoroutine(VisualIndicator(Color.red));
         }
@@ -96,12 +113,12 @@ public class EnemyHealthManager : MonoBehaviour, IDamageable
 
     public void SetHealth(int amount)
     {
-        if (amount < _health)
+        if (amount < _lives[_lifeIndex])
         {
             StartCoroutine(VisualIndicator(Color.black));
         }
 
-        _health = amount;
+        _lives[_lifeIndex] = amount;
         CheckHealth();
     }
 }

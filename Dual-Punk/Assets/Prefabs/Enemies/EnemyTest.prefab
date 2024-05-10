@@ -256,7 +256,7 @@ MonoBehaviour:
   _addedNetworkObject: {fileID: -5137988890912388252}
   _networkObjectCache: {fileID: -5137988890912388252}
   _weapons:
-  - {fileID: 7321002207951180533, guid: e26798f24e158594fbd0c9e6555e8911, type: 3}
+  - {fileID: 8547339821460021461, guid: 734d16466bc185640b850ab1d3ed641c, type: 3}
   _layerMask:
     serializedVersion: 2
     m_Bits: 256
@@ -274,8 +274,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83a77bd7e478bf542bedfb3001231e3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHealth: 200
-  _damageFrequency: 0.1
+  _lives: c8000000
+  _receivedDamageFrequency: 0.2
 --- !u!114 &3668701009237676624
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -353,7 +353,7 @@ MonoBehaviour:
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 8
+  <PrefabId>k__BackingField: 10
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0

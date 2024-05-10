@@ -6,7 +6,7 @@ using UnityEngine;
 
 
 [RequireComponent(typeof(NPCState))]
-public class NPCMouvement : NetworkBehaviour
+public class NPCMouvementController : NetworkBehaviour
 {
     [SerializeField] protected float _walkSpeed;
     [SerializeField] protected float _runSpeed;

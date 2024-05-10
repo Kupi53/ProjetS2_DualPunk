@@ -87,7 +87,7 @@ public class SmartWeaponScript : FireArmScript
     }
 
 
-    public override void Fire(Vector3 direction, int damage, float dispersion)
+    public override void Fire(Vector3 direction, int damage, float dispersion, bool damagePlayer)
     {
         _ammoLeft--;
         _fireTimer = 0;
@@ -105,12 +105,12 @@ public class SmartWeaponScript : FireArmScript
             dispersion /= _aimAccuracy;
         }
 
-        FireSeekingBulletRpc(ClientManager.Connection, direction, damage, dispersion, warriorLuckBullet);
+        FireSeekingBulletRpc(ClientManager.Connection, direction, damage, dispersion, warriorLuckBullet, damagePlayer);
     }
 
 
     [ServerRpc(RequireOwnership = false)]
-    private void FireSeekingBulletRpc(NetworkConnection networkConnection, Vector3 direction, int damage, float dispersion, bool warriorLuckBullet)
+    private void FireSeekingBulletRpc(NetworkConnection networkConnection, Vector3 direction, int damage, float dispersion, bool warriorLuckBullet, bool damagePlayer)
     {
         for (int i = 0; i < _bulletNumber; i++)
         {
@@ -126,7 +126,7 @@ public class SmartWeaponScript : FireArmScript
             newBullet.transform.localScale = new Vector2(_bulletSize, _bulletSize);
             Vector3 newDirection = new Vector3(direction.x + Methods.NextFloat(-dispersion, dispersion), direction.y + Methods.NextFloat(-dispersion, dispersion), 0).normalized;
 
-            bulletScript.Setup(newDirection, damage, _bulletSpeed, _impactForce, _bulletRotateSpeed);
+            bulletScript.Setup(newDirection, damage, _bulletSpeed, _impactForce, _bulletRotateSpeed, damagePlayer);
             Spawn(newBullet);
             AssignTargetClientRPC(bulletScript, networkConnection);
         }

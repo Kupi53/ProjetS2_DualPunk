@@ -83,7 +83,7 @@ public class ChargeWeaponScript : FireArmScript
                 {
                     _audioSource.Stop();
 
-                    Fire(direction, _damage, _dispersion);
+                    Fire(direction, _damage, _dispersion, false);
                     PlayerState.CameraController.ShakeCamera(_cameraShake, 0.1f);
                 }
             }
@@ -146,7 +146,7 @@ public class ChargeWeaponScript : FireArmScript
         if (_chargeTimer > _minCharge)
         {
             _minCharge = 0;
-            Fire(direction, _damage, _dispersion);
+            Fire(direction, _damage, _dispersion, true);
         }
 
         _aiming = !EnemyState.Move;
@@ -181,7 +181,7 @@ public class ChargeWeaponScript : FireArmScript
     }
 
 
-    public override void Fire(Vector3 direction, int damage, float dispersion)
+    public override void Fire(Vector3 direction, int damage, float dispersion, bool damagePlayer)
     {
         bool warriorLuckBullet = false;
         float multiplier = _chargeTimer / _chargeTime;
@@ -201,6 +201,6 @@ public class ChargeWeaponScript : FireArmScript
 
         FireBulletRpc(direction, (int)GetProgressingFactor(multiplier, _minDamage, damage * DamageMultiplier), GetProgressingFactor(multiplier, _minSpeed, _bulletSpeed),
                       GetProgressingFactor(multiplier, _minSize, _bulletSize), GetProgressingFactor(multiplier, _minImpact, _impactForce),
-                      _dispersion, (int)(multiplier * _collisionsAllowed), warriorLuckBullet);
+                      _dispersion, (int)(multiplier * _collisionsAllowed), warriorLuckBullet, damagePlayer);
     }
 }

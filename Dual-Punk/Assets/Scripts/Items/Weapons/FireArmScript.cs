@@ -81,7 +81,7 @@ public class FireArmScript : WeaponScript
                 _reloading = false;
             }
 
-            Fire(direction, _damage, _dispersion);
+            Fire(direction, _damage, _dispersion, false);
             PlayerState.CameraController.ShakeCamera(_cameraShake, 0.1f);
         }
 
@@ -107,7 +107,7 @@ public class FireArmScript : WeaponScript
 
         if (EnemyState.Attack && _fireTimer >= _fireRate && !_reloading)
         {
-            Fire(direction, _damage, _dispersion);
+            Fire(direction, _damage, _dispersion, true);
         }
         else if (_fireTimer < _fireRate)
         {
@@ -157,7 +157,7 @@ public class FireArmScript : WeaponScript
     }
 
 
-    public virtual void Fire(Vector3 direction, int damage, float dispersion)
+    public virtual void Fire(Vector3 direction, int damage, float dispersion, bool damagePlayer)
     {
         _ammoLeft--;
         _fireTimer = 0;
@@ -175,12 +175,12 @@ public class FireArmScript : WeaponScript
             dispersion /= _aimAccuracy;
         }
             
-        FireBulletRpc(direction, damage, _bulletSpeed, _bulletSize, _impactForce, dispersion, _collisionsAllowed, warriorLuckBullet);
+        FireBulletRpc(direction, damage, _bulletSpeed, _bulletSize, _impactForce, dispersion, _collisionsAllowed, warriorLuckBullet, damagePlayer);
     }
 
 
     [ServerRpc(RequireOwnership = false)]
-    protected void FireBulletRpc(Vector3 direction, int damage, float bulletSpeed, float bulletSize, float impactForce, float dispersion, int collisionsAllowed, bool warriorLuckBullet)
+    protected void FireBulletRpc(Vector3 direction, int damage, float bulletSpeed, float bulletSize, float impactForce, float dispersion, int collisionsAllowed, bool warriorLuckBullet, bool damagePlayer)
     {
         for (int i = 0; i < _bulletNumber; i++)
         {
@@ -196,7 +196,7 @@ public class FireArmScript : WeaponScript
             newBullet.transform.localScale = new Vector2(bulletSize, bulletSize);
             Vector3 newDirection = new Vector3(direction.x + Methods.NextFloat(-dispersion, dispersion), direction.y + Methods.NextFloat(-dispersion, dispersion), 0).normalized;
 
-            bulletScript.Setup(newDirection, damage, bulletSpeed, impactForce, collisionsAllowed);
+            bulletScript.Setup(newDirection, damage, bulletSpeed, impactForce, collisionsAllowed, damagePlayer);
             Spawn(newBullet);
         }
     }

@@ -501,7 +501,6 @@ MonoBehaviour:
   _componentIndexCache: 0
   _addedNetworkObject: {fileID: 5423358579492179876}
   _networkObjectCache: {fileID: 5423358579492179876}
-  CanBeTeleported: 0
 --- !u!114 &8523659330764518231
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -549,6 +548,8 @@ MonoBehaviour:
   _dashTime: 0.2
   _dashCooldown: 1
   _moveBackFactor: 0.8
+  _forcesEffect: 0.05
+  _forcesDecreaseSpeed: 15
 --- !u!114 &-7003829035611701060
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -663,7 +664,7 @@ MonoBehaviour:
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 29
+  <PrefabId>k__BackingField: 31
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0

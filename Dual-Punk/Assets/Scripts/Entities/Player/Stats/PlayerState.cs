@@ -15,8 +15,6 @@ public class PlayerState : NetworkBehaviour
     public int MaxHealth { get; set; }
 
     public float AnimAngle { get; set; }
-    public float ForcesEffect { get; set; }
-    public float ForcesDecreaseSpeed { get; set; }
     public float CrawlTime { get; set; }
     public float CrawlTimer { get; set; }
 
@@ -49,8 +47,6 @@ public class PlayerState : NetworkBehaviour
         Attacking = false;
         HoldingWeapon = false;
         AnimAngle = 0;
-        ForcesEffect = 0.05f;
-        ForcesDecreaseSpeed = 15;
         CrawlTime = 20;
         CrawlTimer = 0;
     }

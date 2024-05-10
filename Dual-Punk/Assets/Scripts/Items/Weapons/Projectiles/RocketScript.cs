@@ -57,9 +57,9 @@ public class RocketScript : BulletScript, IDestroyable
 
 
     public void Setup(Vector3 moveDirection, int damage, float moveSpeed, float impactForce, Vector3 startPosition, float distanceUntilExplosion,
-        float explosionRadius, float deviationAngle, float deviationSpeed)
+        float explosionRadius, float deviationAngle, float deviationSpeed, bool damagePlayer)
     {
-        base.Setup(moveDirection, damage, moveSpeed, impactForce, 0);
+        base.Setup(moveDirection, damage, moveSpeed, impactForce, 0, damagePlayer);
 
         _startPosition = startPosition;
         _distanceUntilExplosion = distanceUntilExplosion;
@@ -76,10 +76,11 @@ public class RocketScript : BulletScript, IDestroyable
 
         AudioManager.Instance.PlayClipAt(_explosionSound, gameObject.transform.position);
         GameObject explosion = Instantiate(_explosion, transform.position, transform.rotation);
-        explosion.GetComponent<Explosion>().Explode(_damage, _explosionRadius, _impactForce);
+        Spawn(explosion);
+
+        explosion.GetComponent<Explosion>().Explode(_damage, _explosionRadius, _impactForce, _damagePlayer);
         _smokeTrail.GetComponent<StopSmokeTrail>().StopParticles();
 
-        Spawn(explosion);
         Destroy(gameObject);
     }
 
@@ -88,21 +89,7 @@ public class RocketScript : BulletScript, IDestroyable
     {
         if (collider.CompareTag("Ennemy") || collider.CompareTag("Wall"))
         {
-            Destroy(gameObject);
+            Destroy();
         }
     }
-
-
-    /*[ObserversRpc]
-    private void PlayerRocketRpc()
-    {
-        GameObject player = _networkManager.GetComponent<LocalPlayerReference>().PlayerState.gameObject;
-        player.GetComponent<PlayerState>().CameraController.ShakeCamera(_explosionImpact / 5, 0.3f);
-
-        Vector3 hitDirection = player.transform.position - transform.position;
-        if (hitDirection.magnitude <= _explosionDistance)
-        {
-            player.GetComponent<IImpact>().Impact(hitDirection, _explosionImpact * (_explosionDistance - hitDirection.magnitude) / _explosionDistance);
-        }
-    }*/
 }

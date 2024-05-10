@@ -9,8 +9,13 @@ public class EnemyState : NPCState
     [SerializeField] private float _lockDistance;
     [SerializeField] private float _unlockDistance;
 
-    public WeaponScript WeaponScript { get; set; }
+    public GameObject Target { get; set; }
     public bool Attack { get; set; }
+    public override Vector3 TargetPoint
+    {
+        get => Target == null ? TargetPoint : Target.transform.position;
+        set => TargetPoint = value;
+    }
 
 
     protected new void Awake()

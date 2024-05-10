@@ -13,30 +13,13 @@ public class MouvementsController : NetworkBehaviour, IImpact
     // Nombres decimaux pour controller la vitesse de marche, course et de dash
     [SerializeField] private float _crawlSpeed;
     [SerializeField] private float _walkSpeed;
-
-    public float WalkSpeed
-    {
-        get { return _walkSpeed; }
-        set { _walkSpeed = value; }
-    }
-
     [SerializeField] private float _sprintSpeed;
-
-    public void Awake()
-    {
-        
-    }
-
-    public float SprintSpeed
-    {
-        get { return _sprintSpeed; }
-        set { _sprintSpeed = value; }
-    }
-
     [SerializeField] private float _dashSpeed;
     [SerializeField] private float _dashTime;
     [SerializeField] private float _dashCooldown;
     [SerializeField] private float _moveBackFactor;
+    [SerializeField] private float _forcesEffect; // 0.05
+    [SerializeField] private float _forcesDecreaseSpeed; //15
 
     private List<(Vector2, float)> _forces;
     private PlayerState _playerState;
@@ -51,6 +34,8 @@ public class MouvementsController : NetworkBehaviour, IImpact
     private float _moveSpeed;
     private float _moveFactor;
 
+    public float WalkSpeed { get =>  _walkSpeed; set => _walkSpeed = value; }
+    public float SprintSpeed { get => _sprintSpeed; set => _sprintSpeed = value; }
     public float DashCooldown { get => _dashCooldown; set => _dashCooldown = value; }
 
 
@@ -59,10 +44,10 @@ public class MouvementsController : NetworkBehaviour, IImpact
         _dashTimer = 0;
         _dashCooldownTimer = 0;
         _enableMovement = true;
+        _forces = new List<(Vector2, float)>();
 
         _rb2d = GetComponent<Rigidbody2D>();
         _playerState = GetComponent<PlayerState>();
-        _forces = new List<(Vector2, float)>();
     }
 
 
@@ -184,12 +169,12 @@ public class MouvementsController : NetworkBehaviour, IImpact
             else
             {
                 resultingForce += _forces[i].Item1 * _forces[i].Item2;
-                _forces[i] = (_forces[i].Item1, _forces[i].Item2 - Time.deltaTime * _playerState.ForcesDecreaseSpeed);
+                _forces[i] = (_forces[i].Item1, _forces[i].Item2 - Time.deltaTime * _forcesDecreaseSpeed);
                 i++;
             }
         }
 
-        _rb2d.MovePosition(_rb2d.position + resultingForce * Methods.GetDirectionFactor(resultingForce) * _playerState.ForcesEffect + _moveDirection * _moveSpeed * _moveFactor);
+        _rb2d.MovePosition(_rb2d.position + resultingForce * Methods.GetDirectionFactor(resultingForce) * _forcesEffect + _moveDirection * _moveSpeed * _moveFactor);
     }
 
 

@@ -6,14 +6,7 @@ using UnityEngine;
 
 public class Explosion : NetworkBehaviour
 {
-    public void Explode(int damage, float explosionRadius, float explosionImpact)
-    {
-        ExplodeRPC(damage, explosionRadius, explosionImpact);
-    }
-
-
-    [ServerRpc(RequireOwnership = false)]
-    private void ExplodeRPC(int damage, float explosionRadius, float explosionImpact)
+    public void Explode(int damage, float explosionRadius, float explosionImpact, bool damagePlayer)
     {
         GameObject[] ennemies = GameObject.FindGameObjectsWithTag("Ennemy");
         foreach (GameObject ennemy in ennemies)
@@ -34,12 +27,11 @@ public class Explosion : NetworkBehaviour
 
             if (distance <= explosionRadius * 10)
             {
-                float multiplier = 1 - distance / explosionRadius;
-                player.GetComponent<PlayerState>().CameraController.ShakeCamera(explosionImpact * multiplier, 0.5f);
+                player.GetComponent<PlayerState>().CameraController.ShakeCamera(explosionImpact * (1 - distance / (explosionRadius * 10)), 0.25f);
 
                 if (distance <= explosionRadius)
                 {
-                    player.GetComponent<IImpact>().Impact(hitDirection, explosionImpact * multiplier);
+                    player.GetComponent<IImpact>().Impact(hitDirection, explosionImpact * (1 - distance / explosionRadius));
                 }
             }
         }

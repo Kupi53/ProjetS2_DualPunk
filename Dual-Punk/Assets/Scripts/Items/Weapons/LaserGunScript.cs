@@ -27,6 +27,7 @@ public class LaserGunScript : WeaponScript
     private bool _fire;
     private bool _coolDown;
     private bool _disableFire;
+    private bool _damagePlayer;
     private float _damageTimer;
     private float _coolDownLevel;
     private float _laserLength;
@@ -45,6 +46,7 @@ public class LaserGunScript : WeaponScript
         _fire = false;
         _coolDown = false;
         _disableFire = false;
+        _damagePlayer = false;
         _velocity = 0;
         _resetTimer = 0;
         _laserLength = 0;
@@ -127,6 +129,7 @@ public class LaserGunScript : WeaponScript
             _coolDown = true;
         }
 
+        _damagePlayer = false;
         Fire(direction, targetPoint);
 
         if (_fire)
@@ -153,6 +156,7 @@ public class LaserGunScript : WeaponScript
                 _coolDown = true;
         }
 
+        _damagePlayer = true;
         Fire(direction, targetPoint);
     }
 
@@ -222,7 +226,6 @@ public class LaserGunScript : WeaponScript
     }
 
 
-
     private void Fire(Vector3 direction, Vector3 targetPoint)
     {
         if (_fire)
@@ -238,7 +241,7 @@ public class LaserGunScript : WeaponScript
                 DrawLaser(_startPosition, hit.point, direction);
                 DrawLaserRPC(_startPosition, hit.point, direction);
 
-                if (hit.collider.CompareTag("Ennemy") && _damageTimer >= _damageFrequency)
+                if ((hit.collider.CompareTag("Ennemy") || hit.collider.CompareTag("Player") && _damagePlayer) && _damageTimer >= _damageFrequency)
                 {
                     _damageTimer = 0;
                     hit.collider.GetComponent<IDamageable>().Damage(_damage, 0);
@@ -261,6 +264,7 @@ public class LaserGunScript : WeaponScript
 
 
 
+    // ------------------------------
 
 
 
@@ -270,7 +274,7 @@ public class LaserGunScript : WeaponScript
         EnableLaserClient();
     }
 
-    [ObserversRpc(ExcludeOwner = true)]
+    [ObserversRpc]
     private void EnableLaserClient()
     {
         EnableLaser();
@@ -283,13 +287,12 @@ public class LaserGunScript : WeaponScript
         DisableLaserClient();
     }
 
-    [ObserversRpc(ExcludeOwner = true)]
+    [ObserversRpc]
     private void DisableLaserClient()
     {
         DisableLaser();
     }
 
-    // ------------------------------
 
 
     [ServerRpc(RequireOwnership = false)]
@@ -298,7 +301,7 @@ public class LaserGunScript : WeaponScript
         DrawLaserClient(startPosition, targetPoint, direction);
     }
 
-    [ObserversRpc(ExcludeOwner = true)]
+    [ObserversRpc]
     private void DrawLaserClient(Vector3 startPosition, Vector3 targetPoint, Vector3 direction)
     {
         DrawLaser(startPosition, targetPoint, direction);
