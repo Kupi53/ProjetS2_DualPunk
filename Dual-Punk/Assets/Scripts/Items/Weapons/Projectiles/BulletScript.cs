@@ -5,7 +5,7 @@ using System;
 using FishNet.Object;
 
 
-public class BulletScript : NetworkBehaviour, IImpact
+public class BulletScript : NetworkBehaviour, IImpact, IDestroyable
 {
     [SerializeField] protected float _lifeTime;
 
@@ -37,7 +37,7 @@ public class BulletScript : NetworkBehaviour, IImpact
 
         if (_lifeTime <= 0 || _moveSpeed < 5)
         {
-            Destroy(gameObject);
+            Destroy();
         }
     }
 
@@ -68,10 +68,16 @@ public class BulletScript : NetworkBehaviour, IImpact
 
     public void Impact(Vector2 direction, float intensity)
     {
-        Vector2 newDirection = _moveDirection + (Vector3)direction * intensity;
+        Vector3 newDirection = _moveDirection + (Vector3)direction.normalized * intensity;
         _moveSpeed *= newDirection.magnitude;
 
         ChangeDirection(newDirection, true);
+    }
+
+    public virtual bool Destroy()
+    {
+        Destroy(gameObject);
+        return true;
     }
 
 
@@ -92,7 +98,7 @@ public class BulletScript : NetworkBehaviour, IImpact
 
         if (_collisionsAllowed < 0)
         {
-            Destroy(gameObject);
+            Destroy();
         }
     }
 
@@ -100,7 +106,7 @@ public class BulletScript : NetworkBehaviour, IImpact
     {
         if (collision.collider.CompareTag("Wall"))
         {
-            Destroy(gameObject);
+            Destroy();
         }
     }
 
@@ -109,13 +115,13 @@ public class BulletScript : NetworkBehaviour, IImpact
         if (collider.CompareTag("Projectile"))
         {
             if (collider.GetComponent<IDestroyable>().Destroy())
-                Destroy(gameObject);
+                Destroy();
         }
         else if (!_stopDamage && (collider.CompareTag("Ennemy") || collider.CompareTag("Player") && _damagePlayer))
         {
             _stopDamage = true;
             collider.GetComponent<IDamageable>().Damage(_damage, 0);
-            Destroy(gameObject);
+            Destroy();
         }
     }
 }

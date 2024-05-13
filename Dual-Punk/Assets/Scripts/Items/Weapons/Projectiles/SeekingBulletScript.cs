@@ -50,17 +50,17 @@ public class SeekingBulletScript : BulletScript
         if (collider.CompareTag("Projectile"))
         {
             if (collider.GetComponent<IDestroyable>().Destroy())
-                Destroy(gameObject);
+                Destroy();
         }
         else if (!_stopDamage && (collider.CompareTag("Ennemy") || collider.CompareTag("Player") && _damagePlayer))
         {
             _stopDamage = true;
             collider.GetComponent<IDamageable>().Damage(_damage, 0);
-            Destroy(gameObject);
+            Destroy();
         }
         else if (collider.CompareTag("Wall"))
         {
-            Destroy(gameObject);
+            Destroy();
         }
     }
 }
