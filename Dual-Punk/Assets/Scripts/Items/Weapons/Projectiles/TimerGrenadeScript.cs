@@ -55,9 +55,7 @@ public class TimerGrenadeScript : InstantGrenadeScript
         if (_explosionTimer > 0)
         {
             _explosionTimer -= Time.fixedDeltaTime;
-        }
-        else
-        {
+        } else {
             Explode();
         }
     }

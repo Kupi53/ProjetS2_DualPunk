@@ -41,7 +41,7 @@ public class RocketScript : BulletScript, IDestroyable
 
         if (Vector3.Distance(transform.position, _startPosition) > _distanceUntilExplosion || _moveSpeed < 5)
         {
-            Destroy();
+            Explode();
         }
     }
 
@@ -96,9 +96,9 @@ public class RocketScript : BulletScript, IDestroyable
 
     protected void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.CompareTag("Ennemy") || collider.CompareTag("Wall"))
+        if (collider.CompareTag("Ennemy") || collider.CompareTag("Wall") || collider.CompareTag("Player") && _damagePlayer)
         {
-            Destroy();
+            Explode();
         }
     }
 }

@@ -64,7 +64,7 @@ public class InstantGrenadeScript : NetworkBehaviour, IDestroyable
     }
 
 
-    private void Explode()
+    protected void Explode()
     {
         if (_exploded) return;
         _exploded = true;
