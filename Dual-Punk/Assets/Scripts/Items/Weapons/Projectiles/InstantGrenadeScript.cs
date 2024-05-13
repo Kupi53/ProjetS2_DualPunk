@@ -57,9 +57,11 @@ public class InstantGrenadeScript : NetworkBehaviour, IDestroyable
 
     public bool Destroy()
     {
-        if (!_damagePlayer)
+        if (!_damagePlayer || _exploded)
             return false;
+
         Explode();
+        _exploded = true;
         return true;
     }
 

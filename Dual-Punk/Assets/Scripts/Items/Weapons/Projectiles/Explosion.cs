@@ -18,7 +18,7 @@ public class Explosion : NetworkBehaviour
             {
                 
                 if (!damagePlayer)
-                    ennemy.GetComponent<EnemyHealthManager>().Damage((int)(damage * (explosionRadius - distance) / explosionRadius), 0);
+                    ennemy.GetComponent<IDamageable>().Damage((int)(damage * (explosionRadius - distance) / explosionRadius), 0);
             }
         }
 
@@ -37,8 +37,9 @@ public class Explosion : NetworkBehaviour
                 if (distance <= explosionRadius)
                 {
                     player.GetComponent<IImpact>().Impact(hitDirection, explosionImpact * (1 - distance / explosionRadius));
-                    if 
                     
+                    if (damagePlayer)
+                        player.GetComponent<IDamageable>().Damage((int)(damage * (explosionRadius - distance) / explosionRadius), 0);
                 }
             }
         }

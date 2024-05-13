@@ -71,18 +71,17 @@ public class RocketScript : BulletScript, IDestroyable
 
     public bool Destroy()
     {
-        if (!_damagePlayer)
+        if (!_damagePlayer || _exploded)
             return false;
+
         Explode();
+        _exploded = true;
         return true;
     }
 
 
     private void Explode()
     {
-        if (_exploded) return;
-        _exploded = true;
-
         AudioManager.Instance.PlayClipAt(_explosionSound, gameObject.transform.position);
         GameObject explosion = Instantiate(_explosion, transform.position, transform.rotation);
         Spawn(explosion);
