@@ -91,7 +91,7 @@ public class SmartWeaponScript : FireArmScript
     {
         _ammoLeft--;
         _fireTimer = 0;
-        UserRecoil.Impact(-direction, _recoilForce);
+        //UserRecoil.Impact(-direction, _recoilForce);
         AudioManager.Instance.PlayClipAt(_fireSound, gameObject.transform.position);
 
         bool warriorLuckBullet = false;
@@ -105,12 +105,12 @@ public class SmartWeaponScript : FireArmScript
             dispersion /= _aimAccuracy;
         }
 
-        FireSeekingBulletRpc(ClientManager.Connection, direction, damage, dispersion, warriorLuckBullet, damagePlayer);
+        FireSeekingBulletRpc(AssignTarget(), direction, damage, dispersion, warriorLuckBullet, damagePlayer);
     }
 
 
     [ServerRpc(RequireOwnership = false)]
-    private void FireSeekingBulletRpc(NetworkConnection networkConnection, Vector3 direction, int damage, float dispersion, bool warriorLuckBullet, bool damagePlayer)
+    private void FireSeekingBulletRpc(GameObject target, Vector3 direction, int damage, float dispersion, bool warriorLuckBullet, bool damagePlayer)
     {
         for (int i = 0; i < _bulletNumber; i++)
         {
@@ -126,42 +126,30 @@ public class SmartWeaponScript : FireArmScript
             newBullet.transform.localScale = new Vector2(_bulletSize, _bulletSize);
             Vector3 newDirection = new Vector3(direction.x + Methods.NextFloat(-dispersion, dispersion), direction.y + Methods.NextFloat(-dispersion, dispersion), 0).normalized;
 
-            bulletScript.Setup(newDirection, damage, _bulletSpeed, _impactForce, _bulletRotateSpeed, damagePlayer);
+            bulletScript.Setup(target, newDirection, damage, _bulletSpeed, _impactForce, _bulletRotateSpeed, damagePlayer);
             Spawn(newBullet);
-            AssignTargetClientRPC(bulletScript, networkConnection);
         }
     }
 
 
-    [ObserversRpc]
-    private void AssignTargetClientRPC(SeekingBulletScript bulletScript, NetworkConnection networkConnection)
+    private GameObject AssignTarget()
     {
-        if (!networkConnection.IsLocalClient) return;
+        if (EnemyState != null)
+            return EnemyState.Target;
 
         if (_targetsIndicators.Count == 0)
         {
-            AssignTargetBulletScriptRPC(bulletScript, null);
+            return null;
         }
-        else
+
+        _index = (_index + 1) % _targetsIndicators.Count;
+
+        if (_targetsIndicators[_index] == null)
         {
-            _index = (_index + 1) % _targetsIndicators.Count;
-
-            if (_targetsIndicators[_index] == null)
-            {
-                _targetsIndicators.Remove(_targetsIndicators[_index]);
-                AssignTargetClientRPC(bulletScript, networkConnection);
-            }
-            else
-            {
-                AssignTargetBulletScriptRPC(bulletScript,_targetsIndicators[_index].GetComponent<TargetIndicatorScript>().Target);
-            }
+            _targetsIndicators.Remove(_targetsIndicators[_index]);
+            return AssignTarget();
         }
-    }
-
-    [ServerRpc(RequireOwnership = false)]
-    private void AssignTargetBulletScriptRPC(SeekingBulletScript bulletScript, GameObject target)
-    {
-        if (bulletScript != null)
-            bulletScript.Target = target;
+        
+        return _targetsIndicators[_index].GetComponent<TargetIndicatorScript>().Target;
     }
 }

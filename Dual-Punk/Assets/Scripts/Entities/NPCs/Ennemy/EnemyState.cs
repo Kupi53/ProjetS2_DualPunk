@@ -13,7 +13,7 @@ public class EnemyState : NPCState
     public bool Attack { get; set; }
     public override Vector3 TargetPoint
     {
-        get => Target == null ? TargetPoint : Target.transform.position;
+        get => Target == null ? Vector3.zero : Target.transform.position;
         set => TargetPoint = value;
     }
 

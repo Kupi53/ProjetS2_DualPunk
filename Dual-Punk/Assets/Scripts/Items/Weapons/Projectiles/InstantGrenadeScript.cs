@@ -24,11 +24,13 @@ public class InstantGrenadeScript : NetworkBehaviour, IDestroyable
     protected float _distanceUntilStop;
     protected float _curveFactor;
     private bool _exploded;
+    private bool _damagePlayer;
 
 
     protected void Start()
     {
         _exploded = false;
+        _damagePlayer = false;
         _linePosition = transform.position;
         _rb2d = GetComponent<Rigidbody2D>();
     }
@@ -48,12 +50,21 @@ public class InstantGrenadeScript : NetworkBehaviour, IDestroyable
 
         if (currentDistance > _distanceUntilStop)
         {
-            Destroy();
+            Explode();
         }
     }
 
 
-    public void Destroy()
+    public bool Destroy()
+    {
+        if (!_damagePlayer)
+            return false;
+        Explode();
+        return true;
+    }
+
+
+    private void Explode()
     {
         if (_exploded) return;
         _exploded = true;
@@ -63,7 +74,6 @@ public class InstantGrenadeScript : NetworkBehaviour, IDestroyable
         Spawn(explosion);
 
         explosion.GetComponent<Explosion>().Explode(_damage, _explosionRadius, _explosionImpact, false);
-
         Destroy(gameObject);
     }
 

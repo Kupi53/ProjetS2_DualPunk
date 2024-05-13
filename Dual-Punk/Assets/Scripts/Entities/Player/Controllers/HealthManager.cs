@@ -46,10 +46,11 @@ public class HealthManager : MonoBehaviour, IDamageable
     }
 
 
-    public void Destroy()
+    public bool Destroy()
     {
         _playerState.Health = 0;
         CheckHealth();
+        return true;
     }
 
     public void Heal(int amount, float time)

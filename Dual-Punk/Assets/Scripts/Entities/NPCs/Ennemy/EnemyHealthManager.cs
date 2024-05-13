@@ -78,9 +78,10 @@ public class EnemyHealthManager : MonoBehaviour, IDamageable
     }
 
 
-    public void Destroy()
+    public bool Destroy()
     {
         Destroy(gameObject);
+        return true;
     }
 
 

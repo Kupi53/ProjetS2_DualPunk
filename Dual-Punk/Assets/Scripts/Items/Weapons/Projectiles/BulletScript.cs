@@ -108,8 +108,8 @@ public class BulletScript : NetworkBehaviour, IImpact
     {
         if (collider.CompareTag("Projectile"))
         {
-            collider.GetComponent<IDestroyable>().Destroy();
-            Destroy(gameObject);
+            if (collider.GetComponent<IDestroyable>().Destroy())
+                Destroy(gameObject);
         }
         else if (!_stopDamage && (collider.CompareTag("Ennemy") || collider.CompareTag("Player") && _damagePlayer))
         {

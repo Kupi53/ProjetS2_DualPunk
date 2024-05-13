@@ -69,7 +69,16 @@ public class RocketScript : BulletScript, IDestroyable
     }
 
 
-    public void Destroy()
+    public bool Destroy()
+    {
+        if (!_damagePlayer)
+            return false;
+        Explode();
+        return true;
+    }
+
+
+    private void Explode()
     {
         if (_exploded) return;
         _exploded = true;
