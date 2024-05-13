@@ -30,19 +30,22 @@ public class HealthManager : MonoBehaviour, IDamageable
 
     private IEnumerator HealthCoroutine(int amount, float time)
     {
-        int startHealth = _playerState.Health;
-        float healPerTime = ((float)amount) / time;
+        int lastAmount = 0;
+        int newAmount = 0;
         float timer = 0;
+        float healPerTime = ((float)amount) / time;
 
         while (timer <= time)
         {
             timer += Time.deltaTime;
-            SetHealth(startHealth + (int)(healPerTime * timer));
+            newAmount = (int)(healPerTime * timer);
+            SetHealth(_playerState.Health - lastAmount + newAmount);
+            lastAmount = newAmount;
 
             yield return null;
         }
 
-        SetHealth(startHealth + amount);
+        SetHealth(_playerState.Health - lastAmount + amount);
     }
 
 

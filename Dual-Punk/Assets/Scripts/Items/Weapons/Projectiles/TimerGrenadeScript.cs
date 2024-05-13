@@ -35,7 +35,7 @@ public class TimerGrenadeScript : InstantGrenadeScript
             float factor = currentDistance / _distanceUntilStop;
 
             transform.eulerAngles = new Vector3(0, 0, transform.eulerAngles.z + _rotateSpeed * Time.deltaTime);
-            _rb2d.MovePosition(_linePosition + _verticalDirection * (- factor * factor * _curveFactor + factor * _curveFactor));
+            _rb2d.MovePosition(_linePosition + _verticalDirection * (-factor * factor * _curveFactor + factor * _curveFactor));
 
             if (currentDistance > _distanceUntilStop)
             {
@@ -52,10 +52,13 @@ public class TimerGrenadeScript : InstantGrenadeScript
                 _moveSpeed = 0;
         }
 
-        if (_explosionTimer > 0) {
+        if (_explosionTimer > 0)
+        {
             _explosionTimer -= Time.fixedDeltaTime;
-        } else {
-            Destroy();
+        }
+        else
+        {
+            Explode();
         }
     }
 
@@ -75,6 +78,8 @@ public class TimerGrenadeScript : InstantGrenadeScript
     private void OnTriggerStay2D(Collider2D collider)
     {
         if (_stop)
+        {
             _moveSpeed = 0;
+        }
     }
 }

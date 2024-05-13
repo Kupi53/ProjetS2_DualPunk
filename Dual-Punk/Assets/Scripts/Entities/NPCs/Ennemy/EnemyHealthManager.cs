@@ -23,8 +23,7 @@ public class EnemyHealthManager : MonoBehaviour, IDamageable
 
     private IEnumerator HealthCoroutine(int amount, float time)
     {
-        int startHealth = _lives[_lifeIndex];
-        int damageNumber = (int)(time / _receivedDamageFrequency);
+        int damageNumber = (int)(time / _receivedDamageFrequency) + 1;
         int counter = 0;
         float timer = 0;
 
@@ -38,13 +37,11 @@ public class EnemyHealthManager : MonoBehaviour, IDamageable
             {
                 timer = 0;
                 counter++;
-                SetHealth(startHealth + amount / damageNumber * counter);
+                Damage(amount / damageNumber, 0);
             }
 
             yield return null;
         }
-
-        SetHealth(startHealth + amount);
     }
 
     private IEnumerator VisualIndicator(Color color)
