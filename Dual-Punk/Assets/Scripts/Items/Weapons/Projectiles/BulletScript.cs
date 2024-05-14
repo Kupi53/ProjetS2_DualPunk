@@ -96,7 +96,7 @@ public class BulletScript : NetworkBehaviour, IImpact, IDestroyable
             ChangeDirection(Vector2.Reflect(_moveDirection, collision.contacts[0].normal), true);
         }
 
-        if (_collisionsAllowed < 0)
+        if (_collisionsAllowed < 0 || collider.CompareTag("Player") && !_damagePlayer || collider.CompareTag("Ennemy") && _damagePlayer)
         {
             Destroy();
         }

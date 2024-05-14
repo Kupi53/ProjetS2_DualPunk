@@ -17,6 +17,7 @@ public class PlayerState : NetworkBehaviour
     public float AnimAngle { get; set; }
     public float CrawlTime { get; set; }
     public float CrawlTimer { get; set; }
+    public float ForcesEffect { get; set; }
 
     public bool Down { get; set; }
     public bool Moving { get; set; }
@@ -49,6 +50,7 @@ public class PlayerState : NetworkBehaviour
         AnimAngle = 0;
         CrawlTime = 20;
         CrawlTimer = 0;
+        ForcesEffect = 0.05f;
     }
 
 

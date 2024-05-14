@@ -6,15 +6,19 @@ using UnityEngine;
 
 
 [RequireComponent(typeof(NPCState))]
-public class NPCMouvementController : NetworkBehaviour
+public class NPCMouvementController : NetworkBehaviour, IImpact
 {
-    [SerializeField] protected float _walkSpeed;
-    [SerializeField] protected float _runSpeed;
+    [SerializeField] private float _walkSpeed;
+    [SerializeField] private float _runSpeed;
     [SerializeField] private float _reCalculationTime;
+    [SerializeField] private float _forcesEffect; // 0.05
+    [SerializeField] private float _forcesDecreaseSpeed; //15
     [SerializeField] private LayerMask _layerMask;
 
+    private List<(Vector2, float)> _forces;
     private NPCState _npcState;
     private Rigidbody2D _rb2d;
+
     private Vector2[] _possibleDirections;
     private Vector2 _moveDirection;
     private float _reCalculateTimer;
@@ -24,6 +28,7 @@ public class NPCMouvementController : NetworkBehaviour
     private void Start()
     {
         _reCalculateTimer = _reCalculationTime;
+        _forces = new List<(Vector2, float)>();
         _possibleDirections = new Vector2[] { new Vector2(1,0), new Vector2(0,1), new Vector2(-1,0), new Vector2(0,-1),
             new Vector2(1,0.5f).normalized, new Vector2(-1,0.5f).normalized, new Vector2(1, -0.5f).normalized, new Vector2(-1,-0.5f) };
         
@@ -34,11 +39,13 @@ public class NPCMouvementController : NetworkBehaviour
 
     private void Update()
     {
-        if (!_npcState.Move || _reCalculateTimer < _reCalculationTime) {
+        if (!_npcState.Move || _reCalculateTimer < _reCalculationTime)
+        {
             _reCalculateTimer += Time.deltaTime;
             return;
         }
-        else {
+        else
+        {
             _reCalculateTimer = 0;
         }
         
@@ -70,7 +77,37 @@ public class NPCMouvementController : NetworkBehaviour
 
     private void FixedUpdate()
     {
-        if (_npcState.Move)
+        if (!_npcState.Move) return;
+
+        if (_forces.Count == 0)
+        {
             _rb2d.MovePosition(_rb2d.position + _moveDirection * _moveSpeed * Methods.GetDirectionFactor(_moveDirection));
+            return;
+        }
+
+        int i = 0;
+        Vector2 resultingForce = Vector2.zero;
+
+        while (i < _forces.Count)
+        {
+            if (_forces[i].Item2 <= 0)
+            {
+                _forces.Remove(_forces[i]);
+            }
+            else
+            {
+                resultingForce += _forces[i].Item1 * _forces[i].Item2;
+                _forces[i] = (_forces[i].Item1, _forces[i].Item2 - Time.deltaTime * _forcesDecreaseSpeed);
+                i++;
+            }
+        }
+
+        _rb2d.MovePosition(_rb2d.position + resultingForce * Methods.GetDirectionFactor(resultingForce) * _forcesEffect + _moveDirection * _moveSpeed * Methods.GetDirectionFactor(_moveDirection));
+    }
+
+
+    public void Impact(Vector2 direction, float intensity)
+    {
+        _forces.Add((direction.normalized, intensity));
     }
 }

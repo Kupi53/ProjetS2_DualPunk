@@ -237,6 +237,8 @@ MonoBehaviour:
   _walkSpeed: 0.04
   _runSpeed: 0.07
   _reCalculationTime: 0.5
+  _forcesEffect: 0.08
+  _forcesDecreaseSpeed: 15
   _layerMask:
     serializedVersion: 2
     m_Bits: 256

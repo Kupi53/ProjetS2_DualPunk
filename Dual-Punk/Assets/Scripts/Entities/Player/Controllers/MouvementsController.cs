@@ -18,8 +18,7 @@ public class MouvementsController : NetworkBehaviour, IImpact
     [SerializeField] private float _dashTime;
     [SerializeField] private float _dashCooldown;
     [SerializeField] private float _moveBackFactor;
-    [SerializeField] private float _forcesEffect; // 0.05
-    [SerializeField] private float _forcesDecreaseSpeed; //15
+    [SerializeField] private float _forcesDecreaseSpeed;
 
     private List<(Vector2, float)> _forces;
     private PlayerState _playerState;
@@ -44,6 +43,7 @@ public class MouvementsController : NetworkBehaviour, IImpact
         _dashTimer = 0;
         _dashCooldownTimer = 0;
         _enableMovement = true;
+        _moveDirection = Vector2.zero;
         _forces = new List<(Vector2, float)>();
 
         _rb2d = GetComponent<Rigidbody2D>();
@@ -61,28 +61,30 @@ public class MouvementsController : NetworkBehaviour, IImpact
             _moveDirection = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical") * 0.5f).normalized;
             _pointerDirection = (_playerState.MousePosition - transform.position).normalized;
 
-            if (_moveDirection == Vector2.zero) {
+            if (_moveDirection == Vector2.zero)
                 _playerState.Moving = false;
-            }
-            else {
+            else
                 _playerState.Moving = true;
-            }
+            
 
             if (_playerState.Down)
             {
                 _moveSpeed = _crawlSpeed;
                 _playerState.CrawlTimer += Time.deltaTime;
+
                 if (_playerState.CrawlTimer > _playerState.CrawlTime)
                 {
                     _enableMovement = false;
                     _moveDirection = Vector2.zero;
                 }
             }
-            else if (Input.GetButton("Walk") || _moveDirection == Vector2.zero) {
+            else if (Input.GetButton("Walk") || _moveDirection == Vector2.zero)
+            {
                 _playerState.Walking = true;
                 _moveSpeed = _walkSpeed;
             }
-            else {
+            else
+            {
                 _playerState.Walking = false;
                 _moveSpeed = _sprintSpeed;
             }
@@ -124,10 +126,12 @@ public class MouvementsController : NetworkBehaviour, IImpact
 
                 _moveFactor *= Methods.GetDirectionFactor(_moveDirection);
 
-                if (!_playerState.HoldingWeapon) {
+                if (!_playerState.HoldingWeapon)
+                {
                     _playerState.AnimAngle = moveAngle;
                 }
-                else if (!Methods.SameDirection(moveAngle, pointerAngle, 60)) {
+                else if (!Methods.SameDirection(moveAngle, pointerAngle, 60))
+                {
                     _moveFactor *= _moveBackFactor;
                 }
             }
@@ -157,6 +161,12 @@ public class MouvementsController : NetworkBehaviour, IImpact
 
     private void MovePosition()
     {
+        if (_forces.Count < 0)
+        {
+            _rb2d.MovePosition(_rb2d.position + _moveDirection * _moveSpeed * _moveFactor);
+            return;
+        }
+
         int i = 0;
         Vector2 resultingForce = Vector2.zero;
 
@@ -174,10 +184,11 @@ public class MouvementsController : NetworkBehaviour, IImpact
             }
         }
 
-        _rb2d.MovePosition(_rb2d.position + resultingForce * Methods.GetDirectionFactor(resultingForce) * _forcesEffect + _moveDirection * _moveSpeed * _moveFactor);
+        _rb2d.MovePosition(_rb2d.position + resultingForce * Methods.GetDirectionFactor(resultingForce) * _playerState.ForcesEffect + _moveDirection * _moveSpeed * _moveFactor);
     }
 
 
+    [ObserversRpc]
     public void Impact(Vector2 direction, float intensity)
     {
         _forces.Add((direction.normalized, intensity));

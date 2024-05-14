@@ -19870,26 +19870,27 @@ MonoBehaviour:
   _rightHand: {fileID: 4392466459797948936}
   _leftHand: {fileID: 906982321564036935}
   _weaponOffset: {x: 0.15, y: 0.85, z: 0}
+  _damage: 6
   _range: 50
-  _weaponDistance: 0.6
   _recoilForce: 0.1
   _impactForce: 0.1
   _cameraShake: 0.2
+  _weaponDistance: 0.6
   _pointerSpriteNumber: 3
   _gunEndPoint: {fileID: 5292275341485375363}
   _startVFX: {fileID: 5117179101647390942}
   _endVFX: {fileID: 1823186462710866608}
+  _audioSource: {fileID: -9104239058404526871}
+  _fireSound: {fileID: 8300000, guid: 45e85d2f89bea524e90f16d3208002aa, type: 3}
   _layerMask:
     serializedVersion: 2
-    m_Bits: 351
-  _damage: 6
+    m_Bits: 863
   _damageFrequency: 0.1
   _fireTime: 10
   _coolDownSpeed: 4
   _smoothTime: 0.1
   _disableSpeed: 2.5
-  _audioSource: {fileID: -9104239058404526871}
-  _fireSound: {fileID: 8300000, guid: 45e85d2f89bea524e90f16d3208002aa, type: 3}
+  _hitProjectileCount: 8
 --- !u!114 &812166075986024593
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19947,7 +19948,7 @@ MonoBehaviour:
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 9
+  <PrefabId>k__BackingField: 11
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0

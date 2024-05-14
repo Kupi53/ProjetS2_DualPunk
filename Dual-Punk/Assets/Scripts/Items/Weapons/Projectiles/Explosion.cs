@@ -22,8 +22,6 @@ public class Explosion : NetworkBehaviour
         GameObject[] victimes = GameObject.FindGameObjectsWithTag(tagDeLaVictime);
         foreach (GameObject grosseVictime in victimes)
         {
-            Debug.Log(grosseVictime.name);
-
             Vector3 hitDirection = grosseVictime.transform.position - transform.position;
             float distance = hitDirection.magnitude;
 
@@ -39,8 +37,7 @@ public class Explosion : NetworkBehaviour
 
             if (distance <= explosionRadius)
             {
-                if (tagDeLaVictime != "Ennemy")
-                    grosseVictime.GetComponent<IImpact>().Impact(hitDirection, explosionImpact * (1 - distance / explosionRadius));
+                grosseVictime.GetComponent<IImpact>().Impact(hitDirection, explosionImpact * (1 - distance / explosionRadius));
 
                 if (dealDamage)
                     grosseVictime.GetComponent<IDamageable>().Damage((int)(damage * (explosionRadius - distance) / explosionRadius), 0);

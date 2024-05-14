@@ -9,6 +9,8 @@ public class LaserGunScript : WeaponScript
     [SerializeField] private GameObject _gunEndPoint;
     [SerializeField] private GameObject _startVFX;
     [SerializeField] private GameObject _endVFX;
+    [SerializeField] private AudioSource _audioSource;
+    [SerializeField] private AudioClip _fireSound;
     [SerializeField] private LayerMask _layerMask;
 
     [SerializeField] private float _damageFrequency;
@@ -16,9 +18,7 @@ public class LaserGunScript : WeaponScript
     [SerializeField] private float _coolDownSpeed;
     [SerializeField] private float _smoothTime;
     [SerializeField] private float _disableSpeed;
-    
-    [SerializeField] private AudioSource _audioSource;
-    [SerializeField] private AudioClip _fireSound;
+    [SerializeField] private int _hitProjectileCount;
 
     private List<ParticleSystem> _particles;
     private LineRenderer _lineRenderer;
@@ -33,6 +33,7 @@ public class LaserGunScript : WeaponScript
     private float _laserLength;
     private float _resetTimer;
     private float _velocity;
+    private int _hitProjectileCounter;
 
     public override bool DisplayInfo { get => _coolDownLevel > 0; }
     public override float InfoMaxTime { get => _fireTime; }
@@ -51,6 +52,7 @@ public class LaserGunScript : WeaponScript
         _resetTimer = 0;
         _laserLength = 0;
         _coolDownLevel = 0;
+        _hitProjectileCounter = 0;
         _damageTimer = _damageFrequency;
 
         _lineRenderer = GetComponentInChildren<LineRenderer>();
@@ -221,6 +223,8 @@ public class LaserGunScript : WeaponScript
     {
         _fire = false;
         _coolDown = true;
+        _hitProjectileCounter = 0;
+
         DisableLaser();
         DisableLaserClientRPC();
     }
@@ -241,20 +245,36 @@ public class LaserGunScript : WeaponScript
                 DrawLaser(_startPosition, hit.point, direction);
                 DrawLaserRPC(_startPosition, hit.point, direction);
 
-                if ((hit.collider.CompareTag("Ennemy") || hit.collider.CompareTag("Player") && _damagePlayer) && _damageTimer >= _damageFrequency)
+                if (_damageTimer < _damageFrequency) return;
+                _damageTimer = 0;
+
+                if (hit.collider.CompareTag("Projectile"))
                 {
-                    _damageTimer = 0;
+                    if (_hitProjectileCounter < _hitProjectileCount)
+                    {
+                        _hitProjectileCounter++;
+                    }
+                    else
+                    {
+                        _hitProjectileCount = 0;
+                        hit.collider.GetComponent<IDestroyable>().Destroy();
+                    }
+                }
+                else if (hit.collider.CompareTag("Ennemy") || hit.collider.CompareTag("Player") && _damagePlayer)
+                {
                     hit.collider.GetComponent<IDamageable>().Damage(_damage, 0);
                 }
             }
             else
             {
+                _hitProjectileCount = 0;
                 DrawLaser(_startPosition, targetPoint.normalized * 50, direction);
                 DrawLaserRPC(_startPosition, targetPoint.normalized * 50, direction);
             }
         }
         else if (_resetTimer < _smoothTime * _disableSpeed)
         {
+            _hitProjectileCount = 0;
             _resetTimer += Time.deltaTime;
             _audioSource.volume = 1 - _resetTimer / (_smoothTime * _disableSpeed);
             DrawLaser(_startPosition, _startPosition, direction);

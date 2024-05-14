@@ -48,7 +48,7 @@ public class EnemyHealthManager : MonoBehaviour, IDamageable
     {
         GetComponent<SpriteRenderer>().color = color;
         yield return new WaitForSeconds(0.15f);
-        GetComponent<SpriteRenderer>().color = Color.green;
+        GetComponent<SpriteRenderer>().color = Color.white;
     }
 
 
@@ -101,7 +101,7 @@ public class EnemyHealthManager : MonoBehaviour, IDamageable
         {
             _lives[_lifeIndex] -= amount;
             CheckHealth();
-            StartCoroutine(VisualIndicator(Color.red));
+            StartCoroutine(VisualIndicator(Color.black));
         }
         else
         {
