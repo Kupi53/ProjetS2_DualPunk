@@ -85,7 +85,7 @@ public class HealthManager : NetworkBehaviour, IDamageable
         }
     }
 
-    [ObserversRpc]
+
     public void SetHealth(int amount)
     {
         _playerState.Health = amount;
