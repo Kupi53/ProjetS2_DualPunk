@@ -37,7 +37,7 @@ public class BulletScript : NetworkBehaviour, IImpact, IDestroyable
 
         if (_lifeTime <= 0 || _moveSpeed < 5)
         {
-            Destroy();
+            DestroyObject();
         }
     }
 
@@ -74,7 +74,7 @@ public class BulletScript : NetworkBehaviour, IImpact, IDestroyable
         ChangeDirection(newDirection, true);
     }
 
-    public virtual bool Destroy()
+    public virtual bool DestroyObject()
     {
         Destroy(gameObject);
         return true;
@@ -98,7 +98,7 @@ public class BulletScript : NetworkBehaviour, IImpact, IDestroyable
 
         if (_collisionsAllowed < 0 || collider.CompareTag("Player") && !_damagePlayer || collider.CompareTag("Ennemy") && _damagePlayer)
         {
-            Destroy();
+            DestroyObject();
         }
     }
 
@@ -106,7 +106,7 @@ public class BulletScript : NetworkBehaviour, IImpact, IDestroyable
     {
         if (collision.collider.CompareTag("Wall"))
         {
-            Destroy();
+            DestroyObject();
         }
     }
 
@@ -114,14 +114,14 @@ public class BulletScript : NetworkBehaviour, IImpact, IDestroyable
     {
         if (collider.CompareTag("Projectile"))
         {
-            if (collider.GetComponent<IDestroyable>().Destroy())
-                Destroy();
+            if (collider.GetComponent<IDestroyable>().DestroyObject())
+                DestroyObject();
         }
         else if (!_stopDamage && (collider.CompareTag("Ennemy") || collider.CompareTag("Player") && _damagePlayer))
         {
             _stopDamage = true;
             collider.GetComponent<IDamageable>().Damage(_damage, 0);
-            Destroy();
+            DestroyObject();
         }
     }
 }

@@ -31,7 +31,7 @@ public class Explosion : NetworkBehaviour
             }
             else if (tagDeLaVictime == "Projectile" && distance < explosionRadius * 0.2f)
             {
-                grosseVictime.GetComponent<IDestroyable>().Destroy();
+                grosseVictime.GetComponent<IDestroyable>().DestroyObject();
                 continue;
             }
 

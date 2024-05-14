@@ -63,7 +63,7 @@ public class EnemyHealthManager : MonoBehaviour, IDamageable
             if (_lifeIndex == _lives.Length)
             {
                 //event pour drop (weaponhandler)
-                Destroy();
+                DestroyObject();
             }
             else
             {
@@ -75,7 +75,7 @@ public class EnemyHealthManager : MonoBehaviour, IDamageable
     }
 
 
-    public bool Destroy()
+    public bool DestroyObject()
     {
         Destroy(gameObject);
         return true;

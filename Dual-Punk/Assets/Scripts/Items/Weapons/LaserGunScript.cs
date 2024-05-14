@@ -257,7 +257,7 @@ public class LaserGunScript : WeaponScript
                     else
                     {
                         _hitProjectileCount = 0;
-                        hit.collider.GetComponent<IDestroyable>().Destroy();
+                        hit.collider.GetComponent<IDestroyable>().DestroyObject();
                     }
                 }
                 else if (hit.collider.CompareTag("Ennemy") || hit.collider.CompareTag("Player") && _damagePlayer)

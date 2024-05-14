@@ -69,7 +69,7 @@ public class RocketScript : BulletScript, IDestroyable
     }
 
 
-    public override bool Destroy()
+    public override bool DestroyObject()
     {
         if (!_damagePlayer || _exploded)
             return false;

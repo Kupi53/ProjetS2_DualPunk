@@ -55,7 +55,7 @@ public class InstantGrenadeScript : NetworkBehaviour, IDestroyable, IImpact
     }
 
 
-    public bool Destroy()
+    public bool DestroyObject()
     {
         if (!_damagePlayer || _exploded)
             return false;
@@ -67,7 +67,7 @@ public class InstantGrenadeScript : NetworkBehaviour, IDestroyable, IImpact
 
     public void Impact(Vector2 direction, float intensity)
     {
-        Destroy();
+        DestroyObject();
     }
 
 
