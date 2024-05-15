@@ -97,12 +97,12 @@ public class EnemyWeaponHandler : NetworkBehaviour
         if (_weaponIndex < _weapons.Length)
         {
             GameObject weapon = Instantiate(_weapons[_weaponIndex], transform.position, Quaternion.identity);
+            Spawn(weapon);
 
             _weaponScript = weapon.GetComponent<WeaponScript>();
+            _weaponScript.UserRecoil = GetComponent<IImpact>();
             _weaponScript.EnemyState = _enemyState;
-            // WeaponScript.UserRecoil = GetComponent<IImpact>();
 
-            Spawn(weapon);
             _weaponIndex++;
         }
     }

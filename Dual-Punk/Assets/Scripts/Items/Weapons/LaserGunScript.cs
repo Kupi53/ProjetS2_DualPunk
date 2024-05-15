@@ -58,9 +58,20 @@ public class LaserGunScript : WeaponScript
         _lineRenderer = GetComponentInChildren<LineRenderer>();
         _particles = new List<ParticleSystem>();
 
-        FillList();
-        DisableLaser();
-        DisableLaserClientRPC();
+        for (int i = 0; i < _startVFX.transform.childCount; i++)
+        {
+            ParticleSystem particleSystem = _startVFX.transform.GetChild(i).GetComponent<ParticleSystem>();
+            if (particleSystem != null)
+                _particles.Add(particleSystem);
+        }
+        for (int i = 0; i < _endVFX.transform.childCount; i++)
+        {
+            ParticleSystem particleSystem = _endVFX.transform.GetChild(i).GetComponent<ParticleSystem>();
+            if (particleSystem != null)
+                _particles.Add(particleSystem);
+        }
+
+        DisableLaserServerRPC();
     }
 
 
@@ -99,8 +110,9 @@ public class LaserGunScript : WeaponScript
             }
             if (_resetTimer >= _smoothTime * _disableSpeed)
             {
-                DisableLaser();
-                DisableLaserClientRPC();
+                if (PlayerState != null)
+                    DisableLaser();
+                DisableLaserServerRPC();
             }
         }        
     }
@@ -113,7 +125,6 @@ public class LaserGunScript : WeaponScript
         if (_disableFire && Input.GetButton("Use"))
             PlayerState.PointerScript.CanShoot = false;
 
-
         if (Input.GetButtonDown("Use") && _canAttack)
         {
             _coolDown = false;
@@ -122,8 +133,9 @@ public class LaserGunScript : WeaponScript
         if (Input.GetButton("Use") && _canAttack && !_fire && !_disableFire)
         {
             _fire = true;
+
             EnableLaser();
-            EnableLaserClientRPC();
+            EnableLaserServerRPC();
         }
         else if (Input.GetButtonUp("Use") || !_canAttack)
         {
@@ -147,6 +159,8 @@ public class LaserGunScript : WeaponScript
 
         if (!_disableFire && EnemyState.Attack)
         {
+            if (!_lineRenderer.enabled)
+                EnableLaserServerRPC();
             _fire = true;
         }
         if (!EnemyState.Attack)
@@ -164,23 +178,6 @@ public class LaserGunScript : WeaponScript
 
 
 
-    private void FillList()
-    {
-        for (int i = 0; i < _startVFX.transform.childCount; i++)
-        {
-            ParticleSystem particleSystem = _startVFX.transform.GetChild(i).GetComponent<ParticleSystem>();
-            if (particleSystem != null)
-                _particles.Add(particleSystem);
-        }
-        for (int i = 0; i < _endVFX.transform.childCount; i++)
-        {
-            ParticleSystem particleSystem = _endVFX.transform.GetChild(i).GetComponent<ParticleSystem>();
-            if (particleSystem != null)
-                _particles.Add(particleSystem);
-        }
-    }
-
-
     private void EnableLaser()
     {
         _resetTimer = 0;
@@ -195,6 +192,7 @@ public class LaserGunScript : WeaponScript
         _audioSource.volume = 1;
         _audioSource.Play();
     }
+
 
     private void DisableLaser()
     {
@@ -212,11 +210,13 @@ public class LaserGunScript : WeaponScript
 
     private void DrawLaser(Vector3 startPosition, Vector3 targetPoint, Vector3 direction)
     {
+        Debug.Log(_lineRenderer.enabled);
         _laserLength = Mathf.SmoothDamp(_laserLength, Vector3.Distance(targetPoint, startPosition), ref _velocity, _smoothTime);
         _lineRenderer.SetPosition(0, startPosition);
         _lineRenderer.SetPosition(1, startPosition + direction * _laserLength);
         _endVFX.transform.position = startPosition + direction * _laserLength;
     }
+
 
 
     public override void ResetWeapon()
@@ -225,8 +225,9 @@ public class LaserGunScript : WeaponScript
         _coolDown = true;
         _hitProjectileCounter = 0;
 
-        DisableLaser();
-        DisableLaserClientRPC();
+        if (PlayerState != null)
+            DisableLaser();
+        DisableLaserServerRPC();
     }
 
 
@@ -237,13 +238,14 @@ public class LaserGunScript : WeaponScript
             if (_damageTimer < _damageFrequency)
                 _damageTimer += Time.deltaTime;
 
-            //UserRecoil.Impact(-direction, _recoilForce * Time.deltaTime * 100);
+            UserRecoil.Impact(-direction, _recoilForce * Time.deltaTime * 100);
             RaycastHit2D hit = Physics2D.Raycast(_startPosition, direction, 100, _layerMask);
 
             if (hit)
             {
-                DrawLaser(_startPosition, hit.point, direction);
-                DrawLaserRPC(_startPosition, hit.point, direction);
+                if (PlayerState != null)
+                    DrawLaser(_startPosition, hit.point, direction);
+                DrawLaserServerRPC(_startPosition, hit.point, direction);
 
                 if (_damageTimer < _damageFrequency) return;
                 _damageTimer = 0;
@@ -268,8 +270,10 @@ public class LaserGunScript : WeaponScript
             else
             {
                 _hitProjectileCount = 0;
-                DrawLaser(_startPosition, targetPoint.normalized * 50, direction);
-                DrawLaserRPC(_startPosition, targetPoint.normalized * 50, direction);
+
+                if (PlayerState != null)
+                    DrawLaser(_startPosition, targetPoint.normalized * 50, direction);
+                DrawLaserServerRPC(_startPosition, targetPoint.normalized * 50, direction);
             }
         }
         else if (_resetTimer < _smoothTime * _disableSpeed)
@@ -277,37 +281,56 @@ public class LaserGunScript : WeaponScript
             _hitProjectileCount = 0;
             _resetTimer += Time.deltaTime;
             _audioSource.volume = 1 - _resetTimer / (_smoothTime * _disableSpeed);
-            DrawLaser(_startPosition, _startPosition, direction);
-            DrawLaserRPC(_startPosition, _startPosition, direction);
+            
+            if (PlayerState != null)
+                DrawLaser(_startPosition, _startPosition, direction);
+            DrawLaserServerRPC(_startPosition, _startPosition, direction);
         }
     }
 
 
-
-    // ------------------------------
-
+    // --------------------------------------------------
 
 
     [ServerRpc(RequireOwnership = false)]
-    private void EnableLaserClientRPC()
+    private void EnableLaserServerRPC()
     {
-        EnableLaserClient();
+        if (PlayerState != null)
+            EnableLaserClient();
+        else
+            EnableLaserObservers();
     }
 
     [ObserversRpc]
+    private void EnableLaserObservers()
+    {
+        EnableLaser();
+    }
+
+    [ObserversRpc(ExcludeOwner = true)]
     private void EnableLaserClient()
     {
         EnableLaser();
     }
 
 
+
     [ServerRpc(RequireOwnership = false)]
-    private void DisableLaserClientRPC()
+    private void DisableLaserServerRPC()
     {
-        DisableLaserClient();
+        if (PlayerState != null)
+            DisableLaserClient();
+        else
+            DisableLaserObservers();
     }
 
     [ObserversRpc]
+    private void DisableLaserObservers()
+    {
+        DisableLaser();
+    }
+
+    [ObserversRpc(ExcludeOwner = true)]
     private void DisableLaserClient()
     {
         DisableLaser();
@@ -316,12 +339,21 @@ public class LaserGunScript : WeaponScript
 
 
     [ServerRpc(RequireOwnership = false)]
-    private void DrawLaserRPC(Vector3 startPosition, Vector3 targetPoint, Vector3 direction)
+    private void DrawLaserServerRPC(Vector3 startPosition, Vector3 targetPoint, Vector3 direction)
     {
-        DrawLaserClient(startPosition, targetPoint, direction);
+        if (PlayerState != null)
+            DrawLaserClient(startPosition, targetPoint, direction);
+        else
+            DrawLaserObservers(startPosition, targetPoint, direction);
     }
 
     [ObserversRpc]
+    private void DrawLaserObservers(Vector3 startPosition, Vector3 targetPoint, Vector3 direction)
+    {
+        DrawLaser(startPosition, targetPoint, direction);
+    }
+
+    [ObserversRpc(ExcludeOwner = true)]
     private void DrawLaserClient(Vector3 startPosition, Vector3 targetPoint, Vector3 direction)
     {
         DrawLaser(startPosition, targetPoint, direction);

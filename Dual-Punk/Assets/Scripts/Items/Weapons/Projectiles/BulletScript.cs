@@ -121,6 +121,7 @@ public class BulletScript : NetworkBehaviour, IImpact, IDestroyable
         {
             _stopDamage = true;
             collider.GetComponent<IDamageable>().Damage(_damage, 0);
+            collider.GetComponent<IImpact>().Impact(_moveDirection, _impactForce);
             DestroyObject();
         }
     }

@@ -60,6 +60,7 @@ public class SmartWeaponScript : FireArmScript
     }
 
 
+
     private bool CheckTarget(GameObject target)
     {
         for (int i = 0; i < _targetsIndicators.Count; i++)
@@ -87,11 +88,34 @@ public class SmartWeaponScript : FireArmScript
     }
 
 
+    private GameObject AssignTarget()
+    {
+        if (EnemyState != null)
+            return EnemyState.Target;
+
+        if (_targetsIndicators.Count == 0)
+        {
+            return null;
+        }
+
+        _index = (_index + 1) % _targetsIndicators.Count;
+
+        if (_targetsIndicators[_index] == null)
+        {
+            _targetsIndicators.Remove(_targetsIndicators[_index]);
+            return AssignTarget();
+        }
+
+        return _targetsIndicators[_index].GetComponent<TargetIndicatorScript>().Target;
+    }
+
+
+
     public override void Fire(Vector3 direction, int damage, float dispersion, bool damagePlayer)
     {
         _ammoLeft--;
         _fireTimer = 0;
-        //UserRecoil.Impact(-direction, _recoilForce);
+        UserRecoil.Impact(-direction, _recoilForce);
         AudioManager.Instance.PlayClipAt(_fireSound, gameObject.transform.position);
 
         bool warriorLuckBullet = false;
@@ -129,27 +153,5 @@ public class SmartWeaponScript : FireArmScript
             bulletScript.Setup(target, newDirection, damage, _bulletSpeed, _impactForce, _bulletRotateSpeed, damagePlayer);
             Spawn(newBullet);
         }
-    }
-
-
-    private GameObject AssignTarget()
-    {
-        if (EnemyState != null)
-            return EnemyState.Target;
-
-        if (_targetsIndicators.Count == 0)
-        {
-            return null;
-        }
-
-        _index = (_index + 1) % _targetsIndicators.Count;
-
-        if (_targetsIndicators[_index] == null)
-        {
-            _targetsIndicators.Remove(_targetsIndicators[_index]);
-            return AssignTarget();
-        }
-        
-        return _targetsIndicators[_index].GetComponent<TargetIndicatorScript>().Target;
     }
 }

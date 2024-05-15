@@ -191,7 +191,7 @@ public class ChargeWeaponScript : FireArmScript
         _chargeTimer = 0;
 
         AudioManager.Instance.PlayClipAt(_fireSound, gameObject.transform.position);
-        //UserRecoil.Impact(-direction, GetProgressingFactor(multiplier, _minRecoil, _recoilForce));
+        UserRecoil.Impact(-direction, GetProgressingFactor(multiplier, _minRecoil, _recoilForce));
 
         if (WarriorLuck && UnityEngine.Random.Range(0, DropPercentage) == 0)
         {
