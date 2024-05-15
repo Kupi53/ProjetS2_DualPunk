@@ -106,4 +106,10 @@ public class EnemyWeaponHandler : NetworkBehaviour
             _weaponIndex++;
         }
     }
+
+    public void DropWeapon()
+    {
+        _weaponScript.Drop();
+        _weaponScript.EnemyState = null;
+    }
 }
