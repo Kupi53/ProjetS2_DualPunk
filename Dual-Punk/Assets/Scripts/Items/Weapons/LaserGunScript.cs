@@ -210,7 +210,6 @@ public class LaserGunScript : WeaponScript
 
     private void DrawLaser(Vector3 startPosition, Vector3 targetPoint, Vector3 direction)
     {
-        Debug.Log(_lineRenderer.enabled);
         _laserLength = Mathf.SmoothDamp(_laserLength, Vector3.Distance(targetPoint, startPosition), ref _velocity, _smoothTime);
         _lineRenderer.SetPosition(0, startPosition);
         _lineRenderer.SetPosition(1, startPosition + direction * _laserLength);
@@ -258,19 +257,17 @@ public class LaserGunScript : WeaponScript
                     }
                     else
                     {
-                        _hitProjectileCount = 0;
+                        _hitProjectileCounter = 0;
                         hit.collider.GetComponent<IDestroyable>().DestroyObject();
                     }
                 }
                 else if (hit.collider.CompareTag("Ennemy") || hit.collider.CompareTag("Player") && _damagePlayer)
                 {
-                    hit.collider.GetComponent<IDamageable>().Damage(_damage, 0);
+                    hit.collider.GetComponent<IDamageable>().Damage(_damage, _damageFrequency);
                 }
             }
             else
             {
-                _hitProjectileCount = 0;
-
                 if (PlayerState != null)
                     DrawLaser(_startPosition, targetPoint.normalized * 50, direction);
                 DrawLaserServerRPC(_startPosition, targetPoint.normalized * 50, direction);
@@ -278,7 +275,7 @@ public class LaserGunScript : WeaponScript
         }
         else if (_resetTimer < _smoothTime * _disableSpeed)
         {
-            _hitProjectileCount = 0;
+            _hitProjectileCounter = 0;
             _resetTimer += Time.deltaTime;
             _audioSource.volume = 1 - _resetTimer / (_smoothTime * _disableSpeed);
             

@@ -109,7 +109,6 @@ public class EnemyHealthManager : MonoBehaviour, IDamageable
 
     public void Damage(int amount, float time)
     {
-        time = 0.5f;
         if (time == 0)
         {
             _lives[_lifeIndex] -= amount;
