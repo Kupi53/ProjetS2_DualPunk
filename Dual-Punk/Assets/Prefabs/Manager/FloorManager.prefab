@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6101913137713893155}
   - component: {fileID: 3019852277073667441}
+  - component: {fileID: 8478069378999202637}
+  - component: {fileID: 2512190564808807248}
   m_Layer: 0
   m_Name: FloorManager
   m_TagString: Untagged
@@ -44,12 +46,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9477fcfe33aea414896a908bc373dbd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _componentIndexCache: 0
+  _addedNetworkObject: {fileID: 2512190564808807248}
+  _networkObjectCache: {fileID: 0}
+  CurrentRoom: {fileID: 0}
   CityRoomPrefabs:
   - {fileID: 4019020946379616920, guid: 42e909071ae77d149973e0f2ae2aa957, type: 3}
   - {fileID: 4019020946379616920, guid: 24338cc6470bebc43bd853503fe68e59, type: 3}
   - {fileID: 4019020946379616920, guid: 5a71dec133d10be438345426322f5d52, type: 3}
   - {fileID: 4019020946379616920, guid: 30232ba13f2f5bc45bd2a4b5a8763279, type: 3}
-  - {fileID: 4019020946379616920, guid: c569c547b547f314b890f4ae3b3d3849, type: 3}
+  - {fileID: 4019020946379616920, guid: 5eed2c276a6c6ab4fa1f41df0041ea8e, type: 3}
   - {fileID: 4019020946379616920, guid: 48c365a66fc33da4da4cdaf87be83ade, type: 3}
   - {fileID: 4019020946379616920, guid: aadf2ccefe39ac344be5d99a1d48d0ad, type: 3}
   HangarRoomPrefabs:
@@ -68,3 +74,52 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  test1: {fileID: 11400000, guid: c23a700627b120a40bebd7c308e6ed1b, type: 2}
+  test2: {fileID: 11400000, guid: c23a700627b120a40bebd7c308e6ed1b, type: 2}
+--- !u!114 &8478069378999202637
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7243987111373328831}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c71fd7f855ec523429999fc4e14a1928, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _overrideType: 3
+  _updateHostVisibility: 1
+  _observerConditions: []
+--- !u!114 &2512190564808807248
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7243987111373328831}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26b716c41e9b56b4baafaf13a523ba2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <IsNested>k__BackingField: 0
+  <ComponentIndex>k__BackingField: 0
+  <PredictedSpawn>k__BackingField: {fileID: 0}
+  _networkBehaviours: []
+  <ParentNetworkObject>k__BackingField: {fileID: 0}
+  <ChildNetworkObjects>k__BackingField: []
+  SerializedTransformProperties:
+    Position: {x: 0, y: 0, z: 0}
+    Rotation: {x: 0, y: 0, z: 0, w: 0}
+    LocalScale: {x: 0, y: 0, z: 0}
+  _isNetworked: 1
+  _isGlobal: 0
+  _initializeOrder: 0
+  _defaultDespawnType: 0
+  NetworkObserver: {fileID: 0}
+  <PrefabId>k__BackingField: 0
+  <SpawnableCollectionId>k__BackingField: 0
+  _scenePathHash: 0
+  <SceneId>k__BackingField: 0
+  <AssetPathHash>k__BackingField: 12274609567278958065

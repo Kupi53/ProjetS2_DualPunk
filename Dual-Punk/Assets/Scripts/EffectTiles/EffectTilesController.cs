@@ -30,6 +30,8 @@ public class EffectTilesController : MonoBehaviour
                 {
                     player1StandingOnEFfectTile = true;
                     effectTile.Action(GameManager.Instance.Player1);
+                    // Special cases
+                    // RoomExitTile
                     if (effectTile is RoomExitTile)
                     {
                         player1State.CanBeTeleported = false;
@@ -39,6 +41,8 @@ public class EffectTilesController : MonoBehaviour
                             GameManager.Instance.Player2.GetComponent<PlayerState>().CanBeTeleported = false;
                         }
                     }
+                    // FloorExitTile
+                    
                 }
             }
             if (!player1StandingOnEFfectTile)

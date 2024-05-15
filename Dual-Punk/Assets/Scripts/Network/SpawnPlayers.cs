@@ -9,6 +9,7 @@ public class SpawnPlayers : NetworkBehaviour
 {
     [SerializeField] private GameObject playerPrefabA; //add prefab in inspector
     [SerializeField] private GameObject playerPrefabB; //add prefab in inspector
+    [SerializeField] private GameObject _floorManager;
     private GameObject playerObject;
     private GameObject networkManager;
 
@@ -26,6 +27,8 @@ public class SpawnPlayers : NetworkBehaviour
         if (host){
             playerObject = Instantiate(playerPrefabA, new Vector3(0,0,0), transform.rotation);
             GameManager.Instance.Player1 = playerObject;
+            GameObject floorManager = Instantiate(_floorManager);
+            Spawn(floorManager);
         }
         else{
             playerObject = Instantiate(playerPrefabB, new Vector3(0,0,0), transform.rotation);
