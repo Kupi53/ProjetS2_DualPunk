@@ -176,7 +176,7 @@ TextureImporter:
       name: City-Tiles 2_3
       rect:
         serializedVersion: 2
-        x: 96
+        x: 95
         y: 320
         width: 32
         height: 32
@@ -239,7 +239,7 @@ TextureImporter:
       name: City-Tiles 2_6
       rect:
         serializedVersion: 2
-        x: 96
+        x: 95
         y: 288
         width: 32
         height: 32
@@ -302,12 +302,12 @@ TextureImporter:
       name: City-Tiles 2_9
       rect:
         serializedVersion: 2
-        x: 96
+        x: 95
         y: 256
         width: 32
         height: 32
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.5, y: 0.75}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -365,12 +365,12 @@ TextureImporter:
       name: City-Tiles 2_12
       rect:
         serializedVersion: 2
-        x: 96
+        x: 95
         y: 224
         width: 32
         height: 32
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.5, y: 0.75}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -428,12 +428,12 @@ TextureImporter:
       name: City-Tiles 2_15
       rect:
         serializedVersion: 2
-        x: 96
+        x: 95
         y: 192
         width: 32
         height: 32
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.5, y: 0.75}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -491,12 +491,12 @@ TextureImporter:
       name: City-Tiles 2_18
       rect:
         serializedVersion: 2
-        x: 96
+        x: 95
         y: 160
         width: 32
         height: 32
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.5, y: 0.75}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -554,12 +554,12 @@ TextureImporter:
       name: City-Tiles 2_21
       rect:
         serializedVersion: 2
-        x: 96
+        x: 95
         y: 128
         width: 32
         height: 32
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.5, y: 0.75}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -617,12 +617,12 @@ TextureImporter:
       name: City-Tiles 2_24
       rect:
         serializedVersion: 2
-        x: 96
+        x: 95
         y: 96
         width: 32
         height: 32
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.5, y: 0.75}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
