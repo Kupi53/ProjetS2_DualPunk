@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb4d4ad9335e54a4aa04976f4584bb33, type: 3}
+  m_Name: PhotonAmplifier
+  m_EditorClassIdentifier: 
+  name: PhotonAmplifier
+  prefab: {fileID: 0}
+  icon: {fileID: 21300000, guid: f9a2bad66e280984ba7fb098cfaec72e, type: 3}
+  description: "Cet implant augmente la dur\xE9 de tire des armes lasers."
+  setName: Laser
+  setItems:
+  - 
+  - 
+  - PhotonAmplifier
+  - 

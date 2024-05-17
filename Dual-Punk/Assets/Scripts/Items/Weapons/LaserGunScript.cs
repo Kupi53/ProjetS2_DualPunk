@@ -38,6 +38,8 @@ public class LaserGunScript : WeaponScript
     public override float InfoMaxTime { get => _fireTime; }
     public override float InfoTimer { get => _fireTime - _coolDownLevel; }
 
+    public float FireTime { get => _fireTime; set => _fireTime = value; }
+
 
     private new void Start()
     {
