@@ -32,6 +32,20 @@ public class RoomExitTile : EffectTile
         {
             targetCoordinates = _targetRoom._exitWallCoordinates[_targetRoom._exitWallCoordinates.Length/2];
         }
+        switch(targetWallCardinal){
+            case WallCardinal.North:
+                targetCoordinates.x -= 2;
+                break;
+            case WallCardinal.East:
+                targetCoordinates.y += 2;
+                break;
+            case WallCardinal.South:
+                targetCoordinates.x += 2;
+                break;
+            case WallCardinal.West:
+                targetCoordinates.y -= 2;
+                break;
+        }
         return targetCoordinates;
     }
 }
