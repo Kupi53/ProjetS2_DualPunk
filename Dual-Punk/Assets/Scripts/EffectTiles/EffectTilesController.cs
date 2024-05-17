@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using System;
+using UnityEngine.SocialPlatforms;
+using FishNet.Object;
 
 
 public class EffectTilesController : MonoBehaviour
@@ -19,7 +21,7 @@ public class EffectTilesController : MonoBehaviour
         Vector3Int player1Position;
         Vector3Int player2Position;
         // check if player 1 is on an effect tile, if not do some stuff also
-        if (GameManager.Instance.Player1 is not null)
+        if (GameManager.Instance.Player1 is not null && GameManager.Instance.LocalPlayer == GameManager.Instance.Player1 )
         {
             bool player1StandingOnEFfectTile = false;
             player1Position = _grid.WorldToCell(GameManager.Instance.Player1.transform.position);
@@ -37,7 +39,7 @@ public class EffectTilesController : MonoBehaviour
                         player1State.CanBeTeleported = false;
                         if (GameManager.Instance.Player2 is not null)
                         {
-                            effectTile.Action(GameManager.Instance.Player2);
+                            EffectTileNetworkWrapper.Instance.EffectTileActionFromOtherPlayerRpc(GameManager.Instance.Player2.GetComponent<NetworkObject>().Owner);
                             GameManager.Instance.Player2.GetComponent<PlayerState>().CanBeTeleported = false;
                         }
                     }
@@ -51,11 +53,11 @@ public class EffectTilesController : MonoBehaviour
             }
         }
         // check if player 2 is on an effect tile, if not do some stuff also
-        if (GameManager.Instance.Player2 is not null)
+        if (GameManager.Instance.Player2 is not null && GameManager.Instance.LocalPlayer == GameManager.Instance.Player2)
         {
             bool player2StandingOnEFfectTile = false;
             player2Position = _grid.WorldToCell(GameManager.Instance.Player2.transform.position); 
-            PlayerState player2State = GameManager.Instance.Player1.GetComponent<PlayerState>(); 
+            PlayerState player2State = GameManager.Instance.Player2.GetComponent<PlayerState>(); 
             foreach(EffectTile effectTile in EffectTiles)
             {
                 if (player2Position == effectTile.Position)
@@ -65,7 +67,7 @@ public class EffectTilesController : MonoBehaviour
                     if (effectTile is RoomExitTile)
                     {
                         player2State.CanBeTeleported = false;
-                        effectTile.Action(GameManager.Instance.Player1);
+                        EffectTileNetworkWrapper.Instance.EffectTileActionFromOtherPlayerRpc(GameManager.Instance.Player1.GetComponent<NetworkObject>().Owner);
                         GameManager.Instance.Player1.GetComponent<PlayerState>().CanBeTeleported = false;
 
                     }
@@ -77,4 +79,17 @@ public class EffectTilesController : MonoBehaviour
             }
         }
     }
+
+    #nullable enable
+    public EffectTile? GetTileStoodOn(GameObject player)
+    {
+        foreach (EffectTile effectTile in EffectTiles)
+        {
+            if (_grid.WorldToCell(player.transform.position) == effectTile.Position){
+                return effectTile;
+            }
+        }
+        return null;
+    }
+    #nullable disable
 }

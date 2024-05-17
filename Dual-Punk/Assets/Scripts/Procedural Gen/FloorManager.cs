@@ -18,7 +18,11 @@ public class FloorManager : NetworkBehaviour
 {
     public static FloorManager Instance;
     public Floor CurrentFloor;
-    public Room CurrentRoom;
+    public Room CurrentRoom{
+        get {
+            return GameObject.FindWithTag("ActiveRoom").GetComponent<Room>();
+        }
+    }
     [SerializeField] public GameObject[] CityRoomPrefabs;
     [SerializeField] public GameObject[] HangarRoomPrefabs;
     [SerializeField] public GameObject[] SpaceshipRoomPrefabs;
@@ -104,7 +108,7 @@ public class FloorManager : NetworkBehaviour
     public void SwitchRoom(Room newRoom)
     {
         newRoom.gameObject.SetActive(true);
-        CurrentRoom = newRoom.GetComponent<Room>();
+        newRoom.tag = "ActiveRoom";
     }
 
     // Creates a new floor and switches to it's entry room

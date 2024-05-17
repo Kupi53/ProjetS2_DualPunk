@@ -86,6 +86,7 @@ public class Room : MonoBehaviour
     public void Exit(Room targetRoom)
     {
         this.gameObject.SetActive(false);
+        this.gameObject.tag = "ActiveRoom";
         FloorManager.Instance.SwitchRoom(targetRoom);
     }
 

@@ -12,11 +12,20 @@ public class GameManager : NetworkBehaviour
     public bool InGame;
     public GameObject Player1;
     public GameObject Player2;
+    public GameObject LocalPlayer {
+        get
+        {
+            // REALLY degueulasse car ca a rien a voir avec la camera mais en gros ca return le joueur du client qui appelle la fonction car la camera est que en local
+            return GameObject.FindGameObjectWithTag("Camera").GetComponent<CameraController>().PlayerState.gameObject;
+        } 
+    }
 
     void Start(){
         Player1 = null;
         Player2 = null;
-        Instance = this;
+        if (Instance is null){
+            Instance = this;
+        }
     }
 
     public void FadeIn()
