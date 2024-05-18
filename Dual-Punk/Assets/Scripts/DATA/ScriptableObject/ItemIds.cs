@@ -1,9 +1,6 @@
-
 using System.Collections.Generic;
-using System.Diagnostics.Tracing;
-using Unity;
-using Mono.Cecil;
 using UnityEngine;
+
 
 [CreateAssetMenu(fileName = "Data", menuName = "ScriptableObjects/ItemIds", order = 1)]
 public class ItemIds : ScriptableObject

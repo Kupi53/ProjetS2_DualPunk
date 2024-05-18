@@ -5,7 +5,7 @@ using System;
 using FishNet.Object;
 
 
-public class BulletScript : NetworkBehaviour, IImpact
+public class BulletScript : NetworkBehaviour, IImpact, IDestroyable
 {
     [SerializeField] protected float _lifeTime;
 
@@ -17,10 +17,13 @@ public class BulletScript : NetworkBehaviour, IImpact
     protected float _moveSpeed;
     protected float _moveFactor;
     protected float _impactForce;
+    protected bool _damagePlayer;
+    protected bool _stopDamage;
 
 
     protected void Start()
     {
+        _stopDamage = false;
         _rb2d = GetComponent<Rigidbody2D>();
     }
 
@@ -34,17 +37,18 @@ public class BulletScript : NetworkBehaviour, IImpact
 
         if (_lifeTime <= 0 || _moveSpeed < 5)
         {
-            Destroy(gameObject);
+            DestroyObject();
         }
     }
 
 
-    public void Setup(Vector3 moveDirection, int damage, float moveSpeed, float impactForce, int collisionsAllowed)
+    public void Setup(Vector3 moveDirection, int damage, float moveSpeed, float impactForce, int collisionsAllowed, bool damagePlayer)
     {
         _damage = damage;
         _moveSpeed = moveSpeed;
         _impactForce = impactForce;
         _collisionsAllowed = collisionsAllowed;
+        _damagePlayer = damagePlayer;
 
         ChangeDirection(moveDirection, true);
     }
@@ -64,10 +68,16 @@ public class BulletScript : NetworkBehaviour, IImpact
 
     public void Impact(Vector2 direction, float intensity)
     {
-        Vector2 newDirection = _moveDirection + (Vector3)direction * intensity;
+        Vector3 newDirection = _moveDirection + (Vector3)direction.normalized * intensity;
         _moveSpeed *= newDirection.magnitude;
 
         ChangeDirection(newDirection, true);
+    }
+
+    public virtual bool DestroyObject()
+    {
+        Destroy(gameObject);
+        return true;
     }
 
 
@@ -86,9 +96,9 @@ public class BulletScript : NetworkBehaviour, IImpact
             ChangeDirection(Vector2.Reflect(_moveDirection, collision.contacts[0].normal), true);
         }
 
-        if (_collisionsAllowed < 0 || collider.CompareTag("Player"))
+        if (_collisionsAllowed < 0 || collider.CompareTag("Player") && !_damagePlayer || collider.CompareTag("Ennemy") && _damagePlayer)
         {
-            Destroy(gameObject);
+            DestroyObject();
         }
     }
 
@@ -96,22 +106,23 @@ public class BulletScript : NetworkBehaviour, IImpact
     {
         if (collision.collider.CompareTag("Wall"))
         {
-            Destroy(gameObject);
+            DestroyObject();
         }
     }
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.CompareTag("Ennemy"))
+        if (collider.CompareTag("Projectile"))
         {
-            EnnemyStateDeMerde health = collider.GetComponent<EnnemyStateDeMerde>();
-            health.OnDamage(_damage);
-            Destroy(gameObject);
+            if (collider.GetComponent<IDestroyable>().DestroyObject())
+                DestroyObject();
         }
-        else if (collider.CompareTag("Projectile"))
+        else if (!_stopDamage && (collider.CompareTag("Ennemy") && !_damagePlayer || collider.CompareTag("Player") && _damagePlayer))
         {
-            collider.GetComponent<IDestroyable>().Destroy();
-            Destroy(gameObject);
+            _stopDamage = true;
+            collider.GetComponent<IDamageable>().Damage(_damage, 0);
+            collider.GetComponent<IImpact>().Impact(_moveDirection, _impactForce);
+            DestroyObject();
         }
     }
 }

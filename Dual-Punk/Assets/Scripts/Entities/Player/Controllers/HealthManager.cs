@@ -1,3 +1,4 @@
+using FishNet.Object;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -5,7 +6,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 
-public class HealthManager : MonoBehaviour, IDamageable
+public class HealthManager : NetworkBehaviour, IDamageable
 {
     private PlayerState _playerState;
 
@@ -35,30 +36,35 @@ public class HealthManager : MonoBehaviour, IDamageable
     }
 
 
-    private IEnumerator HealthCoroutine(float amount, float time)
+    private IEnumerator HealthCoroutine(int amount, float time)
     {
-        int startHealth = _playerState.Health;
+        int newAmount;
+        int lastAmount = 0;
         float timer = 0;
-        float healPerTime = amount / time;
+        float healPerTime = ((float)amount) / time;
 
         while (timer <= time)
         {
             timer += Time.deltaTime;
-            SetHealth(startHealth + (int)(healPerTime * timer));
+            newAmount = (int)(healPerTime * timer);
+            SetHealth(_playerState.Health - lastAmount + newAmount);
+            lastAmount = newAmount;
 
             yield return null;
         }
 
-        SetHealth(startHealth + (int)amount);
+        SetHealth(_playerState.Health - lastAmount + amount);
     }
 
 
-    public void Destroy()
+    public bool DestroyObject()
     {
         _playerState.Health = 0;
         CheckHealth();
+        return true;
     }
 
+    [ObserversRpc]
     public void Heal(int amount, float time)
     {
         if (time == 0)
@@ -72,6 +78,7 @@ public class HealthManager : MonoBehaviour, IDamageable
         }
     }
 
+    [ObserversRpc]
     public void Damage(int amount, float time)
     {
         if (LaserGunScript != null)
@@ -94,6 +101,7 @@ public class HealthManager : MonoBehaviour, IDamageable
             StartCoroutine(HealthCoroutine(-amount, time));
         }
     }
+
 
     public void SetHealth(int amount)
     {

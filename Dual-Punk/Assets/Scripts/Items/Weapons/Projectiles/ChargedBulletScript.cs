@@ -9,14 +9,15 @@ public class ChargedBulletScript : BulletScript
     {
         if (collider.CompareTag("Projectile"))
         {
-            collider.GetComponent<IDestroyable>().Destroy();
-            Destroy(gameObject);
+            if (collider.GetComponent<IDestroyable>().DestroyObject())
+                DestroyObject();
         }
-        if (collider.CompareTag("Ennemy"))
+        else if (!_stopDamage && (collider.CompareTag("Ennemy") && !_damagePlayer || collider.CompareTag("Player") && _damagePlayer))
         {
-            EnnemyStateDeMerde health = collider.GetComponent<EnnemyStateDeMerde>();
-            health.OnDamage(_damage);
-            Destroy(gameObject);
+            _stopDamage = true;
+            collider.GetComponent<IDamageable>().Damage(_damage, 0);
+            collider.GetComponent<IImpact>().Impact(_moveDirection, _impactForce);
+            DestroyObject();
         }
         else if (collider.CompareTag("Wall"))
         {
@@ -25,7 +26,7 @@ public class ChargedBulletScript : BulletScript
 
             if (_collisionsAllowed < 0)
             {
-                Destroy(gameObject);
+                DestroyObject();
             }
         }
     }

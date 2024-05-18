@@ -9,17 +9,16 @@ public class LaserGunScript : WeaponScript
     [SerializeField] private GameObject _gunEndPoint;
     [SerializeField] private GameObject _startVFX;
     [SerializeField] private GameObject _endVFX;
+    [SerializeField] private AudioSource _audioSource;
+    [SerializeField] private AudioClip _fireSound;
     [SerializeField] private LayerMask _layerMask;
 
-    [SerializeField] private float _damage;
     [SerializeField] private float _damageFrequency;
     [SerializeField] private float _fireTime;
     [SerializeField] private float _coolDownSpeed;
     [SerializeField] private float _smoothTime;
     [SerializeField] private float _disableSpeed;
-    
-    [SerializeField] private AudioSource _audioSource;
-    [SerializeField] private AudioClip _fireSound;
+    [SerializeField] private int _hitProjectileCount;
 
     private List<ParticleSystem> _particles;
     private LineRenderer _lineRenderer;
@@ -28,11 +27,13 @@ public class LaserGunScript : WeaponScript
     private bool _fire;
     private bool _coolDown;
     private bool _disableFire;
+    private bool _damagePlayer;
     private float _damageTimer;
     private float _coolDownLevel;
     private float _laserLength;
     private float _resetTimer;
     private float _velocity;
+    private int _hitProjectileCounter;
 
     public override bool DisplayInfo { get => _coolDownLevel > 0; }
     public override float InfoMaxTime { get => _fireTime; }
@@ -49,18 +50,31 @@ public class LaserGunScript : WeaponScript
         _fire = false;
         _coolDown = false;
         _disableFire = false;
+        _damagePlayer = false;
         _velocity = 0;
         _resetTimer = 0;
         _laserLength = 0;
         _coolDownLevel = 0;
+        _hitProjectileCounter = 0;
         _damageTimer = _damageFrequency;
 
         _lineRenderer = GetComponentInChildren<LineRenderer>();
         _particles = new List<ParticleSystem>();
 
-        FillList();
-        DisableLaser();
-        DisableLaserClientRPC();
+        for (int i = 0; i < _startVFX.transform.childCount; i++)
+        {
+            ParticleSystem particleSystem = _startVFX.transform.GetChild(i).GetComponent<ParticleSystem>();
+            if (particleSystem != null)
+                _particles.Add(particleSystem);
+        }
+        for (int i = 0; i < _endVFX.transform.childCount; i++)
+        {
+            ParticleSystem particleSystem = _endVFX.transform.GetChild(i).GetComponent<ParticleSystem>();
+            if (particleSystem != null)
+                _particles.Add(particleSystem);
+        }
+
+        DisableLaserServerRPC();
     }
 
 
@@ -99,8 +113,9 @@ public class LaserGunScript : WeaponScript
             }
             if (_resetTimer >= _smoothTime * _disableSpeed)
             {
-                DisableLaser();
-                DisableLaserClientRPC();
+                if (PlayerState != null)
+                    DisableLaser();
+                DisableLaserServerRPC();
             }
         }        
     }
@@ -113,7 +128,6 @@ public class LaserGunScript : WeaponScript
         if (_disableFire && Input.GetButton("Use"))
             PlayerState.PointerScript.CanShoot = false;
 
-
         if (Input.GetButtonDown("Use") && _canAttack)
         {
             _coolDown = false;
@@ -122,8 +136,9 @@ public class LaserGunScript : WeaponScript
         if (Input.GetButton("Use") && _canAttack && !_fire && !_disableFire)
         {
             _fire = true;
+
             EnableLaser();
-            EnableLaserClientRPC();
+            EnableLaserServerRPC();
         }
         else if (Input.GetButtonUp("Use") || !_canAttack)
         {
@@ -131,6 +146,7 @@ public class LaserGunScript : WeaponScript
             _coolDown = true;
         }
 
+        _damagePlayer = false;
         Fire(direction, targetPoint);
 
         if (_fire)
@@ -144,13 +160,13 @@ public class LaserGunScript : WeaponScript
     {
         MovePosition(position, direction, targetPoint);
 
-        Debug.Log(_coolDownLevel);
-
-        if (!_disableFire && EnemyState.CanAttack)
+        if (!_disableFire && EnemyState.Attack)
         {
+            if (!_lineRenderer.enabled)
+                EnableLaserServerRPC();
             _fire = true;
         }
-        if (!EnemyState.CanAttack)
+        if (!EnemyState.Attack)
         {
             _fire = false;
             _disableFire = false;
@@ -159,26 +175,10 @@ public class LaserGunScript : WeaponScript
                 _coolDown = true;
         }
 
+        _damagePlayer = true;
         Fire(direction, targetPoint);
     }
 
-
-
-    private void FillList()
-    {
-        for (int i = 0; i < _startVFX.transform.childCount; i++)
-        {
-            ParticleSystem particleSystem = _startVFX.transform.GetChild(i).GetComponent<ParticleSystem>();
-            if (particleSystem != null)
-                _particles.Add(particleSystem);
-        }
-        for (int i = 0; i < _endVFX.transform.childCount; i++)
-        {
-            ParticleSystem particleSystem = _endVFX.transform.GetChild(i).GetComponent<ParticleSystem>();
-            if (particleSystem != null)
-                _particles.Add(particleSystem);
-        }
-    }
 
 
     private void EnableLaser()
@@ -195,6 +195,7 @@ public class LaserGunScript : WeaponScript
         _audioSource.volume = 1;
         _audioSource.Play();
     }
+
 
     private void DisableLaser()
     {
@@ -219,14 +220,17 @@ public class LaserGunScript : WeaponScript
     }
 
 
+
     public override void ResetWeapon()
     {
         _fire = false;
         _coolDown = true;
-        DisableLaser();
-        DisableLaserClientRPC();
-    }
+        _hitProjectileCounter = 0;
 
+        if (PlayerState != null)
+            DisableLaser();
+        DisableLaserServerRPC();
+    }
 
 
     private void Fire(Vector3 direction, Vector3 targetPoint)
@@ -236,45 +240,71 @@ public class LaserGunScript : WeaponScript
             if (_damageTimer < _damageFrequency)
                 _damageTimer += Time.deltaTime;
 
-            //UserRecoil.Impact(-direction, _recoilForce * Time.deltaTime * 100);
+            UserRecoil.Impact(-direction, _recoilForce * Time.deltaTime * 100);
             RaycastHit2D hit = Physics2D.Raycast(_startPosition, direction, 100, _layerMask);
 
             if (hit)
             {
-                DrawLaser(_startPosition, hit.point, direction);
-                DrawLaserRPC(_startPosition, hit.point, direction);
+                if (PlayerState != null)
+                    DrawLaser(_startPosition, hit.point, direction);
+                DrawLaserServerRPC(_startPosition, hit.point, direction);
 
-                if (hit.collider.CompareTag("Ennemy") && _damageTimer >= _damageFrequency)
+                if (_damageTimer < _damageFrequency) return;
+                _damageTimer = 0;
+
+                if (hit.collider.CompareTag("Projectile"))
                 {
-                    EnemyState health = hit.collider.GetComponent<EnemyState>();
-                    // health.OnDamage(_damage);
-                    _damageTimer = 0;
+                    if (_hitProjectileCounter < _hitProjectileCount)
+                    {
+                        _hitProjectileCounter++;
+                    }
+                    else
+                    {
+                        _hitProjectileCounter = 0;
+                        hit.collider.GetComponent<IDestroyable>().DestroyObject();
+                    }
+                }
+                else if (hit.collider.CompareTag("Ennemy") || hit.collider.CompareTag("Player") && _damagePlayer)
+                {
+                    hit.collider.GetComponent<IDamageable>().Damage(_damage, _damageFrequency);
                 }
             }
             else
             {
-                DrawLaser(_startPosition, targetPoint.normalized * 50, direction);
-                DrawLaserRPC(_startPosition, targetPoint.normalized * 50, direction);
+                if (PlayerState != null)
+                    DrawLaser(_startPosition, targetPoint.normalized * 50, direction);
+                DrawLaserServerRPC(_startPosition, targetPoint.normalized * 50, direction);
             }
         }
         else if (_resetTimer < _smoothTime * _disableSpeed)
         {
+            _hitProjectileCounter = 0;
             _resetTimer += Time.deltaTime;
             _audioSource.volume = 1 - _resetTimer / (_smoothTime * _disableSpeed);
-            DrawLaser(_startPosition, _startPosition, direction);
-            DrawLaserRPC(_startPosition, _startPosition, direction);
+            
+            if (PlayerState != null)
+                DrawLaser(_startPosition, _startPosition, direction);
+            DrawLaserServerRPC(_startPosition, _startPosition, direction);
         }
     }
 
 
-
-
+    // --------------------------------------------------
 
 
     [ServerRpc(RequireOwnership = false)]
-    private void EnableLaserClientRPC()
+    private void EnableLaserServerRPC()
     {
-        EnableLaserClient();
+        if (PlayerState != null)
+            EnableLaserClient();
+        else
+            EnableLaserObservers();
+    }
+
+    [ObserversRpc]
+    private void EnableLaserObservers()
+    {
+        EnableLaser();
     }
 
     [ObserversRpc(ExcludeOwner = true)]
@@ -284,10 +314,20 @@ public class LaserGunScript : WeaponScript
     }
 
 
+
     [ServerRpc(RequireOwnership = false)]
-    private void DisableLaserClientRPC()
+    private void DisableLaserServerRPC()
     {
-        DisableLaserClient();
+        if (PlayerState != null)
+            DisableLaserClient();
+        else
+            DisableLaserObservers();
+    }
+
+    [ObserversRpc]
+    private void DisableLaserObservers()
+    {
+        DisableLaser();
     }
 
     [ObserversRpc(ExcludeOwner = true)]
@@ -296,13 +336,21 @@ public class LaserGunScript : WeaponScript
         DisableLaser();
     }
 
-    // ------------------------------
 
 
     [ServerRpc(RequireOwnership = false)]
-    private void DrawLaserRPC(Vector3 startPosition, Vector3 targetPoint, Vector3 direction)
+    private void DrawLaserServerRPC(Vector3 startPosition, Vector3 targetPoint, Vector3 direction)
     {
-        DrawLaserClient(startPosition, targetPoint, direction);
+        if (PlayerState != null)
+            DrawLaserClient(startPosition, targetPoint, direction);
+        else
+            DrawLaserObservers(startPosition, targetPoint, direction);
+    }
+
+    [ObserversRpc]
+    private void DrawLaserObservers(Vector3 startPosition, Vector3 targetPoint, Vector3 direction)
+    {
+        DrawLaser(startPosition, targetPoint, direction);
     }
 
     [ObserversRpc(ExcludeOwner = true)]

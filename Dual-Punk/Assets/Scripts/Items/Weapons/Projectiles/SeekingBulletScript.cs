@@ -36,9 +36,11 @@ public class SeekingBulletScript : BulletScript
     }
 
 
-    public void Setup(Vector3 moveDirection, int damage, float moveSpeed, float impactForce, float rotateSpeed)
+    public void Setup(GameObject target, Vector3 moveDirection, int damage, float moveSpeed, float impactForce, float rotateSpeed, bool damagePlayer)
     {
-        base.Setup(moveDirection, damage, moveSpeed, impactForce, 0);
+        base.Setup(moveDirection, damage, moveSpeed, impactForce, 0, damagePlayer);
+
+        Target = target;
         _rotateSpeed = rotateSpeed;
     }
 
@@ -47,18 +49,18 @@ public class SeekingBulletScript : BulletScript
     {
         if (collider.CompareTag("Projectile"))
         {
-            collider.GetComponent<IDestroyable>().Destroy();
-            Destroy(gameObject);
+            if (collider.GetComponent<IDestroyable>().DestroyObject())
+                DestroyObject();
         }
-        else if (collider.CompareTag("Ennemy"))
+        else if (!_stopDamage && (collider.CompareTag("Ennemy") && !_damagePlayer || collider.CompareTag("Player") && _damagePlayer))
         {
-            EnnemyStateDeMerde health = collider.GetComponent<EnnemyStateDeMerde>();
-            health.OnDamage(_damage);
-            Destroy(gameObject);
+            _stopDamage = true;
+            collider.GetComponent<IDamageable>().Damage(_damage, 0);
+            DestroyObject();
         }
         else if (collider.CompareTag("Wall"))
         {
-            Destroy(gameObject);
+            DestroyObject();
         }
     }
 }

@@ -4,15 +4,14 @@ using UnityEngine;
 using FishNet.Object;
 
 
-public class InstantGrenadeScript : NetworkBehaviour, IDestroyable
+public class InstantGrenadeScript : NetworkBehaviour, IDestroyable, IImpact
 {
     [SerializeField] protected GameObject _explosion;
+    [SerializeField] protected AudioClip _explosionSound;
     [SerializeField] protected int _damage;
     [SerializeField] private float _explosionRadius;
     [SerializeField] private float _explosionImpact;
     [SerializeField] protected float _rotateSpeed;
-
-    [SerializeField] protected AudioClip _explosionSound;
 
     protected Rigidbody2D _rb2d;
 
@@ -25,11 +24,13 @@ public class InstantGrenadeScript : NetworkBehaviour, IDestroyable
     protected float _distanceUntilStop;
     protected float _curveFactor;
     private bool _exploded;
+    private bool _damagePlayer;
 
 
     protected void Start()
     {
         _exploded = false;
+        _damagePlayer = false;
         _linePosition = transform.position;
         _rb2d = GetComponent<Rigidbody2D>();
     }
@@ -49,21 +50,37 @@ public class InstantGrenadeScript : NetworkBehaviour, IDestroyable
 
         if (currentDistance > _distanceUntilStop)
         {
-            Destroy();
+            Explode();
         }
     }
 
 
-    public void Destroy()
+    public bool DestroyObject()
+    {
+        if (!_damagePlayer || _exploded)
+            return false;
+
+        Explode();
+        _exploded = true;
+        return true;
+    }
+
+    public void Impact(Vector2 direction, float intensity)
+    {
+        DestroyObject();
+    }
+
+
+    protected void Explode()
     {
         if (_exploded) return;
         _exploded = true;
 
         AudioManager.Instance.PlayClipAt(_explosionSound, gameObject.transform.position);
         GameObject explosion = Instantiate(_explosion, transform.position, transform.rotation);
-        explosion.GetComponent<Explosion>().Explode(_damage, _explosionRadius, _explosionImpact);
-
         Spawn(explosion);
+
+        explosion.GetComponent<Explosion>().Explode(_damage, _explosionRadius, _explosionImpact, false);
         Destroy(gameObject);
     }
 

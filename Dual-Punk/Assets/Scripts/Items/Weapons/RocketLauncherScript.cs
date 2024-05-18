@@ -26,10 +26,11 @@ public class RocketLauncherScript : FireArmScript
     }
 
 
-    public override void Fire(Vector3 direction, int damage, float dispersion)
+    public override void Fire(Vector3 direction, int damage, float dispersion, bool damagePlayer)
     {
         _ammoLeft--;
         _fireTimer = 0;
+        UserRecoil.Impact(-direction, _recoilForce);
         AudioManager.Instance.PlayClipAt(_fireSound, gameObject.transform.position);
 
         bool warriorLuckBullet = false;
@@ -39,12 +40,12 @@ public class RocketLauncherScript : FireArmScript
             warriorLuckBullet = true;
         }
 
-        FireRocketRpc(direction, damage, warriorLuckBullet);
+        FireRocketRpc(direction, damage, warriorLuckBullet, damagePlayer);
     }
 
 
     [ServerRpc(RequireOwnership = false)]
-    private void FireRocketRpc(Vector3 direction, int damage, bool warriorLuckBullet)
+    private void FireRocketRpc(Vector3 direction, int damage, bool warriorLuckBullet, bool damagePlayer)
     {
         for (int i = 0; i < _bulletNumber; i++)
         {
@@ -60,7 +61,7 @@ public class RocketLauncherScript : FireArmScript
             rocket.transform.localScale = new Vector2(_bulletSize, _bulletSize);
 
             rocketScript.Setup(direction, damage, _bulletSpeed, _impactForce, transform.position, Vector3.Distance(transform.position, _targetPoint),
-                _explosionRadius + 0.1f, _deviationAngle, _deviationSpeed);
+                _explosionRadius + 0.1f, _deviationAngle, _deviationSpeed, damagePlayer);
 
             Spawn(rocket);
         }

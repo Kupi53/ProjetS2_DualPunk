@@ -110,12 +110,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 69263149540544655}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: -0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 5296334907703644711}
+  m_Father: {fileID: 6852827081103764546}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!198 &7877145157837664004
 ParticleSystem:
@@ -9774,7 +9774,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 6084712856652409268}
   m_Father: {fileID: 5296334907703644711}
   m_LocalEulerAnglesHint: {x: 0, y: 270, z: 0}
 --- !u!198 &6003145148733308881
@@ -19434,7 +19435,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6852827081103764546}
-  - {fileID: 6084712856652409268}
   m_Father: {fileID: 1209433242501080850}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3151073757515227373
@@ -19962,27 +19962,28 @@ MonoBehaviour:
   _networkObjectCache: {fileID: 8730197519940194915}
   _rightHand: {fileID: 12479875987149540}
   _leftHand: {fileID: 6160880847261455949}
-  _weaponOffset: {x: 0.15, y: 0.8, z: 0}
+  _weaponOffset: {x: 0.15, y: 0.85, z: 0}
+  _damage: 10
   _range: 50
-  _weaponDistance: 0.6
   _recoilForce: 0.15
   _impactForce: 0.2
   _cameraShake: 0.3
+  _weaponDistance: 0.6
   _pointerSpriteNumber: 3
   _gunEndPoint: {fileID: 6987755135671807605}
   _startVFX: {fileID: 9135203561053153667}
   _endVFX: {fileID: 2910606374387017806}
+  _audioSource: {fileID: 50279802192761020}
+  _fireSound: {fileID: 8300000, guid: 45e85d2f89bea524e90f16d3208002aa, type: 3}
   _layerMask:
     serializedVersion: 2
     m_Bits: 863
-  _damage: 10
   _damageFrequency: 0.1
   _fireTime: 12
   _coolDownSpeed: 3
   _smoothTime: 0.15
   _disableSpeed: 2.5
-  _audioSource: {fileID: 50279802192761020}
-  _fireSound: {fileID: 8300000, guid: 45e85d2f89bea524e90f16d3208002aa, type: 3}
+  _hitProjectileCount: 6
 --- !u!114 &3107634846007935318
 MonoBehaviour:
   m_ObjectHideFlags: 0

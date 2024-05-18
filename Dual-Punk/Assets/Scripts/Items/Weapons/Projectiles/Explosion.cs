@@ -1,3 +1,4 @@
+using FishNet.Demo.AdditiveScenes;
 using FishNet.Object;
 using System.Collections;
 using System.Collections.Generic;
@@ -6,44 +7,50 @@ using UnityEngine;
 
 public class Explosion : NetworkBehaviour
 {
-    public void Explode(float damage, float explosionRadius, float explosionImpact)
+    public void Explode(int damage, float explosionRadius, float explosionImpact, bool damagePlayer)
     {
-        ExplodeRPC(damage, explosionRadius, explosionImpact);
+        DamageVictims("Ennemy", damage, explosionRadius, explosionImpact, !damagePlayer);
+        DamageVictims("Player", damage, explosionRadius, explosionImpact, damagePlayer);
+        DamageVictims("Projectile", damage, explosionRadius, explosionImpact, false);
+
+        Destroy(gameObject, 2);
     }
 
 
-    [ServerRpc(RequireOwnership = false)]
-    private void ExplodeRPC(float damage, float explosionRadius, float explosionImpact)
+    private void DamageVictims(string tagDeLaVictime, int damage, float explosionRadius, float explosionImpact, bool dealDamage)
     {
-        GameObject[] ennemies = GameObject.FindGameObjectsWithTag("Ennemy");
-        foreach (GameObject ennemy in ennemies)
+        GameObject[] victimes = GameObject.FindGameObjectsWithTag(tagDeLaVictime);
+        foreach (GameObject grosseVictime in victimes)
         {
-            Vector3 hitDirection = ennemy.transform.position - transform.position;
-            if (hitDirection.magnitude <= explosionRadius)
-            {
-                ennemy.GetComponent<EnnemyStateDeMerde>().OnDamage(damage * (explosionRadius - hitDirection.magnitude) / explosionRadius);
-            }
-        }
-
-        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-        Debug.Log(players.Length);
-        foreach (GameObject player in players)
-        {
-            Vector3 hitDirection = player.transform.position - transform.position;
+            Vector3 hitDirection = grosseVictime.transform.position - transform.position;
             float distance = hitDirection.magnitude;
 
-            if (distance <= explosionRadius * 10)
+            if (tagDeLaVictime == "Player" && distance <= explosionRadius * 6)
             {
-                float multiplier = 1 - distance / explosionRadius;
-                player.GetComponent<PlayerState>().CameraController.ShakeCamera(explosionImpact * multiplier, 0.5f);
+                ShakeCamera(grosseVictime.GetComponent<PlayerState>(), explosionImpact * (1 - distance / (explosionRadius * 6)));
+            }
+            else if (tagDeLaVictime == "Projectile" && distance < explosionRadius * 0.2f)
+            {
+                grosseVictime.GetComponent<IDestroyable>().DestroyObject();
+                continue;
+            }
 
-                if (distance <= explosionRadius)
-                {
-                    player.GetComponent<IImpact>().Impact(hitDirection, explosionImpact * multiplier);
-                }
+            if (distance <= explosionRadius)
+            {
+                grosseVictime.GetComponent<IImpact>().Impact(hitDirection, explosionImpact * (1 - distance / explosionRadius));
+
+                if (dealDamage)
+                    grosseVictime.GetComponent<IDamageable>().Damage((int)(damage * (explosionRadius - distance) / explosionRadius), 0.25f);
             }
         }
+    }
 
-        Destroy(gameObject, 2);
+
+    [ObserversRpc]
+    private void ShakeCamera(PlayerState playerState, float intensity)
+    {
+        if (playerState.CameraController == null) return;
+
+        playerState.CameraController.ShakeCamera(intensity, 0.25f);
     }
 }

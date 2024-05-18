@@ -41,7 +41,7 @@ public class RocketScript : BulletScript, IDestroyable
 
         if (Vector3.Distance(transform.position, _startPosition) > _distanceUntilExplosion || _moveSpeed < 5)
         {
-            Destroy();
+            Explode();
         }
     }
 
@@ -49,16 +49,17 @@ public class RocketScript : BulletScript, IDestroyable
     private Vector3 DeviateDirection()
     {
         Vector3 newDirection = Quaternion.Euler(0, 0, _deviationAngle * Mathf.Sin(Time.time * _deviationSpeed)) * _moveDirection;
-        _moveFactor = Methods.GetDirectionFactor(newDirection);
         transform.eulerAngles = new Vector3(0, 0, Methods.GetAngle(newDirection));
+        _moveFactor = Methods.GetDirectionFactor(newDirection);
+
         return newDirection;
     }
 
 
     public void Setup(Vector3 moveDirection, int damage, float moveSpeed, float impactForce, Vector3 startPosition, float distanceUntilExplosion,
-        float explosionRadius, float deviationAngle, float deviationSpeed)
+        float explosionRadius, float deviationAngle, float deviationSpeed, bool damagePlayer)
     {
-        base.Setup(moveDirection, damage, moveSpeed, impactForce, 0);
+        base.Setup(moveDirection, damage, moveSpeed, impactForce, 0, damagePlayer);
 
         _startPosition = startPosition;
         _distanceUntilExplosion = distanceUntilExplosion;
@@ -68,40 +69,38 @@ public class RocketScript : BulletScript, IDestroyable
     }
 
 
-    public void Destroy()
+    public override bool DestroyObject()
+    {
+        if (!_damagePlayer || _exploded)
+            return false;
+
+        Explode();
+        _exploded = true;
+        return true;
+    }
+
+
+    private void Explode()
     {
         if (_exploded) return;
         _exploded = true;
 
         AudioManager.Instance.PlayClipAt(_explosionSound, gameObject.transform.position);
         GameObject explosion = Instantiate(_explosion, transform.position, transform.rotation);
-        explosion.GetComponent<Explosion>().Explode(_damage, _explosionRadius, _impactForce);
+        Spawn(explosion);
+
+        explosion.GetComponent<Explosion>().Explode(_damage, _explosionRadius, _impactForce, _damagePlayer);
         _smokeTrail.GetComponent<StopSmokeTrail>().StopParticles();
 
-        Spawn(explosion);
         Destroy(gameObject);
     }
 
 
     protected void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.CompareTag("Ennemy") || collider.CompareTag("Wall"))
+        if (collider.CompareTag("Ennemy") || collider.CompareTag("Wall") || collider.CompareTag("Player") && _damagePlayer)
         {
-            Destroy(gameObject);
+            Explode();
         }
     }
-
-
-    /*[ObserversRpc]
-    private void PlayerRocketRpc()
-    {
-        GameObject player = _networkManager.GetComponent<LocalPlayerReference>().PlayerState.gameObject;
-        player.GetComponent<PlayerState>().CameraController.ShakeCamera(_explosionImpact / 5, 0.3f);
-
-        Vector3 hitDirection = player.transform.position - transform.position;
-        if (hitDirection.magnitude <= _explosionDistance)
-        {
-            player.GetComponent<IImpact>().Impact(hitDirection, _explosionImpact * (_explosionDistance - hitDirection.magnitude) / _explosionDistance);
-        }
-    }*/
 }

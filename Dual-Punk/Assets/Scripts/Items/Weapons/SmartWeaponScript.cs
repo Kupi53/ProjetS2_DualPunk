@@ -60,6 +60,7 @@ public class SmartWeaponScript : FireArmScript
     }
 
 
+
     private bool CheckTarget(GameObject target)
     {
         for (int i = 0; i < _targetsIndicators.Count; i++)
@@ -87,7 +88,30 @@ public class SmartWeaponScript : FireArmScript
     }
 
 
-    public override void Fire(Vector3 direction, int damage, float dispersion)
+    private GameObject AssignTarget()
+    {
+        if (EnemyState != null)
+            return EnemyState.Target;
+
+        if (_targetsIndicators.Count == 0)
+        {
+            return null;
+        }
+
+        _index = (_index + 1) % _targetsIndicators.Count;
+
+        if (_targetsIndicators[_index] == null)
+        {
+            _targetsIndicators.Remove(_targetsIndicators[_index]);
+            return AssignTarget();
+        }
+
+        return _targetsIndicators[_index].GetComponent<TargetIndicatorScript>().Target;
+    }
+
+
+
+    public override void Fire(Vector3 direction, int damage, float dispersion, bool damagePlayer)
     {
         _ammoLeft--;
         _fireTimer = 0;
@@ -105,12 +129,12 @@ public class SmartWeaponScript : FireArmScript
             dispersion /= _aimAccuracy;
         }
 
-        FireSeekingBulletRpc(ClientManager.Connection, direction, damage, dispersion, warriorLuckBullet);
+        FireSeekingBulletRpc(AssignTarget(), direction, damage, dispersion, warriorLuckBullet, damagePlayer);
     }
 
 
     [ServerRpc(RequireOwnership = false)]
-    private void FireSeekingBulletRpc(NetworkConnection networkConnection, Vector3 direction, int damage, float dispersion, bool warriorLuckBullet)
+    private void FireSeekingBulletRpc(GameObject target, Vector3 direction, int damage, float dispersion, bool warriorLuckBullet, bool damagePlayer)
     {
         for (int i = 0; i < _bulletNumber; i++)
         {
@@ -126,42 +150,8 @@ public class SmartWeaponScript : FireArmScript
             newBullet.transform.localScale = new Vector2(_bulletSize, _bulletSize);
             Vector3 newDirection = new Vector3(direction.x + Methods.NextFloat(-dispersion, dispersion), direction.y + Methods.NextFloat(-dispersion, dispersion), 0).normalized;
 
-            bulletScript.Setup(newDirection, damage, _bulletSpeed, _impactForce, _bulletRotateSpeed);
+            bulletScript.Setup(target, newDirection, damage, _bulletSpeed, _impactForce, _bulletRotateSpeed, damagePlayer);
             Spawn(newBullet);
-            AssignTargetClientRPC(bulletScript, networkConnection);
         }
-    }
-
-
-    [ObserversRpc]
-    private void AssignTargetClientRPC(SeekingBulletScript bulletScript, NetworkConnection networkConnection)
-    {
-        if (!networkConnection.IsLocalClient) return;
-
-        if (_targetsIndicators.Count == 0)
-        {
-            AssignTargetBulletScriptRPC(bulletScript, null);
-        }
-        else
-        {
-            _index = (_index + 1) % _targetsIndicators.Count;
-
-            if (_targetsIndicators[_index] == null)
-            {
-                _targetsIndicators.Remove(_targetsIndicators[_index]);
-                AssignTargetClientRPC(bulletScript, networkConnection);
-            }
-            else
-            {
-                AssignTargetBulletScriptRPC(bulletScript,_targetsIndicators[_index].GetComponent<TargetIndicatorScript>().Target);
-            }
-        }
-    }
-
-    [ServerRpc(RequireOwnership = false)]
-    private void AssignTargetBulletScriptRPC(SeekingBulletScript bulletScript, GameObject target)
-    {
-        if (bulletScript != null)
-            bulletScript.Target = target;
     }
 }

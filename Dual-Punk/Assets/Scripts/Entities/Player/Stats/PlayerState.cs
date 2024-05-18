@@ -15,10 +15,9 @@ public class PlayerState : NetworkBehaviour
     public int MaxHealth { get; set; }
 
     public float AnimAngle { get; set; }
-    public float ForcesEffect { get; set; }
-    public float ForcesDecreaseSpeed { get; set; }
     public float CrawlTime { get; set; }
     public float CrawlTimer { get; set; }
+    public float ForcesEffect { get; set; }
 
     public bool Down { get; set; }
     public bool Moving { get; set; }
@@ -40,7 +39,7 @@ public class PlayerState : NetworkBehaviour
 
     private void Awake()
     {
-        MaxHealth = 100;
+        MaxHealth = 1000;
         Health = MaxHealth;
         Down = false;
         Moving = false;
@@ -49,10 +48,9 @@ public class PlayerState : NetworkBehaviour
         Attacking = false;
         HoldingWeapon = false;
         AnimAngle = 0;
-        ForcesEffect = 0.05f;
-        ForcesDecreaseSpeed = 15;
         CrawlTime = 20;
         CrawlTimer = 0;
+        ForcesEffect = 0.05f;
     }
 
 

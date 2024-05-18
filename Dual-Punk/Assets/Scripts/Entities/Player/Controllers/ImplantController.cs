@@ -91,21 +91,21 @@ public class ImplantController : MonoBehaviour
 
     private void SetOrganic()
     {
-        Debug.Log("SetOrganic");
+        //Debug.Log("SetOrganic");
     }
 
     private void SetHeavy()
     {
-        Debug.Log("SetHeavy");
+        //Debug.Log("SetHeavy");
     }
 
     private void Set3()
     {
-        Debug.Log("Set3");
+        //Debug.Log("Set3");
     }
 
     private void Set4()
     {
-        Debug.Log("Set4");
+        //Debug.Log("Set4");
     }
 }
