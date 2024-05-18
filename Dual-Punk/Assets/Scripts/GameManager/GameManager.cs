@@ -30,6 +30,9 @@ public class GameManager : NetworkBehaviour
 
     public void FadeIn()
     {
+        Debug.Log(GameObject.FindWithTag("UI").name);
+        Debug.Log(GameObject.FindWithTag("UI").GetComponentInChildren<Animator>().name);
+        Debug.Log(GameObject.FindWithTag("UI").GetComponentInChildren<Animator>().hasRootMotion);
         GameObject.FindWithTag("UI").GetComponentInChildren<Animator>().Play("FadeToBlack_second");
     }
 
