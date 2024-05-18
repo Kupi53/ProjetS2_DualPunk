@@ -9,6 +9,12 @@ public class HealthManager : MonoBehaviour, IDamageable
 {
     private PlayerState _playerState;
 
+    //Nécessaire pour implant ThermicExchange
+    public float DamageMultiplier = 1;
+    
+#nullable enable
+    public LaserGunScript? LaserGunScript;
+#nullable disable
 
     private void Start()
     {
@@ -68,9 +74,19 @@ public class HealthManager : MonoBehaviour, IDamageable
 
     public void Damage(int amount, float time)
     {
+        if (LaserGunScript != null)
+        {
+            if (LaserGunScript.CoolDownLevel < 1 * (1 - DamageMultiplier))
+            {
+                LaserGunScript.CoolDownLevel -= 1 * (1 - DamageMultiplier);
+            }
+        }
+
+        float newAmout = amount * DamageMultiplier;
+
         if (time == 0)
         {
-            _playerState.Health -= amount;
+            _playerState.Health -= (int)newAmout;
             CheckHealth();
         }
         else

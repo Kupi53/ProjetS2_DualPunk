@@ -39,6 +39,7 @@ public class LaserGunScript : WeaponScript
     public override float InfoTimer { get => _fireTime - _coolDownLevel; }
 
     public float FireTime { get => _fireTime; set => _fireTime = value; }
+    public float CoolDownLevel { get => _coolDownLevel; set => _coolDownLevel = value; }
 
 
     private new void Start()

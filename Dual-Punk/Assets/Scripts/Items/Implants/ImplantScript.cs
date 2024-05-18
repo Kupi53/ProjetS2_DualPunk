@@ -2,12 +2,14 @@ using FishNet.Object;
 using UnityEngine;
 using System;
 
-public enum ImplantType{
+public enum ImplantType
+{
     Neuralink,
     ExoSqueleton,
     Arm,
     Boots
 }
+
 public abstract class ImplantScript : NetworkBehaviour
 {
     public PlayerState PlayerState { get; set; }
