@@ -11,7 +11,7 @@ public class HealthManager : NetworkBehaviour, IDamageable
     private PlayerState _playerState;
 
     //Nécessaire pour implant ThermicExchange
-    public float DamageMultiplier = 1;
+    public float DamageMultiplier;
     
 #nullable enable
     public LaserGunScript? LaserGunScript;
@@ -81,15 +81,19 @@ public class HealthManager : NetworkBehaviour, IDamageable
     [ObserversRpc]
     public void Damage(int amount, float time)
     {
+        float newAmout = amount;
+
         if (LaserGunScript != null)
         {
-            if (LaserGunScript.CoolDownLevel < 1 * (1 - DamageMultiplier))
+            float coolDownlevel = 1 * (1 - DamageMultiplier);
+            Debug.Log(coolDownlevel);
+            if (LaserGunScript.CoolDownLevel > coolDownlevel)
             {
-                LaserGunScript.CoolDownLevel -= 1 * (1 - DamageMultiplier);
+                LaserGunScript.CoolDownLevel -= coolDownlevel;
             }
-        }
 
-        float newAmout = amount * DamageMultiplier;
+            newAmout *= DamageMultiplier;
+        }
 
         if (time == 0)
         {
@@ -98,7 +102,7 @@ public class HealthManager : NetworkBehaviour, IDamageable
         }
         else
         {
-            StartCoroutine(HealthCoroutine(-amount, time));
+            StartCoroutine(HealthCoroutine(-(int)newAmout, time));
         }
     }
 

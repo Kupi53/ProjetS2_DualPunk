@@ -164,6 +164,7 @@ public class FireArmScript : WeaponScript
         _ammoLeft--;
         _fireTimer = 0;
         UserRecoil.Impact(-direction, _recoilForce);
+
         AudioManager.Instance.PlayClipAt(_fireSound, gameObject.transform.position);
 
         bool warriorLuckBullet = false;
