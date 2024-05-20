@@ -18,6 +18,7 @@ TagManager:
   - TempAudio
   - Camera
   - ActiveRoom
+  - FloorManager
   layers:
   - Default
   - TransparentFX

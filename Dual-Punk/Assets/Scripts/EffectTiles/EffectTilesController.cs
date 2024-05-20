@@ -5,6 +5,7 @@ using UnityEngine;
 using System;
 using UnityEngine.SocialPlatforms;
 using FishNet.Object;
+using UnityEditor.Rendering;
 
 
 public class EffectTilesController : MonoBehaviour
@@ -39,7 +40,7 @@ public class EffectTilesController : MonoBehaviour
                         player1State.CanBeTeleported = false;
                         if (GameManager.Instance.Player2 is not null)
                         {
-                            EffectTileNetworkWrapper.Instance.EffectTileActionFromOtherPlayerRpc(GameManager.Instance.Player2.GetComponent<NetworkObject>().Owner);
+                            EffectTileNetworkWrapper.Instance.EffectTileActionFromOtherPlayerRpc(GameManager.Instance.Player2.GetComponent<NetworkObject>().Owner, player1Position);
                             GameManager.Instance.Player2.GetComponent<PlayerState>().CanBeTeleported = false;
                         }
                     }
@@ -67,7 +68,7 @@ public class EffectTilesController : MonoBehaviour
                     if (effectTile is RoomExitTile)
                     {
                         player2State.CanBeTeleported = false;
-                        EffectTileNetworkWrapper.Instance.EffectTileActionFromOtherPlayerRpc(GameManager.Instance.Player1.GetComponent<NetworkObject>().Owner);
+                        EffectTileNetworkWrapper.Instance.EffectTileActionFromOtherPlayerRpc(GameManager.Instance.Player1.GetComponent<NetworkObject>().Owner, player2Position);
                         GameManager.Instance.Player1.GetComponent<PlayerState>().CanBeTeleported = false;
 
                     }
@@ -81,11 +82,11 @@ public class EffectTilesController : MonoBehaviour
     }
 
     #nullable enable
-    public EffectTile? GetTileStoodOn(GameObject player)
+    public EffectTile? GetTileStoodOn(Vector3Int pos)
     {
         foreach (EffectTile effectTile in EffectTiles)
         {
-            if (_grid.WorldToCell(player.transform.position) == effectTile.Position){
+            if (pos == effectTile.Position){
                 return effectTile;
             }
         }

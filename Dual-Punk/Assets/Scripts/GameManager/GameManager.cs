@@ -4,7 +4,7 @@ using FishNet.Object;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameManager : NetworkBehaviour
+public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
@@ -30,10 +30,8 @@ public class GameManager : NetworkBehaviour
 
     public void FadeIn()
     {
-        Debug.Log(GameObject.FindWithTag("UI").name);
-        Debug.Log(GameObject.FindWithTag("UI").GetComponentInChildren<Animator>().name);
-        Debug.Log(GameObject.FindWithTag("UI").GetComponentInChildren<Animator>().hasRootMotion);
-        GameObject.FindWithTag("UI").GetComponentInChildren<Animator>().Play("FadeToBlack_second");
+        Debug.Log(GameObject.Find($"{LocalPlayer.name} UI").name);
+        GameObject.Find($"{LocalPlayer.name} UI").GetComponentInChildren<Animator>().Play("FadeToBlack_second");
     }
 
 }

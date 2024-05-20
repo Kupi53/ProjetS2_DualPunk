@@ -67,7 +67,7 @@ public class Room : MonoBehaviour
         {
             foreach ( Vector3Int coordinate in _entryWallCoordinates)
             {
-                wallTilemap.SetTile(coordinate, FloorManager.Instance.test1);
+                wallTilemap.SetTile(coordinate, FloorNetworkWrapper.Instance.LocalFloorManager.test1);
                 _effectTilesController.EffectTiles.Add(new RoomExitTile(coordinate, PreviousRoom, GetOppositeWall(_entryWallCardinal)));
             }
         }
@@ -75,7 +75,7 @@ public class Room : MonoBehaviour
         {
             foreach ( Vector3Int coordinate in _exitWallCoordinates)
             {
-                wallTilemap.SetTile(coordinate, FloorManager.Instance.test2);
+                wallTilemap.SetTile(coordinate, FloorNetworkWrapper.Instance.LocalFloorManager.test2);
                 _effectTilesController.EffectTiles.Add(new RoomExitTile(coordinate, NextRoom, GetOppositeWall(_exitWallCardinal)));
             }
         }
@@ -87,7 +87,7 @@ public class Room : MonoBehaviour
     {
         this.gameObject.SetActive(false);
         this.gameObject.tag = "ActiveRoom";
-        FloorManager.Instance.SwitchRoom(targetRoom);
+        FloorNetworkWrapper.Instance.LocalFloorManager.SwitchRoom(targetRoom);
     }
 
     private void GenerateWalls()

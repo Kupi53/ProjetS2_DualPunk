@@ -12,11 +12,11 @@ public class Floor
         {
             switch (FloorType){
                 case FloorType.City:
-                    return FloorManager.Instance.CityRoomPrefabs;
+                    return FloorNetworkWrapper.Instance.LocalFloorManager.CityRoomPrefabs;
                 case FloorType.Hangar:
-                    return FloorManager.Instance.HangarRoomPrefabs;
+                    return FloorNetworkWrapper.Instance.LocalFloorManager.HangarRoomPrefabs;
                 case FloorType.Spaceship:
-                    return FloorManager.Instance.SpaceshipRoomPrefabs;
+                    return FloorNetworkWrapper.Instance.LocalFloorManager.SpaceshipRoomPrefabs;
                 default :
                     throw new Exception("floortype is invalid or has not been implemented in this method");
             }

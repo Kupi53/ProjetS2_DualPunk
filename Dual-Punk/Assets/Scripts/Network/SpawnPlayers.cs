@@ -9,7 +9,7 @@ public class SpawnPlayers : NetworkBehaviour
 {
     [SerializeField] private GameObject playerPrefabA; //add prefab in inspector
     [SerializeField] private GameObject playerPrefabB; //add prefab in inspector
-    [SerializeField] private GameObject _floorManager;
+    [SerializeField] private GameObject _floorWrapper;
     [SerializeField] private GameObject _effectTilesNetworkWrapper;
     private GameObject playerObject;
     private GameObject networkManager;
@@ -21,6 +21,7 @@ public class SpawnPlayers : NetworkBehaviour
         }
         else{
             SpawnServerRPC(ClientManager.Connection, false);
+            GameManager.Instance.Player1 = GameObject.Find("Player1(Clone)");
         }
     }
     [ServerRpc(RequireOwnership = false)]
@@ -28,8 +29,8 @@ public class SpawnPlayers : NetworkBehaviour
         if (host){
             playerObject = Instantiate(playerPrefabA, new Vector3(0,0,0), transform.rotation);
             GameManager.Instance.Player1 = playerObject;
-            GameObject floorManager = Instantiate(_floorManager);
-            Spawn(floorManager);
+            GameObject floorWrapper = Instantiate(_floorWrapper);
+            Spawn(floorWrapper);
             GameObject effectTileWrapper = Instantiate(_effectTilesNetworkWrapper);
             Spawn(effectTileWrapper);
         }
@@ -38,5 +39,12 @@ public class SpawnPlayers : NetworkBehaviour
             GameManager.Instance.Player2 = playerObject;
         }
         base.Spawn(playerObject, connection);
+        SetPlayer2Client(connection);
+
     } 
+    [TargetRpc]
+    void SetPlayer2Client(NetworkConnection con)
+    {
+        GameManager.Instance.Player2 = GameObject.Find("Player2(Clone)");
+    }
 }

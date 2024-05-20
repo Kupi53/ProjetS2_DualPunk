@@ -15,25 +15,20 @@ public class EffectTileNetworkWrapper : NetworkBehaviour
      }
 
      [ServerRpc(RequireOwnership = false)]
-     public void EffectTileActionFromOtherPlayerRpc(NetworkConnection con)
+     public void EffectTileActionFromOtherPlayerRpc(NetworkConnection con, Vector3Int pos)
      {
-        ETAFOPTargetRpc(con);
+        ETAFOPTargetRpc(con, pos);
      }
      [TargetRpc]
-     private void ETAFOPTargetRpc(NetworkConnection con)
+     private void ETAFOPTargetRpc(NetworkConnection con, Vector3Int pos)
      {
-        EffectTilesController controller = FloorManager.Instance.CurrentRoom.gameObject.GetComponentInChildren<EffectTilesController>();
-        GameObject otherPlayer;
-        if (GameManager.Instance.LocalPlayer == GameManager.Instance.Player1){
-            otherPlayer = GameManager.Instance.Player2;
-        }
-        else{
-            otherPlayer = GameManager.Instance.Player1;
-        }
+        EffectTilesController controller = FloorNetworkWrapper.Instance.LocalFloorManager.CurrentRoom.gameObject.GetComponentInChildren<EffectTilesController>();
         #nullable enable
-        EffectTile? effectTile = controller.GetTileStoodOn(otherPlayer);
+        EffectTile? effectTile = controller.GetTileStoodOn(pos);
+        Debug.Log("test1");
         if (effectTile != null)
         {
+            Debug.Log("test");
             effectTile.Action(GameManager.Instance.LocalPlayer);
         }
      }
