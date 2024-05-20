@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3019852277073667441}
   m_Layer: 0
   m_Name: FloorManager
-  m_TagString: Untagged
+  m_TagString: FloorManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -44,12 +44,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9477fcfe33aea414896a908bc373dbd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _componentIndexCache: 0
+  _addedNetworkObject: {fileID: 0}
+  _networkObjectCache: {fileID: 0}
   CityRoomPrefabs:
   - {fileID: 4019020946379616920, guid: 42e909071ae77d149973e0f2ae2aa957, type: 3}
   - {fileID: 4019020946379616920, guid: 24338cc6470bebc43bd853503fe68e59, type: 3}
   - {fileID: 4019020946379616920, guid: 5a71dec133d10be438345426322f5d52, type: 3}
   - {fileID: 4019020946379616920, guid: 30232ba13f2f5bc45bd2a4b5a8763279, type: 3}
-  - {fileID: 4019020946379616920, guid: c569c547b547f314b890f4ae3b3d3849, type: 3}
+  - {fileID: 4019020946379616920, guid: 5eed2c276a6c6ab4fa1f41df0041ea8e, type: 3}
   - {fileID: 4019020946379616920, guid: 48c365a66fc33da4da4cdaf87be83ade, type: 3}
   - {fileID: 4019020946379616920, guid: aadf2ccefe39ac344be5d99a1d48d0ad, type: 3}
   HangarRoomPrefabs:
@@ -68,3 +71,5 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  test1: {fileID: 11400000, guid: c23a700627b120a40bebd7c308e6ed1b, type: 2}
+  test2: {fileID: 11400000, guid: c23a700627b120a40bebd7c308e6ed1b, type: 2}

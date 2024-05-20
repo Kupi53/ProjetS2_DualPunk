@@ -4122,17 +4122,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1504957980}
   m_CullTransparentMesh: 1
---- !u!114 &1533214669 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4680981941538277727, guid: dda056c3d8465334d88694bddf737e40, type: 3}
-  m_PrefabInstance: {fileID: 1702409304218492472}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26b716c41e9b56b4baafaf13a523ba2e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1533214670 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1053980124377817206, guid: dda056c3d8465334d88694bddf737e40, type: 3}
@@ -5234,14 +5223,34 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -8275616341063530922, guid: dda056c3d8465334d88694bddf737e40, type: 3}
+      propertyPath: _scenePathHash
+      value: 2387753929
+      objectReference: {fileID: 0}
+    - target: {fileID: -8275616341063530922, guid: dda056c3d8465334d88694bddf737e40, type: 3}
+      propertyPath: <SceneId>k__BackingField
+      value: 10255325039466700110
+      objectReference: {fileID: 0}
+    - target: {fileID: -8275616341063530922, guid: dda056c3d8465334d88694bddf737e40, type: 3}
+      propertyPath: _networkBehaviours.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8275616341063530922, guid: dda056c3d8465334d88694bddf737e40, type: 3}
+      propertyPath: _networkBehaviours.Array.data[0]
+      value: 
+      objectReference: {fileID: 1533214670}
     - target: {fileID: 166650140272243995, guid: dda056c3d8465334d88694bddf737e40, type: 3}
       propertyPath: m_Name
       value: GameManager
       objectReference: {fileID: 0}
     - target: {fileID: 1053980124377817206, guid: dda056c3d8465334d88694bddf737e40, type: 3}
+      propertyPath: _addedNetworkObject
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1053980124377817206, guid: dda056c3d8465334d88694bddf737e40, type: 3}
       propertyPath: _networkObjectCache
       value: 
-      objectReference: {fileID: 1533214669}
+      objectReference: {fileID: 0}
     - target: {fileID: 1053980124377817206, guid: dda056c3d8465334d88694bddf737e40, type: 3}
       propertyPath: _componentIndexCache
       value: 0
@@ -5314,7 +5323,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8408530119376952557, guid: dda056c3d8465334d88694bddf737e40, type: 3}
+    - {fileID: 4680981941538277727, guid: dda056c3d8465334d88694bddf737e40, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

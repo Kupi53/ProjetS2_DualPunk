@@ -16,6 +16,9 @@ TagManager:
   - Projectile
   - Wall
   - TempAudio
+  - Camera
+  - ActiveRoom
+  - FloorManager
   layers:
   - Default
   - TransparentFX
