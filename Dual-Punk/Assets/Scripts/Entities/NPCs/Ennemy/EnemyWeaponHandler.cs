@@ -15,6 +15,8 @@ public class EnemyWeaponHandler : NetworkBehaviour
 
     private EnemyState _enemyState;
     private WeaponScript _weaponScript;
+    private Vector3 _direction;
+
     private float _currentAngleOffset;
     private float _targetAngleOffset;
     private float _offsetTimer;
@@ -27,6 +29,7 @@ public class EnemyWeaponHandler : NetworkBehaviour
         _velocity = 0;
         _weaponIndex = 0;
         _offsetTimer = _smoothTime;
+        _direction = Vector3.right;
         _enemyState = GetComponent<EnemyState>();
 
         AssignWeapon();
@@ -38,6 +41,7 @@ public class EnemyWeaponHandler : NetworkBehaviour
         if (!_weaponScript.InHand)
         {
             _weaponScript.PickUp(gameObject);
+            return;
         }
 
         if (_offsetTimer < _smoothTime)
@@ -47,21 +51,21 @@ public class EnemyWeaponHandler : NetworkBehaviour
         }
         else
         {
-            _targetAngleOffset = UnityEngine.Random.Range(-_aimVariationAngleRange, _aimVariationAngleRange);
+            _targetAngleOffset = Random.Range(-_aimVariationAngleRange, _aimVariationAngleRange);
             _offsetTimer = 0;
         }
         
-        if (_enemyState.Target == null)
+        if (_enemyState.Target == null || _enemyState.Stop)
         {
             _enemyState.Attack = false;
-            _weaponScript.EnemyRun(transform.position, VariateDirection(Vector3.right), _enemyState.TargetPoint);
+            _weaponScript.EnemyRun(transform.position, VariateDirection(), _enemyState.TargetPoint);
 
             return;
         }
 
 
-        Vector3 direction = _enemyState.TargetPoint - transform.position;
-        float distance = direction.magnitude;
+        _direction = _enemyState.TargetPoint - transform.position;
+        float distance = _direction.magnitude;
         bool canAttack = false;
 
         if (distance < _weaponScript.Range)
@@ -79,32 +83,33 @@ public class EnemyWeaponHandler : NetworkBehaviour
             }
         }
 
-        _enemyState.Run = !canAttack;
+        if (!canAttack)
+            _enemyState.Run = true;
         _enemyState.Attack = canAttack;
 
-        _weaponScript.EnemyRun(transform.position, VariateDirection(direction), _enemyState.TargetPoint);
+        _weaponScript.EnemyRun(transform.position, VariateDirection(), _enemyState.TargetPoint);
     }
 
 
-    private Vector3 VariateDirection(Vector3 direction)
+    private Vector3 VariateDirection()
     {
-        return Quaternion.Euler(0, 0, _currentAngleOffset) * direction.normalized;
+        return Quaternion.Euler(0, 0, _currentAngleOffset) * _direction.normalized;
     }
 
 
     public void AssignWeapon()
     {
-        if (_weaponIndex < _weapons.Length)
-        {
-            GameObject weapon = Instantiate(_weapons[_weaponIndex], transform.position, Quaternion.identity);
-            Spawn(weapon);
+        if (_weaponIndex >= _weapons.Length) return;
+        if (_weaponIndex > 0) DropWeapon();
+        
+        GameObject weapon = Instantiate(_weapons[_weaponIndex], transform.position, Quaternion.identity);
+        Spawn(weapon);
 
-            _weaponScript = weapon.GetComponent<WeaponScript>();
-            _weaponScript.UserRecoil = GetComponent<IImpact>();
-            _weaponScript.EnemyState = _enemyState;
+        _weaponScript = weapon.GetComponent<WeaponScript>();
+        _weaponScript.UserRecoil = GetComponent<IImpact>();
+        _weaponScript.EnemyState = _enemyState;
 
-            _weaponIndex++;
-        }
+        _weaponIndex++;
     }
 
     public void DropWeapon()

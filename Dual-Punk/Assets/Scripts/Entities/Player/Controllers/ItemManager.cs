@@ -181,6 +181,4 @@ public class ItemManager : NetworkBehaviour
         weaponScript.gameObject.SetActive(true);
         weaponScript.PickUp(gameObject);
     }
-
-
 }

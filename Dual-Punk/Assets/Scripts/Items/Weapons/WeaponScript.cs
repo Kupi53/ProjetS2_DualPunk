@@ -80,18 +80,18 @@ public abstract class WeaponScript : NetworkBehaviour
 
     public void PickUp(GameObject owner)
     {
-        ObjectSpawner.Instance.ObjectParentToGameObject(gameObject, owner);
         InHand = true;
         _canAttack = true;
         _rightHandSprite.enabled = true;
         _leftHandSprite.enabled = true;
+
+        ObjectSpawner.Instance.ObjectParentToGameObject(gameObject, owner);
     }
 
     public void Drop()
     {
         ResetWeapon();
 
-        ObjectSpawner.Instance.ObjectParentToRoom(gameObject);
         InHand = false;
         transform.rotation = Quaternion.identity;
         transform.position = PlayerState == null ? EnemyState.transform.position : PlayerState.transform.position;
@@ -102,6 +102,7 @@ public abstract class WeaponScript : NetworkBehaviour
             _weaponOffset.x = Math.Abs(_weaponOffset.x);
         }
 
+        ObjectSpawner.Instance.ObjectParentToRoom(gameObject);
     }
 
 

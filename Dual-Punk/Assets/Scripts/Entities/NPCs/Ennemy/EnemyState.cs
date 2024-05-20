@@ -30,7 +30,7 @@ public class EnemyState : NPCState
     {
         if (Target == null)
         {
-            Move = false;
+            Stop = true;
 
             GameObject[] targets = GameObject.FindGameObjectsWithTag("Player");
             for (int i = 0; i < targets.Length; i++)
@@ -38,6 +38,7 @@ public class EnemyState : NPCState
                 if (Vector2.Distance(targets[i].transform.position, transform.position) < _lockDistance)
                 {
                     Target = targets[i];
+                    Stop = false;
                     break;
                 }
             }
@@ -46,9 +47,9 @@ public class EnemyState : NPCState
         {
             Target = null;
         }
-        else
+        else if (Vector2.Distance(transform.position, Target.transform.position) > _unlockDistance/2)
         {
-            Move = true;
+            Run = true;
         }
     }
 }

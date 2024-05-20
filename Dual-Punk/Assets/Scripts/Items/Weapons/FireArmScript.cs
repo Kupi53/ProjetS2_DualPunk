@@ -116,7 +116,7 @@ public class FireArmScript : WeaponScript
             _fireTimer += Time.deltaTime;
         }
 
-        _aiming = !EnemyState.Move;
+        _aiming = !EnemyState.Run;
 
         if (_ammoLeft == 0)
         {

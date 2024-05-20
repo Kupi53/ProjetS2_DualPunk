@@ -149,7 +149,7 @@ public class ChargeWeaponScript : FireArmScript
             Fire(direction, _damage, _dispersion, true);
         }
 
-        _aiming = !EnemyState.Move;
+        _aiming = !EnemyState.Run;
 
         if (_ammoLeft == 0)
         {

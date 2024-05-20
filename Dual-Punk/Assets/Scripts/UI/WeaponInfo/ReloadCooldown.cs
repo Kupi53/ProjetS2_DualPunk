@@ -9,15 +9,15 @@ public class ReloadCooldown : MonoBehaviour
 {
     [SerializeField] private RawImage _image;
 
+    private LocalPlayerReference _references;
+    private RectTransform _rectTransform;
     private float _maxTop;
     private float _minTop;
-    private RectTransform _rectTransform;
-    private LocalPlayerReference _references;
 
 
     void Start()
     {
-        _rectTransform = _image.GetComponent<RectTransform>();
+        _rectTransform = _image.rectTransform;
         _maxTop = -_rectTransform.offsetMax.y;
         _minTop = _rectTransform.offsetMin.y;
         _references = transform.root.gameObject.GetComponent<LocalPlayerReference>();
