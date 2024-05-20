@@ -23,14 +23,14 @@ public class GameManager : MonoBehaviour
     void Start(){
         Player1 = null;
         Player2 = null;
-        if (Instance is null){
+        if (Instance == null)
+        {
             Instance = this;
         }
     }
 
     public void FadeIn()
     {
-        Debug.Log(GameObject.Find($"{LocalPlayer.name} UI").name);
         GameObject.Find($"{LocalPlayer.name} UI").GetComponentInChildren<Animator>().Play("FadeToBlack_second");
     }
 

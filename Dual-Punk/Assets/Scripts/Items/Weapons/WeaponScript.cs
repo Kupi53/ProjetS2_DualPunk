@@ -1,6 +1,7 @@
 using FishNet.Object;
 using UnityEngine;
 using System;
+using System.Runtime.Serialization;
 
 
 public abstract class WeaponScript : NetworkBehaviour
@@ -77,8 +78,9 @@ public abstract class WeaponScript : NetworkBehaviour
     public abstract void ResetWeapon();
 
 
-    public void PickUp()
+    public void PickUp(GameObject owner)
     {
+        ObjectSpawner.Instance.ObjectParentToGameObject(gameObject, owner);
         InHand = true;
         _canAttack = true;
         _rightHandSprite.enabled = true;
@@ -89,6 +91,7 @@ public abstract class WeaponScript : NetworkBehaviour
     {
         ResetWeapon();
 
+        ObjectSpawner.Instance.ObjectParentToRoom(gameObject);
         InHand = false;
         transform.rotation = Quaternion.identity;
         transform.position = PlayerState == null ? EnemyState.transform.position : PlayerState.transform.position;
@@ -99,7 +102,6 @@ public abstract class WeaponScript : NetworkBehaviour
             _weaponOffset.x = Math.Abs(_weaponOffset.x);
         }
 
-        RemoveAllOwnerShipRPC(GetComponent<NetworkObject>());
     }
 
 
@@ -115,12 +117,6 @@ public abstract class WeaponScript : NetworkBehaviour
         transform.eulerAngles = new Vector3(0, 0, Methods.GetAngle(direction));
     }
 
-
-    [ServerRpc]
-    private void RemoveAllOwnerShipRPC(NetworkObject networkObject)
-    {
-        networkObject.RemoveOwnership();
-    }
 
 
     private void OnTriggerStay2D(Collider2D collider)

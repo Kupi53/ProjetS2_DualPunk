@@ -48,6 +48,8 @@ public abstract class ImplantScript : NetworkBehaviour
         transform.position = PlayerState.transform.position;
         transform.rotation = Quaternion.identity;
         gameObject.GetComponent<SpriteRenderer>().enabled = true;
+        ObjectSpawner.Instance.ObjectParentToRoom(gameObject);
+        RemoveAllOwnerShipRPC(gameObject.GetComponent<NetworkObject>());
     }
     
     [ServerRpc]

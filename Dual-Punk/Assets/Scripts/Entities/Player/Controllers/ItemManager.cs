@@ -121,6 +121,7 @@ public class ItemManager : NetworkBehaviour
 
                     RemoveHighlight(item);
                     item.GetComponent<SpriteRenderer>().enabled = false;
+                    ObjectSpawner.Instance.ObjectParentToGameObject(item, gameObject);
 
                     implantScript.IsEquipped = true;
                     implantScript.PlayerState = _playerState;
@@ -177,15 +178,9 @@ public class ItemManager : NetworkBehaviour
     {
         _playerState.WeaponScript = weaponScript;
         _playerState.HoldingWeapon = true;
-        GiveOwnershipRPC(weaponScript.gameObject.GetComponent<NetworkObject>(), base.ClientManager.Connection);
         weaponScript.gameObject.SetActive(true);
-        weaponScript.PickUp();
+        weaponScript.PickUp(gameObject);
     }
 
 
-    [ServerRpc (RequireOwnership = false)]
-    void GiveOwnershipRPC(NetworkObject networkObject, NetworkConnection networkConnection)
-    {
-        networkObject.GiveOwnership(networkConnection);
-    }
 }

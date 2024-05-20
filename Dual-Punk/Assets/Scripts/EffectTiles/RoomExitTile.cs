@@ -15,9 +15,7 @@ public class RoomExitTile : EffectTile
 
     public override void Action(GameObject target)
     {   
-        Debug.Log("test");
         if (!target.GetComponent<PlayerState>().CanBeTeleported) return;
-        Debug.Log("test");
         GameManager.Instance.FadeIn();
         target.transform.position = _targetGrid.CellToWorld(_targetCoordinates);
         FloorNetworkWrapper.Instance.LocalFloorManager.CurrentRoom.Exit(_targetRoom);

@@ -37,7 +37,7 @@ public class EnemyWeaponHandler : NetworkBehaviour
     {
         if (!_weaponScript.InHand)
         {
-            _weaponScript.PickUp();
+            _weaponScript.PickUp(gameObject);
         }
 
         if (_offsetTimer < _smoothTime)
