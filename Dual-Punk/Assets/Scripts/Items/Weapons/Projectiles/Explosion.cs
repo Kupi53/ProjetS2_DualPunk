@@ -25,16 +25,18 @@ public class Explosion : NetworkBehaviour
             Vector3 hitDirection = grosseVictime.transform.position - transform.position;
             float distance = hitDirection.magnitude;
 
+            if (grosseVictime.layer == 9)
+            {
+                if (distance <= explosionRadius / 2)
+                    grosseVictime.GetComponent<IDestroyable>().DestroyObject();
+                continue;
+            }
+
             if (tagDeLaVictime == "Player" && distance <= explosionRadius * 6)
             {
                 ShakeCamera(grosseVictime.GetComponent<PlayerState>(), explosionImpact * (1 - distance / (explosionRadius * 6)));
             }
-            else if (tagDeLaVictime == "Projectile" && distance < explosionRadius * 0.2f)
-            {
-                grosseVictime.GetComponent<IDestroyable>().DestroyObject();
-                continue;
-            }
-
+            
             if (distance <= explosionRadius)
             {
                 grosseVictime.GetComponent<IImpact>().Impact(hitDirection, explosionImpact * (1 - distance / explosionRadius));
