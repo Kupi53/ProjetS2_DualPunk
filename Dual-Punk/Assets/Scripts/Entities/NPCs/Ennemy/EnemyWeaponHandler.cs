@@ -116,5 +116,6 @@ public class EnemyWeaponHandler : NetworkBehaviour
     {
         _weaponScript.Drop();
         _weaponScript.EnemyState = null;
+        _weaponScript = null;
     }
 }

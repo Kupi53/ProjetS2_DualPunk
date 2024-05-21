@@ -361,7 +361,7 @@ MonoBehaviour:
   _addedNetworkObject: {fileID: -5137988890912388252}
   _networkObjectCache: {fileID: -5137988890912388252}
   _weapons:
-  - {fileID: 8566271621736578887, guid: 45c33cf5e24d4e94cb0d06a7185ababe, type: 3}
+  - {fileID: 8297419380730599739, guid: 239afa9696bf6fa469c3317efbe7993d, type: 3}
   - {fileID: 8832150194662058669, guid: 50792e658cc2ac544bf953b9d26dd1ac, type: 3}
   _layerMask:
     serializedVersion: 2
@@ -380,7 +380,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83a77bd7e478bf542bedfb3001231e3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _lives: 32000000c800000064000000
+  _lives: 9600000064000000
   _imuneTime: 1
   _receivedDamageFrequency: 0.2
 --- !u!114 &3668701009237676624

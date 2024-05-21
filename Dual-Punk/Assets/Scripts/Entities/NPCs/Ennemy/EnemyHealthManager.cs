@@ -65,7 +65,6 @@ public class EnemyHealthManager : MonoBehaviour, IDamageable
 
     private IEnumerator VisualIndicator(Color color, float time)
     {
-        Debug.Log(time);
         GetComponent<SpriteRenderer>().color = color;
         yield return new WaitForSeconds(time);
         GetComponent<SpriteRenderer>().color = Color.white;
