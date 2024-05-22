@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7803729393146100120}
   m_Layer: 0
   m_Name: ObjectSpawner
-  m_TagString: Untagged
+  m_TagString: ObjectSpawner
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -76,7 +76,7 @@ MonoBehaviour:
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 0
+  <PrefabId>k__BackingField: 46
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 774665742
   <SceneId>k__BackingField: 0

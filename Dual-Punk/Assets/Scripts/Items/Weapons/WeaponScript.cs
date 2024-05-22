@@ -2,6 +2,7 @@ using FishNet.Object;
 using UnityEngine;
 using System;
 using System.Runtime.Serialization;
+using FishNet.Connection;
 
 
 public abstract class WeaponScript : NetworkBehaviour
@@ -37,6 +38,9 @@ public abstract class WeaponScript : NetworkBehaviour
     public virtual bool DisplayInfo { get; }
     public virtual float InfoMaxTime { get; }
     public virtual float InfoTimer { get; }
+    #nullable enable
+    public NetworkConnection? ActualOwner { get; set;}
+    #nullable disable
 
 
     protected void Start()
@@ -44,7 +48,7 @@ public abstract class WeaponScript : NetworkBehaviour
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _rightHandSprite = _rightHand.GetComponent<SpriteRenderer>();
         _leftHandSprite = _leftHand.GetComponent<SpriteRenderer>();
-        _objectSpawner = GameObject.Find("ObjectSpawner").GetComponent<ObjectSpawner>();
+        _objectSpawner = GameObject.FindWithTag("ObjectSpawner").GetComponent<ObjectSpawner>();
 
         _canAttack = true;
         _reloading = false;
@@ -81,11 +85,13 @@ public abstract class WeaponScript : NetworkBehaviour
     public void PickUp(GameObject owner)
     {
         InHand = true;
+        ActualOwner = owner.GetComponent<NetworkObject>().LocalConnection; 
         _canAttack = true;
         _rightHandSprite.enabled = true;
         _leftHandSprite.enabled = true;
 
-        ObjectSpawner.Instance.ObjectParentToGameObject(gameObject, owner);
+        ObjectSpawner.Instance.RemoveParentRpc(gameObject);
+        ObjectSpawner.Instance.RemoveOwnershipFromNonOwnersRpc(gameObject, ActualOwner);
     }
 
     public void Drop()
@@ -93,6 +99,7 @@ public abstract class WeaponScript : NetworkBehaviour
         ResetWeapon();
 
         InHand = false;
+        ActualOwner = null;
         transform.rotation = Quaternion.identity;
         transform.position = PlayerState == null ? EnemyState.transform.position : PlayerState.transform.position;
 
@@ -102,7 +109,7 @@ public abstract class WeaponScript : NetworkBehaviour
             _weaponOffset.x = Math.Abs(_weaponOffset.x);
         }
 
-        ObjectSpawner.Instance.ObjectParentToRoom(gameObject);
+        ObjectSpawner.Instance.ObjectParentToRoomRpc(gameObject);
     }
 
 

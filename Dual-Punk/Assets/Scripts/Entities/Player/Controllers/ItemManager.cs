@@ -121,7 +121,7 @@ public class ItemManager : NetworkBehaviour
 
                     RemoveHighlight(item);
                     item.GetComponent<SpriteRenderer>().enabled = false;
-                    ObjectSpawner.Instance.ObjectParentToGameObject(item, gameObject);
+                    ObjectSpawner.Instance.ObjectParentToGameObjectRpc(item, gameObject, Vector3.zero);
 
                     implantScript.IsEquipped = true;
                     implantScript.PlayerState = _playerState;
