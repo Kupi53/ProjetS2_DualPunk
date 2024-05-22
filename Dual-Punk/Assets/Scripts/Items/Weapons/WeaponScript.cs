@@ -2,6 +2,7 @@ using FishNet.Object;
 using UnityEngine;
 using System;
 using System.Runtime.Serialization;
+using FishNet.Connection;
 
 
 public abstract class WeaponScript : NetworkBehaviour
@@ -37,6 +38,9 @@ public abstract class WeaponScript : NetworkBehaviour
     public virtual bool DisplayInfo { get; }
     public virtual float InfoMaxTime { get; }
     public virtual float InfoTimer { get; }
+    #nullable enable
+    public NetworkConnection? ActualOwner { get; set;}
+    #nullable disable
 
 
     protected void Start()
@@ -81,11 +85,13 @@ public abstract class WeaponScript : NetworkBehaviour
     public void PickUp(GameObject owner)
     {
         InHand = true;
+        ActualOwner = owner.GetComponent<NetworkObject>().LocalConnection; 
         _canAttack = true;
         _rightHandSprite.enabled = true;
         _leftHandSprite.enabled = true;
 
-        ObjectSpawner.Instance.ObjectParentToGameObjectRpc(gameObject, owner);
+        ObjectSpawner.Instance.RemoveParentRpc(gameObject);
+        ObjectSpawner.Instance.RemoveOwnershipFromNonOwnersRpc(gameObject, ActualOwner);
     }
 
     public void Drop()
@@ -93,6 +99,7 @@ public abstract class WeaponScript : NetworkBehaviour
         ResetWeapon();
 
         InHand = false;
+        ActualOwner = null;
         transform.rotation = Quaternion.identity;
         transform.position = PlayerState == null ? EnemyState.transform.position : PlayerState.transform.position;
 

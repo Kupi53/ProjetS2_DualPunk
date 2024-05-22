@@ -34,6 +34,7 @@ public class ObjectSpawner : NetworkBehaviour
     {
         GameObject instance = Instantiate(obj, pos, quaternion);
         Spawn(instance);
+        instance.transform.SetParent(FloorNetworkWrapper.Instance.LocalFloorManager.CurrentRoom.gameObject.transform);
         GiveOwnerShipToAllClients(instance.GetComponent<NetworkObject>());
         ObjectParentToRoomClients(instance);
     }
@@ -50,7 +51,7 @@ public class ObjectSpawner : NetworkBehaviour
             GameObject prefab = ItemIds.Instance.IdTable[Id];
             GameObject instance = Instantiate(prefab, pos, quaternion);
             Spawn(instance);
-            GiveOwnerShipToAllClients(instance.GetComponent<NetworkObject>());
+            instance.transform.SetParent(FloorNetworkWrapper.Instance.LocalFloorManager.CurrentRoom.gameObject.transform);
             ObjectParentToRoomClients(instance);
         }
     }
@@ -66,6 +67,17 @@ public class ObjectSpawner : NetworkBehaviour
     {
         itemManager.GetComponent<ItemManager>().UpdateHeldWeapon(obj.GetComponent<WeaponScript>());
     }
+    #nullable enable
+    [ServerRpc (RequireOwnership = false)]
+    public void RemoveOwnershipFromNonOwnersRpc(GameObject obj, NetworkConnection? owner)
+    {
+        obj.GetComponent<NetworkObject>().RemoveOwnership();
+        if (owner is not null)
+        {
+            GiveOwnershipRPC(obj.GetComponent<NetworkObject>(), owner);
+        }
+    }
+    #nullable disable
 
     [ServerRpc (RequireOwnership = false)]
     public void SpawnWeapons(GameObject obj, Vector3 pos, Quaternion quaternion){
@@ -75,26 +87,39 @@ public class ObjectSpawner : NetworkBehaviour
     }
     
     [ServerRpc (RequireOwnership = false)]
-    public void ObjectParentToGameObjectRpc(GameObject obj, GameObject parent)
+    public void ObjectParentToGameObjectRpc(GameObject obj, GameObject parent, Vector3 offset)
     {
-        ObjectParentToGameObjectClients(obj, parent);
+        GiveOwnerShipToAllClients(obj.GetComponent<NetworkObject>());
+        ObjectParentToGameObjectClients(obj, parent, offset);
     }
     
     [ServerRpc (RequireOwnership = false)]
     public void ObjectParentToRoomRpc(GameObject obj)
     {
+        GiveOwnerShipToAllClients(obj.GetComponent<NetworkObject>());
         ObjectParentToRoomClients(obj);
     }
+    [ServerRpc (RequireOwnership = false)]
+    public void RemoveParentRpc(GameObject obj)
+    {
+        RemoveParentClients(obj);
+    }
 
+    [ObserversRpc]
+    public void RemoveParentClients(GameObject obj)
+    {
+        obj.transform.SetParent(null);
+    }
     [ObserversRpc]
     public void ObjectParentToRoomClients(GameObject obj)
     {
         obj.transform.SetParent(FloorNetworkWrapper.Instance.LocalFloorManager.CurrentRoom.gameObject.transform);
     }
     [ObserversRpc]
-    public void ObjectParentToGameObjectClients(GameObject obj, GameObject parent)
+    public void ObjectParentToGameObjectClients(GameObject obj, GameObject parent, Vector3 offset)
     {
         obj.transform.SetParent(parent.transform);
+        obj.transform.localPosition = offset;
     } 
     
     [ObserversRpc]
@@ -107,5 +132,4 @@ public class ObjectSpawner : NetworkBehaviour
     {
         networkObject.GiveOwnership(networkConnection);
     }
-
 }
