@@ -12,13 +12,13 @@ GameObject:
   - component: {fileID: 843888973211852406}
   - component: {fileID: 1550963670199151827}
   - component: {fileID: -4059473331583019238}
-  - component: {fileID: -9073189176833958991}
+  - component: {fileID: 1068815536208770121}
   - component: {fileID: -218940236388108346}
   - component: {fileID: -1078616929798017896}
   - component: {fileID: -4858495041066962261}
   - component: {fileID: 8206352670867136053}
   m_Layer: 7
-  m_Name: PhotonAmplifier
+  m_Name: LaserTracker
   m_TagString: Implant
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -34,7 +34,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 0.4, y: 0.4, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -80,7 +80,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: f9a2bad66e280984ba7fb098cfaec72e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a7d08841c04d7994fbbf1a471e3dfa4d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -127,7 +127,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.54, y: 1.34}
+    oldSize: {x: 1.54, y: 1.54}
     newSize: {x: 0.9, y: 1.0352942}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -148,9 +148,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 758d5ccc253c2f04f8451e29ebbfa99f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _normal: {fileID: 21300000, guid: f9a2bad66e280984ba7fb098cfaec72e, type: 3}
-  _highlighted: {fileID: 21300000, guid: 95ed7e044f0e58e4ebf04bdc82673190, type: 3}
---- !u!114 &-9073189176833958991
+  _normal: {fileID: 21300000, guid: a7d08841c04d7994fbbf1a471e3dfa4d, type: 3}
+  _highlighted: {fileID: 21300000, guid: b0b70f07b1b60f547be0aa4ca4711ff4, type: 3}
+--- !u!114 &1068815536208770121
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -159,13 +159,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1420957003867560970}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fbeefa80460466644bf559d4d8b868fc, type: 3}
+  m_Script: {fileID: 11500000, guid: 213872fd20883394792f04becc95139e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 255
+  _componentIndexCache: 0
   _addedNetworkObject: {fileID: -218940236388108346}
-  _networkObjectCache: {fileID: 0}
-  _multiplicatorLaserTime: 1.5
+  _networkObjectCache: {fileID: -218940236388108346}
+  _maximumTargetingDistance: 100
 --- !u!114 &-218940236388108346
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -182,7 +182,7 @@ MonoBehaviour:
   <ComponentIndex>k__BackingField: 0
   <PredictedSpawn>k__BackingField: {fileID: 0}
   _networkBehaviours:
-  - {fileID: 0}
+  - {fileID: 1068815536208770121}
   - {fileID: -1078616929798017896}
   <ParentNetworkObject>k__BackingField: {fileID: 0}
   <ChildNetworkObjects>k__BackingField: []
@@ -195,11 +195,11 @@ MonoBehaviour:
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 33
+  <PrefabId>k__BackingField: 37
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0
-  <AssetPathHash>k__BackingField: 770627667016560264
+  <AssetPathHash>k__BackingField: 13163012642293654574
 --- !u!114 &-1078616929798017896
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -272,4 +272,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71eb8b037ef4d2843bdf7ae083f038ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemData: {fileID: 11400000, guid: a14f972a51f894f418d0e4fe81e01dc4, type: 2}
+  itemData: {fileID: 11400000, guid: c2c9732b62db4754eabe1b4c05259ca7, type: 2}

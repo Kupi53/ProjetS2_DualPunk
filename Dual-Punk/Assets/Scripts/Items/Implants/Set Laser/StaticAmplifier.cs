@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using FishNet.Object;
+using GameKit.Utilities;
 
 
 public class StaticAmplifier : ImplantScript
@@ -32,62 +33,54 @@ public class StaticAmplifier : ImplantScript
                     {
                         _oldModifiedWeapon = laserGunScript;
                         _oldDamage = laserGunScript.Damage;
-                        _oldColor = laserGunScript.Particles[0].main.startColor.color;
+                        _oldColor = laserGunScript.Particles[0].gameObject.GetComponent<Renderer>().material.GetColor("_BaseColor");
                     }
                     else
                     {
                         _oldModifiedWeapon.Damage = _oldDamage;
-                        ChangeColorParticle(_oldModifiedWeapon.Particles, _oldColor);
-                        ChangeColorLaser(_oldModifiedWeapon.LineRenderer, _oldColor);
-                    
-
+                        ChangeColor(_oldModifiedWeapon.LineRenderer, _oldModifiedWeapon.Particles, _oldColor);
+                        
                         _oldModifiedWeapon = laserGunScript;
                         _oldDamage = laserGunScript.Damage;
-                        _oldColor = laserGunScript.Particles[0].main.startColor.color;
+                        _oldColor = laserGunScript.Particles[0].gameObject.GetComponent<Renderer>().material.GetColor("_BaseColor");
                     }
-
+                    
+                    ChangeColor(laserGunScript.LineRenderer, laserGunScript.Particles, Color.red);
+                    
                     float newDamage = laserGunScript.Damage * _damageMultiplier;
-                    ChangeColorParticle(laserGunScript.Particles, Color.red);
-                    ChangeColorLaser(laserGunScript.LineRenderer, Color.red);
                     laserGunScript.Damage = (int)newDamage;
                 }
             }
             else if (_oldModifiedWeapon != null)
             {
                 _oldModifiedWeapon.Damage = _oldDamage;
-                ChangeColorParticle(_oldModifiedWeapon.Particles, _oldColor);
-                ChangeColorLaser(_oldModifiedWeapon.LineRenderer, _oldColor);
+                ChangeColor(_oldModifiedWeapon.LineRenderer, _oldModifiedWeapon.Particles, _oldColor);
 
                 _oldModifiedWeapon = null;
             }
         }
     }
 
+    private void ChangeColor(LineRenderer lineRenderer, List<ParticleSystem> particleSystems, Color color)
+    {
+        foreach (var particle in particleSystems)
+        {
+            particle.gameObject.GetComponent<Renderer>().material.SetColor("_BaseColor", color);
+        }
+
+        lineRenderer.gameObject.GetComponent<Renderer>().material.SetColor("_Color", color);
+    }
+    
+
     public override void ResetImplant()
     {
         if (_oldModifiedWeapon != null)
         {
             _oldModifiedWeapon.Damage = _oldDamage;
-            ChangeColorParticle(_oldModifiedWeapon.Particles, _oldColor);
-            ChangeColorLaser(_oldModifiedWeapon.LineRenderer, _oldColor);
+            ChangeColor(_oldModifiedWeapon.LineRenderer, _oldModifiedWeapon.Particles, _oldColor);
         }
 
         _oldModifiedWeapon = null;
         RemoveAllOwnerShipRPC(GetComponent<NetworkObject>());
-    }
-
-    private void ChangeColorParticle(List<ParticleSystem> particles, Color color)
-    {
-        foreach (ParticleSystem particle in particles)
-        {
-            Material material = particle.gameObject.GetComponent<Renderer>().material;
-            material.SetColor("_Color", color);
-        }
-    }
-
-    private void ChangeColorLaser(LineRenderer lineRenderer, Color color)
-    {
-        lineRenderer.startColor = color;
-        lineRenderer.endColor = color;
     }
 }
