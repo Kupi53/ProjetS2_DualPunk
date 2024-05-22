@@ -44,7 +44,7 @@ public abstract class WeaponScript : NetworkBehaviour
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _rightHandSprite = _rightHand.GetComponent<SpriteRenderer>();
         _leftHandSprite = _leftHand.GetComponent<SpriteRenderer>();
-        _objectSpawner = GameObject.Find("ObjectSpawner").GetComponent<ObjectSpawner>();
+        _objectSpawner = GameObject.FindWithTag("ObjectSpawner").GetComponent<ObjectSpawner>();
 
         _canAttack = true;
         _reloading = false;
@@ -85,7 +85,7 @@ public abstract class WeaponScript : NetworkBehaviour
         _rightHandSprite.enabled = true;
         _leftHandSprite.enabled = true;
 
-        ObjectSpawner.Instance.ObjectParentToGameObject(gameObject, owner);
+        ObjectSpawner.Instance.ObjectParentToGameObjectRpc(gameObject, owner);
     }
 
     public void Drop()
@@ -102,7 +102,7 @@ public abstract class WeaponScript : NetworkBehaviour
             _weaponOffset.x = Math.Abs(_weaponOffset.x);
         }
 
-        ObjectSpawner.Instance.ObjectParentToRoom(gameObject);
+        ObjectSpawner.Instance.ObjectParentToRoomRpc(gameObject);
     }
 
 

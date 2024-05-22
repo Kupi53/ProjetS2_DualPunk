@@ -11,11 +11,10 @@ public class SpawnPlayers : NetworkBehaviour
     [SerializeField] private GameObject playerPrefabB; //add prefab in inspector
     [SerializeField] private GameObject _floorWrapper;
     [SerializeField] private GameObject _effectTilesNetworkWrapper;
+    [SerializeField] private GameObject _objectSpawner;
     private GameObject playerObject;
-    private GameObject networkManager;
 
     public override void OnStartClient(){
-        networkManager = GameObject.FindWithTag("NetworkManager");
         if (IsServer){
             SpawnServerRPC(ClientManager.Connection, true);
         }
@@ -27,12 +26,14 @@ public class SpawnPlayers : NetworkBehaviour
     [ServerRpc(RequireOwnership = false)]
     public void SpawnServerRPC(NetworkConnection connection, bool host){
         if (host){
+            GameObject floorWrapper = Instantiate(_floorWrapper);
+            GameObject effectTileWrapper = Instantiate(_effectTilesNetworkWrapper);
+            GameObject objectSpawner = Instantiate(_objectSpawner);
+            Spawn(floorWrapper);
+            Spawn(effectTileWrapper);
+            Spawn(objectSpawner);
             playerObject = Instantiate(playerPrefabA, new Vector3(0,0,0), transform.rotation);
             GameManager.Instance.Player1 = playerObject;
-            GameObject floorWrapper = Instantiate(_floorWrapper);
-            Spawn(floorWrapper);
-            GameObject effectTileWrapper = Instantiate(_effectTilesNetworkWrapper);
-            Spawn(effectTileWrapper);
         }
         else{
             playerObject = Instantiate(playerPrefabB, new Vector3(0,0,0), transform.rotation);

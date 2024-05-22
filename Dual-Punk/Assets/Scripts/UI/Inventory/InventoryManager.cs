@@ -30,7 +30,7 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
     {
 
         _descriptionManager = GetComponent<DescriptionManager>();
-        _objectSpawner = GameObject.Find("ObjectSpawner").GetComponent<ObjectSpawner>();
+        _objectSpawner = GameObject.FindWithTag("ObjectSpawner").GetComponent<ObjectSpawner>();
         EquipedSlotIndex = 0;
         swapping  = false;
         

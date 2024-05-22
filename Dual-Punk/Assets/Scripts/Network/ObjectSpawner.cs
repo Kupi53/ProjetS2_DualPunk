@@ -19,6 +19,15 @@ public class ObjectSpawner : NetworkBehaviour
         Instance = this;
     }
 
+    public override void OnStartClient()
+    {
+        base.OnStartClient();
+        if (!IsHost)
+        {
+            Instance = GameObject.FindWithTag("ObjectSpawner").GetComponent<ObjectSpawner>();
+            Debug.Log(Instance.gameObject.name);
+        }
+    }
 
     [ServerRpc (RequireOwnership = false)]
     public void SpawnObjectRpc(GameObject obj, Vector3 pos, Quaternion quaternion)
@@ -26,7 +35,7 @@ public class ObjectSpawner : NetworkBehaviour
         GameObject instance = Instantiate(obj, pos, quaternion);
         Spawn(instance);
         GiveOwnerShipToAllClients(instance.GetComponent<NetworkObject>());
-        ObjectParentToRoom(instance);
+        ObjectParentToRoomClients(instance);
     }
 
     [ServerRpc (RequireOwnership = false)]
@@ -42,7 +51,7 @@ public class ObjectSpawner : NetworkBehaviour
             GameObject instance = Instantiate(prefab, pos, quaternion);
             Spawn(instance);
             GiveOwnerShipToAllClients(instance.GetComponent<NetworkObject>());
-            ObjectParentToRoom(instance);
+            ObjectParentToRoomClients(instance);
         }
     }
 
@@ -64,14 +73,26 @@ public class ObjectSpawner : NetworkBehaviour
         obj.transform.position = pos;
         obj.SetActive(true);
     }
+    
+    [ServerRpc (RequireOwnership = false)]
+    public void ObjectParentToGameObjectRpc(GameObject obj, GameObject parent)
+    {
+        ObjectParentToGameObjectClients(obj, parent);
+    }
+    
+    [ServerRpc (RequireOwnership = false)]
+    public void ObjectParentToRoomRpc(GameObject obj)
+    {
+        ObjectParentToRoomClients(obj);
+    }
 
     [ObserversRpc]
-    public void ObjectParentToRoom(GameObject obj)
+    public void ObjectParentToRoomClients(GameObject obj)
     {
         obj.transform.SetParent(FloorNetworkWrapper.Instance.LocalFloorManager.CurrentRoom.gameObject.transform);
     }
     [ObserversRpc]
-    public void ObjectParentToGameObject(GameObject obj, GameObject parent)
+    public void ObjectParentToGameObjectClients(GameObject obj, GameObject parent)
     {
         obj.transform.SetParent(parent.transform);
     } 
