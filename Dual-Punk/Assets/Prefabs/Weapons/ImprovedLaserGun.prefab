@@ -14797,7 +14797,7 @@ ParticleSystem:
     startColor:
       serializedVersion: 2
       minMaxState: 0
-      minColor: {r: 1, g: 1, b: 1, a: 1}
+      minColor: {r: 1, g: 0, b: 0, a: 1}
       maxColor: {r: 1, g: 0, b: 0.5019608, a: 1}
       maxGradient:
         serializedVersion: 2
@@ -19861,7 +19861,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 835532341250879092, guid: 5b9343604b8f98541b6aaa557b188e47, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.75
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -20041,7 +20041,7 @@ MonoBehaviour:
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 25
+  <PrefabId>k__BackingField: 28
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0

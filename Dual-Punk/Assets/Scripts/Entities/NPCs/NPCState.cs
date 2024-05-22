@@ -6,14 +6,14 @@ using UnityEngine;
 
 public class NPCState : NetworkBehaviour
 {
-    public bool Move { get; set; }
+    public bool Stop { get; set; }
     public bool Run { get; set; }
     public virtual Vector3 TargetPoint { get; set; }
 
 
     protected void Awake()
     {
-        Move = true;
+        Stop = false;
         Run = false;
     }
 }

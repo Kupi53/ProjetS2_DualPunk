@@ -46,6 +46,8 @@ public class FireArmScript : WeaponScript
     public int AmmoLeft { get => _ammoLeft; set => _ammoLeft = value; }
     public float FireRate { get => _fireRate; set => _fireRate = value; }
     public float ReloadTime { get => _reloadTime; set => _reloadTime = value; }
+    public int MagSize { get => _magSize; set => _magSize = value; }
+    public int ReloadAmout { get => _reloadAmount; set => _reloadAmount = value; }
     public int CollisionsAllowed { get => _collisionsAllowed; set => _collisionsAllowed = value; }
 
     public override bool DisplayInfo { get => _reloading; }
@@ -114,7 +116,7 @@ public class FireArmScript : WeaponScript
             _fireTimer += Time.deltaTime;
         }
 
-        _aiming = !EnemyState.Move;
+        _aiming = !EnemyState.Run;
 
         if (_ammoLeft == 0)
         {
@@ -162,6 +164,7 @@ public class FireArmScript : WeaponScript
         _ammoLeft--;
         _fireTimer = 0;
         UserRecoil.Impact(-direction, _recoilForce);
+
         AudioManager.Instance.PlayClipAt(_fireSound, gameObject.transform.position);
 
         bool warriorLuckBullet = false;

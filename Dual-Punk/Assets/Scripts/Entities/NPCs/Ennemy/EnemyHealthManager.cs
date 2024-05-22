@@ -4,34 +4,44 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
+[RequireComponent(typeof(EnemyState))]
 public class EnemyHealthManager : MonoBehaviour, IDamageable
 {
     [SerializeField] private int[] _lives;
-    [SerializeField] private float _effectSmoothTime;
+    [SerializeField] private float _imuneTime;
     [SerializeField] private float _receivedDamageFrequency;
-    [SerializeField] private GameObject _sliderHealthObject;
-    [SerializeField] private GameObject _sliderEffectObject;
 
-    private Slider _sliderHealth;
-    private Slider _sliderEffect;
-    private int _lifeIndex;
+    private EnemyState _enemyState;
+    private EnemyHealthIndicator _healthIndicator;
+    private float _imunityTimer;
     private int _maxHealth;
-    private float _vel;
+
+    public int Index { get; set; }
+    public int[] Lives { get => _lives; }
 
 
     private void Start()
     {
-        _vel = 0;
-        _lifeIndex = 0;
+        Index = 0;
+        _imunityTimer = -1;
         _maxHealth = _lives[0];
-        _sliderHealth = _sliderHealthObject.GetComponent<Slider>();
-        _sliderEffect = _sliderEffectObject.GetComponent<Slider>();
+        _enemyState = GetComponent<EnemyState>();
+        _healthIndicator = GetComponent<EnemyHealthIndicator>();
     }
+
 
     private void Update()
     {
-        _sliderHealth.value = (float)_lives[_lifeIndex] / (float)_maxHealth;
-        _sliderEffect.value = Mathf.SmoothDamp(_sliderEffect.value, _sliderHealth.value, ref _vel, _effectSmoothTime);
+        if (_imunityTimer > 0)
+        {
+            _imunityTimer -= Time.deltaTime;
+            _enemyState.Stop = true;
+        }
+        else if (_imunityTimer > -1)
+        {
+            _imunityTimer = -1;
+            _enemyState.Stop = false;
+        }
     }
 
 
@@ -46,40 +56,32 @@ public class EnemyHealthManager : MonoBehaviour, IDamageable
         {
             timer += Time.deltaTime;
             newAmount = (int)(healPerTime * timer);
-            SetHealth(_lives[_lifeIndex] - lastAmount + newAmount);
+            SetHealth(_lives[Index] - lastAmount + newAmount);
             lastAmount = newAmount;
 
             yield return null;
         }
 
-        SetHealth(_lives[_lifeIndex] - lastAmount + amount);
-    }
-
-    private IEnumerator VisualIndicator(Color color)
-    {
-        GetComponent<SpriteRenderer>().color = color;
-        yield return new WaitForSeconds(0.15f);
-        GetComponent<SpriteRenderer>().color = Color.white;
+        SetHealth(_lives[Index] - lastAmount + amount);
     }
 
 
     private void CheckHealth()
     {
-        if (_lives[_lifeIndex] > _maxHealth)
-            _lives[_lifeIndex] = _maxHealth;
+        if (_lives[Index] > _maxHealth)
+            _lives[Index] = _maxHealth;
 
-        else if (_lives[_lifeIndex] <= 0)
+        else if (_lives[Index] <= 0)
         {
-            _lifeIndex++;
-            if (_lifeIndex == _lives.Length)
+            Index++;
+            if (Index == _lives.Length)
             {
-                //event pour drop (weaponhandler)
                 DestroyObject();
             }
             else
             {
-                _maxHealth = _lives[_lifeIndex];
-                //event pour assign weapon (weaponhandler)
+                _maxHealth = _lives[Index];
+                _imunityTimer = _imuneTime;
                 GetComponent<EnemyWeaponHandler>().AssignWeapon();
             }
         }
@@ -96,9 +98,11 @@ public class EnemyHealthManager : MonoBehaviour, IDamageable
 
     public void Heal(int amount, float time)
     {
+        if (_imunityTimer > 0) return;
+
         if (time == 0)
         {
-            _lives[_lifeIndex] += amount;
+            _lives[Index] += amount;
             CheckHealth();
         }
         else
@@ -109,11 +113,13 @@ public class EnemyHealthManager : MonoBehaviour, IDamageable
 
     public void Damage(int amount, float time)
     {
+        if (_imunityTimer > 0) return;
+
         if (time == 0)
         {
-            _lives[_lifeIndex] -= amount;
+            _lives[Index] -= amount;
             CheckHealth();
-            StartCoroutine(VisualIndicator(Color.black));
+            _healthIndicator.DisplayDamageIndicator(amount);
         }
         else
         {
@@ -123,12 +129,14 @@ public class EnemyHealthManager : MonoBehaviour, IDamageable
 
     public void SetHealth(int amount)
     {
-        if (amount < _lives[_lifeIndex])
+        if (_imunityTimer > 0) return;
+
+        if (amount < _lives[Index])
         {
-            StartCoroutine(VisualIndicator(Color.black));
+            _healthIndicator.DisplayDamageIndicator(_lives[Index] - amount);
         }
 
-        _lives[_lifeIndex] = amount;
+        _lives[Index] = amount;
         CheckHealth();
     }
 }

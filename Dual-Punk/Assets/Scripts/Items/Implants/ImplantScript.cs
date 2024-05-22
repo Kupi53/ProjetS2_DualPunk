@@ -2,12 +2,14 @@ using FishNet.Object;
 using UnityEngine;
 using System;
 
-public enum ImplantType{
+public enum ImplantType
+{
     Neuralink,
     ExoSqueleton,
     Arm,
     Boots
 }
+
 public abstract class ImplantScript : NetworkBehaviour
 {
     public PlayerState PlayerState { get; set; }
@@ -46,6 +48,8 @@ public abstract class ImplantScript : NetworkBehaviour
         transform.position = PlayerState.transform.position;
         transform.rotation = Quaternion.identity;
         gameObject.GetComponent<SpriteRenderer>().enabled = true;
+        ObjectSpawner.Instance.ObjectParentToRoom(gameObject);
+        RemoveAllOwnerShipRPC(gameObject.GetComponent<NetworkObject>());
     }
     
     [ServerRpc]

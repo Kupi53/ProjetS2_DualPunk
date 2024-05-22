@@ -39,7 +39,7 @@ public class NPCMouvementController : NetworkBehaviour, IImpact
 
     private void Update()
     {
-        if (!_npcState.Move || _reCalculateTimer < _reCalculationTime)
+        if (_npcState.Stop || _reCalculateTimer < _reCalculationTime)
         {
             _reCalculateTimer += Time.deltaTime;
             return;
@@ -77,32 +77,35 @@ public class NPCMouvementController : NetworkBehaviour, IImpact
 
     private void FixedUpdate()
     {
-        if (!_npcState.Move) return;
-
-        if (_forces.Count == 0)
-        {
-            _rb2d.MovePosition(_rb2d.position + _moveDirection * _moveSpeed * Methods.GetDirectionFactor(_moveDirection));
-            return;
-        }
-
         int i = 0;
         Vector2 resultingForce = Vector2.zero;
+        Vector2 targetPosition = Vector2.zero;
 
-        while (i < _forces.Count)
+        if (!_npcState.Stop)
         {
-            if (_forces[i].Item2 <= 0)
-            {
-                _forces.Remove(_forces[i]);
-            }
-            else
-            {
-                resultingForce += _forces[i].Item1 * _forces[i].Item2;
-                _forces[i] = (_forces[i].Item1, _forces[i].Item2 - Time.deltaTime * _forcesDecreaseSpeed);
-                i++;
-            }
+            targetPosition = _moveDirection * _moveSpeed * Methods.GetDirectionFactor(_moveDirection);
         }
 
-        _rb2d.MovePosition(_rb2d.position + resultingForce * Methods.GetDirectionFactor(resultingForce) * _forcesEffect + _moveDirection * _moveSpeed * Methods.GetDirectionFactor(_moveDirection));
+        if (_forces.Count > 0)
+        {
+            while (i < _forces.Count)
+            {
+                if (_forces[i].Item2 <= 0)
+                {
+                    _forces.Remove(_forces[i]);
+                }
+                else
+                {
+                    resultingForce += _forces[i].Item1 * _forces[i].Item2;
+                    _forces[i] = (_forces[i].Item1, _forces[i].Item2 - Time.deltaTime * _forcesDecreaseSpeed);
+                    i++;
+                }
+            }
+
+            resultingForce = resultingForce * Methods.GetDirectionFactor(resultingForce) * _forcesEffect;
+        }
+
+        _rb2d.MovePosition(_rb2d.position + resultingForce + targetPosition);
     }
 
 

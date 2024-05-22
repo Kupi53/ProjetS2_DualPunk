@@ -518,14 +518,14 @@ MonoBehaviour:
   _recoilForce: 3
   _impactForce: 2
   _cameraShake: 1.5
-  _weaponDistance: 0.55
+  _weaponDistance: 0.5
   _pointerSpriteNumber: 3
   _bullet: {fileID: 8591999928390205349, guid: 0aa573b964f47d149967e5fcdc5da4d0, type: 3}
   _gunEndPoints:
   - {fileID: 5507576148066104672}
   - {fileID: 5261379878311747825}
   _magSize: 4
-  _bulletNumber: 1
+  _bulletNumber: 2
   _reloadAmount: 1
   _collisionsAllowed: 3
   _fireRate: 0.1
@@ -605,7 +605,7 @@ MonoBehaviour:
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 14
+  <PrefabId>k__BackingField: 18
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0

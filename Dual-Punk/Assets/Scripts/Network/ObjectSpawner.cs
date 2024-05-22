@@ -25,6 +25,8 @@ public class ObjectSpawner : NetworkBehaviour
     {
         GameObject instance = Instantiate(obj, pos, quaternion);
         Spawn(instance);
+        GiveOwnerShipToAllClients(instance.GetComponent<NetworkObject>());
+        ObjectParentToRoom(instance);
     }
 
     [ServerRpc (RequireOwnership = false)]
@@ -39,6 +41,8 @@ public class ObjectSpawner : NetworkBehaviour
             GameObject prefab = ItemIds.Instance.IdTable[Id];
             GameObject instance = Instantiate(prefab, pos, quaternion);
             Spawn(instance);
+            GiveOwnerShipToAllClients(instance.GetComponent<NetworkObject>());
+            ObjectParentToRoom(instance);
         }
     }
 
@@ -60,4 +64,27 @@ public class ObjectSpawner : NetworkBehaviour
         obj.transform.position = pos;
         obj.SetActive(true);
     }
+
+    [ObserversRpc]
+    public void ObjectParentToRoom(GameObject obj)
+    {
+        obj.transform.SetParent(FloorNetworkWrapper.Instance.LocalFloorManager.CurrentRoom.gameObject.transform);
+    }
+    [ObserversRpc]
+    public void ObjectParentToGameObject(GameObject obj, GameObject parent)
+    {
+        obj.transform.SetParent(parent.transform);
+    } 
+    
+    [ObserversRpc]
+    void GiveOwnerShipToAllClients(NetworkObject obj)
+    {
+        GiveOwnershipRPC(obj, ClientManager.Connection);
+    }
+    [ServerRpc (RequireOwnership = false)]
+    void GiveOwnershipRPC(NetworkObject networkObject, NetworkConnection networkConnection)
+    {
+        networkObject.GiveOwnership(networkConnection);
+    }
+
 }

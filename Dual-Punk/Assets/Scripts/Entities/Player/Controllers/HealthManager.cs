@@ -9,6 +9,12 @@ using UnityEngine;
 public class HealthManager : NetworkBehaviour, IDamageable
 {
     private PlayerState _playerState;
+    //Nécessaire pour implant ThermicExchange
+    public float DamageMultiplier;
+    
+#nullable enable
+    public LaserGunScript? LaserGunScript;
+#nullable disable
 
     private void Start()
     {
@@ -74,14 +80,28 @@ public class HealthManager : NetworkBehaviour, IDamageable
     [ObserversRpc]
     public void Damage(int amount, float time)
     {
+        float newAmout = amount;
+
+        if (LaserGunScript != null)
+        {
+            float coolDownlevel = 1 * (1 - DamageMultiplier);
+            Debug.Log(coolDownlevel);
+            if (LaserGunScript.CoolDownLevel > coolDownlevel)
+            {
+                LaserGunScript.CoolDownLevel -= coolDownlevel;
+            }
+
+            newAmout *= DamageMultiplier;
+        }
+
         if (time == 0)
         {
-            _playerState.Health -= amount;
+            _playerState.Health -= (int)newAmout;
             CheckHealth();
         }
         else
         {
-            StartCoroutine(HealthCoroutine(-amount, time));
+            StartCoroutine(HealthCoroutine(-(int)newAmout, time));
         }
     }
 

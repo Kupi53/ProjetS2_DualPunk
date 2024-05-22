@@ -1,6 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using FishNet.Managing.Client;
+using FishNet.Managing.Server;
+using FishNet.Object;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -13,9 +16,12 @@ public enum FloorType{
 
 public class FloorManager : MonoBehaviour
 {
-    public static FloorManager Instance;
     public Floor CurrentFloor;
-    public Room CurrentRoom;
+    public Room CurrentRoom{
+        get {
+            return GameObject.FindWithTag("ActiveRoom").GetComponent<Room>();
+        }
+    }
     [SerializeField] public GameObject[] CityRoomPrefabs;
     [SerializeField] public GameObject[] HangarRoomPrefabs;
     [SerializeField] public GameObject[] SpaceshipRoomPrefabs;
@@ -31,23 +37,21 @@ public class FloorManager : MonoBehaviour
     private int _maxRoomAmount = 9;
 
 
-    //
-
-    void Awake(){
-        Instance = this;
+    // pour le debug
+    void Update(){
+        if (Input.GetKeyDown(KeyCode.G)){
+            FloorNetworkWrapper.Instance.NewFloor(FloorType.City);
+        }
     }
-    void Start(){
-        NewFloor(FloorType.City);
-        //PrintFloor();
-    }
-
-    //
 
     // creates a floor and spawns all rooms, then returns that floor
-    private Floor GenerateFloor(FloorType floorType)
+    public Floor GenerateFloor(FloorType floorType)
     {
+        // create the parent holder
+        GameObject CurrentFloorHolder = new GameObject("CurrentFloorHolder");
         // create the new floor
         Floor floor = new Floor(floorType);
+        floor.FloorHolderObject = CurrentFloorHolder;
         // pick the amount of rooms
         int roomAmount = UnityEngine.Random.Range(_minRoomAmount, _maxRoomAmount+1);
         // add rooms
@@ -57,6 +61,7 @@ public class FloorManager : MonoBehaviour
             int roomPrefabId = UnityEngine.Random.Range(0, floor.RoomPrefabs.Length);
             // instantiate the room
             GameObject newRoomObject = Instantiate(CityRoomPrefabs[roomPrefabId]);
+            newRoomObject.transform.SetParent(CurrentFloorHolder.transform);
             // setup the gameobject's name
             if (i == 0)
             {
@@ -94,13 +99,7 @@ public class FloorManager : MonoBehaviour
     public void SwitchRoom(Room newRoom)
     {
         newRoom.gameObject.SetActive(true);
-        CurrentRoom = newRoom.GetComponent<Room>();
-    }
-
-    // Creates a new floor and switches to it's entry room
-    private void NewFloor(FloorType floorType){
-        CurrentFloor = GenerateFloor(floorType);
-        SwitchRoom(CurrentFloor.Entry);
+        newRoom.tag = "ActiveRoom";
     }
 
     // For testing purposes, Goes through the _currentFloor and converts attributes to a string, then debug.logs it

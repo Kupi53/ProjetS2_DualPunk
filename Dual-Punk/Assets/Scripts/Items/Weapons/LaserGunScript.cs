@@ -39,6 +39,12 @@ public class LaserGunScript : WeaponScript
     public override float InfoMaxTime { get => _fireTime; }
     public override float InfoTimer { get => _fireTime - _coolDownLevel; }
 
+    public float FireTime { get => _fireTime; set => _fireTime = value; }
+    public float CoolDownLevel { get => _coolDownLevel; set => _coolDownLevel = value; }
+    public int Damage { get => _damage; set => _damage = value; }
+    public List<ParticleSystem> Particles { get => _particles; set => _particles = value; }
+    public LineRenderer LineRenderer { get => _lineRenderer; set => _lineRenderer = value; }
+
 
     private new void Start()
     {

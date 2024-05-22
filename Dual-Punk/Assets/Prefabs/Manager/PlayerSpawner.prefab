@@ -50,6 +50,8 @@ MonoBehaviour:
   _networkObjectCache: {fileID: 547595432610239125}
   playerPrefabA: {fileID: 7898736215898924539, guid: 2fd5569aaa9b023419d0d7775a666b76, type: 3}
   playerPrefabB: {fileID: 7898736215898924539, guid: 49266e8bac6ba9d4f92307cdd141c3c3, type: 3}
+  _floorWrapper: {fileID: 7243987111373328831, guid: 49498c2378f3e6c4c8315bf453946c12, type: 3}
+  _effectTilesNetworkWrapper: {fileID: 4315055032923133882, guid: c5ca6cc940d99ba48a6d5f03e34f5d38, type: 3}
 --- !u!114 &547595432610239125
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -63,7 +65,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <IsNested>k__BackingField: 0
-  <ComponentIndex>k__BackingField: 2
+  <ComponentIndex>k__BackingField: 0
   <PredictedSpawn>k__BackingField: {fileID: 0}
   _networkBehaviours:
   - {fileID: 5345702598809870618}
@@ -78,7 +80,7 @@ MonoBehaviour:
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 0
+  <PrefabId>k__BackingField: 25
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 774665742
   <SceneId>k__BackingField: 0
