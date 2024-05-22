@@ -9,7 +9,6 @@ using UnityEngine;
 public class HealthManager : NetworkBehaviour, IDamageable
 {
     private PlayerState _playerState;
-
     //Nécessaire pour implant ThermicExchange
     public float DamageMultiplier;
     

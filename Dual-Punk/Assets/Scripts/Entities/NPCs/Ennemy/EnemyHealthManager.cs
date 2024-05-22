@@ -12,6 +12,7 @@ public class EnemyHealthManager : MonoBehaviour, IDamageable
     [SerializeField] private float _receivedDamageFrequency;
 
     private EnemyState _enemyState;
+    private EnemyHealthIndicator _healthIndicator;
     private float _imunityTimer;
     private int _maxHealth;
 
@@ -25,6 +26,7 @@ public class EnemyHealthManager : MonoBehaviour, IDamageable
         _imunityTimer = -1;
         _maxHealth = _lives[0];
         _enemyState = GetComponent<EnemyState>();
+        _healthIndicator = GetComponent<EnemyHealthIndicator>();
     }
 
 
@@ -63,13 +65,6 @@ public class EnemyHealthManager : MonoBehaviour, IDamageable
         SetHealth(_lives[Index] - lastAmount + amount);
     }
 
-    private IEnumerator VisualIndicator(Color color, float time)
-    {
-        GetComponent<SpriteRenderer>().color = color;
-        yield return new WaitForSeconds(time);
-        GetComponent<SpriteRenderer>().color = Color.white;
-    }
-
 
     private void CheckHealth()
     {
@@ -81,18 +76,12 @@ public class EnemyHealthManager : MonoBehaviour, IDamageable
             Index++;
             if (Index == _lives.Length)
             {
-                //event pour drop (weaponhandler)
                 DestroyObject();
             }
             else
             {
                 _maxHealth = _lives[Index];
                 _imunityTimer = _imuneTime;
-
-                StopAllCoroutines();
-                StartCoroutine(VisualIndicator(Color.black, _imuneTime));
-
-                //event pour assign weapon (weaponhandler)
                 GetComponent<EnemyWeaponHandler>().AssignWeapon();
             }
         }
@@ -128,9 +117,9 @@ public class EnemyHealthManager : MonoBehaviour, IDamageable
 
         if (time == 0)
         {
-            StartCoroutine(VisualIndicator(Color.black, 0.1f));
             _lives[Index] -= amount;
             CheckHealth();
+            _healthIndicator.DisplayDamageIndicator(amount);
         }
         else
         {
@@ -144,7 +133,7 @@ public class EnemyHealthManager : MonoBehaviour, IDamageable
 
         if (amount < _lives[Index])
         {
-            StartCoroutine(VisualIndicator(Color.black, 0.1f));
+            _healthIndicator.DisplayDamageIndicator(_lives[Index] - amount);
         }
 
         _lives[Index] = amount;

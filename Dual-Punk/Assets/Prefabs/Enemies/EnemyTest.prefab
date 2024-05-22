@@ -32,6 +32,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 786221186867472504}
+  - {fileID: 2213797726072671987}
   m_Father: {fileID: 3141442663697909354}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -57,7 +58,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 5
@@ -102,6 +103,41 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!1 &2624787157504543173
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2213797726072671987}
+  m_Layer: 5
+  m_Name: DamagePopUps
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2213797726072671987
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2624787157504543173}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.003, y: 0.003, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4091032781174940474}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0.132, y: 0.195}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &4605790729952272960
 GameObject:
   m_ObjectHideFlags: 0
@@ -123,6 +159,7 @@ GameObject:
   - component: {fileID: -5137988890912388252}
   - component: {fileID: -2162134851418688002}
   - component: {fileID: -5239865588859474064}
+  - component: {fileID: 2374529801796808954}
   m_Layer: 3
   m_Name: EnemyTest
   m_TagString: Ennemy
@@ -361,8 +398,8 @@ MonoBehaviour:
   _addedNetworkObject: {fileID: -5137988890912388252}
   _networkObjectCache: {fileID: -5137988890912388252}
   _weapons:
+  - {fileID: 7321002207951180533, guid: e26798f24e158594fbd0c9e6555e8911, type: 3}
   - {fileID: 8297419380730599739, guid: 239afa9696bf6fa469c3317efbe7993d, type: 3}
-  - {fileID: 8832150194662058669, guid: 50792e658cc2ac544bf953b9d26dd1ac, type: 3}
   _layerMask:
     serializedVersion: 2
     m_Bits: 256
@@ -381,7 +418,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _lives: 9600000064000000
-  _imuneTime: 1
+  _imuneTime: 0.5
   _receivedDamageFrequency: 0.2
 --- !u!114 &3668701009237676624
 MonoBehaviour:
@@ -449,6 +486,7 @@ MonoBehaviour:
   - {fileID: -2339362865896900815}
   - {fileID: 3668701009237676624}
   - {fileID: -5239865588859474064}
+  - {fileID: 2374529801796808954}
   <ParentNetworkObject>k__BackingField: {fileID: 0}
   <ChildNetworkObjects>k__BackingField: []
   SerializedTransformProperties:
@@ -501,6 +539,25 @@ MonoBehaviour:
   _interpolation: 2
   _clientAuthoritative: 0
   _sendToOwner: 0
+--- !u!114 &2374529801796808954
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4605790729952272960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9bad2565f01dacb4897b4943d0a16c60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _componentIndexCache: 5
+  _addedNetworkObject: {fileID: -5137988890912388252}
+  _networkObjectCache: {fileID: -5137988890912388252}
+  _healthBar: {fileID: 5902264677354553635, guid: 171cd82cde00a9b48aa2bb56ef5cee2a, type: 3}
+  _healthsBarLayout: {fileID: 8632813284960453166}
+  _floatingTextPrefab: {fileID: 6030549021867392418, guid: 82317309b69fcb64194c0386e44150c8, type: 3}
+  _floatingTextsParent: {fileID: 2624787157504543173}
 --- !u!1 &8632813284960453166
 GameObject:
   m_ObjectHideFlags: 0
@@ -511,9 +568,8 @@ GameObject:
   m_Component:
   - component: {fileID: 786221186867472504}
   - component: {fileID: 4663268896707609451}
-  - component: {fileID: 1839146930875469601}
   m_Layer: 5
-  m_Name: HealthBars
+  m_Name: HealthBarLayout
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -564,16 +620,3 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
---- !u!114 &1839146930875469601
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8632813284960453166}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9bad2565f01dacb4897b4943d0a16c60, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _healthBar: {fileID: 5902264677354553635, guid: 171cd82cde00a9b48aa2bb56ef5cee2a, type: 3}

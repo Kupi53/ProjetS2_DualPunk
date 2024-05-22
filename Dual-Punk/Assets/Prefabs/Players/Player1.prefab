@@ -521,11 +521,12 @@ MonoBehaviour:
   _throwForce: 0.1
   _throwDistance: 6
   _chargeTime: 0.8
-  _grenadeTimer: 4
+  _grenadeTimer: 3
   _grenadeCurveFactor: 20
   _lineResolution: 20
+  _healHP: 300
   _healCooldown: 10
-  _itemCooldown: 2
+  _itemCooldown: 5
 --- !u!114 &7528638334341656761
 MonoBehaviour:
   m_ObjectHideFlags: 0

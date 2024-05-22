@@ -10,13 +10,13 @@ public class ConsumablesController : NetworkBehaviour
 {
     [SerializeField] private GameObject _grenade;
     [SerializeField] private GameObject _grenadePath;
-
     [SerializeField] private float _throwForce;
     [SerializeField] private float _throwDistance;
     [SerializeField] private float _chargeTime;
     [SerializeField] private float _grenadeTimer;
     [SerializeField] private float _grenadeCurveFactor;
     [SerializeField] private int _lineResolution;
+    [SerializeField] private int _healHP;
 
     private LineRenderer _lineRenderer;
     private SpriteRenderer _grenadeImpact;
@@ -76,7 +76,7 @@ public class ConsumablesController : NetworkBehaviour
             if (Input.GetButtonDown("UseHeal") && _playerState.Health < _playerState.MaxHealth)
             {
                 _healTimer = 0;
-                _damageable.Heal(30, 0.2f);
+                _damageable.Heal(_healHP, 0.2f);
             }
         }
         else {

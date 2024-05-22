@@ -167,12 +167,11 @@ MonoBehaviour:
   _addedNetworkObject: {fileID: -8762814241024713497}
   _networkObjectCache: {fileID: -8762814241024713497}
   _explosion: {fileID: 2800961942588765522, guid: 6288954bb36a9464b85cce9f5b573ff6, type: 3}
-  _sound: {fileID: 8300000, guid: 57b2728ae55218f4e9ea3f1742a77063, type: 3}
-  _damage: 80
-  _explosionRadius: 3
-  _explosionImpact: 4
-  _rotateSpeed: 300
   _explosionSound: {fileID: 8300000, guid: aa7bac89a7344f1468ad59069e9f436a, type: 3}
+  _damage: 120
+  _explosionRadius: 5
+  _explosionImpact: 5
+  _rotateSpeed: 300
 --- !u!114 &-8762814241024713497
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -202,7 +201,7 @@ MonoBehaviour:
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 0
+  <PrefabId>k__BackingField: 1
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0
