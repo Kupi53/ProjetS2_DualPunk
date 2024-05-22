@@ -1,6 +1,7 @@
 using FishNet.Object;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -72,8 +73,8 @@ public class NPCMouvementController : NetworkBehaviour, IImpact
             _moveSpeed = _runSpeed;
         else
             _moveSpeed = _walkSpeed;
-    }
 
+    }
 
     private void FixedUpdate()
     {
@@ -113,4 +114,6 @@ public class NPCMouvementController : NetworkBehaviour, IImpact
     {
         _forces.Add((direction.normalized, intensity));
     }
+
+
 }
