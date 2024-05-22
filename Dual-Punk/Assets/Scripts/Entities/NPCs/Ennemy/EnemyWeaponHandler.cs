@@ -88,6 +88,17 @@ public class EnemyWeaponHandler : NetworkBehaviour
         _enemyState.Attack = canAttack;
 
         _weaponScript.EnemyRun(transform.position, VariateDirection(), _enemyState.TargetPoint);
+
+
+        //used to flip the ennemy sprite renderer and animation
+        bool flippedRenderer = gameObject.GetComponent<SpriteRenderer>().flipX;
+
+        if(_direction.x < 0 && !flippedRenderer) {
+            gameObject.GetComponent<SpriteRenderer>().flipX = true;
+        }
+        else if (_direction.x > 0 && flippedRenderer) {
+            gameObject.GetComponent<SpriteRenderer>().flipX = false;
+        }
     }
 
 
@@ -118,4 +129,7 @@ public class EnemyWeaponHandler : NetworkBehaviour
         _weaponScript.EnemyState = null;
         _weaponScript = null;
     }
+
+
+
 }

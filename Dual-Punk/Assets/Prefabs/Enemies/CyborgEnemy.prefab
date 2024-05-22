@@ -120,6 +120,7 @@ GameObject:
   - component: {fileID: 6286706210653832335}
   - component: {fileID: 6520979016740066916}
   - component: {fileID: 1864953958198885873}
+  - component: {fileID: 7868056608164439028}
   m_Layer: 3
   m_Name: CyborgEnemy
   m_TagString: Ennemy
@@ -292,8 +293,8 @@ BoxCollider2D:
   m_Offset: {x: 0.012537479, y: 0.24380302}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.234375, y: 0.546875}
+    pivot: {x: 0.5, y: 0.25}
+    oldSize: {x: 0.375, y: 0.875}
     newSize: {x: 0.64, y: 0.64}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -447,6 +448,7 @@ MonoBehaviour:
   - {fileID: 105605007444475360}
   - {fileID: 6286706210653832335}
   - {fileID: 6520979016740066916}
+  - {fileID: 7868056608164439028}
   <ParentNetworkObject>k__BackingField: {fileID: 0}
   <ChildNetworkObjects>k__BackingField: []
   SerializedTransformProperties:
@@ -460,7 +462,7 @@ MonoBehaviour:
   NetworkObserver: {fileID: 0}
   <PrefabId>k__BackingField: 46
   <SpawnableCollectionId>k__BackingField: 0
-  _scenePathHash: 2387753929
+  _scenePathHash: 0
   <SceneId>k__BackingField: 0
   <AssetPathHash>k__BackingField: 17293569342836714146
 --- !u!114 &1010270597631707676
@@ -539,6 +541,24 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &7868056608164439028
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6272146751674077345}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bfb39441d3f7f440802905ade2a0701, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _componentIndexCache: 6
+  _addedNetworkObject: {fileID: 8662005701061872785}
+  _networkObjectCache: {fileID: 8662005701061872785}
+  _runAnimation: {fileID: 7400000, guid: 4f26fa56df9f55549831ed0f78a76b3b, type: 2}
+  _walkAnimation: {fileID: 7400000, guid: 2022d46b686e25448ab4e32aa7503479, type: 2}
+  _idleAnimation: {fileID: 7400000, guid: bfbc87ce26fa61c419a6fae8cae242b0, type: 2}
 --- !u!1 &6621928570991513501
 GameObject:
   m_ObjectHideFlags: 0
