@@ -34,7 +34,7 @@ public class RocketLauncherScript : FireArmScript
         AudioManager.Instance.PlayClipAt(_fireSound, gameObject.transform.position);
 
         bool warriorLuckBullet = false;
-        if (WarriorLuck && UnityEngine.Random.Range(0, DropPercentage) == 0)
+        if (WarriorLuck && UnityEngine.Random.Range(0, 100) < DropPercentage)
         {
             damage *= DamageMultiplier;
             warriorLuckBullet = true;

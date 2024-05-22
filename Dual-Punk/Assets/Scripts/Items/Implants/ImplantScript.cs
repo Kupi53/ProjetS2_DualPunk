@@ -12,14 +12,14 @@ public enum ImplantType
 
 public abstract class ImplantScript : NetworkBehaviour
 {
-    public PlayerState PlayerState { get; set; }
-    public bool IsEquipped { get; set; } = false;
-    public ImplantType Type { get; protected set; }
-    public string SetName { get; protected set; }
-    
     protected SpriteRenderer _spriteRenderer;
     protected ObjectSpawner _objectSpawner;
-    
+
+    public PlayerState PlayerState { get; set; }
+    public ImplantType Type { get; protected set; }
+    public string SetName { get; protected set; }
+    public bool IsEquipped { get; set; } = false;
+
     
     public abstract void Run();
     public abstract void ResetImplant();

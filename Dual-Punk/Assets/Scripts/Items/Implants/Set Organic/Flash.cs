@@ -8,19 +8,14 @@ using Unity.VisualScripting;
 using FishNet.Object;
 using FishNet.Demo.AdditiveScenes;
 
+
 public class Flash : ImplantScript
 {
     [SerializeField] protected float _speedMultiplier;
-
     private bool _isModified = false;
 
-    MouvementsController MouvementsController
-    {
-        get
-        {
-            return PlayerState.gameObject.GetComponent<MouvementsController>();
-        }
-    }
+    MouvementsController MouvementsController { get => PlayerState.gameObject.GetComponent<MouvementsController>(); }
+
 
     void Awake()
     {

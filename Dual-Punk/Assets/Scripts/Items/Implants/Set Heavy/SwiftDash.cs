@@ -10,17 +10,13 @@ using FishNet.Demo.AdditiveScenes;
 
 public class SwiftDash : ImplantScript
 {
-    [SerializeField] protected float _speedReloadDash;
+    [SerializeField] protected float _dashReloadMultiplier;
+    [SerializeField] protected float _dashSpeedMultiplier;
 
     private bool _isModified = false;
 
-    private MouvementsController MouvementsController
-    {
-        get
-        {
-            return PlayerState.gameObject.GetComponent<MouvementsController>();
-        }
-    }
+    private MouvementsController MouvementsController { get => PlayerState.gameObject.GetComponent<MouvementsController>(); }
+
 
     void Awake()
     {
@@ -32,17 +28,15 @@ public class SwiftDash : ImplantScript
     {
         if (IsEquipped && !_isModified)
         {
-            MouvementsController.DashCooldown /= _speedReloadDash;
-
             _isModified = true;
+            MouvementsController.SetDash(_dashSpeedMultiplier, _dashReloadMultiplier);
         }
     }
 
     public override void ResetImplant()
     {
-        MouvementsController.DashCooldown *= _speedReloadDash;
-
         _isModified = false;
+        MouvementsController.SetDash(1/_dashSpeedMultiplier, 1/_dashReloadMultiplier);
 
         RemoveAllOwnerShipRPC(GetComponent<NetworkObject>());
     }

@@ -14,6 +14,8 @@ public class BulletExtender : ImplantScript
 
     private GameObject _oldModifiedWeapon;
     private int _oldMagSize;
+    private int _oldReloadAmount;
+
 
     void Awake()
     {
@@ -37,26 +39,20 @@ public class BulletExtender : ImplantScript
                     }
                     else
                     {
-                        FireArmScript oldFireArmScript = _oldModifiedWeapon.GetComponent<FireArmScript>();
-                        oldFireArmScript.MagSize = _oldMagSize;
-                        oldFireArmScript.ReloadAmout = _oldMagSize;
-
+                        ResetOldWeapon();
                         _oldModifiedWeapon = fireArmScript.gameObject;
                     }
 
                     _oldMagSize = fireArmScript.MagSize;
-                    int newMagSize = (int)(fireArmScript.MagSize * _ammoMultiplier);
+                    _oldReloadAmount = fireArmScript.ReloadAmout;
 
-                    fireArmScript.MagSize = newMagSize;
-                    fireArmScript.ReloadAmout = newMagSize;
+                    fireArmScript.MagSize = (int)(fireArmScript.MagSize * _ammoMultiplier);
+                    fireArmScript.ReloadAmout = (int)(fireArmScript.ReloadAmout * _ammoMultiplier) + 1;
                 }
             }
             else if (_oldModifiedWeapon != null)
             {
-                FireArmScript oldFireArmScript = _oldModifiedWeapon.GetComponent<FireArmScript>();
-                oldFireArmScript.MagSize = _oldMagSize;
-                oldFireArmScript.ReloadAmout = _oldMagSize;
-
+                ResetOldWeapon();
                 _oldModifiedWeapon = null;
             }
         }
@@ -67,12 +63,23 @@ public class BulletExtender : ImplantScript
     {
         if (_oldModifiedWeapon != null)
         {
-            FireArmScript oldFireArmScript = _oldModifiedWeapon.GetComponent<FireArmScript>();
-            oldFireArmScript.MagSize = _oldMagSize;
-            oldFireArmScript.ReloadAmout = _oldMagSize;
+            ResetOldWeapon();
         }
 
         _oldModifiedWeapon = null;
         RemoveAllOwnerShipRPC(GetComponent<NetworkObject>());
+    }
+
+
+    private void ResetOldWeapon()
+    {
+        FireArmScript oldFireArmScript = _oldModifiedWeapon.GetComponent<FireArmScript>();
+        oldFireArmScript.MagSize = _oldMagSize;
+        oldFireArmScript.ReloadAmout = _oldReloadAmount;
+
+        if (oldFireArmScript.AmmoLeft > oldFireArmScript.MagSize)
+        {
+            oldFireArmScript.AmmoLeft = oldFireArmScript.MagSize;
+        }
     }
 }

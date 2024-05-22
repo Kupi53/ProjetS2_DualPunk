@@ -151,7 +151,8 @@ MonoBehaviour:
   _componentIndexCache: 0
   _addedNetworkObject: {fileID: -218940236388108346}
   _networkObjectCache: {fileID: -218940236388108346}
-  _speedReloadDash: 2
+  _dashReloadMultiplier: 0.7
+  _dashSpeedMultiplier: 1.5
 --- !u!114 &-4059473331583019238
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -189,13 +190,13 @@ MonoBehaviour:
   SerializedTransformProperties:
     Position: {x: 0, y: 0, z: 0}
     Rotation: {x: 0, y: 0, z: 0, w: 1}
-    LocalScale: {x: 0.5, y: 0.5, z: 1}
+    LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   _isNetworked: 1
   _isGlobal: 0
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 7
+  <PrefabId>k__BackingField: 9
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0

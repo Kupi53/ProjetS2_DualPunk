@@ -35,7 +35,6 @@ public class MouvementsController : NetworkBehaviour, IImpact
 
     public float WalkSpeed { get =>  _walkSpeed; set => _walkSpeed = value; }
     public float SprintSpeed { get => _sprintSpeed; set => _sprintSpeed = value; }
-    public float DashCooldown { get => _dashCooldown; set => _dashCooldown = value; }
 
 
     private void Start()
@@ -188,6 +187,15 @@ public class MouvementsController : NetworkBehaviour, IImpact
     }
 
 
+    public void SetDash(float dashSpeedMultiplier, float dashCooldownMultiplier)
+    {
+        _dashSpeed *= dashSpeedMultiplier;
+        _dashTime *= dashSpeedMultiplier;
+        _dashCooldown *= dashCooldownMultiplier;
+    }
+
+
+    // Les forces ajoutees viennent tjrs d'un server rpc, du coup ca marchait pas sur le client
     [ObserversRpc]
     public void Impact(Vector2 direction, float intensity)
     {

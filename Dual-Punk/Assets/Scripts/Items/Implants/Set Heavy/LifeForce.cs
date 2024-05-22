@@ -10,13 +10,15 @@ using FishNet.Demo.AdditiveScenes;
 
 public class LifeForce : ImplantScript
 {
-    [SerializeField] private int _extraLife;
+    [SerializeField] private float _multiplier;
 
-    private bool _isModified = false;
-    private int _oldMaxHealth;
+    private bool _isModified;
+    private int _addedHealth;
+
 
     void Awake()
     {
+        _isModified = false;
         Type = ImplantType.ExoSqueleton;
         SetName = "Heavy";
     }
@@ -25,23 +27,19 @@ public class LifeForce : ImplantScript
     {
         if (IsEquipped && !_isModified)
         {
-            _oldMaxHealth = PlayerState.MaxHealth;
-            
-            PlayerState.MaxHealth += _extraLife;
-            PlayerState.Health *= PlayerState.MaxHealth;
-            PlayerState.Health /= _oldMaxHealth;
-
+            _addedHealth = (int)(PlayerState.MaxHealth * _multiplier - PlayerState.MaxHealth);
+            PlayerState.MaxHealth += _addedHealth;
             _isModified = true;
         }
     }
 
     public override void ResetImplant()
     {
-        PlayerState.Health *= _oldMaxHealth;
-        PlayerState.Health /= PlayerState.MaxHealth;
-        PlayerState.MaxHealth -= _extraLife;
-            
+        PlayerState.MaxHealth -= _addedHealth;          
         _isModified = false;
+
+        if (PlayerState.Health > PlayerState.MaxHealth)
+            PlayerState.Health = PlayerState.MaxHealth;
 
         RemoveAllOwnerShipRPC(GetComponent<NetworkObject>());
     }

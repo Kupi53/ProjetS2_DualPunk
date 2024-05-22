@@ -12,6 +12,7 @@ public class CameraController : MonoBehaviour
 {
     [SerializeField] private float _minZoom;
     [SerializeField] private float _maxZoom;
+    [SerializeField] private float _centerOnPlayerFactor;
     [SerializeField] private int _changeCenterZone;
     [SerializeField] private int _cameraZpos;
 
@@ -61,7 +62,7 @@ public class CameraController : MonoBehaviour
         //Changer en fonction de la resolution (je vais me suicider jpp de toutes ces merdes ca me rends fou)
         if (mousePos.y > 980 - _changeCenterZone || mousePos.y < _changeCenterZone || mousePos.x > 1920 - _changeCenterZone || mousePos.x < _changeCenterZone)
         {
-            _offset = (PlayerState.transform.position * 3 + PlayerState.MousePosition) / 4 - PlayerState.transform.position;
+            _offset = (PlayerState.transform.position * _centerOnPlayerFactor + PlayerState.MousePosition) / (1 + _centerOnPlayerFactor) - PlayerState.transform.position;
             _offset.z = _cameraZpos;
         }
     }

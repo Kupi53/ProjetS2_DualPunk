@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using FishNet.Object;
 
+
 public class StaticAmplifier : ImplantScript
 {
     [SerializeField] protected float _damageMultiplier;
@@ -9,6 +10,7 @@ public class StaticAmplifier : ImplantScript
     private LaserGunScript _oldModifiedWeapon;
     private int _oldDamage;
     private Color _oldColor;
+
 
     void Awake()
     {

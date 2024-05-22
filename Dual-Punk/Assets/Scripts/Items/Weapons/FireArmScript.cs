@@ -48,11 +48,11 @@ public class FireArmScript : WeaponScript
     public float ReloadTime { get => _reloadTime; set => _reloadTime = value; }
     public int MagSize { get => _magSize; set => _magSize = value; }
     public int ReloadAmout { get => _reloadAmount; set => _reloadAmount = value; }
-    public int CollisionsAllowed { get => _collisionsAllowed; set => _collisionsAllowed = value; }
 
     public override bool DisplayInfo { get => _reloading; }
     public override float InfoMaxTime { get => _reloadTime; }
     public override float InfoTimer { get => _reloadTimer; }
+
 
 
     protected new void Start()
@@ -164,11 +164,10 @@ public class FireArmScript : WeaponScript
         _ammoLeft--;
         _fireTimer = 0;
         UserRecoil.Impact(-direction, _recoilForce);
-
         AudioManager.Instance.PlayClipAt(_fireSound, gameObject.transform.position);
 
         bool warriorLuckBullet = false;
-        if (WarriorLuck && UnityEngine.Random.Range(0, DropPercentage) == 0)
+        if (WarriorLuck && UnityEngine.Random.Range(0, 100) < DropPercentage)
         {
             damage *= DamageMultiplier;
             warriorLuckBullet = true;

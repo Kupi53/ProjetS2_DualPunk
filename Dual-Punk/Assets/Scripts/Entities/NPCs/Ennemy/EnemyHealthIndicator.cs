@@ -83,6 +83,7 @@ public class EnemyHealthIndicator : NetworkBehaviour
         GameObject floatingText = Instantiate(_floatingTextPrefab);
         floatingText.transform.SetParent(_floatingTextsParent.transform);
         floatingText.GetComponent<TextMeshProUGUI>().text = amount.ToString();
+        floatingText.GetComponent<RectTransform>().SetScale(new Vector3(1, 1, 0));
 
         StartCoroutine(VisualIndicator(Color.black, 0.1f));
         Spawn(floatingText);
