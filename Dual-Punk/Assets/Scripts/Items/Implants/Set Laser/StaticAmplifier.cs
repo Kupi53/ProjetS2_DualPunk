@@ -8,8 +8,6 @@ public class StaticAmplifier : ImplantScript
     [SerializeField] protected float _damageMultiplier;
 
     private LaserGunScript _oldModifiedWeapon;
-    private int _oldDamage;
-    private Color _oldColor;
 
 
     void Awake()
@@ -31,33 +29,19 @@ public class StaticAmplifier : ImplantScript
                     if (_oldModifiedWeapon == null)
                     {
                         _oldModifiedWeapon = laserGunScript;
-                        _oldDamage = laserGunScript.Damage;
-                        _oldColor = laserGunScript.Particles[0].main.startColor.color;
                     }
                     else
                     {
-                        _oldModifiedWeapon.Damage = _oldDamage;
-                        ChangeColorParticle(_oldModifiedWeapon.Particles, _oldColor);
-                        ChangeColorLaser(_oldModifiedWeapon.LineRenderer, _oldColor);
-                    
-
+                        _oldModifiedWeapon.ChangeLaser(false, 1);
                         _oldModifiedWeapon = laserGunScript;
-                        _oldDamage = laserGunScript.Damage;
-                        _oldColor = laserGunScript.Particles[0].main.startColor.color;
                     }
 
-                    float newDamage = laserGunScript.Damage * _damageMultiplier;
-                    ChangeColorParticle(laserGunScript.Particles, Color.red);
-                    ChangeColorLaser(laserGunScript.LineRenderer, Color.red);
-                    laserGunScript.Damage = (int)newDamage;
+                    laserGunScript.ChangeLaser(true, _damageMultiplier);
                 }
             }
             else if (_oldModifiedWeapon != null)
             {
-                _oldModifiedWeapon.Damage = _oldDamage;
-                ChangeColorParticle(_oldModifiedWeapon.Particles, _oldColor);
-                ChangeColorLaser(_oldModifiedWeapon.LineRenderer, _oldColor);
-
+                _oldModifiedWeapon.ChangeLaser(false, 1);
                 _oldModifiedWeapon = null;
             }
         }
@@ -67,27 +51,19 @@ public class StaticAmplifier : ImplantScript
     {
         if (_oldModifiedWeapon != null)
         {
-            _oldModifiedWeapon.Damage = _oldDamage;
-            ChangeColorParticle(_oldModifiedWeapon.Particles, _oldColor);
-            ChangeColorLaser(_oldModifiedWeapon.LineRenderer, _oldColor);
+            _oldModifiedWeapon.ChangeLaser(false, 1);
         }
 
         _oldModifiedWeapon = null;
         RemoveAllOwnerShipRPC(GetComponent<NetworkObject>());
     }
 
-    private void ChangeColorParticle(List<ParticleSystem> particles, Color color)
+    /*private void ChangeColorParticle(List<ParticleSystem> particles, Color color)
     {
         foreach (ParticleSystem particle in particles)
         {
             Material material = particle.gameObject.GetComponent<Renderer>().material;
             material.SetColor("_Color", color);
         }
-    }
-
-    private void ChangeColorLaser(LineRenderer lineRenderer, Color color)
-    {
-        lineRenderer.startColor = color;
-        lineRenderer.endColor = color;
-    }
+    }*/
 }

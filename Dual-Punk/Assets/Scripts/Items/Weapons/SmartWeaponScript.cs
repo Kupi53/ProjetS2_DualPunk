@@ -6,16 +6,20 @@ using System;
 using Unity.Netcode;
 using FishNet.Object;
 using FishNet.Connection;
+using System.Linq;
 
 
 public class SmartWeaponScript : FireArmScript
 {
     [SerializeField] private GameObject _lockedTargetIndicator;
     [SerializeField] private float _bulletRotateSpeed;
+    [SerializeField] private float _lockingRange;
 
     private List<GameObject> _targetsIndicators;
     private float _resetTimer;
     private int _index;
+
+    // Permet de lock que sur un ennemi car on lock en maintenant la touche, si on maintient trop ca reset
     private bool _waitForNextTarget;
 
 
@@ -38,12 +42,17 @@ public class SmartWeaponScript : FireArmScript
         }
         if (Input.GetButton("Switch"))
         {
-            if (PlayerState.PointerScript.Target != null && !_waitForNextTarget)
+#nullable enable
+            GameObject? target;
+#nullable disable
+            target = GetNearestTarget(PlayerState.MousePosition);
+
+            if (target != null && !_waitForNextTarget)
             {
-                if (!_waitForNextTarget && CheckTarget(PlayerState.PointerScript.Target))
+                if (!_waitForNextTarget && CheckTarget(target))
                 {
                     GameObject newTargetIndicator = Instantiate(_lockedTargetIndicator);
-                    newTargetIndicator.GetComponent<TargetIndicatorScript>().Target = PlayerState.PointerScript.Target;
+                    newTargetIndicator.GetComponent<TargetIndicatorScript>().Target = target;
                     _targetsIndicators.Add(newTargetIndicator);
                 }
                 _waitForNextTarget = true;
@@ -86,6 +95,16 @@ public class SmartWeaponScript : FireArmScript
         }
         _targetsIndicators.Clear();
     }
+
+#nullable enable
+    private GameObject? GetNearestTarget(Vector3 position)
+    {
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Ennemy");
+
+        return (from enemy in enemies let distance = Vector2.Distance(position, enemy.transform.position + Vector3.up/2)
+                where distance < _lockingRange orderby distance select enemy).FirstOrDefault();
+    }
+#nullable disable
 
 
     private GameObject AssignTarget()
@@ -150,7 +169,7 @@ public class SmartWeaponScript : FireArmScript
             newBullet.transform.localScale = new Vector2(_bulletSize, _bulletSize);
             Vector3 newDirection = new Vector3(direction.x + Methods.NextFloat(-dispersion, dispersion), direction.y + Methods.NextFloat(-dispersion, dispersion), 0).normalized;
 
-            bulletScript.Setup(target, newDirection, damage, _bulletSpeed, _impactForce, _bulletRotateSpeed, damagePlayer);
+            bulletScript.Setup(target, newDirection, damage, _bulletSpeed, _impactForce, _bulletRotateSpeed, damagePlayer, warriorLuckBullet);
             Spawn(newBullet);
         }
     }

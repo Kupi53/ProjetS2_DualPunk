@@ -76,7 +76,7 @@ public class EnemyHealthIndicator : NetworkBehaviour
     }
 
 
-    public void DisplayDamageIndicator(int amount)
+    public void DisplayDamageIndicator(int amount, bool warriorLuck)
     {
         if (amount == 0) return;
 
@@ -84,6 +84,11 @@ public class EnemyHealthIndicator : NetworkBehaviour
         floatingText.transform.SetParent(_floatingTextsParent.transform);
         floatingText.GetComponent<TextMeshProUGUI>().text = amount.ToString();
         floatingText.GetComponent<RectTransform>().SetScale(new Vector3(1, 1, 0));
+
+        if (amount >= 100)
+            floatingText.GetComponent<TextMeshProUGUI>().color = new Color(255, 120, 0);
+        if (warriorLuck)
+            floatingText.GetComponent<TextMeshProUGUI>().color = Color.red;
 
         StartCoroutine(VisualIndicator(Color.black, 0.1f));
         Spawn(floatingText);

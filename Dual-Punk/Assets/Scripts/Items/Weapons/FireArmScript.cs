@@ -188,17 +188,12 @@ public class FireArmScript : WeaponScript
         {
             GameObject newBullet = Instantiate(_bullet, _gunEndPoints[_bulletPointIndex].transform.position, Quaternion.identity);
             BulletScript bulletScript = newBullet.GetComponent<BulletScript>();
-
-            if (warriorLuckBullet)
-            {
-                newBullet.GetComponent<SpriteRenderer>().color = new Color(255f, 0f, 0f, 255f);
-            }
             
             _bulletPointIndex = (_bulletPointIndex + 1) % _gunEndPoints.Length;
             newBullet.transform.localScale = new Vector2(bulletSize, bulletSize);
             Vector3 newDirection = new Vector3(direction.x + Methods.NextFloat(-dispersion, dispersion), direction.y + Methods.NextFloat(-dispersion, dispersion), 0).normalized;
 
-            bulletScript.Setup(newDirection, damage, bulletSpeed, impactForce, collisionsAllowed, damagePlayer);
+            bulletScript.Setup(newDirection, damage, bulletSpeed, impactForce, collisionsAllowed, damagePlayer, warriorLuckBullet);
             Spawn(newBullet);
         }
     }

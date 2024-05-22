@@ -152,7 +152,7 @@ MonoBehaviour:
   _addedNetworkObject: {fileID: -218940236388108346}
   _networkObjectCache: {fileID: -218940236388108346}
   _damageMultiplier: 3
-  _dropPercentage: 20
+  _dropPercentage: 100
 --- !u!114 &-4059473331583019238
 MonoBehaviour:
   m_ObjectHideFlags: 0

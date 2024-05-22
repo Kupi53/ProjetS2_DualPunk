@@ -155,11 +155,11 @@ GameObject:
   - component: {fileID: 4178710496251997567}
   - component: {fileID: -2339362865896900815}
   - component: {fileID: 6565402076467058786}
+  - component: {fileID: 2374529801796808954}
   - component: {fileID: 3668701009237676624}
   - component: {fileID: -5137988890912388252}
   - component: {fileID: -2162134851418688002}
   - component: {fileID: -5239865588859474064}
-  - component: {fileID: 2374529801796808954}
   m_Layer: 3
   m_Name: EnemyTest
   m_TagString: Ennemy
@@ -419,6 +419,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _lives: 9600000064000000
   _imuneTime: 0.5
+--- !u!114 &2374529801796808954
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4605790729952272960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9bad2565f01dacb4897b4943d0a16c60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _componentIndexCache: 5
+  _addedNetworkObject: {fileID: -5137988890912388252}
+  _networkObjectCache: {fileID: -5137988890912388252}
+  _healthBar: {fileID: 5902264677354553635, guid: 171cd82cde00a9b48aa2bb56ef5cee2a, type: 3}
+  _healthsBarLayout: {fileID: 8632813284960453166}
+  _floatingTextPrefab: {fileID: 6030549021867392418, guid: 82317309b69fcb64194c0386e44150c8, type: 3}
+  _floatingTextsParent: {fileID: 2624787157504543173}
 --- !u!114 &3668701009237676624
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -538,25 +557,6 @@ MonoBehaviour:
   _interpolation: 2
   _clientAuthoritative: 0
   _sendToOwner: 0
---- !u!114 &2374529801796808954
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4605790729952272960}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9bad2565f01dacb4897b4943d0a16c60, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _componentIndexCache: 5
-  _addedNetworkObject: {fileID: -5137988890912388252}
-  _networkObjectCache: {fileID: -5137988890912388252}
-  _healthBar: {fileID: 5902264677354553635, guid: 171cd82cde00a9b48aa2bb56ef5cee2a, type: 3}
-  _healthsBarLayout: {fileID: 8632813284960453166}
-  _floatingTextPrefab: {fileID: 6030549021867392418, guid: 82317309b69fcb64194c0386e44150c8, type: 3}
-  _floatingTextsParent: {fileID: 2624787157504543173}
 --- !u!1 &8632813284960453166
 GameObject:
   m_ObjectHideFlags: 0

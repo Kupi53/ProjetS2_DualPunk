@@ -18,6 +18,7 @@ public class BulletScript : NetworkBehaviour, IImpact, IDestroyable
     protected float _moveFactor;
     protected float _impactForce;
     protected bool _damagePlayer;
+    protected bool _warriorLuck;
     protected bool _stopDamage;
 
 
@@ -42,13 +43,19 @@ public class BulletScript : NetworkBehaviour, IImpact, IDestroyable
     }
 
 
-    public void Setup(Vector3 moveDirection, int damage, float moveSpeed, float impactForce, int collisionsAllowed, bool damagePlayer)
+    public void Setup(Vector3 moveDirection, int damage, float moveSpeed, float impactForce, int collisionsAllowed, bool damagePlayer, bool warriorLuck)
     {
         _damage = damage;
         _moveSpeed = moveSpeed;
         _impactForce = impactForce;
         _collisionsAllowed = collisionsAllowed;
         _damagePlayer = damagePlayer;
+        _warriorLuck = warriorLuck;
+
+        if (warriorLuck)
+        {
+            GetComponent<SpriteRenderer>().color = new Color(0, 0, 0, 255);
+        }
 
         ChangeDirection(moveDirection, true);
     }
@@ -120,7 +127,7 @@ public class BulletScript : NetworkBehaviour, IImpact, IDestroyable
         else if (!_stopDamage && (collider.CompareTag("Ennemy") && !_damagePlayer || collider.CompareTag("Player") && _damagePlayer))
         {
             _stopDamage = true;
-            collider.GetComponent<IDamageable>().Damage(_damage, 0);
+            collider.GetComponent<IDamageable>().Damage(_damage, 0, _warriorLuck);
             collider.GetComponent<IImpact>().Impact(_moveDirection, _impactForce);
             DestroyObject();
         }

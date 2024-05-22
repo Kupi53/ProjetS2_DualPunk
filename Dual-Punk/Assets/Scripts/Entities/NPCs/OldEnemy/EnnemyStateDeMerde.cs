@@ -117,7 +117,7 @@ public class EnnemyStateDeMerde : NetworkBehaviour
         PlayerState playerState = collider.GetComponent<PlayerState>();
         if (playerState != null)
         {
-            playerState.GetComponent<IDamageable>().Damage(10, 0.1f);
+            playerState.GetComponent<IDamageable>().Damage(10, 0.1f, false);
         }
     }
 }

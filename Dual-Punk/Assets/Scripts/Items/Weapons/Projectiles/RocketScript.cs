@@ -57,9 +57,9 @@ public class RocketScript : BulletScript, IDestroyable
 
 
     public void Setup(Vector3 moveDirection, int damage, float moveSpeed, float impactForce, Vector3 startPosition, float distanceUntilExplosion,
-        float explosionRadius, float deviationAngle, float deviationSpeed, bool damagePlayer)
+        float explosionRadius, float deviationAngle, float deviationSpeed, bool damagePlayer, bool warriorLuck)
     {
-        base.Setup(moveDirection, damage, moveSpeed, impactForce, 0, damagePlayer);
+        base.Setup(moveDirection, damage, moveSpeed, impactForce, 0, damagePlayer, warriorLuck);
 
         _startPosition = startPosition;
         _distanceUntilExplosion = distanceUntilExplosion;
@@ -89,7 +89,7 @@ public class RocketScript : BulletScript, IDestroyable
         GameObject explosion = Instantiate(_explosion, transform.position, transform.rotation);
         Spawn(explosion);
 
-        explosion.GetComponent<Explosion>().Explode(_damage, _explosionRadius, _impactForce, _damagePlayer);
+        explosion.GetComponent<Explosion>().Explode(_damage, _explosionRadius, _impactForce, _damagePlayer, _warriorLuck);
         _smokeTrail.GetComponent<StopSmokeTrail>().StopParticles();
 
         Destroy(gameObject);

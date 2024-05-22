@@ -60,8 +60,6 @@ public class EnemyHealthManager : MonoBehaviour, IDamageable
 
             yield return null;
         }
-
-        SetHealth(_lives[Index] - lastAmount + amount);
     }
 
 
@@ -110,11 +108,11 @@ public class EnemyHealthManager : MonoBehaviour, IDamageable
         }
     }
 
-    public void Damage(int amount, float time)
+    public void Damage(int amount, float time, bool warriorLuckBullet)
     {
         if (_imunityTimer > 0) return;
 
-        _healthIndicator.DisplayDamageIndicator(amount);
+        _healthIndicator.DisplayDamageIndicator(amount, warriorLuckBullet);
 
         if (time == 0)
         {

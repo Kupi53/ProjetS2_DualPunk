@@ -61,7 +61,7 @@ public class RocketLauncherScript : FireArmScript
             rocket.transform.localScale = new Vector2(_bulletSize, _bulletSize);
 
             rocketScript.Setup(direction, damage, _bulletSpeed, _impactForce, transform.position, Vector3.Distance(transform.position, _targetPoint),
-                _explosionRadius + 0.1f, _deviationAngle, _deviationSpeed, damagePlayer);
+                _explosionRadius + 0.1f, _deviationAngle, _deviationSpeed, damagePlayer, warriorLuckBullet);
 
             Spawn(rocket);
         }
