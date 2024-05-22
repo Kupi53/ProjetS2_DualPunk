@@ -9,7 +9,6 @@ public class EnemyHealthManager : MonoBehaviour, IDamageable
 {
     [SerializeField] private int[] _lives;
     [SerializeField] private float _imuneTime;
-    [SerializeField] private float _receivedDamageFrequency;
 
     private EnemyState _enemyState;
     private EnemyHealthIndicator _healthIndicator;
@@ -115,11 +114,12 @@ public class EnemyHealthManager : MonoBehaviour, IDamageable
     {
         if (_imunityTimer > 0) return;
 
+        _healthIndicator.DisplayDamageIndicator(amount);
+
         if (time == 0)
         {
             _lives[Index] -= amount;
             CheckHealth();
-            _healthIndicator.DisplayDamageIndicator(amount);
         }
         else
         {
@@ -130,11 +130,6 @@ public class EnemyHealthManager : MonoBehaviour, IDamageable
     public void SetHealth(int amount)
     {
         if (_imunityTimer > 0) return;
-
-        if (amount < _lives[Index])
-        {
-            _healthIndicator.DisplayDamageIndicator(_lives[Index] - amount);
-        }
 
         _lives[Index] = amount;
         CheckHealth();

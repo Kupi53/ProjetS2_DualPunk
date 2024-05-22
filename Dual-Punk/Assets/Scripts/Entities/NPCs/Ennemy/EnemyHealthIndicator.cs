@@ -3,6 +3,7 @@ using GameKit.Utilities;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
@@ -77,10 +78,12 @@ public class EnemyHealthIndicator : NetworkBehaviour
 
     public void DisplayDamageIndicator(int amount)
     {
-        Debug.Log("aaaa");
-        GameObject floatingText = Instantiate(_floatingTextPrefab, transform.position + new Vector3(0, 0.8f, 0), transform.rotation);
+        if (amount == 0) return;
+
+        GameObject floatingText = Instantiate(_floatingTextPrefab);
         floatingText.transform.SetParent(_floatingTextsParent.transform);
-        floatingText.GetComponent<RectTransform>().SetScale(new Vector3(1, 1, 0));
+        floatingText.GetComponent<TextMeshProUGUI>().text = amount.ToString();
+
         StartCoroutine(VisualIndicator(Color.black, 0.1f));
         Spawn(floatingText);
     }
