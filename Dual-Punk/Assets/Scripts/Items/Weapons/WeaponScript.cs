@@ -126,7 +126,6 @@ public abstract class WeaponScript : NetworkBehaviour
     }
 
 
-
     private void OnTriggerStay2D(Collider2D collider)
     {
         if (collider.CompareTag("Wall"))

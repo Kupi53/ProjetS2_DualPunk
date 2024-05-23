@@ -165,7 +165,8 @@ MonoBehaviour:
   _componentIndexCache: 0
   _addedNetworkObject: {fileID: -218940236388108346}
   _networkObjectCache: {fileID: -218940236388108346}
-  _maximumTargetingDistance: 100
+  _lockingRange: 10
+  _aimingTime: 0.1
 --- !u!114 &-218940236388108346
 MonoBehaviour:
   m_ObjectHideFlags: 0

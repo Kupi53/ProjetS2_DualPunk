@@ -33,16 +33,12 @@ public class BulletExtender : ImplantScript
 
                 if (fireArmScript != null && _oldModifiedWeapon != fireArmScript.gameObject)
                 {
-                    if (_oldModifiedWeapon == null)
-                    {
-                        _oldModifiedWeapon = fireArmScript.gameObject;
-                    }
-                    else
+                    if (_oldModifiedWeapon != null)
                     {
                         ResetOldWeapon();
-                        _oldModifiedWeapon = fireArmScript.gameObject;
                     }
 
+                    _oldModifiedWeapon = fireArmScript.gameObject;
                     _oldMagSize = fireArmScript.MagSize;
                     _oldReloadAmount = fireArmScript.ReloadAmout;
 

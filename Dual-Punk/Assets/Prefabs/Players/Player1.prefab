@@ -273,16 +273,16 @@ GameObject:
   - component: {fileID: 4043952418168445416}
   - component: {fileID: 7528638334341656761}
   - component: {fileID: 8917572968852395277}
-  - component: {fileID: 5216142456762304026}
-  - component: {fileID: 2909192396974194660}
   - component: {fileID: 6008697924018778058}
+  - component: {fileID: 5216142456762304026}
+  - component: {fileID: -2523818776481147035}
   - component: {fileID: -4606354589101628817}
+  - component: {fileID: 2909192396974194660}
   - component: {fileID: 3907873960965384262}
   - component: {fileID: 3460544654625029893}
   - component: {fileID: 7958423234412697078}
   - component: {fileID: -4368909073496365499}
   - component: {fileID: 6019409187629460517}
-  - component: {fileID: -2523818776481147035}
   m_Layer: 6
   m_Name: Player1
   m_TagString: Player
@@ -550,36 +550,6 @@ MonoBehaviour:
   _healHP: 300
   _healCooldown: 10
   _itemCooldown: 5
---- !u!114 &5216142456762304026
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7898736215898924539}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d2079d1b20954f43ae4b21ced5e53d2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _componentIndexCache: 3
-  _addedNetworkObject: {fileID: 3460544654625029893}
-  _networkObjectCache: {fileID: 3460544654625029893}
---- !u!114 &2909192396974194660
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7898736215898924539}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f0547fe9611dd44bb29eb8778bca6bd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _componentIndexCache: 4
-  _addedNetworkObject: {fileID: 3460544654625029893}
-  _networkObjectCache: {fileID: 3460544654625029893}
 --- !u!114 &6008697924018778058
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -592,11 +562,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c91070cbfd73d345ba1fa495587c07f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 5
+  _componentIndexCache: 3
   _addedNetworkObject: {fileID: 3460544654625029893}
   _networkObjectCache: {fileID: 3460544654625029893}
-  DamageMultiplier: 1
-  LaserGunScript: {fileID: 0}
+  _damageToSecondConversionFactor: 1
+--- !u!114 &5216142456762304026
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7898736215898924539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d2079d1b20954f43ae4b21ced5e53d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _componentIndexCache: 4
+  _addedNetworkObject: {fileID: 3460544654625029893}
+  _networkObjectCache: {fileID: 3460544654625029893}
+  _targetIndicatorPrefab: {fileID: 2443144578293597239, guid: e3bb1f7480ddb6645bdbf6c3371c4af5, type: 3}
+--- !u!114 &-2523818776481147035
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7898736215898924539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 346c31b27855b55448e2e512333f3a47, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &-4606354589101628817
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -609,13 +606,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75dc1b67eab14874ba90171c662e8641, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 6
+  _componentIndexCache: 5
   _addedNetworkObject: {fileID: 3460544654625029893}
   _networkObjectCache: {fileID: 3460544654625029893}
   _inventoryManager: {fileID: 0}
   _playerState: {fileID: 0}
   _healthManager: {fileID: 0}
   _implantController: {fileID: 0}
+--- !u!114 &2909192396974194660
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7898736215898924539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f0547fe9611dd44bb29eb8778bca6bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _componentIndexCache: 6
+  _addedNetworkObject: {fileID: 3460544654625029893}
+  _networkObjectCache: {fileID: 3460544654625029893}
 --- !u!114 &3907873960965384262
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -652,10 +664,10 @@ MonoBehaviour:
   - {fileID: 4043952418168445416}
   - {fileID: 7528638334341656761}
   - {fileID: 8917572968852395277}
-  - {fileID: 5216142456762304026}
-  - {fileID: 2909192396974194660}
   - {fileID: 6008697924018778058}
+  - {fileID: 5216142456762304026}
   - {fileID: -4606354589101628817}
+  - {fileID: 2909192396974194660}
   - {fileID: 3907873960965384262}
   - {fileID: 7958423234412697078}
   - {fileID: -4368909073496365499}
@@ -756,15 +768,3 @@ MonoBehaviour:
   _overrideType: 1
   _updateHostVisibility: 1
   _observerConditions: []
---- !u!114 &-2523818776481147035
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7898736215898924539}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 346c31b27855b55448e2e512333f3a47, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

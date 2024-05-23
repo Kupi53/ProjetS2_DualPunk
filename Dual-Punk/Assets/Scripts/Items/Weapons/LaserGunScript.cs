@@ -36,10 +36,7 @@ public class LaserGunScript : WeaponScript
     private float _velocity;
     private int _hitProjectileCounter;
     
-    // Implant LaserTracker
-    public bool LaserTracker;
-    public Vector3 NewTarget;
-
+    // Implant static amplifier
     private int _oldDamage;
     private Color _oldColor;
     private bool _staticAmplifier;
@@ -113,6 +110,10 @@ public class LaserGunScript : WeaponScript
         }
         else
         {
+            if (_coolDownLevel > 0)
+            {
+                _coolDown = true;
+            }
             if (_coolDown)
             {
                 _coolDownLevel -= Time.deltaTime * _coolDownSpeed;
@@ -160,7 +161,7 @@ public class LaserGunScript : WeaponScript
         }
 
         _damagePlayer = false;
-        Fire(direction, targetPoint);
+        Fire(direction);
 
         if (_fire)
         {
@@ -189,7 +190,7 @@ public class LaserGunScript : WeaponScript
         }
 
         _damagePlayer = true;
-        Fire(direction, targetPoint);
+        Fire(direction);
     }
 
 
@@ -265,7 +266,7 @@ public class LaserGunScript : WeaponScript
     }
 
 
-    private void Fire(Vector3 direction, Vector3 targetPoint)
+    private void Fire(Vector3 direction)
     {
         if (_fire)
         {
@@ -304,8 +305,8 @@ public class LaserGunScript : WeaponScript
             else
             {
                 if (PlayerState != null)
-                    DrawLaser(_startPosition, targetPoint.normalized * 50, direction);
-                DrawLaserServerRPC(_startPosition, targetPoint.normalized * 50, direction);
+                    DrawLaser(_startPosition, direction * _range, direction);
+                DrawLaserServerRPC(_startPosition, direction * _range, direction);
             }
         }
         else if (_resetTimer < _smoothTime * _disableSpeed)

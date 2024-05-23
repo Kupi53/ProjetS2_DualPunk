@@ -115,8 +115,6 @@ public class MouvementsController : NetworkBehaviour, IImpact
 
         if (_enableMovement)
         {
-            float pointerAngle = Methods.GetAngle(_pointerDirection);
-
             _moveFactor = 1;
 
             if (_playerState.Moving)
@@ -129,14 +127,11 @@ public class MouvementsController : NetworkBehaviour, IImpact
                 {
                     _playerState.AnimAngle = moveAngle;
                 }
-                else if (!Methods.SameDirection(moveAngle, pointerAngle, 60))
+                else if (!Methods.SameDirection(moveAngle, _playerState.AnimAngle, 60))
                 {
                     _moveFactor *= _moveBackFactor;
                 }
             }
-
-            if (_playerState.HoldingWeapon)
-                _playerState.AnimAngle = pointerAngle;
         }
 
         else if (_playerState.Dashing)

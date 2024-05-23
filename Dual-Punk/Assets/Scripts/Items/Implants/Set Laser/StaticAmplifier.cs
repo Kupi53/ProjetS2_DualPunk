@@ -20,22 +20,18 @@ public class StaticAmplifier : ImplantScript
     {
         if (IsEquipped)
         {
-            if (PlayerState.HoldingWeapon && PlayerState.WeaponScript != null && !PlayerState.Moving)
+            if (PlayerState.HoldingWeapon && PlayerState.WeaponScript != null && PlayerState.Walking)
             {
                 LaserGunScript laserGunScript = PlayerState.WeaponScript as LaserGunScript;
 
                 if (laserGunScript != null && _oldModifiedWeapon != laserGunScript)
                 {
-                    if (_oldModifiedWeapon == null)
-                    {
-                        _oldModifiedWeapon = laserGunScript;
-                    }
-                    else
+                    if (_oldModifiedWeapon != null)
                     {
                         _oldModifiedWeapon.ChangeLaser(false, 1);
-                        _oldModifiedWeapon = laserGunScript;
                     }
 
+                    _oldModifiedWeapon = laserGunScript;
                     laserGunScript.ChangeLaser(true, _damageMultiplier);
                 }
             }

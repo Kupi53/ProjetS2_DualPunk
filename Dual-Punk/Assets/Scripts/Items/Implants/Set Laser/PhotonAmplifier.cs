@@ -32,24 +32,18 @@ public class PhotonAmplifier : ImplantScript
 
                 if (laserGunScript != null && _oldModifiedWeapon != laserGunScript.gameObject)
                 {
-                    if (_oldModifiedWeapon == null)
-                    {
-                        _oldModifiedWeapon = laserGunScript.gameObject;
-                    }
-                    else
+                    if (_oldModifiedWeapon != null)
                     {
                         _oldModifiedWeapon.GetComponent<LaserGunScript>().FireTime /= _multiplicatorLaserTime;
-
-                        _oldModifiedWeapon = laserGunScript.gameObject;
                     }
 
+                    _oldModifiedWeapon = laserGunScript.gameObject;
                     laserGunScript.FireTime *= _multiplicatorLaserTime;
                 }
             }
             else if (_oldModifiedWeapon != null)
             {
                 _oldModifiedWeapon.GetComponent<LaserGunScript>().FireTime /= _multiplicatorLaserTime;
-
                 _oldModifiedWeapon = null;
             }
         }

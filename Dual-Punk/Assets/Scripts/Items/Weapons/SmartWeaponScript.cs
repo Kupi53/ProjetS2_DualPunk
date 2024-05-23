@@ -96,13 +96,18 @@ public class SmartWeaponScript : FireArmScript
         _targetsIndicators.Clear();
     }
 
+
+
 #nullable enable
     private GameObject? GetNearestTarget(Vector3 position)
     {
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Ennemy");
 
-        return (from enemy in enemies let distance = Vector2.Distance(position, enemy.transform.position + Vector3.up/2)
-                where distance < _lockingRange orderby distance select enemy).FirstOrDefault();
+        return (from enemy in enemies
+                let distance = Vector2.Distance(position, enemy.transform.position + Vector3.up / 2)
+                where distance < _lockingRange
+                orderby distance
+                select enemy).FirstOrDefault();
     }
 #nullable disable
 

@@ -31,20 +31,12 @@ public class WarriorLuck : ImplantScript
 
                 if (fireArmScript != null && _oldModifiedWeapon != fireArmScript.gameObject)
                 {
-                    if (_oldModifiedWeapon == null)
+                    if (_oldModifiedWeapon != null)
                     {
-                        _oldModifiedWeapon = fireArmScript.gameObject;
-                    }
-                    else
-                    {
-                        FireArmScript oldFireArmScript = _oldModifiedWeapon.GetComponent<FireArmScript>();
-                        oldFireArmScript.DropPercentage = 1;
-                        oldFireArmScript.DamageMultiplier = 1;
-                        oldFireArmScript.WarriorLuck = false;
-
-                        _oldModifiedWeapon = fireArmScript.gameObject;
+                        ResetOldWeapon();
                     }
 
+                    _oldModifiedWeapon = fireArmScript.gameObject;
                     fireArmScript.DropPercentage = _dropPercentage;
                     fireArmScript.DamageMultiplier = _damageMultiplier;
                     fireArmScript.WarriorLuck = true;
@@ -52,11 +44,7 @@ public class WarriorLuck : ImplantScript
             }
             else if (_oldModifiedWeapon != null)
             {
-                FireArmScript oldFireArmScript = _oldModifiedWeapon.GetComponent<FireArmScript>();
-                oldFireArmScript.DropPercentage = 1;
-                oldFireArmScript.DamageMultiplier = 1;
-                oldFireArmScript.WarriorLuck = false;
-
+                ResetOldWeapon();
                 _oldModifiedWeapon = null;
             }
         }
@@ -67,15 +55,18 @@ public class WarriorLuck : ImplantScript
     {
         if (_oldModifiedWeapon != null)
         {
-            FireArmScript oldFireArmScript = _oldModifiedWeapon.GetComponent<FireArmScript>();
-            oldFireArmScript.DropPercentage = 1;
-            oldFireArmScript.DamageMultiplier = 1;
-            oldFireArmScript.WarriorLuck = false;
+            ResetOldWeapon();
         }
 
         _oldModifiedWeapon = null;
         RemoveAllOwnerShipRPC(GetComponent<NetworkObject>());
     }
 
-    
+    private void ResetOldWeapon()
+    {
+        FireArmScript oldFireArmScript = _oldModifiedWeapon.GetComponent<FireArmScript>();
+        oldFireArmScript.DropPercentage = 1;
+        oldFireArmScript.DamageMultiplier = 1;
+        oldFireArmScript.WarriorLuck = false;
+    }
 }

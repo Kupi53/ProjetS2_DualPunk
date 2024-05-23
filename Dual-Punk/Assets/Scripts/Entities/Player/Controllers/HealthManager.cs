@@ -8,13 +8,16 @@ using UnityEngine;
 
 public class HealthManager : NetworkBehaviour, IDamageable
 {
+    [SerializeField] private float _damageToSecondConversionFactor;
+
     private PlayerState _playerState;
+
     //Nécessaire pour implant ThermicExchange
-    public float DamageMultiplier;
-    
+    public float DamageMultiplier { get; set; }
 #nullable enable
-    public LaserGunScript? LaserGunScript;
+    public LaserGunScript? LaserGunScript { get; set; }
 #nullable disable
+
 
     private void Start()
     {
@@ -82,13 +85,16 @@ public class HealthManager : NetworkBehaviour, IDamageable
 
         if (LaserGunScript != null)
         {
-            float coolDownlevel = 1 * (1 - DamageMultiplier);
-            if (LaserGunScript.CoolDownLevel > coolDownlevel)
-            {
-                LaserGunScript.CoolDownLevel -= coolDownlevel;
-            }
-
             newAmout *= DamageMultiplier;
+            float addedTime = (newAmout / _damageToSecondConversionFactor) / LaserGunScript.FireTime;
+            if (LaserGunScript.CoolDownLevel + addedTime > LaserGunScript.FireTime)
+            {
+                LaserGunScript.CoolDownLevel = LaserGunScript.FireTime;
+            }
+            else
+            {
+                LaserGunScript.CoolDownLevel += addedTime;
+            }
         }
 
         if (time == 0)
