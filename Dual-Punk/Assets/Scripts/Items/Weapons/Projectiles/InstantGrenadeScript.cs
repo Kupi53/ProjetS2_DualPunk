@@ -75,7 +75,7 @@ public class InstantGrenadeScript : NetworkBehaviour, IDestroyable
         GameObject explosion = Instantiate(_explosion, transform.position, transform.rotation);
         Spawn(explosion);
 
-        explosion.GetComponent<Explosion>().Explode(_damage, _explosionRadius, _explosionImpact, false);
+        explosion.GetComponent<Explosion>().Explode(_damage, _explosionRadius, _explosionImpact, false, false);
         Destroy(gameObject);
     }
 

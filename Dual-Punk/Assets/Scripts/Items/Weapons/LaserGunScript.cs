@@ -35,15 +35,17 @@ public class LaserGunScript : WeaponScript
     private float _velocity;
     private int _hitProjectileCounter;
 
+    private int _oldDamage;
+    private Color _oldColor;
+    private bool _staticAmplifier;
+
+    public float FireTime { get => _fireTime; set => _fireTime = value; }
+    public float CoolDownLevel { get => _coolDownLevel; set => _coolDownLevel = value; }
+
     public override bool DisplayInfo { get => _coolDownLevel > 0; }
     public override float InfoMaxTime { get => _fireTime; }
     public override float InfoTimer { get => _fireTime - _coolDownLevel; }
 
-    public float FireTime { get => _fireTime; set => _fireTime = value; }
-    public float CoolDownLevel { get => _coolDownLevel; set => _coolDownLevel = value; }
-    public int Damage { get => _damage; set => _damage = value; }
-    public List<ParticleSystem> Particles { get => _particles; set => _particles = value; }
-    public LineRenderer LineRenderer { get => _lineRenderer; set => _lineRenderer = value; }
 
 
     private new void Start()
@@ -54,15 +56,18 @@ public class LaserGunScript : WeaponScript
         _coolDown = false;
         _disableFire = false;
         _damagePlayer = false;
+
         _velocity = 0;
         _resetTimer = 0;
         _laserLength = 0;
         _coolDownLevel = 0;
         _hitProjectileCounter = 0;
-        _damageTimer = _damageFrequency;
 
-        _lineRenderer = GetComponentInChildren<LineRenderer>();
+        _oldDamage = _damage;
+        _damageTimer = _damageFrequency;
         _particles = new List<ParticleSystem>();
+        _lineRenderer = GetComponentInChildren<LineRenderer>();
+        _oldColor = _lineRenderer.startColor;
 
         for (int i = 0; i < _startVFX.transform.childCount; i++)
         {
@@ -184,6 +189,25 @@ public class LaserGunScript : WeaponScript
 
 
 
+    public void ChangeLaser(bool staticAmplifier, float damageMultiplier)
+    {
+        _staticAmplifier = staticAmplifier;
+
+        if (staticAmplifier)
+        {
+            _damage = (int)(_damage * damageMultiplier);
+            _lineRenderer.startColor = Color.red;
+            _lineRenderer.endColor = Color.red;
+        }
+        else
+        {
+            _damage = _oldDamage;
+            _lineRenderer.startColor = _oldColor;
+            _lineRenderer.endColor = _oldColor;
+        }
+    }
+
+
     private void EnableLaser()
     {
         _resetTimer = 0;
@@ -269,7 +293,7 @@ public class LaserGunScript : WeaponScript
                 }
                 else if (hit.collider.CompareTag("Ennemy") || hit.collider.CompareTag("Player") && _damagePlayer)
                 {
-                    hit.collider.GetComponent<IDamageable>().Damage(_damage, _damageFrequency);
+                    hit.collider.GetComponent<IDamageable>().Damage(_damage, _damageFrequency, _staticAmplifier);
                 }
             }
             else

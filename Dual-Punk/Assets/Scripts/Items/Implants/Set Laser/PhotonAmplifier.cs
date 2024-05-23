@@ -8,11 +8,13 @@ using Unity.VisualScripting;
 using FishNet.Object;
 using FishNet.Demo.AdditiveScenes;
 
+
 public class PhotonAmplifier : ImplantScript
 {
     [SerializeField] protected float _multiplicatorLaserTime;
 
     private GameObject _oldModifiedWeapon;
+
 
     void Awake()
     {

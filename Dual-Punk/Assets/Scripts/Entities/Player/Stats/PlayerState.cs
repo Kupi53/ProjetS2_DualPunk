@@ -31,8 +31,8 @@ public class PlayerState : NetworkBehaviour
 
 #nullable enable
     public WeaponScript? WeaponScript { get; set; }
-    public PointerScript? PointerScript { get; set; }
     public CameraController? CameraController { get; set; }
+    public VisualPointerScript? PointerScript { get; set; }
 #nullable disable
 
 

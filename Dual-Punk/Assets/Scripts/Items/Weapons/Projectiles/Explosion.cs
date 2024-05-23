@@ -7,17 +7,17 @@ using UnityEngine;
 
 public class Explosion : NetworkBehaviour
 {
-    public void Explode(int damage, float explosionRadius, float explosionImpact, bool damagePlayer)
+    public void Explode(int damage, float explosionRadius, float explosionImpact, bool damagePlayer, bool warriorLuck)
     {
-        DamageVictims("Ennemy", damage, explosionRadius, explosionImpact, !damagePlayer);
-        DamageVictims("Player", damage, explosionRadius, explosionImpact, damagePlayer);
-        DamageVictims("Projectile", damage, explosionRadius, explosionImpact, false);
+        DamageVictims("Ennemy", damage, explosionRadius, explosionImpact, !damagePlayer, warriorLuck);
+        DamageVictims("Player", damage, explosionRadius, explosionImpact, damagePlayer, warriorLuck);
+        DamageVictims("Projectile", damage, explosionRadius, explosionImpact, false, false);
 
         Destroy(gameObject, 2);
     }
 
 
-    private void DamageVictims(string tagDeLaVictime, int damage, float explosionRadius, float explosionImpact, bool dealDamage)
+    private void DamageVictims(string tagDeLaVictime, int damage, float explosionRadius, float explosionImpact, bool dealDamage, bool warriorLuck)
     {
         GameObject[] victimes = GameObject.FindGameObjectsWithTag(tagDeLaVictime);
         foreach (GameObject grosseVictime in victimes)
@@ -42,7 +42,7 @@ public class Explosion : NetworkBehaviour
                 grosseVictime.GetComponent<IImpact>().Impact(hitDirection, explosionImpact * (1 - distance / explosionRadius));
 
                 if (dealDamage)
-                    grosseVictime.GetComponent<IDamageable>().Damage((int)(damage * (explosionRadius - distance) / explosionRadius), 0.25f);
+                    grosseVictime.GetComponent<IDamageable>().Damage((int)(damage * (explosionRadius - distance) / explosionRadius), 0.25f, warriorLuck);
             }
         }
     }

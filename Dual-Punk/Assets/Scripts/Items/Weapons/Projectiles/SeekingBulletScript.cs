@@ -36,9 +36,9 @@ public class SeekingBulletScript : BulletScript
     }
 
 
-    public void Setup(GameObject target, Vector3 moveDirection, int damage, float moveSpeed, float impactForce, float rotateSpeed, bool damagePlayer)
+    public void Setup(GameObject target, Vector3 moveDirection, int damage, float moveSpeed, float impactForce, float rotateSpeed, bool damagePlayer, bool warriorLuck)
     {
-        base.Setup(moveDirection, damage, moveSpeed, impactForce, 0, damagePlayer);
+        base.Setup(moveDirection, damage, moveSpeed, impactForce, 0, damagePlayer, warriorLuck);
 
         Target = target;
         _rotateSpeed = rotateSpeed;
@@ -55,7 +55,7 @@ public class SeekingBulletScript : BulletScript
         else if (!_stopDamage && (collider.CompareTag("Ennemy") && !_damagePlayer || collider.CompareTag("Player") && _damagePlayer))
         {
             _stopDamage = true;
-            collider.GetComponent<IDamageable>().Damage(_damage, 0);
+            collider.GetComponent<IDamageable>().Damage(_damage, 0, _warriorLuck);
             DestroyObject();
         }
         else if (collider.CompareTag("Wall"))

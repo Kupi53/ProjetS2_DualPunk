@@ -51,8 +51,6 @@ public class HealthManager : NetworkBehaviour, IDamageable
 
             yield return null;
         }
-
-        SetHealth(_playerState.Health - lastAmount + amount);
     }
 
 
@@ -78,14 +76,13 @@ public class HealthManager : NetworkBehaviour, IDamageable
     }
 
     [ObserversRpc]
-    public void Damage(int amount, float time)
+    public void Damage(int amount, float time, bool warriorLuckBullet)
     {
         float newAmout = amount;
 
         if (LaserGunScript != null)
         {
             float coolDownlevel = 1 * (1 - DamageMultiplier);
-            Debug.Log(coolDownlevel);
             if (LaserGunScript.CoolDownLevel > coolDownlevel)
             {
                 LaserGunScript.CoolDownLevel -= coolDownlevel;
