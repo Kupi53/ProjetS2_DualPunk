@@ -19,7 +19,7 @@ MonoBehaviour:
     pas et ne fait pas de dash, infligeant ainsi plus de d\xE9g\xE2ts."
   setName: Laser
   setItems:
-  - 
+  - LaserTracker
   - ThermicExchange
   - PhotonAmplifier
   - StaticAmplifier

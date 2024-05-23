@@ -31,7 +31,7 @@ public abstract class WeaponScript : NetworkBehaviour
     public EnemyState? EnemyState { get; set; }
     public IImpact? UserRecoil { get; set; }
 #nullable disable
-    public Vector3 WeaponOffset { get => _weaponOffset;}
+    public Vector3 WeaponOffset { get => _weaponOffset; }
     public bool InHand { get; set; } = false;
     public float Range { get => _range; }
 

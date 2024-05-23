@@ -1,6 +1,7 @@
 using FishNet.Object;
 using System;
 using System.Collections.Generic;
+using FishNet.Demo.AdditiveScenes;
 using UnityEngine;
 
 
@@ -34,6 +35,10 @@ public class LaserGunScript : WeaponScript
     private float _resetTimer;
     private float _velocity;
     private int _hitProjectileCounter;
+    
+    // Implant LaserTracker
+    public bool LaserTracker;
+    public Vector3 NewTarget;
 
     private int _oldDamage;
     private Color _oldColor;
@@ -132,7 +137,7 @@ public class LaserGunScript : WeaponScript
     public override void Run(Vector3 position, Vector3 direction, Vector3 targetPoint)
     {
         base.Run(position, direction, targetPoint);
-
+        
         if (_disableFire && Input.GetButton("Use"))
             PlayerState.PointerScript.CanShoot = false;
 
