@@ -10,7 +10,9 @@ public class MeleeWeaponScript : WeaponScript
     [SerializeField] private float _attackRange;
     [SerializeField] private float _attackDistance;
     [SerializeField] private float _resetCooldown;
+    [SerializeField] private int _criticalDamage;
     [SerializeField] private List<AudioClip> _attackSound;
+    [SerializeField] private AudioClip _criticalSound;
 
     private float _angle;
     private float _attack;
@@ -21,6 +23,11 @@ public class MeleeWeaponScript : WeaponScript
     private float _currentWeaponDistance;
 
     public float Attack { get => _attack; set => _attack = value; }
+    public int Damage { get => _damage; set => _damage = value; }
+    public float AttackSpeed { get => _attackSpeed; set => _attackSpeed = value; }
+    public float ResetColdown { get => _resetCooldown; set => _resetCooldown = value; }
+    public int CriticalDamage { get => _criticalDamage; set => _criticalDamage = value; }
+    public AudioClip CriticalSound { get => _criticalSound; set => _criticalSound = value; }
 
     public override bool DisplayInfo { get => Attack != 0; }
     public override float InfoMaxTime { get => _resetCooldown; }

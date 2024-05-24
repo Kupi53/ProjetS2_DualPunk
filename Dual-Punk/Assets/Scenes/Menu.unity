@@ -5184,16 +5184,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7470240865930121378, guid: d15967f0adea3264ab7d508e264da05d, type: 3}
       propertyPath: _enemiesToSpawn.Array.size
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7470240865930121378, guid: d15967f0adea3264ab7d508e264da05d, type: 3}
       propertyPath: _implantsToSpawn.Array.size
-      value: 12
+      value: 14
       objectReference: {fileID: 0}
+    - target: {fileID: 7470240865930121378, guid: d15967f0adea3264ab7d508e264da05d, type: 3}
+      propertyPath: _enemiesToSpawn.Array.data[0]
+      value: 
+      objectReference: {fileID: 4605790729952272960, guid: 67b9b89ba138f60448b26b26c1d74767, type: 3}
+    - target: {fileID: 7470240865930121378, guid: d15967f0adea3264ab7d508e264da05d, type: 3}
+      propertyPath: _enemiesToSpawn.Array.data[1]
+      value: 
+      objectReference: {fileID: 6272146751674077345, guid: 26ceb6209cf7a844bbe722acabbbdb98, type: 3}
     - target: {fileID: 7470240865930121378, guid: d15967f0adea3264ab7d508e264da05d, type: 3}
       propertyPath: _enemiesToSpawn.Array.data[2]
       value: 
-      objectReference: {fileID: 6272146751674077345, guid: 26ceb6209cf7a844bbe722acabbbdb98, type: 3}
+      objectReference: {fileID: 6272146751674077345, guid: 0f77c2463d8db4e40834373e72dfcef0, type: 3}
     - target: {fileID: 7470240865930121378, guid: d15967f0adea3264ab7d508e264da05d, type: 3}
       propertyPath: _enemiesToSpawn.Array.data[3]
       value: 
@@ -5226,6 +5234,14 @@ PrefabInstance:
       propertyPath: _implantsToSpawn.Array.data[11]
       value: 
       objectReference: {fileID: 1420957003867560970, guid: 7b3910a90e9091d46a384b4e7931ae14, type: 3}
+    - target: {fileID: 7470240865930121378, guid: d15967f0adea3264ab7d508e264da05d, type: 3}
+      propertyPath: _implantsToSpawn.Array.data[12]
+      value: 
+      objectReference: {fileID: 1420957003867560970, guid: e042362e8d598fb4c819b00d0ae2dca0, type: 3}
+    - target: {fileID: 7470240865930121378, guid: d15967f0adea3264ab7d508e264da05d, type: 3}
+      propertyPath: _implantsToSpawn.Array.data[13]
+      value: 
+      objectReference: {fileID: 1420957003867560970, guid: 7430bd4e19b8dac4b82ba4670c8d0565, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

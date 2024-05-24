@@ -32,6 +32,10 @@ public class MouvementsController : NetworkBehaviour, IImpact
     private float _dashCooldownTimer;
     private float _moveSpeed;
     private float _moveFactor;
+    
+    // Pour implant TeleportStrike
+    public bool EnableDash = true;
+    public bool EnableMovement { get =>  _enableMovement; set => _enableMovement = value; } 
 
     public float WalkSpeed { get =>  _walkSpeed; set => _walkSpeed = value; }
     public float SprintSpeed { get => _sprintSpeed; set => _sprintSpeed = value; }
@@ -54,7 +58,7 @@ public class MouvementsController : NetworkBehaviour, IImpact
     private void Update()
     {
         if (!IsOwner) return;
-
+        
         if (_enableMovement)
         {
             _moveDirection = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical") * 0.5f).normalized;
@@ -88,7 +92,7 @@ public class MouvementsController : NetworkBehaviour, IImpact
                 _moveSpeed = _sprintSpeed;
             }
 
-            if (Input.GetButtonDown("Dash") && !_playerState.Down && _dashCooldownTimer <= 0 && _playerState.Moving)
+            if (Input.GetButtonDown("Dash") && !_playerState.Down && _dashCooldownTimer <= 0 && _playerState.Moving && EnableDash)
             {
                 _enableMovement = false;
                 _playerState.Dashing = true;

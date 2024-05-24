@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Katana
   prefab: {fileID: 0}
-  prefabTest: {fileID: 0}
-  icon: {fileID: 21300000, guid: fece9090c0c0b3546a6043512f841178, type: 3}
+  icon: {fileID: 21300000, guid: 8fbf4229c060bda4891349950603e346, type: 3}
   description: Le katana, ancienne lame d'origine japonaise. Permet de separer ce
     qui sert enveloppe corporelle a tes ennemis.
+  setName: 
+  setItems: []
