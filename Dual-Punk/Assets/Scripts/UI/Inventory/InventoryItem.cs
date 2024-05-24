@@ -12,6 +12,7 @@ public class InventoryItem : MonoBehaviour
 
     void Start()
     {
+        IconScaling();
         TextSetup();
         description.SetActive(false);
         _iconImage.sprite = displayedItem.icon;
@@ -28,5 +29,21 @@ public class InventoryItem : MonoBehaviour
             descriptionPanel.SetImplantText(displayedItem.setName, displayedItem.setItems);
             _descriptionManager.UpdateImplantSet();
         }
+    }
+
+    private void IconScaling(){
+        Sprite spriteSize = displayedItem.icon;
+        RectTransform imageSize = _iconImage.rectTransform;
+
+        if (spriteSize.rect.width > imageSize.rect.width) {
+            float ratio = imageSize.rect.width / spriteSize.rect.width;
+            int imageWidth = (int)(spriteSize.rect.width * ratio);
+            int imageHeight = (int)(spriteSize.rect.height * ratio);
+            Debug.Log(ratio + " " + imageWidth + " " + imageHeight);
+            _iconImage.rectTransform.sizeDelta = new Vector2(imageWidth, imageHeight);
+        }
+
+
+
     }
 }
