@@ -1,12 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Reflection;
 using UnityEngine;
-using System;
-using UnityEngine.Playables;
-using Unity.VisualScripting;
 using FishNet.Object;
-using FishNet.Demo.AdditiveScenes;
 
 public class AceOfTheTrigger : ImplantScript
 {

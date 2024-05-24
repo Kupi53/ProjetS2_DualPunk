@@ -268,16 +268,22 @@ MonoBehaviour:
   _rightHand: {fileID: 1784858503084262383}
   _leftHand: {fileID: 8632587119048511087}
   _weaponOffset: {x: 0, y: 0.5, z: 0}
+  _damage: 0
   _range: 2
-  _weaponDistance: 0.7
   _recoilForce: 0
   _impactForce: 0
   _cameraShake: 0
+  _weaponDistance: 0.7
   _pointerSpriteNumber: 1
   _attackSpeed: 1000
   _attackRange: 60
   _attackDistance: 1
   _resetCooldown: 1
+  _attackSound:
+  - {fileID: 8300000, guid: ae61956180ed80649a3288a82728fa08, type: 3}
+  - {fileID: 8300000, guid: 8a167d05a68e7aa498f634a90895f607, type: 3}
+  - {fileID: 8300000, guid: d2f81f6a45fcbda4e948915732d683e4, type: 3}
+  - {fileID: 8300000, guid: 18dedf2b9497ef94e9fa88ce2fdb5580, type: 3}
 --- !u!114 &8556322678607386002
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -334,7 +340,7 @@ MonoBehaviour:
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 4
+  <PrefabId>k__BackingField: 8
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0

@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
+using Random = System.Random;
 
 
 public class MeleeWeaponScript : WeaponScript
@@ -8,6 +10,7 @@ public class MeleeWeaponScript : WeaponScript
     [SerializeField] private float _attackRange;
     [SerializeField] private float _attackDistance;
     [SerializeField] private float _resetCooldown;
+    [SerializeField] private List<AudioClip> _attackSound;
 
     private float _angle;
     private float _attack;
@@ -62,6 +65,9 @@ public class MeleeWeaponScript : WeaponScript
                 _angle = _rangeTop;
                 _spriteRenderer.flipY = false;
             }
+            
+            Random randomSound = new Random();
+            AudioManager.Instance.PlayClipAt(_attackSound[randomSound.Next(_attackSound.Count)], gameObject.transform.position);
         }
 
         if (PlayerState.Attacking)
