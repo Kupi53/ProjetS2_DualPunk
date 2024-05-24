@@ -2,6 +2,7 @@ using FishNet.Object;
 using System;
 using System.Collections.Generic;
 using FishNet.Demo.AdditiveScenes;
+using GameKit.Utilities;
 using UnityEngine;
 
 
@@ -69,7 +70,7 @@ public class LaserGunScript : WeaponScript
         _damageTimer = _damageFrequency;
         _particles = new List<ParticleSystem>();
         _lineRenderer = GetComponentInChildren<LineRenderer>();
-        _oldColor = _lineRenderer.startColor;
+        _oldColor = _lineRenderer.gameObject.GetComponent<Renderer>().material.GetColor("_Color");
 
         for (int i = 0; i < _startVFX.transform.childCount; i++)
         {
@@ -202,14 +203,18 @@ public class LaserGunScript : WeaponScript
         if (staticAmplifier)
         {
             _damage = (int)(_damage * damageMultiplier);
-            _lineRenderer.startColor = Color.red;
-            _lineRenderer.endColor = Color.red;
+            _lineRenderer.gameObject.GetComponent<Renderer>().material.SetColor("_Color", Color.red);
+
+            foreach (var particule in _particles)
+                particule.gameObject.GetComponent<Renderer>().material.SetColor("_BaseColor", Color.red);
         }
         else
         {
             _damage = _oldDamage;
-            _lineRenderer.startColor = _oldColor;
-            _lineRenderer.endColor = _oldColor;
+            _lineRenderer.gameObject.GetComponent<Renderer>().material.SetColor("_Color", _oldColor);
+
+            foreach (var particule in _particles)
+                particule.gameObject.GetComponent<Renderer>().material.SetColor("_BaseColor", _oldColor);
         }
     }
 
