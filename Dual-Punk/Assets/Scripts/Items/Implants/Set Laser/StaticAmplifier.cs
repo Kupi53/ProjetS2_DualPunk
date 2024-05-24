@@ -42,7 +42,7 @@ public class StaticAmplifier : ImplantScript
             }
         }
     }
-
+    
     public override void ResetImplant()
     {
         if (_oldModifiedWeapon != null)
@@ -53,13 +53,4 @@ public class StaticAmplifier : ImplantScript
         _oldModifiedWeapon = null;
         RemoveAllOwnerShipRPC(GetComponent<NetworkObject>());
     }
-
-    /*private void ChangeColorParticle(List<ParticleSystem> particles, Color color)
-    {
-        foreach (ParticleSystem particle in particles)
-        {
-            Material material = particle.gameObject.GetComponent<Renderer>().material;
-            material.SetColor("_Color", color);
-        }
-    }*/
 }
