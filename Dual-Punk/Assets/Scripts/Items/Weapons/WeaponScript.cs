@@ -40,20 +40,20 @@ public abstract class WeaponScript : NetworkBehaviour
     public virtual float InfoTimer { get; }
     #nullable enable
     public NetworkConnection? ActualOwner { get; set;}
-    #nullable disable
+#nullable disable
 
 
-    protected void Start()
+    private void Awake()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _rightHandSprite = _rightHand.GetComponent<SpriteRenderer>();
         _leftHandSprite = _leftHand.GetComponent<SpriteRenderer>();
         _objectSpawner = GameObject.FindWithTag("ObjectSpawner").GetComponent<ObjectSpawner>();
 
-        _canAttack = true;
-        _reloading = false;
         _rightHandSprite.enabled = false;
         _leftHandSprite.enabled = false;
+        _canAttack = true;
+        _reloading = false;
     }
 
     protected void Update()

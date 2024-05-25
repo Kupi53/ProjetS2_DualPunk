@@ -79,7 +79,7 @@ public class HealthManager : NetworkBehaviour, IDamageable
     }
 
     [ObserversRpc]
-    public void Damage(int amount, float time, bool warriorLuckBullet)
+    public void Damage(int amount, float time, bool crit)
     {
         float newAmout = amount;
 

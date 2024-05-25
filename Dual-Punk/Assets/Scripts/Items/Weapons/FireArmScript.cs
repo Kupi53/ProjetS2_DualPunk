@@ -55,10 +55,8 @@ public class FireArmScript : WeaponScript
 
 
 
-    protected new void Start()
+    protected void Start()
     {
-        base.Start();
-
         _reloadTimer = 0;
         _bulletPointIndex = 0;
         _ammoLeft = _magSize;

@@ -6,7 +6,7 @@ public interface IDamageable : IDestroyable
 {
     void Heal(int amount, float time);
 
-    void Damage(int amount, float time, bool warriorLuckBullet);
+    void Damage(int amount, float time, bool crit);
 
     void SetHealth(int amount);
 }

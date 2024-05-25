@@ -51,10 +51,8 @@ public class LaserGunScript : WeaponScript
 
 
 
-    private new void Start()
+    private void Start()
     {
-        base.Start();
-
         _fire = false;
         _coolDown = false;
         _disableFire = false;
