@@ -11,15 +11,17 @@ GameObject:
   - component: {fileID: 6331159119838568980}
   - component: {fileID: 843888973211852406}
   - component: {fileID: 1550963670199151827}
-  - component: {fileID: -9053397173045640719}
+  - component: {fileID: -6164627050610433166}
   - component: {fileID: -4059473331583019238}
   - component: {fileID: -218940236388108346}
   - component: {fileID: -1078616929798017896}
   - component: {fileID: -4858495041066962261}
   - component: {fileID: 8206352670867136053}
-  - component: {fileID: 5908692678405461227}
+  - component: {fileID: 2161628763777271904}
+  - component: {fileID: 2965038493429895917}
+  - component: {fileID: 5730738808692295828}
   m_Layer: 7
-  m_Name: TeleportStrike
+  m_Name: Bulletstorm
   m_TagString: Implant
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -81,7 +83,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 56dcb9f2323ca044c8c8ea44d3c351a8, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5f468c5d461b36f49ac63d5a97220146, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -128,7 +130,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.94, y: 1.54}
+    oldSize: {x: 1.49, y: 1.24}
     newSize: {x: 0.9, y: 1.0352942}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -137,7 +139,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.75, y: 0.9}
   m_EdgeRadius: 0
---- !u!114 &-9053397173045640719
+--- !u!114 &-6164627050610433166
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -146,16 +148,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1420957003867560970}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9535f815e13b454f8637e58c1c5ec59f, type: 3}
+  m_Script: {fileID: 11500000, guid: 427250e1d76044909d3dd210179950fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _componentIndexCache: 0
   _addedNetworkObject: {fileID: -218940236388108346}
   _networkObjectCache: {fileID: -218940236388108346}
-  _range: 10
-  _coolDown: 2
-  _teleportationSound: {fileID: 8300000, guid: 3e5bad2623634e043963e868a7c802c4, type: 3}
-  _animator: {fileID: 0}
 --- !u!114 &-4059473331583019238
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -168,8 +166,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 758d5ccc253c2f04f8451e29ebbfa99f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _normal: {fileID: 21300000, guid: 56dcb9f2323ca044c8c8ea44d3c351a8, type: 3}
-  _highlighted: {fileID: 21300000, guid: a3b46837754b5764fbbef71c75c15b3b, type: 3}
+  _normal: {fileID: 21300000, guid: 5f468c5d461b36f49ac63d5a97220146, type: 3}
+  _highlighted: {fileID: 21300000, guid: f9ac0ca2fd4e66d44be8beab15a30203, type: 3}
 --- !u!114 &-218940236388108346
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -186,7 +184,7 @@ MonoBehaviour:
   <ComponentIndex>k__BackingField: 0
   <PredictedSpawn>k__BackingField: {fileID: 0}
   _networkBehaviours:
-  - {fileID: -9053397173045640719}
+  - {fileID: -6164627050610433166}
   - {fileID: -1078616929798017896}
   <ParentNetworkObject>k__BackingField: {fileID: 0}
   <ChildNetworkObjects>k__BackingField: []
@@ -199,11 +197,11 @@ MonoBehaviour:
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 48
+  <PrefabId>k__BackingField: 17
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0
-  <AssetPathHash>k__BackingField: 15578188651871120891
+  <AssetPathHash>k__BackingField: 5418537577457417029
 --- !u!114 &-1078616929798017896
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -276,8 +274,43 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71eb8b037ef4d2843bdf7ae083f038ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemData: {fileID: 11400000, guid: b73174b70b6463d4e9d545b530188cac, type: 2}
---- !u!95 &5908692678405461227
+  itemData: {fileID: 11400000, guid: e8f7a302253f9ae40a8c99852a22ebfd, type: 2}
+--- !u!58 &2161628763777271904
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1420957003867560970}
+  m_Enabled: 0
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 959
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 959
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 959
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 959
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0.5}
+  serializedVersion: 2
+  m_Radius: 1.1
+--- !u!95 &2965038493429895917
 Animator:
   serializedVersion: 5
   m_ObjectHideFlags: 0
@@ -285,9 +318,9 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1420957003867560970}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 74d3ebb1f26b14045bec025721892246, type: 2}
+  m_Controller: {fileID: 9100000, guid: 3b0539ec4c9497b488ebc1f3378a559e, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -298,3 +331,30 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!50 &5730738808692295828
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1420957003867560970}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 0
+  m_CollisionDetection: 0
+  m_Constraints: 0

@@ -5188,7 +5188,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7470240865930121378, guid: d15967f0adea3264ab7d508e264da05d, type: 3}
       propertyPath: _implantsToSpawn.Array.size
-      value: 14
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 7470240865930121378, guid: d15967f0adea3264ab7d508e264da05d, type: 3}
       propertyPath: _enemiesToSpawn.Array.data[0]
@@ -5237,9 +5237,13 @@ PrefabInstance:
     - target: {fileID: 7470240865930121378, guid: d15967f0adea3264ab7d508e264da05d, type: 3}
       propertyPath: _implantsToSpawn.Array.data[12]
       value: 
-      objectReference: {fileID: 1420957003867560970, guid: e042362e8d598fb4c819b00d0ae2dca0, type: 3}
+      objectReference: {fileID: 1420957003867560970, guid: a9b449cd1dabc3d41a553e071b7111a9, type: 3}
     - target: {fileID: 7470240865930121378, guid: d15967f0adea3264ab7d508e264da05d, type: 3}
       propertyPath: _implantsToSpawn.Array.data[13]
+      value: 
+      objectReference: {fileID: 1420957003867560970, guid: e042362e8d598fb4c819b00d0ae2dca0, type: 3}
+    - target: {fileID: 7470240865930121378, guid: d15967f0adea3264ab7d508e264da05d, type: 3}
+      propertyPath: _implantsToSpawn.Array.data[14]
       value: 
       objectReference: {fileID: 1420957003867560970, guid: 7430bd4e19b8dac4b82ba4670c8d0565, type: 3}
     m_RemovedComponents: []

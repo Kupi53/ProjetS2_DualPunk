@@ -524,6 +524,7 @@ MonoBehaviour:
   _dashCooldown: 1.3
   _moveBackFactor: 0.8
   _forcesDecreaseSpeed: 15
+  EnableDash: 1
 --- !u!114 &8917572968852395277
 MonoBehaviour:
   m_ObjectHideFlags: 0

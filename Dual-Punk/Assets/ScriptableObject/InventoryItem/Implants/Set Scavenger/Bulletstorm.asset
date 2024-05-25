@@ -10,13 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bb4d4ad9335e54a4aa04976f4584bb33, type: 3}
-  m_Name: TeleportStrike
+  m_Name: Bulletstorm
   m_EditorClassIdentifier: 
-  name: TeleportStrike
+  name: Bulletstorm
   prefab: {fileID: 0}
-  icon: {fileID: 21300000, guid: 56dcb9f2323ca044c8c8ea44d3c351a8, type: 3}
-  description: "Cet implant remplace le dash par une t\xE9l\xE9portation sur l'ennemi
-    le plus proche, lui infligeant en m\xEAme temps un coup critique."
+  icon: {fileID: 21300000, guid: 5f468c5d461b36f49ac63d5a97220146, type: 3}
+  description: "Cet implant permet au joueur d'activer un bouclier avec le clic droit,
+    le prot\xE9geant \xE0 100 % des d\xE9g\xE2ts et renvoyant les balles qui ricochent.
+    Le joueur reste immobile lors de son utilisation."
   setName: Scavenger
   setItems:
   - 

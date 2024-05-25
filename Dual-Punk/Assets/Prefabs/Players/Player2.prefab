@@ -524,6 +524,7 @@ MonoBehaviour:
   _dashCooldown: 1
   _moveBackFactor: 0.8
   _forcesDecreaseSpeed: 15
+  EnableDash: 1
 --- !u!114 &8523659330764518231
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -682,7 +683,7 @@ MonoBehaviour:
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 35
+  <PrefabId>k__BackingField: 38
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0
