@@ -15,8 +15,8 @@ MonoBehaviour:
   name: AceOfTheTrigger
   prefab: {fileID: 0}
   icon: {fileID: 21300000, guid: 36bfe6cddd5d18044b6fcd9fab996643, type: 3}
-  description: "Cet implant permet au joueur de tirer plus rapidement. Les armes
-    lasers et corps \xE0 corps ne sont pas affect\xE9es par cet implant."
+  description: This implant enables the player to fire faster. Laser and hand-to-hand
+    weapons are not affected by this implant.
   setName: Organic
   setItems:
   - AceOfTheTrigger

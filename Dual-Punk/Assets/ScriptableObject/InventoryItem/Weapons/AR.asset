@@ -15,7 +15,6 @@ MonoBehaviour:
   name: AR
   prefab: {fileID: 0}
   icon: {fileID: 21300000, guid: 90aa106e4f16de64885605d2868921d9, type: 3}
-  description: L'AR est un fusil d'assault classique utilise pour se debarasser des
-    ennemis de maniere intrepide.
+  description: This is a classic assault rifle use it to delete your enemies.
   setName: 
   setItems: []

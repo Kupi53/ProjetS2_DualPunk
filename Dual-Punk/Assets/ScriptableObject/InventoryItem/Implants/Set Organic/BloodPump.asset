@@ -15,8 +15,7 @@ MonoBehaviour:
   name: BloodPump
   prefab: {fileID: 0}
   icon: {fileID: 21300000, guid: 333e595c67e4e44459ea6f93653d0ad9, type: 3}
-  description: "Cet implant permet de r\xE9g\xE9n\xE9rer la vie du joueur petit \xE0
-    petit."
+  description: This implant gradually regenerates the player's life.
   setName: Organic
   setItems:
   - AceOfTheTrigger

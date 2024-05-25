@@ -15,7 +15,7 @@ MonoBehaviour:
   name: Katana
   prefab: {fileID: 0}
   icon: {fileID: 21300000, guid: 8fbf4229c060bda4891349950603e346, type: 3}
-  description: Le katana, ancienne lame d'origine japonaise. Permet de separer ce
-    qui sert enveloppe corporelle a tes ennemis.
+  description: The katana, an ancient Japanese blade. Allows you to split what serves
+    as your enemies' bodily envelope.
   setName: 
   setItems: []

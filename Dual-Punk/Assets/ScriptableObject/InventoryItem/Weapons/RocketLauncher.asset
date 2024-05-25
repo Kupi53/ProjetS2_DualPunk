@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: RocketLauncher
   prefab: {fileID: 0}
-  prefabTest: {fileID: 0}
   icon: {fileID: 21300000, guid: 9f0410f40820e05468f44c08a1bd9dd4, type: 3}
-  description: "Le Rocket Launcher, une puissante arme pr\xEAte \xE0 faire exploser
-    tes ennemis."
+  description: The Rocket Launcher, a powerful weapon ready to blow up your enemies.
+  setName: 
+  setItems: []

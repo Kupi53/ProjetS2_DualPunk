@@ -15,9 +15,8 @@ MonoBehaviour:
   name: BulletExtender
   prefab: {fileID: 0}
   icon: {fileID: 21300000, guid: 6599959e6f3382a4297d51996b2e1bc1, type: 3}
-  description: "Cet implant permet d'augmenter le nombre de munitions dans chacune
-    des armes. Les armes lasers et corps \xE0 corps ne sont pas affect\xE9es par
-    cet implant."
+  description: This implant increases the amount of ammo in each weapon. Laser and
+    melee weapons are not affected by this implant.
   setName: Heavy
   setItems:
   - WarriorLuck

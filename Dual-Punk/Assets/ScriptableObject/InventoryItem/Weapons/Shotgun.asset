@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Shotgun
   prefab: {fileID: 0}
-  prefabTest: {fileID: 0}
   icon: {fileID: 21300000, guid: 9dd371f6dc406804e8a08151ad1cc7fc, type: 3}
-  description: "Le Shotgun a rechargement, tr\xE8s utile pour litt\xE9ralement trouer
-    tes ennemis."
+  description: The reloading Shotgun, very useful for literally putting holes in
+    your enemies.
+  setName: 
+  setItems: []

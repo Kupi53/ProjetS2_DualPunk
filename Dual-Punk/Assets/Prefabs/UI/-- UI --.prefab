@@ -395,6 +395,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -189
       objectReference: {fileID: 0}
+    - target: {fileID: 2916641391229288060, guid: 5d6012832ea472f458e113eb03eaf14a, type: 3}
+      propertyPath: m_text
+      value: '- Drag the item out of the inventory or right cick on in order to drop
+        it.'
+      objectReference: {fileID: 0}
     - target: {fileID: 3199069466910196367, guid: 5d6012832ea472f458e113eb03eaf14a, type: 3}
       propertyPath: m_Text
       value: BODY
@@ -453,6 +458,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6887539226679850897, guid: 5d6012832ea472f458e113eb03eaf14a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6913205714599977586, guid: 5d6012832ea472f458e113eb03eaf14a, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7433743320890469514, guid: 5d6012832ea472f458e113eb03eaf14a, type: 3}
@@ -590,6 +599,14 @@ PrefabInstance:
     - target: {fileID: 8463889115069489312, guid: 5d6012832ea472f458e113eb03eaf14a, type: 3}
       propertyPath: m_Name
       value: ConsumableSlots
+      objectReference: {fileID: 0}
+    - target: {fileID: 8721701065066500908, guid: 5d6012832ea472f458e113eb03eaf14a, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8721701065066500908, guid: 5d6012832ea472f458e113eb03eaf14a, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -121
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

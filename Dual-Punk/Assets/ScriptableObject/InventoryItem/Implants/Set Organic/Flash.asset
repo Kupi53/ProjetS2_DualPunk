@@ -15,8 +15,7 @@ MonoBehaviour:
   name: Flash
   prefab: {fileID: 0}
   icon: {fileID: 21300000, guid: 3508ed2c1a0591c49a63d7f7d98cfbbd, type: 3}
-  description: "Cet implant permet d'augmenter l\xE9g\xE8rement la vitesse de d\xE9placement
-    du joueur."
+  description: This implant slightly increases the player's movement speed.
   setName: Organic
   setItems:
   - AceOfTheTrigger
