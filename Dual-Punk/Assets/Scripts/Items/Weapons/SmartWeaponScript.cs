@@ -36,11 +36,11 @@ public class SmartWeaponScript : FireArmScript
 
     public override void Run(Vector3 position, Vector3 direction, Vector3 targetPoint)
     {
-        if (Input.GetButtonDown("Switch"))
+        if (Input.GetButtonDown("SecondaryUse"))
         {
             _waitForNextTarget = false;
         }
-        if (Input.GetButton("Switch"))
+        if (Input.GetButton("SecondaryUse"))
         {
 #nullable enable
             GameObject? target;

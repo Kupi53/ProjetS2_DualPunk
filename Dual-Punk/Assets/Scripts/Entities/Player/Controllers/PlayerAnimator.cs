@@ -7,7 +7,6 @@ using UnityEngine;
 public class PlayerAnimator : NetworkBehaviour
 {
     private PlayerState _playerState;
-    private Animator _animator;
     private NetworkAnimator _networkAnimator;
     private string _currentState;
 
@@ -25,7 +24,6 @@ public class PlayerAnimator : NetworkBehaviour
     void Start()
     {
         _currentState = PLAYER_IDLE;
-        _animator = GetComponent<Animator>();
         _playerState = GetComponent<PlayerState>();
         _networkAnimator = GetComponent<NetworkAnimator>();
     }

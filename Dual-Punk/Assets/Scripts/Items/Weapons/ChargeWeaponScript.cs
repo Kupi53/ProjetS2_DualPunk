@@ -116,7 +116,7 @@ public class ChargeWeaponScript : FireArmScript
     {
         MovePosition(position, direction, targetPoint);
 
-        if (EnemyState.Attack && _fireTimer >= _fireRate && !_reloading)
+        if (EnemyState.CanAttack && _fireTimer >= _fireRate && !_reloading)
         {
             if (_chargeTimer == 0)
             {

@@ -91,8 +91,6 @@ public class LaserGunScript : WeaponScript
     {
         base.Update();
 
-        if (!InHand) return;
-
         _startPosition = _gunEndPoint.transform.position;
 
         if (_fire)
@@ -173,13 +171,13 @@ public class LaserGunScript : WeaponScript
     {
         MovePosition(position, direction, targetPoint);
 
-        if (!_disableFire && EnemyState.Attack)
+        if (!_disableFire && EnemyState.CanAttack)
         {
             if (!_lineRenderer.enabled)
                 EnableLaserServerRPC();
             _fire = true;
         }
-        if (!EnemyState.Attack)
+        if (!EnemyState.CanAttack)
         {
             _fire = false;
             _disableFire = false;

@@ -10,7 +10,7 @@ public class EnemyState : NPCState
     [SerializeField] private float _unlockDistance;
 
     public GameObject Target { get; set; }
-    public bool Attack { get; set; }
+    public bool CanAttack { get; set; }
     public override Vector3 TargetPoint
     {
         get => Target == null ? Vector3.zero : Target.transform.position;
@@ -22,7 +22,7 @@ public class EnemyState : NPCState
     {
         base.Awake();
 
-        Attack = false;
+        CanAttack = false;
     }
 
 
@@ -50,6 +50,10 @@ public class EnemyState : NPCState
         else if (Vector2.Distance(transform.position, Target.transform.position) > _unlockDistance/2)
         {
             Run = true;
+        }
+        else if (CanAttack)
+        {
+            Run = false;
         }
     }
 }

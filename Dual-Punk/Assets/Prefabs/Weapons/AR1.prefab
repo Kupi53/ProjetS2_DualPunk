@@ -384,16 +384,16 @@ MonoBehaviour:
   _rightHand: {fileID: 2939624512793751183}
   _leftHand: {fileID: 7017974954916342671}
   _weaponOffset: {x: 0.15, y: 0.9, z: 0}
+  _damage: 17
   _range: 30
-  _weaponDistance: 0.45
   _recoilForce: 1.2
   _impactForce: 1.2
   _cameraShake: 1.1
+  _weaponDistance: 0.45
   _pointerSpriteNumber: 1
   _bullet: {fileID: 5298557137024599475, guid: cf1a87b5cd3d7904dbe9dcf2013b111e, type: 3}
   _gunEndPoints:
   - {fileID: 7751566459779938819}
-  _damage: 17
   _magSize: 30
   _bulletNumber: 1
   _reloadAmount: 30
@@ -467,7 +467,7 @@ MonoBehaviour:
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 20
+  <PrefabId>k__BackingField: 27
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0

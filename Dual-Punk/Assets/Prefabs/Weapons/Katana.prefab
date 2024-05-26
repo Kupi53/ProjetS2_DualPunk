@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 1784858503084262383}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: -0.547, y: -0.003, z: -5}
+  m_LocalPosition: {x: -0.48, y: 0, z: -5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -84,6 +84,37 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &2517004265739634224
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6194193372039303424}
+  m_Layer: 7
+  m_Name: AttackPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6194193372039303424
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2517004265739634224}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.162, y: 0.003, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1744610018306564381}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3553326147683758454
 GameObject:
   m_ObjectHideFlags: 0
@@ -119,11 +150,12 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 5}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.9, y: 0.9, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3266101289851110003}
   - {fileID: 4217001705875216314}
+  - {fileID: 6194193372039303424}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &3628626176491043060
@@ -237,7 +269,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.014920354, y: 0.0027295202}
+  m_Offset: {x: 0.086251676, y: 0.013297122}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -248,7 +280,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.4359143, y: 0.15597185}
+  m_Size: {x: 0.77543926, y: 0.11898526}
   m_EdgeRadius: 0
 --- !u!114 &3101570405284729770
 MonoBehaviour:
@@ -267,19 +299,27 @@ MonoBehaviour:
   _networkObjectCache: {fileID: 3590557041652478682}
   _rightHand: {fileID: 1784858503084262383}
   _leftHand: {fileID: 8632587119048511087}
-  _weaponOffset: {x: 0, y: 0.5, z: 0}
-  _damage: 20
+  _weaponOffset: {x: 0.2, y: 0.5, z: 0}
+  _damage: 50
   _range: 2
-  _recoilForce: 0
-  _impactForce: 0
-  _cameraShake: 0
+  _recoilForce: 1
+  _impactForce: 0.5
+  _cameraShake: 1
   _weaponDistance: 0.7
   _pointerSpriteNumber: 1
-  _attackSpeed: 1000
-  _attackRange: 60
-  _attackDistance: 1
-  _resetCooldown: 1
   _criticalDamage: 150
+  _attackSpeed: 0.3
+  _swipeRange: 45
+  _attackDistance: 0.8
+  _resetCooldown: 1
+  _defenceTime: 5
+  _defenceCooldownSpeed: 2
+  _defenceWeaponDistance: 0.6
+  _defenceWeaponOffset: {x: 0, y: 0.5, z: 0}
+  _layerMask:
+    serializedVersion: 2
+    m_Bits: 648
+  _attackPoint: {fileID: 2517004265739634224}
   _attackSound:
   - {fileID: 8300000, guid: ae61956180ed80649a3288a82728fa08, type: 3}
   - {fileID: 8300000, guid: 8a167d05a68e7aa498f634a90895f607, type: 3}
@@ -336,7 +376,7 @@ MonoBehaviour:
   SerializedTransformProperties:
     Position: {x: 0, y: 0, z: 5}
     Rotation: {x: 0, y: 0, z: 0, w: 1}
-    LocalScale: {x: 1, y: 1, z: 1}
+    LocalScale: {x: 0.9, y: 0.9, z: 1}
   _isNetworked: 1
   _isGlobal: 0
   _initializeOrder: 0
@@ -433,7 +473,7 @@ Transform:
   m_GameObject: {fileID: 8632587119048511087}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: -0.451, y: 0, z: -5}
+  m_LocalPosition: {x: -0.571, y: 0, z: -5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

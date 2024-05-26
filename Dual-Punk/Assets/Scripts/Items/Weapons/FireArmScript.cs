@@ -37,6 +37,7 @@ public class FireArmScript : WeaponScript
     private float _reloadTimer;
     protected float _fireTimer;
     protected bool _aiming;
+    protected bool _reloading;
 
     // Nécessaire pour l'implant qui multiplie les dégâts de certaines munitions
     public bool WarriorLuck = false;
@@ -105,7 +106,7 @@ public class FireArmScript : WeaponScript
     {
         MovePosition(position, direction, targetPoint);
 
-        if (EnemyState.Attack && _fireTimer >= _fireRate && !_reloading)
+        if (EnemyState.CanAttack && _fireTimer >= _fireRate && !_reloading)
         {
             Fire(direction, _damage, _dispersion, true);
         }

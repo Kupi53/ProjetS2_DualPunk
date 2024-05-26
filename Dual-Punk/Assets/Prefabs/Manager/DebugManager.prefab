@@ -67,7 +67,6 @@ MonoBehaviour:
   - {fileID: 1420957003867560970, guid: 4316d9777b3346a45967d1e9d6ba0a6f, type: 3}
   - {fileID: 1420957003867560970, guid: 9e1f4db35f3f78540a062b6160ca806c, type: 3}
   _enemiesToSpawn:
-  - {fileID: 2037555728248527565, guid: 5c637c058b632c047990c2ab5c6bb775, type: 3}
   - {fileID: 4605790729952272960, guid: 67b9b89ba138f60448b26b26c1d74767, type: 3}
   _typeTextGO: {fileID: 4213645154216789588}
   _objectTextGO: {fileID: 7736270114115298025}

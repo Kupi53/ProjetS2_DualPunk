@@ -23,24 +23,23 @@ public abstract class WeaponScript : NetworkBehaviour
     private SpriteRenderer _rightHandSprite;
     private SpriteRenderer _leftHandSprite;
     protected ObjectSpawner _objectSpawner;
+    protected float _currentWeaponDistance;
     protected bool _canAttack;
-    protected bool _reloading;
 
 #nullable enable
+    public NetworkConnection? ActualOwner { get; set; }
     public PlayerState? PlayerState { get; set; }
     public EnemyState? EnemyState { get; set; }
     public IImpact? UserRecoil { get; set; }
 #nullable disable
-    public Vector3 WeaponOffset { get => _weaponOffset; }
+
+    public virtual Vector3 WeaponOffset { get; set; }
     public bool InHand { get; set; } = false;
     public float Range { get => _range; }
 
     public virtual bool DisplayInfo { get; }
     public virtual float InfoMaxTime { get; }
     public virtual float InfoTimer { get; }
-    #nullable enable
-    public NetworkConnection? ActualOwner { get; set;}
-#nullable disable
 
 
     private void Awake()
@@ -50,10 +49,11 @@ public abstract class WeaponScript : NetworkBehaviour
         _leftHandSprite = _leftHand.GetComponent<SpriteRenderer>();
         _objectSpawner = GameObject.FindWithTag("ObjectSpawner").GetComponent<ObjectSpawner>();
 
+        WeaponOffset = _weaponOffset;
+        _currentWeaponDistance = _weaponDistance;
         _rightHandSprite.enabled = false;
         _leftHandSprite.enabled = false;
         _canAttack = true;
-        _reloading = false;
     }
 
     protected void Update()
@@ -85,10 +85,11 @@ public abstract class WeaponScript : NetworkBehaviour
     public void PickUp(GameObject owner)
     {
         InHand = true;
-        ActualOwner = owner.GetComponent<NetworkObject>().LocalConnection; 
         _canAttack = true;
         _rightHandSprite.enabled = true;
         _leftHandSprite.enabled = true;
+
+        ActualOwner = owner.GetComponent<NetworkObject>().LocalConnection;
 
         ObjectSpawner.Instance.RemoveParentRpc(gameObject);
         ObjectSpawner.Instance.RemoveOwnershipFromNonOwnersRpc(gameObject, ActualOwner);
@@ -103,25 +104,23 @@ public abstract class WeaponScript : NetworkBehaviour
         transform.rotation = Quaternion.identity;
         transform.position = PlayerState == null ? EnemyState.transform.position : PlayerState.transform.position;
 
-        if (transform.localScale.y < 0)
-        {
-            transform.localScale = new Vector2(transform.localScale.x, Math.Abs(transform.localScale.y));
-            _weaponOffset.x = Math.Abs(_weaponOffset.x);
-        }
+        transform.localScale = new Vector2(transform.localScale.x, Math.Abs(transform.localScale.y));
+        WeaponOffset = _weaponOffset;
 
         ObjectSpawner.Instance.ObjectParentToRoomRpc(gameObject);
     }
 
 
-    public void MovePosition(Vector3 position, Vector3 direction, Vector3 targetPoint)
+    protected virtual void MovePosition(Vector3 position, Vector3 direction, Vector3 targetPoint)
     {
-        if (InHand && Math.Sign(targetPoint.x - position.x) != Math.Sign(transform.localScale.y))
+        if (Math.Sign(targetPoint.x - position.x) != Math.Sign(transform.localScale.y))
         {
+            // changer seulement s'il n'y a pas d'animation en cours
             transform.localScale = new Vector2(transform.localScale.x, -transform.localScale.y);
-            _weaponOffset.x = -_weaponOffset.x;
+            WeaponOffset = new Vector3(-WeaponOffset.x, _weaponOffset.y, 0);
         }
 
-        transform.position = position + _weaponOffset + direction * _weaponDistance;
+        transform.position = position + WeaponOffset + direction * _currentWeaponDistance;
         transform.eulerAngles = new Vector3(0, 0, Methods.GetAngle(direction));
     }
 

@@ -23,7 +23,6 @@ public class PlayerState : NetworkBehaviour
     public bool Moving { get; set; }
     public bool Walking { get; set; }
     public bool Dashing { get; set; }
-    public bool Attacking { get; set; } // à retirer
     public bool HoldingWeapon { get; set; }
     public bool CanBeTeleported { get; set; }
 
@@ -45,7 +44,6 @@ public class PlayerState : NetworkBehaviour
         Moving = false;
         Walking = false;
         Dashing = false;
-        Attacking = false;
         HoldingWeapon = false;
         AnimAngle = 0;
         CrawlTime = 20;
