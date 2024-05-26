@@ -78,6 +78,11 @@ public class DebugManager : MonoBehaviour
         {
             AssignIndex(-1);
         }
+
+        if (Input.GetKey(KeyCode.T))
+        {
+            GameManager.Instance.LocalPlayer.transform.position = GameManager.Instance.LocalPlayer.GetComponent<SpawnUi>().LocalUI.GetComponentInChildren<PointerScript>().gameObject.transform.position;
+        }
     }
 
 
