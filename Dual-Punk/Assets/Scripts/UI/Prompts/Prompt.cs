@@ -2,22 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Prompt : MonoBehaviour
+[System.Serializable]
+public class Prompt
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public string[] TextFields;
+    public bool EnableMovement;
+    public PromptType PromptType;
+}
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    void OnDestroy()
-    {
-        GameManager.Instance.CurrentPromptShown = null;
-    }
+public enum PromptType
+{
+    Dialogue,
+    Unclosable,
+    Closable,
 }

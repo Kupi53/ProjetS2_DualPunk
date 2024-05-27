@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 3682221752624516013}
   - component: {fileID: 6326682425036039633}
   - component: {fileID: 5338580453834404783}
-  - component: {fileID: 5199269823019395805}
   m_Layer: 5
   m_Name: UnclosablePrompt
   m_TagString: Untagged
@@ -77,18 +76,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 1
   m_PixelsPerUnitMultiplier: 50
---- !u!114 &5199269823019395805
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5189370099553912001}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0b849d3fbb3a084d8b955b1be0519de, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &8356880123417083377
 GameObject:
   m_ObjectHideFlags: 0

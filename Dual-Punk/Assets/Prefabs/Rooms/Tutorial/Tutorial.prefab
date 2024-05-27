@@ -112,7 +112,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4428879016444494245}
   m_Layer: 8
-  m_Name: Door
+  m_Name: DoorTeleportPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -148,6 +148,8 @@ GameObject:
   - component: {fileID: 8577046184236544471}
   - component: {fileID: 465474195716773383}
   - component: {fileID: 6796460993386947607}
+  - component: {fileID: 7227092525995006846}
+  - component: {fileID: 4823822036207379423}
   m_Layer: 8
   m_Name: DoorTiles
   m_TagString: Untagged
@@ -495,6 +497,50 @@ MonoBehaviour:
   _addedNetworkObject: {fileID: 8620491292292501070}
   _networkObjectCache: {fileID: 8620491292292501070}
   _target: {fileID: 2327600699124381722}
+--- !u!114 &7227092525995006846
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 655808328309590624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be69e0a67f2c90d488fbf1c169ccfc57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _componentIndexCache: 1
+  _addedNetworkObject: {fileID: 8620491292292501070}
+  _networkObjectCache: {fileID: 8620491292292501070}
+  Prompt:
+    TextFields:
+    - Wait for the second player to join you at the door.
+    EnableMovement: 1
+    PromptType: 1
+  _type: 1
+  _delay: 0
+--- !u!114 &4823822036207379423
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 655808328309590624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be69e0a67f2c90d488fbf1c169ccfc57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _componentIndexCache: 2
+  _addedNetworkObject: {fileID: 8620491292292501070}
+  _networkObjectCache: {fileID: 8620491292292501070}
+  Prompt:
+    TextFields:
+    - Press "E" to go through with the door.
+    EnableMovement: 1
+    PromptType: 1
+  _type: 1
+  _delay: 0
 --- !u!1 &1224538743843905075
 GameObject:
   m_ObjectHideFlags: 0
@@ -30012,6 +30058,8 @@ GameObject:
   - component: {fileID: 8634778186316177501}
   - component: {fileID: 2439967205898441464}
   - component: {fileID: 6557762682858201439}
+  - component: {fileID: 7413780981389590259}
+  - component: {fileID: 8848645684664069405}
   m_Layer: 8
   m_Name: DoorTiles
   m_TagString: Untagged
@@ -30340,7 +30388,7 @@ CompositeCollider2D:
       - {x: 84.00002, y: -13.656256}
       - {x: 84.43751, y: -13.812499}
   m_VertexDistance: 0.0005
-  m_OffsetDistance: 0.00005
+  m_OffsetDistance: 0
   m_UseDelaunayMesh: 0
   m_CompositeGameObject: {fileID: 5437866067289883512}
 --- !u!114 &6557762682858201439
@@ -30359,6 +30407,50 @@ MonoBehaviour:
   _addedNetworkObject: {fileID: 4268112287656625176}
   _networkObjectCache: {fileID: 4268112287656625176}
   _target: {fileID: 58766393804877144}
+--- !u!114 &7413780981389590259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5437866067289883512}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be69e0a67f2c90d488fbf1c169ccfc57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _componentIndexCache: 1
+  _addedNetworkObject: {fileID: 4268112287656625176}
+  _networkObjectCache: {fileID: 4268112287656625176}
+  Prompt:
+    TextFields:
+    - Wait for the second player to join you at the door.
+    EnableMovement: 1
+    PromptType: 1
+  _type: 1
+  _delay: 0
+--- !u!114 &8848645684664069405
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5437866067289883512}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be69e0a67f2c90d488fbf1c169ccfc57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _componentIndexCache: 2
+  _addedNetworkObject: {fileID: 4268112287656625176}
+  _networkObjectCache: {fileID: 4268112287656625176}
+  Prompt:
+    TextFields:
+    - Press "E" to go through with the door.
+    EnableMovement: 1
+    PromptType: 1
+  _type: 1
+  _delay: 0
 --- !u!1 &5690509380383398157
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using FishNet.Connection;
@@ -10,7 +11,25 @@ public class Door : NetworkBehaviour
     [SerializeField] GameObject _target;
     Vector2 _targetPosition;
     List<GameObject> _playersOnDoor;
+    PromptTrigger[] _promptTriggers;
+    int _lessThanTwoPromptIndex;
+    int _twoPromptIndex;
 
+    void Start()
+    {
+        _promptTriggers = gameObject.GetComponents<PromptTrigger>();
+        if (_promptTriggers[0].Prompt.TextFields[0].StartsWith("Wait")) 
+        {
+            _lessThanTwoPromptIndex = 0;
+            _twoPromptIndex = 1;
+        }
+        else
+        {
+            _lessThanTwoPromptIndex = 1;
+            _twoPromptIndex = 0;
+        }
+        _promptTriggers[_twoPromptIndex].enabled = false;
+    }
     public override void OnStartNetwork()
     {
         base.OnStartNetwork();
@@ -25,24 +44,15 @@ public class Door : NetworkBehaviour
         if (!_playersOnDoor.Contains(other.gameObject))
         {
             _playersOnDoor.Add(other.gameObject);
-        }
-        if (_playersOnDoor.Count < 2)
-        {
-            if (IsServer)
+            if (_playersOnDoor.Count == 2)
             {
-                SpawnLocalPrompt(other.gameObject.GetComponent<NetworkObject>().LocalConnection, PromptType.UnclosablePrompt, "you need to wait for second player :)");
+                _promptTriggers[_lessThanTwoPromptIndex].OnTriggerExit2D(GameManager.Instance.LocalPlayer.GetComponent<Collider2D>());
+                _promptTriggers[_lessThanTwoPromptIndex].enabled = false;
+                _promptTriggers[_twoPromptIndex].enabled = true;
+                _promptTriggers[_twoPromptIndex].OnTriggerEnter2D(GameManager.Instance.LocalPlayer.GetComponent<Collider2D>());
             }
-        }
-        else
-        {
-            if (GameManager.Instance.CurrentPromptShown != null)
-            {
-                Destroy(GameManager.Instance.CurrentPromptShown);
-            }
-            GameManager.Instance.SpawnPrompt(PromptType.UnclosablePrompt, "press e to tp");
         }
     }
-
     void OnTriggerStay2D(Collider2D other)
     {
         if (Input.GetButtonDown("Pickup") && _playersOnDoor.Count == 2)
@@ -50,22 +60,12 @@ public class Door : NetworkBehaviour
             TeleportRPC();
         }
     }
-
-
-
     void OnTriggerExit2D(Collider2D other)
     {
         _playersOnDoor.Remove(other.gameObject);
-        if (GameManager.Instance.CurrentPromptShown != null)
-        {
-            Destroy(GameManager.Instance.CurrentPromptShown);
-        }
-    }
-
-    [TargetRpc]
-    void SpawnLocalPrompt(NetworkConnection con, PromptType type, string text)
-    {
-        GameManager.Instance.SpawnPrompt(type, text);
+        _promptTriggers[_lessThanTwoPromptIndex].enabled = true;
+        _promptTriggers[_twoPromptIndex].enabled = false;
+        _promptTriggers[_lessThanTwoPromptIndex].OnTriggerExit2D(other);
     }
 
     [ServerRpc (RequireOwnership = false)]
