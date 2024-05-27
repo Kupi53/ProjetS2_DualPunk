@@ -77,8 +77,8 @@ public class AudioManager : MonoBehaviour
     {
 	    if (str == "Player" || (str == "Enemy" && !MuchSound()))
 	    {
-		    GameObject soundEffectTemp = new GameObject("TempAudio");
-		    soundEffectTemp.tag = "TempAudio";
+		    GameObject soundEffectTemp = new GameObject($"TempAudio{str}");
+		    soundEffectTemp.tag = $"TempAudio{str}";
 		    soundEffectTemp.transform.position = pos;
 		    AudioSource audioSource = soundEffectTemp.AddComponent<AudioSource>();
 		    audioSource.clip = clip;
@@ -93,7 +93,7 @@ public class AudioManager : MonoBehaviour
 
     private bool MuchSound()
     {
-	    GameObject[] allSounds = GameObject.FindGameObjectsWithTag("TempAudio");
+	    GameObject[] allSounds = GameObject.FindGameObjectsWithTag("TempAudioEnemy");
 
 	    if (allSounds.Length > MaxAudioSource)
 		    return true;
