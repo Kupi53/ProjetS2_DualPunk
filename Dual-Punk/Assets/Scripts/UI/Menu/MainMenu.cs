@@ -8,7 +8,8 @@ public class MainMenu : MonoBehaviour
 {
     private GameObject networkManager;
     private RelayManager relayManager;
-    void Start(){
+    void Start()
+    {
         networkManager = GameObject.Find("NetworkManager");
         relayManager = networkManager.GetComponent<RelayManager>();
     }

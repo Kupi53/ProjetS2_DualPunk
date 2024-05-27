@@ -116,6 +116,22 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: MainMenu, Assembly-CSharp
       objectReference: {fileID: 0}
+    - target: {fileID: 2933090579617888318, guid: 7ad47284ee9fed6498a578c2cd5fdeb2, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2933090579617888318, guid: 7ad47284ee9fed6498a578c2cd5fdeb2, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 57675427407229910}
+    - target: {fileID: 2933090579617888318, guid: 7ad47284ee9fed6498a578c2cd5fdeb2, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Resume
+      objectReference: {fileID: 0}
+    - target: {fileID: 2933090579617888318, guid: 7ad47284ee9fed6498a578c2cd5fdeb2, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: EscapeMenu, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 5052163749215415024, guid: 7ad47284ee9fed6498a578c2cd5fdeb2, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

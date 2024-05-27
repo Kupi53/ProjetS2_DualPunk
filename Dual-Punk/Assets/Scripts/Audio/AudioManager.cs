@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Audio;
@@ -17,6 +18,8 @@ public class AudioManager : MonoBehaviour
     private bool isInGame = false;
 
     public AudioMixerGroup soundEffectMixer;
+
+    public int MaxAudioSource;
     
     void Start()
     {
@@ -67,19 +70,33 @@ public class AudioManager : MonoBehaviour
     
     public void ClicOnMenu()
     {
-	    AudioManager.Instance.PlayClipAt(clicOnMenu, transform.position);
+	    AudioManager.Instance.PlayClipAt(clicOnMenu, transform.position, "Player");
     }
 
-    public AudioSource PlayClipAt(AudioClip clip, Vector3 pos)
+    public AudioSource PlayClipAt(AudioClip clip, Vector3 pos, string str)
     {
-	    GameObject soundEffectTemp = new GameObject("TempAudio");
-	    soundEffectTemp.tag = "TempAudio";
-	    soundEffectTemp.transform.position = pos;
-	    AudioSource audioSource = soundEffectTemp.AddComponent<AudioSource>();
-	    audioSource.clip = clip;
-	    audioSource.outputAudioMixerGroup = soundEffectMixer;
-	    audioSource.Play();  
-	    Destroy(soundEffectTemp, clip.length);
-	    return audioSource;
+	    if (str == "Player" || (str == "Enemy" && !MuchSound()))
+	    {
+		    GameObject soundEffectTemp = new GameObject("TempAudio");
+		    soundEffectTemp.tag = "TempAudio";
+		    soundEffectTemp.transform.position = pos;
+		    AudioSource audioSource = soundEffectTemp.AddComponent<AudioSource>();
+		    audioSource.clip = clip;
+		    audioSource.outputAudioMixerGroup = soundEffectMixer;
+		    audioSource.Play();
+		    Destroy(soundEffectTemp, clip.length);
+		    return audioSource;
+	    }
+
+	    return new AudioSource();
+    }
+
+    private bool MuchSound()
+    {
+	    GameObject[] allSounds = GameObject.FindGameObjectsWithTag("TempAudio");
+
+	    if (allSounds.Length > MaxAudioSource)
+		    return true;
+	    return false;
     }
 }

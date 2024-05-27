@@ -19,6 +19,7 @@ public class RocketScript : BulletScript, IDestroyable
     private float _deviationAngle;
     private float _deviationSpeed;
     private bool _exploded;
+    private string _shooter;
 
 
     private new void Start()
@@ -57,7 +58,7 @@ public class RocketScript : BulletScript, IDestroyable
 
 
     public void Setup(Vector3 moveDirection, int damage, float moveSpeed, float impactForce, Vector3 startPosition, float distanceUntilExplosion,
-        float explosionRadius, float deviationAngle, float deviationSpeed, bool damagePlayer, bool warriorLuck)
+        float explosionRadius, float deviationAngle, float deviationSpeed, bool damagePlayer, bool warriorLuck, string shooter)
     {
         base.Setup(moveDirection, damage, moveSpeed, impactForce, 0, damagePlayer, warriorLuck);
 
@@ -66,6 +67,7 @@ public class RocketScript : BulletScript, IDestroyable
         _explosionRadius = explosionRadius;
         _deviationAngle = deviationAngle;
         _deviationSpeed = deviationSpeed;
+        _shooter = shooter;
     }
 
 
@@ -85,7 +87,11 @@ public class RocketScript : BulletScript, IDestroyable
         if (_exploded) return;
         _exploded = true;
 
-        AudioManager.Instance.PlayClipAt(_explosionSound, gameObject.transform.position);
+        if (_shooter == "Player")
+            AudioManager.Instance.PlayClipAt(_explosionSound, gameObject.transform.position, "Player");
+        else
+            AudioManager.Instance.PlayClipAt(_explosionSound, gameObject.transform.position, "Enemy");
+        
         GameObject explosion = Instantiate(_explosion, transform.position, transform.rotation);
         Spawn(explosion);
 

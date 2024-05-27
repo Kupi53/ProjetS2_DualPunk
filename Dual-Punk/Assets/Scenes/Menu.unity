@@ -379,6 +379,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: bec71689a4a87c5438859ab2c528a207, type: 3}
   - {fileID: 8300000, guid: 467fa5310ff2ea54ca488473bc822cc2, type: 3}
   soundEffectMixer: {fileID: 835532341250879092, guid: 5b9343604b8f98541b6aaa557b188e47, type: 2}
+  MaxAudioSource: 15
 --- !u!82 &90963764
 AudioSource:
   m_ObjectHideFlags: 0

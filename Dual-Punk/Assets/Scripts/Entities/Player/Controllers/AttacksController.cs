@@ -70,7 +70,10 @@ public class AttacksController : NetworkBehaviour
             }
 
             _playerState.AnimAngle = Methods.GetAngle(_direction);
-            _playerState.WeaponScript.Run(transform.position, _direction, targetPoint);
+            if (_playerState.WeaponScript.enabled)
+                _playerState.WeaponScript.Run(transform.position, _direction, targetPoint);
+            else
+                _playerState.WeaponScript.MovePosition(transform.position, _direction, targetPoint);
         }
     }
 

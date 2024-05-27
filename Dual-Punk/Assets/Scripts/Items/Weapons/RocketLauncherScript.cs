@@ -31,7 +31,10 @@ public class RocketLauncherScript : FireArmScript
         _ammoLeft--;
         _fireTimer = 0;
         UserRecoil.Impact(-direction, _recoilForce);
-        AudioManager.Instance.PlayClipAt(_fireSound, gameObject.transform.position);
+        if (PlayerState != null)
+            AudioManager.Instance.PlayClipAt(_fireSound, gameObject.transform.position, "Player");
+        else
+            AudioManager.Instance.PlayClipAt(_fireSound, gameObject.transform.position, "Enemy");
 
         bool warriorLuckBullet = false;
         if (WarriorLuck && UnityEngine.Random.Range(0, 100) < DropPercentage)
@@ -60,8 +63,12 @@ public class RocketLauncherScript : FireArmScript
             _bulletPointIndex = (_bulletPointIndex + 1) % _gunEndPoints.Length;
             rocket.transform.localScale = new Vector2(_bulletSize, _bulletSize);
 
-            rocketScript.Setup(direction, damage, _bulletSpeed, _impactForce, transform.position, Vector3.Distance(transform.position, _targetPoint),
-                _explosionRadius + 0.1f, _deviationAngle, _deviationSpeed, damagePlayer, warriorLuckBullet);
+            if (PlayerState != null)
+                rocketScript.Setup(direction, damage, _bulletSpeed, _impactForce, transform.position, Vector3.Distance(transform.position, _targetPoint),
+                _explosionRadius + 0.1f, _deviationAngle, _deviationSpeed, damagePlayer, warriorLuckBullet, "Player");
+            else
+                rocketScript.Setup(direction, damage, _bulletSpeed, _impactForce, transform.position, Vector3.Distance(transform.position, _targetPoint),
+                    _explosionRadius + 0.1f, _deviationAngle, _deviationSpeed, damagePlayer, warriorLuckBullet, "Enemy");
 
             Spawn(rocket);
         }

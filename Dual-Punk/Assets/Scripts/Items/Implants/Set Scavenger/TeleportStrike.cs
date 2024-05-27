@@ -53,7 +53,7 @@ public class TeleportStrike : ImplantScript
         gameObject.GetComponent<SpriteRenderer>().enabled = true;
         _animator.Play("Teleportation");
         
-        AudioManager.Instance.PlayClipAt(_teleportationSound, gameObject.transform.position);
+        AudioManager.Instance.PlayClipAt(_teleportationSound, gameObject.transform.position, "Player");
         
         PlayerState.gameObject.GetComponent<MouvementsController>().enabled = false;
         PlayerState.Dashing = true;
@@ -73,7 +73,7 @@ public class TeleportStrike : ImplantScript
         PlayerState.gameObject.GetComponent<MouvementsController>().enabled = true;
         meleeWeaponScript.gameObject.GetComponent<SpriteRenderer>().enabled = true;
         nearestEnemy.GetComponent<EnemyHealthManager>().Damage(meleeWeaponScript.CriticalDamage, 0f, true);
-        AudioManager.Instance.PlayClipAt(meleeWeaponScript.CriticalSound, gameObject.transform.position);
+        AudioManager.Instance.PlayClipAt(meleeWeaponScript.CriticalSound, gameObject.transform.position, "Player");
 
         _timeCoolDown = 0;
     }

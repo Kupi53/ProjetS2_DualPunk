@@ -72,7 +72,10 @@ public class MeleeWeaponScript : WeaponScript
             }
             
             Random randomSound = new Random();
-            AudioManager.Instance.PlayClipAt(_attackSound[randomSound.Next(_attackSound.Count)], gameObject.transform.position);
+            if (PlayerState != null)
+                AudioManager.Instance.PlayClipAt(_attackSound[randomSound.Next(_attackSound.Count)], gameObject.transform.position, "Player");
+            else
+                AudioManager.Instance.PlayClipAt(_attackSound[randomSound.Next(_attackSound.Count)], gameObject.transform.position, "Enemy");
         }
 
         if (PlayerState.Attacking)
