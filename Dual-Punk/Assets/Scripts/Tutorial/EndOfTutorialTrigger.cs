@@ -33,10 +33,7 @@ public class EndOfTutorialTrigger : NetworkBehaviour
     public override void OnStartClient()
     {
         base.OnStartClient();
-        if (GameManager.Instance.DebugMode)
-        {
-            StartGameRpc();
-        }
+
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -69,7 +66,7 @@ public class EndOfTutorialTrigger : NetworkBehaviour
     }
 
     [ServerRpc (RequireOwnership = false)]
-    void StartGameRpc()
+    public void StartGameRpc()
     {
         FloorNetworkWrapper.Instance.NewFloor(FloorType.City);
         StartGameObservers();
