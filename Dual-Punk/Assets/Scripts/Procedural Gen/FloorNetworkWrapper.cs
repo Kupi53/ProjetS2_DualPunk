@@ -39,13 +39,15 @@ public class FloorNetworkWrapper : NetworkBehaviour
     [ObserversRpc]
     private void SeedRPC(int seed)
     {
-        Debug.Log("fkldjajlf");
         UnityEngine.Random.InitState(seed);
     }
     [ObserversRpc]
     private void DestroyCurrentFloorRPC()
     {
-        LocalFloorManager.CurrentFloor.DestroyHolder();
+        if (LocalFloorManager.CurrentFloor != null)
+        {
+            LocalFloorManager.CurrentFloor.DestroyHolder();
+        }
     }
     [ObserversRpc]
     private void SwitchToNewFloorRPC(FloorType floorType)

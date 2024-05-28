@@ -27,7 +27,7 @@ public class MouvementsController : NetworkBehaviour, IImpact
     private Vector2 _moveDirection;
     private Vector2 _pointerDirection;
 
-    private bool _enableMovement;
+    public bool EnableMovement;
     private float _dashTimer;
     private float _dashCooldownTimer;
     private float _moveSpeed;
@@ -45,7 +45,7 @@ public class MouvementsController : NetworkBehaviour, IImpact
     {
         _dashTimer = 0;
         _dashCooldownTimer = 0;
-        _enableMovement = true;
+        EnableMovement = true;
         _moveDirection = Vector2.zero;
         _forces = new List<(Vector2, float)>();
 
@@ -58,8 +58,8 @@ public class MouvementsController : NetworkBehaviour, IImpact
     private void Update()
     {
         if (!IsOwner) return;
-        
-        if (_enableMovement)
+
+        if (EnableMovement)
         {
             _moveDirection = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical") * 0.5f).normalized;
             _pointerDirection = (_playerState.MousePosition - transform.position).normalized;
@@ -77,7 +77,7 @@ public class MouvementsController : NetworkBehaviour, IImpact
 
                 if (_playerState.CrawlTimer > _playerState.CrawlTime)
                 {
-                    _enableMovement = false;
+                    EnableMovement = false;
                     _moveDirection = Vector2.zero;
                 }
             }
@@ -94,14 +94,15 @@ public class MouvementsController : NetworkBehaviour, IImpact
 
             if (Input.GetButtonDown("Dash") && !_playerState.Down && _dashCooldownTimer <= 0 && _playerState.Moving && EnableDash)
             {
-                _enableMovement = false;
+                EnableMovement = false;
                 _playerState.Dashing = true;
                 _dashCooldownTimer = _dashCooldown;
             }
         }
-        else if (!_playerState.Down && !_playerState.Dashing)
+        else if (!_playerState.Down && !_playerState.Dashing && 
+        (PromptManager.Instance.CurrentPromptShown == null || PromptManager.Instance.CurrentPromptShown.GetComponent<PromptController>().Prompt.EnableMovement))
         {
-            _enableMovement = true;
+            EnableMovement = true;
             _playerState.CrawlTimer = 0;
         }
 
@@ -117,7 +118,7 @@ public class MouvementsController : NetworkBehaviour, IImpact
     {
         if (!IsOwner) return;
 
-        if (_enableMovement)
+        if (EnableMovement)
         {
             _moveFactor = 1;
 
@@ -148,7 +149,7 @@ public class MouvementsController : NetworkBehaviour, IImpact
             else
             {
                 _dashTimer = 0;
-                _enableMovement = true;
+                EnableMovement = true;
                 _playerState.Dashing = false;
             }
         }
