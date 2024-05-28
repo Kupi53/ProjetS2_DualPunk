@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
     public bool DebugMode;
     public bool InGame;
+    public bool InTutorial;
     public GameObject Player1;
     public GameObject Player2;
     public GameObject LocalPlayer {
@@ -27,6 +28,10 @@ public class GameManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
+        }
+        if (!DebugMode)
+        {
+            InTutorial = true;
         }
     }
 
