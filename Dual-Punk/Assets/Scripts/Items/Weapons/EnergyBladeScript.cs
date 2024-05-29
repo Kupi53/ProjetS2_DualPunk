@@ -7,6 +7,9 @@ using System;
 public class EnergyBladeScript : MeleeWeaponScript
 {
     [SerializeField] private float _attackSpeed;
+    [SerializeField] private float _attackDistance;
+    [SerializeField] private float _finalAttackDistance;
+    [SerializeField] private float _finalAttackAngle;
 
     private float _vel;
     private float _angle;
@@ -24,10 +27,8 @@ public class EnergyBladeScript : MeleeWeaponScript
 
     public override void MovePosition(Vector3 position, Vector3 direction, Vector3 targetPoint)
     {
-        if (Math.Sign(targetPoint.x - position.x) != Math.Sign(WeaponOffset.x))
-        {
-            WeaponOffset = new Vector3(-WeaponOffset.x, WeaponOffset.y, 0);
-        }
+        base.MovePosition(position, direction, targetPoint);
+
         if (_attack == 0 && Math.Sign(targetPoint.x - position.x) != Math.Sign(transform.localScale.y))
         {
             _targetAngle = -_targetAngle;
@@ -35,15 +36,30 @@ public class EnergyBladeScript : MeleeWeaponScript
         }
 
         if (_defenceTimer > 0 && !_defenceCooldown)
+        {
             transform.position = position + WeaponOffset + direction * _currentWeaponDistance;
+            _attackPoint.transform.position = position + WeaponOffset + direction * _currentWeaponDistance;
+        }
         else
+        {
             transform.position = position + WeaponOffset + Quaternion.Euler(0, 0, _angle) * direction * _currentWeaponDistance;
+            _attackPoint.transform.position = position + WeaponOffset + direction * (_range / 2);
+        }
         transform.eulerAngles = new Vector3(0, 0, Methods.GetAngle(Quaternion.Euler(0, 0, _angle) * direction));
     }
 
     protected override void ResetDefence()
     {
+        if (_ownerType == "Player")
+            PlayerState.Walking = false;
+        else
+            EnemyState.Defending = false;
         _defenceCooldown = true;
+        ResetPosition();
+    }
+
+    protected override void ResetPosition()
+    {
         _currentWeaponDistance = _weaponDistance;
         _targetAngle = Math.Sign(transform.localScale.y) * _swipeRange;
         WeaponOffset = _weaponOffset;
@@ -52,22 +68,22 @@ public class EnergyBladeScript : MeleeWeaponScript
 
     protected override void Defend(Vector3 direction)
     {
-        base.Defend(direction);
-
         if (_currentWeaponDistance != _defenceWeaponDistance) // si oui alors on a pas encore set la bonne pos de l'arme
         {
             _targetAngle = Math.Sign(transform.localScale.y) * 90;
             _currentWeaponDistance = _defenceWeaponDistance;
             WeaponOffset = _defenceWeaponOffset;
         }
+
+        base.Defend(direction);
     }
 
 
-    protected override void Attack(Vector3 direction)
+    protected override void Attack(Vector3 direction, bool damagePlayer)
     {
-        base.Attack(direction);
+        base.Attack(direction, damagePlayer);
 
-        _currentWeaponDistance = _range;
+        _currentWeaponDistance = _attackDistance;
         
         switch (_attack)
         {
@@ -84,9 +100,9 @@ public class EnergyBladeScript : MeleeWeaponScript
                 UserRecoil.Impact(-direction, _recoilForce);
                 return;
             case 3:
-                _targetAngle = 0;
                 _spriteRenderer.flipY = false;
-                _currentWeaponDistance *= _finalAttackPower;
+                _targetAngle = _finalAttackAngle;
+                _currentWeaponDistance = _finalAttackDistance;
                 UserRecoil.Impact(-direction, _recoilForce * _finalAttackPower);
                 return;
         }

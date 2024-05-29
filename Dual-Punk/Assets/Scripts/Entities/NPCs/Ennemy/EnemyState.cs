@@ -11,6 +11,8 @@ public class EnemyState : NPCState
 
     public GameObject Target { get; set; }
     public bool CanAttack { get; set; }
+    public bool Defending { get; set; }
+
     public override Vector3 TargetPoint
     {
         get => Target == null ? Vector3.zero : Target.transform.position;
@@ -47,11 +49,11 @@ public class EnemyState : NPCState
         {
             Target = null;
         }
-        else if (Vector2.Distance(transform.position, Target.transform.position) > _unlockDistance/2)
+        else if ((Vector2.Distance(transform.position, Target.transform.position) > _unlockDistance/2 || !CanAttack) && !Defending)
         {
             Run = true;
         }
-        else if (CanAttack)
+        else
         {
             Run = false;
         }

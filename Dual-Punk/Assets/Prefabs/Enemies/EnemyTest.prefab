@@ -398,8 +398,8 @@ MonoBehaviour:
   _addedNetworkObject: {fileID: -5137988890912388252}
   _networkObjectCache: {fileID: -5137988890912388252}
   _weapons:
-  - {fileID: 8297419380730599739, guid: 239afa9696bf6fa469c3317efbe7993d, type: 3}
-  - {fileID: 8297419380730599739, guid: 239afa9696bf6fa469c3317efbe7993d, type: 3}
+  - {fileID: 3553326147683758454, guid: c537b2fa156ad2c4493157e872b54c9a, type: 3}
+  - {fileID: 8566271621736578887, guid: 45c33cf5e24d4e94cb0d06a7185ababe, type: 3}
   _layerMask:
     serializedVersion: 2
     m_Bits: 256
