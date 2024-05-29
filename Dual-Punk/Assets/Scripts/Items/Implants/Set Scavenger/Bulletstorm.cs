@@ -22,7 +22,7 @@ public class Bulletstorm : ImplantScript
 
     public override void Run()
     {
-        if (IsEquipped && Input.GetButton("Second Use"))
+        if (IsEquipped && Input.GetButton("SecondaryUse"))
         {
             gameObject.tag = "Wall";
             gameObject.layer = 8;
