@@ -113,16 +113,12 @@ public class EnemyWeaponHandler : NetworkBehaviour
         Spawn(weapon);
 
         _weaponScript = weapon.GetComponent<WeaponScript>();
-        _weaponScript.UserRecoil = GetComponent<IImpact>();
-        _weaponScript.EnemyState = _enemyState;
-
         _weaponIndex++;
     }
 
     public void DropWeapon()
     {
         _weaponScript.Drop();
-        _weaponScript.EnemyState = null;
         _weaponScript = null;
     }
 }

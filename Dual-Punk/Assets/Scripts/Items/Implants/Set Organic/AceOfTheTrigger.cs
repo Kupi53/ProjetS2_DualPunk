@@ -20,7 +20,7 @@ public class AceOfTheTrigger : ImplantScript
         {
             if (PlayerState.HoldingWeapon && PlayerState.WeaponScript != null)
             {
-                FireArmScript fireArmScript = PlayerState.WeaponScript as FireArmScript;
+                PowerWeaponScript fireArmScript = PlayerState.WeaponScript as PowerWeaponScript;
 
                 if (fireArmScript != null && _oldModifiedWeapon != fireArmScript.gameObject)
                 {
@@ -31,7 +31,7 @@ public class AceOfTheTrigger : ImplantScript
                     }
                     else
                     {
-                        _oldModifiedWeapon.GetComponent<FireArmScript>().FireRate = _olfFireRate;
+                        _oldModifiedWeapon.GetComponent<PowerWeaponScript>().FireRate = _olfFireRate;
 
                         _oldModifiedWeapon = fireArmScript.gameObject;
                         _olfFireRate = fireArmScript.FireRate;
@@ -42,7 +42,7 @@ public class AceOfTheTrigger : ImplantScript
             }
             else if (_oldModifiedWeapon != null)
             {
-                _oldModifiedWeapon.GetComponent<FireArmScript>().FireRate = _olfFireRate;
+                _oldModifiedWeapon.GetComponent<PowerWeaponScript>().FireRate = _olfFireRate;
 
                 _oldModifiedWeapon = null;
             }
@@ -54,7 +54,7 @@ public class AceOfTheTrigger : ImplantScript
     {
         if (_oldModifiedWeapon != null)
         {
-            _oldModifiedWeapon.GetComponent<FireArmScript>().FireRate = _olfFireRate;
+            _oldModifiedWeapon.GetComponent<PowerWeaponScript>().FireRate = _olfFireRate;
         }
 
         _oldModifiedWeapon = null;

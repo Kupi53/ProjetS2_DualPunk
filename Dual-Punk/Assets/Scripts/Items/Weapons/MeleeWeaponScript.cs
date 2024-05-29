@@ -2,55 +2,43 @@ using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
-using Random = System.Random;
+using UnityEngine.EventSystems;
 
 
-public class MeleeWeaponScript : WeaponScript
+
+public abstract class MeleeWeaponScript : WeaponScript
 {
-    [SerializeField] private int _criticalDamage;
-    [SerializeField] private float _attackSpeed;
-    [SerializeField] private float _swipeRange;
-    [SerializeField] private float _attackDistance;
-    [SerializeField] private float _resetCooldown;
-    [SerializeField] private float _defenceTime;
-    [SerializeField] private float _defenceCooldownSpeed;
-    [SerializeField] private float _defenceWeaponDistance;
-    [SerializeField] private Vector3 _defenceWeaponOffset;
-    [SerializeField] private LayerMask _layerMask;
-    [SerializeField] private GameObject _attackPoint;
-    [SerializeField] private List<AudioClip> _attackSound;
-    [SerializeField] private AudioClip _criticalSound;
+    [SerializeField] protected List<AudioClip> _attackSound;
+    [SerializeField] protected AudioClip _criticalSound;
 
-    private int _attack;
-    private float _angle;
-    private float _attackTimer;
-    private float _defenceTimer;
-    private float _resetCooldownTimer;
-    private bool _defenceCooldown;
-    private bool _disableDefence;
+    [SerializeField] protected int _criticalDamage;
+    [SerializeField] protected float _swipeRange;
+    [SerializeField] protected float _finalAttackPower;
+    [SerializeField] protected float _attackCooldown;
+    [SerializeField] protected float _resetCooldown;
+    [SerializeField] protected float _defenceTime;
+    [SerializeField] protected float _defenceCooldownSpeed;
+    [SerializeField] protected float _defenceWeaponDistance;
+    [SerializeField] protected Vector3 _defenceWeaponOffset;
+
+    protected int _attack;
+    protected bool _defenceCooldown;
+    protected bool _disableDefence;
+    protected float _attackTimer;
+    protected float _defenceTimer;
+    protected float _resetCooldownTimer;
+
 
     public int Damage { get => _damage; set => _damage = value; }
-    public float AttackSpeed { get => _attackSpeed; set => _attackSpeed = value; }
+    public float AttackCooldown { get => _attackCooldown; set => _attackCooldown = value; }
     public float ResetCooldown { get => _resetCooldown; set => _resetCooldown = value; }
     public int CriticalDamage { get => _criticalDamage; set => _criticalDamage = value; }
     public AudioClip CriticalSound { get => _criticalSound; set => _criticalSound = value; }
 
-    public override bool DisplayInfo { get => _defenceTimer > 0 || _attackTimer > 0 && _attackTimer < _attackSpeed || _resetCooldownTimer > 0 && _attack == 3; }
-    
-    public override float InfoMaxTime {
-        get {
-            if (_attack == 3) return _resetCooldown;
-            else if (_attack > 0) return _attackSpeed;
-            else return _defenceTime;
-        }
-    }
-    public override float InfoTimer { 
-        get {
-            if (_attack == 3) return _resetCooldownTimer;
-            else if (_attack > 0) return _attackTimer;
-            else return _defenceTime - _defenceTimer;
-        }
-    }
+    public override bool DisplayInfo { get => _defenceTimer > 0 && _attack == 0 || _resetCooldownTimer > 0 && _attack > 0; }
+    public override float InfoMaxTime { get => _attack > 0 ? _resetCooldown : _defenceTime; }
+    public override float InfoTimer { get => _attack > 0 ? _resetCooldownTimer : _defenceTime - _defenceTimer; }
+
 
 
     private void Start()
@@ -62,7 +50,7 @@ public class MeleeWeaponScript : WeaponScript
     {
         base.Update();
 
-        if (_attackTimer < _attackSpeed)
+        if (_attackTimer < _attackCooldown)
         {
             _attackTimer += Time.deltaTime;
         }
@@ -74,12 +62,11 @@ public class MeleeWeaponScript : WeaponScript
                 ResetWeapon();
             }
         }
-        if (_defenceTimer > 0 && _defenceCooldown)
+        if (_defenceCooldown)
         {
             _defenceTimer -= Time.deltaTime * _defenceCooldownSpeed;
             if (_defenceTimer <= 0)
             {
-                _defenceCooldown = false;
                 _disableDefence = false;
             }
         }
@@ -90,151 +77,83 @@ public class MeleeWeaponScript : WeaponScript
     {
         PlayerState.PointerScript.SpriteNumber = _pointerSpriteNumber;
 
-        if (_attack > 0 && DisplayInfo || _disableDefence)
+        if (_attack > 0 && _attackTimer < _attackCooldown || _disableDefence)
             PlayerState.PointerScript.CanShoot = false;
         else
             PlayerState.PointerScript.CanShoot = true;
 
-        // contrairement a l'ennemi on peut cancel la defense quand on veut (sans avoir besoin d'attaquer)
+        if (Input.GetButton("SecondaryUse") && !_disableDefence && _resetCooldownTimer >= _resetCooldown)
+        {
+            Defend(direction);
+        }
+        else if (Input.GetButtonDown("Use") && _attack < 3 && _attackTimer >= _attackCooldown)
+        {
+            Attack(direction);
+        }
+
         if (Input.GetButtonUp("SecondaryUse") && _attack == 0)
         {
-            ResetOffset();
-            _defenceCooldown = true;
+            ResetDefence();
             _disableDefence = false;
         }
 
-        if (Input.GetButton("SecondaryUse") && !_disableDefence && _resetCooldownTimer >= _resetCooldown)
-        {
-            Defend();
-        }
-        else if (Input.GetButtonDown("Use") && _attack < 3 && _attackTimer >= _attackSpeed)
-        {
-            Attack();
-        }
-
         MovePosition(position, direction, targetPoint);
     }
-
-
+    
+    
     public override void EnemyRun(Vector3 position, Vector3 direction, Vector3 targetPoint)
     {
-        if (EnemyState.CanAttack && _attack < 3 && _attackTimer >= _attackSpeed)
+        if (EnemyState.CanAttack && _attack < 3 && _attackTimer >= _attackCooldown)
         {
-            if (_defenceTimer > 0 && !_defenceCooldown)
-            {
-                ResetOffset();
-                _defenceCooldown = true;
-                _disableDefence = false;
-            }
-
-            Attack();
+            Attack(direction);
         }
         else if (!EnemyState.CanAttack && !_disableDefence && _resetCooldownTimer >= _resetCooldown)
         {
-            Defend();
+            Defend(direction);
+        }
+
+        if (EnemyState.CanAttack && _defenceTimer > 0 && !_defenceCooldown)
+        {
+            ResetDefence();
+            _disableDefence = true;
         }
 
         MovePosition(position, direction, targetPoint);
     }
 
-
-
-    protected override void MovePosition(Vector3 position, Vector3 direction, Vector3 targetPoint)
-    {
-        if (Math.Sign(targetPoint.x - position.x) != Math.Sign(WeaponOffset.x))
-        {
-            WeaponOffset = new Vector3(-WeaponOffset.x, WeaponOffset.y, 0);
-        }
-        if (_attack == 0 && Math.Sign(targetPoint.x - position.x) != Math.Sign(transform.localScale.y))
-        {
-            _angle = -_angle;
-            transform.localScale = new Vector3(transform.localScale.x, -transform.localScale.y, 0);
-        }
-
-        _attackPoint.transform.position = position + WeaponOffset + direction * (_currentWeaponDistance + _range / 2);
-
-        if (_defenceTimer > 0 && !_defenceCooldown)
-            transform.position = position + WeaponOffset + direction * _currentWeaponDistance;
-        else
-            transform.position = position + WeaponOffset + Quaternion.Euler(0, 0, _angle) * direction * _currentWeaponDistance;
-        transform.eulerAngles = new Vector3(0, 0, Methods.GetAngle(Quaternion.Euler(0, 0, _angle) * direction));
-    }
 
     public override void ResetWeapon()
     {
         _attack = 0;
-        _defenceCooldown = true;
         _disableDefence = false;
         _spriteRenderer.flipY = false;
-        _attackTimer = _attackSpeed;
+        _attackTimer = _attackCooldown;
         _resetCooldownTimer = _resetCooldown;
 
-        ResetOffset();
+        ResetDefence();
     }
 
-    // reset offset distance etc quand on desactive la defense
-    private void ResetOffset()
-    {
-        _currentWeaponDistance = _weaponDistance;
-        _angle = Math.Sign(transform.localScale.y) * _swipeRange;
-        WeaponOffset = _weaponOffset;
-    }
+    protected abstract void ResetDefence();
 
 
-    private void Defend()
-    {
-        // gere le temps de defense et la bonne position de l'arme -------
-
-        if (_currentWeaponDistance != _defenceWeaponDistance) // si oui alors on a pas encore set la bonne pos de l'arme
-        {
-            _angle = Math.Sign(transform.localScale.y) * 90;
-            _currentWeaponDistance = _defenceWeaponDistance;
-            WeaponOffset = _defenceWeaponOffset;
-        }
-
-        _defenceCooldown = false;
-        _defenceTimer += Time.deltaTime;
-
-        if (_defenceTimer > _defenceTime)
-        {
-            ResetOffset();
-            _defenceCooldown = true;
-            _disableDefence = true;
-            return;
-        }
-        // ---------------------------------------------------------------
-    }
-
-
-    private void Attack()
+    protected virtual void Attack(Vector3 direction)
     {
         _attack++;
         _attackTimer = 0;
         _resetCooldownTimer = 0;
-        _currentWeaponDistance = _attackDistance;
 
-        Random randomSound = new Random();
+        System.Random randomSound = new System.Random();
         AudioManager.Instance.PlayClipAt(_attackSound[randomSound.Next(_attackSound.Count)], gameObject.transform.position);
+    }
 
-        switch (_attack)
+    protected virtual void Defend(Vector3 direction)
+    {
+        _defenceTimer += Time.deltaTime;
+
+        if (_defenceTimer > _defenceTime)
         {
-            case 0:
-                return;
-            case 1:
-                _angle = -Math.Sign(transform.localScale.y) * _swipeRange;
-                _spriteRenderer.flipY = false;
-                return;
-            case 2:
-                _angle = Math.Sign(transform.localScale.y) * _swipeRange;
-                _spriteRenderer.flipY = true;
-                return;
-            case 3:
-                _angle = 0;
-                _spriteRenderer.flipY = false;
-                _currentWeaponDistance *= 1.2f;
-                return;
+            ResetDefence();
+            _disableDefence = true;
         }
-
-        Collider2D[] hits = Physics2D.OverlapCircleAll(_attackPoint.transform.position, _range / 2, _layerMask);
     }
 }

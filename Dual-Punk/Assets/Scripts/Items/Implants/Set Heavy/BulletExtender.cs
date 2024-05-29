@@ -29,7 +29,7 @@ public class BulletExtender : ImplantScript
         {
             if (PlayerState.HoldingWeapon && PlayerState.WeaponScript != null)
             {
-                FireArmScript fireArmScript = PlayerState.WeaponScript as FireArmScript;
+                PowerWeaponScript fireArmScript = PlayerState.WeaponScript as PowerWeaponScript;
 
                 if (fireArmScript != null && _oldModifiedWeapon != fireArmScript.gameObject)
                 {
@@ -69,7 +69,7 @@ public class BulletExtender : ImplantScript
 
     private void ResetOldWeapon()
     {
-        FireArmScript oldFireArmScript = _oldModifiedWeapon.GetComponent<FireArmScript>();
+        PowerWeaponScript oldFireArmScript = _oldModifiedWeapon.GetComponent<PowerWeaponScript>();
         oldFireArmScript.MagSize = _oldMagSize;
         oldFireArmScript.ReloadAmout = _oldReloadAmount;
 

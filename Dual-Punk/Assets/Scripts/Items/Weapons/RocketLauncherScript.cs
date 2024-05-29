@@ -4,29 +4,14 @@ using FishNet.Object;
 using UnityEngine;
 
 
-public class RocketLauncherScript : FireArmScript
+public class RocketLauncherScript : PowerWeaponScript
 {
     [SerializeField] private float _explosionRadius;
     [SerializeField] private float _deviationAngle;
     [SerializeField] private float _deviationSpeed;
 
-    private Vector3 _targetPoint;
 
-
-    public override void Run(Vector3 position, Vector3 direction, Vector3 targetPoint)
-    {
-        _targetPoint = targetPoint;
-        base.Run(position, direction, targetPoint);
-    }
-
-    public override void EnemyRun(Vector3 position, Vector3 direction, Vector3 targetPoint)
-    {
-        _targetPoint = targetPoint;
-        base.EnemyRun(position, direction, targetPoint);
-    }
-
-
-    public override void Fire(Vector3 direction, int damage, float dispersion, bool damagePlayer)
+    protected override void Fire(Vector3 direction, int damage, float dispersion, float distance, bool damagePlayer)
     {
         _ammoLeft--;
         _fireTimer = 0;
@@ -40,14 +25,14 @@ public class RocketLauncherScript : FireArmScript
             warriorLuckBullet = true;
         }
 
-        FireRocketRpc(direction, damage, warriorLuckBullet, damagePlayer);
+        FireRocketRpc(direction, distance, damage, warriorLuckBullet, damagePlayer);
     }
 
 
     [ServerRpc(RequireOwnership = false)]
-    private void FireRocketRpc(Vector3 direction, int damage, bool warriorLuckBullet, bool damagePlayer)
+    private void FireRocketRpc(Vector3 direction, float distance, int damage, bool warriorLuckBullet, bool damagePlayer)
     {
-        for (int i = 0; i < _bulletNumber; i++)
+        for (int i = 0; i < _bulletsPerShot; i++)
         {
             GameObject rocket = Instantiate(_bullet, _gunEndPoints[_bulletPointIndex].transform.position, Quaternion.identity);
             RocketScript rocketScript = rocket.GetComponent<RocketScript>();
@@ -60,7 +45,7 @@ public class RocketLauncherScript : FireArmScript
             _bulletPointIndex = (_bulletPointIndex + 1) % _gunEndPoints.Length;
             rocket.transform.localScale = new Vector2(_bulletSize, _bulletSize);
 
-            rocketScript.Setup(direction, damage, _bulletSpeed, _impactForce, transform.position, Vector3.Distance(transform.position, _targetPoint),
+            rocketScript.Setup(direction, damage, _bulletSpeed, _impactForce, transform.position, distance + 0.5f,
                 _explosionRadius + 0.1f, _deviationAngle, _deviationSpeed, damagePlayer, warriorLuckBullet);
 
             Spawn(rocket);

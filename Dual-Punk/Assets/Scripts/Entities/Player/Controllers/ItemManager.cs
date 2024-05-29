@@ -62,8 +62,6 @@ public class ItemManager : NetworkBehaviour
                 _items.Remove(item);
 
                 InventorySlots[] weaponsSlots = _inventoryManager.GetComponent<InventoryManager>().WeaponSlots;
-                weaponScript.PlayerState = _playerState;
-                weaponScript.UserRecoil = GetComponent<IImpact>();
 
                 if (weaponsSlots[_inventoryManager.GetComponent<InventoryManager>().EquipedSlotIndex].heldItem == null)
                 {

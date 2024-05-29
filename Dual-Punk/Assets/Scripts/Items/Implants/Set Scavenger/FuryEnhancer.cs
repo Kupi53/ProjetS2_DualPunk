@@ -33,7 +33,7 @@ public class FuryEnhancer : ImplantScript
                     {
                         MeleeWeaponScript oldMeleeWeaponScript = _oldModifiedWeapon.GetComponent<MeleeWeaponScript>();
                         oldMeleeWeaponScript.Damage = _oldDamage;
-                        oldMeleeWeaponScript.AttackSpeed /= _speedAttackRate;
+                        oldMeleeWeaponScript.AttackCooldown /= _speedAttackRate;
                         oldMeleeWeaponScript.ResetCooldown *= _speedAttackRate;
 
                         _oldModifiedWeapon = meleeWeaponScript.gameObject;
@@ -43,7 +43,7 @@ public class FuryEnhancer : ImplantScript
                     float newDamage = meleeWeaponScript.Damage * _multiplierDamage;
                     
                     meleeWeaponScript.Damage = (int)newDamage;
-                    meleeWeaponScript.AttackSpeed *= _speedAttackRate;
+                    meleeWeaponScript.AttackCooldown *= _speedAttackRate;
                     meleeWeaponScript.ResetCooldown /= _speedAttackRate;
                 }
             }
@@ -51,7 +51,7 @@ public class FuryEnhancer : ImplantScript
             {
                 MeleeWeaponScript oldMeleeWeaponScript = _oldModifiedWeapon.GetComponent<MeleeWeaponScript>();
                 oldMeleeWeaponScript.Damage = _oldDamage;
-                oldMeleeWeaponScript.AttackSpeed /= _speedAttackRate;
+                oldMeleeWeaponScript.AttackCooldown /= _speedAttackRate;
                 oldMeleeWeaponScript.ResetCooldown *= _speedAttackRate;
 
                 _oldModifiedWeapon = null;
@@ -65,7 +65,7 @@ public class FuryEnhancer : ImplantScript
         {
             MeleeWeaponScript oldMeleeWeaponScript = _oldModifiedWeapon.GetComponent<MeleeWeaponScript>();
             oldMeleeWeaponScript.Damage = _oldDamage;
-            oldMeleeWeaponScript.AttackSpeed /= _speedAttackRate;
+            oldMeleeWeaponScript.AttackCooldown /= _speedAttackRate;
             oldMeleeWeaponScript.ResetCooldown *= _speedAttackRate;
         }
 

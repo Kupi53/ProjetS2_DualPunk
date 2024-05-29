@@ -226,9 +226,7 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
         }
         else
         {
-            PlayerState.PointerScript.SpriteNumber = 0;
             PlayerState.HoldingWeapon = false;
-            PlayerState.WeaponScript = null;
         }
     }
 
@@ -331,7 +329,6 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
         {
             PlayerState.WeaponScript.Drop();
             PlayerState.HoldingWeapon = false;
-            PlayerState.PointerScript.SpriteNumber = 0;
         }
         else
         {

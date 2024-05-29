@@ -58,5 +58,11 @@ public class PlayerState : NetworkBehaviour
 
         _mousePosition = CameraController.MainCamera.ScreenToWorldPoint(Input.mousePosition);
         _mousePosition.z = 0;
+
+        if (!HoldingWeapon)
+        {
+            PointerScript.SpriteNumber = 0;
+            WeaponScript = null;
+        }
     }
 }
