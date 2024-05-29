@@ -19970,19 +19970,19 @@ MonoBehaviour:
   _cameraShake: 0.3
   _weaponDistance: 0.6
   _pointerSpriteNumber: 3
+  _fireRate: 0.1
+  _fireSound: {fileID: 8300000, guid: 45e85d2f89bea524e90f16d3208002aa, type: 3}
+  _audioSource: {fileID: 50279802192761020}
   _gunEndPoint: {fileID: 6987755135671807605}
   _startVFX: {fileID: 9135203561053153667}
   _endVFX: {fileID: 2910606374387017806}
-  _audioSource: {fileID: 50279802192761020}
-  _fireSound: {fileID: 8300000, guid: 45e85d2f89bea524e90f16d3208002aa, type: 3}
   _layerMask:
     serializedVersion: 2
     m_Bits: 863
-  _damageFrequency: 0.1
   _fireTime: 12
   _coolDownSpeed: 3
   _smoothTime: 0.15
-  _disableSpeed: 2.5
+  _disablingSpeed: 2.5
   _hitProjectileCount: 6
 --- !u!114 &3107634846007935318
 MonoBehaviour:

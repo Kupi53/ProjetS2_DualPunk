@@ -66,11 +66,11 @@ public class WeaponInfo : MonoBehaviour
 
         _weaponName.text = _references.PlayerState.WeaponScript.gameObject.name;
 
-        if (_references.PlayerState.WeaponScript is FireArmScript)
+        if (_references.PlayerState.WeaponScript is PowerWeaponScript)
         {
             _ammoInMag.enabled = true;
 
-            FireArmScript fireArmScript = (FireArmScript)_references.PlayerState.WeaponScript;
+            PowerWeaponScript fireArmScript = (PowerWeaponScript)_references.PlayerState.WeaponScript;
             if (fireArmScript.AmmoLeft < 10)
                 _ammoInMag.text = "0" + fireArmScript.AmmoLeft.ToString();
             else

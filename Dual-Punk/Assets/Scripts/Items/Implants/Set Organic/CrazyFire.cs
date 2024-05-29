@@ -26,7 +26,7 @@ public class CrazyFire : ImplantScript
         {
             if (PlayerState.HoldingWeapon && PlayerState.WeaponScript != null)
             {
-                FireArmScript fireArmScript = PlayerState.WeaponScript as FireArmScript;
+                PowerWeaponScript fireArmScript = PlayerState.WeaponScript as PowerWeaponScript;
 
                 if (fireArmScript != null && _oldModifiedWeapon != fireArmScript.gameObject)
                 {
@@ -36,7 +36,7 @@ public class CrazyFire : ImplantScript
                     }
                     else
                     {
-                        _oldModifiedWeapon.GetComponent<FireArmScript>().ReloadTime *= _speedReloadTime;
+                        _oldModifiedWeapon.GetComponent<PowerWeaponScript>().ReloadTime *= _speedReloadTime;
 
                         _oldModifiedWeapon = fireArmScript.gameObject;
                     }
@@ -46,7 +46,7 @@ public class CrazyFire : ImplantScript
             }
             else if (_oldModifiedWeapon != null)
             {
-                _oldModifiedWeapon.GetComponent<FireArmScript>().ReloadTime *= _speedReloadTime;
+                _oldModifiedWeapon.GetComponent<PowerWeaponScript>().ReloadTime *= _speedReloadTime;
 
                 _oldModifiedWeapon = null;
             }
@@ -58,7 +58,7 @@ public class CrazyFire : ImplantScript
     {
         if (_oldModifiedWeapon != null)
         {
-            _oldModifiedWeapon.GetComponent<FireArmScript>().ReloadTime *= _speedReloadTime;
+            _oldModifiedWeapon.GetComponent<PowerWeaponScript>().ReloadTime *= _speedReloadTime;
         }
 
         _oldModifiedWeapon = null;

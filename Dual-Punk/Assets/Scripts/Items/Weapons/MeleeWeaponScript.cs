@@ -1,161 +1,159 @@
 using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
-using Random = System.Random;
+using UnityEngine.EventSystems;
 
 
-public class MeleeWeaponScript : WeaponScript
+
+public abstract class MeleeWeaponScript : WeaponScript
 {
-    [SerializeField] private float _attackSpeed;
-    [SerializeField] private float _attackRange;
-    [SerializeField] private float _attackDistance;
-    [SerializeField] private float _resetCooldown;
-    [SerializeField] private int _criticalDamage;
-    [SerializeField] private List<AudioClip> _attackSound;
-    [SerializeField] private AudioClip _criticalSound;
+    [SerializeField] protected List<AudioClip> _attackSound;
+    [SerializeField] protected AudioClip _criticalSound;
 
-    private float _angle;
-    private float _attack;
-    private float _rangeTop;
-    private float _rangeMiddle;
-    private float _rangeBottom;
-    private float _resetCooldownTimer;
-    private float _currentWeaponDistance;
+    [SerializeField] protected int _criticalDamage;
+    [SerializeField] protected float _swipeRange;
+    [SerializeField] protected float _finalAttackPower;
+    [SerializeField] protected float _attackCooldown;
+    [SerializeField] protected float _resetCooldown;
+    [SerializeField] protected float _defenceTime;
+    [SerializeField] protected float _defenceCooldownSpeed;
+    [SerializeField] protected float _defenceWeaponDistance;
+    [SerializeField] protected Vector3 _defenceWeaponOffset;
 
-    public float Attack { get => _attack; set => _attack = value; }
+    protected int _attack;
+    protected bool _defenceCooldown;
+    protected bool _disableDefence;
+    protected float _attackTimer;
+    protected float _defenceTimer;
+    protected float _resetCooldownTimer;
+
+
     public int Damage { get => _damage; set => _damage = value; }
-    public float AttackSpeed { get => _attackSpeed; set => _attackSpeed = value; }
-    public float ResetColdown { get => _resetCooldown; set => _resetCooldown = value; }
+    public float AttackCooldown { get => _attackCooldown; set => _attackCooldown = value; }
+    public float ResetCooldown { get => _resetCooldown; set => _resetCooldown = value; }
     public int CriticalDamage { get => _criticalDamage; set => _criticalDamage = value; }
     public AudioClip CriticalSound { get => _criticalSound; set => _criticalSound = value; }
 
-    public override bool DisplayInfo { get => Attack != 0; }
-    public override float InfoMaxTime { get => _resetCooldown; }
-    public override float InfoTimer { get => _resetCooldownTimer; }
+    public override bool DisplayInfo { get => _defenceTimer > 0 && _attack == 0 || _resetCooldownTimer > 0 && _attack > 0; }
+    public override float InfoMaxTime { get => _attack > 0 ? _resetCooldown : _defenceTime; }
+    public override float InfoTimer { get => _attack > 0 ? _resetCooldownTimer : _defenceTime - _defenceTimer; }
+
 
 
     private void Start()
     {
-        _attack = 0;
-        _resetCooldownTimer = 0;
-        _currentWeaponDistance = _weaponDistance;
+        ResetWeapon();
+    }
+
+    private new void Update()
+    {
+        base.Update();
+
+        if (_attackTimer < _attackCooldown)
+        {
+            _attackTimer += Time.deltaTime;
+        }
+        if (_resetCooldownTimer < _resetCooldown)
+        {
+            _resetCooldownTimer += Time.deltaTime;
+            if (_resetCooldownTimer >= _resetCooldown)
+            {
+                ResetWeapon();
+            }
+        }
+        if (_defenceCooldown)
+        {
+            _defenceTimer -= Time.deltaTime * _defenceCooldownSpeed;
+            if (_defenceTimer <= 0)
+            {
+                _disableDefence = false;
+            }
+        }
     }
 
 
     public override void Run(Vector3 position, Vector3 direction, Vector3 targetPoint)
     {
-        if (!Owner.IsLocalClient) return;
-
         PlayerState.PointerScript.SpriteNumber = _pointerSpriteNumber;
 
-        if (Input.GetButtonDown("Use") && !PlayerState.Attacking && _attack < 3)
-        {
-            _angle = (float)(Math.Atan2(direction.y, direction.x) * (180 / Math.PI));
-
-            _attack += 1;
-            _resetCooldownTimer = 0;
-            PlayerState.Attacking = true;
-
-            _rangeMiddle = _angle;
-            _rangeTop = _angle + _attackRange;
-            _rangeBottom = _angle - _attackRange;
-
-            if (_attack == 2)
-            {
-                _angle = _rangeBottom;
-                _spriteRenderer.flipY = true;
-            }
-            else
-            {
-                _angle = _rangeTop;
-                _spriteRenderer.flipY = false;
-            }
-            
-            Random randomSound = new Random();
-            if (PlayerState != null)
-                AudioManager.Instance.PlayClipAt(_attackSound[randomSound.Next(_attackSound.Count)], gameObject.transform.position, "Player");
-            else
-                AudioManager.Instance.PlayClipAt(_attackSound[randomSound.Next(_attackSound.Count)], gameObject.transform.position, "Enemy");
-        }
-
-        if (PlayerState.Attacking)
-        {
-            switch (_attack)
-            {
-                case 1:
-                    _angle -= _attackSpeed * Time.deltaTime;
-                    if (_angle <= _rangeBottom)
-                        PlayerState.Attacking = false;
-                    break;
-
-                case 2:
-                    _angle += _attackSpeed * Time.deltaTime;
-                    if (_angle >= _rangeTop)
-                        PlayerState.Attacking = false;
-                    break;
-
-                case 3:
-                    if (_angle < _rangeMiddle)
-                        _angle -= _attackSpeed * Time.deltaTime;
-                    else if (_currentWeaponDistance < _attackDistance)
-                        _currentWeaponDistance += Time.deltaTime * 10;
-                    else
-                    {
-                        PlayerState.Attacking = false;
-                        _currentWeaponDistance = _attackDistance;
-                    }
-                    break;
-            }
-        }
-
+        if (_attack > 0 && _attackTimer < _attackCooldown || _disableDefence)
+            PlayerState.PointerScript.CanShoot = false;
         else
-        {
-            _angle = Methods.GetAngle(direction);
+            PlayerState.PointerScript.CanShoot = true;
 
-            switch (_attack)
-            {
-                case 1:
-                    _angle -= _attackRange;
-                    break;
-                case 2:
-                    _angle += _attackRange;
-                    break;
-                case 0:
-                    if (_angle > 90 || _angle < -90)
-                        _spriteRenderer.flipY = true;
-                    else
-                        _spriteRenderer.flipY = false;
-                    break;
-            }
+        if (Input.GetButton("SecondaryUse") && !_disableDefence && _resetCooldownTimer >= _resetCooldown)
+        {
+            Defend(direction);
+        }
+        else if (Input.GetButtonDown("Use") && _attack < 3 && _attackTimer >= _attackCooldown)
+        {
+            Attack(direction);
         }
 
-
-        if (_attack != 0)
+        if (Input.GetButtonUp("SecondaryUse") && _attack == 0)
         {
-            _resetCooldownTimer += Time.deltaTime;
-            if (_resetCooldownTimer > _resetCooldown)
-            {
-                ResetWeapon();
-            }
-
-            direction = new Vector3((float)Math.Cos(_angle * Math.PI / 180), (float)Math.Sin(_angle * Math.PI / 180)).normalized;
+            ResetDefence();
+            _disableDefence = false;
         }
 
-        transform.position = position + _weaponOffset + direction * _currentWeaponDistance;
-        transform.eulerAngles = new Vector3(0, 0, _angle);
+        MovePosition(position, direction, targetPoint);
     }
-
-
+    
+    
     public override void EnemyRun(Vector3 position, Vector3 direction, Vector3 targetPoint)
     {
-        
+        if (EnemyState.CanAttack && _attack < 3 && _attackTimer >= _attackCooldown)
+        {
+            Attack(direction);
+        }
+        else if (!EnemyState.CanAttack && !_disableDefence && _resetCooldownTimer >= _resetCooldown)
+        {
+            Defend(direction);
+        }
+
+        if (EnemyState.CanAttack && _defenceTimer > 0 && !_defenceCooldown)
+        {
+            ResetDefence();
+            _disableDefence = true;
+        }
+
+        MovePosition(position, direction, targetPoint);
     }
 
 
     public override void ResetWeapon()
     {
         _attack = 0;
+        _disableDefence = false;
+        _spriteRenderer.flipY = false;
+        _attackTimer = _attackCooldown;
+        _resetCooldownTimer = _resetCooldown;
+
+        ResetDefence();
+    }
+
+    protected abstract void ResetDefence();
+
+
+    protected virtual void Attack(Vector3 direction)
+    {
+        _attack++;
+        _attackTimer = 0;
         _resetCooldownTimer = 0;
-        _currentWeaponDistance = _weaponDistance;
+
+        System.Random randomSound = new System.Random();
+        AudioManager.Instance.PlayClipAt(_attackSound[randomSound.Next(_attackSound.Count)], gameObject.transform.position);
+    }
+
+    protected virtual void Defend(Vector3 direction)
+    {
+        _defenceTimer += Time.deltaTime;
+
+        if (_defenceTimer > _defenceTime)
+        {
+            ResetDefence();
+            _disableDefence = true;
+        }
     }
 }

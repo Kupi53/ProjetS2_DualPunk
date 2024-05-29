@@ -57,7 +57,7 @@ public class EnemyWeaponHandler : NetworkBehaviour
         
         if (_enemyState.Target == null || _enemyState.Stop)
         {
-            _enemyState.Attack = false;
+            _enemyState.CanAttack = false;
             _weaponScript.EnemyRun(transform.position, VariateDirection(), _enemyState.TargetPoint);
             return;
         }
@@ -82,7 +82,7 @@ public class EnemyWeaponHandler : NetworkBehaviour
             }
         }
 
-        _enemyState.Attack = canAttack;
+        _enemyState.CanAttack = canAttack;
         _weaponScript.EnemyRun(transform.position, VariateDirection(), _enemyState.TargetPoint);
 
 
@@ -113,16 +113,12 @@ public class EnemyWeaponHandler : NetworkBehaviour
         Spawn(weapon);
 
         _weaponScript = weapon.GetComponent<WeaponScript>();
-        _weaponScript.UserRecoil = GetComponent<IImpact>();
-        _weaponScript.EnemyState = _enemyState;
-
         _weaponIndex++;
     }
 
     public void DropWeapon()
     {
         _weaponScript.Drop();
-        _weaponScript.EnemyState = null;
         _weaponScript = null;
     }
 }
