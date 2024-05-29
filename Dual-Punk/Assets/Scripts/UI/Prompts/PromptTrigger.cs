@@ -3,7 +3,7 @@ using FishNet.Object;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class PromptTrigger : NetworkBehaviour
+public class PromptTrigger : MonoBehaviour
 {
     public Prompt Prompt;
     [SerializeField] private PromptTriggerType _type;
@@ -19,7 +19,7 @@ public class PromptTrigger : NetworkBehaviour
 
     public void OnTriggerEnter2D(Collider2D other)
     {
-        if (!(other.gameObject.GetComponent<NetworkObject>().Owner == ClientManager.Connection)) return;
+        if (!(other.gameObject.GetComponent<NetworkObject>().Owner == GameManager.Instance.LocalPlayer.GetComponent<NetworkObject>().Owner)) return;
         if (_type == PromptTriggerType.OnCollision)
         {
             PromptManager.Instance.SpawnPrompt(Prompt);
@@ -27,7 +27,7 @@ public class PromptTrigger : NetworkBehaviour
     }
     void OnTriggerStay2D(Collider2D other)
     {
-        if (!(other.gameObject.GetComponent<NetworkObject>().Owner == ClientManager.Connection)) return;
+        if (!(other.gameObject.GetComponent<NetworkObject>().Owner == GameManager.Instance.LocalPlayer.GetComponent<NetworkObject>().Owner)) return;
         if (_type == PromptTriggerType.OnButton)
         {
             if (Input.GetButtonDown("Interact"))
@@ -38,7 +38,7 @@ public class PromptTrigger : NetworkBehaviour
     }
     public void OnTriggerExit2D(Collider2D other)
     {
-        if (!(other.gameObject.GetComponent<NetworkObject>().Owner == ClientManager.Connection)) return;
+        if (!(other.gameObject.GetComponent<NetworkObject>().Owner == GameManager.Instance.LocalPlayer.GetComponent<NetworkObject>().Owner)) return;
         if (_type == PromptTriggerType.OnCollision && PromptManager.Instance.CurrentPromptShown is not null 
             && PromptManager.Instance.CurrentPromptShown.GetComponent<PromptController>().Prompt == Prompt)
         {

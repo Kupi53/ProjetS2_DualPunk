@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using FishNet.Object;
 using UnityEngine;
 
-public class EndOfTutorialTrigger : NetworkBehaviour
+public class FloorExitPromptManager : MonoBehaviour
 {
-    List<GameObject> _playersOnDoor;
+    List<GameObject> _playersOnExit;
     PromptTrigger[] _promptTriggers;
     int _lessThanTwoPromptIndex;
     int _twoPromptIndex;
-
     void Start()
     {
+        _playersOnExit = new List<GameObject>();
         _promptTriggers = gameObject.GetComponents<PromptTrigger>();
         if (_promptTriggers[0].Prompt.TextFields[0].StartsWith("Wait")) 
         {
@@ -25,23 +25,13 @@ public class EndOfTutorialTrigger : NetworkBehaviour
         }
         _promptTriggers[_twoPromptIndex].enabled = false;
     }
-    public override void OnStartNetwork()
-    {
-        base.OnStartNetwork();
-        _playersOnDoor = new List<GameObject>();
-    }
-    public override void OnStartClient()
-    {
-        base.OnStartClient();
-
-    }
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (!_playersOnDoor.Contains(other.gameObject))
+        if (!_playersOnExit.Contains(other.gameObject))
         {
-            _playersOnDoor.Add(other.gameObject);
-            if (_playersOnDoor.Count == 2)
+            _playersOnExit.Add(other.gameObject);
+            if (_playersOnExit.Count == 2)
             {
                 _promptTriggers[_lessThanTwoPromptIndex].OnTriggerExit2D(GameManager.Instance.LocalPlayer.GetComponent<Collider2D>());
                 _promptTriggers[_lessThanTwoPromptIndex].enabled = false;
@@ -49,34 +39,13 @@ public class EndOfTutorialTrigger : NetworkBehaviour
                 _promptTriggers[_twoPromptIndex].OnTriggerEnter2D(GameManager.Instance.LocalPlayer.GetComponent<Collider2D>());
             }
         }
-    }
-    void OnTriggerStay2D(Collider2D other)
-    {
-        if (Input.GetButtonDown("Pickup") && _playersOnDoor.Count == 2)
-        {
-            StartGameRpc();
-        }
-    }
+    }    
+    
     void OnTriggerExit2D(Collider2D other)
     {
-        _playersOnDoor.Remove(other.gameObject);
+        _playersOnExit.Remove(other.gameObject);
         _promptTriggers[_lessThanTwoPromptIndex].enabled = true;
         _promptTriggers[_twoPromptIndex].enabled = false;
         _promptTriggers[_lessThanTwoPromptIndex].OnTriggerExit2D(other);
-    }
-
-    [ServerRpc (RequireOwnership = false)]
-    public void StartGameRpc()
-    {
-        FloorNetworkWrapper.Instance.NewFloor(FloorType.City);
-        StartGameObservers();
-    }
-
-    [ObserversRpc]
-    void StartGameObservers()
-    {
-        Destroy(GameObject.Find("Tutorial"));
-        GameManager.Instance.FadeIn();
-        GameManager.Instance.InTutorial = false;
     }
 }

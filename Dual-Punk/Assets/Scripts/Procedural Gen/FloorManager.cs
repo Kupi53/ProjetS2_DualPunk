@@ -25,6 +25,10 @@ public class FloorManager : MonoBehaviour
     [SerializeField] public GameObject[] CityRoomPrefabs;
     [SerializeField] public GameObject[] HangarRoomPrefabs;
     [SerializeField] public GameObject[] SpaceshipRoomPrefabs;
+    [SerializeField] public GameObject[] CityEnemyPrefabs;
+    [SerializeField] public GameObject[] HangarEnemyPrefabs;
+    [SerializeField] public GameObject[] SpaceshipEnemyPrefabs;
+    [SerializeField] public GameObject FloorExitWallPrefab;
     public const int DATALAYERINDEX = 0;
     public const int TILEMAPLAYERINDEX = 1;
     public const int ELEVATIONLAYERINDEX = 2;
@@ -60,7 +64,7 @@ public class FloorManager : MonoBehaviour
             // pick the prefab id
             int roomPrefabId = UnityEngine.Random.Range(0, floor.RoomPrefabs.Length);
             // instantiate the room
-            GameObject newRoomObject = Instantiate(CityRoomPrefabs[roomPrefabId]);
+            GameObject newRoomObject = Instantiate(floor.RoomPrefabs[roomPrefabId]);
             newRoomObject.transform.SetParent(CurrentFloorHolder.transform);
             // setup the gameobject's name
             if (i == 0)

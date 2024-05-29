@@ -27,10 +27,14 @@ public class Room : MonoBehaviour
     public Vector3Int[] _exitWallCoordinates;
     public WallCardinal _exitWallCardinal;
     public WallCardinal _entryWallCardinal;
+    public bool IsCleared 
+    {
+        get => _enemies.Count == 0;
+    }
     [SerializeField] private int _roomPrefabId;
+    private List<GameObject> _enemies;
     private EffectTilesController _effectTilesController;
     private Floor _floor;
-    private bool _isCleared;
     private RoomType _roomType
     { 
         get 
@@ -55,10 +59,10 @@ public class Room : MonoBehaviour
     public void Init(Floor floor)
     {
         _floor = floor;
-        _isCleared = false;
         _effectTilesController = this.gameObject.GetComponent<EffectTilesController>();
         _effectTilesController.EffectTiles = new List<EffectTile>();
         GenerateWalls();
+        GenerateEnemies();
     }
     public void SpawnExits()
     {
@@ -79,6 +83,17 @@ public class Room : MonoBehaviour
                 _effectTilesController.EffectTiles.Add(new RoomExitTile(coordinate, NextRoom, GetOppositeWall(_exitWallCardinal)));
             }
         }
+        else
+        {
+            GameObject floorExitWall = Instantiate(FloorNetworkWrapper.Instance.LocalFloorManager.FloorExitWallPrefab);
+            floorExitWall.transform.SetParent(gameObject.transform);
+            wallTilemap = floorExitWall.GetComponent<Tilemap>();
+            foreach ( Vector3Int coordinate in _exitWallCoordinates)
+            {
+                wallTilemap.SetTile(coordinate, FloorNetworkWrapper.Instance.LocalFloorManager.test2);
+                _effectTilesController.EffectTiles.Add(new FloorExitTile(coordinate));
+            }
+        }
 
     }
 
@@ -95,6 +110,13 @@ public class Room : MonoBehaviour
         (_entryWallCardinal, _exitWallCardinal) = PickWalls();
         _entryWallCoordinates = FindWallCoordinates(_entryWallCardinal);
         _exitWallCoordinates = FindWallCoordinates(_exitWallCardinal);
+    }
+    private void GenerateEnemies()
+    {
+        _enemies = new List<GameObject>();
+        // pick random enemies from the prefab list
+        // assign random positions to them (that or not out of bounds (cellbound) and do not collide with anything (cant be on an elevation))
+        // spawn them
     }
 
     private static WallCardinal GetOppositeWall(WallCardinal cardinal)

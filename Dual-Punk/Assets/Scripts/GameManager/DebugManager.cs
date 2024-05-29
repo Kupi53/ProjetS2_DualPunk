@@ -18,6 +18,7 @@ public class DebugManager : MonoBehaviour
     private int _index1;
     private int _index2;
     private int _index3;
+    private Camera mainCamera;
 
 
     void Start()
@@ -81,7 +82,13 @@ public class DebugManager : MonoBehaviour
 
         if (Input.GetKey(KeyCode.T))
         {
-            GameManager.Instance.LocalPlayer.transform.position = GameManager.Instance.LocalPlayer.GetComponent<SpawnUi>().LocalUI.GetComponentInChildren<PointerScript>().gameObject.transform.position;
+            if (mainCamera == null)
+            {
+                mainCamera = GameObject.FindWithTag("Camera").GetComponentInChildren<Camera>();
+            }
+            Vector3 pos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
+            pos.z = 0;
+            GameManager.Instance.LocalPlayer.transform.position = pos;
         }
     }
 

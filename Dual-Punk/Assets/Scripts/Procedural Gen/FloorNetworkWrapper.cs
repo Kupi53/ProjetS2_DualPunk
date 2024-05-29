@@ -54,5 +54,9 @@ public class FloorNetworkWrapper : NetworkBehaviour
     {
         LocalFloorManager.CurrentFloor = LocalFloorManager.GenerateFloor(floorType);
         LocalFloorManager.SwitchRoom(LocalFloorManager.CurrentFloor.Entry);
+        GameManager.Instance.LocalPlayer.transform.position = 
+        LocalFloorManager.CurrentFloor.Entry.GetComponent<Grid>().CellToWorld(RoomExitTile.ComputeTargetCoordinates(
+        Instance.LocalFloorManager.CurrentFloor.Entry._entryWallCardinal, 
+        Instance.LocalFloorManager.CurrentFloor.Entry));
     }
 }
