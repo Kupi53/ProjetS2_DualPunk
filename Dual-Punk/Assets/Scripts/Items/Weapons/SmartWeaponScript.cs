@@ -140,10 +140,7 @@ public class SmartWeaponScript : PowerWeaponScript
         _ammoLeft--;
         _fireTimer = 0;
         UserRecoil.Impact(-direction, _recoilForce);
-        if (PlayerState != null)
-            AudioManager.Instance.PlayClipAt(_fireSound, gameObject.transform.position, "Player");
-        else
-            AudioManager.Instance.PlayClipAt(_fireSound, gameObject.transform.position, "Enemy");
+        AudioManager.Instance.PlayClipAt(_fireSound, gameObject.transform.position, _ownerType);
 
         bool warriorLuckBullet = false;
         if (WarriorLuck && UnityEngine.Random.Range(0, 100) < DropPercentage)

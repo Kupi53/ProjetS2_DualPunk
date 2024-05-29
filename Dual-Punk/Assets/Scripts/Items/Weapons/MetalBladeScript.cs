@@ -6,7 +6,7 @@ using System;
 
 public class MetalBladeScript : MeleeWeaponScript
 {
-    protected override void MovePosition(Vector3 position, Vector3 direction, Vector3 targetPoint)
+    public override void MovePosition(Vector3 position, Vector3 direction, Vector3 targetPoint)
     {
         // si il n'y a pas d'animation en cours
 

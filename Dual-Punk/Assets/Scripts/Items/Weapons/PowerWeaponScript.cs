@@ -140,7 +140,7 @@ public class PowerWeaponScript : FireArmScript
                 _ammoLeft = _magSize;
             }
 
-            AudioManager.Instance.PlayClipAt(_reloadSound, gameObject.transform.position);
+            AudioManager.Instance.PlayClipAt(_reloadSound, gameObject.transform.position, _ownerType);
         }
         else
             _reloadTimer += Time.deltaTime;
@@ -159,7 +159,7 @@ public class PowerWeaponScript : FireArmScript
         _ammoLeft--;
         _fireTimer = 0;
         UserRecoil.Impact(-direction, _recoilForce);
-        AudioManager.Instance.PlayClipAt(_fireSound, gameObject.transform.position);
+        AudioManager.Instance.PlayClipAt(_fireSound, gameObject.transform.position, _ownerType);
 
         bool warriorLuckBullet = false;
         if (WarriorLuck && UnityEngine.Random.Range(0, 100) < DropPercentage)

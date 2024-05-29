@@ -143,7 +143,7 @@ public abstract class MeleeWeaponScript : WeaponScript
         _resetCooldownTimer = 0;
 
         System.Random randomSound = new System.Random();
-        AudioManager.Instance.PlayClipAt(_attackSound[randomSound.Next(_attackSound.Count)], gameObject.transform.position);
+        AudioManager.Instance.PlayClipAt(_attackSound[randomSound.Next(_attackSound.Count)], gameObject.transform.position, _ownerType);
     }
 
     protected virtual void Defend(Vector3 direction)

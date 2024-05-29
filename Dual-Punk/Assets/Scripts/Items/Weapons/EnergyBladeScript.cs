@@ -22,7 +22,7 @@ public class EnergyBladeScript : MeleeWeaponScript
     }
 
 
-    protected override void MovePosition(Vector3 position, Vector3 direction, Vector3 targetPoint)
+    public override void MovePosition(Vector3 position, Vector3 direction, Vector3 targetPoint)
     {
         if (Math.Sign(targetPoint.x - position.x) != Math.Sign(WeaponOffset.x))
         {

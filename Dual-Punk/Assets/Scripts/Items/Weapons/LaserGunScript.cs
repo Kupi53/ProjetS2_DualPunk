@@ -255,7 +255,7 @@ public class LaserGunScript : FireArmScript
         _coolDown = true;
         _hitProjectileCounter = 0;
 
-        if (PlayerState != null)
+        if (_ownerType == "Player")
             DisableLaser();
         DisableLaserServerRPC();
     }
@@ -299,7 +299,7 @@ public class LaserGunScript : FireArmScript
             }
         }
 
-        if (PlayerState != null)
+        if (_ownerType == "Player")
             DrawLaser(_startPosition, direction, distance);
         DrawLaserServerRPC(_startPosition, direction, distance);
     }
@@ -313,13 +313,13 @@ public class LaserGunScript : FireArmScript
             _resetTimer += Time.deltaTime;
             _audioSource.volume = 1 - _resetTimer / (_smoothTime * _disablingSpeed);
 
-            if (PlayerState != null)
+            if (_ownerType == "Player")
                 DrawLaser(_startPosition, direction, 0);
             DrawLaserServerRPC(_startPosition, direction, 0);
         }
         else if (_lineRenderer.enabled)
         {
-            if (PlayerState != null)
+            if (_ownerType == "Player")
                 DisableLaser();
             DisableLaserServerRPC();
         }
@@ -332,7 +332,7 @@ public class LaserGunScript : FireArmScript
     [ServerRpc(RequireOwnership = false)]
     private void EnableLaserServerRPC()
     {
-        if (PlayerState != null)
+        if (_ownerType == "Player")
             EnableLaserClient();
         else
             EnableLaserObservers();
@@ -355,7 +355,7 @@ public class LaserGunScript : FireArmScript
     [ServerRpc(RequireOwnership = false)]
     private void DisableLaserServerRPC()
     {
-        if (PlayerState != null)
+        if (_ownerType == "Player")
             DisableLaserClient();
         else
             DisableLaserObservers();
@@ -378,7 +378,7 @@ public class LaserGunScript : FireArmScript
     [ServerRpc(RequireOwnership = false)]
     private void DrawLaserServerRPC(Vector3 startPosition, Vector3 direction, float distance)
     {
-        if (PlayerState != null)
+        if (_ownerType == "Player")
             DrawLaserClient(startPosition, direction, distance);
         else
             DrawLaserObservers(startPosition, direction, distance);

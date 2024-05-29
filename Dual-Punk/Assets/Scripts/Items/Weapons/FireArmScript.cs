@@ -31,7 +31,7 @@ public abstract class FireArmScript : WeaponScript
             PlayerState.PointerScript.CanShoot = true;
     }
 
-    protected override void MovePosition(Vector3 position, Vector3 direction, Vector3 targetPoint)
+    public override void MovePosition(Vector3 position, Vector3 direction, Vector3 targetPoint)
     {
         if (Math.Sign(targetPoint.x - position.x) != Math.Sign(transform.localScale.y))
         {

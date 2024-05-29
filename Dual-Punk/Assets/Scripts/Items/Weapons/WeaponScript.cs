@@ -23,6 +23,7 @@ public abstract class WeaponScript : NetworkBehaviour
     private SpriteRenderer _rightHandSprite;
     private SpriteRenderer _leftHandSprite;
     protected ObjectSpawner _objectSpawner;
+    protected string _ownerType;
 
 #nullable enable
     public NetworkConnection? ActualOwner { get; set; }
@@ -54,6 +55,11 @@ public abstract class WeaponScript : NetworkBehaviour
 
     protected void Update()
     {
+        if (PlayerState != null)
+            _ownerType = "Player";
+        else
+            _ownerType = "Enemy";
+
         if (!InHand)
         {
             transform.position += Vector3.up * (float)Math.Cos(Time.time * 5 + _weaponDistance) * 0.001f;
@@ -65,7 +71,7 @@ public abstract class WeaponScript : NetworkBehaviour
 
     public abstract void Run(Vector3 position, Vector3 direction, Vector3 targetPoint);
     public abstract void EnemyRun(Vector3 position, Vector3 direction, Vector3 targetPoint);
-    protected abstract void MovePosition(Vector3 position, Vector3 direction, Vector3 targetPoint);
+    public abstract void MovePosition(Vector3 position, Vector3 direction, Vector3 targetPoint);
     public abstract void ResetWeapon();
 
 

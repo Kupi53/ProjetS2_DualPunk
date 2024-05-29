@@ -16,10 +16,7 @@ public class RocketLauncherScript : PowerWeaponScript
         _ammoLeft--;
         _fireTimer = 0;
         UserRecoil.Impact(-direction, _recoilForce);
-        if (PlayerState != null)
-            AudioManager.Instance.PlayClipAt(_fireSound, gameObject.transform.position, "Player");
-        else
-            AudioManager.Instance.PlayClipAt(_fireSound, gameObject.transform.position, "Enemy");
+        AudioManager.Instance.PlayClipAt(_fireSound, gameObject.transform.position, _ownerType);
 
         bool warriorLuckBullet = false;
         if (WarriorLuck && UnityEngine.Random.Range(0, 100) < DropPercentage)
@@ -49,7 +46,7 @@ public class RocketLauncherScript : PowerWeaponScript
             rocket.transform.localScale = new Vector2(_bulletSize, _bulletSize);
 
             rocketScript.Setup(direction, damage, _bulletSpeed, _impactForce, transform.position, distance + 0.5f,
-                _explosionRadius + 0.1f, _deviationAngle, _deviationSpeed, damagePlayer, warriorLuckBullet);
+                _explosionRadius + 0.1f, _deviationAngle, _deviationSpeed, damagePlayer, warriorLuckBullet, _ownerType);
 
             Spawn(rocket);
         }
