@@ -68,7 +68,10 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  CityEnemyPrefabs: []
+  CityEnemyPrefabs:
+  - {fileID: 6272146751674077345, guid: 0f77c2463d8db4e40834373e72dfcef0, type: 3}
+  - {fileID: 6272146751674077345, guid: 26ceb6209cf7a844bbe722acabbbdb98, type: 3}
+  - {fileID: 6272146751674077345, guid: 55e37db6665305742909a50c6232e975, type: 3}
   HangarEnemyPrefabs: []
   SpaceshipEnemyPrefabs: []
   FloorExitWallPrefab: {fileID: 1468348159299252417, guid: 85e0fd92583f5e744a63c7b62a1884fe, type: 3}

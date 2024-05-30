@@ -37,8 +37,8 @@ public class FloorManager : MonoBehaviour
     [SerializeField] public Tile test2;
     //
     private int _floorTypeCount { get => Enum.GetNames(typeof(FloorType)).Length; }
-    private int _minRoomAmount = 5;
-    private int _maxRoomAmount = 9;
+    private const int _minRoomAmount = 4;
+    private const int _maxRoomAmount = 8;
 
 
     // pour le debug
@@ -56,8 +56,10 @@ public class FloorManager : MonoBehaviour
         // create the new floor
         Floor floor = new Floor(floorType);
         floor.FloorHolderObject = CurrentFloorHolder;
+        int actualMinRoomAmount = _minRoomAmount + ((int)floorType * 2);
+        int actualMaxRoomAmount = _maxRoomAmount + ((int)floorType * 3);
         // pick the amount of rooms
-        int roomAmount = UnityEngine.Random.Range(_minRoomAmount, _maxRoomAmount+1);
+        int roomAmount = UnityEngine.Random.Range(actualMinRoomAmount, actualMaxRoomAmount);
         // add rooms
         for (int i = 0; i < roomAmount; i++)
         {
@@ -104,6 +106,11 @@ public class FloorManager : MonoBehaviour
     {
         newRoom.gameObject.SetActive(true);
         newRoom.tag = "ActiveRoom";
+        if (!newRoom.Visited)
+        {
+            FloorNetworkWrapper.Instance.SpawnEnemies();
+            newRoom.Visited = true;
+        }
     }
 
     // For testing purposes, Goes through the _currentFloor and converts attributes to a string, then debug.logs it

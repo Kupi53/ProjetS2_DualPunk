@@ -110,6 +110,7 @@ public class EnemyWeaponHandler : NetworkBehaviour
         if (_weaponIndex > 0) DropWeapon();
         
         GameObject weapon = Instantiate(_weapons[_weaponIndex], transform.position, Quaternion.identity);
+        weapon.transform.SetParent(this.gameObject.transform);
         Spawn(weapon);
 
         _weaponScript = weapon.GetComponent<WeaponScript>();

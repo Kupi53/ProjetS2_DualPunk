@@ -48,6 +48,7 @@ public class EffectTilesController : MonoBehaviour
                     else if (effectTile is RoomExitTile)
                     {
                         if (FloorNetworkWrapper.Instance.LocalFloorManager.CurrentRoom.IsCleared)
+                            effectTile.Action(GameManager.Instance.Player1);
                             player1State.CanBeTeleported = false;
                             if (GameManager.Instance.Player2 is not null)
                             {
@@ -86,12 +87,15 @@ public class EffectTilesController : MonoBehaviour
                     else if (effectTile is RoomExitTile)
                     {
                         if (FloorNetworkWrapper.Instance.LocalFloorManager.CurrentRoom.IsCleared)
+                        {
+                            effectTile.Action(GameManager.Instance.Player1);
                             player2State.CanBeTeleported = false;
                             if (GameManager.Instance.Player1 is not null)
                             {
                                     EffectTileNetworkWrapper.Instance.EffectTileActionFromOtherPlayerRpc(GameManager.Instance.Player1.GetComponent<NetworkObject>().Owner, player2Position);
                                     GameManager.Instance.Player1.GetComponent<PlayerState>().CanBeTeleported = false;
                             }
+                        }
                     }
                     else
                     {

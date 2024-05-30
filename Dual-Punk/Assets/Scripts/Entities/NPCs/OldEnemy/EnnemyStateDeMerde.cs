@@ -71,12 +71,7 @@ public class EnnemyStateDeMerde : NetworkBehaviour
 
     private void Loot()
     {
-        int lootRolls = UnityEngine.Random.Range(0, data.MaxLootRollAmount);
-        for (int i =0; i<lootRolls; i++)
-        {
-            string idToSpawn = data.LootTable.PickLoot();
-            ObjectSpawner.Instance.SpawnObjectFromIdRpc(idToSpawn, gameObject.transform.position, new quaternion());
-        }
+//
     }
 
     private void PathFinding()

@@ -90,6 +90,13 @@ public class DebugManager : MonoBehaviour
             pos.z = 0;
             GameManager.Instance.LocalPlayer.transform.position = pos;
         }
+        if (Input.GetKey(KeyCode.M))
+        {
+            foreach (GameObject Enemy in FloorNetworkWrapper.Instance.LocalFloorManager.CurrentRoom.Enemies)
+            {
+                Enemy.GetComponent<EnemyHealthManager>().SetHealth(0);
+            }
+        }
     }
 
 
