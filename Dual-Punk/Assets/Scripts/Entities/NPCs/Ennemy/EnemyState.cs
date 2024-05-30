@@ -56,4 +56,12 @@ public class EnemyState : NPCState
             Run = false;
         }
     }
+    void OnDestroy()
+    {
+        if (ParentRoom is not null)
+        {
+            ParentRoom.Enemies.Remove(gameObject);
+            ParentRoom.OnEnemyDeath();
+        }
+    }
 }

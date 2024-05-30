@@ -1,11 +1,14 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
+using System.Linq;
 using System.Numerics;
 using Unity.Collections;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using Vector3 = UnityEngine.Vector3;
 
 public enum WallCardinal{
     North,
@@ -27,12 +30,14 @@ public class Room : MonoBehaviour
     public Vector3Int[] _exitWallCoordinates;
     public WallCardinal _exitWallCardinal;
     public WallCardinal _entryWallCardinal;
+    public List<GameObject> Enemies;
     public bool IsCleared 
     {
-        get => _enemies.Count == 0;
+        get => Enemies.Count == 0;
     }
+    public bool Visited;
     [SerializeField] private int _roomPrefabId;
-    private List<GameObject> _enemies;
+
     private EffectTilesController _effectTilesController;
     private Floor _floor;
     private RoomType _roomType
@@ -54,7 +59,6 @@ public class Room : MonoBehaviour
         }
     }
 
-
     // called upon generation of eadch room (FloorManager.GenerateFloor); initialises variables, generates doors, spawns entities
     public void Init(Floor floor)
     {
@@ -62,7 +66,6 @@ public class Room : MonoBehaviour
         _effectTilesController = this.gameObject.GetComponent<EffectTilesController>();
         _effectTilesController.EffectTiles = new List<EffectTile>();
         GenerateWalls();
-        GenerateEnemies();
     }
     public void SpawnExits()
     {
@@ -111,12 +114,21 @@ public class Room : MonoBehaviour
         _entryWallCoordinates = FindWallCoordinates(_entryWallCardinal);
         _exitWallCoordinates = FindWallCoordinates(_exitWallCardinal);
     }
-    private void GenerateEnemies()
+    public void PopulateRoomEnemies()
     {
-        _enemies = new List<GameObject>();
-        // pick random enemies from the prefab list
-        // assign random positions to them (that or not out of bounds (cellbound) and do not collide with anything (cant be on an elevation))
-        // spawn them
+        Enemies = GameObject.FindGameObjectsWithTag("Ennemy").ToList();
+        foreach(GameObject enemy in Enemies)
+        {
+            enemy.GetComponent<EnemyState>().ParentRoom = this;
+            enemy.transform.SetParent(this.gameObject.transform);
+        }
+    }
+    public void OnEnemyDeath()
+    {
+        if (IsCleared)
+        {
+            ObjectSpawner.Instance.SpawnObjectFromIdRpc("0010", Vector3.zero, quaternion.identity);
+        }
     }
 
     private static WallCardinal GetOppositeWall(WallCardinal cardinal)
