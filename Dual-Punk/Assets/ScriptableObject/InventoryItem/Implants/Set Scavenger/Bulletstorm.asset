@@ -15,9 +15,9 @@ MonoBehaviour:
   name: Bulletstorm
   prefab: {fileID: 0}
   icon: {fileID: 21300000, guid: 5f468c5d461b36f49ac63d5a97220146, type: 3}
-  description: "Cet implant permet au joueur d'activer un bouclier avec le clic droit,
-    le prot\xE9geant \xE0 100 % des d\xE9g\xE2ts et renvoyant les balles qui ricochent.
-    Le joueur reste immobile lors de son utilisation."
+  description: "Cet implant offre au joueur une chance d'esquiver n'importe quelle
+    attaque ou balle. La chance d'esquiver augmente sur le joueur tient une arme
+    de corp \xE0 corp."
   setName: Scavenger
   setItems:
   - 
