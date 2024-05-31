@@ -18,7 +18,6 @@ public class LaserGunScript : FireArmScript
     [SerializeField] private float _coolDownSpeed;
     [SerializeField] private float _smoothTime;
     [SerializeField] private float _disablingSpeed;
-    [SerializeField] private int _hitProjectileCount;
 
     private List<ParticleSystem> _particles;
     private LineRenderer _lineRenderer;
@@ -32,7 +31,6 @@ public class LaserGunScript : FireArmScript
     private float _laserLength;
     private float _resetTimer;
     private float _velocity;
-    private int _hitProjectileCounter;
     
     // Implant static amplifier
     private Color _oldColor;
@@ -54,13 +52,12 @@ public class LaserGunScript : FireArmScript
         _disableFire = false;
 
         _velocity = 0;
-        _resetTimer = 0;
         _laserLength = 0;
         _coolDownLevel = 0;
-        _hitProjectileCounter = 0;
         _staticAmplifierFactor = 0;
 
         _damageTimer = _fireRate;
+        _resetTimer = _smoothTime * _disablingSpeed + 1;
         _particles = new List<ParticleSystem>();
         _lineRenderer = GetComponentInChildren<LineRenderer>();
         _oldColor = _lineRenderer.gameObject.GetComponent<Renderer>().material.GetColor("_Color");
@@ -77,9 +74,6 @@ public class LaserGunScript : FireArmScript
             if (particleSystem != null)
                 _particles.Add(particleSystem);
         }
-
-        DisableLaser();
-        DisableLaserServerRPC();
     }
 
 
@@ -118,6 +112,13 @@ public class LaserGunScript : FireArmScript
                     _disableFire = false;
                 }
             }
+            if (_resetTimer >= _smoothTime * _disablingSpeed)
+            {
+                if (_ownerType == "Player")
+                    DisableLaser();
+                DisableLaserServerRPC();
+            }
+
         }        
     }
 
@@ -129,19 +130,22 @@ public class LaserGunScript : FireArmScript
         if (_disableFire && Input.GetButton("Use"))
             PlayerState.PointerScript.CanShoot = false;
 
-        if (Input.GetButtonDown("Use") && _canAttack)
+        if (Input.GetButtonDown("Use") && _canAttack && !PlayerState.Stop)
         {
             _coolDown = false;
             _disableFire = false;
         }
-        if (Input.GetButton("Use") && _canAttack && !_fire && !_disableFire)
+        if (Input.GetButton("Use") && _canAttack && !_fire && !_disableFire && !PlayerState.Stop)
         {
             _fire = true;
 
-            EnableLaser();
-            EnableLaserServerRPC();
+            if (!_lineRenderer.enabled)
+            {
+                EnableLaser();
+                EnableLaserServerRPC();
+            }
         }
-        else if (Input.GetButtonUp("Use") || !_canAttack)
+        else if (Input.GetButtonUp("Use") || !_canAttack || PlayerState.Stop)
         {
             _fire = false;
             _coolDown = true;
@@ -165,7 +169,7 @@ public class LaserGunScript : FireArmScript
 
         if (!_disableFire && EnemyState.CanAttack)
         {
-            if (!_lineRenderer.enabled)
+            if (_resetTimer != 0)
                 EnableLaserServerRPC();
             _fire = true;
         }
@@ -228,7 +232,7 @@ public class LaserGunScript : FireArmScript
 
     private void DisableLaser()
     {
-        _laserLength = 0;
+        _resetTimer = 0;
         _lineRenderer.enabled = false;
 
         foreach (ParticleSystem particleSystem in _particles)
@@ -253,7 +257,6 @@ public class LaserGunScript : FireArmScript
     {
         _fire = false;
         _coolDown = true;
-        _hitProjectileCounter = 0;
 
         if (_ownerType == "Player")
             DisableLaser();
@@ -281,15 +284,7 @@ public class LaserGunScript : FireArmScript
 
                 if (hit.collider.CompareTag("Projectile"))
                 {
-                    if (_hitProjectileCounter < _hitProjectileCount)
-                    {
-                        _hitProjectileCounter++;
-                    }
-                    else
-                    {
-                        _hitProjectileCounter = 0;
-                        hit.collider.GetComponent<IDestroyable>().DestroyObject();
-                    }
+                    hit.collider.GetComponent<IDestroyable>().DestroyObject();
                 }
                 else if (hit.collider.CompareTag("Ennemy") && !damagePlayer || hit.collider.CompareTag("Player") && damagePlayer)
                 {
@@ -309,19 +304,12 @@ public class LaserGunScript : FireArmScript
     {
         if (_resetTimer < _smoothTime * _disablingSpeed)
         {
-            _hitProjectileCounter = 0;
             _resetTimer += Time.deltaTime;
             _audioSource.volume = 1 - _resetTimer / (_smoothTime * _disablingSpeed);
 
             if (_ownerType == "Player")
                 DrawLaser(_startPosition, direction, 0);
             DrawLaserServerRPC(_startPosition, direction, 0);
-        }
-        else if (_lineRenderer.enabled)
-        {
-            if (_ownerType == "Player")
-                DisableLaser();
-            DisableLaserServerRPC();
         }
     }
 

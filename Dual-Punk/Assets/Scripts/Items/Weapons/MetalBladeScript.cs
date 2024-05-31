@@ -24,4 +24,9 @@ public class MetalBladeScript : MeleeWeaponScript
     {
         throw new NotImplementedException();
     }
+
+    protected override void ResetPosition()
+    {
+        throw new NotImplementedException();
+    }
 }

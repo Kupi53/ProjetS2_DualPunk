@@ -12,6 +12,7 @@ public abstract class FireArmScript : WeaponScript
 
     protected bool _canAttack;
 
+
     private new void Awake()
     {
         base.Awake();

@@ -5,12 +5,11 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 
 
-
 public abstract class MeleeWeaponScript : WeaponScript
 {
     [SerializeField] protected List<AudioClip> _attackSound;
     [SerializeField] protected AudioClip _criticalSound;
-
+    [SerializeField] protected GameObject _attackPoint;
     [SerializeField] protected int _criticalDamage;
     [SerializeField] protected float _swipeRange;
     [SerializeField] protected float _finalAttackPower;
@@ -20,6 +19,7 @@ public abstract class MeleeWeaponScript : WeaponScript
     [SerializeField] protected float _defenceCooldownSpeed;
     [SerializeField] protected float _defenceWeaponDistance;
     [SerializeField] protected Vector3 _defenceWeaponOffset;
+    [SerializeField] protected LayerMask _layerMask;
 
     protected int _attack;
     protected bool _defenceCooldown;
@@ -40,13 +40,12 @@ public abstract class MeleeWeaponScript : WeaponScript
     public override float InfoTimer { get => _attack > 0 ? _resetCooldownTimer : _defenceTime - _defenceTimer; }
 
 
-
-    private void Start()
+    protected void Start()
     {
         ResetWeapon();
     }
 
-    private new void Update()
+    protected new void Update()
     {
         base.Update();
 
@@ -67,6 +66,7 @@ public abstract class MeleeWeaponScript : WeaponScript
             _defenceTimer -= Time.deltaTime * _defenceCooldownSpeed;
             if (_defenceTimer <= 0)
             {
+                _defenceCooldown = false;
                 _disableDefence = false;
             }
         }
@@ -75,12 +75,21 @@ public abstract class MeleeWeaponScript : WeaponScript
 
     public override void Run(Vector3 position, Vector3 direction, Vector3 targetPoint)
     {
-        PlayerState.PointerScript.SpriteNumber = _pointerSpriteNumber;
+        MovePosition(position, direction, targetPoint);
 
+        PlayerState.PointerScript.SpriteNumber = _pointerSpriteNumber;
         if (_attack > 0 && _attackTimer < _attackCooldown || _disableDefence)
             PlayerState.PointerScript.CanShoot = false;
         else
             PlayerState.PointerScript.CanShoot = true;
+
+        if ((Input.GetButtonUp("SecondaryUse") && _attack == 0 || PlayerState.Stop) && !_defenceCooldown)
+        {
+            ResetDefence();
+            _disableDefence = false;
+        }
+
+        if (PlayerState.Stop) return;
 
         if (Input.GetButton("SecondaryUse") && !_disableDefence && _resetCooldownTimer >= _resetCooldown)
         {
@@ -88,26 +97,18 @@ public abstract class MeleeWeaponScript : WeaponScript
         }
         else if (Input.GetButtonDown("Use") && _attack < 3 && _attackTimer >= _attackCooldown)
         {
-            Attack(direction);
+            Attack(direction, false);
         }
-
-        if (Input.GetButtonUp("SecondaryUse") && _attack == 0)
-        {
-            ResetDefence();
-            _disableDefence = false;
-        }
-
-        MovePosition(position, direction, targetPoint);
     }
-    
-    
+
+
     public override void EnemyRun(Vector3 position, Vector3 direction, Vector3 targetPoint)
     {
         if (EnemyState.CanAttack && _attack < 3 && _attackTimer >= _attackCooldown)
         {
-            Attack(direction);
+            Attack(direction, true);
         }
-        else if (!EnemyState.CanAttack && !_disableDefence && _resetCooldownTimer >= _resetCooldown)
+        else if (!EnemyState.CanAttack && !_disableDefence && _resetCooldownTimer >= _resetCooldown && EnemyState.Defending)
         {
             Defend(direction);
         }
@@ -122,6 +123,14 @@ public abstract class MeleeWeaponScript : WeaponScript
     }
 
 
+    public override void MovePosition(Vector3 position, Vector3 direction, Vector3 targetPoint)
+    {
+        if (Math.Sign(targetPoint.x - position.x) != Math.Sign(WeaponOffset.x))
+        {
+            WeaponOffset = new Vector3(-WeaponOffset.x, WeaponOffset.y, 0);
+        }
+    }
+
     public override void ResetWeapon()
     {
         _attack = 0;
@@ -130,30 +139,78 @@ public abstract class MeleeWeaponScript : WeaponScript
         _attackTimer = _attackCooldown;
         _resetCooldownTimer = _resetCooldown;
 
-        ResetDefence();
+        if (_defenceTimer > 0 && !_defenceCooldown)
+            ResetDefence();
+        else
+            ResetPosition();
     }
-
     protected abstract void ResetDefence();
+    protected abstract void ResetPosition();
 
-
-    protected virtual void Attack(Vector3 direction)
-    {
-        _attack++;
-        _attackTimer = 0;
-        _resetCooldownTimer = 0;
-
-        System.Random randomSound = new System.Random();
-        AudioManager.Instance.PlayClipAt(_attackSound[randomSound.Next(_attackSound.Count)], gameObject.transform.position, _ownerType);
-    }
 
     protected virtual void Defend(Vector3 direction)
     {
+        if (_ownerType == "Player")
+            PlayerState.Walking = true;
+        else
+            EnemyState.Defending = true;
+
+        _defenceCooldown = false;
         _defenceTimer += Time.deltaTime;
 
         if (_defenceTimer > _defenceTime)
         {
             ResetDefence();
             _disableDefence = true;
+        }
+
+        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(_attackPoint.transform.position, _range / 2, _layerMask);
+        foreach (Collider2D hitCollider in hitColliders)
+        {
+            if (hitCollider.CompareTag("Projectile"))
+            {
+                hitCollider.GetComponent<IDestroyable>().DestroyObject();
+            }
+        }
+    }
+
+
+    protected virtual void Attack(Vector3 direction, bool damagePlayer)
+    {
+        _attack++;
+        _attackTimer = 0;
+        _resetCooldownTimer = 0;
+        System.Random randomSound = new System.Random();
+        AudioManager.Instance.PlayClipAt(_attackSound[randomSound.Next(_attackSound.Count)], gameObject.transform.position, _ownerType);
+
+        int damage = _damage;
+        float impactForce = _impactForce;
+        if (_attack == 3)
+        {
+            damage = (int)(_damage * _finalAttackPower);
+            impactForce *= _finalAttackPower;
+        }
+
+        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(_attackPoint.transform.position, _range / 2, _layerMask);
+        List<GameObject> damagedObjects = new List<GameObject>();
+
+        foreach (Collider2D hitCollider in hitColliders)
+        {
+            GameObject hitObject = hitCollider.gameObject;
+
+            if (damagedObjects.Contains(hitObject)) continue;
+
+            if (hitObject.CompareTag("Ennemy") && !damagePlayer || hitObject.CompareTag("Player") && damagePlayer)
+            {
+                hitObject.GetComponent<IDamageable>().Damage(damage, 0, false);
+                hitObject.GetComponent<IImpact>().Impact(direction, impactForce);
+            }
+            if (hitObject.CompareTag("Projectile"))
+            {
+                hitObject.GetComponent<IDestroyable>().DestroyObject();
+            }
+
+            damagedObjects.Add(hitObject);
         }
     }
 }

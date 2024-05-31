@@ -23,20 +23,17 @@ public class MouvementsController : NetworkBehaviour, IImpact
     private List<(Vector2, float)> _forces;
     private PlayerState _playerState;
     private Rigidbody2D _rb2d;
-
     private Vector2 _moveDirection;
-    private Vector2 _pointerDirection;
 
-    public bool _enableMovement;
     private float _dashTimer;
     private float _dashCooldownTimer;
     private float _moveSpeed;
     private float _moveFactor;
     
     // Pour implant TeleportStrike
-    public bool EnableDash = true;
-    public bool EnableMovement { get =>  _enableMovement; set => _enableMovement = value; } 
+    public bool EnableDash { get; set; } = true;
 
+    public bool EnableMovement { get; set; }
     public float WalkSpeed { get =>  _walkSpeed; set => _walkSpeed = value; }
     public float SprintSpeed { get => _sprintSpeed; set => _sprintSpeed = value; }
 
@@ -45,7 +42,8 @@ public class MouvementsController : NetworkBehaviour, IImpact
     {
         _dashTimer = 0;
         _dashCooldownTimer = 0;
-        EnableMovement = true;
+        _moveSpeed = _sprintSpeed;
+
         _moveDirection = Vector2.zero;
         _forces = new List<(Vector2, float)>();
 
@@ -62,15 +60,12 @@ public class MouvementsController : NetworkBehaviour, IImpact
         if (EnableMovement)
         {
             _moveDirection = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical") * 0.5f).normalized;
-            _pointerDirection = (_playerState.MousePosition - transform.position).normalized;
-
             if (_moveDirection == Vector2.zero)
                 _playerState.Moving = false;
             else
                 _playerState.Moving = true;
-            
 
-            if (_playerState.Down)
+            if (_playerState.IsDown)
             {
                 _moveSpeed = _crawlSpeed;
                 _playerState.CrawlTimer += Time.deltaTime;
@@ -78,32 +73,37 @@ public class MouvementsController : NetworkBehaviour, IImpact
                 if (_playerState.CrawlTimer > _playerState.CrawlTime)
                 {
                     EnableMovement = false;
-                    _moveDirection = Vector2.zero;
                 }
             }
-            else if (Input.GetButton("Walk") || _moveDirection == Vector2.zero)
+            else if (!_playerState.Stop)
             {
-                _playerState.Walking = true;
-                _moveSpeed = _walkSpeed;
-            }
-            else
-            {
-                _playerState.Walking = false;
-                _moveSpeed = _sprintSpeed;
-            }
+                if (Input.GetButtonDown("Walk"))
+                    _playerState.Walking = true;
+                else if (Input.GetButtonUp("Walk"))
+                    _playerState.Walking = false;
 
-            if (Input.GetButtonDown("Dash") && !_playerState.Down && _dashCooldownTimer <= 0 && _playerState.Moving && EnableDash)
-            {
-                EnableMovement = false;
-                _playerState.Dashing = true;
-                _dashCooldownTimer = _dashCooldown;
+                if (Input.GetButtonDown("Dash") && !_playerState.IsDown && _dashCooldownTimer <= 0 && _playerState.Moving && EnableDash)
+                {
+                    EnableMovement = false;
+                    _playerState.Dashing = true;
+                    _dashCooldownTimer = _dashCooldown;
+                }
+                else
+                {
+                    _moveSpeed = _playerState.Walking ? _walkSpeed : _sprintSpeed;
+                }
             }
         }
-        else if (!_playerState.Down && !_playerState.Dashing && 
-        (PromptManager.Instance.CurrentPromptShown == null || PromptManager.Instance.CurrentPromptShown.GetComponent<PromptController>().Prompt.EnableMovement))
+        else
         {
-            EnableMovement = true;
-            _playerState.CrawlTimer = 0;
+            if (!_playerState.IsDown && !_playerState.Dashing && (PromptManager.Instance.CurrentPromptShown == null
+                || PromptManager.Instance.CurrentPromptShown.GetComponent<PromptController>().Prompt.EnableMovement))
+            {
+                EnableMovement = true;
+                _playerState.CrawlTimer = 0;
+            }
+
+            _playerState.Walking = false;
         }
 
         if (_dashCooldownTimer > 0)
@@ -118,25 +118,21 @@ public class MouvementsController : NetworkBehaviour, IImpact
     {
         if (!IsOwner) return;
 
-        if (EnableMovement)
+        _moveFactor = 0;
+
+        if (EnableMovement && !_playerState.Stop && _playerState.Moving)
         {
-            _moveFactor = 1;
+            float moveAngle = Methods.GetAngle(_moveDirection);
+            _moveFactor = Methods.GetDirectionFactor(_moveDirection);
 
-            if (_playerState.Moving)
+            if (!_playerState.HoldingWeapon)
             {
-                float moveAngle = Methods.GetAngle(_moveDirection);
-
-                _moveFactor *= Methods.GetDirectionFactor(_moveDirection);
-
-                if (!_playerState.HoldingWeapon)
-                {
-                    _playerState.AnimAngle = moveAngle;
-                }
-                else if (!Methods.SameDirection(moveAngle, _playerState.AnimAngle, 60))
-                {
-                    _moveFactor *= _moveBackFactor;
-                }
+                _playerState.AnimAngle = moveAngle;
             }
+            else if (!Methods.SameDirection(moveAngle, _playerState.AnimAngle, 60))
+            {
+                _moveFactor *= _moveBackFactor;
+            }            
         }
 
         else if (_playerState.Dashing)
@@ -144,6 +140,7 @@ public class MouvementsController : NetworkBehaviour, IImpact
             if (_dashTimer < _dashTime)
             {
                 _moveSpeed = _dashSpeed - _dashTimer;
+                _moveFactor = Methods.GetDirectionFactor(_moveDirection);
                 _dashTimer += Time.fixedDeltaTime;
             }
             else

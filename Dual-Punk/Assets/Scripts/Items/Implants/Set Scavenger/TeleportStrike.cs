@@ -41,7 +41,7 @@ public class TeleportStrike : ImplantScript
             _canDash = false;
             PlayerState.gameObject.GetComponent<MouvementsController>().EnableDash = false;
 
-            if (Input.GetButtonDown("Dash") && !PlayerState.Down)
+            if (Input.GetButtonDown("Dash") && !PlayerState.IsDown)
             {
                 StartCoroutine(Teleportation(nearestEnemy));
             }

@@ -9,9 +9,11 @@ public class EnemyHealthManager : MonoBehaviour, IDamageable
 {
     [SerializeField] private int[] _lives;
     [SerializeField] private float _imuneTime;
+    [SerializeField] private float _defenceTime;
 
     private EnemyState _enemyState;
     private EnemyHealthIndicator _healthIndicator;
+    private float _defenceTimer;
     private float _imunityTimer;
     private int _maxHealth;
 
@@ -22,6 +24,7 @@ public class EnemyHealthManager : MonoBehaviour, IDamageable
     private void Start()
     {
         Index = 0;
+        _defenceTimer = 0;
         _imunityTimer = -1;
         _maxHealth = _lives[0];
         _enemyState = GetComponent<EnemyState>();
@@ -39,6 +42,12 @@ public class EnemyHealthManager : MonoBehaviour, IDamageable
         {
             _imunityTimer = -1;
             _enemyState.Stop = false;
+        }
+
+        if (_defenceTimer > 0)
+        {
+            _defenceTimer -= Time.deltaTime;
+            _enemyState.Defending = true;
         }
     }
 
@@ -131,6 +140,7 @@ public class EnemyHealthManager : MonoBehaviour, IDamageable
         }
 
         _healthIndicator.DisplayDamageIndicator(amount, scale, color);
+        _defenceTimer = _defenceTime;
 
         if (time == 0)
         {

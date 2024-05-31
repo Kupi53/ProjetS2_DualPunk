@@ -40,11 +40,10 @@ public class SmartWeaponScript : PowerWeaponScript
         {
             _waitForNextTarget = false;
         }
-        if (Input.GetButton("SecondaryUse"))
+        if (!PlayerState.Stop && Input.GetButton("SecondaryUse"))
         {
 #nullable enable
             GameObject? target;
-#nullable disable
             target = GetNearestTarget(PlayerState.MousePosition);
 
             if (target != null && !_waitForNextTarget)
@@ -98,7 +97,6 @@ public class SmartWeaponScript : PowerWeaponScript
 
 
 
-#nullable enable
     private GameObject? GetNearestTarget(Vector3 position)
     {
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Ennemy");

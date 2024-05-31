@@ -20,7 +20,7 @@ public class StaticAmplifier : ImplantScript
     {
         if (IsEquipped)
         {
-            if (PlayerState.HoldingWeapon && PlayerState.WeaponScript != null && PlayerState.Walking)
+            if (PlayerState.HoldingWeapon && PlayerState.WeaponScript != null && (PlayerState.Walking || !PlayerState.Moving))
             {
                 LaserGunScript laserGunScript = PlayerState.WeaponScript as LaserGunScript;
 
