@@ -37,7 +37,7 @@ public class HealthBar : MonoBehaviour
 
     void Update()
     {
-        if (_playerState.Down)
+        if (_playerState.IsDown)
         {
             _healthBar.enabled = false;
             _crawlBar.enabled = true;

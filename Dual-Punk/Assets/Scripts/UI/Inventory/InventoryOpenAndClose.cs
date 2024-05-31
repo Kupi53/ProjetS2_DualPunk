@@ -22,15 +22,13 @@ public class InventoryOpenAndClose : MonoBehaviour
         {
             if (InventoryIsClose)
             {
-                if (PlayerState.WeaponScript != null)
-                    PlayerState.WeaponScript.enabled = false;
+                PlayerState.Stop = true;
                 Inventory.SetActive(true);
                 InventoryIsClose = false;
             }
             else
             {
-                if (PlayerState.WeaponScript != null)
-                    PlayerState.WeaponScript.enabled = true;
+                PlayerState.Stop = false;
                 InventoryIsClose = true;
                 Inventory.SetActive(false);
             }

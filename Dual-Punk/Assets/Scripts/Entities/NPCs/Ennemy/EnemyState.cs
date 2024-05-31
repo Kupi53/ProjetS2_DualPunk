@@ -25,6 +25,7 @@ public class EnemyState : NPCState
         base.Awake();
 
         CanAttack = false;
+        Defending = false;
     }
 
 
@@ -58,7 +59,9 @@ public class EnemyState : NPCState
             Run = false;
         }
     }
-    void OnDestroy()
+
+
+    private void OnDestroy()
     {
         if (ParentRoom is not null)
         {

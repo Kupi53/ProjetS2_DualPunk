@@ -273,9 +273,9 @@ GameObject:
   - component: {fileID: 4043952418168445416}
   - component: {fileID: 7528638334341656761}
   - component: {fileID: 8523659330764518231}
-  - component: {fileID: -2536519275778963654}
   - component: {fileID: -7003829035611701060}
   - component: {fileID: 6239153022848235231}
+  - component: {fileID: -2536519275778963654}
   - component: {fileID: -4606354589101628817}
   - component: {fileID: 2909192396974194660}
   - component: {fileID: 3907873960965384262}
@@ -524,7 +524,6 @@ MonoBehaviour:
   _dashCooldown: 1
   _moveBackFactor: 0.8
   _forcesDecreaseSpeed: 15
-  EnableDash: 1
 --- !u!114 &8523659330764518231
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -551,22 +550,6 @@ MonoBehaviour:
   _healHP: 300
   _healCooldown: 10
   _itemCooldown: 5
---- !u!114 &-2536519275778963654
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7898736215898924539}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c91070cbfd73d345ba1fa495587c07f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _componentIndexCache: 3
-  _addedNetworkObject: {fileID: 5423358579492179876}
-  _networkObjectCache: {fileID: 5423358579492179876}
-  _damageToSecondConversionFactor: 1
 --- !u!114 &-7003829035611701060
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -595,6 +578,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 346c31b27855b55448e2e512333f3a47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-2536519275778963654
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7898736215898924539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c91070cbfd73d345ba1fa495587c07f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _componentIndexCache: 3
+  _addedNetworkObject: {fileID: 5423358579492179876}
+  _networkObjectCache: {fileID: 5423358579492179876}
 --- !u!114 &-4606354589101628817
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -646,6 +644,8 @@ MonoBehaviour:
   _networkObjectCache: {fileID: 5423358579492179876}
   UI: {fileID: 8639646596442563190, guid: 18545849575e9f4429a659efc2903c2f, type: 3}
   Camera: {fileID: 8083000584356064612, guid: 25076b0f96f46fc47b9fb72639f21afb, type: 3}
+  LocalUI: {fileID: 0}
+  LocalCamera: {fileID: 0}
 --- !u!114 &5423358579492179876
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -683,7 +683,7 @@ MonoBehaviour:
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 38
+  <PrefabId>k__BackingField: 39
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0

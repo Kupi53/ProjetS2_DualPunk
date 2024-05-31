@@ -19,7 +19,8 @@ public class PlayerState : NetworkBehaviour
     public float CrawlTimer { get; set; }
     public float ForcesEffect { get; set; }
 
-    public bool Down { get; set; }
+    public bool Stop { get; set; }
+    public bool IsDown { get; set; }
     public bool Moving { get; set; }
     public bool Walking { get; set; }
     public bool Dashing { get; set; }
@@ -40,7 +41,8 @@ public class PlayerState : NetworkBehaviour
     {
         MaxHealth = 1000;
         Health = MaxHealth;
-        Down = false;
+        Stop = false;
+        IsDown = false;
         Moving = false;
         Walking = false;
         Dashing = false;

@@ -51,7 +51,7 @@ public class AttacksController : NetworkBehaviour
                 targetPoint = _playerState.MousePosition;
             }
                 
-            if (_laserTracker && Input.GetButtonDown("Switch"))
+            if (_laserTracker && Input.GetButtonDown("SecondaryUse"))
             {
                 if (_targetIndicator != null)
                 {
@@ -70,10 +70,7 @@ public class AttacksController : NetworkBehaviour
             }
 
             _playerState.AnimAngle = Methods.GetAngle(_direction);
-            if (_playerState.WeaponScript.enabled)
-                _playerState.WeaponScript.Run(transform.position, _direction, targetPoint);
-            else
-                _playerState.WeaponScript.MovePosition(transform.position, _direction, targetPoint);
+            _playerState.WeaponScript.Run(transform.position, _direction, targetPoint);
         }
     }
 

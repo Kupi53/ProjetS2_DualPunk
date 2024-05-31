@@ -357,6 +357,7 @@ MonoBehaviour:
   _componentIndexCache: 0
   _addedNetworkObject: {fileID: -5137988890912388252}
   _networkObjectCache: {fileID: -5137988890912388252}
+  ParentRoom: {fileID: 0}
   _lockDistance: 15
   _unlockDistance: 20
 --- !u!114 &4178710496251997567
@@ -419,6 +420,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _lives: 9600000064000000
   _imuneTime: 0.5
+  _defenceTime: 1
 --- !u!114 &2374529801796808954
 MonoBehaviour:
   m_ObjectHideFlags: 0

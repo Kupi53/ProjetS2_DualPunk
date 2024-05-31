@@ -130,19 +130,22 @@ public class LaserGunScript : FireArmScript
         if (_disableFire && Input.GetButton("Use"))
             PlayerState.PointerScript.CanShoot = false;
 
-        if (Input.GetButtonDown("Use") && _canAttack)
+        if (Input.GetButtonDown("Use") && _canAttack && !PlayerState.Stop)
         {
             _coolDown = false;
             _disableFire = false;
         }
-        if (Input.GetButton("Use") && _canAttack && !_fire && !_disableFire)
+        if (Input.GetButton("Use") && _canAttack && !_fire && !_disableFire && !PlayerState.Stop)
         {
             _fire = true;
 
-            EnableLaser();
-            EnableLaserServerRPC();
+            if (!_lineRenderer.enabled)
+            {
+                EnableLaser();
+                EnableLaserServerRPC();
+            }
         }
-        else if (Input.GetButtonUp("Use") || !_canAttack)
+        else if (Input.GetButtonUp("Use") || !_canAttack || PlayerState.Stop)
         {
             _fire = false;
             _coolDown = true;
@@ -214,7 +217,6 @@ public class LaserGunScript : FireArmScript
 
     private void EnableLaser()
     {
-        Debug.Log("enabled");
         _resetTimer = 0;
         _lineRenderer.enabled = true;
 

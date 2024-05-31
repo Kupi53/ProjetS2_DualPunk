@@ -22,8 +22,7 @@ public class EscapeMenu : MonoBehaviour
         {
             if (pauseMenu.activeSelf)
             {
-                if (PlayerState.WeaponScript != null)
-                    PlayerState.WeaponScript.enabled = true;
+                PlayerState.Stop = false;
                 pauseMenu.SetActive(false);
             }
             else if (settingsMenu.activeSelf)
@@ -34,8 +33,7 @@ public class EscapeMenu : MonoBehaviour
             }
             else
             {
-                if (PlayerState.WeaponScript != null)
-                    PlayerState.WeaponScript.enabled = false;
+                PlayerState.Stop = true;
                 pauseMenu.SetActive(true);
             }
         }
@@ -43,8 +41,7 @@ public class EscapeMenu : MonoBehaviour
 
     public void Resume()
     {
-        if (PlayerState.WeaponScript != null)
-            PlayerState.WeaponScript.enabled = true;
+        PlayerState.Stop = false;
         pauseMenu.SetActive(false);
     }
 }

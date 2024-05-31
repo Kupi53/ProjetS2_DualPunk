@@ -40,7 +40,6 @@ public abstract class MeleeWeaponScript : WeaponScript
     public override float InfoTimer { get => _attack > 0 ? _resetCooldownTimer : _defenceTime - _defenceTimer; }
 
 
-
     protected void Start()
     {
         ResetWeapon();
@@ -76,12 +75,21 @@ public abstract class MeleeWeaponScript : WeaponScript
 
     public override void Run(Vector3 position, Vector3 direction, Vector3 targetPoint)
     {
-        PlayerState.PointerScript.SpriteNumber = _pointerSpriteNumber;
+        MovePosition(position, direction, targetPoint);
 
+        PlayerState.PointerScript.SpriteNumber = _pointerSpriteNumber;
         if (_attack > 0 && _attackTimer < _attackCooldown || _disableDefence)
             PlayerState.PointerScript.CanShoot = false;
         else
             PlayerState.PointerScript.CanShoot = true;
+
+        if ((Input.GetButtonUp("SecondaryUse") && _attack == 0 || PlayerState.Stop) && !_defenceCooldown)
+        {
+            ResetDefence();
+            _disableDefence = false;
+        }
+
+        if (PlayerState.Stop) return;
 
         if (Input.GetButton("SecondaryUse") && !_disableDefence && _resetCooldownTimer >= _resetCooldown)
         {
@@ -91,14 +99,6 @@ public abstract class MeleeWeaponScript : WeaponScript
         {
             Attack(direction, false);
         }
-
-        if (Input.GetButtonUp("SecondaryUse") && _attack == 0)
-        {
-            ResetDefence();
-            _disableDefence = false;
-        }
-
-        MovePosition(position, direction, targetPoint);
     }
 
 
@@ -108,7 +108,7 @@ public abstract class MeleeWeaponScript : WeaponScript
         {
             Attack(direction, true);
         }
-        else if (!EnemyState.CanAttack && !_disableDefence && _resetCooldownTimer >= _resetCooldown)
+        else if (!EnemyState.CanAttack && !_disableDefence && _resetCooldownTimer >= _resetCooldown && EnemyState.Defending)
         {
             Defend(direction);
         }
@@ -148,6 +148,33 @@ public abstract class MeleeWeaponScript : WeaponScript
     protected abstract void ResetPosition();
 
 
+    protected virtual void Defend(Vector3 direction)
+    {
+        if (_ownerType == "Player")
+            PlayerState.Walking = true;
+        else
+            EnemyState.Defending = true;
+
+        _defenceCooldown = false;
+        _defenceTimer += Time.deltaTime;
+
+        if (_defenceTimer > _defenceTime)
+        {
+            ResetDefence();
+            _disableDefence = true;
+        }
+
+        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(_attackPoint.transform.position, _range / 2, _layerMask);
+        foreach (Collider2D hitCollider in hitColliders)
+        {
+            if (hitCollider.CompareTag("Projectile"))
+            {
+                hitCollider.GetComponent<IDestroyable>().DestroyObject();
+            }
+        }
+    }
+
+
     protected virtual void Attack(Vector3 direction, bool damagePlayer)
     {
         _attack++;
@@ -184,33 +211,6 @@ public abstract class MeleeWeaponScript : WeaponScript
             }
 
             damagedObjects.Add(hitObject);
-        }
-    }
-
-
-    protected virtual void Defend(Vector3 direction)
-    {
-        if (_ownerType == "Player")
-            PlayerState.Walking = true;
-        else
-            EnemyState.Defending = true;
-
-        _defenceCooldown = false;
-        _defenceTimer += Time.deltaTime;
-
-        if (_defenceTimer > _defenceTime)
-        {
-            ResetDefence();
-            _disableDefence = true;
-        }
-
-        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(_attackPoint.transform.position, _range / 2, _layerMask);
-        foreach (Collider2D hitCollider in hitColliders)
-        {
-            if (hitCollider.CompareTag("Projectile"))
-            {
-                hitCollider.GetComponent<IDestroyable>().DestroyObject();
-            }
         }
     }
 }

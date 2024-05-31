@@ -69,9 +69,8 @@ public class ConsumablesController : NetworkBehaviour
     void Update()
     {
         if (!IsOwner) return;
-        if (_playerState.Down) return;
 
-        if (_healTimer >= _healCooldown)
+        if (_healTimer >= _healCooldown && !_playerState.IsDown && !_playerState.Stop)
         {
             if (Input.GetButtonDown("UseHeal") && _playerState.Health < _playerState.MaxHealth)
             {
@@ -83,7 +82,7 @@ public class ConsumablesController : NetworkBehaviour
             _healTimer += Time.deltaTime;
         }
         
-        if (_itemTimer >= _itemCooldown)
+        if (_itemTimer >= _itemCooldown && !_playerState.IsDown && !_playerState.Stop)
         {
             if (Input.GetButtonDown("UseGrenade"))
             {

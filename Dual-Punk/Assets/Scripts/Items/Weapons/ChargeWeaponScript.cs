@@ -46,7 +46,7 @@ public class ChargeWeaponScript : PowerWeaponScript
             PlayerState.PointerScript.CanShoot = true;
 
 
-        if (Input.GetButton("Use") && !_reloading && _fireTimer >= _fireRate && _ammoLeft > 0 && _chargeTimer <= _chargeTime && !_cancel)
+        if (Input.GetButton("Use") && !_reloading && _fireTimer >= _fireRate && _ammoLeft > 0 && _chargeTimer <= _chargeTime && !_cancel && !PlayerState.Stop)
         {
 			if (!_audioSource.isPlaying)
 			{
@@ -62,7 +62,7 @@ public class ChargeWeaponScript : PowerWeaponScript
         }
 
 
-        if (_chargeTimer > 0 && !_cancel)
+        if (_chargeTimer > 0 && !_cancel && !PlayerState.Stop)
         {
             PlayerState.CameraController.ShakeCamera(_cameraShake * _chargeTimer / 3, 0.1f);
 
@@ -92,14 +92,14 @@ public class ChargeWeaponScript : PowerWeaponScript
             _audioSource.Stop();
         }
         
-        if (Input.GetButtonDown("Use"))
+        if (Input.GetButtonDown("Use") && !PlayerState.Stop)
         {
             _cancel = false;
             if (_reloading && _ammoLeft > 0)
                 base.ResetWeapon();
         }
 
-        if (Input.GetButtonDown("Reload") && _ammoLeft != _magSize && _chargeTimer == 0 || _autoReload && _ammoLeft == 0)
+        if (Input.GetButtonDown("Reload") && _ammoLeft != _magSize && _chargeTimer == 0 && !PlayerState.Stop || _autoReload && _ammoLeft == 0)
         {
             _reloading = true;
         } 
