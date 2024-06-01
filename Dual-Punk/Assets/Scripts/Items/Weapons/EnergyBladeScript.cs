@@ -53,7 +53,7 @@ public class EnergyBladeScript : MeleeWeaponScript
         if (_ownerType == "Player")
             PlayerState.Walking = false;
         else
-            EnemyState.Defending = false;
+            EnemyState.DefenceType = DefenceType.NotDefending;
         _defenceCooldown = true;
         ResetPosition();
     }
