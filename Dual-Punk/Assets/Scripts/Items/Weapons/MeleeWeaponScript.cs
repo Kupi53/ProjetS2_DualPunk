@@ -108,7 +108,7 @@ public abstract class MeleeWeaponScript : WeaponScript
         {
             Attack(direction, true);
         }
-        else if (!EnemyState.CanAttack && !_disableDefence && _resetCooldownTimer >= _resetCooldown && EnemyState.Defending)
+        else if (!EnemyState.CanAttack && !_disableDefence && _resetCooldownTimer >= _resetCooldown && (int)EnemyState.DefenceType > (int)DefenceType.NotDefending)
         {
             Defend(direction);
         }
@@ -153,7 +153,7 @@ public abstract class MeleeWeaponScript : WeaponScript
         if (_ownerType == "Player")
             PlayerState.Walking = true;
         else
-            EnemyState.Defending = true;
+            EnemyState.DefenceType = DefenceType.Defending;
 
         _defenceCooldown = false;
         _defenceTimer += Time.deltaTime;
