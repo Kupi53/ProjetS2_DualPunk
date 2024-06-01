@@ -82,7 +82,7 @@ public class MouvementsController : NetworkBehaviour, IImpact
                 else if (Input.GetButtonUp("Walk"))
                     _playerState.Walking = false;
 
-                if (Input.GetButtonDown("Dash") && !_playerState.IsDown && _dashCooldownTimer <= 0 && _playerState.Moving && EnableDash)
+                if (Input.GetButtonDown("Dash") && _dashCooldownTimer <= 0 && _playerState.Moving && EnableDash)
                 {
                     EnableMovement = false;
                     _playerState.Dashing = true;
@@ -151,36 +151,46 @@ public class MouvementsController : NetworkBehaviour, IImpact
             }
         }
 
+        else
+        {
+            _playerState.Moving = false;
+        }
+
         MovePosition();
     }
 
 
     private void MovePosition()
     {
-        if (_forces.Count < 0)
-        {
-            _rb2d.MovePosition(_rb2d.position + _moveDirection * _moveSpeed * _moveFactor);
-            return;
-        }
-
         int i = 0;
         Vector2 resultingForce = Vector2.zero;
+        Vector2 targetDirection = Vector2.zero;
 
-        while (i < _forces.Count)
+        if (_playerState.Moving)
         {
-            if (_forces[i].Item2 <= 0)
-            {
-                _forces.Remove(_forces[i]);
-            }
-            else
-            {
-                resultingForce += _forces[i].Item1 * _forces[i].Item2;
-                _forces[i] = (_forces[i].Item1, _forces[i].Item2 - Time.deltaTime * _forcesDecreaseSpeed);
-                i++;
-            }
+            targetDirection = _moveDirection * _moveSpeed * _moveFactor;
         }
 
-        _rb2d.MovePosition(_rb2d.position + resultingForce * Methods.GetDirectionFactor(resultingForce) * _playerState.ForcesEffect + _moveDirection * _moveSpeed * _moveFactor);
+        if (_forces.Count > 0)
+        {
+            while (i < _forces.Count)
+            {
+                if (_forces[i].Item2 <= 0)
+                {
+                    _forces.Remove(_forces[i]);
+                }
+                else
+                {
+                    resultingForce += _forces[i].Item1 * _forces[i].Item2;
+                    _forces[i] = (_forces[i].Item1, _forces[i].Item2 - Time.deltaTime * _forcesDecreaseSpeed);
+                    i++;
+                }
+            }
+
+            resultingForce *= Methods.GetDirectionFactor(resultingForce) * _playerState.ForcesEffect;
+        }
+
+        _rb2d.MovePosition(_rb2d.position + targetDirection + resultingForce);
     }
 
 

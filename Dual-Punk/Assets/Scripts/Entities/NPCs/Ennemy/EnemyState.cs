@@ -50,7 +50,7 @@ public class EnemyState : NPCState
         {
             Target = null;
         }
-        else if ((Vector2.Distance(transform.position, Target.transform.position) > _unlockDistance/2 || !CanAttack) && DefenceType != DefenceType.Defending)
+        else if ((Vector2.Distance(transform.position, Target.transform.position) > _unlockDistance/2 || !CanAttack) && DefenceType == DefenceType.NotDefending)
         {
             Run = true;
         }

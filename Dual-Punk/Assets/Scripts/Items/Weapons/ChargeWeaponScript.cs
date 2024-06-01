@@ -140,14 +140,13 @@ public class ChargeWeaponScript : PowerWeaponScript
             _fireTimer += Time.deltaTime;
         }
 
-
         if (_chargeTimer > _minCharge)
         {
             _minCharge = 0;
             Fire(direction, _damage, _dispersion, 0, true);
         }
 
-        _aiming = !EnemyState.Run;
+        _aiming = !EnemyState.Run || !EnemyState.Move;
 
         if (_ammoLeft == 0)
         {
