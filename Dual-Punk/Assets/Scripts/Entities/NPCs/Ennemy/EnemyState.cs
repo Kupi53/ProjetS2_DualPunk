@@ -10,8 +10,8 @@ public class EnemyState : NPCState
     [SerializeField] private float _unlockDistance;
 
     public GameObject Target { get; set; }
+    public DefenceType DefenceType { get; set; }
     public bool CanAttack { get; set; }
-    public bool Defending { get; set; }
 
     private bool _stunAnimation;
     private SpriteRenderer _spriteRenderer;
@@ -32,6 +32,7 @@ public class EnemyState : NPCState
 
         _spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         _stunAnimation = false;
+        DefenceType = DefenceType.NotDefending;
     }
 
 
@@ -56,7 +57,7 @@ public class EnemyState : NPCState
         {
             Target = null;
         }
-        else if ((Vector2.Distance(transform.position, Target.transform.position) > _unlockDistance/2 || !CanAttack) && !Defending)
+        else if ((Vector2.Distance(transform.position, Target.transform.position) > _unlockDistance/2 || !CanAttack) && DefenceType == DefenceType.NotDefending)
         {
             Run = true;
         }
@@ -100,4 +101,11 @@ public class EnemyState : NPCState
             ParentRoom.OnEnemyDeath();
         }
     }
+}
+
+public enum DefenceType
+{
+    NotDefending,
+    ShouldDefend,
+    Defending,
 }

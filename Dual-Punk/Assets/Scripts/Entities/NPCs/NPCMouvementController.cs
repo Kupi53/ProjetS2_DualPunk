@@ -40,7 +40,7 @@ public class NPCMouvementController : NetworkBehaviour, IImpact
 
     private void Update()
     {
-        if (_npcState.Stop || _reCalculateTimer < _reCalculationTime)
+        if (_npcState.Stop || !_npcState.Move || _reCalculateTimer < _reCalculationTime)
         {
             _reCalculateTimer += Time.deltaTime;
             return;
@@ -80,11 +80,11 @@ public class NPCMouvementController : NetworkBehaviour, IImpact
     {
         int i = 0;
         Vector2 resultingForce = Vector2.zero;
-        Vector2 targetPosition = Vector2.zero;
+        Vector2 targetDirection = Vector2.zero;
 
-        if (!_npcState.Stop)
+        if (!_npcState.Stop && _npcState.Move)
         {
-            targetPosition = _moveDirection * _moveSpeed * Methods.GetDirectionFactor(_moveDirection);
+            targetDirection = _moveDirection * _moveSpeed * Methods.GetDirectionFactor(_moveDirection);
         }
 
         if (_forces.Count > 0)
@@ -107,7 +107,7 @@ public class NPCMouvementController : NetworkBehaviour, IImpact
         }
 
         if (!_npcState.Stun)
-            _rb2d.MovePosition(_rb2d.position + resultingForce + targetPosition);
+            _rb2d.MovePosition(_rb2d.position + targetDirection + resultingForce);
     }
 
 

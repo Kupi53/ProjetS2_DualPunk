@@ -47,7 +47,12 @@ public class EnemyHealthManager : MonoBehaviour, IDamageable
         if (_defenceTimer > 0)
         {
             _defenceTimer -= Time.deltaTime;
-            _enemyState.Defending = true;
+            if ((int)_enemyState.DefenceType < (int)DefenceType.ShouldDefend)
+                _enemyState.DefenceType = DefenceType.ShouldDefend;
+        }
+        else if (_enemyState.DefenceType == DefenceType.ShouldDefend)
+        {
+            _enemyState.DefenceType = DefenceType.NotDefending;
         }
     }
 

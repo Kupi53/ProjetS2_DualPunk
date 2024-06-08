@@ -112,7 +112,7 @@ public class PowerWeaponScript : FireArmScript
             _fireTimer += Time.deltaTime;
         }
 
-        _aiming = !EnemyState.Run;
+        _aiming = !EnemyState.Run || !EnemyState.Move;
 
         if (_ammoLeft == 0)
         {

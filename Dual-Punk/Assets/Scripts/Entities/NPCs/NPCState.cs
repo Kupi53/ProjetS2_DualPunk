@@ -6,18 +6,21 @@ using UnityEngine;
 
 public class NPCState : NetworkBehaviour
 {
+    public virtual Vector3 TargetPoint { get; set; }
     public bool Stop { get; set; }
+    public bool Move { get; set; }
     public bool Run { get; set; }
     public bool Stun { get; set; }
-    public virtual Vector3 TargetPoint { get; set; }
+
     #nullable enable
-    public Room? ParentRoom;
+    public Room? ParentRoom { get; set; }
     #nullable disable
 
 
     protected void Awake()
     {
         Stop = false;
+        Move = true;
         Run = false;
         Stun = false;
     }

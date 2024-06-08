@@ -67,12 +67,14 @@ public class EnemyWeaponHandler : NetworkBehaviour
 
 
         _direction = _enemyState.TargetPoint - transform.position;
-        float distance = _direction.magnitude;
+        float distance = _direction.magnitude - 1;
         bool canAttack = false;
 
         if (distance < _weaponScript.Range)
         {
             RaycastHit2D hit = Physics2D.Raycast(transform.position, _enemyState.Target.transform.position, distance, _layerMask);
+
+            Debug.Log(hit == true);
 
             if (_weaponScript is ChargeWeaponScript)
             {
@@ -82,6 +84,15 @@ public class EnemyWeaponHandler : NetworkBehaviour
             else if (!hit)
             {
                 canAttack = true;
+            }
+
+            if (distance < _weaponScript.Range / 4 && canAttack)
+            {
+                _enemyState.Move = false;
+            }
+            else
+            {
+                _enemyState.Move = true;
             }
         }
 

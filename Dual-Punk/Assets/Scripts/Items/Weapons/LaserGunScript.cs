@@ -56,8 +56,8 @@ public class LaserGunScript : FireArmScript
         _coolDownLevel = 0;
         _staticAmplifierFactor = 0;
 
+        _resetTimer = 0;
         _damageTimer = _fireRate;
-        _resetTimer = _smoothTime * _disablingSpeed + 1;
         _particles = new List<ParticleSystem>();
         _lineRenderer = GetComponentInChildren<LineRenderer>();
         _oldColor = _lineRenderer.gameObject.GetComponent<Renderer>().material.GetColor("_Color");
@@ -112,13 +112,11 @@ public class LaserGunScript : FireArmScript
                     _disableFire = false;
                 }
             }
-            if (_resetTimer >= _smoothTime * _disablingSpeed)
+            if (_resetTimer == 0 && _particles[0].isPlaying)
             {
-                if (_ownerType == "Player")
-                    DisableLaser();
+                DisableLaser();
                 DisableLaserServerRPC();
             }
-
         }        
     }
 
@@ -169,9 +167,10 @@ public class LaserGunScript : FireArmScript
 
         if (!_disableFire && EnemyState.CanAttack)
         {
-            if (_resetTimer != 0)
-                EnableLaserServerRPC();
             _fire = true;
+
+            if (!_lineRenderer.enabled)
+                EnableLaserServerRPC();
         }
         if (!EnemyState.CanAttack)
         {
@@ -310,6 +309,12 @@ public class LaserGunScript : FireArmScript
             if (_ownerType == "Player")
                 DrawLaser(_startPosition, direction, 0);
             DrawLaserServerRPC(_startPosition, direction, 0);
+        }
+        else if (_resetTimer >= _smoothTime * _disablingSpeed)
+        {
+            if (_ownerType == "Player")
+                DisableLaser();
+            DisableLaserServerRPC();
         }
     }
 
