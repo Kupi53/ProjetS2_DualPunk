@@ -24,52 +24,45 @@ public class FuryEnhancer : ImplantScript
 
                 if (meleeWeaponScript != null && _oldModifiedWeapon != meleeWeaponScript.gameObject)
                 {
-                    if (_oldModifiedWeapon == null)
+                    if (_oldModifiedWeapon != null)
                     {
-                        _oldModifiedWeapon = meleeWeaponScript.gameObject;
-                        _oldDamage = meleeWeaponScript.Damage;
+                        ResetEffect();
                     }
-                    else
-                    {
-                        MeleeWeaponScript oldMeleeWeaponScript = _oldModifiedWeapon.GetComponent<MeleeWeaponScript>();
-                        oldMeleeWeaponScript.Damage = _oldDamage;
-                        oldMeleeWeaponScript.AttackSpeed /= _speedAttackRate;
-                        oldMeleeWeaponScript.ResetColdown *= _speedAttackRate;
 
-                        _oldModifiedWeapon = meleeWeaponScript.gameObject;
-                        _oldDamage = meleeWeaponScript.Damage;
-                    }
+                    _oldModifiedWeapon = meleeWeaponScript.gameObject;
+                    _oldDamage = meleeWeaponScript.Damage;
 
                     float newDamage = meleeWeaponScript.Damage * _multiplierDamage;
                     
                     meleeWeaponScript.Damage = (int)newDamage;
-                    meleeWeaponScript.AttackSpeed *= _speedAttackRate;
-                    meleeWeaponScript.ResetColdown /= _speedAttackRate;
+                    meleeWeaponScript.AttackCooldown *= _speedAttackRate;
+                    meleeWeaponScript.ResetCooldown /= _speedAttackRate;
                 }
             }
             else if (_oldModifiedWeapon != null)
             {
-                MeleeWeaponScript oldMeleeWeaponScript = _oldModifiedWeapon.GetComponent<MeleeWeaponScript>();
-                oldMeleeWeaponScript.Damage = _oldDamage;
-                oldMeleeWeaponScript.AttackSpeed /= _speedAttackRate;
-                oldMeleeWeaponScript.ResetColdown *= _speedAttackRate;
-
-                _oldModifiedWeapon = null;
+                ResetEffect();
             }
         }
     }
+
+
+    private void ResetEffect()
+    {
+        MeleeWeaponScript oldMeleeWeaponScript = _oldModifiedWeapon.GetComponent<MeleeWeaponScript>();
+        oldMeleeWeaponScript.Damage = _oldDamage;
+        oldMeleeWeaponScript.AttackCooldown /= _speedAttackRate;
+        oldMeleeWeaponScript.ResetCooldown *= _speedAttackRate;
+        _oldModifiedWeapon = null;
+    }
+
 
     public override void ResetImplant()
     {
         if (_oldModifiedWeapon != null)
         {
-            MeleeWeaponScript oldMeleeWeaponScript = _oldModifiedWeapon.GetComponent<MeleeWeaponScript>();
-            oldMeleeWeaponScript.Damage = _oldDamage;
-            oldMeleeWeaponScript.AttackSpeed /= _speedAttackRate;
-            oldMeleeWeaponScript.ResetColdown *= _speedAttackRate;
+            ResetEffect();
         }
-
-        _oldModifiedWeapon = null;
         RemoveAllOwnerShipRPC(GetComponent<NetworkObject>());
     }
 }

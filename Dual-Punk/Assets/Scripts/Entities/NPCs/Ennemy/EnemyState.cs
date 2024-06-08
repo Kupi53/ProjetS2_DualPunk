@@ -10,7 +10,9 @@ public class EnemyState : NPCState
     [SerializeField] private float _unlockDistance;
 
     public GameObject Target { get; set; }
-    public bool Attack { get; set; }
+    public DefenceType DefenceType { get; set; }
+    public bool CanAttack { get; set; }
+
     public override Vector3 TargetPoint
     {
         get => Target == null ? Vector3.zero : Target.transform.position;
@@ -22,7 +24,8 @@ public class EnemyState : NPCState
     {
         base.Awake();
 
-        Attack = false;
+        CanAttack = false;
+        DefenceType = DefenceType.NotDefending;
     }
 
 
@@ -47,9 +50,30 @@ public class EnemyState : NPCState
         {
             Target = null;
         }
-        else if (Vector2.Distance(transform.position, Target.transform.position) > _unlockDistance/2)
+        else if ((Vector2.Distance(transform.position, Target.transform.position) > _unlockDistance/2 || !CanAttack) && DefenceType == DefenceType.NotDefending)
         {
             Run = true;
         }
+        else
+        {
+            Run = false;
+        }
     }
+
+
+    private void OnDestroy()
+    {
+        if (ParentRoom is not null)
+        {
+            ParentRoom.Enemies.Remove(gameObject);
+            ParentRoom.OnEnemyDeath();
+        }
+    }
+}
+
+public enum DefenceType
+{
+    NotDefending,
+    ShouldDefend,
+    Defending,
 }

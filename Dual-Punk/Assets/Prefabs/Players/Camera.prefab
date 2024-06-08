@@ -183,6 +183,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _minZoom: 4.5
   _maxZoom: 5.5
+  _followTime: 0.5
+  _dashFollowTime: 0.1
   _centerOnPlayerFactor: 4
   _changeCenterZone: 100
   _cameraZpos: -7

@@ -9,8 +9,8 @@ public class SpawnUi : NetworkBehaviour
     [SerializeField] private GameObject UI;
     [SerializeField] private GameObject Camera;
 
-    private GameObject LocalUI;
-    private GameObject LocalCamera;
+    public GameObject LocalUI;
+    public GameObject LocalCamera;
 
 
     void Start()
@@ -18,7 +18,7 @@ public class SpawnUi : NetworkBehaviour
       if (Owner.IsLocalClient)
         {
             LocalUI = Instantiate(UI);
-            LocalCamera = Instantiate(Camera);
+            LocalCamera = Instantiate(Camera, gameObject.transform.position, Quaternion.identity);
 
             LocalUI.name = gameObject.name + " UI";
             LocalCamera.name = gameObject.name + " Camera";

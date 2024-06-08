@@ -25,10 +25,8 @@ public class EffectTileNetworkWrapper : NetworkBehaviour
         EffectTilesController controller = FloorNetworkWrapper.Instance.LocalFloorManager.CurrentRoom.gameObject.GetComponentInChildren<EffectTilesController>();
         #nullable enable
         EffectTile? effectTile = controller.GetTileStoodOn(pos);
-        Debug.Log("test1");
         if (effectTile != null)
         {
-            Debug.Log("test");
             effectTile.Action(GameManager.Instance.LocalPlayer);
         }
      }

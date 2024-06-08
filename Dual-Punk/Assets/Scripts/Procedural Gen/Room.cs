@@ -1,11 +1,14 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
+using System.Linq;
 using System.Numerics;
 using Unity.Collections;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using Vector3 = UnityEngine.Vector3;
 
 public enum WallCardinal{
     North,
@@ -27,10 +30,16 @@ public class Room : MonoBehaviour
     public Vector3Int[] _exitWallCoordinates;
     public WallCardinal _exitWallCardinal;
     public WallCardinal _entryWallCardinal;
+    public List<GameObject> Enemies;
+    public bool IsCleared 
+    {
+        get => Enemies.Count == 0;
+    }
+    public bool Visited;
     [SerializeField] private int _roomPrefabId;
+
     private EffectTilesController _effectTilesController;
     private Floor _floor;
-    private bool _isCleared;
     private RoomType _roomType
     { 
         get 
@@ -50,12 +59,10 @@ public class Room : MonoBehaviour
         }
     }
 
-
     // called upon generation of eadch room (FloorManager.GenerateFloor); initialises variables, generates doors, spawns entities
     public void Init(Floor floor)
     {
         _floor = floor;
-        _isCleared = false;
         _effectTilesController = this.gameObject.GetComponent<EffectTilesController>();
         _effectTilesController.EffectTiles = new List<EffectTile>();
         GenerateWalls();
@@ -79,6 +86,17 @@ public class Room : MonoBehaviour
                 _effectTilesController.EffectTiles.Add(new RoomExitTile(coordinate, NextRoom, GetOppositeWall(_exitWallCardinal)));
             }
         }
+        else
+        {
+            GameObject floorExitWall = Instantiate(FloorNetworkWrapper.Instance.LocalFloorManager.FloorExitWallPrefab);
+            floorExitWall.transform.SetParent(gameObject.transform);
+            wallTilemap = floorExitWall.GetComponent<Tilemap>();
+            foreach ( Vector3Int coordinate in _exitWallCoordinates)
+            {
+                wallTilemap.SetTile(coordinate, FloorNetworkWrapper.Instance.LocalFloorManager.test2);
+                _effectTilesController.EffectTiles.Add(new FloorExitTile(coordinate));
+            }
+        }
 
     }
 
@@ -95,6 +113,22 @@ public class Room : MonoBehaviour
         (_entryWallCardinal, _exitWallCardinal) = PickWalls();
         _entryWallCoordinates = FindWallCoordinates(_entryWallCardinal);
         _exitWallCoordinates = FindWallCoordinates(_exitWallCardinal);
+    }
+    public void PopulateRoomEnemies()
+    {
+        Enemies = GameObject.FindGameObjectsWithTag("Ennemy").ToList();
+        foreach(GameObject enemy in Enemies)
+        {
+            enemy.GetComponent<EnemyState>().ParentRoom = this;
+            enemy.transform.SetParent(this.gameObject.transform);
+        }
+    }
+    public void OnEnemyDeath()
+    {
+        if (IsCleared)
+        {
+            ObjectSpawner.Instance.SpawnObjectFromIdRpc("0010", Vector3.zero, quaternion.identity);
+        }
     }
 
     private static WallCardinal GetOppositeWall(WallCardinal cardinal)

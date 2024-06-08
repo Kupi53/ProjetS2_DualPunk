@@ -35,106 +35,102 @@ public class ItemManager : NetworkBehaviour
     private void Update()
     {
         if (!Owner.IsLocalClient) return;
+        if (_items.Count == 0 || _playerState.Stop) return;
 
-        if (_items.Count > 0)
+        GameObject item = _items[_index];
+
+        if (Input.GetButtonDown("Switch"))
         {
-            GameObject item = _items[_index];
+            if (item != null)
+                RemoveHighlight(item);
+            _index = (_index + 1) % _items.Count;
+        }
 
-            if (Input.GetButtonDown("Switch"))
+        item = _items[_index];
+        item.GetComponent<HighlightItem>().Highlight();
+
+        if (!Input.GetButtonDown("Pickup")) return;
+
+        WeaponScript weaponScript;
+        ImplantScript implantScript;
+
+
+        if (item.CompareTag("Weapon") && !(weaponScript = item.GetComponent<WeaponScript>()).InHand)
+        {
+            _index = 0;
+            _items.Remove(item);
+
+            InventorySlots[] weaponsSlots = _inventoryManager.GetComponent<InventoryManager>().WeaponSlots;
+
+            if (weaponsSlots[_inventoryManager.GetComponent<InventoryManager>().EquipedSlotIndex].heldItem == null)
             {
-                if (item != null)
-                    RemoveHighlight(item);
-                _index = (_index + 1) % _items.Count;
+                UpdateHeldWeapon(weaponScript);
             }
 
-            item = _items[_index];
-            item.GetComponent<HighlightItem>().Highlight();
+            RemoveHighlight(item);
+            _inventoryManager.GetComponent<InventoryPickItem>().ItemPicked(item);
+        }
 
-            if (!Input.GetButtonDown("Pickup")) return;
+        else if (item.CompareTag("Implant") && !(implantScript = item.GetComponent<ImplantScript>()).IsEquipped) //Plus verifier que l'implant n'est pas sur une entite
+        {
+            bool pickable = false;
 
-            WeaponScript weaponScript;
-            ImplantScript implantScript;
+            switch (implantScript.Type)
+            {
+                case ImplantType.Neuralink:
+                    if (_implantController.NeuralinkImplant == null)
+                    {
+                        _implantController.NeuralinkImplant = implantScript;
+                        pickable = true;
+                    }
+                    break;
 
+                case ImplantType.ExoSqueleton:
+                    if (_implantController.ExoSqueletonImplant == null)
+                    {
+                        _implantController.ExoSqueletonImplant = implantScript;
+                        pickable = true;
+                    }
+                    break;
 
-            if (item.CompareTag("Weapon") && !(weaponScript = item.GetComponent<WeaponScript>()).InHand)
+                case ImplantType.Arm:
+                    if (_implantController.ArmImplant == null)
+                    {
+                        _implantController.ArmImplant = implantScript;
+                        pickable = true;
+                    }
+                    break;
+
+                case ImplantType.Boots:
+                    if (_implantController.BootsImplant == null)
+                    {
+                        _implantController.BootsImplant = implantScript;
+                        pickable = true;
+                    }
+                    break;
+            }
+
+            if (pickable)
             {
                 _index = 0;
                 _items.Remove(item);
-
-                InventorySlots[] weaponsSlots = _inventoryManager.GetComponent<InventoryManager>().WeaponSlots;
-                weaponScript.PlayerState = _playerState;
-                weaponScript.UserRecoil = GetComponent<IImpact>();
-
-                if (weaponsSlots[_inventoryManager.GetComponent<InventoryManager>().EquipedSlotIndex].heldItem == null)
-                {
-                    UpdateHeldWeapon(weaponScript);
-                }
+                _inventoryManager.GetComponent<InventoryPickItem>().ItemPicked(item);
 
                 RemoveHighlight(item);
-                _inventoryManager.GetComponent<InventoryPickItem>().ItemPicked(item);
+                item.GetComponent<SpriteRenderer>().enabled = false;
+                ObjectSpawner.Instance.ObjectParentToGameObjectRpc(item, gameObject, Vector3.zero);
+
+                implantScript.IsEquipped = true;
+                implantScript.PlayerState = _playerState;
             }
-
-            else if (item.CompareTag("Implant") && !(implantScript = item.GetComponent<ImplantScript>()).IsEquipped) //Plus verifier que l'implant n'est pas sur une entite
-            {
-                bool pickable = false;
-
-                switch (implantScript.Type)
-                {
-                    case ImplantType.Neuralink:
-                        if (_implantController.NeuralinkImplant == null)
-                        {
-                            _implantController.NeuralinkImplant = implantScript;
-                            pickable = true;
-                        }
-                        break;
-
-                    case ImplantType.ExoSqueleton:
-                        if (_implantController.ExoSqueletonImplant == null)
-                        {
-                            _implantController.ExoSqueletonImplant = implantScript;
-                            pickable = true;
-                        }
-                        break;
-
-                    case ImplantType.Arm:
-                        if (_implantController.ArmImplant == null)
-                        {
-                            _implantController.ArmImplant = implantScript;
-                            pickable = true;
-                        }
-                        break;
-
-                    case ImplantType.Boots:
-                        if (_implantController.BootsImplant == null)
-                        {
-                            _implantController.BootsImplant = implantScript;
-                            pickable = true;
-                        }
-                        break;
-                }
-
-                if (pickable)
-                {
-                    _index = 0;
-                    _items.Remove(item);
-                    _inventoryManager.GetComponent<InventoryPickItem>().ItemPicked(item);
-
-                    RemoveHighlight(item);
-                    item.GetComponent<SpriteRenderer>().enabled = false;
-                    ObjectSpawner.Instance.ObjectParentToGameObjectRpc(item, gameObject, Vector3.zero);
-
-                    implantScript.IsEquipped = true;
-                    implantScript.PlayerState = _playerState;
-                }
-            }
+        }
                 
-            else if (item.CompareTag("Item"))
-            {
-                _index = 0;
-                _items.Remove(item);
-                //Mettre l'item dans l'inventaire
-                _inventoryManager.GetComponent<InventoryPickItem>().ItemPicked(item);
-            }
+        else if (item.CompareTag("Item"))
+        {
+            _index = 0;
+            _items.Remove(item);
+            //Mettre l'item dans l'inventaire
+            _inventoryManager.GetComponent<InventoryPickItem>().ItemPicked(item);
         }
     }
 

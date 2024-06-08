@@ -44,9 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9477fcfe33aea414896a908bc373dbd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 0
-  _addedNetworkObject: {fileID: 0}
-  _networkObjectCache: {fileID: 0}
   CityRoomPrefabs:
   - {fileID: 4019020946379616920, guid: 42e909071ae77d149973e0f2ae2aa957, type: 3}
   - {fileID: 4019020946379616920, guid: 24338cc6470bebc43bd853503fe68e59, type: 3}
@@ -71,5 +68,12 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  CityEnemyPrefabs:
+  - {fileID: 6272146751674077345, guid: 0f77c2463d8db4e40834373e72dfcef0, type: 3}
+  - {fileID: 6272146751674077345, guid: 26ceb6209cf7a844bbe722acabbbdb98, type: 3}
+  - {fileID: 6272146751674077345, guid: 55e37db6665305742909a50c6232e975, type: 3}
+  HangarEnemyPrefabs: []
+  SpaceshipEnemyPrefabs: []
+  FloorExitWallPrefab: {fileID: 1468348159299252417, guid: 85e0fd92583f5e744a63c7b62a1884fe, type: 3}
   test1: {fileID: 11400000, guid: c23a700627b120a40bebd7c308e6ed1b, type: 2}
   test2: {fileID: 11400000, guid: c23a700627b120a40bebd7c308e6ed1b, type: 2}

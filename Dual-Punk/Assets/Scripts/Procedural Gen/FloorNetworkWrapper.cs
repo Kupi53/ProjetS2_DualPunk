@@ -1,26 +1,47 @@
+using System.Collections.Generic;
+using System.Linq;
 using FishNet.Connection;
 using FishNet.Object;
+using Unity.Mathematics;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class FloorNetworkWrapper : NetworkBehaviour
 {
-     public static FloorNetworkWrapper Instance;
-     [SerializeField] private GameObject _floorManagerPrefab;
-     public FloorManager LocalFloorManager {
+    private const int _baseMinEnemies = 6;
+    private const int _baseMaxEnemies = 11;
+    private int _actualMinEnemies
+    {
+        get
+        {
+            return (int)(_baseMinEnemies * (int)(LocalFloorManager.CurrentFloor.FloorType+1) * 0.5f);
+        }
+    }
+    private int _actualMaxEnemies
+    {
+        get
+        {
+            return (int)(_baseMaxEnemies * (int)(LocalFloorManager.CurrentFloor.FloorType+1) * 0.5f);
+        }
+    }
+    public static FloorNetworkWrapper Instance;
+    [SerializeField] private GameObject _floorManagerPrefab;
+    public FloorManager LocalFloorManager {
         get
         {
             return GameObject.FindWithTag("FloorManager").GetComponent<FloorManager>();
         }
-     }
+    }
 
-     override public void OnStartNetwork(){
+    override public void OnStartNetwork(){
         base.OnStartNetwork();
         if (Instance==null)
         {
             Instance = this;
         }
         Instantiate(_floorManagerPrefab);
-     }
+    }
 
     public void NewFloor(FloorType floorType)
     {
@@ -36,21 +57,77 @@ public class FloorNetworkWrapper : NetworkBehaviour
         SwitchToNewFloorRPC(floorType);
     }
 
+    public void SpawnEnemies()
+    {
+        if (!IsServer) return;
+        SpawnEnemiesRpc();
+    }
+    public void SpawnLoot()
+    {
+        if (!IsServer) return;
+        SpawnLootRpc();
+    }
+
     [ObserversRpc]
     private void SeedRPC(int seed)
     {
-        Debug.Log("fkldjajlf");
         UnityEngine.Random.InitState(seed);
     }
     [ObserversRpc]
     private void DestroyCurrentFloorRPC()
     {
-        LocalFloorManager.CurrentFloor.DestroyHolder();
+        if (LocalFloorManager.CurrentFloor != null)
+        {
+            LocalFloorManager.CurrentFloor.DestroyHolder();
+        }
     }
     [ObserversRpc]
     private void SwitchToNewFloorRPC(FloorType floorType)
     {
         LocalFloorManager.CurrentFloor = LocalFloorManager.GenerateFloor(floorType);
         LocalFloorManager.SwitchRoom(LocalFloorManager.CurrentFloor.Entry);
+        GameManager.Instance.LocalPlayer.transform.position = 
+        LocalFloorManager.CurrentFloor.Entry.GetComponent<Grid>().CellToWorld(RoomExitTile.ComputeTargetCoordinates(
+        Instance.LocalFloorManager.CurrentFloor.Entry._entryWallCardinal, 
+        Instance.LocalFloorManager.CurrentFloor.Entry));
+    }
+
+    [ServerRpc (RequireOwnership = false)]
+    private void SpawnEnemiesRpc()
+    {
+        Tilemap[] tilemaps = LocalFloorManager.CurrentRoom.GetComponentsInChildren<Tilemap>();
+        int enemyAmount = UnityEngine.Random.Range(_actualMinEnemies, _actualMaxEnemies+1);
+        Tilemap tileMap = tilemaps.Where(map => map.gameObject.name == "Tilemap").First();
+        IEnumerable<Tilemap> elevationMaps = tilemaps.Where(map => map.gameObject.name.StartsWith("Elevation"));
+        BoundsInt bounds = tileMap.cellBounds;
+        // pick random enemies from the prefab list and assign random positions to them (that or not out of bounds (cellbound) and do not collide with anything (cant be on an elevation))
+        for (int i = 0; i < enemyAmount; i++)
+        {
+            int enemyPrefab = UnityEngine.Random.Range(0, LocalFloorManager.CurrentFloor.EnnemyPrefabs.Length);
+            int posX = UnityEngine.Random.Range(bounds.xMin, bounds.xMax);
+            int posY = UnityEngine.Random.Range(bounds.yMin, bounds.yMax);
+            Vector3Int position = new Vector3Int(posX, posY,0);
+            while (tileMap.GetTile(position) == null || elevationMaps.Any(map => map.GetTile(position) != null))
+            {
+                posX = UnityEngine.Random.Range(bounds.xMin, bounds.xMax);
+                posY = UnityEngine.Random.Range(bounds.yMin, bounds.yMax);
+                position = new Vector3Int(posX, posY,0);
+            }
+            Vector3 WorldPosition = tileMap.CellToWorld(position);
+            GameObject Enemy = Instantiate(LocalFloorManager.CurrentFloor.EnnemyPrefabs[enemyPrefab], WorldPosition, quaternion.identity);
+            Spawn(Enemy);
+        }
+        PopulateRoomEnemiesRpc();
+    }
+    [ServerRpc (RequireOwnership = false)]
+    public void SpawnLootRpc()
+    {
+        
+    }
+
+    [ObserversRpc]
+    private void PopulateRoomEnemiesRpc()
+    {
+        LocalFloorManager.CurrentRoom.PopulateRoomEnemies();
     }
 }

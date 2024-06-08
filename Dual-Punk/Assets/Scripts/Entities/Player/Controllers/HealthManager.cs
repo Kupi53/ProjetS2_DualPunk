@@ -4,20 +4,27 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.UIElements;
+using TMPro;
 
 
 public class HealthManager : NetworkBehaviour, IDamageable
 {
-    [SerializeField] private float _damageToSecondConversionFactor;
-
     private PlayerState _playerState;
 
     //Nécessaire pour implant ThermicExchange
     public float DamageMultiplier { get; set; }
-#nullable enable
+    public float DamageToSecond { get; set; }
+    #nullable enable
     public LaserGunScript? LaserGunScript { get; set; }
-#nullable disable
+    #nullable disable
 
+    //Nécessaire pour implant Bulletstorm
+    public bool DodgeActive { get; set; } = false;
+    public int DodgePercentage {get; set; }
+    [SerializeField] private GameObject _floatingTextPrefab;
+    [SerializeField] private GameObject _floatingTextsParent;
 
     private void Start()
     {
@@ -33,7 +40,7 @@ public class HealthManager : NetworkBehaviour, IDamageable
         else if (_playerState.Health <= 0)
         {
             _playerState.Health = 0;
-            _playerState.Down = true;
+            _playerState.IsDown = true;
         }
     }
 
@@ -79,32 +86,39 @@ public class HealthManager : NetworkBehaviour, IDamageable
     }
 
     [ObserversRpc]
-    public void Damage(int amount, float time, bool warriorLuckBullet)
+    public void Damage(int amount, float time, bool crit)
     {
-        float newAmout = amount;
-
-        if (LaserGunScript != null)
+        if (DodgeActive && UnityEngine.Random.Range(0, 100) < DodgePercentage)
         {
-            newAmout *= DamageMultiplier;
-            float addedTime = (newAmout / _damageToSecondConversionFactor) / LaserGunScript.FireTime;
-            if (LaserGunScript.CoolDownLevel + addedTime > LaserGunScript.FireTime)
-            {
-                LaserGunScript.CoolDownLevel = LaserGunScript.FireTime;
-            }
-            else
-            {
-                LaserGunScript.CoolDownLevel += addedTime;
-            }
-        }
-
-        if (time == 0)
-        {
-            _playerState.Health -= (int)newAmout;
-            CheckHealth();
+            DisplayMessageIndicator("Dodge", new Vector3(1, 1, 0), Color.white);
         }
         else
         {
-            StartCoroutine(HealthCoroutine(-(int)newAmout, time));
+            float newAmout = amount;
+
+            if (LaserGunScript != null && LaserGunScript.CoolDownLevel < LaserGunScript.FireTime / 2)
+            {
+                newAmout *= DamageMultiplier;
+                float addedTime = (amount / DamageToSecond) * LaserGunScript.FireTime;
+                if (LaserGunScript.CoolDownLevel + addedTime > LaserGunScript.FireTime)
+                {
+                    LaserGunScript.CoolDownLevel = LaserGunScript.FireTime;
+                }
+                else
+                {
+                    LaserGunScript.CoolDownLevel += addedTime;
+                }
+            }
+
+            if (time == 0)
+            {
+                _playerState.Health -= (int)newAmout;
+                CheckHealth();
+            }
+            else
+            {
+                StartCoroutine(HealthCoroutine(-(int)newAmout, time));
+            }
         }
     }
 
@@ -113,5 +127,19 @@ public class HealthManager : NetworkBehaviour, IDamageable
     {
         _playerState.Health = amount;
         CheckHealth();
+    }
+
+    public void DisplayMessageIndicator(string message, Vector3 scale, Color color)
+    {
+        if (message == "") return;
+
+        GameObject floatingText = Instantiate(_floatingTextPrefab);
+
+        floatingText.transform.SetParent(_floatingTextsParent.transform);
+        floatingText.GetComponent<RectTransform>().localScale = scale;
+        floatingText.GetComponent<TextMeshProUGUI>().text = message;
+        floatingText.GetComponent<TextMeshProUGUI>().color = color;
+
+        Spawn(floatingText);
     }
 }

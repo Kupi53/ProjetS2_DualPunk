@@ -4,7 +4,7 @@ using UnityEngine;
 using System;
 
 
-public class ChargeWeaponScript : FireArmScript
+public class ChargeWeaponScript : PowerWeaponScript
 {
     [SerializeField] private float _chargeTime;
     [SerializeField] private float _minDamage;
@@ -35,8 +35,6 @@ public class ChargeWeaponScript : FireArmScript
 
     public override void Run(Vector3 position, Vector3 direction, Vector3 targetPoint)
     {
-        // on peut pas faire base.base :/ UwU 8==> 0 xD (*_*) ;)
-
         MovePosition(position, direction, targetPoint);
 
         _aiming = PlayerState.Walking;
@@ -48,7 +46,7 @@ public class ChargeWeaponScript : FireArmScript
             PlayerState.PointerScript.CanShoot = true;
 
 
-        if (Input.GetButton("Use") && !_reloading && _fireTimer >= _fireRate && _ammoLeft > 0 && _chargeTimer <= _chargeTime && !_cancel)
+        if (Input.GetButton("Use") && !_reloading && _fireTimer >= _fireRate && _ammoLeft > 0 && _chargeTimer <= _chargeTime && !_cancel && !PlayerState.Stop)
         {
 			if (!_audioSource.isPlaying)
 			{
@@ -64,7 +62,7 @@ public class ChargeWeaponScript : FireArmScript
         }
 
 
-        if (_chargeTimer > 0 && !_cancel)
+        if (_chargeTimer > 0 && !_cancel && !PlayerState.Stop)
         {
             PlayerState.CameraController.ShakeCamera(_cameraShake * _chargeTimer / 3, 0.1f);
 
@@ -83,7 +81,7 @@ public class ChargeWeaponScript : FireArmScript
                 {
                     _audioSource.Stop();
 
-                    Fire(direction, _damage, _dispersion, false);
+                    Fire(direction, _damage, _dispersion, 0, false);
                     PlayerState.CameraController.ShakeCamera(_cameraShake, 0.1f);
                 }
             }
@@ -94,14 +92,14 @@ public class ChargeWeaponScript : FireArmScript
             _audioSource.Stop();
         }
         
-        if (Input.GetButtonDown("Use"))
+        if (Input.GetButtonDown("Use") && !PlayerState.Stop)
         {
             _cancel = false;
             if (_reloading && _ammoLeft > 0)
                 base.ResetWeapon();
         }
 
-        if (Input.GetButtonDown("Reload") && _ammoLeft != _magSize && _chargeTimer == 0 || _autoReload && _ammoLeft == 0)
+        if (Input.GetButtonDown("Reload") && _ammoLeft != _magSize && _chargeTimer == 0 && !PlayerState.Stop || _autoReload && _ammoLeft == 0)
         {
             _reloading = true;
         } 
@@ -116,7 +114,7 @@ public class ChargeWeaponScript : FireArmScript
     {
         MovePosition(position, direction, targetPoint);
 
-        if (EnemyState.Attack && _fireTimer >= _fireRate && !_reloading)
+        if (EnemyState.CanAttack && _fireTimer >= _fireRate && !_reloading)
         {
             if (_chargeTimer == 0)
             {
@@ -142,14 +140,13 @@ public class ChargeWeaponScript : FireArmScript
             _fireTimer += Time.deltaTime;
         }
 
-
         if (_chargeTimer > _minCharge)
         {
             _minCharge = 0;
-            Fire(direction, _damage, _dispersion, true);
+            Fire(direction, _damage, _dispersion, 0, true);
         }
 
-        _aiming = !EnemyState.Run;
+        _aiming = !EnemyState.Run || !EnemyState.Move;
 
         if (_ammoLeft == 0)
         {
@@ -160,7 +157,6 @@ public class ChargeWeaponScript : FireArmScript
             Reload();
         }
     }
-
 
 
     private float GetProgressingFactor(float multiplier, float minValue, float maxValue)
@@ -181,7 +177,7 @@ public class ChargeWeaponScript : FireArmScript
     }
 
 
-    public override void Fire(Vector3 direction, int damage, float dispersion, bool damagePlayer)
+    protected override void Fire(Vector3 direction, int damage, float dispersion, float distance, bool damagePlayer)
     {
         bool warriorLuckBullet = false;
         float multiplier = _chargeTimer / _chargeTime;
@@ -190,7 +186,10 @@ public class ChargeWeaponScript : FireArmScript
         _fireTimer = 0;
         _chargeTimer = 0;
 
-        AudioManager.Instance.PlayClipAt(_fireSound, gameObject.transform.position);
+        if (PlayerState != null)
+            AudioManager.Instance.PlayClipAt(_fireSound, gameObject.transform.position, "Player");
+        else
+            AudioManager.Instance.PlayClipAt(_fireSound, gameObject.transform.position, "Enemy");
         UserRecoil.Impact(-direction, GetProgressingFactor(multiplier, _minRecoil, _recoilForce));
 
         if (WarriorLuck && UnityEngine.Random.Range(0, 100) < DropPercentage)
@@ -199,8 +198,8 @@ public class ChargeWeaponScript : FireArmScript
             warriorLuckBullet = true;
         }
 
-        FireBulletRpc(direction, (int)GetProgressingFactor(multiplier, _minDamage, damage * DamageMultiplier), GetProgressingFactor(multiplier, _minSpeed, _bulletSpeed),
+        FireBulletRpc(direction, (int)GetProgressingFactor(multiplier, _minDamage, damage), GetProgressingFactor(multiplier, _minSpeed, _bulletSpeed),
                       GetProgressingFactor(multiplier, _minSize, _bulletSize), GetProgressingFactor(multiplier, _minImpact, _impactForce),
-                      _dispersion, (int)(multiplier * _collisionsAllowed), warriorLuckBullet, damagePlayer);
+                      _dispersion, (int)(multiplier * _bulletCollisions), warriorLuckBullet, damagePlayer);
     }
 }

@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: -1078616929798017896}
   - component: {fileID: -4858495041066962261}
   - component: {fileID: 8206352670867136053}
+  - component: {fileID: 5908692678405461227}
   m_Layer: 7
   m_Name: TeleportStrike
   m_TagString: Implant
@@ -151,10 +152,10 @@ MonoBehaviour:
   _componentIndexCache: 0
   _addedNetworkObject: {fileID: -218940236388108346}
   _networkObjectCache: {fileID: -218940236388108346}
-  _criticalDamage: 100
   _range: 10
   _coolDown: 2
-  _timeTeleportation: 0.5
+  _teleportationSound: {fileID: 8300000, guid: 3e5bad2623634e043963e868a7c802c4, type: 3}
+  _animator: {fileID: 0}
 --- !u!114 &-4059473331583019238
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -192,13 +193,13 @@ MonoBehaviour:
   SerializedTransformProperties:
     Position: {x: 0, y: 0, z: 0}
     Rotation: {x: 0, y: 0, z: 0, w: 1}
-    LocalScale: {x: 0.5, y: 0.5, z: 1}
+    LocalScale: {x: 1, y: 1, z: 1}
   _isNetworked: 1
   _isGlobal: 0
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 47
+  <PrefabId>k__BackingField: 48
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0
@@ -275,4 +276,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71eb8b037ef4d2843bdf7ae083f038ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemData: {fileID: 11400000, guid: adbe41fb4596d2d47a0a969ba45d84b5, type: 2}
+  itemData: {fileID: 11400000, guid: b73174b70b6463d4e9d545b530188cac, type: 2}
+--- !u!95 &5908692678405461227
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1420957003867560970}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 74d3ebb1f26b14045bec025721892246, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

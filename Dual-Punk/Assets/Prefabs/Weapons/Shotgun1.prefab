@@ -185,33 +185,30 @@ MonoBehaviour:
   _rightHand: {fileID: 7957482444759065145}
   _leftHand: {fileID: 7511059639440921502}
   _weaponOffset: {x: 0.1, y: 0.9, z: 0}
+  _damage: 11
   _range: 10
-  _weaponDistance: 0.5
   _recoilForce: 2
   _impactForce: 0.5
   _cameraShake: 1.6
+  _weaponDistance: 0.5
   _pointerSpriteNumber: 1
+  _fireRate: 1
+  _fireSound: {fileID: 8300000, guid: 3cfc0ffc2201b2d4d8b945e3f775e6c8, type: 3}
+  _reloadSound: {fileID: 8300000, guid: b8a4afcd61465374e832b1ea6540bd7d, type: 3}
   _bullet: {fileID: 5298557137024599475, guid: cf1a87b5cd3d7904dbe9dcf2013b111e, type: 3}
   _gunEndPoints:
   - {fileID: 1151202582569453349}
-  _damage: 11
+  _isAuto: 0
+  _autoReload: 0
+  _bulletsPerShot: 9
   _magSize: 4
-  _bulletNumber: 9
   _reloadAmount: 1
-  _collisionsAllowed: 0
-  _fireRate: 1
-  _dispersion: 0.3
   _reloadTime: 0.8
+  _dispersion: 0.3
   _aimAccuracy: 2
   _bulletSpeed: 30
   _bulletSize: 0.7
-  _autoReload: 0
-  _isAuto: 0
-  _fireSound: {fileID: 8300000, guid: 3cfc0ffc2201b2d4d8b945e3f775e6c8, type: 3}
-  _reloadSound: {fileID: 8300000, guid: b8a4afcd61465374e832b1ea6540bd7d, type: 3}
-  WarriorLuck: 0
-  DamageMultiplier: 1
-  DropPercentage: 1
+  _bulletCollisions: 0
 --- !u!114 &-5896032686861132043
 MonoBehaviour:
   m_ObjectHideFlags: 0

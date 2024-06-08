@@ -25,14 +25,14 @@ RectTransform:
   m_GameObject: {fileID: 2542944514894708931}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.003, y: 0.003, z: 1}
+  m_LocalScale: {x: 0.009, y: 0.009, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9019895625757796777}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.132, y: 0.195}
+  m_AnchoredPosition: {x: 0, y: 0.32}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &6152246092953652309
@@ -137,7 +137,7 @@ Transform:
   m_GameObject: {fileID: 6272146751674077345}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2193.184, y: 274.793, z: 1.5806416}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -255,8 +255,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.013205387, y: -0.005571127}
-  m_Size: {x: 0.12641077, y: 0.12641096}
+  m_Offset: {x: -0.012634277, y: -0.09729004}
+  m_Size: {x: 0.20812988, y: 0.20812988}
   m_Direction: 0
 --- !u!61 &83098999568091671
 BoxCollider2D:
@@ -290,7 +290,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.012537479, y: 0.24380302}
+  m_Offset: {x: -0.012756348, y: 0.21274567}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.25}
@@ -301,7 +301,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.21701717, y: 0.6150718}
+  m_Size: {x: 0.3284912, y: 0.837265}
   m_EdgeRadius: 0
 --- !u!114 &7098234963106787076
 MonoBehaviour:
@@ -318,6 +318,7 @@ MonoBehaviour:
   _componentIndexCache: 0
   _addedNetworkObject: {fileID: 8662005701061872785}
   _networkObjectCache: {fileID: 8662005701061872785}
+  ParentRoom: {fileID: 0}
   _lockDistance: 15
   _unlockDistance: 20
 --- !u!114 &9003789017972292883
@@ -359,8 +360,8 @@ MonoBehaviour:
   _addedNetworkObject: {fileID: 8662005701061872785}
   _networkObjectCache: {fileID: 8662005701061872785}
   _weapons:
-  - {fileID: 7321002207951180533, guid: e26798f24e158594fbd0c9e6555e8911, type: 3}
-  - {fileID: 8297419380730599739, guid: 239afa9696bf6fa469c3317efbe7993d, type: 3}
+  - {fileID: 156933350303824626, guid: 2aa24079ea5cf324c9968a9df667c0ab, type: 3}
+  - {fileID: 3553326147683758454, guid: c537b2fa156ad2c4493157e872b54c9a, type: 3}
   _layerMask:
     serializedVersion: 2
     m_Bits: 256
@@ -378,8 +379,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83a77bd7e478bf542bedfb3001231e3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _lives: 9600000064000000
+  _lives: 64000000c8000000
   _imuneTime: 0.5
+  _defenceTime: 1
 --- !u!114 &105605007444475360
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -449,9 +451,10 @@ MonoBehaviour:
   - {fileID: 6520979016740066916}
   - {fileID: 7868056608164439028}
   <ParentNetworkObject>k__BackingField: {fileID: 0}
-  <ChildNetworkObjects>k__BackingField: []
+  <ChildNetworkObjects>k__BackingField:
+  - {fileID: 0}
   SerializedTransformProperties:
-    Position: {x: 6.44761, y: -3.2600825, z: 1.5806416}
+    Position: {x: 2193.184, y: 274.793, z: 1.5806416}
     Rotation: {x: 0, y: 0, z: 0, w: 1}
     LocalScale: {x: 2, y: 2, z: 1}
   _isNetworked: 1

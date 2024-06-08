@@ -12,6 +12,8 @@ public class SpawnPlayers : NetworkBehaviour
     [SerializeField] private GameObject _floorWrapper;
     [SerializeField] private GameObject _effectTilesNetworkWrapper;
     [SerializeField] private GameObject _objectSpawner;
+    private Vector3 _PLAYER1SPAWNLOCATION;
+    private Vector3 _PLAYER2SPAWNLOCATION;
     private GameObject playerObject;
 
     public override void OnStartClient(){
@@ -26,21 +28,27 @@ public class SpawnPlayers : NetworkBehaviour
     [ServerRpc(RequireOwnership = false)]
     public void SpawnServerRPC(NetworkConnection connection, bool host){
         if (host){
+            _PLAYER1SPAWNLOCATION = GameObject.Find("Player1SpawnPoint").transform.position;
             GameObject floorWrapper = Instantiate(_floorWrapper);
             GameObject effectTileWrapper = Instantiate(_effectTilesNetworkWrapper);
             GameObject objectSpawner = Instantiate(_objectSpawner);
             Spawn(floorWrapper);
             Spawn(effectTileWrapper);
             Spawn(objectSpawner);
-            playerObject = Instantiate(playerPrefabA, new Vector3(0,0,0), transform.rotation);
+            playerObject = Instantiate(playerPrefabA, _PLAYER1SPAWNLOCATION, transform.rotation);
             GameManager.Instance.Player1 = playerObject;
         }
         else{
-            playerObject = Instantiate(playerPrefabB, new Vector3(0,0,0), transform.rotation);
+            _PLAYER2SPAWNLOCATION = GameObject.Find("Player2SpawnPoint").transform.position;
+            playerObject = Instantiate(playerPrefabB, _PLAYER2SPAWNLOCATION, transform.rotation);
             GameManager.Instance.Player2 = playerObject;
         }
         base.Spawn(playerObject, connection);
         SetPlayer2Client(connection);
+        if (GameManager.Instance.DebugMode)
+        {
+            GameObject.Find("Tutorial").GetComponentInChildren<EndOfTutorialTrigger>().StartGameRpc();
+        }
 
     } 
     [TargetRpc]

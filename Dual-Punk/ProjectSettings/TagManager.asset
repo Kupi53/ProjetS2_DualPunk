@@ -15,11 +15,12 @@ TagManager:
   - Implant
   - Projectile
   - Wall
-  - TempAudio
   - Camera
   - ActiveRoom
   - FloorManager
   - ObjectSpawner
+  - TempAudioPlayer
+  - TempAudioEnemy
   layers:
   - Default
   - TransparentFX

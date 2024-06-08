@@ -27,7 +27,7 @@ public class WarriorLuck : ImplantScript
         {
             if (PlayerState.HoldingWeapon && PlayerState.WeaponScript != null)
             {
-                FireArmScript fireArmScript = PlayerState.WeaponScript as FireArmScript;
+                PowerWeaponScript fireArmScript = PlayerState.WeaponScript as PowerWeaponScript;
 
                 if (fireArmScript != null && _oldModifiedWeapon != fireArmScript.gameObject)
                 {
@@ -64,7 +64,7 @@ public class WarriorLuck : ImplantScript
 
     private void ResetOldWeapon()
     {
-        FireArmScript oldFireArmScript = _oldModifiedWeapon.GetComponent<FireArmScript>();
+        PowerWeaponScript oldFireArmScript = _oldModifiedWeapon.GetComponent<PowerWeaponScript>();
         oldFireArmScript.DropPercentage = 1;
         oldFireArmScript.DamageMultiplier = 1;
         oldFireArmScript.WarriorLuck = false;

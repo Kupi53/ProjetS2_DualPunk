@@ -32,20 +32,34 @@ public class EffectTilesController : MonoBehaviour
                 if (player1Position == effectTile.Position)
                 {
                     player1StandingOnEFfectTile = true;
-                    effectTile.Action(GameManager.Instance.Player1);
-                    // Special cases
-                    // RoomExitTile
-                    if (effectTile is RoomExitTile)
+                    // FloorExitTile
+                    if (effectTile is FloorExitTile)
                     {
-                        player1State.CanBeTeleported = false;
-                        if (GameManager.Instance.Player2 is not null)
+                        if (Input.GetButtonDown("Pickup"))
                         {
-                            EffectTileNetworkWrapper.Instance.EffectTileActionFromOtherPlayerRpc(GameManager.Instance.Player2.GetComponent<NetworkObject>().Owner, player1Position);
-                            GameManager.Instance.Player2.GetComponent<PlayerState>().CanBeTeleported = false;
+                            effectTile.Action(GameManager.Instance.Player1);
+                            if (GameManager.Instance.Player2 is not null)
+                            {
+                                EffectTileNetworkWrapper.Instance.EffectTileActionFromOtherPlayerRpc(GameManager.Instance.Player2.GetComponent<NetworkObject>().Owner, player1Position);
+                            }
                         }
                     }
-                    // FloorExitTile
-                    
+                    // RoomExitTile
+                    else if (effectTile is RoomExitTile)
+                    {
+                        if (FloorNetworkWrapper.Instance.LocalFloorManager.CurrentRoom.IsCleared)
+                            effectTile.Action(GameManager.Instance.Player1);
+                            player1State.CanBeTeleported = false;
+                            if (GameManager.Instance.Player2 is not null)
+                            {
+                                    EffectTileNetworkWrapper.Instance.EffectTileActionFromOtherPlayerRpc(GameManager.Instance.Player2.GetComponent<NetworkObject>().Owner, player1Position);
+                                    GameManager.Instance.Player2.GetComponent<PlayerState>().CanBeTeleported = false;
+                            }
+                    }
+                    else
+                    {
+                        effectTile.Action(GameManager.Instance.Player1);
+                    }
                 }
             }
             if (!player1StandingOnEFfectTile)
@@ -61,16 +75,31 @@ public class EffectTilesController : MonoBehaviour
             PlayerState player2State = GameManager.Instance.Player2.GetComponent<PlayerState>(); 
             foreach(EffectTile effectTile in EffectTiles)
             {
-                if (player2Position == effectTile.Position)
+                player2StandingOnEFfectTile = true;
+                // FloorExitTile
+                if (effectTile is FloorExitTile)
                 {
-                    player2StandingOnEFfectTile = true;
-                    effectTile.Action(GameManager.Instance.Player2);
-                    if (effectTile is RoomExitTile)
+                    if (Input.GetKeyDown("Pickup"))
                     {
-                        player2State.CanBeTeleported = false;
+                        effectTile.Action(GameManager.Instance.Player2);
                         EffectTileNetworkWrapper.Instance.EffectTileActionFromOtherPlayerRpc(GameManager.Instance.Player1.GetComponent<NetworkObject>().Owner, player2Position);
-                        GameManager.Instance.Player1.GetComponent<PlayerState>().CanBeTeleported = false;
-
+                    }
+                    else if (effectTile is RoomExitTile)
+                    {
+                        if (FloorNetworkWrapper.Instance.LocalFloorManager.CurrentRoom.IsCleared)
+                        {
+                            effectTile.Action(GameManager.Instance.Player1);
+                            player2State.CanBeTeleported = false;
+                            if (GameManager.Instance.Player1 is not null)
+                            {
+                                    EffectTileNetworkWrapper.Instance.EffectTileActionFromOtherPlayerRpc(GameManager.Instance.Player1.GetComponent<NetworkObject>().Owner, player2Position);
+                                    GameManager.Instance.Player1.GetComponent<PlayerState>().CanBeTeleported = false;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        effectTile.Action(GameManager.Instance.Player2);
                     }
                 }
             }
@@ -80,13 +109,14 @@ public class EffectTilesController : MonoBehaviour
             }
         }
     }
-
+    
     #nullable enable
     public EffectTile? GetTileStoodOn(Vector3Int pos)
     {
         foreach (EffectTile effectTile in EffectTiles)
         {
-            if (pos == effectTile.Position){
+            if (pos == effectTile.Position)
+            {
                 return effectTile;
             }
         }

@@ -10,7 +10,7 @@ public class RoomExitTile : EffectTile
     public RoomExitTile(Vector3Int position, Room targetRoom, WallCardinal targetWall) : base(position)
     {
         _targetRoom = targetRoom;
-        _targetCoordinates = ComputeTargetCoordinates(targetWall);
+        _targetCoordinates = ComputeTargetCoordinates(targetWall, _targetRoom);
     }
 
     public override void Action(GameObject target)
@@ -21,16 +21,16 @@ public class RoomExitTile : EffectTile
         FloorNetworkWrapper.Instance.LocalFloorManager.CurrentRoom.Exit(_targetRoom);
     }
 
-    private Vector3Int ComputeTargetCoordinates(WallCardinal targetWallCardinal)
+    public static Vector3Int ComputeTargetCoordinates(WallCardinal targetWallCardinal, Room targetRoom)
     {
         Vector3Int targetCoordinates;
-        if (targetWallCardinal == _targetRoom._entryWallCardinal)
+        if (targetWallCardinal == targetRoom._entryWallCardinal)
         {
-            targetCoordinates = _targetRoom._entryWallCoordinates[_targetRoom._entryWallCoordinates.Length/2];
+            targetCoordinates = targetRoom._entryWallCoordinates[targetRoom._entryWallCoordinates.Length/2];
         }
         else
         {
-            targetCoordinates = _targetRoom._exitWallCoordinates[_targetRoom._exitWallCoordinates.Length/2];
+            targetCoordinates = targetRoom._exitWallCoordinates[targetRoom._exitWallCoordinates.Length/2];
         }
         switch(targetWallCardinal){
             case WallCardinal.North:

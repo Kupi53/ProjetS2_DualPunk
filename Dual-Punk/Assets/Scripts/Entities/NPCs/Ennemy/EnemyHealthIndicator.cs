@@ -76,19 +76,16 @@ public class EnemyHealthIndicator : NetworkBehaviour
     }
 
 
-    public void DisplayDamageIndicator(int amount, bool warriorLuck)
+    public void DisplayDamageIndicator(int amount, Vector3 scale, Color color)
     {
         if (amount == 0) return;
 
         GameObject floatingText = Instantiate(_floatingTextPrefab);
-        floatingText.transform.SetParent(_floatingTextsParent.transform);
-        floatingText.GetComponent<TextMeshProUGUI>().text = amount.ToString();
-        floatingText.GetComponent<RectTransform>().SetScale(new Vector3(1, 1, 0));
 
-        if (amount >= 100)
-            floatingText.GetComponent<TextMeshProUGUI>().color = new Color(255, 120, 0);
-        if (warriorLuck)
-            floatingText.GetComponent<TextMeshProUGUI>().color = Color.red;
+        floatingText.transform.SetParent(_floatingTextsParent.transform);
+        floatingText.GetComponent<RectTransform>().SetScale(scale);
+        floatingText.GetComponent<TextMeshProUGUI>().text = amount.ToString();
+        floatingText.GetComponent<TextMeshProUGUI>().color = color;
 
         StartCoroutine(VisualIndicator(Color.black, 0.1f));
         Spawn(floatingText);

@@ -57,20 +57,21 @@ public class EnemyWeaponHandler : NetworkBehaviour
         
         if (_enemyState.Target == null || _enemyState.Stop)
         {
-            _enemyState.Attack = false;
+            _enemyState.CanAttack = false;
             _weaponScript.EnemyRun(transform.position, VariateDirection(), _enemyState.TargetPoint);
-
             return;
         }
 
 
         _direction = _enemyState.TargetPoint - transform.position;
-        float distance = _direction.magnitude;
+        float distance = _direction.magnitude - 1;
         bool canAttack = false;
 
         if (distance < _weaponScript.Range)
         {
             RaycastHit2D hit = Physics2D.Raycast(transform.position, _enemyState.Target.transform.position, distance, _layerMask);
+
+            Debug.Log(hit == true);
 
             if (_weaponScript is ChargeWeaponScript)
             {
@@ -81,19 +82,25 @@ public class EnemyWeaponHandler : NetworkBehaviour
             {
                 canAttack = true;
             }
+
+            if (distance < _weaponScript.Range / 4 && canAttack)
+            {
+                _enemyState.Move = false;
+            }
+            else
+            {
+                _enemyState.Move = true;
+            }
         }
 
-        if (!canAttack)
-            _enemyState.Run = true;
-        _enemyState.Attack = canAttack;
-
+        _enemyState.CanAttack = canAttack;
         _weaponScript.EnemyRun(transform.position, VariateDirection(), _enemyState.TargetPoint);
 
 
         //used to flip the ennemy sprite renderer and animation
         bool flippedRenderer = gameObject.GetComponent<SpriteRenderer>().flipX;
 
-        if(_direction.x < 0 && !flippedRenderer) {
+        if (_direction.x < 0 && !flippedRenderer) {
             gameObject.GetComponent<SpriteRenderer>().flipX = true;
         }
         else if (_direction.x > 0 && flippedRenderer) {
@@ -114,22 +121,16 @@ public class EnemyWeaponHandler : NetworkBehaviour
         if (_weaponIndex > 0) DropWeapon();
         
         GameObject weapon = Instantiate(_weapons[_weaponIndex], transform.position, Quaternion.identity);
+        weapon.transform.SetParent(this.gameObject.transform);
         Spawn(weapon);
 
         _weaponScript = weapon.GetComponent<WeaponScript>();
-        _weaponScript.UserRecoil = GetComponent<IImpact>();
-        _weaponScript.EnemyState = _enemyState;
-
         _weaponIndex++;
     }
 
     public void DropWeapon()
     {
         _weaponScript.Drop();
-        _weaponScript.EnemyState = null;
         _weaponScript = null;
     }
-
-
-
 }

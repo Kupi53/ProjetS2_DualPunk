@@ -1,15 +1,26 @@
 using UnityEngine;
 using System.Collections.Generic;
 
+[System.Serializable]
 public class LootTable
 {
     private int _lootRange;
+    public int MinLootRollAmount;
+    public int MaxLootRollAmount;
+    public string[] IdTable;
+    public int[] MinIntervalTable;
+    public int[] MaxIntervalTable;
     private Dictionary<(int,int), string> _table;
 
-    public LootTable(Dictionary<(int, int), string> table)
+    public void Init()
     {
-        _table = table;
-        _lootRange = FindMaxRange(table);
+        _table = new Dictionary<(int, int), string>();
+        for (int i = 0; i<IdTable.Length; i++)
+        {
+            _table[(MinIntervalTable[i], MaxIntervalTable[i])] = IdTable[i];
+        }
+        Debug.Log(_table.Keys.Count);
+        _lootRange = FindMaxRange(_table);
     }
 
     public string PickLoot()

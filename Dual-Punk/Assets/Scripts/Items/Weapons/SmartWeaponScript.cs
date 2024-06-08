@@ -9,7 +9,7 @@ using FishNet.Connection;
 using System.Linq;
 
 
-public class SmartWeaponScript : FireArmScript
+public class SmartWeaponScript : PowerWeaponScript
 {
     [SerializeField] private GameObject _lockedTargetIndicator;
     [SerializeField] private float _bulletRotateSpeed;
@@ -36,15 +36,14 @@ public class SmartWeaponScript : FireArmScript
 
     public override void Run(Vector3 position, Vector3 direction, Vector3 targetPoint)
     {
-        if (Input.GetButtonDown("Switch"))
+        if (Input.GetButtonDown("SecondaryUse"))
         {
             _waitForNextTarget = false;
         }
-        if (Input.GetButton("Switch"))
+        if (!PlayerState.Stop && Input.GetButton("SecondaryUse"))
         {
 #nullable enable
             GameObject? target;
-#nullable disable
             target = GetNearestTarget(PlayerState.MousePosition);
 
             if (target != null && !_waitForNextTarget)
@@ -98,7 +97,6 @@ public class SmartWeaponScript : FireArmScript
 
 
 
-#nullable enable
     private GameObject? GetNearestTarget(Vector3 position)
     {
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Ennemy");
@@ -135,12 +133,12 @@ public class SmartWeaponScript : FireArmScript
 
 
 
-    public override void Fire(Vector3 direction, int damage, float dispersion, bool damagePlayer)
+    protected override void Fire(Vector3 direction, int damage, float dispersion, float distance, bool damagePlayer)
     {
         _ammoLeft--;
         _fireTimer = 0;
         UserRecoil.Impact(-direction, _recoilForce);
-        AudioManager.Instance.PlayClipAt(_fireSound, gameObject.transform.position);
+        AudioManager.Instance.PlayClipAt(_fireSound, gameObject.transform.position, _ownerType);
 
         bool warriorLuckBullet = false;
         if (WarriorLuck && UnityEngine.Random.Range(0, 100) < DropPercentage)
@@ -160,7 +158,7 @@ public class SmartWeaponScript : FireArmScript
     [ServerRpc(RequireOwnership = false)]
     private void FireSeekingBulletRpc(GameObject target, Vector3 direction, int damage, float dispersion, bool warriorLuckBullet, bool damagePlayer)
     {
-        for (int i = 0; i < _bulletNumber; i++)
+        for (int i = 0; i < _bulletsPerShot; i++)
         {
             GameObject newBullet = Instantiate(_bullet, _gunEndPoints[_bulletPointIndex].transform.position, Quaternion.identity);
             SeekingBulletScript bulletScript = newBullet.GetComponent<SeekingBulletScript>();

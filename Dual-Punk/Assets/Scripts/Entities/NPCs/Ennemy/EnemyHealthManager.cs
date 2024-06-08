@@ -9,25 +9,27 @@ public class EnemyHealthManager : MonoBehaviour, IDamageable
 {
     [SerializeField] private int[] _lives;
     [SerializeField] private float _imuneTime;
+    [SerializeField] private float _defenceTime;
 
     private EnemyState _enemyState;
     private EnemyHealthIndicator _healthIndicator;
+    private float _defenceTimer;
     private float _imunityTimer;
     private int _maxHealth;
 
-    public int Index { get; set; }
+    public int Index { get; private set; }
     public int[] Lives { get => _lives; }
 
 
     private void Start()
     {
         Index = 0;
+        _defenceTimer = 0;
         _imunityTimer = -1;
         _maxHealth = _lives[0];
         _enemyState = GetComponent<EnemyState>();
         _healthIndicator = GetComponent<EnemyHealthIndicator>();
     }
-
 
     private void Update()
     {
@@ -40,6 +42,17 @@ public class EnemyHealthManager : MonoBehaviour, IDamageable
         {
             _imunityTimer = -1;
             _enemyState.Stop = false;
+        }
+
+        if (_defenceTimer > 0)
+        {
+            _defenceTimer -= Time.deltaTime;
+            if ((int)_enemyState.DefenceType < (int)DefenceType.ShouldDefend)
+                _enemyState.DefenceType = DefenceType.ShouldDefend;
+        }
+        else if (_enemyState.DefenceType == DefenceType.ShouldDefend)
+        {
+            _enemyState.DefenceType = DefenceType.NotDefending;
         }
     }
 
@@ -108,11 +121,31 @@ public class EnemyHealthManager : MonoBehaviour, IDamageable
         }
     }
 
-    public void Damage(int amount, float time, bool warriorLuckBullet)
+    public void Damage(int amount, float time, bool crit)
     {
         if (_imunityTimer > 0) return;
 
-        _healthIndicator.DisplayDamageIndicator(amount, warriorLuckBullet);
+        Color color;
+        Vector3 scale;
+
+        if (crit)
+        {
+            color = Color.red;
+            scale = new Vector3(1.3f, 1.3f, 0);
+        }
+        else if (Lives[Index] - amount <= 0 || amount >= 100)
+        {
+            color = new Color(255, 120, 0);
+            scale = new Vector3(1.2f, 1.2f, 0);
+        }
+        else
+        {
+            color = Color.white;
+            scale = new Vector3(1, 1, 0);
+        }
+
+        _healthIndicator.DisplayDamageIndicator(amount, scale, color);
+        _defenceTimer = _defenceTime;
 
         if (time == 0)
         {

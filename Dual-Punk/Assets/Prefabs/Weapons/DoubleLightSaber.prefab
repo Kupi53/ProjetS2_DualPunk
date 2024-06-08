@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3266101289851110003}
   - component: {fileID: 4524687359622603811}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: RightHand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 1784858503084262383}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: -0.547, y: -0.003, z: -5}
+  m_LocalPosition: {x: 0.05, y: 0, z: -5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -96,14 +96,14 @@ GameObject:
   - component: {fileID: 3628626176491043060}
   - component: {fileID: 6400031833640978545}
   - component: {fileID: 7547148938412414778}
-  - component: {fileID: 3101570405284729770}
+  - component: {fileID: -812221406326229635}
   - component: {fileID: 8556322678607386002}
   - component: {fileID: -6532868988949993772}
   - component: {fileID: 3590557041652478682}
   - component: {fileID: 1720772536352017506}
   - component: {fileID: -4358944981701935795}
   m_Layer: 7
-  m_Name: Katana
+  m_Name: DoubleLightSaber
   m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -124,6 +124,7 @@ Transform:
   m_Children:
   - {fileID: 3266101289851110003}
   - {fileID: 4217001705875216314}
+  - {fileID: 836140656825272462}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &3628626176491043060
@@ -167,7 +168,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 8fbf4229c060bda4891349950603e346, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1c90d40e3f4224b4d893056e8cfac666, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -237,20 +238,20 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.014920354, y: 0.0027295202}
+  m_Offset: {x: 0.1741854, y: 0.0152369775}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.46, y: 0.24}
+    oldSize: {x: 1.9, y: 0.07}
     newSize: {x: 4.96, y: 0.45}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.4359143, y: 0.15597185}
+  m_Size: {x: 1.0776721, y: 0.14873025}
   m_EdgeRadius: 0
---- !u!114 &3101570405284729770
+--- !u!114 &-812221406326229635
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -259,7 +260,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3553326147683758454}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a264ca05d9f54fb4d81aaa7e59a6a184, type: 3}
+  m_Script: {fileID: 11500000, guid: b2d96cbf70c67df4dbf3d2a0ce0d683d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _componentIndexCache: 0
@@ -267,25 +268,37 @@ MonoBehaviour:
   _networkObjectCache: {fileID: 3590557041652478682}
   _rightHand: {fileID: 1784858503084262383}
   _leftHand: {fileID: 8632587119048511087}
-  _weaponOffset: {x: 0, y: 0.5, z: 0}
-  _damage: 20
+  _weaponOffset: {x: 0.3, y: 0.5, z: 0}
+  _damage: 60
   _range: 2
-  _recoilForce: 0
-  _impactForce: 0
-  _cameraShake: 0
-  _weaponDistance: 0.7
+  _recoilForce: 0.5
+  _impactForce: 0.5
+  _cameraShake: 1
+  _weaponDistance: 0.1
   _pointerSpriteNumber: 1
-  _attackSpeed: 1000
-  _attackRange: 60
-  _attackDistance: 1
-  _resetCooldown: 1
-  _criticalDamage: 150
   _attackSound:
   - {fileID: 8300000, guid: ae61956180ed80649a3288a82728fa08, type: 3}
   - {fileID: 8300000, guid: 8a167d05a68e7aa498f634a90895f607, type: 3}
   - {fileID: 8300000, guid: d2f81f6a45fcbda4e948915732d683e4, type: 3}
   - {fileID: 8300000, guid: 18dedf2b9497ef94e9fa88ce2fdb5580, type: 3}
   _criticalSound: {fileID: 8300000, guid: 86f4328dadda48a4b92f193505eef9a3, type: 3}
+  _attackPoint: {fileID: 7249373561558099710}
+  _criticalDamage: 90
+  _swipeRange: 70
+  _finalAttackPower: 1.2
+  _attackCooldown: 0.2
+  _resetCooldown: 1
+  _defenceTime: 5
+  _defenceCooldownSpeed: 2
+  _defenceWeaponDistance: 0.6
+  _defenceWeaponOffset: {x: 0, y: 0.5, z: 0}
+  _layerMask:
+    serializedVersion: 2
+    m_Bits: 712
+  _attackSpeed: 0.05
+  _attackDistance: 0.3
+  _finalAttackDistance: -0.5
+  _finalAttackAngle: 180
 --- !u!114 &8556322678607386002
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -298,8 +311,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 758d5ccc253c2f04f8451e29ebbfa99f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _normal: {fileID: 21300000, guid: 8fbf4229c060bda4891349950603e346, type: 3}
-  _highlighted: {fileID: 21300000, guid: 45caafc1cabcef5489ddf4f670a6032d, type: 3}
+  _normal: {fileID: 21300000, guid: 1c90d40e3f4224b4d893056e8cfac666, type: 3}
+  _highlighted: {fileID: 21300000, guid: 1c90d40e3f4224b4d893056e8cfac666, type: 3}
 --- !u!114 &-6532868988949993772
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -329,7 +342,7 @@ MonoBehaviour:
   <ComponentIndex>k__BackingField: 0
   <PredictedSpawn>k__BackingField: {fileID: 0}
   _networkBehaviours:
-  - {fileID: 3101570405284729770}
+  - {fileID: -812221406326229635}
   - {fileID: 1720772536352017506}
   <ParentNetworkObject>k__BackingField: {fileID: 0}
   <ChildNetworkObjects>k__BackingField: []
@@ -342,11 +355,11 @@ MonoBehaviour:
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 8
+  <PrefabId>k__BackingField: 5
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0
-  <AssetPathHash>k__BackingField: 2014639646238867425
+  <AssetPathHash>k__BackingField: 1126870683820887625
 --- !u!114 &1720772536352017506
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -407,6 +420,37 @@ MonoBehaviour:
   _overrideType: 1
   _updateHostVisibility: 1
   _observerConditions: []
+--- !u!1 &7249373561558099710
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 836140656825272462}
+  m_Layer: 7
+  m_Name: AttackPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &836140656825272462
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7249373561558099710}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1744610018306564381}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8632587119048511087
 GameObject:
   m_ObjectHideFlags: 0
@@ -417,7 +461,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4217001705875216314}
   - component: {fileID: 7519693734455998030}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: LeftHand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -433,7 +477,7 @@ Transform:
   m_GameObject: {fileID: 8632587119048511087}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: -0.451, y: 0, z: -5}
+  m_LocalPosition: {x: -0.06, y: 0, z: -5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

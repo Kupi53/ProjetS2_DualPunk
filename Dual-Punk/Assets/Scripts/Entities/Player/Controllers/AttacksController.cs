@@ -51,7 +51,7 @@ public class AttacksController : NetworkBehaviour
                 targetPoint = _playerState.MousePosition;
             }
                 
-            if (_laserTracker && Input.GetButtonDown("Switch"))
+            if (_laserTracker && Input.GetButtonDown("SecondaryUse"))
             {
                 if (_targetIndicator != null)
                 {

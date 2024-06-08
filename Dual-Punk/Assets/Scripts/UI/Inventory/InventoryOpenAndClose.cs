@@ -6,12 +6,14 @@ using UnityEngine.EventSystems;
 
 public class InventoryOpenAndClose : MonoBehaviour
 {
+    public PlayerState PlayerState { get; set; }
     public GameObject Inventory;
     bool InventoryIsClose;
 
     void Start()
     {
         InventoryIsClose = true;
+        PlayerState = gameObject.transform.parent.parent.gameObject.GetComponent<LocalPlayerReference>().PlayerState;
     }
 
     void Update()
@@ -20,11 +22,13 @@ public class InventoryOpenAndClose : MonoBehaviour
         {
             if (InventoryIsClose)
             {
+                PlayerState.Stop = true;
                 Inventory.SetActive(true);
                 InventoryIsClose = false;
             }
             else
             {
+                PlayerState.Stop = false;
                 InventoryIsClose = true;
                 Inventory.SetActive(false);
             }

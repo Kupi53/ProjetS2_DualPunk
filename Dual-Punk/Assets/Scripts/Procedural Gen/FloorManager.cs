@@ -25,6 +25,10 @@ public class FloorManager : MonoBehaviour
     [SerializeField] public GameObject[] CityRoomPrefabs;
     [SerializeField] public GameObject[] HangarRoomPrefabs;
     [SerializeField] public GameObject[] SpaceshipRoomPrefabs;
+    [SerializeField] public GameObject[] CityEnemyPrefabs;
+    [SerializeField] public GameObject[] HangarEnemyPrefabs;
+    [SerializeField] public GameObject[] SpaceshipEnemyPrefabs;
+    [SerializeField] public GameObject FloorExitWallPrefab;
     public const int DATALAYERINDEX = 0;
     public const int TILEMAPLAYERINDEX = 1;
     public const int ELEVATIONLAYERINDEX = 2;
@@ -33,8 +37,8 @@ public class FloorManager : MonoBehaviour
     [SerializeField] public Tile test2;
     //
     private int _floorTypeCount { get => Enum.GetNames(typeof(FloorType)).Length; }
-    private int _minRoomAmount = 5;
-    private int _maxRoomAmount = 9;
+    private const int _minRoomAmount = 4;
+    private const int _maxRoomAmount = 8;
 
 
     // pour le debug
@@ -52,15 +56,17 @@ public class FloorManager : MonoBehaviour
         // create the new floor
         Floor floor = new Floor(floorType);
         floor.FloorHolderObject = CurrentFloorHolder;
+        int actualMinRoomAmount = _minRoomAmount + ((int)floorType * 2);
+        int actualMaxRoomAmount = _maxRoomAmount + ((int)floorType * 3);
         // pick the amount of rooms
-        int roomAmount = UnityEngine.Random.Range(_minRoomAmount, _maxRoomAmount+1);
+        int roomAmount = UnityEngine.Random.Range(actualMinRoomAmount, actualMaxRoomAmount);
         // add rooms
         for (int i = 0; i < roomAmount; i++)
         {
             // pick the prefab id
             int roomPrefabId = UnityEngine.Random.Range(0, floor.RoomPrefabs.Length);
             // instantiate the room
-            GameObject newRoomObject = Instantiate(CityRoomPrefabs[roomPrefabId]);
+            GameObject newRoomObject = Instantiate(floor.RoomPrefabs[roomPrefabId]);
             newRoomObject.transform.SetParent(CurrentFloorHolder.transform);
             // setup the gameobject's name
             if (i == 0)
@@ -100,6 +106,11 @@ public class FloorManager : MonoBehaviour
     {
         newRoom.gameObject.SetActive(true);
         newRoom.tag = "ActiveRoom";
+        if (!newRoom.Visited)
+        {
+            FloorNetworkWrapper.Instance.SpawnEnemies();
+            newRoom.Visited = true;
+        }
     }
 
     // For testing purposes, Goes through the _currentFloor and converts attributes to a string, then debug.logs it

@@ -12,6 +12,7 @@ using FishNet.Demo.AdditiveScenes;
 public class ThermicExchange : ImplantScript
 {
     [SerializeField] protected float _damageConversionPercentage;
+    [SerializeField] protected float _damageToSecond;
 
     private GameObject _oldModifiedWeapon;
 
@@ -30,6 +31,7 @@ public class ThermicExchange : ImplantScript
         if (IsEquipped)
         {
             HealthManager.DamageMultiplier = 1 - _damageConversionPercentage / 100;
+            HealthManager.DamageToSecond = _damageToSecond;
 
             if (PlayerState.HoldingWeapon && PlayerState.WeaponScript != null)
             {
@@ -39,7 +41,6 @@ public class ThermicExchange : ImplantScript
                 {
                     if (_oldModifiedWeapon != null)
                     {
-                        HealthManager.DamageMultiplier = 1;
                         HealthManager.LaserGunScript = null;
                     }
 
@@ -49,17 +50,15 @@ public class ThermicExchange : ImplantScript
             }
             else if (_oldModifiedWeapon != null)
             {
-                HealthManager.DamageMultiplier = 1;
                 HealthManager.LaserGunScript = null;
-
                 _oldModifiedWeapon = null;
             }
         }
     }
 
+
     public override void ResetImplant()
     {
-        HealthManager.DamageMultiplier = 1;
         HealthManager.LaserGunScript = null;
         RemoveAllOwnerShipRPC(GetComponent<NetworkObject>());
     }
