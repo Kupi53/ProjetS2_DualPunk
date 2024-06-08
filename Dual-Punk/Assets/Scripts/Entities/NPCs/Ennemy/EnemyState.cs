@@ -28,11 +28,10 @@ public class EnemyState : NPCState
         base.Awake();
 
         CanAttack = false;
-        Defending = false;
+        DefenceType = DefenceType.NotDefending;
 
         _spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         _stunAnimation = false;
-        DefenceType = DefenceType.NotDefending;
     }
 
 
