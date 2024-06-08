@@ -116,8 +116,11 @@ public class EnemyHealthManager : MonoBehaviour, IDamageable
         }
     }
 
-    public void Damage(int amount, float time, bool crit)
+    public void Damage(int amount, float time, bool crit, float stunDuration)
     {
+        if (!_enemyState.Stun && stunDuration > 0)
+            StartCoroutine(Stun(stunDuration));
+
         if (_imunityTimer > 0) return;
 
         Color color;
@@ -151,6 +154,13 @@ public class EnemyHealthManager : MonoBehaviour, IDamageable
         {
             StartCoroutine(HealthCoroutine(-amount, time));
         }
+    }
+
+    private IEnumerator Stun(float duration)
+    {
+        _enemyState.Stun = true;
+        yield return new WaitForSeconds(duration);
+        _enemyState.Stun = false;
     }
 
     public void SetHealth(int amount)

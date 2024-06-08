@@ -19,7 +19,7 @@ MonoBehaviour:
     le plus proche, lui infligeant en m\xEAme temps un coup critique."
   setName: Scavenger
   setItems:
-  - 
+  - NeuralFreeze
   - Bulletstorm
   - FuryEnhancer
   - TeleportStrike

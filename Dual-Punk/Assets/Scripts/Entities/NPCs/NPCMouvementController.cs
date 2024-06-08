@@ -106,7 +106,8 @@ public class NPCMouvementController : NetworkBehaviour, IImpact
             resultingForce = resultingForce * Methods.GetDirectionFactor(resultingForce) * _forcesEffect;
         }
 
-        _rb2d.MovePosition(_rb2d.position + resultingForce + targetPosition);
+        if (!_npcState.Stun)
+            _rb2d.MovePosition(_rb2d.position + resultingForce + targetPosition);
     }
 
 
@@ -114,6 +115,4 @@ public class NPCMouvementController : NetworkBehaviour, IImpact
     {
         _forces.Add((direction.normalized, intensity));
     }
-
-
 }

@@ -450,10 +450,9 @@ MonoBehaviour:
   - {fileID: 6520979016740066916}
   - {fileID: 7868056608164439028}
   <ParentNetworkObject>k__BackingField: {fileID: 0}
-  <ChildNetworkObjects>k__BackingField:
-  - {fileID: 0}
+  <ChildNetworkObjects>k__BackingField: []
   SerializedTransformProperties:
-    Position: {x: 2193.184, y: 274.793, z: 1.5806416}
+    Position: {x: 0, y: 0, z: 0}
     Rotation: {x: 0, y: 0, z: 0, w: 1}
     LocalScale: {x: 2, y: 2, z: 1}
   _isNetworked: 1
@@ -461,7 +460,7 @@ MonoBehaviour:
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 46
+  <PrefabId>k__BackingField: 32
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0

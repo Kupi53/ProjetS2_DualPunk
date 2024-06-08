@@ -8,6 +8,7 @@ public class NPCState : NetworkBehaviour
 {
     public bool Stop { get; set; }
     public bool Run { get; set; }
+    public bool Stun { get; set; }
     public virtual Vector3 TargetPoint { get; set; }
     #nullable enable
     public Room? ParentRoom;
@@ -18,5 +19,6 @@ public class NPCState : NetworkBehaviour
     {
         Stop = false;
         Run = false;
+        Stun = false;
     }
 }

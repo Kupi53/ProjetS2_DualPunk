@@ -26,6 +26,10 @@ public class HealthManager : NetworkBehaviour, IDamageable
     [SerializeField] private GameObject _floatingTextPrefab;
     [SerializeField] private GameObject _floatingTextsParent;
 
+    //Nécessaire pour implant TeleportStrike
+    public bool Teleportation { get; set; } = false;
+
+
     private void Start()
     {
         _playerState = GetComponent<PlayerState>();
@@ -86,40 +90,44 @@ public class HealthManager : NetworkBehaviour, IDamageable
     }
 
     [ObserversRpc]
-    public void Damage(int amount, float time, bool crit)
+    public void Damage(int amount, float time, bool crit, float stunDuration)
     {
-        if (DodgeActive && UnityEngine.Random.Range(0, 100) < DodgePercentage)
+        if (!Teleportation)
         {
-            DisplayMessageIndicator("Dodge", new Vector3(1, 1, 0), Color.white);
-        }
-        else
-        {
-            float newAmout = amount;
-
-            if (LaserGunScript != null && LaserGunScript.CoolDownLevel < LaserGunScript.FireTime / 2)
+            if (_playerState.Dashing || (DodgeActive && UnityEngine.Random.Range(0, 100) < DodgePercentage))
             {
-                newAmout *= DamageMultiplier;
-                float addedTime = (amount / DamageToSecond) * LaserGunScript.FireTime;
-                if (LaserGunScript.CoolDownLevel + addedTime > LaserGunScript.FireTime)
-                {
-                    LaserGunScript.CoolDownLevel = LaserGunScript.FireTime;
-                }
-                else
-                {
-                    LaserGunScript.CoolDownLevel += addedTime;
-                }
-            }
-
-            if (time == 0)
-            {
-                _playerState.Health -= (int)newAmout;
-                CheckHealth();
+                DisplayMessageIndicator("Dodge", new Vector3(1, 1, 0), Color.white);
             }
             else
             {
-                StartCoroutine(HealthCoroutine(-(int)newAmout, time));
+                float newAmout = amount;
+
+                if (LaserGunScript != null && LaserGunScript.CoolDownLevel < LaserGunScript.FireTime / 2)
+                {
+                    newAmout *= DamageMultiplier;
+                    float addedTime = (amount / DamageToSecond) * LaserGunScript.FireTime;
+                    if (LaserGunScript.CoolDownLevel + addedTime > LaserGunScript.FireTime)
+                    {
+                        LaserGunScript.CoolDownLevel = LaserGunScript.FireTime;
+                    }
+                    else
+                    {
+                        LaserGunScript.CoolDownLevel += addedTime;
+                    }
+                }
+
+                if (time == 0)
+                {
+                    _playerState.Health -= (int)newAmout;
+                    CheckHealth();
+                }
+                else
+                {
+                    StartCoroutine(HealthCoroutine(-(int)newAmout, time));
+                }
             }
         }
+        
     }
 
 

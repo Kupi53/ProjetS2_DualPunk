@@ -15,7 +15,7 @@ public class ChargedBulletScript : BulletScript
         else if (!_stopDamage && (collider.CompareTag("Ennemy") && !_damagePlayer || collider.CompareTag("Player") && _damagePlayer))
         {
             _stopDamage = true;
-            collider.GetComponent<IDamageable>().Damage(_damage, 0, _warriorLuck);
+            collider.GetComponent<IDamageable>().Damage(_damage, 0, _warriorLuck, 0f);
             collider.GetComponent<IImpact>().Impact(_moveDirection, _impactForce);
             DestroyObject();
         }

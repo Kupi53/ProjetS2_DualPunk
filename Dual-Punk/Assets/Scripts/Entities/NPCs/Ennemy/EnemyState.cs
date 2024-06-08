@@ -13,6 +13,9 @@ public class EnemyState : NPCState
     public bool CanAttack { get; set; }
     public bool Defending { get; set; }
 
+    private bool _stunAnimation;
+    private SpriteRenderer _spriteRenderer;
+    
     public override Vector3 TargetPoint
     {
         get => Target == null ? Vector3.zero : Target.transform.position;
@@ -26,6 +29,9 @@ public class EnemyState : NPCState
 
         CanAttack = false;
         Defending = false;
+
+        _spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+        _stunAnimation = false;
     }
 
 
@@ -57,6 +63,31 @@ public class EnemyState : NPCState
         else
         {
             Run = false;
+        }
+
+        if (Stun)
+        {
+            if (!_stunAnimation)
+            {
+                StartCoroutine(StunAnimation());
+                _stunAnimation = true;
+            }
+        }
+        else
+        {
+            StopCoroutine(StunAnimation());
+            _stunAnimation = false;
+        }
+    }
+
+    public IEnumerator StunAnimation()
+    {
+        while (Stun)
+        {
+            _spriteRenderer.color = new Color(1f, 1f, 1f, 0.1f);
+            yield return new WaitForSeconds(0.2f);
+            _spriteRenderer.color = new Color(1f, 1f, 1f, 1f);
+            yield return new WaitForSeconds(0.2f);
         }
     }
 

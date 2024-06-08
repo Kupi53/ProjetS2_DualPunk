@@ -288,7 +288,7 @@ public class LaserGunScript : FireArmScript
                 }
                 else if (hit.collider.CompareTag("Ennemy") && !damagePlayer || hit.collider.CompareTag("Player") && damagePlayer)
                 {
-                    hit.collider.GetComponent<IDamageable>().Damage(damage, _fireRate, _staticAmplifierFactor > 0);
+                    hit.collider.GetComponent<IDamageable>().Damage(damage, _fireRate, _staticAmplifierFactor > 0, 0f);
                     hit.collider.GetComponent<IImpact>().Impact(direction, _impactForce);
                 }
             }

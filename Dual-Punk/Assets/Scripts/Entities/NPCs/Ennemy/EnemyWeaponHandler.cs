@@ -22,7 +22,9 @@ public class EnemyWeaponHandler : NetworkBehaviour
     private float _offsetTimer;
     private float _velocity;
     private int _weaponIndex;
-
+    private Vector3 _lastTargetPointBeforeStun;
+    private Vector3 _lastVariableDirectionBeforeStun;
+    private bool _hasLastTargetPointBeforeStun;
 
     private void Start()
     {
@@ -31,6 +33,7 @@ public class EnemyWeaponHandler : NetworkBehaviour
         _offsetTimer = _smoothTime;
         _direction = Vector3.right;
         _enemyState = GetComponent<EnemyState>();
+        _hasLastTargetPointBeforeStun = false;
 
         AssignWeapon();
     }
@@ -83,7 +86,24 @@ public class EnemyWeaponHandler : NetworkBehaviour
         }
 
         _enemyState.CanAttack = canAttack;
-        _weaponScript.EnemyRun(transform.position, VariateDirection(), _enemyState.TargetPoint);
+
+        if (_enemyState.Stun)
+        {
+            if (!_hasLastTargetPointBeforeStun)
+            {
+                _lastTargetPointBeforeStun = _enemyState.TargetPoint;
+                _lastVariableDirectionBeforeStun = VariateDirection();
+                _hasLastTargetPointBeforeStun = true;
+            }
+                
+            _weaponScript.MovePosition(transform.position, _lastVariableDirectionBeforeStun, _lastTargetPointBeforeStun);
+        }
+        else
+        {
+            _weaponScript.EnemyRun(transform.position, VariateDirection(), _enemyState.TargetPoint);
+            _hasLastTargetPointBeforeStun = false;
+        }
+            
 
 
         //used to flip the ennemy sprite renderer and animation

@@ -27,12 +27,14 @@ public abstract class MeleeWeaponScript : WeaponScript
     protected float _attackTimer;
     protected float _defenceTimer;
     protected float _resetCooldownTimer;
+    protected float _stunDuration;
 
 
     public int Damage { get => _damage; set => _damage = value; }
     public float AttackCooldown { get => _attackCooldown; set => _attackCooldown = value; }
     public float ResetCooldown { get => _resetCooldown; set => _resetCooldown = value; }
     public int CriticalDamage { get => _criticalDamage; set => _criticalDamage = value; }
+    public float StunDuration { get => _stunDuration; set => _stunDuration = value; }
     public AudioClip CriticalSound { get => _criticalSound; set => _criticalSound = value; }
 
     public override bool DisplayInfo { get => _defenceTimer > 0 && _attack == 0 || _resetCooldownTimer > 0 && _attack > 0; }
@@ -202,7 +204,7 @@ public abstract class MeleeWeaponScript : WeaponScript
 
             if (hitObject.CompareTag("Ennemy") && !damagePlayer || hitObject.CompareTag("Player") && damagePlayer)
             {
-                hitObject.GetComponent<IDamageable>().Damage(damage, 0, false);
+                hitObject.GetComponent<IDamageable>().Damage(damage, 0, false, _stunDuration);
                 hitObject.GetComponent<IImpact>().Impact(direction, impactForce);
             }
             if (hitObject.CompareTag("Projectile"))

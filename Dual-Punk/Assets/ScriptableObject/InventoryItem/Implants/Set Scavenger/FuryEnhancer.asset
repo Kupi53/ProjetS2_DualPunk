@@ -19,7 +19,7 @@ MonoBehaviour:
     plus rapides avec les armes de corps \xE0 corps."
   setName: Scavenger
   setItems:
-  - 
+  - NeuralFreeze
   - Bulletstorm
   - FuryEnhancer
   - TeleportStrike

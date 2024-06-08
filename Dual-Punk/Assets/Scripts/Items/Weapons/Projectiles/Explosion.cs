@@ -42,7 +42,7 @@ public class Explosion : NetworkBehaviour
                 grosseVictime.GetComponent<IImpact>().Impact(hitDirection, explosionImpact * (1 - distance / explosionRadius));
 
                 if (dealDamage)
-                    grosseVictime.GetComponent<IDamageable>().Damage((int)(damage * (explosionRadius - distance) / explosionRadius), 0.25f, warriorLuck);
+                    grosseVictime.GetComponent<IDamageable>().Damage((int)(damage * (explosionRadius - distance) / explosionRadius), 0.25f, warriorLuck, 0f);
             }
         }
     }

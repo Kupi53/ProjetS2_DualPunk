@@ -13,6 +13,12 @@ public class TeleportStrike : ImplantScript
     private float _timeTeleportation;
     private float _timeCoolDown;
     private bool _canDash;
+
+    private SpriteRenderer _spriteRenderer { get => gameObject.GetComponent<SpriteRenderer>(); }
+    private HealthManager HealthManager { get => PlayerState.gameObject.GetComponent<HealthManager>(); }
+    private SpriteRenderer PlayerSpriteRenderer { get => PlayerState.gameObject.GetComponent<SpriteRenderer>(); }
+    private MouvementsController MouvementsController { get => PlayerState.gameObject.GetComponent<MouvementsController>(); }
+
     
     void Awake()
     {
@@ -39,7 +45,7 @@ public class TeleportStrike : ImplantScript
         if (IsEquipped && _canDash && PlayerState.WeaponScript as MeleeWeaponScript && nearestEnemy != null)
         {
             _canDash = false;
-            PlayerState.gameObject.GetComponent<MouvementsController>().EnableDash = false;
+            MouvementsController.EnableDash = false;
 
             if (Input.GetButtonDown("Dash") && !PlayerState.IsDown)
             {
@@ -50,29 +56,32 @@ public class TeleportStrike : ImplantScript
 
     private IEnumerator Teleportation(GameObject nearestEnemy)
     {
-        gameObject.GetComponent<SpriteRenderer>().enabled = true;
+        _spriteRenderer.enabled = true;
         _animator.Play("Teleportation");
         
         AudioManager.Instance.PlayClipAt(_teleportationSound, gameObject.transform.position, "Player");
         
-        PlayerState.gameObject.GetComponent<MouvementsController>().enabled = false;
         PlayerState.Dashing = true;
-                    
-        PlayerState.gameObject.GetComponent<SpriteRenderer>().enabled = false;
+        PlayerSpriteRenderer.enabled = false;
+        HealthManager.Teleportation = true;
         
         MeleeWeaponScript meleeWeaponScript = PlayerState.WeaponScript as MeleeWeaponScript;
         meleeWeaponScript.gameObject.GetComponent<SpriteRenderer>().enabled = false;
         
         yield return new WaitForSeconds(_timeTeleportation);
 
-        gameObject.GetComponent<SpriteRenderer>().enabled = false;
+        _spriteRenderer.enabled = false;
         _animator.Play("Default");
+
         PlayerState.gameObject.transform.position = nearestEnemy.transform.position;
-        PlayerState.gameObject.GetComponent<SpriteRenderer>().enabled = true;
-        PlayerState.gameObject.GetComponent<MouvementsController>().EnableDash = true;
-        PlayerState.gameObject.GetComponent<MouvementsController>().enabled = true;
+        PlayerSpriteRenderer.enabled = true;
+        MouvementsController.EnableDash = true;
+        HealthManager.Teleportation = false;
+
         meleeWeaponScript.gameObject.GetComponent<SpriteRenderer>().enabled = true;
-        nearestEnemy.GetComponent<EnemyHealthManager>().Damage(meleeWeaponScript.CriticalDamage, 0f, true);
+
+        nearestEnemy.GetComponent<EnemyHealthManager>().Damage(meleeWeaponScript.CriticalDamage, 0f, true, 0f);
+
         AudioManager.Instance.PlayClipAt(meleeWeaponScript.CriticalSound, gameObject.transform.position, "Player");
 
         _timeCoolDown = 0;
@@ -93,6 +102,18 @@ public class TeleportStrike : ImplantScript
 
     public override void ResetImplant()
     {
+        _spriteRenderer.enabled = false;
+        _animator.Play("Default");
+
+        PlayerSpriteRenderer.enabled = true;
+        MouvementsController.EnableDash = true;
+        HealthManager.Teleportation = false;
+
+        MeleeWeaponScript meleeWeaponScript = PlayerState.WeaponScript as MeleeWeaponScript;
+        meleeWeaponScript.gameObject.GetComponent<SpriteRenderer>().enabled = true;
+
+        _timeCoolDown = 0;
+
         RemoveAllOwnerShipRPC(GetComponent<NetworkObject>());
     }
 }
