@@ -43,7 +43,6 @@ public abstract class WeaponScript : NetworkBehaviour
 
     protected void Awake()
     {
-        _spriteRenderer = GetComponent<SpriteRenderer>();
         _rightHandSprite = _rightHand.GetComponent<SpriteRenderer>();
         _leftHandSprite = _leftHand.GetComponent<SpriteRenderer>();
         _objectSpawner = GameObject.FindWithTag("ObjectSpawner").GetComponent<ObjectSpawner>();

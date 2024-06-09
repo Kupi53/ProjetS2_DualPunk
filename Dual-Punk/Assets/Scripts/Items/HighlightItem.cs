@@ -13,6 +13,10 @@ public class HighlightItem : MonoBehaviour
     private void Start()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
+        Debug.Log(_spriteRenderer);
+        if (_spriteRenderer == null)
+            _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        Debug.Log(_spriteRenderer);
     }
 
     private void Update()

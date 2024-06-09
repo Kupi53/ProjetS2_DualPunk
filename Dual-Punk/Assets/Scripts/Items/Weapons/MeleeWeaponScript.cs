@@ -11,14 +11,11 @@ public abstract class MeleeWeaponScript : WeaponScript
     [SerializeField] protected AudioClip _criticalSound;
     [SerializeField] protected GameObject _attackPoint;
     [SerializeField] protected int _criticalDamage;
-    [SerializeField] protected float _swipeRange;
     [SerializeField] protected float _finalAttackPower;
     [SerializeField] protected float _attackCooldown;
     [SerializeField] protected float _resetCooldown;
     [SerializeField] protected float _defenceTime;
     [SerializeField] protected float _defenceCooldownSpeed;
-    [SerializeField] protected float _defenceWeaponDistance;
-    [SerializeField] protected Vector3 _defenceWeaponOffset;
     [SerializeField] protected LayerMask _layerMask;
 
     protected int _attack;
@@ -39,11 +36,6 @@ public abstract class MeleeWeaponScript : WeaponScript
     public override float InfoMaxTime { get => _attack > 0 ? _resetCooldown : _defenceTime; }
     public override float InfoTimer { get => _attack > 0 ? _resetCooldownTimer : _defenceTime - _defenceTimer; }
 
-
-    protected void Start()
-    {
-        ResetWeapon();
-    }
 
     protected new void Update()
     {
@@ -83,10 +75,12 @@ public abstract class MeleeWeaponScript : WeaponScript
         else
             PlayerState.PointerScript.CanShoot = true;
 
-        if ((Input.GetButtonUp("SecondaryUse") && _attack == 0 || PlayerState.Stop) && !_defenceCooldown)
+        if (Input.GetButtonUp("SecondaryUse") && _attack == 0 || PlayerState.Stop)
         {
-            ResetDefence();
             _disableDefence = false;
+
+            if (!_defenceCooldown)
+                ResetDefence();
         }
 
         if (PlayerState.Stop) return;
@@ -138,13 +132,22 @@ public abstract class MeleeWeaponScript : WeaponScript
         _spriteRenderer.flipY = false;
         _attackTimer = _attackCooldown;
         _resetCooldownTimer = _resetCooldown;
+        WeaponOffset = _weaponOffset;
 
         if (_defenceTimer > 0 && !_defenceCooldown)
             ResetDefence();
         else
             ResetPosition();
     }
-    protected abstract void ResetDefence();
+    protected void ResetDefence()
+    {
+        if (_ownerType == "Player")
+            PlayerState.Walking = false;
+        else
+            EnemyState.DefenceType = DefenceType.NotDefending;
+        _defenceCooldown = true;
+        ResetPosition();
+    }
     protected abstract void ResetPosition();
 
 
@@ -183,12 +186,18 @@ public abstract class MeleeWeaponScript : WeaponScript
         System.Random randomSound = new System.Random();
         AudioManager.Instance.PlayClipAt(_attackSound[randomSound.Next(_attackSound.Count)], gameObject.transform.position, _ownerType);
 
-        int damage = _damage;
+        int damage;
         float impactForce = _impactForce;
         if (_attack == 3)
         {
+            UserRecoil.Impact(-direction, _recoilForce * _finalAttackPower);
             damage = (int)(_damage * _finalAttackPower);
             impactForce *= _finalAttackPower;
+        }
+        else
+        {
+            UserRecoil.Impact(-direction, _recoilForce);
+            damage = _damage;
         }
 
         Collider2D[] hitColliders = Physics2D.OverlapCircleAll(_attackPoint.transform.position, _range / 2, _layerMask);

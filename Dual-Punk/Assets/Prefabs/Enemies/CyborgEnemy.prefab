@@ -318,7 +318,10 @@ MonoBehaviour:
   _componentIndexCache: 0
   _addedNetworkObject: {fileID: 8662005701061872785}
   _networkObjectCache: {fileID: 8662005701061872785}
-  ParentRoom: {fileID: 0}
+  _layerMask:
+    serializedVersion: 2
+    m_Bits: 256
+  _detectionOffset: {x: 0, y: 0.5, z: 0}
   _lockDistance: 10
   _unlockDistance: 12
 --- !u!114 &9003789017972292883
@@ -341,9 +344,6 @@ MonoBehaviour:
   _reCalculationTime: 0.5
   _forcesEffect: 0.08
   _forcesDecreaseSpeed: 15
-  _layerMask:
-    serializedVersion: 2
-    m_Bits: 256
 --- !u!114 &997845674584081706
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -363,9 +363,6 @@ MonoBehaviour:
   - {fileID: 8832150194662058669, guid: 50792e658cc2ac544bf953b9d26dd1ac, type: 3}
   - {fileID: 8297419380730599739, guid: 239afa9696bf6fa469c3317efbe7993d, type: 3}
   - {fileID: 8547339821460021461, guid: 734d16466bc185640b850ab1d3ed641c, type: 3}
-  _layerMask:
-    serializedVersion: 2
-    m_Bits: 256
   _aimVariationAngleRange: 10
   _smoothTime: 0.25
 --- !u!114 &5565835780587346742

@@ -7,6 +7,7 @@ using UnityEditor;
 
 public abstract class FireArmScript : WeaponScript
 {
+    [SerializeField] protected bool _silencer;
     [SerializeField] protected float _fireRate;
     [SerializeField] protected AudioClip _fireSound;
 
@@ -18,6 +19,7 @@ public abstract class FireArmScript : WeaponScript
         base.Awake();
 
         _canAttack = true;
+        _spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
 
