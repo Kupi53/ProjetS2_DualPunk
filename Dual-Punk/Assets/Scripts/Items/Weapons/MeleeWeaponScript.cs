@@ -25,7 +25,6 @@ public abstract class MeleeWeaponScript : WeaponScript
     protected float _defenceTimer;
     protected float _resetCooldownTimer;
 
-
     public int Damage { get => _damage; set => _damage = value; }
     public float AttackCooldown { get => _attackCooldown; set => _attackCooldown = value; }
     public float ResetCooldown { get => _resetCooldown; set => _resetCooldown = value; }

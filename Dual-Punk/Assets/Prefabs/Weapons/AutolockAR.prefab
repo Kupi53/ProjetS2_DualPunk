@@ -307,6 +307,7 @@ MonoBehaviour:
   _cameraShake: 0.5
   _weaponDistance: 0.45
   _pointerSpriteNumber: 2
+  _silencer: 0
   _fireRate: 0.2
   _fireSound: {fileID: 8300000, guid: dae32f51b1492904daa53cdaa8f329ea, type: 3}
   _reloadSound: {fileID: 8300000, guid: 12f76a00d6eed354790209110bad3320, type: 3}
@@ -383,7 +384,7 @@ MonoBehaviour:
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 54
+  <PrefabId>k__BackingField: 57
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0

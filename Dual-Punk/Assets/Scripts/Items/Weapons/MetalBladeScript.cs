@@ -7,6 +7,9 @@ using FishNet.Component.Animating;
 
 public class MetalBladeScript : MeleeWeaponScript
 {
+    [SerializeField] private GameObject _blade1;
+    [SerializeField] private GameObject _blade2;
+
     private NetworkAnimator _networkAnimator;
     private string _currentAnimation;
 
@@ -24,7 +27,7 @@ public class MetalBladeScript : MeleeWeaponScript
     {
         base.Update();
 
-        if (InHand && _currentAnimation == "drop")
+        if (InHand && (_currentAnimation == "drop" || _currentAnimation == "dropHighlight"))
         {
             ChangeAnimation("normal");
         }
@@ -64,9 +67,9 @@ public class MetalBladeScript : MeleeWeaponScript
 
     protected override void Defend(Vector3 direction)
     {
-        base.Defend(direction);
-
         ChangeAnimation("defend");
+
+        base.Defend(direction);
     }
 
     protected override void Attack(Vector3 direction, bool damagePlayer)

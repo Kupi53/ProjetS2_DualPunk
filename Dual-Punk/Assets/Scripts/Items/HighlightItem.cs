@@ -1,3 +1,4 @@
+using FishNet.Component.Animating;
 using UnityEngine;
 
 
@@ -7,30 +8,43 @@ public class HighlightItem : MonoBehaviour
     [SerializeField] private Sprite _highlighted;
 
     private SpriteRenderer _spriteRenderer;
-    public bool Selected { get; set; }
+    private NetworkAnimator _animator;
+    private string _currentAnim;
 
 
     private void Start()
     {
-        _spriteRenderer = GetComponent<SpriteRenderer>();
-        Debug.Log(_spriteRenderer);
-        if (_spriteRenderer == null)
-            _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
-        Debug.Log(_spriteRenderer);
+        _animator = GetComponentInChildren<NetworkAnimator>();
+        if (_animator == null)
+        {
+            _spriteRenderer = GetComponent<SpriteRenderer>();
+            if (_spriteRenderer == null)
+                _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        }
     }
 
-    private void Update()
+    public void StopHighlight()
     {
-        if (!Selected)
-        {
+        if (_animator != null)
+            ChangeAnim("drop");
+        else
             _spriteRenderer.sprite = _normal;
-        }
-
     }
 
     public void Highlight()
     {
-        _spriteRenderer.sprite = _highlighted;
-        Selected = true;
+        if (_animator != null)
+            ChangeAnim("dropHighlight");
+        else
+            _spriteRenderer.sprite = _highlighted;
+    }
+
+    private void ChangeAnim(string newAnim)
+    {
+        if (newAnim != _currentAnim)
+        {
+            _currentAnim = newAnim;
+            _animator.Play(newAnim);
+        }
     }
 }
