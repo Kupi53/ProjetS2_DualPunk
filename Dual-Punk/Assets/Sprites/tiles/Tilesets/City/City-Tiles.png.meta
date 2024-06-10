@@ -1076,27 +1076,6 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: City-Tiles_46
-      rect:
-        serializedVersion: 2
-        x: 46
-        y: 97
-        width: 12
-        height: 19
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: aa56e0f1f8ae6db4bb723a314638a5b9
-      internalID: 1023970222
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: City-Tiles_47
       rect:
         serializedVersion: 2
@@ -1104,8 +1083,8 @@ TextureImporter:
         y: 32
         width: 32
         height: 96
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.21782994, y: 0.088240586}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1176,6 +1155,27 @@ TextureImporter:
       bones: []
       spriteID: dfc669fc01ff88f4c9dae8f6f8a8ed1c
       internalID: -156928614
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: City-Tiles_46
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 32
+        width: 32
+        height: 96
+      alignment: 9
+      pivot: {x: 0.7884412, y: 0.088240586}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 84c5c6cda087aaf4ea8425399f60c67d
+      internalID: 1319665832
       vertices: []
       indices: 
       edges: []
