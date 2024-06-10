@@ -47,6 +47,10 @@ public class ConsumablesController : NetworkBehaviour
     public float ItemCoolDown { get => _itemCooldown; }
     public float ItemTimer { get => _itemTimer; }
 
+    // inventory UI
+
+    private CoolDownController _coolDownController;
+
 
     void Start()
     {
@@ -62,6 +66,10 @@ public class ConsumablesController : NetworkBehaviour
         _grenadeImpact = _grenadePath.GetComponentInChildren<SpriteRenderer>();
 
         _lineRenderer.positionCount = _lineResolution;
+
+        GameObject test = GameObject.FindWithTag("Inventory");
+        Debug.Log(test);
+
         ResetThrow();
     }
 

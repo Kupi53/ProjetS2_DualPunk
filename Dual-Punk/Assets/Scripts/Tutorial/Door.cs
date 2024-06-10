@@ -35,7 +35,6 @@ public class Door : NetworkBehaviour
         base.OnStartNetwork();
         _playersOnDoor = new List<GameObject>();
         _targetPosition = _target.transform.GetChild(0).transform.position;
-        Debug.Log(_targetPosition);
     }
 
 
