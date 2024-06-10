@@ -39,7 +39,6 @@ public class InventoryItem : MonoBehaviour
             float ratio = imageSize.rect.width / spriteSize.rect.width;
             int imageWidth = (int)(spriteSize.rect.width * ratio);
             int imageHeight = (int)(spriteSize.rect.height * ratio);
-            Debug.Log(ratio + " " + imageWidth + " " + imageHeight);
             _iconImage.rectTransform.sizeDelta = new Vector2(imageWidth, imageHeight);
         }
 

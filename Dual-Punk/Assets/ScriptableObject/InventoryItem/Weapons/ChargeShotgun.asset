@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: ChargeShotgun
   prefab: {fileID: 0}
-  prefabTest: {fileID: 0}
   icon: {fileID: 21300000, guid: 88ca3d24b19df974abebc17b621c9de7, type: 3}
-  description: Le Shotgun a rechargement, plus tu charges plus t'envoies tes ennemis
-    rapidement dans l'au dela.
+  description: The reloading Shotgun, the more you reload, the faster you send your
+    enemies into the beyond.
+  setName: 
+  setItems: []

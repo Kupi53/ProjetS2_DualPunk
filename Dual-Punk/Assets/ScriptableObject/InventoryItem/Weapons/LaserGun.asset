@@ -15,5 +15,7 @@ MonoBehaviour:
   name: LaserGun
   prefab: {fileID: 0}
   icon: {fileID: 21300000, guid: 97711701e1af8e54a8628840cdf7aa41, type: 3}
-  description: "Le lasergun, Une arme puissante capabler de d\xE9couper les ennemis
-    comme dans Star Wars."
+  description: The lasergun, a powerful weapon to slice through enemies like in Star
+    Wars.
+  setName: 
+  setItems: []

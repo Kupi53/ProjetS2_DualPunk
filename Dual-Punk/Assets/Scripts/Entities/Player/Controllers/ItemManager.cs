@@ -54,7 +54,6 @@ public class ItemManager : NetworkBehaviour
         WeaponScript weaponScript;
         ImplantScript implantScript;
 
-
         if (item.CompareTag("Weapon") && !(weaponScript = item.GetComponent<WeaponScript>()).InHand)
         {
             _index = 0;

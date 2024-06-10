@@ -15,11 +15,9 @@ MonoBehaviour:
   name: WarriorLuck
   prefab: {fileID: 0}
   icon: {fileID: 21300000, guid: 28684d7836de49946ad6df325f12a493, type: 3}
-  description: "Cet implant offre au joueur la possibilit\xE9 d'avoir un pourcentage
-    de chance de tirer des balles sp\xE9ciales qui infligerons une quantit\xE9 de
-    d\xE9gat suppl\xE9mentaire. Ces munitions seront simbolis\xE9 par une couleur
-    rouge vive. Les armes lasers et corps \xE0 corps ne sont pas affect\xE9es par
-    cet implant."
+  description: This implant gives the player a percentage chance of firing special
+    bullets that inflict extra damage. These bullets are simbolized by a bright red
+    color. Laser and hand-to-hand weapons are not affected by this implant.
   setName: Heavy
   setItems:
   - WarriorLuck

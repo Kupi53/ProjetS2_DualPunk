@@ -4,6 +4,9 @@ using Unity.VisualScripting;
 using UnityEngine;
 using System;
 using FishNet.Object;
+using Unity.PlasticSCM.Editor.UI;
+using UnityEngine.UI;
+using TMPro;
 
 
 public class ConsumablesController : NetworkBehaviour
@@ -62,6 +65,9 @@ public class ConsumablesController : NetworkBehaviour
         _grenadeImpact = _grenadePath.GetComponentInChildren<SpriteRenderer>();
 
         _lineRenderer.positionCount = _lineResolution;
+
+
+
         ResetThrow();
     }
 
@@ -76,6 +82,10 @@ public class ConsumablesController : NetworkBehaviour
             {
                 _healTimer = 0;
                 _damageable.Heal(_healHP, 0.2f);
+
+                //enables to display countdown in inventory
+                StartCD(_healCooldown, "HealthSyringeCD");
+
             }
         }
         else {
@@ -109,6 +119,10 @@ public class ConsumablesController : NetworkBehaviour
                     
                     ResetThrow();
                     _itemTimer = 0;
+
+                    StartCD(_grenadeTimer, "TimerGrenadeCD");
+
+
                 }
 
                 DrawGrenadePath();
@@ -178,4 +192,46 @@ public class ConsumablesController : NetworkBehaviour
         grenade.GetComponent<InstantGrenadeScript>().Setup(startPosition, moveDirection, verticalDirection, moveSpeed, explosionTimer, distanceUntilStop, curveFactor);
         Spawn(grenade);
     }
+
+
+    private GameObject FindConsummable(string name) {
+
+        CoolDownDisplay[] consummables = Resources.FindObjectsOfTypeAll<CoolDownDisplay>();
+        GameObject neededConsummable = null;
+
+        int i = 0;
+        while (neededConsummable == null && consummables.Length > i) {
+            if (consummables[i].name == name) {
+                neededConsummable = consummables[i].gameObject;
+            }
+            i++;
+        }
+
+        return neededConsummable;
+    }
+
+    private IEnumerator TriggerCountDown(float coolDownTimer, Text countDownDisplay) {
+        
+        float currentTimer = coolDownTimer;
+        countDownDisplay.text = coolDownTimer.ToString();
+
+        while(currentTimer > 0) {
+            Debug.Log(currentTimer);
+            countDownDisplay.text = currentTimer.ToString();
+            yield return new WaitForSeconds(1f);
+            currentTimer--;
+        }
+
+        countDownDisplay.transform.parent.gameObject.SetActive(false);
+
+    }
+
+    public void StartCD(float coolDownTimer, string name) {
+
+        CoolDownDisplay inventoryCDdisplay = FindConsummable(name).GetComponent<CoolDownDisplay>();
+        inventoryCDdisplay.gameObject.SetActive(true);
+        StartCoroutine(TriggerCountDown(coolDownTimer, inventoryCDdisplay.gameObject.transform.GetChild(0).GetComponent<Text>()));
+
+    }
+
 }

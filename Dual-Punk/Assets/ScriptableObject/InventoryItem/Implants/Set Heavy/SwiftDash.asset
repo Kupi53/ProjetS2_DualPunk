@@ -15,7 +15,7 @@ MonoBehaviour:
   name: SwiftDash
   prefab: {fileID: 0}
   icon: {fileID: 21300000, guid: c816a41c38e345a43b8333b218b794a0, type: 3}
-  description: "Cet implant r\xE9duit le temps de rechargement du dash."
+  description: This implant reduces dash reload time.
   setName: Heavy
   setItems:
   - WarriorLuck

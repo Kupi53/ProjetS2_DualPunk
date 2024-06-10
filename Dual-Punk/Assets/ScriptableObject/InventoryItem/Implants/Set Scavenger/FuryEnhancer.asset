@@ -15,8 +15,8 @@ MonoBehaviour:
   name: FuryEnhancer
   prefab: {fileID: 0}
   icon: {fileID: 21300000, guid: a732b558ed23fb4488f0c31dd1df5977, type: 3}
-  description: "Cet implant permet au joueur de donner des coups plus puissants et
-    plus rapides avec les armes de corps \xE0 corps."
+  description: This implant enables the player to deliver faster, more powerful blows
+    melee weapons.
   setName: Scavenger
   setItems:
   - NeuralFreeze

@@ -15,8 +15,8 @@ MonoBehaviour:
   name: CrazyFire
   prefab: {fileID: 0}
   icon: {fileID: 21300000, guid: bd0fd50d28d1d32438c76ee87277df54, type: 3}
-  description: "Cet implant permet au joueur de recharger plus rapidement. Les armes
-    lasers et corps \xE0 corps ne sont pas affect\xE9es par cet implant."
+  description: This implant enables the player to reload faster. Laser and hand-to-hand
+    weapons are not affected by this implant.
   setName: Organic
   setItems:
   - AceOfTheTrigger

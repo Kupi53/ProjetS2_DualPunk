@@ -21,7 +21,6 @@ public class ItemIds : ScriptableObject
             Dictionary<string, GameObject> table = new Dictionary<string, GameObject>();
             for (int i = 0; i < _itemPrefabs.Count; i++)
             {
-                Debug.Log(NumberToId(i));
                 table[NumberToId(i)] = _itemPrefabs[i];
             }
             return table;

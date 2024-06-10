@@ -15,8 +15,8 @@ MonoBehaviour:
   name: StaticAmplifier
   prefab: {fileID: 0}
   icon: {fileID: 21300000, guid: ee58ed6edaa15e946a83e48d8790a07f, type: 3}
-  description: "Cet implant permet de concentrer le tir lorsque le joueur ne se d\xE9place
-    pas et ne fait pas de dash, infligeant ainsi plus de d\xE9g\xE2ts."
+  description: This implant concentrates fire when the player is not moving or making
+    a dash, inflicting more damage.
   setName: Laser
   setItems:
   - LaserTracker

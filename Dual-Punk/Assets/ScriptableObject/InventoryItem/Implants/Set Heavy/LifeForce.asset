@@ -15,7 +15,7 @@ MonoBehaviour:
   name: LifeForce
   prefab: {fileID: 0}
   icon: {fileID: 21300000, guid: 59547e33ba4f3d74390d744340c5d6b9, type: 3}
-  description: "Cet implant donne au joueur une quantit\xE9 de point de vie suppl\xE9mentaire."
+  description: This implant gives the player an extra number of life points.
   setName: Heavy
   setItems:
   - WarriorLuck
