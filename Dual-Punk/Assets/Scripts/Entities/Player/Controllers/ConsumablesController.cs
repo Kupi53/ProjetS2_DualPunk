@@ -4,6 +4,9 @@ using Unity.VisualScripting;
 using UnityEngine;
 using System;
 using FishNet.Object;
+using Unity.PlasticSCM.Editor.UI;
+using UnityEngine.UI;
+using TMPro;
 
 
 public class ConsumablesController : NetworkBehaviour
@@ -47,10 +50,6 @@ public class ConsumablesController : NetworkBehaviour
     public float ItemCoolDown { get => _itemCooldown; }
     public float ItemTimer { get => _itemTimer; }
 
-    // inventory UI
-
-    private CoolDownController _coolDownController;
-
 
     void Start()
     {
@@ -67,8 +66,7 @@ public class ConsumablesController : NetworkBehaviour
 
         _lineRenderer.positionCount = _lineResolution;
 
-        GameObject test = GameObject.FindWithTag("Inventory");
-        Debug.Log(test);
+
 
         ResetThrow();
     }
@@ -84,6 +82,11 @@ public class ConsumablesController : NetworkBehaviour
             {
                 _healTimer = 0;
                 _damageable.Heal(_healHP, 0.2f);
+
+                CoolDownDisplay inventoryCDdisplay = FindConsummable("HealthSyringeCD").GetComponent<CoolDownDisplay>();
+                inventoryCDdisplay.gameObject.SetActive(true);
+                StartCD(_healCooldown, inventoryCDdisplay.gameObject.transform.GetChild(0).GetComponent<Text>());
+
             }
         }
         else {
@@ -186,4 +189,40 @@ public class ConsumablesController : NetworkBehaviour
         grenade.GetComponent<InstantGrenadeScript>().Setup(startPosition, moveDirection, verticalDirection, moveSpeed, explosionTimer, distanceUntilStop, curveFactor);
         Spawn(grenade);
     }
+
+
+    private GameObject FindConsummable(string name) {
+
+        CoolDownDisplay[] consummables = Resources.FindObjectsOfTypeAll<CoolDownDisplay>();
+        GameObject neededConsummable = null;
+
+        int i = 0;
+        while (neededConsummable == null && consummables.Length > i) {
+            if (consummables[i].name == name) {
+                neededConsummable = consummables[i].gameObject;
+            }
+            i++;
+        }
+
+        return neededConsummable;
+    }
+
+    private IEnumerator TriggerCountDown(float coolDownTimer, Text countDownDisplay) {
+        
+        float currentTimer = coolDownTimer;
+
+        while(currentTimer > 0) {
+            Debug.Log(currentTimer);
+            countDownDisplay.text = currentTimer.ToString();
+            yield return new WaitForSeconds(1f);
+            currentTimer--;
+        }
+
+    }
+
+    public void StartCD(float coolDownTimer, Text countDownDisplay) {
+        countDownDisplay.text = coolDownTimer.ToString();
+        StartCoroutine(TriggerCountDown(coolDownTimer, countDownDisplay));
+    }
+
 }
