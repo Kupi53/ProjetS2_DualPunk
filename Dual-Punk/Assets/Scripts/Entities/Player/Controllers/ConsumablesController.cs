@@ -83,9 +83,8 @@ public class ConsumablesController : NetworkBehaviour
                 _healTimer = 0;
                 _damageable.Heal(_healHP, 0.2f);
 
-                CoolDownDisplay inventoryCDdisplay = FindConsummable("HealthSyringeCD").GetComponent<CoolDownDisplay>();
-                inventoryCDdisplay.gameObject.SetActive(true);
-                StartCD(_healCooldown, inventoryCDdisplay.gameObject.transform.GetChild(0).GetComponent<Text>());
+                //enables to display countdown in inventory
+                StartCD(_healCooldown, "HealthSyringeCD");
 
             }
         }
@@ -120,6 +119,10 @@ public class ConsumablesController : NetworkBehaviour
                     
                     ResetThrow();
                     _itemTimer = 0;
+
+                    StartCD(_grenadeTimer, "TimerGrenadeCD");
+
+
                 }
 
                 DrawGrenadePath();
@@ -210,6 +213,7 @@ public class ConsumablesController : NetworkBehaviour
     private IEnumerator TriggerCountDown(float coolDownTimer, Text countDownDisplay) {
         
         float currentTimer = coolDownTimer;
+        countDownDisplay.text = coolDownTimer.ToString();
 
         while(currentTimer > 0) {
             Debug.Log(currentTimer);
@@ -218,11 +222,16 @@ public class ConsumablesController : NetworkBehaviour
             currentTimer--;
         }
 
+        countDownDisplay.transform.parent.gameObject.SetActive(false);
+
     }
 
-    public void StartCD(float coolDownTimer, Text countDownDisplay) {
-        countDownDisplay.text = coolDownTimer.ToString();
-        StartCoroutine(TriggerCountDown(coolDownTimer, countDownDisplay));
+    public void StartCD(float coolDownTimer, string name) {
+
+        CoolDownDisplay inventoryCDdisplay = FindConsummable(name).GetComponent<CoolDownDisplay>();
+        inventoryCDdisplay.gameObject.SetActive(true);
+        StartCoroutine(TriggerCountDown(coolDownTimer, inventoryCDdisplay.gameObject.transform.GetChild(0).GetComponent<Text>()));
+
     }
 
 }
