@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb4d4ad9335e54a4aa04976f4584bb33, type: 3}
+  m_Name: TimerGrenade
+  m_EditorClassIdentifier: 
+  name: TimerGrenade
+  prefab: {fileID: 7057386926987168146, guid: 4e71980427ced514a9833a80d179e02e, type: 3}
+  icon: {fileID: 21300000, guid: f15a9e67330dfce43ba7355ef1940432, type: 3}
+  description: A grenade that will support you all along the journey. Explodes after
+    a small amount of time. Shoot it to make it explode faster.
+  setName: 
+  setItems: []

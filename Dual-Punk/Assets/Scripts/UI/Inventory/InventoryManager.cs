@@ -84,7 +84,7 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        //change the raycast state needed for the _descriptionManager
+
 
         if (eventData.button == PointerEventData.InputButton.Left)
         {
@@ -94,9 +94,10 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
             GameObject clickedObject = eventData.pointerCurrentRaycast.gameObject;
             InventorySlots slot = clickedObject.GetComponent<InventorySlots>();
 
-            if (slot != null && slot.heldItem != null)
+            if (slot != null && slot.heldItem != null && slot.heldItem.GetComponent<InventoryItem>().displayedItem.prefab.tag != "Projectile")
             {
 
+                //change the raycast state needed for the _descriptionManager
                 _dropPanel.raycastTarget = true;
                 _inventoryPanel.raycastTarget = true;
                 _draggedObject = slot.heldItem;
@@ -116,6 +117,7 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
                 }
             }
         }
+
         //Drop the inventory Item whith right clicking on it 
         if (eventData.button == PointerEventData.InputButton.Right)
         {
@@ -165,6 +167,7 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
                     }
 
                 }
+
                 //if the slot is not empty - swap item
                 else if (_currentSlot != null && _currentSlot.heldItem != null)
                 {
