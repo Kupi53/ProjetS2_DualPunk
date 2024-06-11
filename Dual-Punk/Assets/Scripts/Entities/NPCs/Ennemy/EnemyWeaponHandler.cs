@@ -74,8 +74,6 @@ public class EnemyWeaponHandler : NetworkBehaviour
         {
             RaycastHit2D hit = Physics2D.Raycast(transform.position, _enemyState.Target.transform.position, distance, _layerMask);
 
-            Debug.Log(hit == true);
-
             if (_weaponScript is ChargeWeaponScript)
             {
                 canAttack = true;

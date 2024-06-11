@@ -29,6 +29,11 @@ public abstract class MeleeWeaponScript : WeaponScript
     protected float _resetCooldownTimer;
     protected float _stunDuration;
 
+    // Pour effet de set scavenger
+    private int _criticalPercentage;
+    private bool _setIsActive;
+    private bool _critical;
+
 
     public int Damage { get => _damage; set => _damage = value; }
     public float AttackCooldown { get => _attackCooldown; set => _attackCooldown = value; }
@@ -36,6 +41,8 @@ public abstract class MeleeWeaponScript : WeaponScript
     public int CriticalDamage { get => _criticalDamage; set => _criticalDamage = value; }
     public float StunDuration { get => _stunDuration; set => _stunDuration = value; }
     public AudioClip CriticalSound { get => _criticalSound; set => _criticalSound = value; }
+    public int CriticalPercentage { get => _criticalPercentage; set => _criticalPercentage = value; }
+    public bool SetIsActive { get => _setIsActive; set => _setIsActive = value; }
 
     public override bool DisplayInfo { get => _defenceTimer > 0 && _attack == 0 || _resetCooldownTimer > 0 && _attack > 0; }
     public override float InfoMaxTime { get => _attack > 0 ? _resetCooldown : _defenceTime; }
@@ -45,6 +52,7 @@ public abstract class MeleeWeaponScript : WeaponScript
     protected void Start()
     {
         ResetWeapon();
+        _setIsActive = false;
     }
 
     protected new void Update()
@@ -182,14 +190,34 @@ public abstract class MeleeWeaponScript : WeaponScript
         _attack++;
         _attackTimer = 0;
         _resetCooldownTimer = 0;
-        System.Random randomSound = new System.Random();
-        AudioManager.Instance.PlayClipAt(_attackSound[randomSound.Next(_attackSound.Count)], gameObject.transform.position, _ownerType);
 
-        int damage = _damage;
+        int damage;
+        if (SetIsActive && UnityEngine.Random.Range(0, 100) < _criticalPercentage)
+        {
+            damage = _criticalDamage;
+            _critical = true;
+        }
+        else
+        {
+            damage = _damage;
+            _critical = false;
+        }
+
+        if (_critical)
+            AudioManager.Instance.PlayClipAt(_criticalSound, gameObject.transform.position, _ownerType);
+        else
+        {
+            System.Random randomSound = new System.Random();
+            AudioManager.Instance.PlayClipAt(_attackSound[randomSound.Next(_attackSound.Count)], gameObject.transform.position, _ownerType);
+        }
+
         float impactForce = _impactForce;
         if (_attack == 3)
         {
-            damage = (int)(_damage * _finalAttackPower);
+            if (_critical)
+                damage = (int)(_criticalDamage * _finalAttackPower);
+            else
+                damage = (int)(_damage * _finalAttackPower);
             impactForce *= _finalAttackPower;
         }
 
@@ -204,7 +232,10 @@ public abstract class MeleeWeaponScript : WeaponScript
 
             if (hitObject.CompareTag("Ennemy") && !damagePlayer || hitObject.CompareTag("Player") && damagePlayer)
             {
-                hitObject.GetComponent<IDamageable>().Damage(damage, 0, false, _stunDuration);
+                if (_critical)
+                    hitObject.GetComponent<IDamageable>().Damage(damage, 0, true, _stunDuration);
+                else
+                    hitObject.GetComponent<IDamageable>().Damage(damage, 0, false, _stunDuration);
                 hitObject.GetComponent<IImpact>().Impact(direction, impactForce);
             }
             if (hitObject.CompareTag("Projectile"))
