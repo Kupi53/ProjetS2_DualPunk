@@ -95,7 +95,7 @@ MonoBehaviour:
   _networkObjectCache: {fileID: 8434958758933139550}
   _icon: {fileID: 21300000, guid: 0ec125d1df9a590439b855bf6dcd6f03, type: 3}
   indicatorPosX: 0
-  indicatorPosY: 0.5
+  indicatorPosY: 0
 --- !u!1 &3075823386371160136
 GameObject:
   m_ObjectHideFlags: 0
@@ -286,7 +286,7 @@ MonoBehaviour:
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 37
+  <PrefabId>k__BackingField: 36
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0
@@ -307,13 +307,13 @@ MonoBehaviour:
     MinLootRollAmount: 1
     MaxLootRollAmount: 5
     IdTable:
-    - 0001
-    - 0002
-    - 0003
-    - 0004
-    - 0005
-    - 0006
-    - 0007
+    - 1
+    - 2
+    - 3
+    - 4
+    - 5
+    - 6
+    - 7
     MinIntervalTable: 000000003200000064000000840300001027000030750000b8880000
     MaxIntervalTable: 3100000063000000830300000f2700002f750000b78800001b890000
 --- !u!114 &-3875897645546173479
