@@ -14,7 +14,6 @@ public class NPCMouvementController : NetworkBehaviour, IImpact
     [SerializeField] private float _reCalculationTime;
     [SerializeField] private float _forcesEffect; // 0.05
     [SerializeField] private float _forcesDecreaseSpeed; //15
-    [SerializeField] private LayerMask _layerMask;
 
     private List<(Vector2, float)> _forces;
     private NPCState _npcState;
@@ -61,7 +60,7 @@ public class NPCMouvementController : NetworkBehaviour, IImpact
         {
             if ((currentAngle = Vector2.Angle(direction, _possibleDirections[i])) < maxAngle)
             {
-                if (!Physics2D.Raycast(transform.position, _possibleDirections[i], distance * (1 - currentAngle/180), _layerMask))
+                if (!Physics2D.Raycast(transform.position, _possibleDirections[i], distance * (1 - currentAngle/180), _npcState.LayerMask))
                 {
                     _moveDirection = _possibleDirections[i];
                     maxAngle = currentAngle;

@@ -223,6 +223,7 @@ MonoBehaviour:
   _cameraShake: 0.5
   _weaponDistance: 0.7
   _pointerSpriteNumber: 2
+  _silencer: 0
   _fireRate: 0.12
   _fireSound: {fileID: 8300000, guid: b5afcf41c9a8bd94282310a2a5eca99d, type: 3}
   _reloadSound: {fileID: 8300000, guid: d850be0390f230843a1672f92de85f1f, type: 3}
@@ -390,7 +391,7 @@ Transform:
   m_GameObject: {fileID: 5581303934638705758}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.625, y: 0.875, z: -5}
+  m_LocalPosition: {x: 0.625, y: 0.875, z: 0}
   m_LocalScale: {x: 4, y: 8, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

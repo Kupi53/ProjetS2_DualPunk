@@ -9,7 +9,6 @@ using UnityEngine;
 public class EnemyWeaponHandler : NetworkBehaviour
 {
     [SerializeField] private GameObject[] _weapons;
-    [SerializeField] private LayerMask _layerMask;
     [SerializeField] private float _aimVariationAngleRange;
     [SerializeField] private float _smoothTime;
 
@@ -67,12 +66,12 @@ public class EnemyWeaponHandler : NetworkBehaviour
 
 
         _direction = _enemyState.TargetPoint - transform.position;
-        float distance = _direction.magnitude - 1;
+        float distance = _direction.magnitude;
         bool canAttack = false;
 
         if (distance < _weaponScript.Range)
         {
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, _enemyState.Target.transform.position, distance, _layerMask);
+            RaycastHit2D hit = Physics2D.Raycast(_weaponScript.transform.position, _direction, distance, _enemyState.LayerMask);
 
             if (_weaponScript is ChargeWeaponScript)
             {
@@ -139,7 +138,7 @@ public class EnemyWeaponHandler : NetworkBehaviour
         if (_weaponIndex > 0) DropWeapon();
         
         GameObject weapon = Instantiate(_weapons[_weaponIndex], transform.position, Quaternion.identity);
-        weapon.transform.SetParent(this.gameObject.transform);
+        weapon.transform.SetParent(gameObject.transform);
         Spawn(weapon);
 
         _weaponScript = weapon.GetComponent<WeaponScript>();

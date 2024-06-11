@@ -203,7 +203,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 5152246503774a9469bd99a04e4ca3dd, type: 2}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -357,6 +357,10 @@ MonoBehaviour:
   _componentIndexCache: 0
   _addedNetworkObject: {fileID: -5137988890912388252}
   _networkObjectCache: {fileID: -5137988890912388252}
+  _layerMask:
+    serializedVersion: 2
+    m_Bits: 256
+  _detectionOffset: {x: 0, y: 0.5, z: 0}
   _lockDistance: 15
   _unlockDistance: 20
 --- !u!114 &4178710496251997567
@@ -379,9 +383,6 @@ MonoBehaviour:
   _reCalculationTime: 0.5
   _forcesEffect: 0.08
   _forcesDecreaseSpeed: 15
-  _layerMask:
-    serializedVersion: 2
-    m_Bits: 256
 --- !u!114 &-2339362865896900815
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -400,9 +401,6 @@ MonoBehaviour:
   _weapons:
   - {fileID: 3553326147683758454, guid: c537b2fa156ad2c4493157e872b54c9a, type: 3}
   - {fileID: 8566271621736578887, guid: 45c33cf5e24d4e94cb0d06a7185ababe, type: 3}
-  _layerMask:
-    serializedVersion: 2
-    m_Bits: 256
   _aimVariationAngleRange: 10
   _smoothTime: 0.25
 --- !u!114 &6565402076467058786

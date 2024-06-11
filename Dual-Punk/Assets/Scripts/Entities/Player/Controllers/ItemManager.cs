@@ -15,7 +15,6 @@ public class ItemManager : NetworkBehaviour
 	public HealthManager _healthManager;
     public ImplantController _implantController;
     private List<GameObject> _items;
-    private IImpact _impact;
     private int _index;
 
 
@@ -25,7 +24,6 @@ public class ItemManager : NetworkBehaviour
 
         _index = 0;
         _items = new List<GameObject>();
-        _impact = GetComponent<IImpact>();
         _playerState = GetComponent<PlayerState>();
         _healthManager = GetComponent<HealthManager>();
         _implantController = GetComponent<ImplantController>();
@@ -61,12 +59,13 @@ public class ItemManager : NetworkBehaviour
 
             InventorySlots[] weaponsSlots = _inventoryManager.GetComponent<InventoryManager>().WeaponSlots;
 
+            RemoveHighlight(item);
+
             if (weaponsSlots[_inventoryManager.GetComponent<InventoryManager>().EquipedSlotIndex].heldItem == null)
             {
                 UpdateHeldWeapon(weaponScript);
             }
 
-            RemoveHighlight(item);
             _inventoryManager.GetComponent<InventoryPickItem>().ItemPicked(item);
         }
 
@@ -154,19 +153,18 @@ public class ItemManager : NetworkBehaviour
 
         GameObject item = collision.gameObject;
 
-        if (item.GetComponent<HighlightItem>() != null) RemoveHighlight(item);
-
-        if (item.CompareTag("Weapon") || item.CompareTag("Item") || item.CompareTag("Implant"))
+        if (item.GetComponent<HighlightItem>() != null)
         {
             _index = 0;
             _items.Remove(item);
+            RemoveHighlight(item);
         }
     }
 
 
     private void RemoveHighlight(GameObject item)
     {
-        item.GetComponent<HighlightItem>().Selected = false;
+        item.GetComponent<HighlightItem>().StopHighlight();
     }
 
     public void UpdateHeldWeapon(WeaponScript weaponScript)

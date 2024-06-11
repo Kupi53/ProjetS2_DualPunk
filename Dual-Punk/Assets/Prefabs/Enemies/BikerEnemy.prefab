@@ -318,6 +318,10 @@ MonoBehaviour:
   _componentIndexCache: 0
   _addedNetworkObject: {fileID: 8662005701061872785}
   _networkObjectCache: {fileID: 8662005701061872785}
+  _layerMask:
+    serializedVersion: 2
+    m_Bits: 256
+  _detectionOffset: {x: 0, y: 0.5, z: 0}
   _lockDistance: 15
   _unlockDistance: 20
 --- !u!114 &9003789017972292883
@@ -340,9 +344,6 @@ MonoBehaviour:
   _reCalculationTime: 0.5
   _forcesEffect: 0.08
   _forcesDecreaseSpeed: 15
-  _layerMask:
-    serializedVersion: 2
-    m_Bits: 256
 --- !u!114 &997845674584081706
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -360,9 +361,6 @@ MonoBehaviour:
   _networkObjectCache: {fileID: 8662005701061872785}
   _weapons:
   - {fileID: 8566271621736578887, guid: 45c33cf5e24d4e94cb0d06a7185ababe, type: 3}
-  _layerMask:
-    serializedVersion: 2
-    m_Bits: 256
   _aimVariationAngleRange: 10
   _smoothTime: 0.25
 --- !u!114 &5565835780587346742
@@ -459,7 +457,7 @@ MonoBehaviour:
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 32
+  <PrefabId>k__BackingField: 31
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0
