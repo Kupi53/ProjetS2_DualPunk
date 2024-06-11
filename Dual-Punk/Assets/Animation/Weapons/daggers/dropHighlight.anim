@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: drop
+  m_Name: dropHighlight
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -21,9 +21,18 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: 21300000, guid: 8fbf4229c060bda4891349950603e346, type: 3}
+      value: {fileID: 21300000, guid: 506c416f65a0f05449aa1535322d1a1f, type: 3}
     attribute: m_Sprite
-    path: 
+    path: Dagger1
+    classID: 212
+    script: {fileID: 0}
+    flags: 2
+  - serializedVersion: 2
+    curve:
+    - time: 0
+      value: {fileID: 21300000, guid: 506c416f65a0f05449aa1535322d1a1f, type: 3}
+    attribute: m_Sprite
+    path: Dagger2
     classID: 212
     script: {fileID: 0}
     flags: 2
@@ -35,7 +44,16 @@ AnimationClip:
   m_ClipBindingConstant:
     genericBindings:
     - serializedVersion: 2
-      path: 0
+      path: 1638409353
+      attribute: 0
+      script: {fileID: 0}
+      typeID: 212
+      customType: 23
+      isPPtrCurve: 1
+      isIntCurve: 0
+      isSerializeReferenceCurve: 0
+    - serializedVersion: 2
+      path: 4171330867
       attribute: 0
       script: {fileID: 0}
       typeID: 212
@@ -44,7 +62,8 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     pptrCurveMapping:
-    - {fileID: 21300000, guid: 8fbf4229c060bda4891349950603e346, type: 3}
+    - {fileID: 21300000, guid: 506c416f65a0f05449aa1535322d1a1f, type: 3}
+    - {fileID: 21300000, guid: 506c416f65a0f05449aa1535322d1a1f, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}

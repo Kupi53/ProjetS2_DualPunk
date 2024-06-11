@@ -377,8 +377,8 @@ MonoBehaviour:
   _leftHand: {fileID: 5059449514632398273}
   _weaponOffset: {x: 0.2, y: 0.5, z: 0}
   _damage: 70
-  _range: 1.5
-  _recoilForce: 0.5
+  _range: 1.7
+  _recoilForce: 1
   _impactForce: 0
   _cameraShake: 1
   _weaponDistance: 0.1
@@ -392,7 +392,7 @@ MonoBehaviour:
   _attackPoint: {fileID: 1311701733057188042}
   _criticalDamage: 100
   _finalAttackPower: 1.3
-  _attackCooldown: 0.3
+  _attackCooldown: 0.25
   _resetCooldown: 1.3
   _defenceTime: 5
   _defenceCooldownSpeed: 2

@@ -91,6 +91,7 @@ public abstract class MeleeWeaponScript : WeaponScript
         else if (Input.GetButtonDown("Use") && _attack < 3 && _attackTimer >= _attackCooldown)
         {
             Attack(direction, false);
+            PlayerState.CameraController.ShakeCamera(_cameraShake, 0.1f);
         }
     }
 

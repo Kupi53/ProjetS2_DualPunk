@@ -7,9 +7,6 @@ using FishNet.Component.Animating;
 
 public class MetalBladeScript : MeleeWeaponScript
 {
-    [SerializeField] private GameObject _blade1;
-    [SerializeField] private GameObject _blade2;
-
     private NetworkAnimator _networkAnimator;
     private string _currentAnimation;
 
