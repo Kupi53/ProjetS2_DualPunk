@@ -23,3 +23,5 @@ MonoBehaviour:
   - ThermicExchange
   - PhotonAmplifier
   - StaticAmplifier
+  setDescription: The laser set allows the laser to do area damage, inflicting damage
+    on several enemies at the same time.

@@ -23,4 +23,5 @@ MonoBehaviour:
   - BloodPump
   - CrazyFire
   - Flash
-  setDescription: test de la description
+  setDescription: The organic set allows the player to recover part of the damage
+    he inflicts on enemies alive.
