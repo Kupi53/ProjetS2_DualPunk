@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 
@@ -70,9 +71,11 @@ public class DescriptionManager : MonoBehaviour, IPointerEnterHandler, IPointerE
         {
             if (_implantSlots[i].heldItem != null)
             {
+                int numberOfSetItem = 0;
+                GameObject currentImplant = _implantSlots[i].heldItem.transform.GetChild(0).gameObject;
                 for (int j = 0 ; j < 4; j++)
                 {
-                    Text updateText = _implantSlots[i].heldItem.transform.GetChild(0).transform.GetChild(3+j).GetComponent<Text>();
+                    Text updateText = currentImplant.transform.GetChild(3+j).GetComponent<Text>();
                     Color newColor = updateText.color;
 
                     if (_implantSlots[j].heldItem != null){
@@ -81,6 +84,7 @@ public class DescriptionManager : MonoBehaviour, IPointerEnterHandler, IPointerE
 
                         if(updateText.text.Contains(itemInSlotName)){
                             newColor.a = 1f;
+                            numberOfSetItem += 1;
                         }
                         else{
                             newColor.a = 0.3f;
@@ -91,6 +95,20 @@ public class DescriptionManager : MonoBehaviour, IPointerEnterHandler, IPointerE
                     }
                     
                     updateText.color = newColor;
+                }
+
+                //update set description
+
+                Text setEffectText = currentImplant.transform.GetChild(7).GetComponent<Text>();
+                Color alpha = setEffectText.color;
+
+                if(numberOfSetItem == 4) {
+                    alpha.a = 1f;
+                    setEffectText.color = alpha;
+                }
+                else {
+                    alpha.a = 0.3f;
+                    setEffectText.color = alpha;
                 }
             }
         }

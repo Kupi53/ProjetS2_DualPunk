@@ -26,7 +26,7 @@ public class InventoryItem : MonoBehaviour
         descriptionPanel.SetText(displayedItem.name, displayedItem.description);
 
         if (displayedItem.prefab.tag == "Implant" && displayedItem.setItems.Length == 4){
-            descriptionPanel.SetImplantText(displayedItem.setName, displayedItem.setItems);
+            descriptionPanel.SetImplantText(displayedItem.setName, displayedItem.setItems, displayedItem.setDescription);
             _descriptionManager.UpdateImplantSet();
         }
     }

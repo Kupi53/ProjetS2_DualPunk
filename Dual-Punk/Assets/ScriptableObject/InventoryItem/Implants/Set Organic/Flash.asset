@@ -22,3 +22,4 @@ MonoBehaviour:
   - BloodPump
   - CrazyFire
   - Flash
+  setDescription: test de la description

@@ -16,6 +16,7 @@ public class DescriptionPanel : MonoBehaviour
     private int maxCharacter;
     [SerializeField] Text SetName;
     [SerializeField] Text[] Items;
+    [SerializeField] Text SetEffect;
 
     public float height;
     public float width;
@@ -39,14 +40,15 @@ public class DescriptionPanel : MonoBehaviour
         transform.localPosition = new Vector3(inventoryItemRect.rect.width/2-15 + width/2, inventoryItemRect.rect.height/2-15 + height/2, 0);
     }
 
-    public void SetImplantText(string setName, string[] items){
-        for(int i = 2; i < 7; i++){
+    public void SetImplantText(string setName, string[] items, string setEffect){
+        for(int i = 2; i < 8; i++){
             transform.GetChild(i).gameObject.SetActive(true);
         }
         SetName.text = "\nSet " + setName + ":";
         for(int j = 0  ; j < items.Length; j ++){
             Items[j].text = "    " + $"{j+1}: {items[j]} ({ImplantTypeString(j)})";
         }
+        SetEffect.text = $"\nSet Effect : {setEffect}";
     }
 
     private string ImplantTypeString(int i){
