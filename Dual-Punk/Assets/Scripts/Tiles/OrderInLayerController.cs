@@ -7,11 +7,13 @@ public class OrderInLayerController : MonoBehaviour
 {
     private Grid _grid;
     private Tilemap _tilemap;
+    private Room _room;
     private int _orderInLayer { get => this.gameObject.GetComponent<TilemapRenderer>().sortingOrder; } 
 
     void Start()
     {
         _grid = this.gameObject.GetComponentInParent<Grid>();
+        _room = this.gameObject.GetComponentInParent<Room>();
         _tilemap = this.gameObject.GetComponent<Tilemap>();
     }
     void Update()
@@ -38,9 +40,20 @@ public class OrderInLayerController : MonoBehaviour
                 ChangeOrderInLayer(GameManager.Instance.Player2);
             }
         }
+        foreach(GameObject enemy in _room.Enemies)
+        {
+            if (enemy is not null)
+            {
+                Vector3Int enemyPos = _grid.WorldToCell(enemy.transform.position);
+                if (_tilemap.HasTile(enemyPos))
+                {
+                    ChangeOrderInLayer(enemy);
+                }
+            }
+        }
     }
-    void ChangeOrderInLayer(GameObject player)
+    void ChangeOrderInLayer(GameObject entity)
     {
-        player.GetComponent<SpriteRenderer>().sortingOrder = _orderInLayer+1;
+        entity.GetComponent<SpriteRenderer>().sortingOrder = _orderInLayer+1;
     }
 }
