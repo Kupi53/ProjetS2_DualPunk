@@ -14,6 +14,7 @@ public class EnergyBladeScript : MeleeWeaponScript
     [SerializeField] private float _finalAttackDistance;
     [SerializeField] private float _finalAttackAngle;
 
+    private SpriteRenderer _spriteRenderer;
     private float _vel;
     private float _angle;
     private float _targetAngle;
@@ -63,6 +64,7 @@ public class EnergyBladeScript : MeleeWeaponScript
         _currentWeaponDistance = _weaponDistance;
         _targetAngle = Math.Sign(transform.localScale.y) * _swipeRange;
         WeaponOffset = _weaponOffset;
+        _spriteRenderer.flipY = false;
     }
 
 

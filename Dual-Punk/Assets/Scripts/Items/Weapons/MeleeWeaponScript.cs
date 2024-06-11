@@ -128,7 +128,6 @@ public abstract class MeleeWeaponScript : WeaponScript
     {
         _attack = 0;
         _disableDefence = false;
-        _spriteRenderer.flipY = false;
         _attackTimer = _attackCooldown;
         _resetCooldownTimer = _resetCooldown;
         WeaponOffset = _weaponOffset;

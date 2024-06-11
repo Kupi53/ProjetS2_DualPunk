@@ -17,7 +17,6 @@ public class MetalBladeScript : MeleeWeaponScript
     private void Start()
     {
         _currentAnimation = "drop";
-        _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         _networkAnimator = GetComponentInChildren<NetworkAnimator>();
 
         ResetWeapon();

@@ -19,7 +19,6 @@ public abstract class FireArmScript : WeaponScript
         base.Awake();
 
         _canAttack = true;
-        _spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
 
