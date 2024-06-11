@@ -12,6 +12,7 @@ public class EndOfTutorialTrigger : NetworkBehaviour
 
     void Start()
     {
+
         _promptTriggers = gameObject.GetComponents<PromptTrigger>();
         if (_promptTriggers[0].Prompt.TextFields[0].StartsWith("Wait")) 
         {
@@ -52,8 +53,10 @@ public class EndOfTutorialTrigger : NetworkBehaviour
     }
     void OnTriggerStay2D(Collider2D other)
     {
+        if (!(other.gameObject.GetComponent<NetworkObject>().Owner == GameManager.Instance.LocalPlayer.GetComponent<NetworkObject>().Owner)) return;
         if (Input.GetButtonDown("Pickup") && _playersOnDoor.Count == 2)
         {
+            Debug.Log("1");
             StartGameRpc();
         }
     }
@@ -68,6 +71,7 @@ public class EndOfTutorialTrigger : NetworkBehaviour
     [ServerRpc (RequireOwnership = false)]
     public void StartGameRpc()
     {
+        Debug.Log("2");
         FloorNetworkWrapper.Instance.NewFloor(FloorType.City);
         StartGameObservers();
     }
@@ -75,6 +79,7 @@ public class EndOfTutorialTrigger : NetworkBehaviour
     [ObserversRpc]
     void StartGameObservers()
     {
+        Debug.Log("3");
         Destroy(GameObject.Find("Tutorial"));
         GameManager.Instance.FadeIn();
         GameManager.Instance.InTutorial = false;
