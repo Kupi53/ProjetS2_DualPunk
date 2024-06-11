@@ -9,7 +9,7 @@ public class NPCState : NetworkBehaviour
     [SerializeField] private LayerMask _layerMask;
 
     public LayerMask LayerMask { get => _layerMask; }
-    public virtual Vector3 TargetPoint { get; set; }
+    public Vector3 TargetPoint { get; set; }
     public bool Stop { get; set; }
     public bool Move { get; set; }
     public bool Run { get; set; }

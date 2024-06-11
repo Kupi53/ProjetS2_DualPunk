@@ -64,7 +64,10 @@ public class EnemyHealthIndicator : NetworkBehaviour
             _index++;
         }
 
-        _healthsBar[_length - _index - 1].Current = _healthManager.Lives[_index];
+        if (_length - _index - 1 > 0)
+        {
+            _healthsBar[_length - _index - 1].Current = _healthManager.Lives[_index];
+        }
     }
 
 

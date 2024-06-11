@@ -13,10 +13,10 @@ public class MetalBladeScript : MeleeWeaponScript
 
     private new void Start()
     {
-        base.Start();
-
         _currentAnimation = "drop";
         _networkAnimator = GetComponentInChildren<NetworkAnimator>();
+
+        base.Start();
     }
 
     private new void Update()

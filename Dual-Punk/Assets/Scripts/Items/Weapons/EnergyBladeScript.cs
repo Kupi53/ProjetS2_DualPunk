@@ -23,9 +23,9 @@ public class EnergyBladeScript : MeleeWeaponScript
 
     private new void Start()
     {
-        base.Start();
-
         _spriteRenderer = GetComponent<SpriteRenderer>();
+
+        base.Start();
     }
 
     private new void Update()

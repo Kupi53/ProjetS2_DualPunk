@@ -16,12 +16,6 @@ public class EnemyState : NPCState
     public GameObject Target { get; set; }
     public DefenceType DefenceType { get; set; }
     public bool CanAttack { get; set; }
-    
-    public override Vector3 TargetPoint
-    {
-        get => Target == null ? Vector3.zero : Target.transform.position;
-        set => TargetPoint = value;
-    }
 
 
     protected new void Awake()

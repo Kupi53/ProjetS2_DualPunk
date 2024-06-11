@@ -286,7 +286,7 @@ public class LaserGunScript : FireArmScript
         var query =
             from enemy in enemies
             let distance = Vector2.Distance(_endVFXZone.transform.position, enemy.transform.position + Vector3.up / 2)
-            where distance < PlayerState.gameObject.GetComponent<ImplantController>().RangeDamage
+            where distance < PlayerState!.gameObject.GetComponent<ImplantController>().RangeDamage
             orderby distance
             select enemy;
 
@@ -331,12 +331,9 @@ public class LaserGunScript : FireArmScript
                 if (SetIsActive)
                 {
                     GameObject[] enemies = GetNearestEnemies();
-                    if (enemies.Length != null)
+                    foreach (GameObject enemy in enemies)
                     {
-                        foreach (GameObject enemy in enemies)
-                        {
-                            enemy.GetComponent<IDamageable>().Damage(damage, _fireRate, _staticAmplifierFactor > 0, 0f);
-                        }
+                        enemy.GetComponent<IDamageable>().Damage(damage, _fireRate, _staticAmplifierFactor > 0, 0f);
                     }
                 }
                 else if (hit.collider.CompareTag("Ennemy") && !damagePlayer || hit.collider.CompareTag("Player") && damagePlayer)
