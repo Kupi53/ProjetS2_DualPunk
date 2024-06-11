@@ -102,6 +102,15 @@ public class HealthManager : NetworkBehaviour, IDamageable
             {
                 float newAmout = amount;
 
+                ImplantController implantController = gameObject.GetComponent<ImplantController>();
+                (bool IsActive, string SetName) = implantController.SetIsEquipped();
+
+                if (IsActive && SetName == "Heavy")
+                {
+                    newAmout -= implantController.LessDamageMultiplier * newAmout;
+                }
+                    
+
                 if (LaserGunScript != null && LaserGunScript.CoolDownLevel < LaserGunScript.FireTime / 2)
                 {
                     newAmout *= DamageMultiplier;

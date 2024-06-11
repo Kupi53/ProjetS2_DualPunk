@@ -717,6 +717,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 346c31b27855b55448e2e512333f3a47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _lifestealPercentage: 40
+  _lessDamageMultipler: 0.4
+  _walkSpeedMultiplier: 0.8
+  _rangeDamage: 100
+  _criticalPercentage: 40
 --- !u!114 &6008697924018778058
 MonoBehaviour:
   m_ObjectHideFlags: 0
