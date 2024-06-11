@@ -22,7 +22,15 @@ public class PromptManager : MonoBehaviour
 
     //
 
-    public bool SpawnPrompt(Prompt prompt, float xPos = _DEFAULTPROMPTPOSITIONX, float yPos = _DEFAULTPROMPTPOSITIONY)
+    void Update()
+    {
+        CheckCurrentPromptTrigger();
+        CheckCurrentIndicatorTrigger();
+    }
+
+    //
+
+    public bool SpawnPrompt(Prompt prompt, GameObject Trigger, float xPos = _DEFAULTPROMPTPOSITIONX, float yPos = _DEFAULTPROMPTPOSITIONY)
     {
         if (CurrentPromptShown == null)
         {
@@ -46,6 +54,7 @@ public class PromptManager : MonoBehaviour
                 CurrentPromptShown = promptObject;
                 PromptController controller = promptObject.AddComponent<PromptController>();
                 controller.Prompt = prompt;
+                controller.Prompt.Trigger = Trigger;
                 controller.Init();
                 promptObject.transform.SetParent(GameObject.Find("Canvas").transform, false);
                 return true;
@@ -54,7 +63,7 @@ public class PromptManager : MonoBehaviour
         }
         else return false;
     }
-    public void SpawnIndicator(Sprite _indicatorSprite, Vector3 position)
+    public void SpawnIndicator(Sprite _indicatorSprite, Vector3 position, GameObject Trigger)
     {
         if (CurrentIndicatorShown is not null)
         {
@@ -62,6 +71,8 @@ public class PromptManager : MonoBehaviour
         }
         GameObject indicatorObject = (GameObject)Instantiate(Resources.Load("Indicator"), position, quaternion.identity);
         indicatorObject.GetComponent<SpriteRenderer>().sprite = _indicatorSprite;
+        Indicator indicator = indicatorObject.AddComponent<Indicator>();
+        indicator.Trigger = Trigger;
         CurrentIndicatorShown = indicatorObject;
     }
 
@@ -77,6 +88,30 @@ public class PromptManager : MonoBehaviour
         if (CurrentIndicatorShown != null)
         {
             Destroy(CurrentIndicatorShown);
+        }
+    }
+
+    private void CheckCurrentPromptTrigger()
+    {
+        if (CurrentPromptShown == null) return;
+        else
+        {
+            if (CurrentPromptShown.GetComponent<PromptController>().Prompt.Trigger == null)
+            {
+                CloseCurrentPrompt();
+            }
+        }
+    }
+
+    private void CheckCurrentIndicatorTrigger()
+    {
+        if (CurrentIndicatorShown == null) return;
+        else
+        {
+            if (CurrentIndicatorShown.GetComponent<Indicator>().Trigger == null)
+            {
+                CloseCurrentIndicator();
+            }
         }
     }
 }

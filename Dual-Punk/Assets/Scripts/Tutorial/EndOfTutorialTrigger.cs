@@ -56,7 +56,6 @@ public class EndOfTutorialTrigger : NetworkBehaviour
         if (!(other.gameObject.GetComponent<NetworkObject>().Owner == GameManager.Instance.LocalPlayer.GetComponent<NetworkObject>().Owner)) return;
         if (Input.GetButtonDown("Pickup") && _playersOnDoor.Count == 2)
         {
-            Debug.Log("1");
             StartGameRpc();
         }
     }
@@ -71,7 +70,6 @@ public class EndOfTutorialTrigger : NetworkBehaviour
     [ServerRpc (RequireOwnership = false)]
     public void StartGameRpc()
     {
-        Debug.Log("2");
         FloorNetworkWrapper.Instance.NewFloor(FloorType.City);
         StartGameObservers();
     }
@@ -79,7 +77,6 @@ public class EndOfTutorialTrigger : NetworkBehaviour
     [ObserversRpc]
     void StartGameObservers()
     {
-        Debug.Log("3");
         Destroy(GameObject.Find("Tutorial"));
         GameManager.Instance.FadeIn();
         GameManager.Instance.InTutorial = false;

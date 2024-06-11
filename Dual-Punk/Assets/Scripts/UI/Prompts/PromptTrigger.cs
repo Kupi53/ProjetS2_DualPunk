@@ -22,7 +22,7 @@ public class PromptTrigger : MonoBehaviour
         if (!(other.gameObject.GetComponent<NetworkObject>().Owner == GameManager.Instance.LocalPlayer.GetComponent<NetworkObject>().Owner)) return;
         if (_type == PromptTriggerType.OnCollision)
         {
-            PromptManager.Instance.SpawnPrompt(Prompt);
+            PromptManager.Instance.SpawnPrompt(Prompt, this.gameObject);
         }
     }
     void OnTriggerStay2D(Collider2D other)
@@ -32,7 +32,7 @@ public class PromptTrigger : MonoBehaviour
         {
             if (Input.GetButtonDown("Interact"))
             {
-                PromptManager.Instance.SpawnPrompt(Prompt);
+                PromptManager.Instance.SpawnPrompt(Prompt, this.gameObject);
             }
         }
     }
@@ -49,7 +49,7 @@ public class PromptTrigger : MonoBehaviour
     private IEnumerator TriggerPromptAfterSeconds(float seconds)
     {
         yield return new WaitForSeconds(seconds);
-        PromptManager.Instance.SpawnPrompt(Prompt);
+        PromptManager.Instance.SpawnPrompt(Prompt, this.gameObject);
     }
 }
 

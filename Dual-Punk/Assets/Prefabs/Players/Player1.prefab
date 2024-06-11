@@ -580,10 +580,10 @@ CapsuleCollider2D:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 256
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 767
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -688,7 +688,6 @@ MonoBehaviour:
   _healHP: 300
   _healCooldown: 10
   _itemCooldown: 5
-  InventoryManager: {fileID: 5291937239392091011, guid: 5d6012832ea472f458e113eb03eaf14a, type: 3}
 --- !u!114 &5216142456762304026
 MonoBehaviour:
   m_ObjectHideFlags: 0

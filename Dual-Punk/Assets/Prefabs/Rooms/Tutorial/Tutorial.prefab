@@ -1609,10 +1609,10 @@ GameObject:
   - component: {fileID: 4280157095842282127}
   - component: {fileID: 115906723684992249}
   - component: {fileID: 2224626433140964130}
-  - component: {fileID: 1067298301666702858}
   - component: {fileID: 7578716689007059456}
   - component: {fileID: 5070578196796392459}
   - component: {fileID: 640759234898556824}
+  - component: {fileID: 1801150341670443522}
   m_Layer: 0
   m_Name: EndOfTutorialTrigger
   m_TagString: Untagged
@@ -1929,7 +1929,60 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!66 &1067298301666702858
+--- !u!114 &7578716689007059456
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2595130272695221585}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a3a174f72d6adf4d99bb9302f95e8da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _componentIndexCache: 1
+  _addedNetworkObject: {fileID: 4268112287656625176}
+  _networkObjectCache: {fileID: 4268112287656625176}
+--- !u!114 &5070578196796392459
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2595130272695221585}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be69e0a67f2c90d488fbf1c169ccfc57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Prompt:
+    TextFields:
+    - Wait for the second player before leaving this area.
+    EnableMovement: 1
+    PromptType: 1
+  _type: 1
+  _delay: 0
+--- !u!114 &640759234898556824
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2595130272695221585}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be69e0a67f2c90d488fbf1c169ccfc57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Prompt:
+    TextFields:
+    - Press E to leave the tutorial.
+    EnableMovement: 1
+    PromptType: 1
+  _type: 1
+  _delay: 0
+--- !u!66 &1801150341670443522
 CompositeCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1962,9 +2015,9 @@ CompositeCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_GeometryType: 1
+  m_GeometryType: 0
   m_GenerationType: 0
-  m_EdgeRadius: 0
+  m_EdgeRadius: 0.03
   m_ColliderPaths:
   - m_Collider: {fileID: 4280157095842282127}
     m_ColliderPaths:
@@ -2058,107 +2111,27 @@ CompositeCollider2D:
         Y: -253124992
   m_CompositePaths:
     m_Paths:
-    - - {x: 105.68749, y: -25.3125}
-      - {x: 106, y: -25.093737}
-      - {x: 106.00003, y: -25.0625}
-      - {x: 106.18751, y: -25.062494}
-      - {x: 106.5, y: -24.843737}
-      - {x: 106.50003, y: -24.8125}
-      - {x: 106.68751, y: -24.812494}
-      - {x: 107, y: -24.593737}
-      - {x: 107.00003, y: -24.5625}
-      - {x: 107.18751, y: -24.562494}
-      - {x: 107.50001, y: -24.343737}
-      - {x: 107.50003, y: -24.3125}
-      - {x: 107.687515, y: -24.312494}
-      - {x: 108, y: -24.093737}
-      - {x: 108.00003, y: -24.0625}
-      - {x: 108.18751, y: -24.062494}
-      - {x: 108.49999, y: -23.843737}
-      - {x: 108.499985, y: -23.656242}
-      - {x: 108.312485, y: -23.5}
-      - {x: 108, y: -23.499971}
-      - {x: 107.999985, y: -23.406242}
-      - {x: 107.81249, y: -23.25}
-      - {x: 107.24999, y: -23.250002}
-      - {x: 107, y: -23.34377}
-      - {x: 106.99997, y: -23.5}
-      - {x: 106.75, y: -23.500002}
-      - {x: 106.5, y: -23.59377}
-      - {x: 106.49997, y: -23.75}
-      - {x: 106.24999, y: -23.750002}
-      - {x: 106, y: -23.84377}
-      - {x: 105.99997, y: -24}
-      - {x: 105.75, y: -24.000002}
-      - {x: 105.5, y: -24.09377}
-      - {x: 105.49997, y: -24.25}
-      - {x: 105.24999, y: -24.250002}
-      - {x: 105, y: -24.34377}
-      - {x: 104.99997, y: -24.5}
-      - {x: 104.75, y: -24.500002}
-      - {x: 104.5, y: -24.59377}
-      - {x: 104.50002, y: -24.906256}
-      - {x: 104.93751, y: -25.0625}
-      - {x: 105, y: -25.062529}
-      - {x: 105.00002, y: -25.156256}
-      - {x: 105.43751, y: -25.3125}
-  m_VertexDistance: 0.0005
-  m_OffsetDistance: 0.00005
+    - - {x: 105.63558, y: -25.3007}
+      - {x: 108.48228, y: -23.856152}
+      - {x: 108.491, y: -23.648752}
+      - {x: 107.96674, y: -23.455658}
+      - {x: 107.74838, y: -23.2574}
+      - {x: 107.0251, y: -23.371265}
+      - {x: 106.9032, y: -23.51815}
+      - {x: 106.53183, y: -23.613161}
+      - {x: 106.4032, y: -23.76815}
+      - {x: 106.03183, y: -23.863161}
+      - {x: 105.9032, y: -24.01815}
+      - {x: 105.53183, y: -24.113161}
+      - {x: 105.4032, y: -24.26815}
+      - {x: 105.03183, y: -24.363161}
+      - {x: 104.9032, y: -24.51815}
+      - {x: 104.54236, y: -24.58581}
+      - {x: 104.52307, y: -24.913462}
+  m_VertexDistance: 0.07
+  m_OffsetDistance: 0.21
   m_UseDelaunayMesh: 0
   m_CompositeGameObject: {fileID: 2595130272695221585}
---- !u!114 &7578716689007059456
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2595130272695221585}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a3a174f72d6adf4d99bb9302f95e8da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _componentIndexCache: 1
-  _addedNetworkObject: {fileID: 4268112287656625176}
-  _networkObjectCache: {fileID: 4268112287656625176}
---- !u!114 &5070578196796392459
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2595130272695221585}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be69e0a67f2c90d488fbf1c169ccfc57, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Prompt:
-    TextFields:
-    - Wait for the second player before leaving this area.
-    EnableMovement: 1
-    PromptType: 1
-  _type: 1
-  _delay: 0
---- !u!114 &640759234898556824
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2595130272695221585}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be69e0a67f2c90d488fbf1c169ccfc57, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Prompt:
-    TextFields:
-    - Press E to leave the tutorial.
-    EnableMovement: 1
-    PromptType: 1
-  _type: 1
-  _delay: 0
 --- !u!1 &3239843787824911440
 GameObject:
   m_ObjectHideFlags: 0

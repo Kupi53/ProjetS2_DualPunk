@@ -9,7 +9,7 @@ public class IndicatorTrigger : NetworkBehaviour
     void OnTriggerEnter2D(Collider2D other)
     {
         if (!(other.gameObject.GetComponent<NetworkObject>().Owner == ClientManager.Connection)) return;
-        PromptManager.Instance.SpawnIndicator(_icon, new Vector3(indicatorPosX, indicatorPosY, 2));
+        PromptManager.Instance.SpawnIndicator(_icon, new Vector3(indicatorPosX, indicatorPosY, 2), this.gameObject);
     }
     void OnTriggerExit2D(Collider2D other)
     {
