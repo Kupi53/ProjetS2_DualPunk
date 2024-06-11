@@ -189,7 +189,7 @@ public class PowerWeaponScript : FireArmScript
             newBullet.transform.localScale = new Vector2(bulletSize, bulletSize);
             Vector3 newDirection = new Vector3(direction.x + Methods.NextFloat(-dispersion, dispersion), direction.y + Methods.NextFloat(-dispersion, dispersion), 0).normalized;
 
-            bulletScript.Setup(newDirection, damage, bulletSpeed, impactForce, collisionsAllowed, damagePlayer, warriorLuckBullet, PlayerState);
+            bulletScript.Setup(newDirection, damage, bulletSpeed, impactForce, collisionsAllowed, damagePlayer, warriorLuckBullet);
             Spawn(newBullet);
         }
     }
