@@ -20,7 +20,6 @@ public class BulletScript : NetworkBehaviour, IImpact, IDestroyable
     protected bool _damagePlayer;
     protected bool _warriorLuck;
     protected bool _stopDamage;
-    protected PlayerState _playerState;
 
     protected void Start()
     {
@@ -43,7 +42,7 @@ public class BulletScript : NetworkBehaviour, IImpact, IDestroyable
     }
 
 
-    public void Setup(Vector3 moveDirection, int damage, float moveSpeed, float impactForce, int collisionsAllowed, bool damagePlayer, bool warriorLuck, PlayerState playerState)
+    public void Setup(Vector3 moveDirection, int damage, float moveSpeed, float impactForce, int collisionsAllowed, bool damagePlayer, bool warriorLuck)
     {
         _damage = damage;
         _moveSpeed = moveSpeed;
@@ -51,7 +50,6 @@ public class BulletScript : NetworkBehaviour, IImpact, IDestroyable
         _collisionsAllowed = collisionsAllowed;
         _damagePlayer = damagePlayer;
         _warriorLuck = warriorLuck;
-        _playerState = playerState;
 
         if (warriorLuck)
         {
@@ -131,18 +129,6 @@ public class BulletScript : NetworkBehaviour, IImpact, IDestroyable
             collider.GetComponent<IDamageable>().Damage(_damage, 0, _warriorLuck, 0f);
             collider.GetComponent<IImpact>().Impact(_moveDirection, _impactForce);
             DestroyObject();
-
-            if (_playerState != null)
-            {
-                ImplantController implantController = _playerState.gameObject.GetComponent<ImplantController>();
-                (bool IsActive, string SetName) = implantController.SetIsEquipped();
-
-                if (IsActive && SetName == "Organic")
-                {
-                    float healAmout = _damage * implantController.LifestealMultiplier;
-                    _playerState.gameObject.GetComponent<HealthManager>().Heal((int)healAmout, 0);
-                }
-            }
         }
     }
 }
