@@ -35,7 +35,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.6, y: 0.6, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -155,7 +155,7 @@ MonoBehaviour:
   _range: 10
   _coolDown: 2
   _teleportationSound: {fileID: 8300000, guid: 3e5bad2623634e043963e868a7c802c4, type: 3}
-  _animator: {fileID: 5908692678405461227}
+  _animator: {fileID: 0}
 --- !u!114 &-4059473331583019238
 MonoBehaviour:
   m_ObjectHideFlags: 0

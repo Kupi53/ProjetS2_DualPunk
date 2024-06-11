@@ -716,11 +716,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 346c31b27855b55448e2e512333f3a47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _lifestealPercentage: 40
-  _lessDamageMultipler: 0.4
-  _walkSpeedMultiplier: 0.8
-  _rangeDamage: 100
-  _criticalPercentage: 40
 --- !u!114 &-2536519275778963654
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -828,7 +823,7 @@ MonoBehaviour:
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 40
+  <PrefabId>k__BackingField: 39
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0

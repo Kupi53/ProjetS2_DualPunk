@@ -172,7 +172,7 @@ public class SmartWeaponScript : PowerWeaponScript
             newBullet.transform.localScale = new Vector2(_bulletSize, _bulletSize);
             Vector3 newDirection = new Vector3(direction.x + Methods.NextFloat(-dispersion, dispersion), direction.y + Methods.NextFloat(-dispersion, dispersion), 0).normalized;
 
-            bulletScript.Setup(target, newDirection, damage, _bulletSpeed, _impactForce, _bulletRotateSpeed, damagePlayer, warriorLuckBullet, PlayerState);
+            bulletScript.Setup(target, newDirection, damage, _bulletSpeed, _impactForce, _bulletRotateSpeed, damagePlayer, warriorLuckBullet);
             Spawn(newBullet);
         }
     }
