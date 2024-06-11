@@ -39,7 +39,7 @@ public class PromptTrigger : MonoBehaviour
     public void OnTriggerExit2D(Collider2D other)
     {
         if (!(other.gameObject.GetComponent<NetworkObject>().Owner == GameManager.Instance.LocalPlayer.GetComponent<NetworkObject>().Owner)) return;
-        if (_type == PromptTriggerType.OnCollision && PromptManager.Instance.CurrentPromptShown is not null 
+        if (_type == PromptTriggerType.OnCollision && PromptManager.Instance.CurrentPromptShown != null 
             && PromptManager.Instance.CurrentPromptShown.GetComponent<PromptController>().Prompt == Prompt)
         {
             PromptManager.Instance.CloseCurrentPrompt();
