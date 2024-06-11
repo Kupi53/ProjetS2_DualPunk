@@ -46,7 +46,7 @@ public class RocketLauncherScript : PowerWeaponScript
             rocket.transform.localScale = new Vector2(_bulletSize, _bulletSize);
 
             rocketScript.Setup(direction, damage, _bulletSpeed, _impactForce, transform.position, distance + 0.5f,
-                _explosionRadius + 0.1f, _deviationAngle, _deviationSpeed, damagePlayer, warriorLuckBullet, _ownerType, PlayerState);
+                _explosionRadius + 0.1f, _deviationAngle, _deviationSpeed, damagePlayer, warriorLuckBullet, _ownerType);
 
             Spawn(rocket);
         }
