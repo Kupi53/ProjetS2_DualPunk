@@ -53,13 +53,13 @@ MonoBehaviour:
   - {fileID: 4019020946379616920, guid: 48c365a66fc33da4da4cdaf87be83ade, type: 3}
   - {fileID: 4019020946379616920, guid: aadf2ccefe39ac344be5d99a1d48d0ad, type: 3}
   HangarRoomPrefabs:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 4019020946379616920, guid: 65406e3768b7479408d60f60e8c7ded8, type: 3}
+  - {fileID: 4019020946379616920, guid: 5cbd52c94f266ac469799261428f062a, type: 3}
+  - {fileID: 4019020946379616920, guid: fde1d60544e1a6e488f9ea31b7e410a6, type: 3}
+  - {fileID: 4019020946379616920, guid: 448eceb1afa2bbe4fbd2f8ccdddf55df, type: 3}
+  - {fileID: 4019020946379616920, guid: e4c7775d40a45884984a56a1322649f9, type: 3}
+  - {fileID: 4019020946379616920, guid: b02be84bbb3832748994a591cca1803b, type: 3}
+  - {fileID: 4019020946379616920, guid: 80a0f6726ed740747bbfc816aa6bb3ac, type: 3}
   SpaceshipRoomPrefabs:
   - {fileID: 0}
   - {fileID: 0}
