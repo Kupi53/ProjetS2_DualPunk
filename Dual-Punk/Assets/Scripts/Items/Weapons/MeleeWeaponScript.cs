@@ -223,7 +223,7 @@ public abstract class MeleeWeaponScript : WeaponScript
         if (_attack == 3)
         {
             UserRecoil.Impact(-direction, _recoilForce * _finalAttackPower);
-            damage = *= _finalAttackPower;
+            damage = (int)(_damage * _finalAttackPower);
             impactForce *= _finalAttackPower;
         }
         else

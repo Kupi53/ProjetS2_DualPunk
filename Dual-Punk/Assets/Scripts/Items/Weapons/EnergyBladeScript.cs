@@ -21,11 +21,11 @@ public class EnergyBladeScript : MeleeWeaponScript
     private float _currentWeaponDistance;
 
 
-    private void Start()
+    private new void Start()
     {
-        _spriteRenderer = GetComponent<SpriteRenderer>();
+        base.Start();
 
-        ResetWeapon();
+        _spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     private new void Update()
