@@ -938,7 +938,7 @@ PrefabInstance:
     - target: {fileID: 2107666391739455928, guid: eb09795464402bf499a4dd417ea6d9ae, type: 3}
       propertyPath: LightsModule.light
       value: 
-      objectReference: {fileID: 3889235551402572234}
+      objectReference: {fileID: 0}
     - target: {fileID: 2107666391739455928, guid: eb09795464402bf499a4dd417ea6d9ae, type: 3}
       propertyPath: LightsModule.ratio
       value: 1
@@ -957,7 +957,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2107666391739455928, guid: eb09795464402bf499a4dd417ea6d9ae, type: 3}
       propertyPath: LightsModule.enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2107666391739455928, guid: eb09795464402bf499a4dd417ea6d9ae, type: 3}
       propertyPath: LightsModule.maxLights
@@ -1071,6 +1071,18 @@ PrefabInstance:
       propertyPath: SizeModule.curve.maxCurve.m_Curve.Array.data[1].tangentMode
       value: 34
       objectReference: {fileID: 0}
+    - target: {fileID: 3663554077605555958, guid: eb09795464402bf499a4dd417ea6d9ae, type: 3}
+      propertyPath: m_SortingOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3699437431908535831, guid: eb09795464402bf499a4dd417ea6d9ae, type: 3}
+      propertyPath: LightsModule.light
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3699437431908535831, guid: eb09795464402bf499a4dd417ea6d9ae, type: 3}
+      propertyPath: LightsModule.enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3699437431908535831, guid: eb09795464402bf499a4dd417ea6d9ae, type: 3}
       propertyPath: InitialModule.startSpeed.scalar
       value: 2
@@ -1143,19 +1155,19 @@ PrefabInstance:
       propertyPath: m_BoundingSphereOverride.z
       value: 12
       objectReference: {fileID: 0}
+    - target: {fileID: 6424595954031136938, guid: eb09795464402bf499a4dd417ea6d9ae, type: 3}
+      propertyPath: m_SortingOrder
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 7918930644938072071, guid: eb09795464402bf499a4dd417ea6d9ae, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eb09795464402bf499a4dd417ea6d9ae, type: 3}
 --- !u!4 &2928262197813881940 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5384363623186285305, guid: eb09795464402bf499a4dd417ea6d9ae, type: 3}
-  m_PrefabInstance: {fileID: 7069064563075542701}
-  m_PrefabAsset: {fileID: 0}
---- !u!108 &3889235551402572234 stripped
-Light:
-  m_CorrespondingSourceObject: {fileID: 6332918577062008679, guid: eb09795464402bf499a4dd417ea6d9ae, type: 3}
   m_PrefabInstance: {fileID: 7069064563075542701}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &4041849651135479108 stripped
