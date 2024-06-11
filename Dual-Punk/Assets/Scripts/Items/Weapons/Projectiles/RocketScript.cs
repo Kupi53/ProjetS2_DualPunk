@@ -58,9 +58,9 @@ public class RocketScript : BulletScript, IDestroyable
 
 
     public void Setup(Vector3 moveDirection, int damage, float moveSpeed, float impactForce, Vector3 startPosition, float distanceUntilExplosion,
-        float explosionRadius, float deviationAngle, float deviationSpeed, bool damagePlayer, bool warriorLuck, string shooter)
+        float explosionRadius, float deviationAngle, float deviationSpeed, bool damagePlayer, bool warriorLuck, string shooter, PlayerState playerState)
     {
-        base.Setup(moveDirection, damage, moveSpeed, impactForce, 0, damagePlayer, warriorLuck);
+        base.Setup(moveDirection, damage, moveSpeed, impactForce, 0, damagePlayer, warriorLuck, playerState);
 
         _startPosition = startPosition;
         _distanceUntilExplosion = distanceUntilExplosion;
