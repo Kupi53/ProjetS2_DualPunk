@@ -277,13 +277,11 @@ MonoBehaviour:
   _weaponDistance: 0.1
   _pointerSpriteNumber: 1
   _attackSound:
-  - {fileID: 8300000, guid: 2f432c19384f88b49b9bceaf6eaebf3c, type: 3}
-  - {fileID: 8300000, guid: 9f77b50b779fd1d43840ffe8e86a63a6, type: 3}
-  - {fileID: 8300000, guid: bb255a894dde3ee45b6a4139455da72f, type: 3}
-  - {fileID: 8300000, guid: 146844a06ee140a40a8669162d439a38, type: 3}
-  - {fileID: 8300000, guid: cde4d4c0f0abef1488adf6b46bbaa17b, type: 3}
-  - {fileID: 8300000, guid: d32573ece0bc3b64185e78daa58a2030, type: 3}
-  _criticalSound: {fileID: 8300000, guid: bd618381a9e52dc40a2cbc4c67ce6397, type: 3}
+  - {fileID: 8300000, guid: ae61956180ed80649a3288a82728fa08, type: 3}
+  - {fileID: 8300000, guid: 8a167d05a68e7aa498f634a90895f607, type: 3}
+  - {fileID: 8300000, guid: d2f81f6a45fcbda4e948915732d683e4, type: 3}
+  - {fileID: 8300000, guid: 18dedf2b9497ef94e9fa88ce2fdb5580, type: 3}
+  _criticalSound: {fileID: 8300000, guid: 86f4328dadda48a4b92f193505eef9a3, type: 3}
   _attackPoint: {fileID: 7249373561558099710}
   _criticalDamage: 90
   _swipeRange: 70

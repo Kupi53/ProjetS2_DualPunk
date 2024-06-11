@@ -81,6 +81,19 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
     buildTarget: Standalone
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -110,12 +123,12 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Player E_0
+      name: Player_E_0
       rect:
         serializedVersion: 2
-        x: 0
+        x: 1
         y: 0
-        width: 13
+        width: 12
         height: 49
       alignment: 9
       pivot: {x: 0.5, y: 0.1}
@@ -124,14 +137,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 54ef08acaa77a8844b30510bedbae18e
-      internalID: -1219494015
+      spriteID: e2598d0eefe4165428be013f49546f2a
+      internalID: 843743510
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player E_1
+      name: Player_E_1
       rect:
         serializedVersion: 2
         x: 14
@@ -139,98 +152,35 @@ TextureImporter:
         width: 13
         height: 49
       alignment: 9
-      pivot: {x: 0.5, y: 0.1}
+      pivot: {x: 0.47, y: 0.1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: faccd77daae634b45baa3d5ed4da8d69
-      internalID: -874936499
+      spriteID: fa22dbcc0e20c3a45b4457575bee79ab
+      internalID: -1449212193
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player E_2
+      name: Player_E_2
       rect:
         serializedVersion: 2
-        x: 28
+        x: 27
         y: 0
         width: 15
         height: 49
       alignment: 9
-      pivot: {x: 0.5, y: 0.1}
+      pivot: {x: 0.4, y: 0.1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5f6f0b86b194966459bab8226bf8e3cd
-      internalID: -1399129539
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player E_3
-      rect:
-        serializedVersion: 2
-        x: 44
-        y: 0
-        width: 13
-        height: 49
-      alignment: 9
-      pivot: {x: 0.5, y: 0.1}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 4fd40422db734aa4faf01094ad350bb5
-      internalID: -1169853448
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player E_4
-      rect:
-        serializedVersion: 2
-        x: 58
-        y: 0
-        width: 13
-        height: 49
-      alignment: 9
-      pivot: {x: 0.5, y: 0.1}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a72794c30e91f4f4b9313892dfd81e03
-      internalID: 462507520
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player E_5
-      rect:
-        serializedVersion: 2
-        x: 72
-        y: 0
-        width: 15
-        height: 49
-      alignment: 9
-      pivot: {x: 0.5, y: 0.1}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c89cef31a647ae348a281fdcbcf746a2
-      internalID: 1129584789
+      spriteID: 58bf394c99dffeb409371dba02cdf64d
+      internalID: 396695144
       vertices: []
       indices: 
       edges: []
@@ -246,12 +196,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Player E_0: -1219494015
-      Player E_1: -874936499
-      Player E_2: -1399129539
-      Player E_3: -1169853448
-      Player E_4: 462507520
-      Player E_5: 1129584789
+      Player_E_0: 843743510
+      Player_E_1: -1449212193
+      Player_E_2: 396695144
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
