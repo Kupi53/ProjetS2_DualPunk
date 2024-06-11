@@ -10,5 +10,7 @@ public class InventoryItemData : ScriptableObject
     public string description;
     public string setName;
     public string[] setItems;
+    public string setDescription;
+
 
 }
