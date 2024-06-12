@@ -82,6 +82,7 @@ public abstract class WeaponScript : NetworkBehaviour
     {
         UpdateInHandSer(true);
 
+
         PlayerState = owner.GetComponent<PlayerState>();
         EnemyState = owner.GetComponent<EnemyState>();
         UserRecoil = owner.GetComponent<IImpact>();
