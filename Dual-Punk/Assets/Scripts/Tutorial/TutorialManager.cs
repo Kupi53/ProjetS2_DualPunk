@@ -1,6 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using System.Numerics;
 using FishNet.Object;
+using FishNet.Utility.Extension;
 using TMPro;
 using Unity.Mathematics;
 using Unity.VisualScripting;
@@ -105,9 +109,24 @@ public class TutorialManager : MonoBehaviour
                 break;
             case 3:
                 PromptManager.Instance.CloseCurrentPrompt();
+                PromptManager.Instance.CloseCurrentArrow();
+                PromptManager.Instance.SpawnPointerArrow(FindClosestEnemy());
                 _stageObjects.transform.GetChild(3).GetComponentInChildren<PromptTrigger>().Spawn();
                 break;
         }
+    }
+
+    GameObject FindClosestEnemy()
+    {
+        UnityEngine.Vector3 playerPos = GameManager.Instance.LocalPlayer.transform.position;
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Ennemy");
+        UnityEngine.Vector3 coords1 = (playerPos - enemies[0].transform.position);
+        UnityEngine.Vector3 coords2 = (playerPos - enemies[1].transform.position);
+        if (Math.Abs(coords1.x) + Math.Abs(coords1.y) + Math.Abs(coords1.z) <= Math.Abs(coords2.x) + Math.Abs(coords2.y) + Math.Abs(coords2.z))
+        {
+            return enemies[0];
+        }
+        else return enemies[1];
     }
 
 }

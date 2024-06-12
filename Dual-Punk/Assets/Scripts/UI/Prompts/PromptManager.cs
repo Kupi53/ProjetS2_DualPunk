@@ -8,6 +8,7 @@ public class PromptManager : MonoBehaviour
     private const float _DEFAULTPROMPTPOSITIONY = -400;
     public GameObject CurrentPromptShown;
     public GameObject CurrentIndicatorShown;
+    public GameObject CurrentArrowShown;
     public static PromptManager Instance;
 
     //
@@ -56,7 +57,7 @@ public class PromptManager : MonoBehaviour
                 controller.Prompt = prompt;
                 controller.Prompt.Trigger = Trigger;
                 controller.Init();
-                promptObject.transform.SetParent(GameObject.Find("Canvas").transform, false);
+                promptObject.transform.SetParent(GameObject.Find("BaseUI").transform, false);
                 return true;
             }
             else return false;
@@ -76,6 +77,18 @@ public class PromptManager : MonoBehaviour
         CurrentIndicatorShown = indicatorObject;
     }
 
+    public void SpawnPointerArrow(GameObject target)
+    {
+        if (CurrentArrowShown is not null)
+        {
+            CloseCurrentArrow();
+        }
+        GameObject arrowObject = (GameObject)Instantiate(Resources.Load("PointerArrow"));
+        CurrentArrowShown = arrowObject;
+        arrowObject.GetComponent<PointerArrow>().Target = target;
+        arrowObject.transform.SetParent(GameObject.Find("BaseUI").transform, false);
+    }
+
     public void CloseCurrentPrompt()
     {
         if (CurrentPromptShown != null)
@@ -90,6 +103,15 @@ public class PromptManager : MonoBehaviour
         {
             Destroy(CurrentIndicatorShown);
             CurrentIndicatorShown = null;
+        }
+    }
+
+    public void CloseCurrentArrow()
+    {
+        if (CurrentArrowShown != null)
+        {
+            Destroy(CurrentArrowShown);
+            CurrentArrowShown = null;
         }
     }
 

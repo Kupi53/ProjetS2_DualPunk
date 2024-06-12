@@ -50,7 +50,6 @@ public class EnemyHealthManager : NetworkBehaviour, IDamageable
             _enemyState.DefenceType = DefenceType.NotDefending;
         }
 
-        Debug.Log(_lives[Index]);
     }
 
 
