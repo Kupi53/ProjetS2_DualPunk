@@ -81,7 +81,10 @@ public class ConnectionStarter : MonoBehaviour
         SceneLoadData sld = new SceneLoadData("GameProcedural");
         sld.ReplaceScenes = ReplaceOption.All;
         InstanceFinder.SceneManager.LoadGlobalScenes(sld);
+        // A SUPPRIMER AVANT 
         GameManager.Instance.DebugMode = true;
+        //
+        GameManager.Instance.Solo = true;
         GameManager.Instance.InGame = true;
     }
 }

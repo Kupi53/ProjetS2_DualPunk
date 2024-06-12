@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
     public bool DebugMode;
+    public bool Solo;
     public bool InGame;
     public bool InTutorial;
     public GameObject Player1;

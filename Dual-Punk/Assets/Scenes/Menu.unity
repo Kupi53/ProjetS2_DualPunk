@@ -2529,7 +2529,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Debug
+  m_text: Solo
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4571d6a52b8f20d46b3ac3c2a7869b77, type: 2}
   m_sharedMaterial: {fileID: 2140032, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
@@ -4212,7 +4212,7 @@ GameObject:
   - component: {fileID: 1586404193}
   - component: {fileID: 1586404192}
   m_Layer: 5
-  m_Name: DebugButton
+  m_Name: SoloButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

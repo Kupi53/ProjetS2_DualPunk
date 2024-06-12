@@ -24,7 +24,8 @@ public class EndOfTutorialTrigger : NetworkBehaviour
             _lessThanTwoPromptIndex = 1;
             _twoPromptIndex = 0;
         }
-        _promptTriggers[_twoPromptIndex].enabled = false;
+        if (GameManager.Instance.Solo) _promptTriggers[_lessThanTwoPromptIndex].enabled = false;
+        else _promptTriggers[_twoPromptIndex].enabled = false;
     }
     public override void OnStartNetwork()
     {
@@ -42,6 +43,7 @@ public class EndOfTutorialTrigger : NetworkBehaviour
         if (!_playersOnDoor.Contains(other.gameObject))
         {
             _playersOnDoor.Add(other.gameObject);
+            if (GameManager.Instance.Solo) return;
             if (_playersOnDoor.Count == 2)
             {
                 _promptTriggers[_lessThanTwoPromptIndex].OnTriggerExit2D(GameManager.Instance.LocalPlayer.GetComponent<Collider2D>());
@@ -54,7 +56,10 @@ public class EndOfTutorialTrigger : NetworkBehaviour
     void OnTriggerStay2D(Collider2D other)
     {
         if (!(other.gameObject.GetComponent<NetworkObject>().Owner == GameManager.Instance.LocalPlayer.GetComponent<NetworkObject>().Owner)) return;
-        if (Input.GetButtonDown("Pickup") && _playersOnDoor.Count == 2)
+        bool canTp;
+        if (GameManager.Instance.Solo) canTp = true;
+        else canTp = _playersOnDoor.Count == 2;
+        if (Input.GetButtonDown("Pickup") && canTp)
         {
             StartGameRpc();
         }
@@ -62,6 +67,7 @@ public class EndOfTutorialTrigger : NetworkBehaviour
     void OnTriggerExit2D(Collider2D other)
     {
         _playersOnDoor.Remove(other.gameObject);
+        if (GameManager.Instance.Solo) return;
         _promptTriggers[_lessThanTwoPromptIndex].enabled = true;
         _promptTriggers[_twoPromptIndex].enabled = false;
         _promptTriggers[_lessThanTwoPromptIndex].OnTriggerExit2D(other);

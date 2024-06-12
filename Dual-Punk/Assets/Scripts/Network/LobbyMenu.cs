@@ -86,6 +86,7 @@ public class LobbyMenu : NetworkBehaviour
         SceneLoadData sld = new SceneLoadData("GameProcedural");
         sld.ReplaceScenes = ReplaceOption.All;
         GameManager.Instance.InGame = true;
+        GameManager.Instance.Solo = false;
         InstanceFinder.SceneManager.LoadGlobalScenes(sld);
     }
 
