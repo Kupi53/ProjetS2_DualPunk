@@ -23,7 +23,8 @@ public class FloorExitPromptManager : MonoBehaviour
             _lessThanTwoPromptIndex = 1;
             _twoPromptIndex = 0;
         }
-        _promptTriggers[_twoPromptIndex].enabled = false;
+        if (GameManager.Instance.Solo) _promptTriggers[_lessThanTwoPromptIndex].enabled = false;
+        else _promptTriggers[_twoPromptIndex].enabled = false;
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -31,6 +32,7 @@ public class FloorExitPromptManager : MonoBehaviour
         if (!_playersOnExit.Contains(other.gameObject))
         {
             _playersOnExit.Add(other.gameObject);
+            if (GameManager.Instance.Solo) return;
             if (_playersOnExit.Count == 2)
             {
                 _promptTriggers[_lessThanTwoPromptIndex].OnTriggerExit2D(GameManager.Instance.LocalPlayer.GetComponent<Collider2D>());
@@ -44,6 +46,7 @@ public class FloorExitPromptManager : MonoBehaviour
     void OnTriggerExit2D(Collider2D other)
     {
         _playersOnExit.Remove(other.gameObject);
+        if (GameManager.Instance.Solo) return;
         _promptTriggers[_lessThanTwoPromptIndex].enabled = true;
         _promptTriggers[_twoPromptIndex].enabled = false;
         _promptTriggers[_lessThanTwoPromptIndex].OnTriggerExit2D(other);

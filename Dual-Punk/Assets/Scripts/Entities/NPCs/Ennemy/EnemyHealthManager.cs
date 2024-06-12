@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using FishNet.Object;
 using UnityEngine;
 using UnityEngine.UI;
 
 
 [RequireComponent(typeof(EnemyState))]
-public class EnemyHealthManager : MonoBehaviour, IDamageable
+public class EnemyHealthManager : NetworkBehaviour, IDamageable
 {
     [SerializeField] private int[] _lives;
     [SerializeField] private float _imuneTime;
@@ -48,6 +49,8 @@ public class EnemyHealthManager : MonoBehaviour, IDamageable
         {
             _enemyState.DefenceType = DefenceType.NotDefending;
         }
+
+        Debug.Log(_lives[Index]);
     }
 
 
@@ -85,8 +88,6 @@ public class EnemyHealthManager : MonoBehaviour, IDamageable
         _enemyState.Stop = false;
     }
 
-
-
     private void CheckHealth()
     {
         if (_lives[Index] > _maxHealth)
@@ -103,6 +104,7 @@ public class EnemyHealthManager : MonoBehaviour, IDamageable
             {
                 _maxHealth = _lives[Index];
                 _imunityTimer = _imuneTime;
+                if (!IsServer) return;
                 StartCoroutine(Stun(_imuneTime));
                 GetComponent<EnemyWeaponHandler>().AssignWeapon();
             }
@@ -135,16 +137,65 @@ public class EnemyHealthManager : MonoBehaviour, IDamageable
 
     public void Damage(int amount, float time, bool crit, float stunDuration)
     {
+        Debug.Log(amount);
         if (_imunityTimer > 0 || Index < 0) return;
+        
+        bool stun;
 
         if (stunDuration > 0)
+        {
+            stun = true;
             StartCoroutine(Stun(stunDuration));
+        }
+        else
+        {
+            stun = false;
+        }
+        
+        DamageVisualSR(amount, crit, stun, stunDuration);
+
+        _defenceTimer = _defenceTime;
+
+        if (time == 0)
+        {
+            _lives[Index] -= amount;
+            CheckHealth();
+        }
+        else
+        {
+            StartCoroutine(HealthCoroutine(-amount, time));
+        }
+    }
+
+    [ServerRpc (RequireOwnership = false)]
+    public void SetHealth(int amount)
+    {
+        SetHealthObs(amount);
+    }
+    [ObserversRpc]
+    void SetHealthObs(int amount)
+    {
+        Debug.Log("test");
+        if (_imunityTimer > 0) return;
+
+        _lives[Index] = amount;
+        CheckHealth();
+    }
+
+    [ServerRpc (RequireOwnership = false)]
+    void DamageVisualSR(int amount, bool crit, bool stun, float stunDuration)
+    {
+         DamageVisualObserversRpc(amount, crit, stun, stunDuration);
+    }
+    [ObserversRpc]
+    void DamageVisualObserversRpc(int amount, bool crit, bool stun, float stunDuration)
+    {
+        if (stun)
+            StartCoroutine(VisualEffect(new Color(255, 255, 255, 100), stunDuration));
         else
             StartCoroutine(VisualEffect(Color.black, 0.1f));
-
         Color color;
         Vector3 scale;
-
         if (crit)
         {
             color = Color.red;
@@ -160,26 +211,6 @@ public class EnemyHealthManager : MonoBehaviour, IDamageable
             color = Color.white;
             scale = new Vector3(1, 1, 0);
         }
-
-        _healthIndicator.DisplayDamageIndicator(amount, scale, color);
-        _defenceTimer = _defenceTime;
-
-        if (time == 0)
-        {
-            _lives[Index] -= amount;
-            CheckHealth();
-        }
-        else
-        {
-            StartCoroutine(HealthCoroutine(-amount, time));
-        }
-    }
-
-    public void SetHealth(int amount)
-    {
-        if (_imunityTimer > 0) return;
-
-        _lives[Index] = amount;
-        CheckHealth();
+        _healthIndicator.DisplayDamageIndicator(scale, color, amount);
     }
 }

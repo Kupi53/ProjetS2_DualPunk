@@ -19,6 +19,7 @@ public class PromptTrigger : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D other)
     {
+        if (!enabled) return;
         if (!(other.gameObject.GetComponent<NetworkObject>().Owner == GameManager.Instance.LocalPlayer.GetComponent<NetworkObject>().Owner)) return;
         if (_type == PromptTriggerType.OnCollision)
         {
@@ -27,6 +28,7 @@ public class PromptTrigger : MonoBehaviour
     }
     void OnTriggerStay2D(Collider2D other)
     {
+        if (!enabled) return;
         if (!(other.gameObject.GetComponent<NetworkObject>().Owner == GameManager.Instance.LocalPlayer.GetComponent<NetworkObject>().Owner)) return;
         if (_type == PromptTriggerType.OnButton)
         {
@@ -38,6 +40,7 @@ public class PromptTrigger : MonoBehaviour
     }
     public void OnTriggerExit2D(Collider2D other)
     {
+        if (!enabled) return;
         if (!(other.gameObject.GetComponent<NetworkObject>().Owner == GameManager.Instance.LocalPlayer.GetComponent<NetworkObject>().Owner)) return;
         if (_type == PromptTriggerType.OnCollision && PromptManager.Instance.CurrentPromptShown != null 
             && PromptManager.Instance.CurrentPromptShown.GetComponent<PromptController>().Prompt == Prompt)
