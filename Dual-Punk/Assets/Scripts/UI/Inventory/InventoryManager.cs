@@ -45,9 +45,13 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
 
         SwapKeybindWeapon();
 
+        if (swapping) return;
+
+        //swap weapon using scroll wheel
         var direction = Input.GetAxis("Mouse ScrollWheel");
 
-        if (direction != 0 && !swapping)
+
+        if (direction != 0)
         {
             InventorySlots currentWeaponSlot = WeaponSlots[EquipedSlotIndex];
 
@@ -375,7 +379,7 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
 
     private IEnumerator SlowScrollWheel()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.2f);
         swapping = false;
     }
 }

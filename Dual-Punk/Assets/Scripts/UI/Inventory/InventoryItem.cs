@@ -35,14 +35,13 @@ public class InventoryItem : MonoBehaviour
         Sprite spriteSize = displayedItem.icon;
         RectTransform imageSize = _iconImage.rectTransform;
 
-        if(spriteSize.rect.height > imageSize.rect.height) {
+        if(spriteSize.rect.height > imageSize.rect.height && spriteSize.rect.height > spriteSize.rect.width) {
             float ratio = imageSize.rect.height / spriteSize.rect.height;
             int imageWidth = (int)(spriteSize.rect.width * ratio);
             int imageHeight = (int)(spriteSize.rect.height * ratio);
             _iconImage.rectTransform.sizeDelta = new Vector2(imageWidth, imageHeight);
         }
-        
-        if (spriteSize.rect.width > imageSize.rect.width) {
+        else if (spriteSize.rect.width > imageSize.rect.width) {
             float ratio = imageSize.rect.width / spriteSize.rect.width;
             int imageWidth = (int)(spriteSize.rect.width * ratio);
             int imageHeight = (int)(spriteSize.rect.height * ratio);

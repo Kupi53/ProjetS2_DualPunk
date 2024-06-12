@@ -131,14 +131,7 @@ public class ItemManager : NetworkBehaviour
                 implantScript.PlayerState = _playerState;
             }
         }
-                
-        else if (item.CompareTag("Item"))
-        {
-            _index = 0;
-            _items.Remove(item);
-            //Mettre l'item dans l'inventaire
-            _inventoryManager.GetComponent<InventoryPickItem>().ItemPicked(item);
-        }
+        
     }
 
 
