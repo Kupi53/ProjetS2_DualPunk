@@ -3441,11 +3441,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 18646855055023927, guid: 2fd5569aaa9b023419d0d7775a666b76, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 1.45
       objectReference: {fileID: 0}
     - target: {fileID: 18646855055023927, guid: 2fd5569aaa9b023419d0d7775a666b76, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -1.58
       objectReference: {fileID: 0}
     - target: {fileID: 18646855055023927, guid: 2fd5569aaa9b023419d0d7775a666b76, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3486,6 +3486,14 @@ PrefabInstance:
     - target: {fileID: 3460544654625029893, guid: 2fd5569aaa9b023419d0d7775a666b76, type: 3}
       propertyPath: <SceneId>k__BackingField
       value: 10255325038235170350
+      objectReference: {fileID: 0}
+    - target: {fileID: 4733711911263106263, guid: 2fd5569aaa9b023419d0d7775a666b76, type: 3}
+      propertyPath: m_Size.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4733711911263106263, guid: 2fd5569aaa9b023419d0d7775a666b76, type: 3}
+      propertyPath: m_Size.y
+      value: 1.53125
       objectReference: {fileID: 0}
     - target: {fileID: 7898736215898924539, guid: 2fd5569aaa9b023419d0d7775a666b76, type: 3}
       propertyPath: m_Name

@@ -13,6 +13,7 @@ public class TeleportStrike : ImplantScript
     private float _timeTeleportation;
     private float _timeCoolDown;
     private bool _canDash;
+    private GameObject _oldMeleeWeaponScript;
 
     private SpriteRenderer _spriteRenderer { get => gameObject.GetComponent<SpriteRenderer>(); }
     private HealthManager HealthManager { get => PlayerState.gameObject.GetComponent<HealthManager>(); }
@@ -28,6 +29,7 @@ public class TeleportStrike : ImplantScript
         _canDash = false;
         _timeTeleportation = _teleportationSound.length / 2;
         _timeCoolDown = 0f;
+        _oldMeleeWeaponScript = null;
 
         _animator = gameObject.GetComponent<Animator>();
     }
@@ -66,7 +68,9 @@ public class TeleportStrike : ImplantScript
         HealthManager.Teleportation = true;
         
         MeleeWeaponScript meleeWeaponScript = PlayerState.WeaponScript as MeleeWeaponScript;
-        meleeWeaponScript.gameObject.GetComponent<SpriteRenderer>().enabled = false;
+        _oldMeleeWeaponScript = meleeWeaponScript.gameObject;
+        _oldMeleeWeaponScript.GetComponent<SpriteRenderer>().enabled = false;
+        
         
         yield return new WaitForSeconds(_timeTeleportation);
 
@@ -78,7 +82,7 @@ public class TeleportStrike : ImplantScript
         MouvementsController.EnableDash = true;
         HealthManager.Teleportation = false;
 
-        meleeWeaponScript.gameObject.GetComponent<SpriteRenderer>().enabled = true;
+        _oldMeleeWeaponScript.GetComponent<SpriteRenderer>().enabled = true;
 
         nearestEnemy.GetComponent<EnemyHealthManager>().Damage(meleeWeaponScript.CriticalDamage, 0f, true, 0f);
 
@@ -109,8 +113,8 @@ public class TeleportStrike : ImplantScript
         MouvementsController.EnableDash = true;
         HealthManager.Teleportation = false;
 
-        MeleeWeaponScript meleeWeaponScript = PlayerState.WeaponScript as MeleeWeaponScript;
-        meleeWeaponScript.gameObject.GetComponent<SpriteRenderer>().enabled = true;
+        if (_oldMeleeWeaponScript != null)
+            _oldMeleeWeaponScript.GetComponent<SpriteRenderer>().enabled = true;
 
         _timeCoolDown = 0;
 
