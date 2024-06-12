@@ -610,12 +610,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4268112287656625176, guid: 4f142b0760f07ba49bdcd5a10b4b4d6b, type: 3}
       propertyPath: _networkBehaviours.Array.size
-      value: 6
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4268112287656625176, guid: 4f142b0760f07ba49bdcd5a10b4b4d6b, type: 3}
       propertyPath: _networkBehaviours.Array.data[1]
       value: 
-      objectReference: {fileID: 6278392959788454339}
+      objectReference: {fileID: 6278392959788454342}
     - target: {fileID: 4268112287656625176, guid: 4f142b0760f07ba49bdcd5a10b4b4d6b, type: 3}
       propertyPath: _networkBehaviours.Array.data[2]
       value: 
@@ -686,7 +686,7 @@ PrefabInstance:
       objectReference: {fileID: 6278392959788454343}
     - target: {fileID: 7578716689007059456, guid: 4f142b0760f07ba49bdcd5a10b4b4d6b, type: 3}
       propertyPath: _componentIndexCache
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8370372172793432354, guid: 4f142b0760f07ba49bdcd5a10b4b4d6b, type: 3}
       propertyPath: m_Name
@@ -702,7 +702,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8620491292292501070, guid: 4f142b0760f07ba49bdcd5a10b4b4d6b, type: 3}
       propertyPath: _networkBehaviours.Array.size
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8620491292292501070, guid: 4f142b0760f07ba49bdcd5a10b4b4d6b, type: 3}
       propertyPath: _networkBehaviours.Array.data[1]
@@ -720,17 +720,6 @@ PrefabInstance:
 --- !u!114 &6278392959788454337 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8848645684664069405, guid: 4f142b0760f07ba49bdcd5a10b4b4d6b, type: 3}
-  m_PrefabInstance: {fileID: 6278392959788454336}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be69e0a67f2c90d488fbf1c169ccfc57, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &6278392959788454339 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7413780981389590259, guid: 4f142b0760f07ba49bdcd5a10b4b4d6b, type: 3}
   m_PrefabInstance: {fileID: 6278392959788454336}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
