@@ -49,8 +49,6 @@ public class EnemyHealthManager : NetworkBehaviour, IDamageable
         {
             _enemyState.DefenceType = DefenceType.NotDefending;
         }
-
-        Debug.Log(_lives[Index]);
     }
 
 
@@ -137,7 +135,6 @@ public class EnemyHealthManager : NetworkBehaviour, IDamageable
 
     public void Damage(int amount, float time, bool crit, float stunDuration)
     {
-        Debug.Log(amount);
         if (_imunityTimer > 0 || Index < 0) return;
         
         bool stun;
@@ -167,7 +164,7 @@ public class EnemyHealthManager : NetworkBehaviour, IDamageable
         }
     }
 
-    [ServerRpc (RequireOwnership = false)]
+    [ServerRpc(RequireOwnership = false)]
     public void SetHealth(int amount)
     {
         SetHealthObs(amount);
@@ -175,7 +172,6 @@ public class EnemyHealthManager : NetworkBehaviour, IDamageable
     [ObserversRpc]
     void SetHealthObs(int amount)
     {
-        Debug.Log("test");
         if (_imunityTimer > 0) return;
 
         _lives[Index] = amount;
