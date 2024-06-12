@@ -62,7 +62,8 @@ public class EnemyHealthManager : MonoBehaviour, IDamageable
         {
             timer += Time.deltaTime;
             newAmount = (int)(healPerTime * timer);
-            SetHealth(_lives[Index] - lastAmount + newAmount);
+            if (Index >= 0)
+                SetHealth(_lives[Index] - lastAmount + newAmount);
             lastAmount = newAmount;
 
             yield return null;
