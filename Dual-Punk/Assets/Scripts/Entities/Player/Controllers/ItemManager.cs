@@ -33,7 +33,7 @@ public class ItemManager : NetworkBehaviour
     private void Update()
     {
         if (!Owner.IsLocalClient) return;
-        if (_items.Count == 0 || _playerState.Stop) return;
+        if (_items.Count == 0 || _playerState.Stop || _playerState.IsDown) return;
 
         GameObject item = _items[_index];
 

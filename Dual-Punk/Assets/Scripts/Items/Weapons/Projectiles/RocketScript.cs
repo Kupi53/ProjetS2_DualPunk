@@ -24,6 +24,7 @@ public class RocketScript : BulletScript, IDestroyable
 
     private new void Start()
     {
+        if (!IsServer) return;
         base.Start();
 
         _exploded = false;

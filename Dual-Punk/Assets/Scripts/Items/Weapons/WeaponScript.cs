@@ -75,7 +75,7 @@ public abstract class WeaponScript : NetworkBehaviour
 
     public void PickUp(GameObject owner)
     {
-        InHand = true;
+        UpdateInHandSer(true);
         _rightHandSprite.enabled = true;
         _leftHandSprite.enabled = true;
 
@@ -86,6 +86,7 @@ public abstract class WeaponScript : NetworkBehaviour
 
         ObjectSpawner.Instance.RemoveParentRpc(gameObject);
         ObjectSpawner.Instance.RemoveOwnershipFromNonOwnersRpc(gameObject, ActualOwner);
+
     }
 
     public void Drop()
@@ -97,7 +98,7 @@ public abstract class WeaponScript : NetworkBehaviour
         transform.position = PlayerState == null ? EnemyState.transform.position : PlayerState.transform.position;
         transform.localScale = new Vector2(transform.localScale.x, Math.Abs(transform.localScale.y));
 
-        InHand = false;
+        UpdateInHandSer(false);
         ActualOwner = null;
         PlayerState = null;
         EnemyState = null;
@@ -106,6 +107,16 @@ public abstract class WeaponScript : NetworkBehaviour
         {
             ObjectSpawner.Instance.ObjectParentToRoomRpc(gameObject);
         }
+    }
 
+    [ServerRpc (RequireOwnership = false)]
+    void UpdateInHandSer(bool nv)
+    {
+        UpdateInHandObs(nv);
+    }
+    [ObserversRpc]
+    void UpdateInHandObs(bool nv)
+    {
+        InHand = nv;
     }
 }

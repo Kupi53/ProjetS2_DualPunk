@@ -388,10 +388,10 @@ CompositeCollider2D:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 959
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -514,6 +514,7 @@ MonoBehaviour:
     - Wait for the second player to join you at the door.
     EnableMovement: 1
     PromptType: 1
+    Trigger: {fileID: 0}
   _type: 1
   _delay: 0
 --- !u!114 &4823822036207379423
@@ -533,6 +534,7 @@ MonoBehaviour:
     - Press "E" to go through with the door.
     EnableMovement: 1
     PromptType: 1
+    Trigger: {fileID: 0}
   _type: 1
   _delay: 0
 --- !u!1 &1224538743843905075
@@ -1961,6 +1963,7 @@ MonoBehaviour:
     - Wait for the second player before leaving this area.
     EnableMovement: 1
     PromptType: 1
+    Trigger: {fileID: 0}
   _type: 1
   _delay: 0
 --- !u!114 &640759234898556824
@@ -1980,6 +1983,7 @@ MonoBehaviour:
     - Press E to leave the tutorial.
     EnableMovement: 1
     PromptType: 1
+    Trigger: {fileID: 0}
   _type: 1
   _delay: 0
 --- !u!66 &1801150341670443522
@@ -1994,10 +1998,10 @@ CompositeCollider2D:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 959
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -34481,10 +34485,10 @@ CompositeCollider2D:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 959
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -34607,6 +34611,7 @@ MonoBehaviour:
     - Wait for the second player to join you at the door.
     EnableMovement: 1
     PromptType: 1
+    Trigger: {fileID: 0}
   _type: 1
   _delay: 0
 --- !u!114 &8848645684664069405
@@ -34626,6 +34631,7 @@ MonoBehaviour:
     - Press "E" to go through with the door.
     EnableMovement: 1
     PromptType: 1
+    Trigger: {fileID: 0}
   _type: 1
   _delay: 0
 --- !u!1 &5690509380383398157
