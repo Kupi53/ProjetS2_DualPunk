@@ -80,17 +80,19 @@ public class EnemyHealthManager : NetworkBehaviour, IDamageable
 
     public IEnumerator Stun(float duration)
     {
-        StartCoroutine(VisualEffect(new Color(255, 255, 255, 100), duration));
+        StartStunEffectServ(duration);
         _enemyState.Stop = true;
         yield return new WaitForSeconds(duration);
         _enemyState.Stop = false;
     }
 
+
     private void CheckHealth()
     {
         if (_lives[Index] > _maxHealth)
+        {
             _lives[Index] = _maxHealth;
-
+        }
         else if (_lives[Index] <= 0)
         {
             Index++;
@@ -102,7 +104,7 @@ public class EnemyHealthManager : NetworkBehaviour, IDamageable
             {
                 _maxHealth = _lives[Index];
                 _imunityTimer = _imuneTime;
-                if (!IsServer) return;
+                StopAllCoroutines();
                 StartCoroutine(Stun(_imuneTime));
                 GetComponent<EnemyWeaponHandler>().AssignWeapon();
             }
@@ -136,22 +138,14 @@ public class EnemyHealthManager : NetworkBehaviour, IDamageable
     public void Damage(int amount, float time, bool crit, float stunDuration)
     {
         if (_imunityTimer > 0 || Index < 0) return;
-        
-        bool stun;
 
         if (stunDuration > 0)
         {
-            stun = true;
             StartCoroutine(Stun(stunDuration));
         }
-        else
-        {
-            stun = false;
-        }
-        
-        DamageVisualSR(amount, crit, stun, stunDuration);
 
         _defenceTimer = _defenceTime;
+        DamageVisualSR(amount, crit, stunDuration > 0);
 
         if (time == 0)
         {
@@ -164,11 +158,13 @@ public class EnemyHealthManager : NetworkBehaviour, IDamageable
         }
     }
 
+
     [ServerRpc(RequireOwnership = false)]
     public void SetHealth(int amount)
     {
         SetHealthObs(amount);
     }
+
     [ObserversRpc]
     void SetHealthObs(int amount)
     {
@@ -178,26 +174,54 @@ public class EnemyHealthManager : NetworkBehaviour, IDamageable
         CheckHealth();
     }
 
-    [ServerRpc (RequireOwnership = false)]
-    void DamageVisualSR(int amount, bool crit, bool stun, float stunDuration)
+
+    [ServerRpc(RequireOwnership = false)]
+    private void StartStunEffectServ(float duration)
     {
-         DamageVisualObserversRpc(amount, crit, stun, stunDuration);
+        StartStunEffectObs(duration);
     }
+
     [ObserversRpc]
-    void DamageVisualObserversRpc(int amount, bool crit, bool stun, float stunDuration)
+    private void StartStunEffectObs(float duration)
     {
-        if (stun)
-            StartCoroutine(VisualEffect(new Color(255, 255, 255, 100), stunDuration));
-        else
+        StartCoroutine(StunEffect(duration));
+    }
+
+
+    private IEnumerator StunEffect(float duration)
+    {
+        while (duration > 0)
+        {
+            _spriteRenderer.color = new Color(1f, 1f, 1f, 0.2f);
+            yield return new WaitForSeconds(0.3f);
+            _spriteRenderer.color = Color.white;
+            yield return new WaitForSeconds(0.3f);
+            duration -= 0.6f;
+        }
+    }
+
+
+    [ServerRpc(RequireOwnership = false)]
+    void DamageVisualSR(int amount, bool crit, bool stun)
+    {
+         DamageVisualObserversRpc(amount, crit, stun);
+    }
+
+    [ObserversRpc]
+    void DamageVisualObserversRpc(int amount, bool crit, bool stun)
+    {
+        if (!stun && _imunityTimer <= 0)
             StartCoroutine(VisualEffect(Color.black, 0.1f));
+
         Color color;
         Vector3 scale;
+
         if (crit)
         {
             color = Color.red;
             scale = new Vector3(1.3f, 1.3f, 0);
         }
-        else if (Lives[Index] - amount <= 0 || amount >= 100)
+        else if (Lives[Index] - amount <= 0 || stun)
         {
             color = new Color(255, 120, 0);
             scale = new Vector3(1.2f, 1.2f, 0);
@@ -207,6 +231,7 @@ public class EnemyHealthManager : NetworkBehaviour, IDamageable
             color = Color.white;
             scale = new Vector3(1, 1, 0);
         }
+
         _healthIndicator.DisplayDamageIndicator(scale, color, amount);
     }
 }

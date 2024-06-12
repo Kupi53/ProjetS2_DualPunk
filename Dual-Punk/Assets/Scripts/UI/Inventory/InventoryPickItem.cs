@@ -17,7 +17,8 @@ public class InventoryPickItem : MonoBehaviour
         GameObject emptySlot;
         string Tag = pickedItem.tag;
 
-        switch(Tag){
+        switch(Tag)
+        {
             case "Weapon" :
                 emptySlot = FindEmptySlot(_weaponSlots);
                 break;
@@ -37,7 +38,6 @@ public class InventoryPickItem : MonoBehaviour
             newItem.GetComponent<InventoryItem>().PrefabInstance = pickedItem;
             newItem.transform.SetParent(emptySlot.transform.parent.parent.GetChild(4));
             newItem.transform.localScale = emptySlot.transform.localScale;
-
         }
         return emptySlot;
     }

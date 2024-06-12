@@ -56,7 +56,7 @@ public class EnemyWeaponHandler : NetworkBehaviour
         if (_enemyState.Target == null || _enemyState.Stop)
         {
             _enemyState.CanAttack = false;
-            _weaponScript.EnemyRun(transform.position, VariateDirection(), _enemyState.TargetPoint);
+            _weaponScript.EnemyRun(transform.position, VariateDirection(), transform.position + _direction * 10);
             return;
         }
 

@@ -13,10 +13,9 @@ MonoBehaviour:
   m_Name: LaserTracker
   m_EditorClassIdentifier: 
   name: LaserTracker
-  prefab: {fileID: 0}
   icon: {fileID: 21300000, guid: a7d08841c04d7994fbbf1a471e3dfa4d, type: 3}
   description: This implant enables the laser to automatically target the enemy closest
-    to the player. It can be deactivated by pressing the TAB key.
+    to the player. Lock and unlock the targets by pressing right click.
   setName: Laser
   setItems:
   - LaserTracker
