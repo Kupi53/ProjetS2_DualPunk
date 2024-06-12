@@ -96,7 +96,7 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
             GameObject clickedObject = eventData.pointerCurrentRaycast.gameObject;
             InventorySlots slot = clickedObject.GetComponent<InventorySlots>();
 
-            if (slot != null && slot.heldItem != null && slot.heldItem.GetComponent<InventoryItem>().displayedItem.prefab.tag != "Projectile")
+            if (slot != null && slot.heldItem != null && slot.heldItem.GetComponent<InventoryItem>().PrefabInstance.tag != "Projectile")
             {
 
                 //change the raycast state needed for the _descriptionManager
@@ -225,7 +225,7 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
         if (nextStoredObject != null)
         {
             nextStoredObject.transform.localScale = nextWeaponSlot.transform.localScale;
-            GameObject equipedObject = nextStoredObject.GetComponent<InventoryItem>().displayedItem.prefab;
+            GameObject equipedObject = nextStoredObject.GetComponent<InventoryItem>().PrefabInstance;
             _objectSpawner.SpawnObjectAndUpdateRpc(equipedObject, PlayerState.gameObject.transform.position, Quaternion.identity, InstanceFinder.ClientManager.Connection, ItemManager.gameObject);
             equipedObject.transform.position = PlayerState.gameObject.transform.position;
         }
@@ -241,7 +241,7 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
     private bool Swapable(InventorySlots selectedSlot, GameObject selectedItem)
     {
         bool res = false;
-        string placedItemName = selectedItem.GetComponent<InventoryItem>().displayedItem.prefab.tag;
+        string placedItemName = selectedItem.GetComponent<InventoryItem>().PrefabInstance.tag;
         string currentSlotName = selectedSlot.transform.parent.name;
 
         if (placedItemName == "Weapon" && currentSlotName == "WeaponSlots" || placedItemName == "Implant" &&
@@ -301,12 +301,12 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
 
         if (slot.heldItem == null)
         {
-            item = _draggedObject.GetComponent<InventoryItem>().displayedItem.prefab;
+            item = _draggedObject.GetComponent<InventoryItem>().PrefabInstance;
             destroyedInventoryItem = _draggedObject;
         }
         else
         {
-            item = slot.heldItem.GetComponent<InventoryItem>().displayedItem.prefab;
+            item = slot.heldItem.GetComponent<InventoryItem>().PrefabInstance;
         }
 
         switch (item.tag)

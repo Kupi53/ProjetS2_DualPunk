@@ -79,6 +79,7 @@ public abstract class WeaponScript : NetworkBehaviour
         _rightHandSprite.enabled = true;
         _leftHandSprite.enabled = true;
 
+
         PlayerState = owner.GetComponent<PlayerState>();
         EnemyState = owner.GetComponent<EnemyState>();
         UserRecoil = owner.GetComponent<IImpact>();

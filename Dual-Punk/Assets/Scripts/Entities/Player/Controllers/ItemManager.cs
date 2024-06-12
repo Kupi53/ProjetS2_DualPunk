@@ -54,7 +54,8 @@ public class ItemManager : NetworkBehaviour
 
         if (item.CompareTag("Weapon") && !(weaponScript = item.GetComponent<WeaponScript>()).InHand)
         {
-            InventorySlots[] weaponsSlots = _inventoryManager.GetComponent<InventoryManager>().WeaponSlots;           
+            InventorySlots[] weaponsSlots = _inventoryManager.GetComponent<InventoryManager>().WeaponSlots;
+          
             GameObject foundSlot = _inventoryManager.GetComponent<InventoryPickItem>().ItemPicked(item);
 
             if (foundSlot != null)
@@ -62,7 +63,7 @@ public class ItemManager : NetworkBehaviour
                 _index = 0;
                 _items.Remove(item);
                 RemoveHighlight(item);
-                weaponScript.PickUp(gameObject);
+                weaponScript.PickUp(gameObject); 
 
                 GameObject equipedSlotWeapon = weaponsSlots[_inventoryManager.GetComponent<InventoryManager>().EquipedSlotIndex].gameObject;
 
@@ -166,6 +167,7 @@ public class ItemManager : NetworkBehaviour
 
     private void RemoveHighlight(GameObject item)
     {
+        Debug.Log("remove highlights");
         item.GetComponent<HighlightItem>().StopHighlight();
     }
 
