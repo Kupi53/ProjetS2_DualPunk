@@ -34,7 +34,7 @@ public class InventoryPickItem : MonoBehaviour
             emptySlot.GetComponent<InventorySlots>().SetHeldItem(newItem);
 
             newItem.GetComponent<InventoryItem>().displayedItem = pickedItem.GetComponent<PickableItem>().itemData;
-            newItem.GetComponent<InventoryItem>().Instance = pickedItem;
+            newItem.GetComponent<InventoryItem>().PrefabInstance = pickedItem;
             newItem.transform.SetParent(emptySlot.transform.parent.parent.GetChild(4));
             newItem.transform.localScale = emptySlot.transform.localScale;
 

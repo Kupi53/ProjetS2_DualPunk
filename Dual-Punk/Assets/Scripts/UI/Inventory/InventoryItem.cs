@@ -6,7 +6,7 @@ public class InventoryItem : MonoBehaviour
     [SerializeField] private Image _iconImage;
     private DescriptionManager _descriptionManager => GameObject.Find("InventoryManager").GetComponent<DescriptionManager>();
     public InventoryItemData displayedItem;
-    public GameObject Instance;
+    public GameObject PrefabInstance;
     public GameObject description => transform.GetChild(0).gameObject;
 
     
@@ -25,7 +25,7 @@ public class InventoryItem : MonoBehaviour
         DescriptionPanel descriptionPanel = description.GetComponent<DescriptionPanel>();
         descriptionPanel.SetText(displayedItem.name, displayedItem.description);
 
-        if (Instance.tag == "Implant" && displayedItem.setItems.Length == 4){
+        if (PrefabInstance.tag == "Implant" && displayedItem.setItems.Length == 4){
             descriptionPanel.SetImplantText(displayedItem.setName, displayedItem.setItems, displayedItem.setDescription);
             _descriptionManager.UpdateImplantSet();
         }
