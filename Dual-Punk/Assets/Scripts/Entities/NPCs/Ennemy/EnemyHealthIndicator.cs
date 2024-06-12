@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
 
@@ -70,18 +71,14 @@ public class EnemyHealthIndicator : NetworkBehaviour
         }
     }
 
-
-    public void DisplayDamageIndicator(int amount, Vector3 scale, Color color)
+    public void DisplayDamageIndicator(Vector3 scale, Color color, int amount)
     {
         if (amount == 0) return;
 
         GameObject floatingText = Instantiate(_floatingTextPrefab);
-
         floatingText.transform.SetParent(_floatingTextsParent.transform);
         floatingText.GetComponent<RectTransform>().SetScale(scale);
         floatingText.GetComponent<TextMeshProUGUI>().text = amount.ToString();
         floatingText.GetComponent<TextMeshProUGUI>().color = color;
-
-        Spawn(floatingText);
     }
 }
