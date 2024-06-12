@@ -62,9 +62,12 @@ public class Door : NetworkBehaviour
     void OnTriggerExit2D(Collider2D other)
     {
         _playersOnDoor.Remove(other.gameObject);
-        _promptTriggers[_lessThanTwoPromptIndex].enabled = true;
-        _promptTriggers[_twoPromptIndex].enabled = false;
-        _promptTriggers[_lessThanTwoPromptIndex].OnTriggerExit2D(other);
+        if (_promptTriggers[_twoPromptIndex].enabled)
+        {
+            _promptTriggers[_lessThanTwoPromptIndex].enabled = true;
+            _promptTriggers[_twoPromptIndex].enabled = false;
+            _promptTriggers[_lessThanTwoPromptIndex].OnTriggerExit2D(other);
+        }
     }
 
     [ServerRpc (RequireOwnership = false)]

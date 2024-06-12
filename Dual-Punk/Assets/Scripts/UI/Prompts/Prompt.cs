@@ -8,6 +8,7 @@ public class Prompt
     public string[] TextFields;
     public bool EnableMovement;
     public PromptType PromptType;
+    public GameObject Trigger;
 }
 
 public enum PromptType

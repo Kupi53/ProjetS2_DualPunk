@@ -12,6 +12,7 @@ public class EndOfTutorialTrigger : NetworkBehaviour
 
     void Start()
     {
+
         _promptTriggers = gameObject.GetComponents<PromptTrigger>();
         if (_promptTriggers[0].Prompt.TextFields[0].StartsWith("Wait")) 
         {
@@ -52,6 +53,7 @@ public class EndOfTutorialTrigger : NetworkBehaviour
     }
     void OnTriggerStay2D(Collider2D other)
     {
+        if (!(other.gameObject.GetComponent<NetworkObject>().Owner == GameManager.Instance.LocalPlayer.GetComponent<NetworkObject>().Owner)) return;
         if (Input.GetButtonDown("Pickup") && _playersOnDoor.Count == 2)
         {
             StartGameRpc();
