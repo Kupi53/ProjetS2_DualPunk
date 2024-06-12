@@ -64,18 +64,10 @@ public class EnemyHealthIndicator : NetworkBehaviour
             _index++;
         }
 
-        if (_length - _index - 1 > 0)
+        if (_length - _index > 0)
         {
             _healthsBar[_length - _index - 1].Current = _healthManager.Lives[_index];
         }
-    }
-
-
-    private IEnumerator VisualIndicator(Color color, float time)
-    {
-        GetComponent<SpriteRenderer>().color = color;
-        yield return new WaitForSeconds(time);
-        GetComponent<SpriteRenderer>().color = Color.white;
     }
 
 
@@ -90,7 +82,6 @@ public class EnemyHealthIndicator : NetworkBehaviour
         floatingText.GetComponent<TextMeshProUGUI>().text = amount.ToString();
         floatingText.GetComponent<TextMeshProUGUI>().color = color;
 
-        StartCoroutine(VisualIndicator(Color.black, 0.1f));
         Spawn(floatingText);
     }
 }

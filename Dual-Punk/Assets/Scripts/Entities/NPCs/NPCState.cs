@@ -13,7 +13,6 @@ public class NPCState : NetworkBehaviour
     public bool Stop { get; set; }
     public bool Move { get; set; }
     public bool Run { get; set; }
-    public bool Stun { get; set; }
 
     #nullable enable
     public Room? ParentRoom { get; set; }
@@ -26,6 +25,5 @@ public class NPCState : NetworkBehaviour
         Stop = false;
         Move = true;
         Run = false;
-        Stun = false;
     }
 }

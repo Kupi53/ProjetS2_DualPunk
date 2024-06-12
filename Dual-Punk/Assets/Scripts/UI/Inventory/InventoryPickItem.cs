@@ -13,7 +13,7 @@ public class InventoryPickItem : MonoBehaviour
     private int _equipedSlotIndex => GetComponent<InventoryManager>().EquipedSlotIndex;
 
 
-    public void ItemPicked(GameObject pickedItem)
+    public bool ItemPicked(GameObject pickedItem)
     {
         GameObject emptySlot;
         string Tag = pickedItem.tag;
@@ -35,21 +35,16 @@ public class InventoryPickItem : MonoBehaviour
         if (emptySlot != null)
         {
             GameObject newItem = Instantiate(_inventoryItemPrefab);
+            emptySlot.GetComponent<InventorySlots>().SetHeldItem(newItem);
 
             newItem.GetComponent<InventoryItem>().displayedItem = pickedItem.GetComponent<PickableItem>().itemData;
             newItem.GetComponent<InventoryItem>().displayedItem.prefab = pickedItem;
-
             newItem.transform.SetParent(emptySlot.transform.parent.parent.GetChild(4));
-
             newItem.transform.localScale = emptySlot.transform.localScale;
-            emptySlot.GetComponent<InventorySlots>().SetHeldItem(newItem);
 
-
-            if (pickedItem.tag == "Weapon" && _weaponSlots[_equipedSlotIndex] != emptySlot)
-            {
-                pickedItem.SetActive(false);
-            }
+            return true;
         }
+        return false;
     }
 
 

@@ -40,7 +40,7 @@ public class LaserGunScript : FireArmScript
     private float _staticAmplifierFactor;
 
     // Effet set Laser
-    public bool SetIsActive;
+    public bool SetIsActive { get; set; }
 
     public float FireTime { get => _fireTime; set => _fireTime = value; }
     public int Damage { get => _damage; set => _damage = value; }

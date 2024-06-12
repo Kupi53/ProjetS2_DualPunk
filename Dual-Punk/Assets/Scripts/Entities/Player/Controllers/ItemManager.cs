@@ -54,19 +54,24 @@ public class ItemManager : NetworkBehaviour
 
         if (item.CompareTag("Weapon") && !(weaponScript = item.GetComponent<WeaponScript>()).InHand)
         {
-            _index = 0;
-            _items.Remove(item);
-
             InventorySlots[] weaponsSlots = _inventoryManager.GetComponent<InventoryManager>().WeaponSlots;
 
-            RemoveHighlight(item);
-
-            if (weaponsSlots[_inventoryManager.GetComponent<InventoryManager>().EquipedSlotIndex].heldItem == null)
+            if (_inventoryManager.GetComponent<InventoryPickItem>().ItemPicked(item))
             {
-                UpdateHeldWeapon(weaponScript);
-            }
+                _index = 0;
+                _items.Remove(item);
+                RemoveHighlight(item);
+                weaponScript.PickUp(gameObject);
 
-            _inventoryManager.GetComponent<InventoryPickItem>().ItemPicked(item);
+                if (weaponsSlots[_inventoryManager.GetComponent<InventoryManager>().EquipedSlotIndex].heldItem.GetComponent<InventoryItem>().displayedItem.prefab == item)
+                {
+                    UpdateHeldWeapon(weaponScript);
+                }
+                else
+                {
+                    item.SetActive(false);
+                }
+            }
         }
 
         else if (item.CompareTag("Implant") && !(implantScript = item.GetComponent<ImplantScript>()).IsEquipped) //Plus verifier que l'implant n'est pas sur une entite
@@ -172,6 +177,5 @@ public class ItemManager : NetworkBehaviour
         _playerState.WeaponScript = weaponScript;
         _playerState.HoldingWeapon = true;
         weaponScript.gameObject.SetActive(true);
-        weaponScript.PickUp(gameObject);
     }
 }

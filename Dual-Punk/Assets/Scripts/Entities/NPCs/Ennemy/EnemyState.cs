@@ -10,9 +10,6 @@ public class EnemyState : NPCState
     [SerializeField] private float _lockDistance;
     [SerializeField] private float _unlockDistance;
 
-    private SpriteRenderer _spriteRenderer;
-    private bool _stunAnimation;
-
     public GameObject Target { get; set; }
     public DefenceType DefenceType { get; set; }
     public bool CanAttack { get; set; }
@@ -24,9 +21,6 @@ public class EnemyState : NPCState
 
         CanAttack = false;
         DefenceType = DefenceType.NotDefending;
-
-        _spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
-        _stunAnimation = false;
     }
 
 
@@ -67,32 +61,6 @@ public class EnemyState : NPCState
         }
 
         Run = (distance > _unlockDistance / 2 || !CanAttack) && DefenceType == DefenceType.NotDefending;
-
-        if (Stun)
-        {
-            if (!_stunAnimation)
-            {
-                StartCoroutine(StunAnimation());
-                _stunAnimation = true;
-            }
-        }
-        else
-        {
-            StopCoroutine(StunAnimation());
-            _stunAnimation = false;
-        }
-    }
-
-
-    public IEnumerator StunAnimation()
-    {
-        while (Stun)
-        {
-            _spriteRenderer.color = new Color(1f, 1f, 1f, 0.1f);
-            yield return new WaitForSeconds(0.2f);
-            _spriteRenderer.color = new Color(1f, 1f, 1f, 1f);
-            yield return new WaitForSeconds(0.2f);
-        }
     }
 
     private void OnDestroy()
