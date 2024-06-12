@@ -202,8 +202,6 @@ public class MouvementsController : NetworkBehaviour, IImpact
     }
 
 
-    // Les forces ajoutees viennent tjrs d'un server rpc, du coup ca marchait pas sur le client
-    [ObserversRpc]
     public void Impact(Vector2 direction, float intensity)
     {
         _forces.Add((direction.normalized, intensity));
