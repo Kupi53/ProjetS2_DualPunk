@@ -3948,7 +3948,6 @@ MonoBehaviour:
   - {fileID: 8057863441686687940}
   - {fileID: 3078116505981647060}
   - {fileID: 1762373538027821787}
-  _consummableSlots: []
   _inventoryItemPrefab: {fileID: 4252539774606866288, guid: 12b50c4db90930e4abf5d7ca449a116f, type: 3}
 --- !u!114 &531443559608982346
 MonoBehaviour:
@@ -6897,6 +6896,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7481702728082633088, guid: 12b50c4db90930e4abf5d7ca449a116f, type: 3}
+      propertyPath: Instance
+      value: 
+      objectReference: {fileID: 7378896083304802297, guid: 831fb80c908405e4b86f61aa8873e1e8, type: 3}
+    - target: {fileID: 7481702728082633088, guid: 12b50c4db90930e4abf5d7ca449a116f, type: 3}
       propertyPath: displayedItem
       value: 
       objectReference: {fileID: 11400000, guid: af289ea4ad55bad469dc99cc4092e93c, type: 2}
@@ -7084,6 +7087,10 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7481702728082633088, guid: 12b50c4db90930e4abf5d7ca449a116f, type: 3}
+      propertyPath: Instance
+      value: 
+      objectReference: {fileID: 7057386926987168146, guid: 4e71980427ced514a9833a80d179e02e, type: 3}
     - target: {fileID: 7481702728082633088, guid: 12b50c4db90930e4abf5d7ca449a116f, type: 3}
       propertyPath: displayedItem
       value: 

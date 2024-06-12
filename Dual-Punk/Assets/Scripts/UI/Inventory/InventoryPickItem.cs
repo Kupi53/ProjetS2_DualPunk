@@ -8,7 +8,6 @@ public class InventoryPickItem : MonoBehaviour
 {
     [SerializeField] private GameObject[] _weaponSlots;
     [SerializeField] private GameObject[] _implantSlots;
-    [SerializeField] private GameObject[] _consummableSlots;
     [SerializeField] private GameObject _inventoryItemPrefab;
     private int _equipedSlotIndex => GetComponent<InventoryManager>().EquipedSlotIndex;
 
@@ -19,9 +18,6 @@ public class InventoryPickItem : MonoBehaviour
         string Tag = pickedItem.tag;
 
         switch(Tag){
-            case "Consummable" :
-                emptySlot = FindEmptySlot(_consummableSlots);
-                break;
             case "Weapon" :
                 emptySlot = FindEmptySlot(_weaponSlots);
                 break;
@@ -38,7 +34,7 @@ public class InventoryPickItem : MonoBehaviour
             emptySlot.GetComponent<InventorySlots>().SetHeldItem(newItem);
 
             newItem.GetComponent<InventoryItem>().displayedItem = pickedItem.GetComponent<PickableItem>().itemData;
-            newItem.GetComponent<InventoryItem>().displayedItem.prefab = pickedItem;
+            newItem.GetComponent<InventoryItem>().Instance = pickedItem;
             newItem.transform.SetParent(emptySlot.transform.parent.parent.GetChild(4));
             newItem.transform.localScale = emptySlot.transform.localScale;
 
