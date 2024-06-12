@@ -54,22 +54,26 @@ public class ItemManager : NetworkBehaviour
 
         if (item.CompareTag("Weapon") && !(weaponScript = item.GetComponent<WeaponScript>()).InHand)
         {
-            InventorySlots[] weaponsSlots = _inventoryManager.GetComponent<InventoryManager>().WeaponSlots;
-
-            _index = 0;
-            _items.Remove(item);
-            RemoveHighlight(item);
-            weaponScript.PickUp(gameObject);
-            
-            //get the slot in which the weapon has been stored
+            InventorySlots[] weaponsSlots = _inventoryManager.GetComponent<InventoryManager>().WeaponSlots;           
             GameObject foundSlot = _inventoryManager.GetComponent<InventoryPickItem>().ItemPicked(item);
 
-            if (foundSlot != null) {
-                UpdateHeldWeapon(weaponScript);
-            }
-            else
+            if (foundSlot != null)
             {
-                item.SetActive(false);
+                _index = 0;
+                _items.Remove(item);
+                RemoveHighlight(item);
+                weaponScript.PickUp(gameObject);
+
+                GameObject equipedSlotWeapon = weaponsSlots[_inventoryManager.GetComponent<InventoryManager>().EquipedSlotIndex].gameObject;
+
+                if (equipedSlotWeapon == foundSlot)
+                {
+                    UpdateHeldWeapon(weaponScript);
+                }
+                else
+                {
+                    item.SetActive(false);
+                }
             }
         
         }
