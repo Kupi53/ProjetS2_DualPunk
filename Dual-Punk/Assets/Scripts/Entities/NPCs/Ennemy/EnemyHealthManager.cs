@@ -49,6 +49,8 @@ public class EnemyHealthManager : NetworkBehaviour, IDamageable
         {
             _enemyState.DefenceType = DefenceType.NotDefending;
         }
+
+        Debug.Log(_lives[Index]);
     }
 
 
@@ -86,8 +88,6 @@ public class EnemyHealthManager : NetworkBehaviour, IDamageable
         _enemyState.Stop = false;
     }
 
-
-
     private void CheckHealth()
     {
         if (_lives[Index] > _maxHealth)
@@ -104,6 +104,7 @@ public class EnemyHealthManager : NetworkBehaviour, IDamageable
             {
                 _maxHealth = _lives[Index];
                 _imunityTimer = _imuneTime;
+                if (!IsServer) return;
                 StartCoroutine(Stun(_imuneTime));
                 GetComponent<EnemyWeaponHandler>().AssignWeapon();
             }
@@ -166,8 +167,15 @@ public class EnemyHealthManager : NetworkBehaviour, IDamageable
         }
     }
 
+    [ServerRpc (RequireOwnership = false)]
     public void SetHealth(int amount)
     {
+        SetHealthObs(amount);
+    }
+    [ObserversRpc]
+    void SetHealthObs(int amount)
+    {
+        Debug.Log("test");
         if (_imunityTimer > 0) return;
 
         _lives[Index] = amount;

@@ -298,6 +298,10 @@ PrefabInstance:
       propertyPath: <SceneId>k__BackingField
       value: 14437054514501089539
       objectReference: {fileID: 0}
+    - target: {fileID: 8662005701061872785, guid: 0f77c2463d8db4e40834373e72dfcef0, type: 3}
+      propertyPath: _networkBehaviours.Array.data[2]
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 9003789017972292883, guid: 0f77c2463d8db4e40834373e72dfcef0, type: 3}
       propertyPath: _runSpeed
       value: 0
@@ -306,7 +310,8 @@ PrefabInstance:
       propertyPath: _walkSpeed
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 997845674584081706, guid: 0f77c2463d8db4e40834373e72dfcef0, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -551,6 +556,10 @@ PrefabInstance:
       propertyPath: <SceneId>k__BackingField
       value: 14437054514499254419
       objectReference: {fileID: 0}
+    - target: {fileID: 8662005701061872785, guid: 0f77c2463d8db4e40834373e72dfcef0, type: 3}
+      propertyPath: _networkBehaviours.Array.data[2]
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 9003789017972292883, guid: 0f77c2463d8db4e40834373e72dfcef0, type: 3}
       propertyPath: _runSpeed
       value: 0
@@ -559,7 +568,8 @@ PrefabInstance:
       propertyPath: _walkSpeed
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 997845674584081706, guid: 0f77c2463d8db4e40834373e72dfcef0, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -690,6 +700,10 @@ PrefabInstance:
       propertyPath: <SceneId>k__BackingField
       value: 14437054514711028177
       objectReference: {fileID: 0}
+    - target: {fileID: 8662005701061872785, guid: 0f77c2463d8db4e40834373e72dfcef0, type: 3}
+      propertyPath: _networkBehaviours.Array.data[2]
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 9003789017972292883, guid: 0f77c2463d8db4e40834373e72dfcef0, type: 3}
       propertyPath: _runSpeed
       value: 0
@@ -698,7 +712,8 @@ PrefabInstance:
       propertyPath: _walkSpeed
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 997845674584081706, guid: 0f77c2463d8db4e40834373e72dfcef0, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -767,6 +782,10 @@ PrefabInstance:
       propertyPath: <SceneId>k__BackingField
       value: 14437054516015124428
       objectReference: {fileID: 0}
+    - target: {fileID: 8662005701061872785, guid: 0f77c2463d8db4e40834373e72dfcef0, type: 3}
+      propertyPath: _networkBehaviours.Array.data[2]
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 9003789017972292883, guid: 0f77c2463d8db4e40834373e72dfcef0, type: 3}
       propertyPath: _runSpeed
       value: 0
@@ -775,7 +794,8 @@ PrefabInstance:
       propertyPath: _walkSpeed
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 997845674584081706, guid: 0f77c2463d8db4e40834373e72dfcef0, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
