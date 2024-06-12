@@ -60,9 +60,14 @@ public abstract class WeaponScript : NetworkBehaviour
 
         if (!InHand)
         {
-            transform.position += Vector3.up * (float)Math.Cos(Time.time * 5 + _weaponDistance) * 0.001f;
+            transform.position += Vector3.up * (float)Math.Cos(Time.time * 5 + _damage) * 0.001f;
             _rightHandSprite.enabled = false;
             _leftHandSprite.enabled = false;
+        }
+        else
+        {
+            _rightHandSprite.enabled = true;
+            _leftHandSprite.enabled = true;
         }
     }
 
@@ -76,8 +81,6 @@ public abstract class WeaponScript : NetworkBehaviour
     public void PickUp(GameObject owner)
     {
         UpdateInHandSer(true);
-        _rightHandSprite.enabled = true;
-        _leftHandSprite.enabled = true;
 
 
         PlayerState = owner.GetComponent<PlayerState>();
@@ -87,19 +90,18 @@ public abstract class WeaponScript : NetworkBehaviour
 
         ObjectSpawner.Instance.RemoveParentRpc(gameObject);
         ObjectSpawner.Instance.RemoveOwnershipFromNonOwnersRpc(gameObject, ActualOwner);
-
     }
 
     public void Drop()
     {
         ResetWeapon();
+        UpdateInHandSer(false);
 
         WeaponOffset = _weaponOffset;
         transform.rotation = Quaternion.identity;
         transform.position = PlayerState == null ? EnemyState.transform.position : PlayerState.transform.position;
         transform.localScale = new Vector2(transform.localScale.x, Math.Abs(transform.localScale.y));
 
-        UpdateInHandSer(false);
         ActualOwner = null;
         PlayerState = null;
         EnemyState = null;
@@ -110,7 +112,7 @@ public abstract class WeaponScript : NetworkBehaviour
         }
     }
 
-    [ServerRpc (RequireOwnership = false)]
+    [ServerRpc(RequireOwnership = false)]
     void UpdateInHandSer(bool nv)
     {
         UpdateInHandObs(nv);
