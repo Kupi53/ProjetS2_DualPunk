@@ -24939,39 +24939,6 @@ MonoBehaviour:
   _overrideType: 1
   _updateHostVisibility: 1
   _observerConditions: []
---- !u!1 &5882379653883446590
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4381381523502710973}
-  m_Layer: 7
-  m_Name: EndVisualEffectsZone
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4381381523502710973
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5882379653883446590}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.662, y: -0.042, z: 0}
-  m_LocalScale: {x: 1, y: 1.05, z: 0}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 615705247370413613}
-  - {fileID: 5434636149843647510}
-  m_Father: {fileID: 1209433242501080850}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6160880847261455949
 GameObject:
   m_ObjectHideFlags: 0
