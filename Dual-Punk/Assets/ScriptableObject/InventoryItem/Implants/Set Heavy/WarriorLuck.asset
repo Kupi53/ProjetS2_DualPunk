@@ -24,3 +24,5 @@ MonoBehaviour:
   - LifeForce
   - BulletExtender
   - SwiftDash
+  setDescription: The heavy set allows you to considerably reduce the damage received,
+    moreover the player moves more slowly.

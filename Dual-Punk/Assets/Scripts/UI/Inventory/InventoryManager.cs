@@ -47,7 +47,7 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
 
         var direction = Input.GetAxis("Mouse ScrollWheel");
 
-        if(direction != 0 && !swapping)
+        if (direction != 0 && !swapping)
         {
             InventorySlots currentWeaponSlot = WeaponSlots[EquipedSlotIndex];
 

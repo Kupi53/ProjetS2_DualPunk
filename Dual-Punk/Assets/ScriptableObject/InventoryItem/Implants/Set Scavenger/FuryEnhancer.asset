@@ -23,3 +23,5 @@ MonoBehaviour:
   - Bulletstorm
   - FuryEnhancer
   - TeleportStrike
+  setDescription: The Scavenger set allows you to randomly inflict critical hits
+    with melee weapons.

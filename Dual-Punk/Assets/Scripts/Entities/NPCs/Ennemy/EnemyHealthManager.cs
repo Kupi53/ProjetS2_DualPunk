@@ -13,6 +13,7 @@ public class EnemyHealthManager : MonoBehaviour, IDamageable
 
     private EnemyState _enemyState;
     private EnemyHealthIndicator _healthIndicator;
+    private SpriteRenderer _spriteRenderer;
     private float _defenceTimer;
     private float _imunityTimer;
     private int _maxHealth;
@@ -25,24 +26,17 @@ public class EnemyHealthManager : MonoBehaviour, IDamageable
     {
         Index = 0;
         _defenceTimer = 0;
-        _imunityTimer = -1;
+        _imunityTimer = 0;
         _maxHealth = _lives[0];
         _enemyState = GetComponent<EnemyState>();
         _healthIndicator = GetComponent<EnemyHealthIndicator>();
+        _spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     private void Update()
     {
         if (_imunityTimer > 0)
-        {
             _imunityTimer -= Time.deltaTime;
-            _enemyState.Stop = true;
-        }
-        else if (_imunityTimer > -1)
-        {
-            _imunityTimer = -1;
-            _enemyState.Stop = false;
-        }
 
         if (_defenceTimer > 0)
         {
@@ -68,12 +62,29 @@ public class EnemyHealthManager : MonoBehaviour, IDamageable
         {
             timer += Time.deltaTime;
             newAmount = (int)(healPerTime * timer);
-            SetHealth(_lives[Index] - lastAmount + newAmount);
+            if (Index >= 0)
+                SetHealth(_lives[Index] - lastAmount + newAmount);
             lastAmount = newAmount;
 
             yield return null;
         }
     }
+
+    public IEnumerator VisualEffect(Color color, float duration)
+    {
+        _spriteRenderer.color = color;
+        yield return new WaitForSeconds(duration);
+        _spriteRenderer.color = Color.white;
+    }
+
+    public IEnumerator Stun(float duration)
+    {
+        StartCoroutine(VisualEffect(new Color(255, 255, 255, 100), duration));
+        _enemyState.Stop = true;
+        yield return new WaitForSeconds(duration);
+        _enemyState.Stop = false;
+    }
+
 
 
     private void CheckHealth()
@@ -92,6 +103,7 @@ public class EnemyHealthManager : MonoBehaviour, IDamageable
             {
                 _maxHealth = _lives[Index];
                 _imunityTimer = _imuneTime;
+                StartCoroutine(Stun(_imuneTime));
                 GetComponent<EnemyWeaponHandler>().AssignWeapon();
             }
         }
@@ -123,10 +135,12 @@ public class EnemyHealthManager : MonoBehaviour, IDamageable
 
     public void Damage(int amount, float time, bool crit, float stunDuration)
     {
-        if (!_enemyState.Stun && stunDuration > 0)
-            StartCoroutine(Stun(stunDuration));
+        if (_imunityTimer > 0 || Index < 0) return;
 
-        if (_imunityTimer > 0) return;
+        if (stunDuration > 0)
+            StartCoroutine(Stun(stunDuration));
+        else
+            StartCoroutine(VisualEffect(Color.black, 0.1f));
 
         Color color;
         Vector3 scale;
@@ -159,13 +173,6 @@ public class EnemyHealthManager : MonoBehaviour, IDamageable
         {
             StartCoroutine(HealthCoroutine(-amount, time));
         }
-    }
-
-    private IEnumerator Stun(float duration)
-    {
-        _enemyState.Stun = true;
-        yield return new WaitForSeconds(duration);
-        _enemyState.Stun = false;
     }
 
     public void SetHealth(int amount)

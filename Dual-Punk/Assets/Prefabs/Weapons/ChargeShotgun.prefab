@@ -295,7 +295,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 5152246503774a9469bd99a04e4ca3dd, type: 2}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -514,12 +514,13 @@ MonoBehaviour:
   _leftHand: {fileID: 5055505049725042928}
   _weaponOffset: {x: 0.1, y: 0.85, z: 0}
   _damage: 40
-  _range: 100
+  _range: 18
   _recoilForce: 3
   _impactForce: 2
   _cameraShake: 1.5
   _weaponDistance: 0.5
   _pointerSpriteNumber: 3
+  _silencer: 0
   _fireRate: 0.1
   _fireSound: {fileID: 8300000, guid: 5a840426a1b0e77469829ea3d648d509, type: 3}
   _reloadSound: {fileID: 8300000, guid: ba4b495b7a199bc498bbb395f6fad0f8, type: 3}
@@ -602,7 +603,7 @@ MonoBehaviour:
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 20
+  <PrefabId>k__BackingField: 21
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0

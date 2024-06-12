@@ -47,17 +47,35 @@ public class ImplantController : MonoBehaviour
                 case "Heavy":
                     SetHeavy();
                     break;
-                case "3":
-                    Set3();
+                case "Laser":
+                    SetLaser();
                     break;
-                case "4":
-                    Set4();
+                case "Scavenger":
+                    SetScavenger();
+                    break;
+            }
+        }
+        else if (_setActive != "")
+        {
+            switch (_setActive)
+            {
+                case "Organic":
+                    ResetSetOrganic();
+                    break;
+                case "Heavy":
+                    ResetSetHeavy();
+                    break;
+                case "Laser":
+                    ResetSetLaser();
+                    break;
+                case "Scavenger":
+                    ResetSetScavenger();
                     break;
             }
         }
     }
 
-    private (bool, string) SetIsEquipped()
+    public (bool, string) SetIsEquipped()
     {
         (bool, string) result = (false, "");
 
@@ -89,23 +107,120 @@ public class ImplantController : MonoBehaviour
         return result;
     }
 
-    private void SetOrganic()
-    {
-        //Debug.Log("SetOrganic");
-    }
+    private string _setActive = "";
+
+    [SerializeField] private int _lifestealPercentage;
+    public float LifestealMultiplier { get => (float)_lifestealPercentage / 100; }
+
+    private void SetOrganic(){}
+    private void ResetSetOrganic(){}
+
+
+    [SerializeField] private float _lessDamageMultipler;
+    [SerializeField] private float _walkSpeedMultiplier;
+
+    public float LessDamageMultiplier { get => (float)_lessDamageMultipler; }
 
     private void SetHeavy()
     {
-        //Debug.Log("SetHeavy");
+        if (_setActive == "")
+        {
+            MouvementsController mouvementController = gameObject.GetComponent<MouvementsController>();
+            mouvementController.WalkSpeed *= _walkSpeedMultiplier;
+            mouvementController.SprintSpeed *=_walkSpeedMultiplier;
+            _setActive = "Heavy";
+        }
+    }
+    private void ResetSetHeavy()
+    {
+        MouvementsController mouvementController = gameObject.GetComponent<MouvementsController>();
+        mouvementController.WalkSpeed /= _walkSpeedMultiplier;
+        mouvementController.SprintSpeed /=_walkSpeedMultiplier;
+        _setActive = "";
     }
 
-    private void Set3()
+    [SerializeField] private float _rangeDamage;
+    public float RangeDamage { get => _rangeDamage; }
+    private GameObject _oldModifiedLaser;
+    private void SetLaser()
     {
-        //Debug.Log("Set3");
+        PlayerState playerState = gameObject.GetComponent<PlayerState>();
+
+        if (playerState.HoldingWeapon && playerState.WeaponScript != null)
+        {
+            LaserGunScript laserGunScript = playerState.WeaponScript as LaserGunScript;
+
+            if (laserGunScript != null && _oldModifiedLaser != laserGunScript)
+            {
+                if (_oldModifiedLaser != null)
+                {
+                    _oldModifiedLaser.GetComponent<LaserGunScript>().SetIsActive = false;
+                }
+
+                _oldModifiedLaser = laserGunScript.gameObject;
+                laserGunScript.GetComponent<LaserGunScript>().SetIsActive = true;
+            }
+        }
+        else if (_oldModifiedLaser != null)
+        {
+            _oldModifiedLaser.GetComponent<LaserGunScript>().SetIsActive = false;
+            _oldModifiedLaser = null;
+        }
+
+        _setActive = "Laser";
+    }
+    private void ResetSetLaser()
+    {
+        if (_oldModifiedLaser != null)
+        {
+            _oldModifiedLaser.GetComponent<LaserGunScript>().SetIsActive = false;
+            _oldModifiedLaser = null;
+        }
+
+        _setActive = "";
     }
 
-    private void Set4()
+
+    [SerializeField] private int _criticalPercentage;
+    private GameObject _oldModifiedMelee;
+    private void SetScavenger()
     {
-        //Debug.Log("Set4");
+        PlayerState playerState = gameObject.GetComponent<PlayerState>();
+
+        if (playerState.HoldingWeapon && playerState.WeaponScript != null)
+        {
+            MeleeWeaponScript meleeWeaponScript = playerState.WeaponScript as MeleeWeaponScript;
+
+            if (meleeWeaponScript != null && _oldModifiedMelee != meleeWeaponScript)
+            {
+                if (_oldModifiedMelee != null)
+                {
+                    _oldModifiedMelee.GetComponent<MeleeWeaponScript>().SetIsActive = false;
+                }
+
+                _oldModifiedMelee = meleeWeaponScript.gameObject;
+                
+                MeleeWeaponScript weapon = meleeWeaponScript.GetComponent<MeleeWeaponScript>();
+                weapon.CriticalPercentage = _criticalPercentage;
+                weapon.SetIsActive = true;
+            }
+        }
+        else if (_oldModifiedMelee != null)
+        {
+            _oldModifiedMelee.GetComponent<MeleeWeaponScript>().SetIsActive = false;
+            _oldModifiedMelee = null;
+        }
+
+        _setActive = "Scavenger";
+    }
+    private void ResetSetScavenger()
+    {
+        if (_oldModifiedMelee != null)
+        {
+            _oldModifiedMelee.GetComponent<MeleeWeaponScript>().SetIsActive = false;
+            _oldModifiedMelee = null;
+        }
+
+        _setActive = "";
     }
 }

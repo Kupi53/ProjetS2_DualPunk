@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using FishNet.Demo.AdditiveScenes;
 using GameKit.Utilities;
 using UnityEngine;
+using System.Linq;
 
 
 public class LaserGunScript : FireArmScript
@@ -12,8 +13,10 @@ public class LaserGunScript : FireArmScript
     [SerializeField] private GameObject _gunEndPoint;
     [SerializeField] private GameObject _startVFX;
     [SerializeField] private GameObject _endVFX;
+    [SerializeField] private GameObject _endVFXZone;
     [SerializeField] private LayerMask _layerMask;
 
+    [SerializeField] private bool _continuous;
     [SerializeField] private float _fireTime;
     [SerializeField] private float _coolDownSpeed;
     [SerializeField] private float _smoothTime;
@@ -36,7 +39,11 @@ public class LaserGunScript : FireArmScript
     private Color _oldColor;
     private float _staticAmplifierFactor;
 
+    // Effet set Laser
+    public bool SetIsActive { get; set; }
+
     public float FireTime { get => _fireTime; set => _fireTime = value; }
+    public int Damage { get => _damage; set => _damage = value; }
     public float CoolDownLevel { get => _coolDownLevel; set => _coolDownLevel = value; }
 
     public override bool DisplayInfo { get => _coolDownLevel > 0; }
@@ -47,6 +54,8 @@ public class LaserGunScript : FireArmScript
 
     private void Start()
     {
+        SetIsActive = false;
+
         _fire = false;
         _coolDown = false;
         _disableFire = false;
@@ -71,6 +80,12 @@ public class LaserGunScript : FireArmScript
         for (int i = 0; i < _endVFX.transform.childCount; i++)
         {
             ParticleSystem particleSystem = _endVFX.transform.GetChild(i).GetComponent<ParticleSystem>();
+            if (particleSystem != null)
+                _particles.Add(particleSystem);
+        }
+        for (int i = 0; i < _endVFXZone.transform.childCount; i++)
+        {
+            ParticleSystem particleSystem = _endVFXZone.transform.GetChild(i).GetComponent<ParticleSystem>();
             if (particleSystem != null)
                 _particles.Add(particleSystem);
         }
@@ -247,9 +262,37 @@ public class LaserGunScript : FireArmScript
         _laserLength = Mathf.SmoothDamp(_laserLength, distance, ref _velocity, _smoothTime);
         _lineRenderer.SetPosition(0, startPosition);
         _lineRenderer.SetPosition(1, startPosition + direction * _laserLength);
-        _endVFX.transform.position = startPosition + direction * _laserLength;
+
+        if (!SetIsActive)
+        {
+            _endVFX.SetActive(true);
+            _endVFXZone.SetActive(false);
+            _endVFX.transform.position = startPosition + direction * _laserLength;
+        }
+        else
+        {
+            _endVFX.SetActive(false);
+            _endVFXZone.SetActive(true);
+            _endVFXZone.transform.position = startPosition + direction * _laserLength;
+        }
     }
 
+
+#nullable enable
+    private GameObject[] GetNearestEnemies()
+    {
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Ennemy");
+
+        var query =
+            from enemy in enemies
+            let distance = Vector2.Distance(_endVFXZone.transform.position, enemy.transform.position + Vector3.up / 2)
+            where distance < PlayerState!.gameObject.GetComponent<ImplantController>().RangeDamage
+            orderby distance
+            select enemy;
+
+        return query.ToArray();
+    }
+#nullable disable
 
 
     public override void ResetWeapon()
@@ -284,6 +327,14 @@ public class LaserGunScript : FireArmScript
                 if (hit.collider.CompareTag("Projectile"))
                 {
                     hit.collider.GetComponent<IDestroyable>().DestroyObject();
+                }
+                if (SetIsActive)
+                {
+                    GameObject[] enemies = GetNearestEnemies();
+                    foreach (GameObject enemy in enemies)
+                    {
+                        enemy.GetComponent<IDamageable>().Damage(damage, _fireRate, _staticAmplifierFactor > 0, 0f);
+                    }
                 }
                 else if (hit.collider.CompareTag("Ennemy") && !damagePlayer || hit.collider.CompareTag("Player") && damagePlayer)
                 {

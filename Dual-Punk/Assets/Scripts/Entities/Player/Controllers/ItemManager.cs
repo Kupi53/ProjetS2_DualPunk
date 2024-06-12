@@ -15,7 +15,6 @@ public class ItemManager : NetworkBehaviour
 	public HealthManager _healthManager;
     public ImplantController _implantController;
     private List<GameObject> _items;
-    private IImpact _impact;
     private int _index;
 
 
@@ -25,7 +24,6 @@ public class ItemManager : NetworkBehaviour
 
         _index = 0;
         _items = new List<GameObject>();
-        _impact = GetComponent<IImpact>();
         _playerState = GetComponent<PlayerState>();
         _healthManager = GetComponent<HealthManager>();
         _implantController = GetComponent<ImplantController>();
@@ -56,18 +54,24 @@ public class ItemManager : NetworkBehaviour
 
         if (item.CompareTag("Weapon") && !(weaponScript = item.GetComponent<WeaponScript>()).InHand)
         {
-            _index = 0;
-            _items.Remove(item);
-
             InventorySlots[] weaponsSlots = _inventoryManager.GetComponent<InventoryManager>().WeaponSlots;
 
-            if (weaponsSlots[_inventoryManager.GetComponent<InventoryManager>().EquipedSlotIndex].heldItem == null)
+            if (_inventoryManager.GetComponent<InventoryPickItem>().ItemPicked(item))
             {
-                UpdateHeldWeapon(weaponScript);
-            }
+                _index = 0;
+                _items.Remove(item);
+                RemoveHighlight(item);
+                weaponScript.PickUp(gameObject);
 
-            RemoveHighlight(item);
-            _inventoryManager.GetComponent<InventoryPickItem>().ItemPicked(item);
+                if (weaponsSlots[_inventoryManager.GetComponent<InventoryManager>().EquipedSlotIndex].heldItem.GetComponent<InventoryItem>().displayedItem.prefab == item)
+                {
+                    UpdateHeldWeapon(weaponScript);
+                }
+                else
+                {
+                    item.SetActive(false);
+                }
+            }
         }
 
         else if (item.CompareTag("Implant") && !(implantScript = item.GetComponent<ImplantScript>()).IsEquipped) //Plus verifier que l'implant n'est pas sur une entite
@@ -154,19 +158,18 @@ public class ItemManager : NetworkBehaviour
 
         GameObject item = collision.gameObject;
 
-        if (item.GetComponent<HighlightItem>() != null) RemoveHighlight(item);
-
-        if (item.CompareTag("Weapon") || item.CompareTag("Item") || item.CompareTag("Implant"))
+        if (item.GetComponent<HighlightItem>() != null)
         {
             _index = 0;
             _items.Remove(item);
+            RemoveHighlight(item);
         }
     }
 
 
     private void RemoveHighlight(GameObject item)
     {
-        item.GetComponent<HighlightItem>().Selected = false;
+        item.GetComponent<HighlightItem>().StopHighlight();
     }
 
     public void UpdateHeldWeapon(WeaponScript weaponScript)
@@ -174,6 +177,5 @@ public class ItemManager : NetworkBehaviour
         _playerState.WeaponScript = weaponScript;
         _playerState.HoldingWeapon = true;
         weaponScript.gameObject.SetActive(true);
-        weaponScript.PickUp(gameObject);
     }
 }

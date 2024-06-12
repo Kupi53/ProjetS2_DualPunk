@@ -6,21 +6,13 @@ using UnityEngine;
 
 public class EnemyState : NPCState
 {
+    [SerializeField] private Vector3 _detectionOffset;
     [SerializeField] private float _lockDistance;
     [SerializeField] private float _unlockDistance;
 
     public GameObject Target { get; set; }
     public DefenceType DefenceType { get; set; }
     public bool CanAttack { get; set; }
-
-    private bool _stunAnimation;
-    private SpriteRenderer _spriteRenderer;
-    
-    public override Vector3 TargetPoint
-    {
-        get => Target == null ? Vector3.zero : Target.transform.position;
-        set => TargetPoint = value;
-    }
 
 
     protected new void Awake()
@@ -29,68 +21,47 @@ public class EnemyState : NPCState
 
         CanAttack = false;
         DefenceType = DefenceType.NotDefending;
-
-        _spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
-        _stunAnimation = false;
     }
 
 
     private void Update()
     {
+        float distance;
+
         if (Target == null)
         {
             Stop = true;
-
+            float maxDistance = _lockDistance;
             GameObject[] targets = GameObject.FindGameObjectsWithTag("Player");
+
             for (int i = 0; i < targets.Length; i++)
             {
-                if (Vector2.Distance(targets[i].transform.position, transform.position) < _lockDistance)
+                Vector3 targetPoint = targets[i].transform.position + _detectionOffset;
+                distance = Vector2.Distance(targetPoint, transform.position + _detectionOffset);
+                
+                if (distance < maxDistance / 4 || distance < maxDistance &&
+                    (!Physics2D.Raycast(transform.position, targetPoint - transform.position - _detectionOffset, distance, LayerMask)
+                    || DefenceType > DefenceType.NotDefending))
                 {
+                    maxDistance = distance;
                     Target = targets[i];
                     Stop = false;
-                    break;
                 }
             }
+            return;
         }
-        else if (Vector2.Distance(transform.position, Target.transform.position) > _unlockDistance)
+
+        TargetPoint = Target.transform.position;
+        distance = Vector2.Distance(transform.position, TargetPoint);
+
+        if (distance > _unlockDistance)
         {
             Target = null;
-        }
-        else if ((Vector2.Distance(transform.position, Target.transform.position) > _unlockDistance/2 || !CanAttack) && DefenceType == DefenceType.NotDefending)
-        {
-            Run = true;
-        }
-        else
-        {
-            Run = false;
+            return;
         }
 
-        if (Stun)
-        {
-            if (!_stunAnimation)
-            {
-                StartCoroutine(StunAnimation());
-                _stunAnimation = true;
-            }
-        }
-        else
-        {
-            StopCoroutine(StunAnimation());
-            _stunAnimation = false;
-        }
+        Run = (distance > _unlockDistance / 2 || !CanAttack) && DefenceType == DefenceType.NotDefending;
     }
-
-    public IEnumerator StunAnimation()
-    {
-        while (Stun)
-        {
-            _spriteRenderer.color = new Color(1f, 1f, 1f, 0.1f);
-            yield return new WaitForSeconds(0.2f);
-            _spriteRenderer.color = new Color(1f, 1f, 1f, 1f);
-            yield return new WaitForSeconds(0.2f);
-        }
-    }
-
 
     private void OnDestroy()
     {
@@ -101,6 +72,7 @@ public class EnemyState : NPCState
         }
     }
 }
+
 
 public enum DefenceType
 {
