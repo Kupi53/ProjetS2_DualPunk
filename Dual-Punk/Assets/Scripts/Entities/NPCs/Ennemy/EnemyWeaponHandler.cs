@@ -9,22 +9,18 @@ using UnityEngine;
 public class EnemyWeaponHandler : NetworkBehaviour
 {
     [SerializeField] private GameObject[] _weapons;
-    [SerializeField] private LayerMask _layerMask;
     [SerializeField] private float _aimVariationAngleRange;
     [SerializeField] private float _smoothTime;
 
     private EnemyState _enemyState;
     private WeaponScript _weaponScript;
     private Vector3 _direction;
-
     private float _currentAngleOffset;
     private float _targetAngleOffset;
     private float _offsetTimer;
     private float _velocity;
     private int _weaponIndex;
-    private Vector3 _lastTargetPointBeforeStun;
-    private Vector3 _lastVariableDirectionBeforeStun;
-    private bool _hasLastTargetPointBeforeStun;
+
 
     private void Start()
     {
@@ -33,7 +29,6 @@ public class EnemyWeaponHandler : NetworkBehaviour
         _offsetTimer = _smoothTime;
         _direction = Vector3.right;
         _enemyState = GetComponent<EnemyState>();
-        _hasLastTargetPointBeforeStun = false;
 
         AssignWeapon();
     }
@@ -67,12 +62,14 @@ public class EnemyWeaponHandler : NetworkBehaviour
 
 
         _direction = _enemyState.TargetPoint - transform.position;
-        float distance = _direction.magnitude - 1;
+        float distance = _direction.magnitude;
         bool canAttack = false;
 
         if (distance < _weaponScript.Range)
         {
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, _enemyState.Target.transform.position, distance, _layerMask);
+            RaycastHit2D hit = Physics2D.Raycast(_weaponScript.transform.position, _direction, distance, _enemyState.LayerMask);
+
+            Debug.Log(hit == true);
 
             if (_weaponScript is ChargeWeaponScript)
             {
@@ -95,26 +92,8 @@ public class EnemyWeaponHandler : NetworkBehaviour
         }
 
         _enemyState.CanAttack = canAttack;
-
-        if (_enemyState.Stun)
-        {
-            if (!_hasLastTargetPointBeforeStun)
-            {
-                _lastTargetPointBeforeStun = _enemyState.TargetPoint;
-                _lastVariableDirectionBeforeStun = VariateDirection();
-                _hasLastTargetPointBeforeStun = true;
-            }
-                
-            _weaponScript.MovePosition(transform.position, _lastVariableDirectionBeforeStun, _lastTargetPointBeforeStun);
-        }
-        else
-        {
-            _weaponScript.EnemyRun(transform.position, VariateDirection(), _enemyState.TargetPoint);
-            _hasLastTargetPointBeforeStun = false;
-        }
-            
-
-
+        _weaponScript.EnemyRun(transform.position, VariateDirection(), _enemyState.TargetPoint);
+        
         //used to flip the ennemy sprite renderer and animation
         bool flippedRenderer = gameObject.GetComponent<SpriteRenderer>().flipX;
 
@@ -139,7 +118,7 @@ public class EnemyWeaponHandler : NetworkBehaviour
         if (_weaponIndex > 0) DropWeapon();
         
         GameObject weapon = Instantiate(_weapons[_weaponIndex], transform.position, Quaternion.identity);
-        weapon.transform.SetParent(this.gameObject.transform);
+        weapon.transform.SetParent(gameObject.transform);
         Spawn(weapon);
 
         _weaponScript = weapon.GetComponent<WeaponScript>();

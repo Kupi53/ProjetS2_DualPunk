@@ -48,8 +48,5 @@ public class InventoryItem : MonoBehaviour
             int imageHeight = (int)(spriteSize.rect.height * ratio);
             _iconImage.rectTransform.sizeDelta = new Vector2(imageWidth, imageHeight);
         }
-
-
-
     }
 }

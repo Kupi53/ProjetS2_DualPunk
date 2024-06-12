@@ -6,11 +6,13 @@ using UnityEngine;
 
 public class NPCState : NetworkBehaviour
 {
-    public virtual Vector3 TargetPoint { get; set; }
+    [SerializeField] private LayerMask _layerMask;
+
+    public LayerMask LayerMask { get => _layerMask; }
+    public Vector3 TargetPoint { get; set; }
     public bool Stop { get; set; }
     public bool Move { get; set; }
     public bool Run { get; set; }
-    public bool Stun { get; set; }
 
     #nullable enable
     public Room? ParentRoom { get; set; }
@@ -19,9 +21,9 @@ public class NPCState : NetworkBehaviour
 
     protected void Awake()
     {
+        TargetPoint = Vector3.zero;
         Stop = false;
         Move = true;
         Run = false;
-        Stun = false;
     }
 }

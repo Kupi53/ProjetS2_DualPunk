@@ -19,7 +19,6 @@ public abstract class WeaponScript : NetworkBehaviour
     [SerializeField] protected float _weaponDistance;
     [SerializeField] protected int _pointerSpriteNumber;
 
-    protected SpriteRenderer _spriteRenderer;
     private SpriteRenderer _rightHandSprite;
     private SpriteRenderer _leftHandSprite;
     protected ObjectSpawner _objectSpawner;
@@ -43,7 +42,6 @@ public abstract class WeaponScript : NetworkBehaviour
 
     protected void Awake()
     {
-        _spriteRenderer = GetComponent<SpriteRenderer>();
         _rightHandSprite = _rightHand.GetComponent<SpriteRenderer>();
         _leftHandSprite = _leftHand.GetComponent<SpriteRenderer>();
         _objectSpawner = GameObject.FindWithTag("ObjectSpawner").GetComponent<ObjectSpawner>();
@@ -104,6 +102,10 @@ public abstract class WeaponScript : NetworkBehaviour
         PlayerState = null;
         EnemyState = null;
 
-        ObjectSpawner.Instance.ObjectParentToRoomRpc(gameObject);
+        if (!GameManager.Instance.InTutorial)
+        {
+            ObjectSpawner.Instance.ObjectParentToRoomRpc(gameObject);
+        }
+
     }
 }

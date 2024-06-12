@@ -56,10 +56,17 @@ public class WeaponInfo : MonoBehaviour
         _weaponName.enabled = true;
         _weaponImage.enabled = true;
 
-        Sprite _newWeaponSprite = _references.PlayerState.WeaponScript.gameObject.GetComponent<SpriteRenderer>().sprite;
-        if (_newWeaponSprite != _currentWeaponSprite)
+        Sprite newWeaponSprite;
+        GameObject weapon = _references.PlayerState.WeaponScript.gameObject;
+
+        if (weapon.GetComponent<SpriteRenderer>() == null)
+            newWeaponSprite = weapon.GetComponentInChildren<SpriteRenderer>().sprite;
+        else
+            newWeaponSprite = weapon.GetComponent<SpriteRenderer>().sprite;
+
+        if (newWeaponSprite != _currentWeaponSprite)
         {
-            _currentWeaponSprite = _newWeaponSprite;
+            _currentWeaponSprite = newWeaponSprite;
             _weaponImage.sprite = _currentWeaponSprite;
             SetScale();
         }

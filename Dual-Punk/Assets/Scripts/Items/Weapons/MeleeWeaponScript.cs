@@ -11,14 +11,11 @@ public abstract class MeleeWeaponScript : WeaponScript
     [SerializeField] protected AudioClip _criticalSound;
     [SerializeField] protected GameObject _attackPoint;
     [SerializeField] protected int _criticalDamage;
-    [SerializeField] protected float _swipeRange;
     [SerializeField] protected float _finalAttackPower;
     [SerializeField] protected float _attackCooldown;
     [SerializeField] protected float _resetCooldown;
     [SerializeField] protected float _defenceTime;
     [SerializeField] protected float _defenceCooldownSpeed;
-    [SerializeField] protected float _defenceWeaponDistance;
-    [SerializeField] protected Vector3 _defenceWeaponOffset;
     [SerializeField] protected LayerMask _layerMask;
 
     protected int _attack;
@@ -33,7 +30,6 @@ public abstract class MeleeWeaponScript : WeaponScript
     private int _criticalPercentage;
     private bool _setIsActive;
     private bool _critical;
-
 
     public int Damage { get => _damage; set => _damage = value; }
     public float AttackCooldown { get => _attackCooldown; set => _attackCooldown = value; }
@@ -93,10 +89,12 @@ public abstract class MeleeWeaponScript : WeaponScript
         else
             PlayerState.PointerScript.CanShoot = true;
 
-        if ((Input.GetButtonUp("SecondaryUse") && _attack == 0 || PlayerState.Stop) && !_defenceCooldown)
+        if (Input.GetButtonUp("SecondaryUse") && _attack == 0 || PlayerState.Stop)
         {
-            ResetDefence();
             _disableDefence = false;
+
+            if (!_defenceCooldown)
+                ResetDefence();
         }
 
         if (PlayerState.Stop) return;
@@ -108,6 +106,7 @@ public abstract class MeleeWeaponScript : WeaponScript
         else if (Input.GetButtonDown("Use") && _attack < 3 && _attackTimer >= _attackCooldown)
         {
             Attack(direction, false);
+            PlayerState.CameraController.ShakeCamera(_cameraShake, 0.1f);
         }
     }
 
@@ -145,16 +144,24 @@ public abstract class MeleeWeaponScript : WeaponScript
     {
         _attack = 0;
         _disableDefence = false;
-        _spriteRenderer.flipY = false;
         _attackTimer = _attackCooldown;
         _resetCooldownTimer = _resetCooldown;
+        WeaponOffset = _weaponOffset;
 
         if (_defenceTimer > 0 && !_defenceCooldown)
             ResetDefence();
         else
             ResetPosition();
     }
-    protected abstract void ResetDefence();
+    protected void ResetDefence()
+    {
+        if (_ownerType == "Player")
+            PlayerState.Walking = false;
+        else
+            EnemyState.DefenceType = DefenceType.NotDefending;
+        _defenceCooldown = true;
+        ResetPosition();
+    }
     protected abstract void ResetPosition();
 
 
@@ -192,6 +199,8 @@ public abstract class MeleeWeaponScript : WeaponScript
         _resetCooldownTimer = 0;
 
         int damage;
+        float impactForce = _impactForce;
+
         if (SetIsActive && UnityEngine.Random.Range(0, 100) < _criticalPercentage)
         {
             damage = _criticalDamage;
@@ -211,14 +220,15 @@ public abstract class MeleeWeaponScript : WeaponScript
             AudioManager.Instance.PlayClipAt(_attackSound[randomSound.Next(_attackSound.Count)], gameObject.transform.position, _ownerType);
         }
 
-        float impactForce = _impactForce;
         if (_attack == 3)
         {
-            if (_critical)
-                damage = (int)(_criticalDamage * _finalAttackPower);
-            else
-                damage = (int)(_damage * _finalAttackPower);
+            UserRecoil.Impact(-direction, _recoilForce * _finalAttackPower);
+            damage = (int)(_damage * _finalAttackPower);
             impactForce *= _finalAttackPower;
+        }
+        else
+        {
+            UserRecoil.Impact(-direction, _recoilForce);
         }
 
         Collider2D[] hitColliders = Physics2D.OverlapCircleAll(_attackPoint.transform.position, _range / 2, _layerMask);
@@ -232,10 +242,7 @@ public abstract class MeleeWeaponScript : WeaponScript
 
             if (hitObject.CompareTag("Ennemy") && !damagePlayer || hitObject.CompareTag("Player") && damagePlayer)
             {
-                if (_critical)
-                    hitObject.GetComponent<IDamageable>().Damage(damage, 0, true, _stunDuration);
-                else
-                    hitObject.GetComponent<IDamageable>().Damage(damage, 0, false, _stunDuration);
+                hitObject.GetComponent<IDamageable>().Damage(damage, 0, _critical, _stunDuration);
                 hitObject.GetComponent<IImpact>().Impact(direction, impactForce);
             }
             if (hitObject.CompareTag("Projectile"))

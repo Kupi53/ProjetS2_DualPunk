@@ -47,7 +47,7 @@ public class SpawnPlayers : NetworkBehaviour
         SetPlayer2Client(connection);
         if (GameManager.Instance.DebugMode)
         {
-            GameObject.Find("Tutorial").GetComponentInChildren<EndOfTutorialTrigger>().StartGameRpc();
+            //GameObject.Find("Tutorial").GetComponentInChildren<EndOfTutorialTrigger>().StartGameRpc();
         }
 
     } 
