@@ -26,7 +26,7 @@ public class MouvementsController : NetworkBehaviour, IImpact
     private Vector2 _moveDirection;
 
     private float _dashTimer;
-    private float _dashCooldownTimer;
+    public float _dashCooldownTimer;
     private float _moveSpeed;
     private float _moveFactor;
     

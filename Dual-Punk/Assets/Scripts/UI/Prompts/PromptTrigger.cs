@@ -23,7 +23,7 @@ public class PromptTrigger : MonoBehaviour
         if (!(other.gameObject.GetComponent<NetworkObject>().Owner == GameManager.Instance.LocalPlayer.GetComponent<NetworkObject>().Owner)) return;
         if (_type == PromptTriggerType.OnCollision)
         {
-            PromptManager.Instance.SpawnPrompt(Prompt, this.gameObject);
+            Spawn();
         }
     }
     void OnTriggerStay2D(Collider2D other)
@@ -34,7 +34,7 @@ public class PromptTrigger : MonoBehaviour
         {
             if (Input.GetButtonDown("Interact"))
             {
-                PromptManager.Instance.SpawnPrompt(Prompt, this.gameObject);
+                Spawn();
             }
         }
     }
@@ -52,6 +52,11 @@ public class PromptTrigger : MonoBehaviour
     private IEnumerator TriggerPromptAfterSeconds(float seconds)
     {
         yield return new WaitForSeconds(seconds);
+        Spawn();
+    }
+
+    public void Spawn()
+    {
         PromptManager.Instance.SpawnPrompt(Prompt, this.gameObject);
     }
 }
@@ -60,5 +65,6 @@ public enum PromptTriggerType
 {
     Automatic,
     OnCollision,
-    OnButton
+    OnButton,
+    Tutorial
 }

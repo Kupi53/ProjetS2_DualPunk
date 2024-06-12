@@ -18,8 +18,16 @@ public class GameManager : MonoBehaviour
     public GameObject LocalPlayer {
         get
         {
+            GameObject camera;
+            PlayerState state;
             // REALLY degueulasse car ca a rien a voir avec la camera mais en gros ca return le joueur du client qui appelle la fonction car la camera est que en local
-            return GameObject.FindGameObjectWithTag("Camera").GetComponent<CameraController>().PlayerState.gameObject;
+            if ((camera = GameObject.FindGameObjectWithTag("Camera")) == null) return null;
+            else
+            {
+                if ((state = camera.GetComponent<CameraController>().PlayerState) == null) return null;
+                else return state.gameObject;
+            }
+          
         } 
     }
 

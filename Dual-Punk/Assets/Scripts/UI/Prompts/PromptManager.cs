@@ -81,6 +81,7 @@ public class PromptManager : MonoBehaviour
         if (CurrentPromptShown != null)
         {
             Destroy(CurrentPromptShown);
+            CurrentPromptShown = null;
         }
     }
     public void CloseCurrentIndicator()
@@ -88,6 +89,7 @@ public class PromptManager : MonoBehaviour
         if (CurrentIndicatorShown != null)
         {
             Destroy(CurrentIndicatorShown);
+            CurrentIndicatorShown = null;
         }
     }
 
