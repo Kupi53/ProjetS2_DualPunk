@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 33008d4bc5c6c8e42979705746d3367b
+guid: 768447c821d2a144d9111c57e8006a32
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,12 +110,12 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Player W_0
+      name: Player NW_0
       rect:
         serializedVersion: 2
-        x: 13
-        y: 6
-        width: 14
+        x: 14
+        y: 9
+        width: 16
         height: 51
       alignment: 9
       pivot: {x: 0.5, y: 0.1}
@@ -124,18 +124,39 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9de620a5b34df5746af0d4f8d72c9a85
-      internalID: -1869024899
+      spriteID: 161243825cc375241a29c7b9340efa1b
+      internalID: 230457558
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player W_1
+      name: Player NW_1
       rect:
         serializedVersion: 2
-        x: 38
-        y: 5
+        x: 42
+        y: 8
+        width: 16
+        height: 52
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 45b979335752fd147a2094b60979ea85
+      internalID: 1489416962
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player NW_2
+      rect:
+        serializedVersion: 2
+        x: 76
+        y: 8
         width: 15
         height: 52
       alignment: 9
@@ -145,19 +166,61 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 95cc7108f65f1664f949664ea1b61277
-      internalID: 1757421635
+      spriteID: c18354be86565ba4e9a4af3a9f5401c0
+      internalID: -764598181
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player W_2
+      name: Player NW_3
       rect:
         serializedVersion: 2
-        x: 71
-        y: 7
-        width: 18
+        x: 111
+        y: 10
+        width: 16
+        height: 50
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 90394a77dd795d64e9266b41a70b9a13
+      internalID: 2106549220
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player NW_4
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 12
+        width: 16
+        height: 48
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1cfee40794db2b94ab00e2145f54588f
+      internalID: 1862357187
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player NW_5
+      rect:
+        serializedVersion: 2
+        x: 178
+        y: 9
+        width: 16
         height: 51
       alignment: 9
       pivot: {x: 0.5, y: 0.1}
@@ -166,39 +229,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 58b36f877867f0241b185f2f799bf539
-      internalID: 815236772
+      spriteID: c1f2560b6936f02419735621632bbf58
+      internalID: 1476626289
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player W_3
+      name: Player NW_6
       rect:
         serializedVersion: 2
-        x: 102
-        y: 6
-        width: 25
-        height: 51
-      alignment: 9
-      pivot: {x: 0.5, y: 0.1}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 86e3991d250d2774c88e9003f285acbc
-      internalID: 1417514857
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player W_4
-      rect:
-        serializedVersion: 2
-        x: 139
-        y: 7
+        x: 209
+        y: 9
         width: 20
         height: 51
       alignment: 9
@@ -208,20 +250,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5cdd8bc21e28c3149b748a8c7f07c929
-      internalID: -922969614
+      spriteID: ce00f3ca0fb52704aaa6deb5db320bbd
+      internalID: -24320509
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player W_5
+      name: Player NW_7
       rect:
         serializedVersion: 2
-        x: 175
-        y: 6
-        width: 14
-        height: 52
+        x: 243
+        y: 12
+        width: 23
+        height: 48
       alignment: 9
       pivot: {x: 0.5, y: 0.1}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -229,40 +271,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2948c70408df17b438ff97f70875e026
-      internalID: 934171629
+      spriteID: af1e6c9a78bfea84f8f3301ffd5e7e9f
+      internalID: -1652258439
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player W_6
+      name: Player NW_8
       rect:
         serializedVersion: 2
-        x: 209
-        y: 7
-        width: 18
-        height: 51
-      alignment: 9
-      pivot: {x: 0.5, y: 0.1}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9b07cd4ae9527594ab8d241298745b02
-      internalID: 1544208200
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player W_7
-      rect:
-        serializedVersion: 2
-        x: 239
-        y: 8
-        width: 26
+        x: 278
+        y: 10
+        width: 21
         height: 50
       alignment: 9
       pivot: {x: 0.5, y: 0.1}
@@ -271,29 +292,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ea37f18a1eb1bce44a2b60ab252f1690
-      internalID: 2016204529
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player W_8
-      rect:
-        serializedVersion: 2
-        x: 276
-        y: 6
-        width: 21
-        height: 51
-      alignment: 9
-      pivot: {x: 0.5, y: 0.1}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ba1c7020d33971846b7e3f18bd3e7abb
-      internalID: -827412873
+      spriteID: 0c766f88f433a1e47bb42d54920f0e1f
+      internalID: -805983539
       vertices: []
       indices: 
       edges: []
@@ -309,15 +309,15 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Player W_0: -1869024899
-      Player W_1: 1757421635
-      Player W_2: 815236772
-      Player W_3: 1417514857
-      Player W_4: -922969614
-      Player W_5: 934171629
-      Player W_6: 1544208200
-      Player W_7: 2016204529
-      Player W_8: -827412873
+      Player NW_0: 230457558
+      Player NW_1: 1489416962
+      Player NW_2: -764598181
+      Player NW_3: 2106549220
+      Player NW_4: 1862357187
+      Player NW_5: 1476626289
+      Player NW_6: -24320509
+      Player NW_7: -1652258439
+      Player NW_8: -805983539
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

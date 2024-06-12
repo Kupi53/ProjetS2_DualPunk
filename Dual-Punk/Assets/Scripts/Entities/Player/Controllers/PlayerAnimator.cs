@@ -20,6 +20,15 @@ public class PlayerAnimator : NetworkBehaviour
     const string PLAYER_SW = "Player SW";
     const string PLAYER_IDLE = "Player Idle";
 
+    const string PLAYERWEAPON_N = "PlayerWeapon N";
+    const string PLAYERWEAPON_E = "PlayerWeapon E";
+    const string PLAYERWEAPON_S = "PlayerWeapon S";
+    const string PLAYERWEAPON_W = "PlayerWeapon W";
+    const string PLAYERWEAPON_NE = "PlayerWeapon NE";
+    const string PLAYERWEAPON_NW = "PlayerWeapon NW";
+    const string PLAYERWEAPON_SE = "PlayerWeapon SE";
+    const string PLAYERWEAPON_SW = "PlayerWeapon SW";
+
 
     void Start()
     {
@@ -32,10 +41,12 @@ public class PlayerAnimator : NetworkBehaviour
     private void Update()
     {
         if (!IsOwner) return;
-        if (_playerState.Moving || _playerState.HoldingWeapon)
+        if (!_playerState.Moving && _playerState.HoldingWeapon)
+            ChangeAnimation(SelectAnimationWeapon(_playerState.AnimAngle));
+        else if (_playerState.Moving)
             ChangeAnimation(SelectAnimation(_playerState.AnimAngle));
         else
-            _networkAnimator.Play(PLAYER_IDLE);
+            ChangeAnimation(PLAYER_IDLE);
     }
 
 
@@ -84,6 +95,42 @@ public class PlayerAnimator : NetworkBehaviour
         else
         {
             return PLAYER_SE;
+        }
+    }
+
+    private string SelectAnimationWeapon(float angle)
+    {
+        if (angle > -22 && angle <= 22)
+        {
+            return PLAYERWEAPON_E;
+        }
+        else if (angle > 22 && angle <= 67)
+        {
+            return PLAYERWEAPON_NE;
+        }
+        else if (angle > 67 && angle <= 112)
+        {
+            return PLAYERWEAPON_N;
+        }
+        else if (angle > 112 && angle <= 157)
+        {
+            return PLAYERWEAPON_NW;
+        }
+        else if ((angle > 157 && angle <= 180) || (angle >= -180 && angle <= -158))
+        {
+            return PLAYERWEAPON_W;
+        }
+        else if (angle > -158 && angle <= -113)
+        {
+            return PLAYERWEAPON_SW;
+        }
+        else if (angle > -113 && angle <= -68)
+        {
+            return PLAYERWEAPON_S;
+        }
+        else
+        {
+            return PLAYERWEAPON_SE;
         }
     }
 }
