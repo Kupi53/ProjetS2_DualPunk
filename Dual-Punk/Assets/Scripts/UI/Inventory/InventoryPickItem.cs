@@ -8,20 +8,16 @@ public class InventoryPickItem : MonoBehaviour
 {
     [SerializeField] private GameObject[] _weaponSlots;
     [SerializeField] private GameObject[] _implantSlots;
-    [SerializeField] private GameObject[] _consummableSlots;
     [SerializeField] private GameObject _inventoryItemPrefab;
     private int _equipedSlotIndex => GetComponent<InventoryManager>().EquipedSlotIndex;
 
 
-    public void ItemPicked(GameObject pickedItem)
+    public GameObject ItemPicked(GameObject pickedItem)
     {
         GameObject emptySlot;
         string Tag = pickedItem.tag;
 
         switch(Tag){
-            case "Consummable" :
-                emptySlot = FindEmptySlot(_consummableSlots);
-                break;
             case "Weapon" :
                 emptySlot = FindEmptySlot(_weaponSlots);
                 break;
@@ -39,21 +35,13 @@ public class InventoryPickItem : MonoBehaviour
             newItem.GetComponent<InventoryItem>().displayedItem = pickedItem.GetComponent<PickableItem>().itemData;
             newItem.GetComponent<InventoryItem>().displayedItem.prefab = pickedItem;
 
-            newItem.transform.SetParent(emptySlot.transform.parent.parent.GetChild(4));
 
-            newItem.transform.localScale = emptySlot.transform.localScale;
-            emptySlot.GetComponent<InventorySlots>().SetHeldItem(newItem);
-
-
-            if (pickedItem.tag == "Weapon" && _weaponSlots[_equipedSlotIndex] != emptySlot)
-            {
-                pickedItem.SetActive(false);
-            }
         }
+        return emptySlot;
     }
 
 
-    //Use for each type of slot of the inventory to find if a slot is available.
+    //Used to find a slot for a weapon
     public GameObject FindEmptySlot(GameObject[] slots)
     {
         if (_weaponSlots[_equipedSlotIndex].GetComponent<InventorySlots>().heldItem == null)

@@ -18,3 +18,4 @@ MonoBehaviour:
   description: This is a classic assault rifle use it to delete your enemies.
   setName: 
   setItems: []
+  setDescription: 
