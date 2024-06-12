@@ -56,22 +56,22 @@ public class ItemManager : NetworkBehaviour
         {
             InventorySlots[] weaponsSlots = _inventoryManager.GetComponent<InventoryManager>().WeaponSlots;
 
-            if (_inventoryManager.GetComponent<InventoryPickItem>().ItemPicked(item))
-            {
-                _index = 0;
-                _items.Remove(item);
-                RemoveHighlight(item);
-                weaponScript.PickUp(gameObject);
+            _index = 0;
+            _items.Remove(item);
+            RemoveHighlight(item);
+            weaponScript.PickUp(gameObject);
+            
+            //get the slot in which the weapon has been stored
+            GameObject foundSlot = _inventoryManager.GetComponent<InventoryPickItem>().ItemPicked(item);
 
-                if (weaponsSlots[_inventoryManager.GetComponent<InventoryManager>().EquipedSlotIndex].heldItem.GetComponent<InventoryItem>().displayedItem.prefab == item)
-                {
-                    UpdateHeldWeapon(weaponScript);
-                }
-                else
-                {
-                    item.SetActive(false);
-                }
+            if (foundSlot != null) {
+                UpdateHeldWeapon(weaponScript);
             }
+            else
+            {
+                item.SetActive(false);
+            }
+        
         }
 
         else if (item.CompareTag("Implant") && !(implantScript = item.GetComponent<ImplantScript>()).IsEquipped) //Plus verifier que l'implant n'est pas sur une entite

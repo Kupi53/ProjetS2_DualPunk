@@ -13,7 +13,7 @@ public class InventoryPickItem : MonoBehaviour
     private int _equipedSlotIndex => GetComponent<InventoryManager>().EquipedSlotIndex;
 
 
-    public bool ItemPicked(GameObject pickedItem)
+    public GameObject ItemPicked(GameObject pickedItem)
     {
         GameObject emptySlot;
         string Tag = pickedItem.tag;
@@ -42,13 +42,12 @@ public class InventoryPickItem : MonoBehaviour
             newItem.transform.SetParent(emptySlot.transform.parent.parent.GetChild(4));
             newItem.transform.localScale = emptySlot.transform.localScale;
 
-            return true;
         }
-        return false;
+        return emptySlot;
     }
 
 
-    //Use for each type of slot of the inventory to find if a slot is available.
+    //Used to find a slot for a weapon
     public GameObject FindEmptySlot(GameObject[] slots)
     {
         if (_weaponSlots[_equipedSlotIndex].GetComponent<InventorySlots>().heldItem == null)
