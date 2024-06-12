@@ -13,10 +13,9 @@ MonoBehaviour:
   m_Name: ThermicExchange
   m_EditorClassIdentifier: 
   name: ThermicExchange
-  prefab: {fileID: 0}
   icon: {fileID: 21300000, guid: 06dee67e972ba964f862f9f57d28775b, type: 3}
-  description: This implant concentrates fire when the player is not moving or making
-    a dash, inflicting more damage.
+  description: When holding a laserGun, this implant converts a percentage of damage
+    taken into the laserGun heat charge.
   setName: Laser
   setItems:
   - LaserTracker

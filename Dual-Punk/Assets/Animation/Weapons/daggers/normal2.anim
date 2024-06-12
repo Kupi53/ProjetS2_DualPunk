@@ -81,7 +81,27 @@ AnimationClip:
     path: Dagger2
   m_ScaleCurves: []
   m_FloatCurves: []
-  m_PPtrCurves: []
+  m_PPtrCurves:
+  - serializedVersion: 2
+    curve:
+    - time: 0
+      value: {fileID: 21300000, guid: 753317044106bec479973f287f296a10, type: 3}
+    attribute: m_Sprite
+    path: Dagger1
+    classID: 212
+    script: {fileID: 0}
+    flags: 2
+  - serializedVersion: 2
+    curve:
+    - time: 0
+      value: {fileID: 21300000, guid: 753317044106bec479973f287f296a10, type: 3}
+    - time: 1
+      value: {fileID: 21300000, guid: 753317044106bec479973f287f296a10, type: 3}
+    attribute: m_Sprite
+    path: Dagger2
+    classID: 212
+    script: {fileID: 0}
+    flags: 2
   m_SampleRate: 1
   m_WrapMode: 0
   m_Bounds:
@@ -91,6 +111,24 @@ AnimationClip:
     genericBindings:
     - serializedVersion: 2
       path: 1638409353
+      attribute: 0
+      script: {fileID: 0}
+      typeID: 212
+      customType: 23
+      isPPtrCurve: 1
+      isIntCurve: 0
+      isSerializeReferenceCurve: 0
+    - serializedVersion: 2
+      path: 4171330867
+      attribute: 0
+      script: {fileID: 0}
+      typeID: 212
+      customType: 23
+      isPPtrCurve: 1
+      isIntCurve: 0
+      isSerializeReferenceCurve: 0
+    - serializedVersion: 2
+      path: 1638409353
       attribute: 1
       script: {fileID: 0}
       typeID: 4
@@ -125,13 +163,16 @@ AnimationClip:
       isPPtrCurve: 0
       isIntCurve: 0
       isSerializeReferenceCurve: 0
-    pptrCurveMapping: []
+    pptrCurveMapping:
+    - {fileID: 21300000, guid: 753317044106bec479973f287f296a10, type: 3}
+    - {fileID: 21300000, guid: 753317044106bec479973f287f296a10, type: 3}
+    - {fileID: 21300000, guid: 753317044106bec479973f287f296a10, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0
+    m_StopTime: 2
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
