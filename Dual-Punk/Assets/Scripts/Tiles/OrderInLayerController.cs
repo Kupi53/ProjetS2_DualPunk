@@ -18,7 +18,7 @@ public class OrderInLayerController : MonoBehaviour
     }
     void Update()
     {
-        CheckTile();
+            CheckTile();
     }
 
 

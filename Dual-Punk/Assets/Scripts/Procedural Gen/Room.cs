@@ -127,7 +127,7 @@ public class Room : MonoBehaviour
     {
         if (IsCleared)
         {
-            ObjectSpawner.Instance.SpawnObjectFromIdRpc("0010", Vector3.zero, quaternion.identity);
+            ObjectSpawner.Instance.SpawnObjectFromIdRpc("0030", Vector3.zero, quaternion.identity);
         }
     }
 

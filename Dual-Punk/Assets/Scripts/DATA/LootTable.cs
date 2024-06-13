@@ -19,7 +19,6 @@ public class LootTable
         {
             _table[(MinIntervalTable[i], MaxIntervalTable[i])] = IdTable[i];
         }
-        Debug.Log(_table.Keys.Count);
         _lootRange = FindMaxRange(_table);
     }
 
@@ -31,7 +30,6 @@ public class LootTable
         {
             if (range.Item1 <= lootRoll && lootRoll <= range.Item2)
             {
-                Debug.Log(lootRoll);
                 key = range;
             }
         }
