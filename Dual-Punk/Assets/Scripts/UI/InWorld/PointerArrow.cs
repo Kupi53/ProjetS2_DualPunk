@@ -18,6 +18,7 @@ public class PointerArrow : MonoBehaviour
 
     void Update()
     {
+        if (Target == null) return;
         Vector3 toPosition = Target.transform.position;
         Vector3 fromPosition = _camera.transform.position;
         fromPosition.z = 0;

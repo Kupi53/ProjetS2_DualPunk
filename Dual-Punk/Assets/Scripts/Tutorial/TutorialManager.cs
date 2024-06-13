@@ -18,6 +18,8 @@ public class TutorialManager : MonoBehaviour
     [SerializeField] GameObject _stageObjects;
     [SerializeField] GameObject _exteriorDoor;
     [SerializeField] GameObject _interiorDoor;
+    [SerializeField] GameObject _storeClerk;
+    [SerializeField] GameObject _endOfTutorialTrigger;
     public int CurrentStage;
     private bool _started;
     private float _stage1counter;
@@ -26,6 +28,10 @@ public class TutorialManager : MonoBehaviour
     private GameObject _stage3enemy;
     private GameObject _stage4lootBox;
     private bool _stage4cleared;
+    private bool _stage7dialogueFound;
+    private ImplantScript _stage7implant;
+    private WeaponScript _stage7weapon;
+    private
 
     void Start()
     {
@@ -116,7 +122,7 @@ public class TutorialManager : MonoBehaviour
                 }
                 break;
             case 5:
-                if (PromptManager.Instance.CurrentArrowShown.GetComponent<Image>().enabled)
+                if (PromptManager.Instance.CurrentArrowShown != null && PromptManager.Instance.CurrentArrowShown.GetComponent<Image>().enabled)
                 {
                     ChangeStage(5,3);
                 }
@@ -131,13 +137,50 @@ public class TutorialManager : MonoBehaviour
             case 6:
                 if (GameManager.Instance.LocalPlayer.transform.position == _interiorDoor.transform.position)
                 {
-                    ChangeStage(6,7);
+                    if (_stage7dialogueFound)
+                    {
+                        ChangeStage(6,8);
+                    }
+                    else
+                    {
+                        ChangeStage(6,7);   
+                    }
                 }
                 break;
             case 7:
                 if (GameManager.Instance.LocalPlayer.transform.position == _exteriorDoor.transform.position)
                 {
                     ChangeStage(7,6);
+                }
+                else
+                {
+                    if (_stage7dialogueFound)
+                    {
+                        if (PromptManager.Instance.CurrentPromptShown != null && PromptManager.Instance.CurrentPromptShown.GetComponent<PromptController>().Prompt.DialogueFields.Length == 0)
+                        {
+                            _storeClerk.GetComponent<StoreClerk>().OnDialogueEnd();
+                            ChangeStage(7,8);
+                        }
+                    }
+                    else
+                    {
+                        if (PromptManager.Instance.CurrentPromptShown != null && PromptManager.Instance.CurrentPromptShown.GetComponent<PromptController>().Prompt.DialogueFields.Length > 0)
+                        {
+                            _stage7dialogueFound = true;
+                        }
+                    }
+                }
+                break;
+            case 8:
+                if (GameManager.Instance.LocalPlayer.transform.position == _exteriorDoor.transform.position)
+                {
+                    ChangeStage(8,9);
+                }
+                break;
+            case 9:
+                if (PromptManager.Instance.CurrentPromptShown == null)
+                {
+                    ChangeStage(9, 10);
                 }
                 break;
         }
@@ -179,6 +222,7 @@ public class TutorialManager : MonoBehaviour
                 _stageObjects.transform.GetChild(5).GetComponentInChildren<PromptTrigger>().Spawn();
                 break;
             case 6:
+                _stage7dialogueFound = false;
                 PromptManager.Instance.CloseCurrentPrompt();
                 PromptManager.Instance.CloseCurrentArrow();
                 PromptManager.Instance.SpawnPointerArrow(_exteriorDoor);
@@ -188,6 +232,19 @@ public class TutorialManager : MonoBehaviour
                 PromptManager.Instance.ClearPrompts();
                 PromptManager.Instance.CloseCurrentArrow();
                 _stageObjects.transform.GetChild(7).GetComponentInChildren<PromptTrigger>().Spawn();
+                break;
+            case 8:
+                PromptManager.Instance.ClearPrompts();
+                _stageObjects.transform.GetChild(8).GetComponentInChildren<PromptTrigger>().Spawn();
+                break;
+            case 9:
+                PromptManager.Instance.ClearPrompts();
+                _stageObjects.transform.GetChild(9).GetComponentInChildren<PromptTrigger>().Spawn();
+                break;
+            case 10:
+                PromptManager.Instance.ClearPrompts();
+                PromptManager.Instance.SpawnPointerArrow(_endOfTutorialTrigger);
+                _stageObjects.transform.GetChild(10).GetComponentInChildren<PromptTrigger>().Spawn();
                 break;
         }
     }

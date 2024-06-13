@@ -38,6 +38,7 @@ public class PromptManager : MonoBehaviour
     {
         CheckCurrentPromptTrigger();
         CheckCurrentIndicatorTrigger();
+        CheckCurrentArrowTarget();
         ManagePrompts();
     }
 
@@ -160,7 +161,6 @@ public class PromptManager : MonoBehaviour
     {
         foreach (GameObject prompt in Prompts)
         {
-            Debug.Log(prompt);
             if (prompt != null && prompt.GetComponent<PromptController>().Prompt.Trigger == null)
             {
                 Destroy(prompt);
@@ -176,6 +176,18 @@ public class PromptManager : MonoBehaviour
             if (CurrentIndicatorShown.GetComponent<Indicator>().Trigger == null)
             {
                 CloseCurrentIndicator();
+            }
+        }
+    }
+
+    private void CheckCurrentArrowTarget()
+    {
+        if (CurrentArrowShown == null) return;
+        else
+        {
+            if (CurrentArrowShown.GetComponent<PointerArrow>().Target == null)
+            {
+                CloseCurrentArrow();
             }
         }
     }

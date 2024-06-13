@@ -1511,12 +1511,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Prompt:
     TextFields:
-    - Implants are upgrades that will provide various benefits to help you become
-      stronger. You have limited space for them though, try opening your inventory
-      by pressing I and dropping an implant or weapon by Right Clicking it.
+    - 'Implants are upgrades that will provide various benefits to help you become
+      stronger. '
+    - You have limited space for them though.
+    - You open your inventory by pressing I and drop an implant or weapon by Right
+      Clicking it if you need to make space.
+    - 'There are sets of four implants which are complementary and will give you
+      a set effect when worn at the same time. '
+    - You can view more information about implants and weapons by hovering them in
+      your inventory.
     DialogueFields: []
-    EnableMovement: 1
-    PromptType: 1
+    EnableMovement: 0
+    PromptType: 2
     Trigger: {fileID: 0}
   _type: 3
   _delay: 0
@@ -1599,6 +1605,8 @@ MonoBehaviour:
   _stageObjects: {fileID: 3403507883010201036}
   _exteriorDoor: {fileID: 2194273095882435750}
   _interiorDoor: {fileID: 246682449201603877}
+  _storeClerk: {fileID: 2490809327101258646}
+  _endOfTutorialTrigger: {fileID: 7702564677230898723}
   CurrentStage: 0
 --- !u!1 &2194273095882435750
 GameObject:
@@ -1679,8 +1687,8 @@ MonoBehaviour:
     TextFields:
     - 'Here, you can see an enemy and a lootbox. Ennemies will be present in every
       room you visit. '
-    - After defeating all ennemies, you will be rewarded with a lootbox and able
-      to enter the next room.
+    - After defeating all enemies, you will be rewarded with a lootbox and able to
+      enter the next room.
     - Try pressing E to open the lootbox.
     DialogueFields: []
     EnableMovement: 1
@@ -1803,61 +1811,6 @@ MonoBehaviour:
   _scenePathHash: 0
   <SceneId>k__BackingField: 0
   <AssetPathHash>k__BackingField: 4148035349385130593
---- !u!1 &2354981914169733202
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2463118007977732051}
-  - component: {fileID: 7279875759410688124}
-  m_Layer: 0
-  m_Name: PromptTrigger
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2463118007977732051
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2354981914169733202}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 8584265179856998318}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7279875759410688124
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2354981914169733202}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be69e0a67f2c90d488fbf1c169ccfc57, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Prompt:
-    TextFields:
-    - There are sets of four implants which are complementary and will give you a
-      set effect when worn at the same time. You can view more information about
-      implants and weapons by hovering them in your inventory.
-    DialogueFields: []
-    EnableMovement: 1
-    PromptType: 1
-    Trigger: {fileID: 0}
-  _type: 3
-  _delay: 0
 --- !u!1 &2448154098944215293
 GameObject:
   m_ObjectHideFlags: 0
@@ -1907,6 +1860,7 @@ GameObject:
   - component: {fileID: 7505835752345135677}
   - component: {fileID: 5817256800729885398}
   - component: {fileID: 3375909792911967123}
+  - component: {fileID: 1995510800349584607}
   m_Layer: 0
   m_Name: StoreClerk
   m_TagString: Untagged
@@ -2192,6 +2146,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1995510800349584607
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2490809327101258646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28df5ca2873596747bd91024358bd0b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2595130272695221585
 GameObject:
   m_ObjectHideFlags: 0
@@ -2228,7 +2194,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 5668265794938147552}
   m_Father: {fileID: 791346934290035635}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1839735485 &6091313326315042823
@@ -3556,7 +3523,6 @@ Transform:
   - {fileID: 4501910121807003211}
   - {fileID: 6113057979240156419}
   - {fileID: 1097467569061473628}
-  - {fileID: 8584265179856998318}
   - {fileID: 8971157674006019321}
   m_Father: {fileID: 4683479709139863861}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -35217,12 +35183,18 @@ MonoBehaviour:
   Prompt:
     TextFields: []
     DialogueFields:
-    - Portrait: {fileID: 21300000, guid: 7ec58a17ce88192478d50cddb514a8b1, type: 3}
-      Name: clerk
-      Text: degage de mon store!!!!
-    - Portrait: {fileID: 21300000, guid: e0e3f4dac14eeb04990198e2b85a5941, type: 3}
-      Name: nathan
-      Text: NON !!!! je vais faire un attentat a l'elysee!
+    - Portrait: {fileID: -722309790, guid: 78f60d6562dc4a042a0de069db4046d7, type: 3}
+      Name: Store clerk
+      Text: Welcome! Have a look arou-
+    - Portrait: {fileID: -722309790, guid: 78f60d6562dc4a042a0de069db4046d7, type: 3}
+      Name: Store clerk
+      Text: Wait, why do you have a weapon? Don't hurt me, please!
+    - Portrait: {fileID: -813192134, guid: b3bf2ba239239364bad2b088099c1d08, type: 3}
+      Name: You
+      Text: Give me your gear. Don't act like you don't know what i'm talking about.
+    - Portrait: {fileID: -722309790, guid: 78f60d6562dc4a042a0de069db4046d7, type: 3}
+      Name: Store clerk
+      Text: Okay! Here it is! Don't hurt me..
     EnableMovement: 0
     PromptType: 0
     Trigger: {fileID: 0}
@@ -36449,7 +36421,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8971157674006019321}
   m_Layer: 0
-  m_Name: Stage11
+  m_Name: Stage10
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -36909,9 +36881,9 @@ MonoBehaviour:
     TextFields:
     - 'Welcome to Dual Punk. Your adventure begins here. '
     - This section will be a tutorial, teaching you how to survive in this world.
-    - During your adventure, you will enter areas to fight off ennemies.
-    - In this process, you will acquire upgrade, but be careful,
-    - If you die, you will lose everything...
+    - During your adventure, you will enter areas to fight off enemies.
+    - In this process, you will acquire upgrades. However, be careful...
+    - If you die, you lose everything...
     DialogueFields: []
     EnableMovement: 0
     PromptType: 2
@@ -60364,38 +60336,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4683479709139863861}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &7425054212466235884
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8584265179856998318}
-  m_Layer: 0
-  m_Name: Stage10
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &8584265179856998318
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7425054212466235884}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 2463118007977732051}
-  m_Father: {fileID: 6414271617116565723}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7606401711361798759
 GameObject:
   m_ObjectHideFlags: 0
@@ -60449,6 +60389,37 @@ MonoBehaviour:
     Trigger: {fileID: 0}
   _type: 3
   _delay: 0
+--- !u!1 &7702564677230898723
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5668265794938147552}
+  m_Layer: 0
+  m_Name: Position
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5668265794938147552
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7702564677230898723}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 106.43, y: -24.2, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1502862567569670103}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7740498198247845399
 GameObject:
   m_ObjectHideFlags: 0
@@ -64068,7 +64039,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Prompt:
     TextFields:
-    - Now you can press E to pick up the knife and attack the ennemy with Left Click.
+    - Now you can press E to pick up the knife and attack the enemy with Left Click.
     DialogueFields: []
     EnableMovement: 1
     PromptType: 1
