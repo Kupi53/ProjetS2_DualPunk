@@ -42,10 +42,9 @@ public class PromptTrigger : MonoBehaviour
     {
         if (!enabled) return;
         if (!(other.gameObject.GetComponent<NetworkObject>().Owner == GameManager.Instance.LocalPlayer.GetComponent<NetworkObject>().Owner)) return;
-        if (_type == PromptTriggerType.OnCollision && PromptManager.Instance.CurrentPromptShown != null 
-            && PromptManager.Instance.CurrentPromptShown.GetComponent<PromptController>().Prompt == Prompt)
+        if (_type == PromptTriggerType.OnCollision)
         {
-            PromptManager.Instance.CloseCurrentPrompt();
+            PromptManager.Instance.ClosePrompt(Prompt);
         }
     }
 

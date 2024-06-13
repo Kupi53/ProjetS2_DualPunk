@@ -131,14 +131,12 @@ public class TutorialManager : MonoBehaviour
             case 6:
                 if (GameManager.Instance.LocalPlayer.transform.position == _interiorDoor.transform.position)
                 {
-                    Debug.Log("vu");
                     ChangeStage(6,7);
                 }
                 break;
             case 7:
                 if (GameManager.Instance.LocalPlayer.transform.position == _exteriorDoor.transform.position)
                 {
-                    Debug.Log("vu2");
                     ChangeStage(7,6);
                 }
                 break;

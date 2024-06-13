@@ -46,7 +46,7 @@ public class PromptController : MonoBehaviour
             }
             else
             {
-                if (Prompt.PromptType != PromptType.Unclosable) Destroy(gameObject);
+                if (Prompt.PromptType != PromptType.Unclosable) PromptManager.Instance.ClosePrompt(Prompt);
             }
         }
         _firstFrame = false;
