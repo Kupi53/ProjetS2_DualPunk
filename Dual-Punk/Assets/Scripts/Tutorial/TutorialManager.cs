@@ -191,6 +191,8 @@ public class TutorialManager : MonoBehaviour
         switch(CurrentStage)
         {
             case 0:
+                _stage3enemy = FindClosestOfTwoTagged("Ennemy");
+                _stage4lootBox = FindClosestOfTwoTagged("Lootbox");
                 _stageObjects.transform.GetChild(0).GetComponentInChildren<PromptTrigger>().Spawn();
                 break;
             case 1:
@@ -206,14 +208,12 @@ public class TutorialManager : MonoBehaviour
                 _stageObjects.transform.GetChild(2).GetComponentInChildren<PromptTrigger>().Spawn();
                 break;
             case 3:
-                _stage3enemy = FindClosestOfTwoTagged("Ennemy");
                 PromptManager.Instance.CloseCurrentPrompt();
                 PromptManager.Instance.CloseCurrentArrow();
                 PromptManager.Instance.SpawnPointerArrow(_stage3enemy);
                 _stageObjects.transform.GetChild(3).GetComponentInChildren<PromptTrigger>().Spawn();
                 break;
             case 4:
-                _stage4lootBox = FindClosestOfTwoTagged("Lootbox");
                 PromptManager.Instance.CloseCurrentPrompt();
                 _stageObjects.transform.GetChild(4).GetComponentInChildren<PromptTrigger>().Spawn();
                 break;
