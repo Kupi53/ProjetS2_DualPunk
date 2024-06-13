@@ -130,6 +130,14 @@ public class PromptManager : MonoBehaviour
         }
     }
 
+    public void ClearPrompts()
+    {
+        foreach(GameObject prompt in Prompts)
+        {
+            Destroy(prompt);
+        }
+    }
+
     public void CloseCurrentIndicator()
     {
         if (CurrentIndicatorShown != null)

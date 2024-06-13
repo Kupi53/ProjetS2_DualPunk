@@ -32,7 +32,7 @@ public class PromptTrigger : MonoBehaviour
         if (!(other.gameObject.GetComponent<NetworkObject>().Owner == GameManager.Instance.LocalPlayer.GetComponent<NetworkObject>().Owner)) return;
         if (_type == PromptTriggerType.OnButton)
         {
-            if (Input.GetButtonDown("Interact"))
+            if (Input.GetButtonDown("Interact") && other.gameObject.GetComponent<MouvementsController>().EnableMovement)
             {
                 Spawn();
             }

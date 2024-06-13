@@ -1,10 +1,10 @@
 using UnityEngine;
 
 [System.Serializable]
-public class DialogueField : MonoBehaviour
+public class DialogueField
 {
-    [SerializeField] private Sprite _portrait;
-    [SerializeField] private string _name;
-    [SerializeField] private string _text;
+    [SerializeField] public Sprite Portrait;
+    [SerializeField] public string Name;
+    [SerializeField] public string Text;
 
 }

@@ -515,6 +515,7 @@ MonoBehaviour:
   Prompt:
     TextFields:
     - Wait for the second player to join you at the door.
+    DialogueFields: []
     EnableMovement: 1
     PromptType: 1
     Trigger: {fileID: 0}
@@ -535,6 +536,7 @@ MonoBehaviour:
   Prompt:
     TextFields:
     - Press "E" to go through with the door.
+    DialogueFields: []
     EnableMovement: 1
     PromptType: 1
     Trigger: {fileID: 0}
@@ -1512,6 +1514,7 @@ MonoBehaviour:
     - Implants are upgrades that will provide various benefits to help you become
       stronger. You have limited space for them though, try opening your inventory
       by pressing I and dropping an implant or weapon by Right Clicking it.
+    DialogueFields: []
     EnableMovement: 1
     PromptType: 1
     Trigger: {fileID: 0}
@@ -1679,6 +1682,7 @@ MonoBehaviour:
     - After defeating all ennemies, you will be rewarded with a lootbox and able
       to enter the next room.
     - Try pressing E to open the lootbox.
+    DialogueFields: []
     EnableMovement: 1
     PromptType: 1
     Trigger: {fileID: 0}
@@ -1848,6 +1852,7 @@ MonoBehaviour:
     - There are sets of four implants which are complementary and will give you a
       set effect when worn at the same time. You can view more information about
       implants and weapons by hovering them in your inventory.
+    DialogueFields: []
     EnableMovement: 1
     PromptType: 1
     Trigger: {fileID: 0}
@@ -1901,6 +1906,7 @@ GameObject:
   - component: {fileID: 5760300689101596837}
   - component: {fileID: 7505835752345135677}
   - component: {fileID: 5817256800729885398}
+  - component: {fileID: 3375909792911967123}
   m_Layer: 0
   m_Name: StoreClerk
   m_TagString: Untagged
@@ -1917,7 +1923,7 @@ Transform:
   m_GameObject: {fileID: 2490809327101258646}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.42, y: -2.12, z: 0}
+  m_LocalPosition: {x: 5.52, y: -1.81, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1984,18 +1990,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.20148629}
+  m_Offset: {x: 0, y: -0.022051707}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.25}
-    oldSize: {x: 0.425, y: 0.85}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.5, y: 0.85}
     newSize: {x: 3.74, y: 4.34}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.41057777, y: 0.80152094}
+  m_Size: {x: 0.41057777, y: 0.93758774}
   m_EdgeRadius: 0
 --- !u!212 &3889889688406540078
 SpriteRenderer:
@@ -2038,7 +2044,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 234369372, guid: 14517d43e6077e645935630d4cab549f, type: 3}
+  m_Sprite: {fileID: 1283773653, guid: f2850288b60dfb347a6f816964ba58d3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
   m_FlipY: 0
@@ -2165,6 +2171,27 @@ MonoBehaviour:
   _interpolation: 2
   _clientAuthoritative: 1
   _sendToOwner: 0
+--- !u!95 &3375909792911967123
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2490809327101258646}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 912f622626deccb4b9d9835aa34b4f83, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &2595130272695221585
 GameObject:
   m_ObjectHideFlags: 0
@@ -2528,6 +2555,7 @@ MonoBehaviour:
   Prompt:
     TextFields:
     - Wait for the second player before leaving this area.
+    DialogueFields: []
     EnableMovement: 1
     PromptType: 1
     Trigger: {fileID: 0}
@@ -2548,6 +2576,7 @@ MonoBehaviour:
   Prompt:
     TextFields:
     - Press E to leave the tutorial.
+    DialogueFields: []
     EnableMovement: 1
     PromptType: 1
     Trigger: {fileID: 0}
@@ -2748,10 +2777,10 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 959
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -2765,10 +2794,10 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.00093972683, y: 0.070979685}
+  m_Offset: {x: -0.10502201, y: -0.06341314}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -2779,7 +2808,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.9870241, y: 1.4756081}
+  m_Size: {x: 1.587516, y: 1.1216335}
   m_EdgeRadius: 0
 --- !u!114 &6239853813017759457
 MonoBehaviour:
@@ -2796,7 +2825,7 @@ MonoBehaviour:
   _componentIndexCache: 2
   _addedNetworkObject: {fileID: 2531752674369917368}
   _networkObjectCache: {fileID: 2531752674369917368}
-  _icon: {fileID: -695721306, guid: 3149fe79ff3ac524e866ab0572e453b1, type: 3}
+  _icon: {fileID: 633180335, guid: 3149fe79ff3ac524e866ab0572e453b1, type: 3}
   indicatorPosX: 5.5
   indicatorPosY: -0.5
 --- !u!1 &3239843787824911440
@@ -3545,6 +3574,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Prompt:
     TextFields: []
+    DialogueFields: []
     EnableMovement: 0
     PromptType: 0
     Trigger: {fileID: 0}
@@ -35003,6 +35033,7 @@ MonoBehaviour:
   Prompt:
     TextFields:
     - You can also press your Left Shift key to perform a Dash move.
+    DialogueFields: []
     EnableMovement: 1
     PromptType: 1
     Trigger: {fileID: 0}
@@ -35055,6 +35086,7 @@ MonoBehaviour:
   Prompt:
     TextFields:
     - Use your WASD keys to move around.
+    DialogueFields: []
     EnableMovement: 1
     PromptType: 1
     Trigger: {fileID: 0}
@@ -35137,10 +35169,10 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 959
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -35154,10 +35186,10 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.05960083, y: -0.10926825}
+  m_Offset: {x: -0.04731655, y: -0.045214593}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -35168,7 +35200,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.4966736, y: 1.2781373}
+  m_Size: {x: 1.3424301, y: 0.7353507}
   m_EdgeRadius: 0
 --- !u!114 &7160106588557409628
 MonoBehaviour:
@@ -35184,10 +35216,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Prompt:
     TextFields: []
+    DialogueFields:
+    - Portrait: {fileID: 21300000, guid: 7ec58a17ce88192478d50cddb514a8b1, type: 3}
+      Name: clerk
+      Text: degage de mon store!!!!
+    - Portrait: {fileID: 21300000, guid: e0e3f4dac14eeb04990198e2b85a5941, type: 3}
+      Name: nathan
+      Text: NON !!!! je vais faire un attentat a l'elysee!
     EnableMovement: 0
     PromptType: 0
     Trigger: {fileID: 0}
-  _type: 0
+  _type: 2
   _delay: 0
 --- !u!1 &5265920140822491177
 GameObject:
@@ -35236,6 +35275,7 @@ MonoBehaviour:
   Prompt:
     TextFields:
     - Now, navigate in the direction of the arrow and press E to enter the door.
+    DialogueFields: []
     EnableMovement: 1
     PromptType: 1
     Trigger: {fileID: 0}
@@ -35620,6 +35660,7 @@ MonoBehaviour:
   Prompt:
     TextFields:
     - Wait for the second player to join you at the door.
+    DialogueFields: []
     EnableMovement: 1
     PromptType: 1
     Trigger: {fileID: 0}
@@ -35640,6 +35681,7 @@ MonoBehaviour:
   Prompt:
     TextFields:
     - Press "E" to go through with the door.
+    DialogueFields: []
     EnableMovement: 1
     PromptType: 1
     Trigger: {fileID: 0}
@@ -36870,6 +36912,7 @@ MonoBehaviour:
     - During your adventure, you will enter areas to fight off ennemies.
     - In this process, you will acquire upgrade, but be careful,
     - If you die, you will lose everything...
+    DialogueFields: []
     EnableMovement: 0
     PromptType: 2
     Trigger: {fileID: 0}
@@ -60400,6 +60443,7 @@ MonoBehaviour:
   Prompt:
     TextFields:
     - Pick up the implant and weapon you stole from the clerk and leave the store.
+    DialogueFields: []
     EnableMovement: 1
     PromptType: 1
     Trigger: {fileID: 0}
@@ -60452,6 +60496,7 @@ MonoBehaviour:
   Prompt:
     TextFields:
     - Now, follow the arrow to leave the tutorial area and start your adventure.
+    DialogueFields: []
     EnableMovement: 1
     PromptType: 1
     Trigger: {fileID: 0}
@@ -60536,6 +60581,7 @@ MonoBehaviour:
   Prompt:
     TextFields:
     - Now, navigate in the direction of the arrow.
+    DialogueFields: []
     EnableMovement: 1
     PromptType: 1
     Trigger: {fileID: 0}
@@ -60620,6 +60666,7 @@ MonoBehaviour:
   Prompt:
     TextFields:
     - Talk to the store clerk to rob him.
+    DialogueFields: []
     EnableMovement: 1
     PromptType: 1
     Trigger: {fileID: 0}
@@ -64022,6 +64069,7 @@ MonoBehaviour:
   Prompt:
     TextFields:
     - Now you can press E to pick up the knife and attack the ennemy with Left Click.
+    DialogueFields: []
     EnableMovement: 1
     PromptType: 1
     Trigger: {fileID: 0}

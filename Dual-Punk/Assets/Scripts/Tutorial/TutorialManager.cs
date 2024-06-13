@@ -185,7 +185,7 @@ public class TutorialManager : MonoBehaviour
                 _stageObjects.transform.GetChild(6).GetComponentInChildren<PromptTrigger>().Spawn();
                 break;
             case 7:
-                PromptManager.Instance.CloseCurrentPrompt();
+                PromptManager.Instance.ClearPrompts();
                 PromptManager.Instance.CloseCurrentArrow();
                 _stageObjects.transform.GetChild(7).GetComponentInChildren<PromptTrigger>().Spawn();
                 break;
