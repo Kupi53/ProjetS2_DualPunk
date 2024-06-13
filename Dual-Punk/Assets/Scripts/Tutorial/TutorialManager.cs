@@ -99,16 +99,14 @@ public class TutorialManager : MonoBehaviour
                 }
                 break;
             case 3: 
-                if (!PromptManager.Instance.CurrentArrowShown.GetComponent<Image>().enabled)
+                if (PromptManager.Instance.CurrentArrowShown == null || !PromptManager.Instance.CurrentArrowShown.GetComponent<Image>().enabled)
                 {
-                    Debug.Log(_stage4cleared);
                     if (!_stage4cleared) ChangeStage(3,4);
                     else ChangeStage(3,5);
-
                 }
                 break;
             case 4:
-                if (PromptManager.Instance.CurrentArrowShown.GetComponent<Image>().enabled)
+                if (PromptManager.Instance.CurrentArrowShown != null && PromptManager.Instance.CurrentArrowShown.GetComponent<Image>().enabled)
                 {
                     ChangeStage(4,3);
                 }
