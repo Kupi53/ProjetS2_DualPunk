@@ -6,6 +6,7 @@ using UnityEngine;
 public class Prompt
 {
     public string[] TextFields;
+    public DialogueField[] DialogueFields;
     public bool EnableMovement;
     public PromptType PromptType;
     public GameObject Trigger;

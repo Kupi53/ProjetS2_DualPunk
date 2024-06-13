@@ -105,7 +105,12 @@ public class EnemyHealthManager : NetworkBehaviour, IDamageable
                 _imunityTimer = _imuneTime;
                 if (!IsServer) return;
                 StartCoroutine(Stun(_imuneTime));
-                GetComponent<EnemyWeaponHandler>().AssignWeapon();
+                EnemyWeaponHandler enemyWeaponHandler;
+                TryGetComponent<EnemyWeaponHandler>(out enemyWeaponHandler);
+                if (enemyWeaponHandler != null)
+                {
+                    enemyWeaponHandler.AssignWeapon();
+                }
             }
         }
     }
@@ -113,7 +118,12 @@ public class EnemyHealthManager : NetworkBehaviour, IDamageable
 
     public bool DestroyObject()
     {
-        GetComponent<EnemyWeaponHandler>().DropWeapon();
+        EnemyWeaponHandler enemyWeaponHandler;
+        TryGetComponent<EnemyWeaponHandler>(out enemyWeaponHandler);
+        if (enemyWeaponHandler != null)
+        {
+            enemyWeaponHandler.DropWeapon();
+        }
         Destroy(gameObject);
         return true;
     }
