@@ -323,8 +323,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   _detectionOffset: {x: 0, y: 0.5, z: 0}
-  _lockDistance: 15
-  _unlockDistance: 20
+  _lockDistance: 8
+  _unlockDistance: 14
 --- !u!114 &9003789017972292883
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -340,8 +340,8 @@ MonoBehaviour:
   _componentIndexCache: 1
   _addedNetworkObject: {fileID: 8662005701061872785}
   _networkObjectCache: {fileID: 8662005701061872785}
-  _walkSpeed: 0.04
-  _runSpeed: 0.07
+  _walkSpeed: 0.02
+  _runSpeed: 0.05
   _reCalculationTime: 0.5
   _forcesEffect: 0.08
   _forcesDecreaseSpeed: 15
@@ -362,7 +362,7 @@ MonoBehaviour:
   _networkObjectCache: {fileID: 8662005701061872785}
   _weapons:
   - {fileID: 8566271621736578887, guid: 45c33cf5e24d4e94cb0d06a7185ababe, type: 3}
-  _aimVariationAngleRange: 10
+  _aimVariationAngleRange: 20
   _smoothTime: 0.25
 --- !u!114 &5565835780587346742
 MonoBehaviour:
@@ -379,7 +379,7 @@ MonoBehaviour:
   _componentIndexCache: 3
   _addedNetworkObject: {fileID: 8662005701061872785}
   _networkObjectCache: {fileID: 8662005701061872785}
-  _lives: c8000000
+  _lives: 64000000
   _imuneTime: 0.5
   _defenceTime: 1
 --- !u!114 &105605007444475360
