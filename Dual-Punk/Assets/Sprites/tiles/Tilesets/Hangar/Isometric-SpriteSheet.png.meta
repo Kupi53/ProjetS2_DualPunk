@@ -72,7 +72,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -597,9 +597,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 128
-        y: 172
+        y: 160
         width: 32
-        height: 20
+        height: 32
       alignment: 9
       pivot: {x: 0.5, y: 0.75}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -618,9 +618,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 160
-        y: 172
+        y: 160
         width: 32
-        height: 20
+        height: 32
       alignment: 9
       pivot: {x: 0.5, y: 0.75}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -811,7 +811,7 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -832,7 +832,7 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -853,7 +853,7 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -874,7 +874,7 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -890,8 +890,8 @@ TextureImporter:
       name: Isometric-SpriteSheet_37
       rect:
         serializedVersion: 2
-        x: 96
-        y: 139
+        x: 192
+        y: 288
         width: 32
         height: 32
       alignment: 9
@@ -911,8 +911,8 @@ TextureImporter:
       name: Isometric-SpriteSheet_38
       rect:
         serializedVersion: 2
-        x: 128
-        y: 139
+        x: 224
+        y: 288
         width: 32
         height: 32
       alignment: 9
@@ -932,8 +932,8 @@ TextureImporter:
       name: Isometric-SpriteSheet_39
       rect:
         serializedVersion: 2
-        x: 159
-        y: 139
+        x: 192
+        y: 256
         width: 32
         height: 32
       alignment: 9
@@ -953,8 +953,8 @@ TextureImporter:
       name: Isometric-SpriteSheet_40
       rect:
         serializedVersion: 2
-        x: 0
-        y: 96
+        x: 224
+        y: 256
         width: 32
         height: 32
       alignment: 9
@@ -974,8 +974,8 @@ TextureImporter:
       name: Isometric-SpriteSheet_41
       rect:
         serializedVersion: 2
-        x: 32
-        y: 96
+        x: 192
+        y: 224
         width: 32
         height: 32
       alignment: 9
@@ -995,8 +995,8 @@ TextureImporter:
       name: Isometric-SpriteSheet_42
       rect:
         serializedVersion: 2
-        x: 64
-        y: 96
+        x: 224
+        y: 224
         width: 32
         height: 32
       alignment: 9
@@ -1016,8 +1016,8 @@ TextureImporter:
       name: Isometric-SpriteSheet_43
       rect:
         serializedVersion: 2
-        x: 96
-        y: 96
+        x: 192
+        y: 192
         width: 32
         height: 32
       alignment: 9
@@ -1037,9 +1037,9 @@ TextureImporter:
       name: Isometric-SpriteSheet_44
       rect:
         serializedVersion: 2
-        x: 127
-        y: 96
-        width: 33
+        x: 224
+        y: 192
+        width: 32
         height: 32
       alignment: 9
       pivot: {x: 0.5, y: 0.75}
@@ -1058,8 +1058,8 @@ TextureImporter:
       name: Isometric-SpriteSheet_45
       rect:
         serializedVersion: 2
-        x: 158
-        y: 94
+        x: 192
+        y: 160
         width: 32
         height: 32
       alignment: 9
@@ -1079,8 +1079,8 @@ TextureImporter:
       name: Isometric-SpriteSheet_46
       rect:
         serializedVersion: 2
-        x: 128
-        y: 64
+        x: 224
+        y: 160
         width: 32
         height: 32
       alignment: 9
@@ -1100,8 +1100,8 @@ TextureImporter:
       name: Isometric-SpriteSheet_47
       rect:
         serializedVersion: 2
-        x: 160
-        y: 63
+        x: 128
+        y: 128
         width: 32
         height: 32
       alignment: 9
@@ -1113,6 +1113,363 @@ TextureImporter:
       bones: []
       spriteID: 3efc1d3f67fc20545b229dfe9a7b59a0
       internalID: -1837191103
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Isometric-SpriteSheet_48
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 128
+        width: 32
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0.75}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9e40fa8973e240646b35ff9c46ca027c
+      internalID: 2035933880
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Isometric-SpriteSheet_49
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 128
+        width: 32
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0.75}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 924a9017daefdbe4eaf60616e14791c2
+      internalID: -2035854624
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Isometric-SpriteSheet_50
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 128
+        width: 32
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0.75}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f5182a470b76e3b43a8a30f98a31ea5b
+      internalID: -445274372
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Isometric-SpriteSheet_51
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 96
+        width: 32
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0.75}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 78243d2376be3c4408e51ced49414c6e
+      internalID: -1587096440
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Isometric-SpriteSheet_52
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 96
+        width: 32
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0.75}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d46742fff7342bc4da209d2aa6c20504
+      internalID: -727931907
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Isometric-SpriteSheet_53
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 96
+        width: 32
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0.75}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 97668da1cfdf1a841aa77b0fd7648140
+      internalID: -299097047
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Isometric-SpriteSheet_54
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 96
+        width: 32
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0.75}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 89ba6bb7e222c944ea3fc7200592965f
+      internalID: -60602336
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Isometric-SpriteSheet_55
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 64
+        width: 32
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0.75}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 07edc35e72ef1cb48b715c9905b82860
+      internalID: 1201446055
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Isometric-SpriteSheet_56
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 64
+        width: 32
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0.75}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bb3bf6635f3b88941a8295f5aa402dbc
+      internalID: -1888685843
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Isometric-SpriteSheet_57
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 64
+        width: 32
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0.75}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c31cc379992ff8644be6c5c4f6dccc07
+      internalID: -777440882
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Isometric-SpriteSheet_58
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 64
+        width: 32
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0.75}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b76b435db2344c146a849243babf8ebc
+      internalID: -1515274479
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Isometric-SpriteSheet_59
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 32
+        width: 32
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0.75}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d0a1881e693205f43b22c2f3d500df12
+      internalID: -1435707939
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Isometric-SpriteSheet_60
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 32
+        width: 32
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0.75}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 470a82ee90d387147869932b6ed75813
+      internalID: 254931280
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Isometric-SpriteSheet_61
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 32
+        width: 32
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0.75}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 71d4e4af61380b34a8262087f2aa4436
+      internalID: -1778135080
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Isometric-SpriteSheet_62
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 32
+        width: 32
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0.75}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 05f59a5e1d04835449637a0dab9b816f
+      internalID: -1579290305
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Isometric-SpriteSheet_63
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 0
+        width: 32
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0.75}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: db92819ba717dc54d96a034470149af5
+      internalID: 297983829
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Isometric-SpriteSheet_64
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 0
+        width: 32
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0.75}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 02559dc51cb478a4aaa517109389d2cd
+      internalID: 1726843298
       vertices: []
       indices: 
       edges: []
@@ -1171,8 +1528,25 @@ TextureImporter:
       Isometric-SpriteSheet_45: 2144162262
       Isometric-SpriteSheet_46: 1765143455
       Isometric-SpriteSheet_47: -1837191103
+      Isometric-SpriteSheet_48: 2035933880
+      Isometric-SpriteSheet_49: -2035854624
       Isometric-SpriteSheet_5: 141532873
+      Isometric-SpriteSheet_50: -445274372
+      Isometric-SpriteSheet_51: -1587096440
+      Isometric-SpriteSheet_52: -727931907
+      Isometric-SpriteSheet_53: -299097047
+      Isometric-SpriteSheet_54: -60602336
+      Isometric-SpriteSheet_55: 1201446055
+      Isometric-SpriteSheet_56: -1888685843
+      Isometric-SpriteSheet_57: -777440882
+      Isometric-SpriteSheet_58: -1515274479
+      Isometric-SpriteSheet_59: -1435707939
       Isometric-SpriteSheet_6: -920339917
+      Isometric-SpriteSheet_60: 254931280
+      Isometric-SpriteSheet_61: -1778135080
+      Isometric-SpriteSheet_62: -1579290305
+      Isometric-SpriteSheet_63: 297983829
+      Isometric-SpriteSheet_64: 1726843298
       Isometric-SpriteSheet_7: -1655247783
       Isometric-SpriteSheet_8: 1419394301
       Isometric-SpriteSheet_9: -509648738
