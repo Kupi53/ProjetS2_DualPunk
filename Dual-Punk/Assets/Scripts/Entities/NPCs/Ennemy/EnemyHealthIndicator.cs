@@ -65,12 +65,13 @@ public class EnemyHealthIndicator : NetworkBehaviour
             _index++;
         }
 
-        if (_length - _index > 0)
+        if (_length - _index - 1 >= 0)
         {
             _healthsBar[_length - _index - 1].Current = _healthManager.Lives[_index];
         }
     }
 
+    [ServerRpc(RequireOwnership = false)]
     public void DisplayDamageIndicator(Vector3 scale, Color color, int amount)
     {
         if (amount == 0) return;
@@ -80,5 +81,7 @@ public class EnemyHealthIndicator : NetworkBehaviour
         floatingText.GetComponent<RectTransform>().SetScale(scale);
         floatingText.GetComponent<TextMeshProUGUI>().text = amount.ToString();
         floatingText.GetComponent<TextMeshProUGUI>().color = color;
+
+        Spawn(floatingText);
     }
 }
