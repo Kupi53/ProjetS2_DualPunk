@@ -17,7 +17,6 @@ public class Explosion : NetworkBehaviour
     }
 
 
-    [ServerRpc(RequireOwnership = false)]
     private void DamageVictims(string tagDeLaVictime, int damage, float explosionRadius, float explosionImpact, bool dealDamage, bool warriorLuck)
     {
         GameObject[] victimes = GameObject.FindGameObjectsWithTag(tagDeLaVictime);
@@ -45,10 +44,22 @@ public class Explosion : NetworkBehaviour
             
             if (distance <= explosionRadius)
             {
+                if (dealDamage)
+                    damage = 0;
+                else
+                    damage = (int)(damage * (explosionRadius - distance) / explosionRadius);
+
+
+                if (tagDeLaVictime == "Player")
+                {
+                    HitPlayer(grosseVictime, hitDirection, explosionImpact * (1 - distance / explosionRadius), damage, warriorLuck);
+                    return;
+                }
+
                 grosseVictime.GetComponent<IImpact>().Impact(hitDirection, explosionImpact * (1 - distance / explosionRadius));
 
-                if (dealDamage)
-                    grosseVictime.GetComponent<IDamageable>().Damage((int)(damage * (explosionRadius - distance) / explosionRadius), 0.25f, warriorLuck, 0f);
+                if (damage > 0)
+                    grosseVictime.GetComponent<IDamageable>().Damage(damage, 0.25f, warriorLuck, 0f);
             }
         }
     }
@@ -60,5 +71,13 @@ public class Explosion : NetworkBehaviour
         if (playerState.CameraController == null) return;
 
         playerState.CameraController.ShakeCamera(intensity, 0.25f);
+    }
+
+    [ObserversRpc]
+    private void HitPlayer(GameObject player, Vector3 direction, float intensity, int damage, bool crit)
+    {
+        player.GetComponent<IImpact>().Impact(direction, intensity);
+        if (damage > 0)
+            player.GetComponent<IDamageable>().Damage(damage, 0.25f, crit, 0f);
     }
 }
