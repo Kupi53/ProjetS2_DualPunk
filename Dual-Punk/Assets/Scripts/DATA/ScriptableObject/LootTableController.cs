@@ -12,12 +12,14 @@ public class LootTableController : MonoBehaviour
 
     public void Loot()
     {
-        int lootRolls = UnityEngine.Random.Range(lootTable.MinLootRollAmount, lootTable.MaxLootRollAmount);
-        for (int i =0; i<lootRolls; i++)
+        Debug.Log("test");
+        int lootRolls = UnityEngine.Random.Range(lootTable.MinLootRollAmount, lootTable.MaxLootRollAmount+1);
+        Debug.Log(lootRolls);
+        for (int i = 0; i<lootRolls; i++)
         {
             string idToSpawn = lootTable.PickLoot();
             Vector3 offset = PickOffset();
-            ObjectSpawner.Instance.SpawnObjectFromIdRpc(idToSpawn, gameObject.transform.position + offset, new quaternion());
+            ObjectSpawner.Instance.SpawnObjectFromIdRpc(idToSpawn, gameObject.transform.position + offset, quaternion.identity);
         }
     }
 

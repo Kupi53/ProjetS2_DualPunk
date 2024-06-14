@@ -114,8 +114,8 @@ public class EnemyWeaponHandler : NetworkBehaviour
 
     public void AssignWeapon()
     {
+        if (_weaponScript != null) DeleteWeapon();
         if (_weaponIndex >= _weapons.Length) return;
-        if (_weaponIndex > 0) DropWeapon();
         
         GameObject weapon = Instantiate(_weapons[_weaponIndex], transform.position, Quaternion.identity);
         weapon.transform.SetParent(gameObject.transform);
@@ -128,6 +128,12 @@ public class EnemyWeaponHandler : NetworkBehaviour
     public void DropWeapon()
     {
         _weaponScript.Drop();
+        _weaponScript = null;
+    }
+
+    public void DeleteWeapon()
+    {
+        Destroy(_weaponScript.gameObject);
         _weaponScript = null;
     }
 }

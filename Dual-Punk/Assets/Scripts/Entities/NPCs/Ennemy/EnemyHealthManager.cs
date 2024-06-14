@@ -15,6 +15,7 @@ public class EnemyHealthManager : NetworkBehaviour, IDamageable
     private EnemyState _enemyState;
     private EnemyHealthIndicator _healthIndicator;
     private SpriteRenderer _spriteRenderer;
+    private LootTableController _lootTableController;
     private float _defenceTimer;
     private float _imunityTimer;
     private int _maxHealth;
@@ -32,6 +33,7 @@ public class EnemyHealthManager : NetworkBehaviour, IDamageable
         _enemyState = GetComponent<EnemyState>();
         _healthIndicator = GetComponent<EnemyHealthIndicator>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
+        _lootTableController = GetComponent<LootTableController>();
     }
 
     private void Update()
@@ -131,12 +133,10 @@ public class EnemyHealthManager : NetworkBehaviour, IDamageable
 
     public bool DestroyObject()
     {
+        _lootTableController.Loot();
         EnemyWeaponHandler enemyWeaponHandler;
         TryGetComponent<EnemyWeaponHandler>(out enemyWeaponHandler);
-        if (enemyWeaponHandler != null)
-        {
-            enemyWeaponHandler.DropWeapon();
-        }
+        if (enemyWeaponHandler != null) enemyWeaponHandler.DeleteWeapon();
         Destroy(gameObject);
         return true;
     }

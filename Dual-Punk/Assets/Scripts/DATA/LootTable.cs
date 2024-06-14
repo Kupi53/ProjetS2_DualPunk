@@ -24,13 +24,14 @@ public class LootTable
 
     public string PickLoot()
     {
-        int lootRoll = UnityEngine.Random.Range(0, _lootRange);
+        int lootRoll = UnityEngine.Random.Range(1, _lootRange);
         (int, int) key = (0,0);
         foreach ((int,int) range in _table.Keys)
         {
             if (range.Item1 <= lootRoll && lootRoll <= range.Item2)
             {
                 key = range;
+                Debug.Log(_table[key]);
             }
         }
         if (key == (0,0)) throw new System.Exception("Did not find range in the loot table");

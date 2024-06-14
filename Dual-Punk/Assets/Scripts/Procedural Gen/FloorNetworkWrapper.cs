@@ -60,6 +60,7 @@ public class FloorNetworkWrapper : NetworkBehaviour
     public void SpawnEnemies()
     {
         if (!IsServer) return;
+        Debug.Log(LocalFloorManager);
         Tilemap[] tilemaps = LocalFloorManager.CurrentRoom.GetComponentsInChildren<Tilemap>();
         int enemyAmount = UnityEngine.Random.Range(_actualMinEnemies, _actualMaxEnemies+1);
         Tilemap tileMap = tilemaps.Where(map => map.gameObject.name == "Tilemap").First();

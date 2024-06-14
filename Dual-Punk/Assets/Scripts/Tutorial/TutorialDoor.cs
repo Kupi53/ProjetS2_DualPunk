@@ -39,8 +39,8 @@ public class TutorialDoor : DoorBase
     [ObserversRpc]
     void SetNextRoomCurrentObservers()
     {
-        _target.tag = "ActiveRoom";
-        gameObject.tag = "Untagged";
+        //_target.tag = "ActiveRoom";
+        //gameObject.tag = "Untagged";
     }
 
 
