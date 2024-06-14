@@ -844,6 +844,27 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Collision tiles_35
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 160
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0ff1449add45d754fa097d68e623da83
+      internalID: 668191360
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -884,6 +905,7 @@ TextureImporter:
       Collision tiles_32: -1247406456
       Collision tiles_33: -524788408
       Collision tiles_34: 1230580073
+      Collision tiles_35: 668191360
       Collision tiles_4: 336633556
       Collision tiles_5: 279851329
       Collision tiles_6: -1142978889
