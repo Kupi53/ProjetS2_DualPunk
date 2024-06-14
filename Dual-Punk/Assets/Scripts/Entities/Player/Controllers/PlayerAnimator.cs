@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class PlayerAnimator : NetworkBehaviour
 {
+    [SerializeField] private GameObject _deadAnimation;
+
     private PlayerState _playerState;
     private NetworkAnimator _networkAnimator;
     private string _currentState;

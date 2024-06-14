@@ -314,7 +314,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _normal: {fileID: 21300000, guid: 1c90d40e3f4224b4d893056e8cfac666, type: 3}
-  _highlighted: {fileID: 21300000, guid: 1c90d40e3f4224b4d893056e8cfac666, type: 3}
+  _highlighted: {fileID: 21300000, guid: cf4e3c60831735c4a96a69ee0a3f1e8b, type: 3}
 --- !u!114 &-6532868988949993772
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -357,7 +357,7 @@ MonoBehaviour:
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 5
+  <PrefabId>k__BackingField: 6
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0
