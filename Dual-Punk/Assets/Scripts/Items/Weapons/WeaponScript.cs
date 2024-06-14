@@ -80,6 +80,7 @@ public abstract class WeaponScript : NetworkBehaviour
 
     public void PickUp(GameObject owner)
     {
+        Debug.Log("AU SEOUR " + gameObject);
         UpdateInHandSer(true);
 
         PlayerState = owner.GetComponent<PlayerState>();
