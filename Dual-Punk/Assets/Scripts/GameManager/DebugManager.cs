@@ -93,7 +93,7 @@ public class DebugManager : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.V))
         {
-            GameManager.Instance.LocalPlayerState.IsDown = true;
+            GameManager.Instance.LocalPlayer.GetComponent<ReviveAndDownController>().DownServer();
         }
     }
 

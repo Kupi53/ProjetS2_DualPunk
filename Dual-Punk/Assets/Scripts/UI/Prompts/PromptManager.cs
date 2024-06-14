@@ -104,6 +104,19 @@ public class PromptManager : MonoBehaviour
         indicator.Trigger = Trigger;
         CurrentIndicatorShown = indicatorObject;
     }
+    public void SpawnIndicatorWithParent(Sprite _indicatorSprite, Vector3 position, GameObject Trigger, GameObject parent)
+    {
+        if (CurrentIndicatorShown is not null)
+        {
+            CloseCurrentIndicator();
+        }
+        GameObject indicatorObject = (GameObject)Instantiate(Resources.Load("Indicator"), parent.transform);
+        indicatorObject.transform.position += position;
+        indicatorObject.GetComponent<SpriteRenderer>().sprite = _indicatorSprite;
+        Indicator indicator = indicatorObject.AddComponent<Indicator>();
+        indicator.Trigger = Trigger;
+        CurrentIndicatorShown = indicatorObject;
+    }
 
     public void SpawnPointerArrow(GameObject target)
     {
