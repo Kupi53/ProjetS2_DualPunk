@@ -10,6 +10,7 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
 {
     [SerializeField] private Image _dropPanel;
     [SerializeField] private Image _inventoryPanel;
+    [SerializeField] private GameObject _sprite;
     private GameObject _draggedObject;
     private InventorySlots _lastSlotPosition;
     private InventorySlots _currentSlot;
@@ -32,6 +33,16 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
         EquipedSlotIndex = 0;
         swapping  = false;
         
+        Sprite playerSprite = PlayerState.gameObject.GetComponent<SpriteRenderer>().sprite;
+        _sprite.GetComponent<Image>().sprite = playerSprite;
+
+        if (playerSprite.name.Contains("Player2"))
+        {
+            RectTransform rectTransform = _sprite.GetComponent<RectTransform>();
+
+            rectTransform.anchoredPosition = new Vector2(-134, rectTransform.anchoredPosition.y);
+            rectTransform.sizeDelta = new Vector2(184.31f, rectTransform.sizeDelta.y);
+        }
     }
 
 

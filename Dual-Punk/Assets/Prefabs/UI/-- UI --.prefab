@@ -1169,7 +1169,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 484110623, guid: 5f4d8ffc52f65f3409ab78c2b8d8c937, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4299,6 +4299,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _dropPanel: {fileID: 3252013949321823984}
   _inventoryPanel: {fileID: 3623177112616440984}
+  _sprite: {fileID: 1436113473658292445}
   WeaponSlots:
   - {fileID: 1447645725320215278}
   - {fileID: 3840864690752430990}
