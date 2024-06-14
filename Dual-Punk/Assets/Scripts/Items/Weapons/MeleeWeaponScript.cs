@@ -8,6 +8,7 @@ using UnityEngine.EventSystems;
 public abstract class MeleeWeaponScript : WeaponScript
 {
     [SerializeField] protected List<AudioClip> _attackSound;
+    [SerializeField] protected List<AudioClip> _defendSound;
     [SerializeField] protected AudioClip _criticalSound;
     [SerializeField] protected GameObject _attackPoint;
     [SerializeField] protected int _criticalDamage;
@@ -187,6 +188,9 @@ public abstract class MeleeWeaponScript : WeaponScript
             if (hitCollider.CompareTag("Projectile"))
             {
                 hitCollider.GetComponent<IDestroyable>().DestroyObject();
+
+                System.Random randomSound = new System.Random();
+                AudioManager.Instance.PlayClipAt(_attackSound[randomSound.Next(_defendSound.Count)], gameObject.transform.position, _ownerType);
             }
         }
     }

@@ -388,6 +388,19 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 8a167d05a68e7aa498f634a90895f607, type: 3}
   - {fileID: 8300000, guid: d2f81f6a45fcbda4e948915732d683e4, type: 3}
   - {fileID: 8300000, guid: 18dedf2b9497ef94e9fa88ce2fdb5580, type: 3}
+  _defendSound:
+  - {fileID: 8300000, guid: 83cd9331bba76aa46b9997e75ef430e6, type: 3}
+  - {fileID: 8300000, guid: 4d21503f245264a4193260f1296566cd, type: 3}
+  - {fileID: 8300000, guid: 2c210931e6a69a544ba0b5fb7716432b, type: 3}
+  - {fileID: 8300000, guid: ffd4d8b9f9be0d34582686b69f228a55, type: 3}
+  - {fileID: 8300000, guid: fc16eded916790c4bbbd972b3ec350c2, type: 3}
+  - {fileID: 8300000, guid: 3bb3ffc05b51dc040970e3552493897e, type: 3}
+  - {fileID: 8300000, guid: f894502d20e3d8e4aa84b91daf62e736, type: 3}
+  - {fileID: 8300000, guid: 8c7a16c586fb9924ba0de8b109f964fc, type: 3}
+  - {fileID: 8300000, guid: babdd406884105d4d9c8501785563438, type: 3}
+  - {fileID: 8300000, guid: 89dac1f823d32f5449a27a78510169d2, type: 3}
+  - {fileID: 8300000, guid: 7b19dc527b236b6409455653d4748eeb, type: 3}
+  - {fileID: 8300000, guid: 7a9b2483545a13046b4dcad7058878cd, type: 3}
   _criticalSound: {fileID: 8300000, guid: 86f4328dadda48a4b92f193505eef9a3, type: 3}
   _attackPoint: {fileID: 1311701733057188042}
   _criticalDamage: 100
