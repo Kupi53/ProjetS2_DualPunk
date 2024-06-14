@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class PlayerAnimator : NetworkBehaviour
 {
+    [SerializeField] private GameObject _deadAnimation;
+
     private PlayerState _playerState;
     private NetworkAnimator _networkAnimator;
     private string _currentState;
@@ -44,6 +46,7 @@ public class PlayerAnimator : NetworkBehaviour
         if (!IsOwner) return;
         if (_playerState.IsDown)
         {
+            StartCoroutine(DeadAnimation());
             gameObject.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 0.6f);
             ChangeAnimation(PLAYER_DEAD);
         }
@@ -55,6 +58,12 @@ public class PlayerAnimator : NetworkBehaviour
             ChangeAnimation(PLAYER_IDLE);
     }
 
+    private IEnumerator DeadAnimation()
+    {
+        _deadAnimation.SetActive(true);
+        yield return new WaitForSeconds(2f);
+        _deadAnimation.SetActive(true);
+    }
 
     // Utilise dans anim mouvement, change l'animation en fonction des constantes Player_S, Player_N...
     private void ChangeAnimation(string newState)
