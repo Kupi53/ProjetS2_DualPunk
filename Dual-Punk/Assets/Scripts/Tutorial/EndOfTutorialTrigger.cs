@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using FishNet.Object;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class EndOfTutorialTrigger : DoorBase
@@ -22,15 +23,27 @@ public class EndOfTutorialTrigger : DoorBase
     {
         //Start Game Rpc
         FloorNetworkWrapper.Instance.NewFloor(FloorType.City);
-        StartGameObservers();
+        if (TutorialManager.Instance.CurrentStage < 8)
+        {
+            StartGameObservers(true);
+        }
+        else
+        {
+            StartGameObservers(false);
+        }
     }
 
     [ObserversRpc]
-    void StartGameObservers()
+    void StartGameObservers(bool skipped)
     {
         Destroy(GameObject.Find("Tutorial"));
         GameManager.Instance.FadeIn();
         GameManager.Instance.InTutorial = false;
+        if (skipped)
+        {
+            ObjectSpawner.Instance.SpawnObjectFromIdAndEquipToTargetRpc("0009", GameManager.Instance.LocalPlayer.transform.position, quaternion.identity, ClientManager.Connection);
+            ObjectSpawner.Instance.SpawnObjectFromIdAndEquipToTargetRpc("0020", GameManager.Instance.LocalPlayer.transform.position, quaternion.identity, ClientManager.Connection);
+        }
     }
 
 
