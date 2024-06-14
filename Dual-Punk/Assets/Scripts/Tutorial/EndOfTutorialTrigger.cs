@@ -18,7 +18,7 @@ public class EndOfTutorialTrigger : DoorBase
 
 
     [ServerRpc (RequireOwnership = false)]
-    protected override void DoActionRpc()
+    public override void DoActionRpc()
     {
         //Start Game Rpc
         FloorNetworkWrapper.Instance.NewFloor(FloorType.City);
