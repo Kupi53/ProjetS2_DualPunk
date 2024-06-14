@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: a593ffbd7dc101e4dbc0a969bc399ef1
+guid: 5c7568bfae27d0e4b920303c87307f04
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,12 +110,12 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Player2 S_0
+      name: Plaryer2 S_0
       rect:
         serializedVersion: 2
         x: 5
         y: 5
-        width: 24
+        width: 26
         height: 54
       alignment: 9
       pivot: {x: 0.5, y: 0.1}
@@ -124,19 +124,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8989a79fb76882340992f020e852b61c
-      internalID: 2087110789
+      spriteID: 621af5e2f152f144ca2964ab3fbf1d88
+      internalID: 265037998
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player2 S_1
+      name: Plaryer2 S_1
       rect:
         serializedVersion: 2
         x: 37
         y: 5
-        width: 24
+        width: 26
         height: 54
       alignment: 9
       pivot: {x: 0.5, y: 0.1}
@@ -145,19 +145,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a26de1b09a835a14da673b9dce8e9b3a
-      internalID: 726589526
+      spriteID: 92349d995f2d0644996ea768a0ea5854
+      internalID: 951185327
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player2 S_2
+      name: Plaryer2 S_2
       rect:
         serializedVersion: 2
         x: 71
         y: 6
-        width: 24
+        width: 26
         height: 54
       alignment: 9
       pivot: {x: 0.5, y: 0.1}
@@ -166,19 +166,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 12f6b3c7d39233f4596dcea4c839c753
-      internalID: 147371917
+      spriteID: e27ff00ed39f5904fae0890fddf154d8
+      internalID: -2037683555
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player2 S_3
+      name: Plaryer2 S_3
       rect:
         serializedVersion: 2
         x: 105
         y: 5
-        width: 24
+        width: 26
         height: 54
       alignment: 9
       pivot: {x: 0.5, y: 0.1}
@@ -187,19 +187,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3fca8d8d279b92d4bafa88cec2874495
-      internalID: -368888338
+      spriteID: 949507c9f0e22a548bcf6be57f71452c
+      internalID: -1466946507
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player2 S_4
+      name: Plaryer2 S_4
       rect:
         serializedVersion: 2
         x: 139
         y: 4
-        width: 24
+        width: 26
         height: 55
       alignment: 9
       pivot: {x: 0.5, y: 0.1}
@@ -208,19 +208,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 92923b756da830241940f87722e33cbf
-      internalID: 629110236
+      spriteID: e49a8821baf42d146a6e0722ec53d99f
+      internalID: 596780893
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player2 S_5
+      name: Plaryer2 S_5
       rect:
         serializedVersion: 2
         x: 173
         y: 5
-        width: 24
+        width: 26
         height: 55
       alignment: 9
       pivot: {x: 0.5, y: 0.1}
@@ -229,19 +229,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 745081c938565724c874989e4811e471
-      internalID: -1334172896
+      spriteID: 30460118d8b545f4c90908cf90365e34
+      internalID: -2087182929
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player2 S_6
+      name: Plaryer2 S_6
       rect:
         serializedVersion: 2
         x: 208
         y: 5
-        width: 24
+        width: 26
         height: 55
       alignment: 9
       pivot: {x: 0.5, y: 0.1}
@@ -250,19 +250,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 88c85bbddcadec54e9f74311f0b6bd00
-      internalID: -1393054084
+      spriteID: 17657714cf68ab1458281f4ddd449502
+      internalID: -1701885195
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player2 S_7
+      name: Plaryer2 S_7
       rect:
         serializedVersion: 2
         x: 242
         y: 4
-        width: 24
+        width: 26
         height: 55
       alignment: 9
       pivot: {x: 0.5, y: 0.1}
@@ -271,29 +271,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 12dc7347b3adf904a8b825e6d02d3c62
-      internalID: -1576388983
+      spriteID: c9672e9f4039b504e98e02537511be73
+      internalID: -153111287
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player2 S_8
+      name: Plaryer2 S_8
       rect:
         serializedVersion: 2
         x: 276
         y: 2
-        width: 24
+        width: 26
         height: 57
       alignment: 9
-      pivot: {x: 0.5, y: 0.125}
+      pivot: {x: 0.5, y: 0.1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: dd9d589e15b66ae4483259efc0f75bed
-      internalID: 1095640784
+      spriteID: f957729f281176145b024a70358b41ae
+      internalID: -1094613093
       vertices: []
       indices: 
       edges: []
@@ -309,15 +309,15 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Player2 S_0: 2087110789
-      Player2 S_1: 726589526
-      Player2 S_2: 147371917
-      Player2 S_3: -368888338
-      Player2 S_4: 629110236
-      Player2 S_5: -1334172896
-      Player2 S_6: -1393054084
-      Player2 S_7: -1576388983
-      Player2 S_8: 1095640784
+      Plaryer2 S_0: 265037998
+      Plaryer2 S_1: 951185327
+      Plaryer2 S_2: -2037683555
+      Plaryer2 S_3: -1466946507
+      Plaryer2 S_4: 596780893
+      Plaryer2 S_5: -2087182929
+      Plaryer2 S_6: -1701885195
+      Plaryer2 S_7: -153111287
+      Plaryer2 S_8: -1094613093
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
