@@ -25,11 +25,13 @@ public class InventoryOpenAndClose : MonoBehaviour
                 PlayerState.Stop = true;
                 Inventory.SetActive(true);
                 InventoryIsClose = false;
+                GameManager.Instance.InInventory = true;
             }
             else
             {
                 PlayerState.Stop = false;
                 InventoryIsClose = true;
+                GameManager.Instance.InInventory = false;
                 Inventory.SetActive(false);
             }
         }

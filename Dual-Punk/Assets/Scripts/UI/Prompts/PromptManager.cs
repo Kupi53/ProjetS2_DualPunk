@@ -56,10 +56,18 @@ public class PromptManager : MonoBehaviour
                 i--;
             }
         }
-        if (CurrentPromptShown != null && CurrentPromptShown.activeSelf == false)
+        if (!GameManager.Instance.InInventory)
         {
-            CurrentPromptShown.SetActive(true);
+            if (CurrentPromptShown != null && CurrentPromptShown.activeSelf == false)
+            {
+                CurrentPromptShown.SetActive(true);
+            }
         }
+        else
+        {
+            CurrentPromptShown.SetActive(false);
+        }
+
     }
 
     public bool SpawnPrompt(Prompt prompt, GameObject Trigger, float xPos = _DEFAULTPROMPTPOSITIONX, float yPos = _DEFAULTPROMPTPOSITIONY)
