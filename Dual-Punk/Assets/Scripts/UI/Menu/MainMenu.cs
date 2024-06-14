@@ -38,4 +38,9 @@ public class MainMenu : MonoBehaviour
         }
         GameManager.Instance.Reset();
     }
+
+    public void Quit()
+    {
+        Application.Quit();
+    }
 }
