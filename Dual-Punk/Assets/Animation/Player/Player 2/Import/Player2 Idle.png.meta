@@ -113,10 +113,10 @@ TextureImporter:
       name: Player2 Idle_0
       rect:
         serializedVersion: 2
-        x: 9
-        y: 11
-        width: 24
-        height: 53
+        x: 0
+        y: 10
+        width: 26
+        height: 54
       alignment: 9
       pivot: {x: 0.5, y: 0.1}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -124,8 +124,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b10a25bed43e665468ecd29017a236ce
-      internalID: -747502195
+      spriteID: f553c5233bdc41144a3eb6759a3f53e1
+      internalID: -639814307
       vertices: []
       indices: 
       edges: []
@@ -134,9 +134,9 @@ TextureImporter:
       name: Player2 Idle_1
       rect:
         serializedVersion: 2
-        x: 37
+        x: 28
         y: 11
-        width: 24
+        width: 27
         height: 54
       alignment: 9
       pivot: {x: 0.5, y: 0.1}
@@ -145,8 +145,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 25b598457a3d1cd499c2407b617cb1a4
-      internalID: -1622103450
+      spriteID: 91431fa0d5d4bb142960cee91171d915
+      internalID: -592275917
       vertices: []
       indices: 
       edges: []
@@ -155,9 +155,9 @@ TextureImporter:
       name: Player2 Idle_2
       rect:
         serializedVersion: 2
-        x: 63
-        y: 11
-        width: 24
+        x: 58
+        y: 12
+        width: 25
         height: 54
       alignment: 9
       pivot: {x: 0.5, y: 0.1}
@@ -166,8 +166,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 59289643b94ab804986de9adf20ca4a8
-      internalID: 322372768
+      spriteID: d667086220ff6f04abdbcb680cff7d8e
+      internalID: -1645132943
       vertices: []
       indices: 
       edges: []
@@ -176,9 +176,9 @@ TextureImporter:
       name: Player2 Idle_3
       rect:
         serializedVersion: 2
-        x: 89
-        y: 11
-        width: 24
+        x: 85
+        y: 14
+        width: 26
         height: 52
       alignment: 9
       pivot: {x: 0.5, y: 0.1}
@@ -187,8 +187,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 53d2c4175e893d742a0cd0b438336fe5
-      internalID: -198036819
+      spriteID: d1d13b32a4e4bb943a63ddea6fd0c970
+      internalID: 32823122
       vertices: []
       indices: 
       edges: []
@@ -197,9 +197,9 @@ TextureImporter:
       name: Player2 Idle_4
       rect:
         serializedVersion: 2
-        x: 115
+        x: 114
         y: 11
-        width: 22
+        width: 25
         height: 52
       alignment: 9
       pivot: {x: 0.5, y: 0.1}
@@ -208,8 +208,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a23a700ab26cd8847bc3b8f419962480
-      internalID: -792334133
+      spriteID: fe3c629ba63d51349b61aca668af0b23
+      internalID: -1549168870
       vertices: []
       indices: 
       edges: []
@@ -218,9 +218,9 @@ TextureImporter:
       name: Player2 Idle_5
       rect:
         serializedVersion: 2
-        x: 138
+        x: 141
         y: 11
-        width: 22
+        width: 25
         height: 52
       alignment: 9
       pivot: {x: 0.5, y: 0.1}
@@ -229,8 +229,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d52561a2f9e1088458aa347d570dd3dc
-      internalID: 1689653018
+      spriteID: ff4a2fedf8532f1419d3f4467db75a8e
+      internalID: 1794972398
       vertices: []
       indices: 
       edges: []
@@ -246,12 +246,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Player2 Idle_0: -747502195
-      Player2 Idle_1: -1622103450
-      Player2 Idle_2: 322372768
-      Player2 Idle_3: -198036819
-      Player2 Idle_4: -792334133
-      Player2 Idle_5: 1689653018
+      Player2 Idle_0: -639814307
+      Player2 Idle_1: -592275917
+      Player2 Idle_2: -1645132943
+      Player2 Idle_3: 32823122
+      Player2 Idle_4: -1549168870
+      Player2 Idle_5: 1794972398
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
