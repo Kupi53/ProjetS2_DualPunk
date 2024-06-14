@@ -126,9 +126,28 @@ public class Room : MonoBehaviour
     public void OnEnemyDeath()
     {
         if (IsCleared)
+        {   
+            SpawnLootBox();
+        }   
+    }
+
+    private void SpawnLootBox()
+    {
+        Tilemap[] tilemaps = FloorNetworkWrapper.Instance.LocalFloorManager.CurrentRoom.GetComponentsInChildren<Tilemap>();
+        Tilemap tileMap = tilemaps.Where(map => map.gameObject.name == "Tilemap").First();
+        IEnumerable<Tilemap> elevationMaps = tilemaps.Where(map => map.gameObject.name.StartsWith("Elevation"));
+        BoundsInt bounds = tileMap.cellBounds;
+        int posX = UnityEngine.Random.Range(bounds.xMin, bounds.xMax);
+        int posY = UnityEngine.Random.Range(bounds.yMin, bounds.yMax);
+        Vector3Int position = new Vector3Int(posX, posY,0);
+        while (tileMap.GetTile(position) == null || elevationMaps.Any(map => map.GetTile(position) != null))
         {
-            ObjectSpawner.Instance.SpawnObjectFromIdRpc("0030", Vector3.zero, quaternion.identity);
+            posX = UnityEngine.Random.Range(bounds.xMin, bounds.xMax);
+            posY = UnityEngine.Random.Range(bounds.yMin, bounds.yMax);
+            position = new Vector3Int(posX, posY,0);
         }
+        Vector3 WorldPosition = tileMap.CellToWorld(position);
+        ObjectSpawner.Instance.SpawnObjectFromIdRpc("0030", WorldPosition, quaternion.identity);
     }
 
     private static WallCardinal GetOppositeWall(WallCardinal cardinal)

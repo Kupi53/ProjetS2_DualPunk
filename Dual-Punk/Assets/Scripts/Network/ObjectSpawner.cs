@@ -67,6 +67,35 @@ public class ObjectSpawner : NetworkBehaviour
     }
 
     [ServerRpc (RequireOwnership = false)]
+    public void SpawnObjectFromIdAndEquipToTargetRpc(string Id, Vector3 pos, Quaternion quaternion, NetworkConnection con)
+    {
+        if (Id == "null")
+        {
+            return;
+        }
+        else
+        {
+            GameObject prefab = ItemIds.Instance.IdTable[Id];
+            GameObject instance = Instantiate(prefab, pos, quaternion);
+            Spawn(instance);
+            if (!GameManager.Instance.InTutorial)
+            {
+                instance.transform.SetParent(FloorNetworkWrapper.Instance.LocalFloorManager.CurrentRoom.gameObject.transform);
+                GiveOwnerShipToAllClients(instance.GetComponent<NetworkObject>());
+                ObjectParentToRoomClients(instance);
+            }
+            UpdateLastSpawnedObjectObservers(instance);
+            EquipToTargetRpc(con, instance);
+        }
+    }
+
+    [TargetRpc]
+    public void EquipToTargetRpc(NetworkConnection con, GameObject obj)
+    {
+        GameManager.Instance.LocalPlayer.GetComponent<ItemManager>().Picking(obj);
+    }
+
+    [ServerRpc (RequireOwnership = false)]
     public void SpawnObjectAndUpdateRpc(GameObject obj, Vector3 pos, Quaternion quaternion, NetworkConnection networkConnection, GameObject itemManager)
     {
         UpdateHeldWeaponClientsRpc(networkConnection, obj, itemManager);

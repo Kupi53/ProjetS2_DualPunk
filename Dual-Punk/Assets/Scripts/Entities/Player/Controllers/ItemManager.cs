@@ -49,6 +49,12 @@ public class ItemManager : NetworkBehaviour
 
         if (!Input.GetButtonDown("Pickup")) return;
 
+        Picking(item);
+        
+    }
+
+    public void Picking(GameObject item)
+    {
         WeaponScript weaponScript;
         ImplantScript implantScript;
 
@@ -132,9 +138,7 @@ public class ItemManager : NetworkBehaviour
                 implantScript.PlayerState = _playerState;
             }
         }
-        
     }
-
 
     void OnTriggerStay2D(Collider2D collision)
     {
