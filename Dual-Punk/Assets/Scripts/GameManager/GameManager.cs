@@ -33,7 +33,13 @@ public class GameManager : MonoBehaviour
             }
         } 
     }
-    public PlayerState LocalPlayerState;
+    public PlayerState LocalPlayerState
+    {
+        get
+        {
+            return LocalPlayer.GetComponent<PlayerState>();
+        }
+    }
     public PlayerState Player1State;
     public PlayerState Player2State;
 
@@ -45,6 +51,7 @@ public class GameManager : MonoBehaviour
         {
             Instance = this;
         }
+        downTutorialBegan = false;
         downTutorialPromptTrigger = gameObject.GetComponent<PromptTrigger>();
     }
 
@@ -80,18 +87,22 @@ public class GameManager : MonoBehaviour
             }
             else
             {
-                if (Player1State.IsDown != Player2State.IsDown && !downTutorialBegan)
+                if (!downTutorialBegan && Player1State.IsDown != Player2State.IsDown)
                 {
-                    PromptManager.Instance.SpawnPrompt(downTutorialPromptTrigger.Prompt, downTutorialPromptTrigger.gameObject);
-                    downTutorialBegan = true;
+                    if ((Player1State.IsDown && Player1 != LocalPlayer) || (Player2State.IsDown && Player2 != LocalPlayer) )
+                    {
+                        PromptManager.Instance.SpawnPrompt(downTutorialPromptTrigger.Prompt, downTutorialPromptTrigger.gameObject);
+                        downTutorialBegan = true;
+                    }
                 }
                 else
                 {
-                    if (downTutorialBegan && !Player1State.IsDown && !Player2State.IsDown)
+                    if (!Player1State.IsDown && !Player2State.IsDown)
                     {
                         PromptManager.Instance.ClosePrompt(downTutorialPromptTrigger.Prompt);
                     }
                 }
+
             }
         } 
     }
@@ -101,10 +112,6 @@ public class GameManager : MonoBehaviour
         if (LocalPlayer == null) return;
         else
         {
-            if (LocalPlayerState == null)
-            {
-                LocalPlayerState = LocalPlayer.GetComponent<PlayerState>();
-            }
             if (LocalPlayerState.IsDown)
             {
                 Lose();

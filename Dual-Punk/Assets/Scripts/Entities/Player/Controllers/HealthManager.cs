@@ -12,6 +12,7 @@ using TMPro;
 public class HealthManager : NetworkBehaviour, IDamageable
 {
     private PlayerState _playerState;
+    private ReviveAndDownController _reviveAndDownController;
 
     //Nécessaire pour implant ThermicExchange
     public float DamageMultiplier { get; set; }
@@ -32,6 +33,7 @@ public class HealthManager : NetworkBehaviour, IDamageable
 
     private void Start()
     {
+        _reviveAndDownController = GetComponent<ReviveAndDownController>();
         _playerState = GetComponent<PlayerState>();
     }
 
@@ -43,8 +45,7 @@ public class HealthManager : NetworkBehaviour, IDamageable
 
         else if (_playerState.Health <= 0)
         {
-            _playerState.Health = 0;
-            _playerState.IsDown = true;
+            _reviveAndDownController.DownServer();
         }
     }
 

@@ -42,17 +42,17 @@ public class SpawnPlayers : NetworkBehaviour
             _PLAYER2SPAWNLOCATION = GameObject.Find("Player2SpawnPoint").transform.position;
             playerObject = Instantiate(playerPrefabB, _PLAYER2SPAWNLOCATION, transform.rotation);
             GameManager.Instance.Player2 = playerObject;
-            SetPlayersClient(connection);
         }
         base.Spawn(playerObject, connection);
+        SetPlayersClient();
     } 
-    [TargetRpc]
-    void SetPlayersClient(NetworkConnection con)
+    [ObserversRpc]
+    void SetPlayersClient()
     {
         GameManager.Instance.Player1 = GameObject.Find("Player1(Clone)");
-        if (GameManager.Instance.Player2 != null)
+        if (GameManager.Instance.Player1 != null)
         {
-            GameManager.Instance.Player2State = GameManager.Instance.Player2.GetComponent<PlayerState>();
+            GameManager.Instance.Player1State = GameManager.Instance.Player1.GetComponent<PlayerState>();
         }
         GameManager.Instance.Player2 = GameObject.Find("Player2(Clone)");
         if (GameManager.Instance.Player2 != null)

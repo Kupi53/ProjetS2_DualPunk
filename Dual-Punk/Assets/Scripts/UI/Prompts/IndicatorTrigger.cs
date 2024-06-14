@@ -17,4 +17,9 @@ public class IndicatorTrigger : NetworkBehaviour
         if (!(other.gameObject.GetComponent<NetworkObject>().Owner == ClientManager.Connection)) return;
         PromptManager.Instance.CloseCurrentIndicator();
     }
+
+    public void SpawnIndicatorWithParent(GameObject parent)
+    {
+        PromptManager.Instance.SpawnIndicatorWithParent(_icon, new Vector3(indicatorPosX, indicatorPosY, 2), this.gameObject, parent);
+    }
 }

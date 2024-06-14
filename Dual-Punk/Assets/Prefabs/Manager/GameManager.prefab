@@ -68,6 +68,10 @@ MonoBehaviour:
   InTutorial: 0
   Player1: {fileID: 0}
   Player2: {fileID: 0}
+  downTutorialBegan: 0
+  downTutorialPromptTrigger: {fileID: 0}
+  Player1State: {fileID: 0}
+  Player2State: {fileID: 0}
 --- !u!114 &3726240271284766474
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -94,7 +98,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Prompt:
     TextFields:
-    - Your friend has been downed ! Get close to them and hold E to revive them.
+    - Your friend has been downed ! Get close to them and hold E for two seconds
+      to revive them.
     DialogueFields: []
     EnableMovement: 1
     PromptType: 1
