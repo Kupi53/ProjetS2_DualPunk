@@ -576,7 +576,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lootTable:
-    MinLootRollAmount: 0
+    MinLootRollAmount: 1
     MaxLootRollAmount: 1
     IdTable:
     - null

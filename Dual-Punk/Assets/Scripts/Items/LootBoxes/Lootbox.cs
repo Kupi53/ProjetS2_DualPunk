@@ -16,7 +16,6 @@ public class Lootbox : MonoBehaviour
         if (!(other.gameObject.GetComponent<NetworkObject>().Owner == GameManager.Instance.LocalPlayer.GetComponent<NetworkObject>().Owner)) return;
         if (Input.GetButtonDown("Pickup"))
         {
-            Debug.Log(other);
             Loot();
         }
     }

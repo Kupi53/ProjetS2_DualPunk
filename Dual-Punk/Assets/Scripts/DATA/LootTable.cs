@@ -31,6 +31,7 @@ public class LootTable
             if (range.Item1 <= lootRoll && lootRoll <= range.Item2)
             {
                 key = range;
+                Debug.Log(_table[key]);
             }
         }
         if (key == (0,0)) throw new System.Exception("Did not find range in the loot table");

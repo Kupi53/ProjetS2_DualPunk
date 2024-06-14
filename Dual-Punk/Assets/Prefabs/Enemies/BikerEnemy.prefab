@@ -462,7 +462,7 @@ MonoBehaviour:
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 31
+  <PrefabId>k__BackingField: 34
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0
@@ -574,7 +574,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lootTable:
-    MinLootRollAmount: 0
+    MinLootRollAmount: 1
     MaxLootRollAmount: 1
     IdTable:
     - null
