@@ -32,10 +32,15 @@ public class Explosion : NetworkBehaviour
                 continue;
             }
 
-            if (tagDeLaVictime == "Player" && distance <= explosionRadius * 6)
+            if (distance <= explosionImpact * 6)
             {
-                ShakeCamera(grosseVictime.GetComponent<PlayerState>(), explosionImpact * (1 - distance / (explosionRadius * 6)));
+                if (tagDeLaVictime == "Player")
+                    ShakeCamera(grosseVictime.GetComponent<PlayerState>(), explosionImpact * (1 - distance / (explosionRadius * 6)));
+                
+                if (tagDeLaVictime == "Ennemy")
+                    grosseVictime.GetComponent<NPCState>().TargetPoint = transform.position;
             }
+            
             
             if (distance <= explosionRadius)
             {

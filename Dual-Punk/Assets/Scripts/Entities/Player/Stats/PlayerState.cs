@@ -21,6 +21,7 @@ public class PlayerState : NetworkBehaviour
 
     public bool Stop { get; set; }
     public bool IsDown { get; set; }
+    public bool Firing { get; set; }
     public bool Moving { get; set; }
     public bool Walking { get; set; }
     public bool Dashing { get; set; }

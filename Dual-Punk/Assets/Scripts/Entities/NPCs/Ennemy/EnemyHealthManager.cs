@@ -132,7 +132,7 @@ public class EnemyHealthManager : NetworkBehaviour, IDamageable
 
     public void Heal(int amount, float time)
     {
-        if (_imunityTimer > 0) return;
+        if (_imunityTimer > 0 || Index < 0) return;
 
         if (time == 0)
         {
@@ -169,16 +169,9 @@ public class EnemyHealthManager : NetworkBehaviour, IDamageable
     }
 
 
-    [ServerRpc(RequireOwnership = false)]
     public void SetHealth(int amount)
     {
-        SetHealthObs(amount);
-    }
-
-    [ObserversRpc]
-    void SetHealthObs(int amount)
-    {
-        if (_imunityTimer > 0) return;
+        if (_imunityTimer > 0 || Index < 0) return;
 
         _lives[Index] = amount;
         CheckHealth();

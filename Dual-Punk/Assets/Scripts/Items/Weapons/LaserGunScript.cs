@@ -314,6 +314,12 @@ public class LaserGunScript : FireArmScript
         UserRecoil.Impact(-direction, _recoilForce * Time.deltaTime * 100);
         RaycastHit2D hit = Physics2D.Raycast(_startPosition, direction, distance, _layerMask);
 
+        if (!_silencer)
+        {
+            StopAllCoroutines();
+            StartCoroutine(Firing(0.1f));
+        }
+
         if (hit)
         {
             distance = hit.distance;

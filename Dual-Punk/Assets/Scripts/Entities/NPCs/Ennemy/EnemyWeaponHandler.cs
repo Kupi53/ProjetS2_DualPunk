@@ -53,10 +53,10 @@ public class EnemyWeaponHandler : NetworkBehaviour
             _offsetTimer = 0;
         }
         
-        if (_enemyState.Target == null || _enemyState.Stop)
+        if (_enemyState.Stop)
         {
             _enemyState.CanAttack = false;
-            _weaponScript.EnemyRun(transform.position, VariateDirection(), transform.position + _direction * 10);
+            _weaponScript.EnemyRun(transform.position, VariateDirection(), _enemyState.TargetPoint);
             return;
         }
 
@@ -65,7 +65,7 @@ public class EnemyWeaponHandler : NetworkBehaviour
         float distance = _direction.magnitude;
         bool canAttack = false;
 
-        if (distance < _weaponScript.Range)
+        if (distance < _weaponScript.Range && _enemyState.Target != null)
         {
             RaycastHit2D hit = Physics2D.Raycast(_weaponScript.transform.position, _direction, distance, _enemyState.LayerMask);
 
@@ -78,15 +78,15 @@ public class EnemyWeaponHandler : NetworkBehaviour
             {
                 canAttack = true;
             }
+        }
 
-            if (distance < _weaponScript.Range / 4 && canAttack)
-            {
-                _enemyState.Move = false;
-            }
-            else
-            {
-                _enemyState.Move = true;
-            }
+        if (distance < _weaponScript.Range / 4 && canAttack && _enemyState.Target != null || _enemyState.Target == null && distance < 2)
+        {
+            _enemyState.Move = false;
+        }
+        else
+        {
+            _enemyState.Move = true;
         }
 
         _enemyState.CanAttack = canAttack;

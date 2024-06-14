@@ -65,7 +65,7 @@ public class DebugManager : MonoBehaviour
         
         if (Input.GetKeyDown(KeyCode.P))
         {
-            ObjectSpawner.Instance.SpawnObjectRpc(GetGameObject(), GameManager.Instance.Player1.transform.position, Quaternion.identity);
+            ObjectSpawner.Instance.SpawnObjectRpc(GetGameObject(), GameManager.Instance.Player1.GetComponent<PlayerState>().MousePosition, Quaternion.identity);
         }
         if (Input.GetKeyDown(KeyCode.O))
         {
@@ -82,13 +82,7 @@ public class DebugManager : MonoBehaviour
 
         if (Input.GetKey(KeyCode.T))
         {
-            if (mainCamera == null)
-            {
-                mainCamera = GameObject.FindWithTag("Camera").GetComponentInChildren<Camera>();
-            }
-            Vector3 pos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
-            pos.z = 0;
-            GameManager.Instance.LocalPlayer.transform.position = pos;
+            GameManager.Instance.LocalPlayer.transform.position = GameManager.Instance.Player1.GetComponent<PlayerState>().MousePosition;
         }
         if (Input.GetKey(KeyCode.M))
         {

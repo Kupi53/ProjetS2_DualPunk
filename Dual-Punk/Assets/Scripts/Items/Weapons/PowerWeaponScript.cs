@@ -157,6 +157,12 @@ public class PowerWeaponScript : FireArmScript
 
     protected override void Fire(Vector3 direction, int damage, float dispersion, float distance, bool damagePlayer)
     {
+        if (!_silencer)
+        {
+            StopAllCoroutines();
+            StartCoroutine(Firing(0.5f));
+        }
+
         _ammoLeft--;
         _fireTimer = 0;
         UserRecoil.Impact(-direction, _recoilForce);
@@ -172,7 +178,7 @@ public class PowerWeaponScript : FireArmScript
         {
             dispersion /= _aimAccuracy;
         }
-            
+        
         FireBulletRpc(direction, damage, _bulletSpeed, _bulletSize, _impactForce, dispersion, _bulletCollisions, warriorLuckBullet, damagePlayer);
     }
 

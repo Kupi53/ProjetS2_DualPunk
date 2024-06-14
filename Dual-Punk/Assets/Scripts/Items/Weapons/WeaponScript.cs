@@ -82,7 +82,6 @@ public abstract class WeaponScript : NetworkBehaviour
     {
         UpdateInHandSer(true);
 
-
         PlayerState = owner.GetComponent<PlayerState>();
         EnemyState = owner.GetComponent<EnemyState>();
         UserRecoil = owner.GetComponent<IImpact>();
@@ -101,6 +100,9 @@ public abstract class WeaponScript : NetworkBehaviour
         transform.rotation = Quaternion.identity;
         transform.position = PlayerState == null ? EnemyState.transform.position : PlayerState.transform.position;
         transform.localScale = new Vector2(transform.localScale.x, Math.Abs(transform.localScale.y));
+
+        if (PlayerState != null )
+            PlayerState.Firing = false;
 
         ActualOwner = null;
         PlayerState = null;

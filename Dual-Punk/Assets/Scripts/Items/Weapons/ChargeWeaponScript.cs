@@ -179,6 +179,12 @@ public class ChargeWeaponScript : PowerWeaponScript
 
     protected override void Fire(Vector3 direction, int damage, float dispersion, float distance, bool damagePlayer)
     {
+        if (!_silencer)
+        {
+            StopAllCoroutines();
+            StartCoroutine(Firing(1));
+        }
+
         bool warriorLuckBullet = false;
         float multiplier = _chargeTimer / _chargeTime;
 
