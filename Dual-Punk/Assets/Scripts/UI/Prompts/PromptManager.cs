@@ -9,6 +9,7 @@ public class PromptManager : MonoBehaviour
     private const float _DEFAULTPROMPTPOSITIONX = 0;
     private const float _DEFAULTPROMPTPOSITIONY = -400;
     private List<GameObject> Prompts;
+    //private bool 
     public GameObject CurrentPromptShown 
     {
         get
@@ -39,6 +40,7 @@ public class PromptManager : MonoBehaviour
         CheckCurrentPromptTrigger();
         CheckCurrentIndicatorTrigger();
         CheckCurrentArrowTarget();
+        CheckInventory();
         ManagePrompts();
     }
 
@@ -190,5 +192,10 @@ public class PromptManager : MonoBehaviour
                 CloseCurrentArrow();
             }
         }
+    }
+
+    private void CheckInventory()
+    {
+        
     }
 }
