@@ -60,7 +60,29 @@ public class FloorNetworkWrapper : NetworkBehaviour
     public void SpawnEnemies()
     {
         if (!IsServer) return;
-        SpawnEnemiesRpc();
+        Tilemap[] tilemaps = LocalFloorManager.CurrentRoom.GetComponentsInChildren<Tilemap>();
+        int enemyAmount = UnityEngine.Random.Range(_actualMinEnemies, _actualMaxEnemies+1);
+        Tilemap tileMap = tilemaps.Where(map => map.gameObject.name == "Tilemap").First();
+        IEnumerable<Tilemap> elevationMaps = tilemaps.Where(map => map.gameObject.name.StartsWith("Elevation"));
+        BoundsInt bounds = tileMap.cellBounds;
+        // pick random enemies from the prefab list and assign random positions to them (that or not out of bounds (cellbound) and do not collide with anything (cant be on an elevation))
+        for (int i = 0; i < enemyAmount; i++)
+        {
+            int enemyPrefab = UnityEngine.Random.Range(0, LocalFloorManager.CurrentFloor.EnnemyPrefabs.Length);
+            int posX = UnityEngine.Random.Range(bounds.xMin, bounds.xMax);
+            int posY = UnityEngine.Random.Range(bounds.yMin, bounds.yMax);
+            Vector3Int position = new Vector3Int(posX, posY,0);
+            while (tileMap.GetTile(position) == null || elevationMaps.Any(map => map.GetTile(position) != null))
+            {
+                posX = UnityEngine.Random.Range(bounds.xMin, bounds.xMax);
+                posY = UnityEngine.Random.Range(bounds.yMin, bounds.yMax);
+                position = new Vector3Int(posX, posY,0);
+            }
+            Vector3 WorldPosition = tileMap.CellToWorld(position);
+            GameObject Enemy = Instantiate(LocalFloorManager.CurrentFloor.EnnemyPrefabs[enemyPrefab], WorldPosition, quaternion.identity);
+            Spawn(Enemy);
+        }
+        PopulateRoomEnemiesRpc();
     }
     public void SpawnLoot()
     {
@@ -92,33 +114,6 @@ public class FloorNetworkWrapper : NetworkBehaviour
         Instance.LocalFloorManager.CurrentFloor.Entry));
     }
 
-    [ServerRpc (RequireOwnership = false)]
-    private void SpawnEnemiesRpc()
-    {
-        Tilemap[] tilemaps = LocalFloorManager.CurrentRoom.GetComponentsInChildren<Tilemap>();
-        int enemyAmount = UnityEngine.Random.Range(_actualMinEnemies, _actualMaxEnemies+1);
-        Tilemap tileMap = tilemaps.Where(map => map.gameObject.name == "Tilemap").First();
-        IEnumerable<Tilemap> elevationMaps = tilemaps.Where(map => map.gameObject.name.StartsWith("Elevation"));
-        BoundsInt bounds = tileMap.cellBounds;
-        // pick random enemies from the prefab list and assign random positions to them (that or not out of bounds (cellbound) and do not collide with anything (cant be on an elevation))
-        for (int i = 0; i < enemyAmount; i++)
-        {
-            int enemyPrefab = UnityEngine.Random.Range(0, LocalFloorManager.CurrentFloor.EnnemyPrefabs.Length);
-            int posX = UnityEngine.Random.Range(bounds.xMin, bounds.xMax);
-            int posY = UnityEngine.Random.Range(bounds.yMin, bounds.yMax);
-            Vector3Int position = new Vector3Int(posX, posY,0);
-            while (tileMap.GetTile(position) == null || elevationMaps.Any(map => map.GetTile(position) != null))
-            {
-                posX = UnityEngine.Random.Range(bounds.xMin, bounds.xMax);
-                posY = UnityEngine.Random.Range(bounds.yMin, bounds.yMax);
-                position = new Vector3Int(posX, posY,0);
-            }
-            Vector3 WorldPosition = tileMap.CellToWorld(position);
-            GameObject Enemy = Instantiate(LocalFloorManager.CurrentFloor.EnnemyPrefabs[enemyPrefab], WorldPosition, quaternion.identity);
-            Spawn(Enemy);
-        }
-        PopulateRoomEnemiesRpc();
-    }
     [ServerRpc (RequireOwnership = false)]
     public void SpawnLootRpc()
     {

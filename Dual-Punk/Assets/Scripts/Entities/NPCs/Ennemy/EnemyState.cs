@@ -26,6 +26,7 @@ public class EnemyState : NPCState
 
     private void Update()
     {
+        if (!IsServer) return;
         float distance;
 
         if (Target == null)

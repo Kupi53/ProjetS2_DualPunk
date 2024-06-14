@@ -24,18 +24,20 @@ public class EnemyWeaponHandler : NetworkBehaviour
 
     private void Start()
     {
+
         _velocity = 0;
         _weaponIndex = 0;
         _offsetTimer = _smoothTime;
         _direction = Vector3.right;
         _enemyState = GetComponent<EnemyState>();
-
+        if (!IsServer) return;
         AssignWeapon();
     }
 
 
     private void Update()
     {
+        if (!IsServer) return;
         if (!_weaponScript.InHand)
         {
             _weaponScript.PickUp(gameObject);

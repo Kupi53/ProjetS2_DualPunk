@@ -36,6 +36,7 @@ public class EnemyHealthManager : NetworkBehaviour, IDamageable
 
     private void Update()
     {
+        if (!IsServer) return;
         if (_imunityTimer > 0)
             _imunityTimer -= Time.deltaTime;
 

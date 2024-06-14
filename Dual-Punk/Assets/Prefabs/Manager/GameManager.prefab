@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8283373856175131914}
   - component: {fileID: 1053980124377817206}
   - component: {fileID: 3726240271284766474}
+  - component: {fileID: 872248050033221415}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -61,11 +62,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5927843ace9ef8b489f9f103063a585a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 0
-  _addedNetworkObject: {fileID: 0}
-  _networkObjectCache: {fileID: 0}
   DebugMode: 0
+  Solo: 0
   InGame: 0
+  InTutorial: 0
   Player1: {fileID: 0}
   Player2: {fileID: 0}
 --- !u!114 &3726240271284766474
@@ -80,3 +80,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cb4ef77025b7e74b808539ac41df2d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &872248050033221415
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 166650140272243995}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be69e0a67f2c90d488fbf1c169ccfc57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Prompt:
+    TextFields:
+    - Your friend has been downed ! Get close to them and hold E to revive them.
+    DialogueFields: []
+    EnableMovement: 1
+    PromptType: 1
+    Trigger: {fileID: 0}
+  _type: 3
+  _delay: 0

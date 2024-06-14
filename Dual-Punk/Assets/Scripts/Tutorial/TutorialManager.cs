@@ -43,6 +43,7 @@ public class TutorialManager : MonoBehaviour
         {
             Instance = this;
         }
+        GameManager.Instance.InTutorial = true;
         _endOfTutorialTriggerPos = _endOfTutorialTrigger.transform.GetChild(0).gameObject;
     }
 

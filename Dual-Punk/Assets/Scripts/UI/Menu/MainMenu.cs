@@ -24,7 +24,7 @@ public class MainMenu : MonoBehaviour
     public void ReturnToMenu()
     {
         if (networkManager.GetComponent<NetworkManager>().IsServer){
-            if (GameManager.Instance.DebugMode){
+            if (GameManager.Instance.Solo){
                 networkManager.GetComponent<NetworkManager>().ServerManager.StopConnection(true);
             }
             else {
@@ -36,6 +36,6 @@ public class MainMenu : MonoBehaviour
             relayManager.clientRequestedDisconnect = true;
             networkManager.GetComponent<NetworkManager>().ClientManager.StopConnection();
         }
-        GameManager.Instance.InGame = false;
+        GameManager.Instance.Reset();
     }
 }

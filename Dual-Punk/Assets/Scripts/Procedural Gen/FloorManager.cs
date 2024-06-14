@@ -43,6 +43,7 @@ public class FloorManager : MonoBehaviour
 
     // pour le debug
     void Update(){
+        // A SUPRIMER
         if (Input.GetKeyDown(KeyCode.G)){
             FloorNetworkWrapper.Instance.NewFloor(FloorType.City);
         }

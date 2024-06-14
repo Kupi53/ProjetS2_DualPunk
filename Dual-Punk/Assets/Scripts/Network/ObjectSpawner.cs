@@ -81,6 +81,12 @@ public class ObjectSpawner : NetworkBehaviour
     [ServerRpc (RequireOwnership = false)]
     public void RemoveOwnershipFromNonOwnersRpc(GameObject obj, NetworkConnection? owner)
     {
+        if (obj.GetComponent<NetworkObject>() == null)
+        {
+            Debug.Log("je suis une merde");
+            return;
+        }
+        Debug.Log(obj);
         obj.GetComponent<NetworkObject>().RemoveOwnership();
         if (owner is not null)
         {
