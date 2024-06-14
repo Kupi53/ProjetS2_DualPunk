@@ -24,7 +24,7 @@ public class LootTable
 
     public string PickLoot()
     {
-        int lootRoll = UnityEngine.Random.Range(0, _lootRange);
+        int lootRoll = UnityEngine.Random.Range(1, _lootRange);
         (int, int) key = (0,0);
         foreach ((int,int) range in _table.Keys)
         {

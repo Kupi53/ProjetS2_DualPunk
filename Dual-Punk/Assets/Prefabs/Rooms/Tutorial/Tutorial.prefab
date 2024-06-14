@@ -64346,6 +64346,10 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2177522641209166052, guid: b51b1dd1dea6fc44ea0c2b1d56524625, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 3075823386371160136, guid: b51b1dd1dea6fc44ea0c2b1d56524625, type: 3}
       propertyPath: m_Name
       value: Lootbox

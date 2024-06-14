@@ -13,7 +13,7 @@ public class LootTableController : MonoBehaviour
     public void Loot()
     {
         int lootRolls = UnityEngine.Random.Range(lootTable.MinLootRollAmount, lootTable.MaxLootRollAmount);
-        for (int i =0; i<lootRolls; i++)
+        for (int i = 0; i<lootRolls; i++)
         {
             string idToSpawn = lootTable.PickLoot();
             Vector3 offset = PickOffset();

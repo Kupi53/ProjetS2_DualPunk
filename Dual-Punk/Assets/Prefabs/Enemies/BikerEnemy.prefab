@@ -121,6 +121,7 @@ GameObject:
   - component: {fileID: 6520979016740066916}
   - component: {fileID: 1864953958198885873}
   - component: {fileID: 7868056608164439028}
+  - component: {fileID: 2982091371541690611}
   m_Layer: 3
   m_Name: BikerEnemy
   m_TagString: Ennemy
@@ -375,6 +376,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83a77bd7e478bf542bedfb3001231e3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _componentIndexCache: 3
+  _addedNetworkObject: {fileID: 8662005701061872785}
+  _networkObjectCache: {fileID: 8662005701061872785}
   _lives: c8000000
   _imuneTime: 0.5
   _defenceTime: 1
@@ -390,7 +394,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2836e36774ca1c4bbbee976e17b649c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 3
+  _componentIndexCache: 4
   _addedNetworkObject: {fileID: 8662005701061872785}
   _networkObjectCache: {fileID: 8662005701061872785}
   _componentConfiguration: 0
@@ -442,6 +446,7 @@ MonoBehaviour:
   - {fileID: 7098234963106787076}
   - {fileID: 9003789017972292883}
   - {fileID: 997845674584081706}
+  - {fileID: 5565835780587346742}
   - {fileID: 105605007444475360}
   - {fileID: 6286706210653832335}
   - {fileID: 6520979016740066916}
@@ -489,7 +494,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8cac635f24954048aad3a6ff9110beb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 4
+  _componentIndexCache: 5
   _addedNetworkObject: {fileID: 8662005701061872785}
   _networkObjectCache: {fileID: 8662005701061872785}
   IgnoredParameters: []
@@ -510,7 +515,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bad2565f01dacb4897b4943d0a16c60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 5
+  _componentIndexCache: 6
   _addedNetworkObject: {fileID: 8662005701061872785}
   _networkObjectCache: {fileID: 8662005701061872785}
   _healthBar: {fileID: 5902264677354553635, guid: 171cd82cde00a9b48aa2bb56ef5cee2a, type: 3}
@@ -550,12 +555,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bfb39441d3f7f440802905ade2a0701, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 6
+  _componentIndexCache: 7
   _addedNetworkObject: {fileID: 8662005701061872785}
   _networkObjectCache: {fileID: 8662005701061872785}
   _runAnimation: {fileID: 7400000, guid: 3d24c39196db4554cb0c5c90813fcc8a, type: 2}
   _walkAnimation: {fileID: 7400000, guid: 1e940667c972f3945b330398763e1259, type: 2}
   _idleAnimation: {fileID: 7400000, guid: fa24150cf6f72d447aa07078f514cebd, type: 2}
+--- !u!114 &2982091371541690611
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6272146751674077345}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fab69ef23d4d0e4d9c0393abf115b4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lootTable:
+    MinLootRollAmount: 0
+    MaxLootRollAmount: 1
+    IdTable:
+    - null
+    - 0003
+    - 0007
+    - 0009
+    - 0000
+    MinIntervalTable: 010000003d00000047000000510000005b000000
+    MaxIntervalTable: 3c00000046000000500000005a00000064000000
 --- !u!1 &6621928570991513501
 GameObject:
   m_ObjectHideFlags: 0
