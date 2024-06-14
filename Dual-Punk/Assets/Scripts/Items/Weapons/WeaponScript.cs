@@ -89,7 +89,14 @@ public abstract class WeaponScript : NetworkBehaviour
         ActualOwner = owner.GetComponent<NetworkObject>().LocalConnection;
 
         ObjectSpawner.Instance.RemoveParentRpc(gameObject);
-        ObjectSpawner.Instance.RemoveOwnershipFromNonOwnersRpc(gameObject, ActualOwner);
+        if (owner.GetComponent<PlayerState>() != null)
+        {
+            ObjectSpawner.Instance.RemoveOwnershipFromNonOwnersRpc(gameObject, ActualOwner);
+        }
+        else
+        {
+            gameObject.GetComponent<NetworkObject>().RemoveOwnership();
+        }
     }
 
     public void Drop()

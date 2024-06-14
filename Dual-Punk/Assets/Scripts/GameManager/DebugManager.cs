@@ -91,6 +91,10 @@ public class DebugManager : MonoBehaviour
                 Enemy.GetComponent<EnemyHealthManager>().SetHealth(0);
             }
         }
+        if (Input.GetKeyDown(KeyCode.V))
+        {
+            GameManager.Instance.LocalPlayerState.IsDown = true;
+        }
     }
 
 

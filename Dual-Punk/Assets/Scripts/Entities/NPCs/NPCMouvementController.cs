@@ -39,6 +39,7 @@ public class NPCMouvementController : NetworkBehaviour, IImpact
 
     private void Update()
     {
+        if (!IsServer) return;
         if (_npcState.Stop || !_npcState.Move || _reCalculateTimer < _reCalculationTime)
         {
             _reCalculateTimer += Time.deltaTime;
@@ -77,6 +78,7 @@ public class NPCMouvementController : NetworkBehaviour, IImpact
 
     private void FixedUpdate()
     {
+        if (!IsServer) return;
         int i = 0;
         Vector2 resultingForce = Vector2.zero;
         Vector2 targetDirection = Vector2.zero;
