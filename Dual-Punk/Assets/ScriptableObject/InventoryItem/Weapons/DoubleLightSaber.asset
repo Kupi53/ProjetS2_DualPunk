@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb4d4ad9335e54a4aa04976f4584bb33, type: 3}
+  m_Name: DoubleLightSaber
+  m_EditorClassIdentifier: 
+  name: DoubleLightSaber
+  icon: {fileID: 21300000, guid: 1c90d40e3f4224b4d893056e8cfac666, type: 3}
+  description: This double light saber is melee weapon that enables you separate
+    your enemies by burning them
+  setName: 
+  setItems: []
+  setDescription: 
