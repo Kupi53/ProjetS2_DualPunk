@@ -40,7 +40,7 @@ public class SmartWeaponScript : PowerWeaponScript
         {
             _waitForNextTarget = false;
         }
-        if (!PlayerState.Stop && Input.GetButton("SecondaryUse"))
+        if (!PlayerState.Stop && !PlayerState.IsDown && Input.GetButton("SecondaryUse"))
         {
 #nullable enable
             GameObject? target;

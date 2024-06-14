@@ -38,10 +38,11 @@ public class EnemyState : NPCState
             {
                 Vector3 targetPoint = targets[i].transform.position + _detectionOffset;
                 distance = Vector2.Distance(targetPoint, transform.position + _detectionOffset);
-                
-                if (distance < maxDistance / 4 || distance < maxDistance &&
-                    (!Physics2D.Raycast(transform.position, targetPoint - transform.position - _detectionOffset, distance, LayerMask)
-                    || DefenceType > DefenceType.NotDefending))
+
+                if (targets[i].GetComponent<PlayerState>().Walking) distance *= 0.75f;
+
+                if (!targets[i].GetComponent<PlayerState>().IsDown && (distance < maxDistance / 4 || distance < maxDistance
+                    && !Physics2D.Raycast(transform.position, targetPoint - transform.position - _detectionOffset, distance, LayerMask)))
                 {
                     maxDistance = distance;
                     Target = targets[i];
@@ -54,7 +55,7 @@ public class EnemyState : NPCState
         TargetPoint = Target.transform.position;
         distance = Vector2.Distance(transform.position, TargetPoint);
 
-        if (distance > _unlockDistance)
+        if (distance > _unlockDistance || Target.GetComponent<PlayerState>().IsDown)
         {
             Target = null;
             return;
