@@ -9,8 +9,8 @@ public class Explosion : NetworkBehaviour
 {
     public void Explode(int damage, float explosionRadius, float explosionImpact, bool damagePlayer, bool warriorLuck)
     {
-        DamageVictims("Ennemy", damage, explosionRadius, explosionImpact, !damagePlayer, warriorLuck);
-        DamageVictims("Player", damage, explosionRadius, explosionImpact, damagePlayer, warriorLuck);
+        DamageVictims("Ennemy", damage, explosionRadius, explosionImpact, damagePlayer, warriorLuck);
+        DamageVictims("Player", damage, explosionRadius, explosionImpact, !damagePlayer, warriorLuck);
         DamageVictims("Projectile", damage, explosionRadius, explosionImpact, false, false);
 
         Destroy(gameObject, 2);
@@ -41,7 +41,7 @@ public class Explosion : NetworkBehaviour
                     grosseVictime.GetComponent<NPCState>().TargetPoint = transform.position;
             }
             
-            
+            /*
             if (distance <= explosionRadius)
             {
                 if (dealDamage)
@@ -60,7 +60,7 @@ public class Explosion : NetworkBehaviour
 
                 if (damage > 0)
                     grosseVictime.GetComponent<IDamageable>().Damage(damage, 0.25f, warriorLuck, 0f);
-            }
+            }*/
         }
     }
 

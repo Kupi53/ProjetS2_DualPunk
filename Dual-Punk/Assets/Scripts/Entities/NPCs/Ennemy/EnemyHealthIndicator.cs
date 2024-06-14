@@ -29,7 +29,7 @@ public class EnemyHealthIndicator : NetworkBehaviour
     {
         _healthManager = GetComponent<EnemyHealthManager>();
         _length = _healthManager.Lives.Length;
-        _index = 0;
+        SetIndexServ(0);
 
         _healthsBar = new DisplayHealthBar[_length];
         _width = _healthsBarLayout.GetComponent<RectTransform>().rect.width;
@@ -62,14 +62,27 @@ public class EnemyHealthIndicator : NetworkBehaviour
         if (_index < _healthManager.Index)
         {
             _healthsBar[_length - _index - 1].Current = 0;
-            _index++;
+            SetIndexServ(_index++);
         }
 
         if (_length - _index - 1 >= 0)
-        {
             _healthsBar[_length - _index - 1].Current = _healthManager.Lives[_index];
-        }
     }
+
+
+    [ServerRpc(RequireOwnership = false)]
+    private void SetIndexServ(int value)
+    {
+        SetIndexObs(value);
+    }
+
+    [ObserversRpc]
+    private void SetIndexObs(int value)
+    {
+        _index = value;
+    }
+
+
 
     [ServerRpc(RequireOwnership = false)]
     public void DisplayDamageIndicator(Vector3 scale, Color color, int amount)
@@ -78,7 +91,6 @@ public class EnemyHealthIndicator : NetworkBehaviour
 
         DisplayDamageIndicatorObs(scale, color, amount);
     }
-
 
     [ObserversRpc]
     private void DisplayDamageIndicatorObs(Vector3 scale, Color color, int amount)
