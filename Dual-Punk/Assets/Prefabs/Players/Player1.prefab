@@ -821,7 +821,7 @@ MonoBehaviour:
   - {fileID: -4368909073496365499}
   <ParentNetworkObject>k__BackingField: {fileID: 0}
   <ChildNetworkObjects>k__BackingField:
-  - {fileID: 4041849651135479108}
+  - {fileID: 0}
   SerializedTransformProperties:
     Position: {x: 0, y: 0, z: 0}
     Rotation: {x: -0, y: -0, z: -0, w: 1}
@@ -1109,6 +1109,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: HealAnimation
       objectReference: {fileID: 0}
+    - target: {fileID: 4215740858642132537, guid: eb09795464402bf499a4dd417ea6d9ae, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5384363623186285305, guid: eb09795464402bf499a4dd417ea6d9ae, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1165,7 +1169,10 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: 3
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6755770058295305291, guid: eb09795464402bf499a4dd417ea6d9ae, type: 3}
+    - {fileID: -1461383769519591996, guid: eb09795464402bf499a4dd417ea6d9ae, type: 3}
+    - {fileID: -2734296218206465047, guid: eb09795464402bf499a4dd417ea6d9ae, type: 3}
     m_RemovedGameObjects:
     - {fileID: 7918930644938072071, guid: eb09795464402bf499a4dd417ea6d9ae, type: 3}
     m_AddedGameObjects: []
@@ -1176,14 +1183,3 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5384363623186285305, guid: eb09795464402bf499a4dd417ea6d9ae, type: 3}
   m_PrefabInstance: {fileID: 7069064563075542701}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &4041849651135479108 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: -2734296218206465047, guid: eb09795464402bf499a4dd417ea6d9ae, type: 3}
-  m_PrefabInstance: {fileID: 7069064563075542701}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26b716c41e9b56b4baafaf13a523ba2e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
