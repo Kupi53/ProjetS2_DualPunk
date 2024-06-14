@@ -13,6 +13,7 @@ using Vector3 = UnityEngine.Vector3;
 public class ObjectSpawner : NetworkBehaviour
 {
     public static ObjectSpawner Instance;
+    public GameObject LastSpawnedObject;
 
     void Start()
     {
@@ -40,6 +41,7 @@ public class ObjectSpawner : NetworkBehaviour
             GiveOwnerShipToAllClients(instance.GetComponent<NetworkObject>());
             ObjectParentToRoomClients(instance);
         }
+        UpdateLastSpawnedObjectObservers(instance);
     }
 
     [ServerRpc (RequireOwnership = false)]
@@ -60,6 +62,7 @@ public class ObjectSpawner : NetworkBehaviour
                 GiveOwnerShipToAllClients(instance.GetComponent<NetworkObject>());
                 ObjectParentToRoomClients(instance);
             }
+            UpdateLastSpawnedObjectObservers(instance);
         }
     }
 
@@ -138,5 +141,11 @@ public class ObjectSpawner : NetworkBehaviour
     void GiveOwnershipRPC(NetworkObject networkObject, NetworkConnection networkConnection)
     {
         networkObject.GiveOwnership(networkConnection);
+    }
+
+    [ObserversRpc]
+    void UpdateLastSpawnedObjectObservers(GameObject obj)
+    {
+        LastSpawnedObject = obj;
     }
 }

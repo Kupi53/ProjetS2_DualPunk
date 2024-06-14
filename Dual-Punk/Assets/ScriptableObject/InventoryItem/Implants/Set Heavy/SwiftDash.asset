@@ -13,9 +13,8 @@ MonoBehaviour:
   m_Name: SwiftDash
   m_EditorClassIdentifier: 
   name: SwiftDash
-  prefab: {fileID: 0}
   icon: {fileID: 21300000, guid: c816a41c38e345a43b8333b218b794a0, type: 3}
-  description: This implant reduces dash reload time.
+  description: Increases dash distance while sligthy increasing dash cooldown.
   setName: Heavy
   setItems:
   - WarriorLuck

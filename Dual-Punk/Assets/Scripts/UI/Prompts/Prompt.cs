@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +7,7 @@ using UnityEngine;
 public class Prompt
 {
     public string[] TextFields;
+    public DialogueField[] DialogueFields;
     public bool EnableMovement;
     public PromptType PromptType;
     public GameObject Trigger;

@@ -89,7 +89,7 @@ public abstract class MeleeWeaponScript : WeaponScript
         else
             PlayerState.PointerScript.CanShoot = true;
 
-        if (Input.GetButtonUp("SecondaryUse") && _attack == 0 || PlayerState.Stop)
+        if (Input.GetButtonUp("SecondaryUse") && _attack == 0 || PlayerState.Stop || PlayerState.IsDown)
         {
             _disableDefence = false;
 
@@ -97,7 +97,7 @@ public abstract class MeleeWeaponScript : WeaponScript
                 ResetDefence();
         }
 
-        if (PlayerState.Stop) return;
+        if (PlayerState.Stop || PlayerState.IsDown) return;
 
         if (Input.GetButton("SecondaryUse") && !_disableDefence && _resetCooldownTimer >= _resetCooldown)
         {

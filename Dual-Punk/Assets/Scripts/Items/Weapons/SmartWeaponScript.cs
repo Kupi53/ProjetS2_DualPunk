@@ -40,7 +40,7 @@ public class SmartWeaponScript : PowerWeaponScript
         {
             _waitForNextTarget = false;
         }
-        if (!PlayerState.Stop && Input.GetButton("SecondaryUse"))
+        if (!PlayerState.Stop && !PlayerState.IsDown && Input.GetButton("SecondaryUse"))
         {
 #nullable enable
             GameObject? target;
@@ -135,6 +135,12 @@ public class SmartWeaponScript : PowerWeaponScript
 
     protected override void Fire(Vector3 direction, int damage, float dispersion, float distance, bool damagePlayer)
     {
+        if (!_silencer)
+        {
+            StopAllCoroutines();
+            StartCoroutine(Firing(0.5f));
+        }
+
         _ammoLeft--;
         _fireTimer = 0;
         UserRecoil.Impact(-direction, _recoilForce);

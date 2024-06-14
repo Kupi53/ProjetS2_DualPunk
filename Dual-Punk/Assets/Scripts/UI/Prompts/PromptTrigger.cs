@@ -23,7 +23,7 @@ public class PromptTrigger : MonoBehaviour
         if (!(other.gameObject.GetComponent<NetworkObject>().Owner == GameManager.Instance.LocalPlayer.GetComponent<NetworkObject>().Owner)) return;
         if (_type == PromptTriggerType.OnCollision)
         {
-            PromptManager.Instance.SpawnPrompt(Prompt, this.gameObject);
+            Spawn();
         }
     }
     void OnTriggerStay2D(Collider2D other)
@@ -32,9 +32,9 @@ public class PromptTrigger : MonoBehaviour
         if (!(other.gameObject.GetComponent<NetworkObject>().Owner == GameManager.Instance.LocalPlayer.GetComponent<NetworkObject>().Owner)) return;
         if (_type == PromptTriggerType.OnButton)
         {
-            if (Input.GetButtonDown("Interact"))
+            if (Input.GetButtonDown("Interact") && other.gameObject.GetComponent<MouvementsController>().EnableMovement)
             {
-                PromptManager.Instance.SpawnPrompt(Prompt, this.gameObject);
+                Spawn();
             }
         }
     }
@@ -42,16 +42,20 @@ public class PromptTrigger : MonoBehaviour
     {
         if (!enabled) return;
         if (!(other.gameObject.GetComponent<NetworkObject>().Owner == GameManager.Instance.LocalPlayer.GetComponent<NetworkObject>().Owner)) return;
-        if (_type == PromptTriggerType.OnCollision && PromptManager.Instance.CurrentPromptShown != null 
-            && PromptManager.Instance.CurrentPromptShown.GetComponent<PromptController>().Prompt == Prompt)
+        if (_type == PromptTriggerType.OnCollision)
         {
-            PromptManager.Instance.CloseCurrentPrompt();
+            PromptManager.Instance.ClosePrompt(Prompt);
         }
     }
 
     private IEnumerator TriggerPromptAfterSeconds(float seconds)
     {
         yield return new WaitForSeconds(seconds);
+        Spawn();
+    }
+
+    public void Spawn()
+    {
         PromptManager.Instance.SpawnPrompt(Prompt, this.gameObject);
     }
 }
@@ -60,5 +64,6 @@ public enum PromptTriggerType
 {
     Automatic,
     OnCollision,
-    OnButton
+    OnButton,
+    Tutorial
 }

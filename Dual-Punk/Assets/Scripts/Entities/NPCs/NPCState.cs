@@ -21,7 +21,7 @@ public class NPCState : NetworkBehaviour
 
     protected void Awake()
     {
-        TargetPoint = Vector3.zero;
+        TargetPoint = transform.position + new Vector3(0.2f, 0, 0);
         Stop = false;
         Move = true;
         Run = false;

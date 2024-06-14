@@ -70,7 +70,7 @@ public class PowerWeaponScript : FireArmScript
             PlayerState.PointerScript.CanShoot = false;
 
 
-        if (!PlayerState.Stop && (Input.GetButton("Use") && _isAuto && !_reloading || Input.GetButtonDown("Use"))
+        if (!PlayerState.Stop && !PlayerState.IsDown && (Input.GetButton("Use") && _isAuto && !_reloading || Input.GetButtonDown("Use"))
             && _fireTimer >= _fireRate && _ammoLeft > 0 && _canAttack)
         {
             if (_reloading)
@@ -88,7 +88,7 @@ public class PowerWeaponScript : FireArmScript
             _fireTimer += Time.deltaTime;
         }
 
-        if (!PlayerState.Stop && (Input.GetButtonDown("Reload") && _ammoLeft != _magSize || _autoReload && _ammoLeft == 0))
+        if (!PlayerState.Stop && !PlayerState.IsDown && (Input.GetButtonDown("Reload") && _ammoLeft != _magSize || _autoReload && _ammoLeft == 0))
         {
             _reloading = true;
         }
@@ -157,6 +157,12 @@ public class PowerWeaponScript : FireArmScript
 
     protected override void Fire(Vector3 direction, int damage, float dispersion, float distance, bool damagePlayer)
     {
+        if (!_silencer)
+        {
+            StopAllCoroutines();
+            StartCoroutine(Firing(0.5f));
+        }
+
         _ammoLeft--;
         _fireTimer = 0;
         UserRecoil.Impact(-direction, _recoilForce);
@@ -172,7 +178,7 @@ public class PowerWeaponScript : FireArmScript
         {
             dispersion /= _aimAccuracy;
         }
-            
+        
         FireBulletRpc(direction, damage, _bulletSpeed, _bulletSize, _impactForce, dispersion, _bulletCollisions, warriorLuckBullet, damagePlayer);
     }
 

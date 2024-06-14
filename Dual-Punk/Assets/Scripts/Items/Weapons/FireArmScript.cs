@@ -48,6 +48,13 @@ public abstract class FireArmScript : WeaponScript
 
     protected abstract void Fire(Vector3 direction, int damage, float dispersion, float distance, bool damagePlayer);
 
+    protected IEnumerator Firing(float duration)
+    {
+        if (PlayerState != null) PlayerState.Firing = true;
+        yield return new WaitForSeconds(duration);
+        if (PlayerState != null) PlayerState.Firing = false;
+    }
+
 
     private void OnTriggerStay2D(Collider2D collider)
     {

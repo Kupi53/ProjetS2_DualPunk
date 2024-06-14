@@ -65,8 +65,6 @@ public class ConsumablesController : NetworkBehaviour
 
         _lineRenderer.positionCount = _lineResolution;
 
-
-
         ResetThrow();
     }
 
@@ -86,7 +84,6 @@ public class ConsumablesController : NetworkBehaviour
                 StartCD(_healCooldown, "HealthSyringeCD");
 
                 TriggerHealAnimation();
-
             }
         }
         else {
@@ -121,9 +118,7 @@ public class ConsumablesController : NetworkBehaviour
                     ResetThrow();
                     _itemTimer = 0;
 
-                    StartCD(_grenadeTimer, "TimerGrenadeCD");
-
-
+                    StartCD(_itemCooldown, "TimerGrenadeCD");
                 }
 
                 DrawGrenadePath();
@@ -166,7 +161,6 @@ public class ConsumablesController : NetworkBehaviour
         return _explodeTimer/_chargeTime;
     }
 
-
     private float GetThrowDistance()
     {
         float distance = _throwDistance * GetChargeFactor() * Methods.GetDirectionFactor(_direction);
@@ -174,7 +168,6 @@ public class ConsumablesController : NetworkBehaviour
             return distance;
         return _direction.magnitude;
     }
-
 
     private void ResetThrow()
     {
@@ -185,7 +178,6 @@ public class ConsumablesController : NetworkBehaviour
     }
 
 
-
     [ServerRpc(RequireOwnership = false)]
     private void ThrowGrenadeRpc(Vector3 startPosition, Vector3 moveDirection, Vector3 verticalDirection, float moveSpeed, float explosionTimer, float distanceUntilStop, float curveFactor)
     {
@@ -193,6 +185,7 @@ public class ConsumablesController : NetworkBehaviour
         grenade.GetComponent<InstantGrenadeScript>().Setup(startPosition, moveDirection, verticalDirection, moveSpeed, explosionTimer, distanceUntilStop, curveFactor);
         Spawn(grenade);
     }
+
 
 
     private GameObject FindConsummable(string name) {
@@ -211,40 +204,33 @@ public class ConsumablesController : NetworkBehaviour
         return neededConsummable;
     }
 
-    private IEnumerator TriggerCountDown(float coolDownTimer, Text countDownDisplay) {
-        
+    private IEnumerator TriggerCountDown(float coolDownTimer, Text countDownDisplay)
+    {
         float currentTimer = coolDownTimer;
         countDownDisplay.text = coolDownTimer.ToString();
 
-        while(currentTimer > 0) {
-
+        while (currentTimer > 0)
+        {
             countDownDisplay.text = currentTimer.ToString();
             yield return new WaitForSeconds(1f);
             currentTimer--;
         }
-
         countDownDisplay.transform.parent.gameObject.SetActive(false);
-
     }
 
-    private void StartCD(float coolDownTimer, string name) {
-
+    private void StartCD(float coolDownTimer, string name)
+    {
         CoolDownDisplay inventoryCDdisplay = FindConsummable(name).GetComponent<CoolDownDisplay>();
         inventoryCDdisplay.gameObject.SetActive(true);
         StartCoroutine(TriggerCountDown(coolDownTimer, inventoryCDdisplay.gameObject.transform.GetChild(0).GetComponent<Text>()));
-
     }
 
-    private void TriggerHealAnimation() {
-
+    private void TriggerHealAnimation()
+    {
         GameObject healParticleAnimation = transform.GetChild(2).gameObject;
-        for(int i = 0 ; i < 2; i++) {
-
+        for (int i = 0 ; i < 2; i++)
+        {
             healParticleAnimation.transform.GetChild(i).GetComponent<ParticleSystem>().Play();
-
         }
-        Debug.Log("triggered");
-
     }
-
 }

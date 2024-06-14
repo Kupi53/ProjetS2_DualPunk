@@ -143,12 +143,12 @@ public class LaserGunScript : FireArmScript
         if (_disableFire && Input.GetButton("Use"))
             PlayerState.PointerScript.CanShoot = false;
 
-        if (Input.GetButtonDown("Use") && _canAttack && !PlayerState.Stop)
+        if (Input.GetButtonDown("Use") && _canAttack && !PlayerState.Stop && !PlayerState.IsDown)
         {
             _coolDown = false;
             _disableFire = false;
         }
-        if (Input.GetButton("Use") && _canAttack && !_fire && !_disableFire && !PlayerState.Stop)
+        if (Input.GetButton("Use") && _canAttack && !_fire && !_disableFire && !PlayerState.Stop && !PlayerState.IsDown)
         {
             _fire = true;
 
@@ -158,7 +158,7 @@ public class LaserGunScript : FireArmScript
                 EnableLaserServerRPC();
             }
         }
-        else if (Input.GetButtonUp("Use") || !_canAttack || PlayerState.Stop)
+        else if (Input.GetButtonUp("Use") || !_canAttack || PlayerState.Stop || PlayerState.IsDown)
         {
             _fire = false;
             _coolDown = true;
@@ -313,6 +313,12 @@ public class LaserGunScript : FireArmScript
 
         UserRecoil.Impact(-direction, _recoilForce * Time.deltaTime * 100);
         RaycastHit2D hit = Physics2D.Raycast(_startPosition, direction, distance, _layerMask);
+
+        if (!_silencer)
+        {
+            StopAllCoroutines();
+            StartCoroutine(Firing(0.1f));
+        }
 
         if (hit)
         {

@@ -78,6 +78,8 @@ public class HealthManager : NetworkBehaviour, IDamageable
     [ObserversRpc]
     public void Heal(int amount, float time)
     {
+        if (_playerState.IsDown) return;
+
         if (time == 0)
         {
             _playerState.Health += amount;
@@ -92,7 +94,7 @@ public class HealthManager : NetworkBehaviour, IDamageable
     [ObserversRpc]
     public void Damage(int amount, float time, bool crit, float stunDuration)
     {
-        if (!Teleportation)
+        if (!Teleportation && !_playerState.IsDown)
         {
             if (_playerState.Dashing || (DodgeActive && UnityEngine.Random.Range(0, 100) < DodgePercentage))
             {

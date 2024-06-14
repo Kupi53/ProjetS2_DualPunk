@@ -21,6 +21,7 @@ TagManager:
   - ObjectSpawner
   - TempAudioPlayer
   - TempAudioEnemy
+  - Lootbox
   layers:
   - Default
   - TransparentFX

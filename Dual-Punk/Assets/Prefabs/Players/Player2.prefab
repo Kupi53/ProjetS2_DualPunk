@@ -486,12 +486,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 791a4989b64e0df4499e3e35764ddd09, type: 3}
-  m_Color: {r: 0.6901709, g: 1, b: 0.28773582, a: 1}
+  m_Sprite: {fileID: 265037998, guid: 5c7568bfae27d0e4b920303c87307f04, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 2}
+  m_Size: {x: 0.75, y: 1.65625}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -560,8 +560,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.1}
-    oldSize: {x: 0.5, y: 1.53125}
-    newSize: {x: 1, y: 2}
+    oldSize: {x: 0.8125, y: 1.6875}
+    newSize: {x: 0.75, y: 1.65625}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -614,7 +614,7 @@ Animator:
   m_GameObject: {fileID: 7898736215898924539}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 0280d3a9742b10b4e87c5ddf3530676b, type: 2}
+  m_Controller: {fileID: 9100000, guid: c8b8acb447f16a140844496db70efe1a, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -663,6 +663,7 @@ MonoBehaviour:
   _dashCooldown: 1
   _moveBackFactor: 0.8
   _forcesDecreaseSpeed: 15
+  _dashCooldownTimer: 0
 --- !u!114 &8523659330764518231
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -819,7 +820,8 @@ MonoBehaviour:
   - {fileID: 6014537000033638382}
   - {fileID: 5666972022531695219}
   <ParentNetworkObject>k__BackingField: {fileID: 0}
-  <ChildNetworkObjects>k__BackingField: []
+  <ChildNetworkObjects>k__BackingField:
+  - {fileID: 9029928123370003042}
   SerializedTransformProperties:
     Position: {x: 0, y: 0, z: 0}
     Rotation: {x: -0, y: -0, z: -0, w: 1}
@@ -829,7 +831,7 @@ MonoBehaviour:
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 39
+  <PrefabId>k__BackingField: 42
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0
@@ -927,6 +929,42 @@ PrefabInstance:
       propertyPath: <IsNested>k__BackingField
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -2734296218206465047, guid: eb09795464402bf499a4dd417ea6d9ae, type: 3}
+      propertyPath: <ComponentIndex>k__BackingField
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -2734296218206465047, guid: eb09795464402bf499a4dd417ea6d9ae, type: 3}
+      propertyPath: <ParentNetworkObject>k__BackingField
+      value: 
+      objectReference: {fileID: 5423358579492179876}
+    - target: {fileID: -2734296218206465047, guid: eb09795464402bf499a4dd417ea6d9ae, type: 3}
+      propertyPath: SerializedTransformProperties.Position.x
+      value: 2191.7896
+      objectReference: {fileID: 0}
+    - target: {fileID: -2734296218206465047, guid: eb09795464402bf499a4dd417ea6d9ae, type: 3}
+      propertyPath: SerializedTransformProperties.Position.y
+      value: 274.88174
+      objectReference: {fileID: 0}
+    - target: {fileID: -2734296218206465047, guid: eb09795464402bf499a4dd417ea6d9ae, type: 3}
+      propertyPath: SerializedTransformProperties.Position.z
+      value: 37.595886
+      objectReference: {fileID: 0}
+    - target: {fileID: -2734296218206465047, guid: eb09795464402bf499a4dd417ea6d9ae, type: 3}
+      propertyPath: SerializedTransformProperties.Rotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -2734296218206465047, guid: eb09795464402bf499a4dd417ea6d9ae, type: 3}
+      propertyPath: SerializedTransformProperties.LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -2734296218206465047, guid: eb09795464402bf499a4dd417ea6d9ae, type: 3}
+      propertyPath: SerializedTransformProperties.LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -2734296218206465047, guid: eb09795464402bf499a4dd417ea6d9ae, type: 3}
+      propertyPath: SerializedTransformProperties.LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4215740858642132537, guid: eb09795464402bf499a4dd417ea6d9ae, type: 3}
       propertyPath: m_Name
       value: HealAnimation
@@ -981,3 +1019,14 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5384363623186285305, guid: eb09795464402bf499a4dd417ea6d9ae, type: 3}
   m_PrefabInstance: {fileID: 2836541926773836171}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &9029928123370003042 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -2734296218206465047, guid: eb09795464402bf499a4dd417ea6d9ae, type: 3}
+  m_PrefabInstance: {fileID: 2836541926773836171}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26b716c41e9b56b4baafaf13a523ba2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
