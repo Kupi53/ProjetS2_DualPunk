@@ -17,6 +17,7 @@ public class Explosion : NetworkBehaviour
     }
 
 
+    [ServerRpc(RequireOwnership = false)]
     private void DamageVictims(string tagDeLaVictime, int damage, float explosionRadius, float explosionImpact, bool dealDamage, bool warriorLuck)
     {
         GameObject[] victimes = GameObject.FindGameObjectsWithTag(tagDeLaVictime);

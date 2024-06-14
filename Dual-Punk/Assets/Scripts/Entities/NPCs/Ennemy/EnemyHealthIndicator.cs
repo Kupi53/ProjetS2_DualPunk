@@ -76,12 +76,17 @@ public class EnemyHealthIndicator : NetworkBehaviour
     {
         if (amount == 0) return;
 
+        DisplayDamageIndicatorObs(scale, color, amount);
+    }
+
+
+    [ObserversRpc]
+    private void DisplayDamageIndicatorObs(Vector3 scale, Color color, int amount)
+    {
         GameObject floatingText = Instantiate(_floatingTextPrefab);
         floatingText.transform.SetParent(_floatingTextsParent.transform);
         floatingText.GetComponent<RectTransform>().SetScale(scale);
         floatingText.GetComponent<TextMeshProUGUI>().text = amount.ToString();
         floatingText.GetComponent<TextMeshProUGUI>().color = color;
-
-        Spawn(floatingText);
     }
 }

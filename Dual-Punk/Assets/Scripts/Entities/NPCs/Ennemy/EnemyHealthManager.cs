@@ -204,14 +204,14 @@ public class EnemyHealthManager : NetworkBehaviour, IDamageable
     public void SetHealth(int amount)
     {
         //change health parce que flemme de faire une autre methode
-        if (_imunityTimer > 0 || Index >= _lives.Length) return;
-
         SetHealthObs(amount);
     }
 
     [ObserversRpc]
     private void SetHealthObs(int amount)
     {
+        if (_imunityTimer > 0 || Index >= _lives.Length) return;
+
         _lives[Index] += amount;
         CheckHealth();
     }
