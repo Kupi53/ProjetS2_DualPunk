@@ -113,8 +113,176 @@ TextureImporter:
       name: Player2 NE_0
       rect:
         serializedVersion: 2
-        x: 4
+        x: 5
         y: 10
+        width: 29
+        height: 53
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9f30818e676f374439681133ca42a90f
+      internalID: 477015160
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player2 NE_1
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 12
+        width: 25
+        height: 52
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5a1e15693fc8d5e4fb67dbc5918d0875
+      internalID: -588909368
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player2 NE_2
+      rect:
+        serializedVersion: 2
+        x: 71
+        y: 9
+        width: 26
+        height: 55
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3882618d69479954ca8e037bef1727ff
+      internalID: 1533482211
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player2 NE_3
+      rect:
+        serializedVersion: 2
+        x: 106
+        y: 9
+        width: 26
+        height: 56
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6d3c1a8ef57e6ec4190ca3e08a388f7b
+      internalID: -878807740
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player2 NE_4
+      rect:
+        serializedVersion: 2
+        x: 140
+        y: 12
+        width: 26
+        height: 50
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3798f6f61ecf4294899651924a4190aa
+      internalID: -1151498806
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player2 NE_5
+      rect:
+        serializedVersion: 2
+        x: 170
+        y: 10
+        width: 29
+        height: 53
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ff05c90b3e7544347aac13c2fcbf8d10
+      internalID: 1327155140
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player2 NE_6
+      rect:
+        serializedVersion: 2
+        x: 204
+        y: 8
+        width: 35
+        height: 56
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ee592149e0374fd499fab343c1b050c6
+      internalID: 703949233
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player2 NE_7
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 8
+        width: 25
+        height: 54
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 654b74cc193bc07479e960f16f3e1c78
+      internalID: 2139876722
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player2 NE_8
+      rect:
+        serializedVersion: 2
+        x: 271
+        y: 9
         width: 25
         height: 53
       alignment: 9
@@ -124,176 +292,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3a0ffb4fb084d6b489ffc09c498c53c5
-      internalID: -866624928
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player2 NE_1
-      rect:
-        serializedVersion: 2
-        x: 39
-        y: 12
-        width: 23
-        height: 52
-      alignment: 9
-      pivot: {x: 0.5, y: 0.1}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b80c3ebd43ae69c429b8aea3802b9a27
-      internalID: -634170367
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player2 NE_2
-      rect:
-        serializedVersion: 2
-        x: 73
-        y: 9
-        width: 23
-        height: 55
-      alignment: 9
-      pivot: {x: 0.5, y: 0.1}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 651fca86efa8c9546ac037d46fac259d
-      internalID: 704233784
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player2 NE_3
-      rect:
-        serializedVersion: 2
-        x: 108
-        y: 9
-        width: 22
-        height: 56
-      alignment: 9
-      pivot: {x: 0.5, y: 0.1}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: cef9429681b0e1f42bcea6cc443627a5
-      internalID: 1503806890
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player2 NE_4
-      rect:
-        serializedVersion: 2
-        x: 142
-        y: 12
-        width: 22
-        height: 50
-      alignment: 9
-      pivot: {x: 0.5, y: 0.1}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 6d3c3db638a8a8f46a4ea00fbca658d8
-      internalID: 89815128
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player2 NE_5
-      rect:
-        serializedVersion: 2
-        x: 175
-        y: 10
-        width: 22
-        height: 53
-      alignment: 9
-      pivot: {x: 0.5, y: 0.1}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7cd7d241dd25ee842ab902c9b099dd91
-      internalID: 2069659959
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player2 NE_6
-      rect:
-        serializedVersion: 2
-        x: 210
-        y: 8
-        width: 23
-        height: 56
-      alignment: 9
-      pivot: {x: 0.5, y: 0.1}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e67662e93d790834f83c533d28456bac
-      internalID: 1431932596
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player2 NE_7
-      rect:
-        serializedVersion: 2
-        x: 244
-        y: 8
-        width: 22
-        height: 54
-      alignment: 9
-      pivot: {x: 0.5, y: 0.1}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 1e831a5e323b8784e9b7e76a3826d844
-      internalID: 1512191563
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player2 NE_8
-      rect:
-        serializedVersion: 2
-        x: 272
-        y: 9
-        width: 22
-        height: 53
-      alignment: 9
-      pivot: {x: 0.5, y: 0.1}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7c46071205de90149bd06e4fa91f71ec
-      internalID: 1839277412
+      spriteID: 1d297e6906424cc4cb46ab4f87ca6a79
+      internalID: 1082866649
       vertices: []
       indices: 
       edges: []
@@ -309,15 +309,15 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Player2 NE_0: -866624928
-      Player2 NE_1: -634170367
-      Player2 NE_2: 704233784
-      Player2 NE_3: 1503806890
-      Player2 NE_4: 89815128
-      Player2 NE_5: 2069659959
-      Player2 NE_6: 1431932596
-      Player2 NE_7: 1512191563
-      Player2 NE_8: 1839277412
+      Player2 NE_0: 477015160
+      Player2 NE_1: -588909368
+      Player2 NE_2: 1533482211
+      Player2 NE_3: -878807740
+      Player2 NE_4: -1151498806
+      Player2 NE_5: 1327155140
+      Player2 NE_6: 703949233
+      Player2 NE_7: 2139876722
+      Player2 NE_8: 1082866649
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
