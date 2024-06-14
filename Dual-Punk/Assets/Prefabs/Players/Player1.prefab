@@ -128,9 +128,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a347289e42fa62459fd2924a7647fed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 255
+  _componentIndexCache: 11
   _addedNetworkObject: {fileID: 3460544654625029893}
-  _networkObjectCache: {fileID: 0}
+  _networkObjectCache: {fileID: 3460544654625029893}
   _icon: {fileID: -695721306, guid: 3149fe79ff3ac524e866ab0572e453b1, type: 3}
   indicatorPosX: 0
   indicatorPosY: 1.75
@@ -874,6 +874,7 @@ MonoBehaviour:
   - {fileID: 7958423234412697078}
   - {fileID: -4368909073496365499}
   - {fileID: -2726307406999109247}
+  - {fileID: 2309409680499456073}
   <ParentNetworkObject>k__BackingField: {fileID: 0}
   <ChildNetworkObjects>k__BackingField:
   - {fileID: 4149738197449957407}
@@ -1261,14 +1262,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 18646855055023927}
     m_Modifications:
-    - target: {fileID: 6332918577062008679, guid: eb09795464402bf499a4dd417ea6d9ae, type: 3}
-      propertyPath: m_BoundingSphereOverride.w
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6332918577062008679, guid: eb09795464402bf499a4dd417ea6d9ae, type: 3}
-      propertyPath: m_BoundingSphereOverride.y
-      value: 43.2
-      objectReference: {fileID: 0}
     - target: {fileID: -2734296218206465047, guid: 9c39ac8194e96514aa8e2bd97bef6141, type: 3}
       propertyPath: <IsNested>k__BackingField
       value: 1
@@ -1528,6 +1521,14 @@ PrefabInstance:
     - target: {fileID: 6424595954031136938, guid: 9c39ac8194e96514aa8e2bd97bef6141, type: 3}
       propertyPath: m_SortingOrder
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6332918577062008679, guid: eb09795464402bf499a4dd417ea6d9ae, type: 3}
+      propertyPath: m_BoundingSphereOverride.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6332918577062008679, guid: eb09795464402bf499a4dd417ea6d9ae, type: 3}
+      propertyPath: m_BoundingSphereOverride.y
+      value: 43.2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
