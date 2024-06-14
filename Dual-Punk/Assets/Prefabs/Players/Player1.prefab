@@ -820,8 +820,7 @@ MonoBehaviour:
   - {fileID: 7958423234412697078}
   - {fileID: -4368909073496365499}
   <ParentNetworkObject>k__BackingField: {fileID: 0}
-  <ChildNetworkObjects>k__BackingField:
-  - {fileID: 0}
+  <ChildNetworkObjects>k__BackingField: []
   SerializedTransformProperties:
     Position: {x: 0, y: 0, z: 0}
     Rotation: {x: -0, y: -0, z: -0, w: 1}
@@ -1176,10 +1175,63 @@ PrefabInstance:
     m_RemovedGameObjects:
     - {fileID: 7918930644938072071, guid: eb09795464402bf499a4dd417ea6d9ae, type: 3}
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4215740858642132537, guid: eb09795464402bf499a4dd417ea6d9ae, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5597157635854642750}
   m_SourcePrefab: {fileID: 100100000, guid: eb09795464402bf499a4dd417ea6d9ae, type: 3}
 --- !u!4 &2928262197813881940 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5384363623186285305, guid: eb09795464402bf499a4dd417ea6d9ae, type: 3}
   m_PrefabInstance: {fileID: 7069064563075542701}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &6384711455997788308 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4215740858642132537, guid: eb09795464402bf499a4dd417ea6d9ae, type: 3}
+  m_PrefabInstance: {fileID: 7069064563075542701}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5597157635854642750
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6384711455997788308}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2836e36774ca1c4bbbee976e17b649c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _componentIndexCache: 255
+  _addedNetworkObject: {fileID: 3460544654625029893}
+  _networkObjectCache: {fileID: 0}
+  _componentConfiguration: 0
+  _synchronizeParent: 0
+  _packing:
+    Position: 1
+    Rotation: 1
+    Scale: 0
+  _interpolation: 2
+  _extrapolation: 2
+  _enableTeleport: 0
+  _teleportThreshold: 1
+  _scaleThreshold: 1
+  _clientAuthoritative: 1
+  _sendToOwner: 1
+  _enableNetworkLod: 1
+  _interval: 1
+  _synchronizePosition: 1
+  _positionSnapping:
+    X: 0
+    Y: 0
+    Z: 0
+  _synchronizeRotation: 1
+  _rotationSnapping:
+    X: 0
+    Y: 0
+    Z: 0
+  _synchronizeScale: 1
+  _scaleSnapping:
+    X: 0
+    Y: 0
+    Z: 0

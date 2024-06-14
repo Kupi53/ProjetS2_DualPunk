@@ -802,6 +802,90 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Isometric-SpriteSheet_33
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 160
+        width: 32
+        height: 32
+      alignment: 9
+      pivot: {x: 0.45312893, y: 0.28723764}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2889b49497cf12c46b89bb383a9f9cc9
+      internalID: -837204258
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Isometric-SpriteSheet_34
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 160
+        width: 32
+        height: 32
+      alignment: 9
+      pivot: {x: 0.62190175, y: 0.26595402}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bc26bdda620be954a9b2c944f0215016
+      internalID: -9310964
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Isometric-SpriteSheet_35
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 128
+        width: 32
+        height: 32
+      alignment: 9
+      pivot: {x: 0.37993836, y: 0.75785923}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bf621740fc4a48d40bf2b4614e43a31e
+      internalID: 1162527332
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Isometric-SpriteSheet_36
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 128
+        width: 32
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5939853, y: 0.7326255}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d155eba208a48844c962083804cae5f8
+      internalID: 494130213
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -840,6 +924,10 @@ TextureImporter:
       Isometric-SpriteSheet_30: -1530489025
       Isometric-SpriteSheet_31: 1402726951
       Isometric-SpriteSheet_32: 1817590974
+      Isometric-SpriteSheet_33: -837204258
+      Isometric-SpriteSheet_34: -9310964
+      Isometric-SpriteSheet_35: 1162527332
+      Isometric-SpriteSheet_36: 494130213
       Isometric-SpriteSheet_4: -1919355235
       Isometric-SpriteSheet_5: 141532873
       Isometric-SpriteSheet_6: -920339917
