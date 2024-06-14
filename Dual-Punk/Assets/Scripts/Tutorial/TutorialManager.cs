@@ -14,26 +14,28 @@ using UnityEngine.UI;
 
 public class TutorialManager : MonoBehaviour
 {
-    public static TutorialManager Instance;
     [SerializeField] GameObject _stageObjects;
     [SerializeField] GameObject _exteriorDoor;
     [SerializeField] GameObject _interiorDoor;
     [SerializeField] GameObject _storeClerk;
     [SerializeField] GameObject _endOfTutorialTrigger;
-    public int CurrentStage;
+
+    private GameObject _stage3enemy;
+    private GameObject _stage4lootBox;
+    private ImplantScript _stage7implant;
+    private WeaponScript _stage7weapon;
     private bool _started;
     private float _stage1counter;
     private int _stage2counter;
     private bool _stage2dashToggle;
-    private GameObject _stage3enemy;
-    private GameObject _stage4lootBox;
     private bool _stage4cleared;
     private bool _stage7dialogueFound;
-    private ImplantScript _stage7implant;
-    private WeaponScript _stage7weapon;
-    private
 
-    void Start()
+    public static TutorialManager Instance { get; set; }
+    public int CurrentStage { get; set; }
+
+
+    private void Start()
     {
         if (Instance == null)
         {
@@ -41,7 +43,7 @@ public class TutorialManager : MonoBehaviour
         }
     }
 
-    void Update()
+    private void Update()
     {
         if (!_started)
         {
@@ -56,6 +58,7 @@ public class TutorialManager : MonoBehaviour
             CheckStageChange();
         }
     }
+
 
     void CheckStageChange()
     {
@@ -185,6 +188,7 @@ public class TutorialManager : MonoBehaviour
                 break;
         }
     }
+
     void ChangeStage(int oldStage, int newStage)
     {
         CurrentStage = newStage;
@@ -199,7 +203,7 @@ public class TutorialManager : MonoBehaviour
                 _stageObjects.transform.GetChild(1).GetComponentInChildren<PromptTrigger>().Spawn();
                 break;
             case 2:
-                _stage2counter = 3;
+                _stage2counter = 1;
                 _stage2dashToggle = true;
                 _stage4cleared = false;
                 PromptManager.Instance.CloseCurrentPrompt();
@@ -261,5 +265,4 @@ public class TutorialManager : MonoBehaviour
         }
         else return obj[1];
     }
-
 }

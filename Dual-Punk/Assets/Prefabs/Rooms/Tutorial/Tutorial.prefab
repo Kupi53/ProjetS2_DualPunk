@@ -535,7 +535,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Prompt:
     TextFields:
-    - Press "E" to go through with the door.
+    - Press Space to go through with the door.
     DialogueFields: []
     EnableMovement: 1
     PromptType: 1
@@ -1607,7 +1607,6 @@ MonoBehaviour:
   _interiorDoor: {fileID: 246682449201603877}
   _storeClerk: {fileID: 2490809327101258646}
   _endOfTutorialTrigger: {fileID: 7702564677230898723}
-  CurrentStage: 0
 --- !u!1 &2194273095882435750
 GameObject:
   m_ObjectHideFlags: 0
@@ -2031,9 +2030,9 @@ MonoBehaviour:
   <ParentNetworkObject>k__BackingField: {fileID: 8620491292292501070}
   <ChildNetworkObjects>k__BackingField: []
   SerializedTransformProperties:
-    Position: {x: 5.91, y: -1.87, z: 0}
+    Position: {x: 5.52, y: -1.81, z: 0}
     Rotation: {x: 0, y: 0, z: 0, w: 1}
-    LocalScale: {x: 1, y: 1, z: 1}
+    LocalScale: {x: 2, y: 2, z: 1}
   _isNetworked: 1
   _isGlobal: 0
   _initializeOrder: 0
@@ -2542,7 +2541,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Prompt:
     TextFields:
-    - Press E to leave the tutorial.
+    - Press Space to leave the tutorial.
     DialogueFields: []
     EnableMovement: 1
     PromptType: 1
@@ -35246,7 +35245,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Prompt:
     TextFields:
-    - Now, navigate in the direction of the arrow and press E to enter the door.
+    - Now, navigate in the direction of the arrow and press SPACE to enter the door.
     DialogueFields: []
     EnableMovement: 1
     PromptType: 1
@@ -35652,7 +35651,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Prompt:
     TextFields:
-    - Press "E" to go through with the door.
+    - Press Space to go through with the door.
     DialogueFields: []
     EnableMovement: 1
     PromptType: 1
@@ -64210,6 +64209,26 @@ PrefabInstance:
       propertyPath: <ParentNetworkObject>k__BackingField
       value: 
       objectReference: {fileID: 4268112287656625176}
+    - target: {fileID: 8434958758933139550, guid: b51b1dd1dea6fc44ea0c2b1d56524625, type: 3}
+      propertyPath: SerializedTransformProperties.Position.x
+      value: 107.51
+      objectReference: {fileID: 0}
+    - target: {fileID: 8434958758933139550, guid: b51b1dd1dea6fc44ea0c2b1d56524625, type: 3}
+      propertyPath: SerializedTransformProperties.Position.y
+      value: -4.57
+      objectReference: {fileID: 0}
+    - target: {fileID: 8434958758933139550, guid: b51b1dd1dea6fc44ea0c2b1d56524625, type: 3}
+      propertyPath: SerializedTransformProperties.Position.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8434958758933139550, guid: b51b1dd1dea6fc44ea0c2b1d56524625, type: 3}
+      propertyPath: SerializedTransformProperties.LocalScale.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8434958758933139550, guid: b51b1dd1dea6fc44ea0c2b1d56524625, type: 3}
+      propertyPath: SerializedTransformProperties.LocalScale.y
+      value: 1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 8942151427811684554, guid: b51b1dd1dea6fc44ea0c2b1d56524625, type: 3}
       propertyPath: _overrideType
       value: 3
@@ -64399,6 +64418,38 @@ PrefabInstance:
       propertyPath: <ParentNetworkObject>k__BackingField
       value: 
       objectReference: {fileID: 4268112287656625176}
+    - target: {fileID: 8434958758933139550, guid: b51b1dd1dea6fc44ea0c2b1d56524625, type: 3}
+      propertyPath: SerializedTransformProperties.Position.x
+      value: 67.63
+      objectReference: {fileID: 0}
+    - target: {fileID: 8434958758933139550, guid: b51b1dd1dea6fc44ea0c2b1d56524625, type: 3}
+      propertyPath: SerializedTransformProperties.Position.y
+      value: -24.68
+      objectReference: {fileID: 0}
+    - target: {fileID: 8434958758933139550, guid: b51b1dd1dea6fc44ea0c2b1d56524625, type: 3}
+      propertyPath: SerializedTransformProperties.Position.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8434958758933139550, guid: b51b1dd1dea6fc44ea0c2b1d56524625, type: 3}
+      propertyPath: SerializedTransformProperties.Rotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8434958758933139550, guid: b51b1dd1dea6fc44ea0c2b1d56524625, type: 3}
+      propertyPath: SerializedTransformProperties.Rotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8434958758933139550, guid: b51b1dd1dea6fc44ea0c2b1d56524625, type: 3}
+      propertyPath: SerializedTransformProperties.Rotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8434958758933139550, guid: b51b1dd1dea6fc44ea0c2b1d56524625, type: 3}
+      propertyPath: SerializedTransformProperties.LocalScale.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8434958758933139550, guid: b51b1dd1dea6fc44ea0c2b1d56524625, type: 3}
+      propertyPath: SerializedTransformProperties.LocalScale.y
+      value: 1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 8942151427811684554, guid: b51b1dd1dea6fc44ea0c2b1d56524625, type: 3}
       propertyPath: _overrideType
       value: 3
@@ -64556,6 +64607,18 @@ PrefabInstance:
       propertyPath: <ParentNetworkObject>k__BackingField
       value: 
       objectReference: {fileID: 4268112287656625176}
+    - target: {fileID: 8662005701061872785, guid: 55e37db6665305742909a50c6232e975, type: 3}
+      propertyPath: SerializedTransformProperties.Position.x
+      value: 73.95
+      objectReference: {fileID: 0}
+    - target: {fileID: 8662005701061872785, guid: 55e37db6665305742909a50c6232e975, type: 3}
+      propertyPath: SerializedTransformProperties.Position.y
+      value: -24.34
+      objectReference: {fileID: 0}
+    - target: {fileID: 8662005701061872785, guid: 55e37db6665305742909a50c6232e975, type: 3}
+      propertyPath: SerializedTransformProperties.Position.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9003789017972292883, guid: 55e37db6665305742909a50c6232e975, type: 3}
       propertyPath: _runSpeed
       value: 0
@@ -64769,6 +64832,18 @@ PrefabInstance:
       propertyPath: <ParentNetworkObject>k__BackingField
       value: 
       objectReference: {fileID: 4268112287656625176}
+    - target: {fileID: 8662005701061872785, guid: 55e37db6665305742909a50c6232e975, type: 3}
+      propertyPath: SerializedTransformProperties.Position.x
+      value: 106.19
+      objectReference: {fileID: 0}
+    - target: {fileID: 8662005701061872785, guid: 55e37db6665305742909a50c6232e975, type: 3}
+      propertyPath: SerializedTransformProperties.Position.y
+      value: -8.03
+      objectReference: {fileID: 0}
+    - target: {fileID: 8662005701061872785, guid: 55e37db6665305742909a50c6232e975, type: 3}
+      propertyPath: SerializedTransformProperties.Position.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9003789017972292883, guid: 55e37db6665305742909a50c6232e975, type: 3}
       propertyPath: _runSpeed
       value: 0

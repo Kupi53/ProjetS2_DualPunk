@@ -6,6 +6,7 @@ public class IndicatorTrigger : NetworkBehaviour
     [SerializeField] private Sprite _icon;
     [SerializeField] private float indicatorPosX;
     [SerializeField] private float indicatorPosY;
+
     void OnTriggerEnter2D(Collider2D other)
     {
         if (!(other.gameObject.GetComponent<NetworkObject>().Owner == ClientManager.Connection)) return;
