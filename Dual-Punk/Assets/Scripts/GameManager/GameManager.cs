@@ -116,6 +116,9 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("Mort");
         Time.timeScale = 0;
+        PromptManager.Instance.ClearPrompts();
+        PromptManager.Instance.CloseCurrentArrow();
+        PromptManager.Instance.CloseCurrentIndicator();
         FadeInDeath();
     }
 
