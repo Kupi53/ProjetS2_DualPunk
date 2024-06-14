@@ -26,6 +26,7 @@ public class PromptTrigger : MonoBehaviour
             Spawn();
         }
     }
+
     void OnTriggerStay2D(Collider2D other)
     {
         if (!enabled) return;

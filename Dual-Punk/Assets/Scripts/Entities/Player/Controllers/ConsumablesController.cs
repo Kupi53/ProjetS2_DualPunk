@@ -83,7 +83,7 @@ public class ConsumablesController : NetworkBehaviour
                 //enables to display countdown in inventory
                 StartCD(_healCooldown, "HealthSyringeCD");
 
-                TriggerHealAnimation();
+                StartCoroutine(TriggerHealAnimation());
             }
         }
         else {
@@ -225,12 +225,12 @@ public class ConsumablesController : NetworkBehaviour
         StartCoroutine(TriggerCountDown(coolDownTimer, inventoryCDdisplay.gameObject.transform.GetChild(0).GetComponent<Text>()));
     }
 
-    private void TriggerHealAnimation()
+    private IEnumerator TriggerHealAnimation()
     {
         GameObject healParticleAnimation = transform.GetChild(2).gameObject;
-        for (int i = 0 ; i < 2; i++)
-        {
-            healParticleAnimation.transform.GetChild(i).GetComponent<ParticleSystem>().Play();
-        }
+        healParticleAnimation.SetActive(true);
+        yield return new WaitForSeconds(1f);
+        healParticleAnimation.SetActive(false);
     }
+
 }

@@ -155,12 +155,9 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
                         { 
                             SwapEquipedSlot(_lastSlotPosition, _currentSlot);
                         }
-
                         else if (_lastSlotPosition == WeaponSlots[EquipedSlotIndex])
                         {
-                            GameObject destroyedGameObject = PlayerState.WeaponScript.gameObject;
-                            DropWeapon(_lastSlotPosition, null);
-                            destroyedGameObject.SetActive(false);
+                            SwapEquipedSlot(_currentSlot, _lastSlotPosition);
                         }
                     }
                     else
