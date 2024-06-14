@@ -68,4 +68,6 @@ public class PlayerState : NetworkBehaviour
             WeaponScript = null;
         }
     }
+
+
 }
