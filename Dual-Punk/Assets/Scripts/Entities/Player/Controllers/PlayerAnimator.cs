@@ -19,6 +19,7 @@ public class PlayerAnimator : NetworkBehaviour
     const string PLAYER_SE = "Player SE";
     const string PLAYER_SW = "Player SW";
     const string PLAYER_IDLE = "Player Idle";
+    const string PLAYER_DEAD = "Player Dead";
 
     const string PLAYERWEAPON_N = "PlayerWeapon N";
     const string PLAYERWEAPON_E = "PlayerWeapon E";
@@ -41,7 +42,12 @@ public class PlayerAnimator : NetworkBehaviour
     private void Update()
     {
         if (!IsOwner) return;
-        if (!_playerState.Moving && _playerState.HoldingWeapon)
+        if (_playerState.IsDown)
+        {
+            gameObject.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 0.6f);
+            ChangeAnimation(PLAYER_DEAD);
+        }
+        else if (!_playerState.Moving && _playerState.HoldingWeapon)
             ChangeAnimation(SelectAnimationWeapon(_playerState.AnimAngle));
         else if (_playerState.Moving)
             ChangeAnimation(SelectAnimation(_playerState.AnimAngle));
