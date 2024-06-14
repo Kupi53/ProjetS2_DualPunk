@@ -1606,7 +1606,7 @@ MonoBehaviour:
   _exteriorDoor: {fileID: 2194273095882435750}
   _interiorDoor: {fileID: 246682449201603877}
   _storeClerk: {fileID: 2490809327101258646}
-  _endOfTutorialTrigger: {fileID: 7702564677230898723}
+  _endOfTutorialTrigger: {fileID: 2595130272695221585}
 --- !u!1 &2194273095882435750
 GameObject:
   m_ObjectHideFlags: 0

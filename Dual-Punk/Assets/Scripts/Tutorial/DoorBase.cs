@@ -42,7 +42,7 @@ public abstract class DoorBase : NetworkBehaviour
     }
 
 
-    protected abstract void DoActionRpc();
+    public abstract void DoActionRpc();
 
 
     private void OnTriggerEnter2D(Collider2D other)

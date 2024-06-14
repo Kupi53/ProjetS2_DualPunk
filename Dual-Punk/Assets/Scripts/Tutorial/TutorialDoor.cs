@@ -23,7 +23,7 @@ public class TutorialDoor : DoorBase
 
 
     [ServerRpc(RequireOwnership = false)]
-    protected override void DoActionRpc()
+    public override void DoActionRpc()
     {
         //Teleport Rpc
         TeleportLocationObservers();

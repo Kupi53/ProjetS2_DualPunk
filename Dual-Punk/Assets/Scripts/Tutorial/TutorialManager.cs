@@ -20,6 +20,8 @@ public class TutorialManager : MonoBehaviour
     [SerializeField] GameObject _storeClerk;
     [SerializeField] GameObject _endOfTutorialTrigger;
 
+
+    private GameObject _endOfTutorialTriggerPos;
     private GameObject _stage3enemy;
     private GameObject _stage4lootBox;
     private ImplantScript _stage7implant;
@@ -41,6 +43,7 @@ public class TutorialManager : MonoBehaviour
         {
             Instance = this;
         }
+        _endOfTutorialTriggerPos = _endOfTutorialTrigger.transform.GetChild(0).gameObject;
     }
 
     private void Update()
@@ -68,6 +71,10 @@ public class TutorialManager : MonoBehaviour
                 if (PromptManager.Instance.CurrentPromptShown == null)
                 {
                     ChangeStage(0, 1);
+                }
+                else if (Input.GetButtonDown("Pickup"))
+                {
+                    _endOfTutorialTrigger.GetComponent<EndOfTutorialTrigger>().DoActionRpc();
                 }
                 break;
             case 1:
@@ -245,7 +252,7 @@ public class TutorialManager : MonoBehaviour
                 break;
             case 10:
                 PromptManager.Instance.ClearPrompts();
-                PromptManager.Instance.SpawnPointerArrow(_endOfTutorialTrigger);
+                PromptManager.Instance.SpawnPointerArrow(_endOfTutorialTriggerPos);
                 _stageObjects.transform.GetChild(10).GetComponentInChildren<PromptTrigger>().Spawn();
                 break;
         }

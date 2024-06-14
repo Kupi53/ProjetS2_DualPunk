@@ -712,6 +712,14 @@ PrefabInstance:
       propertyPath: _networkBehaviours.Array.data[1]
       value: 
       objectReference: {fileID: 1558104560}
+    - target: {fileID: 7321682726171311499, guid: 4f142b0760f07ba49bdcd5a10b4b4d6b, type: 3}
+      propertyPath: Prompt.TextFields.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7321682726171311499, guid: 4f142b0760f07ba49bdcd5a10b4b4d6b, type: 3}
+      propertyPath: Prompt.TextFields.Array.data[5]
+      value: Press Space to begin the Tutorial, or E to skip the tutorial.
+      objectReference: {fileID: 0}
     - target: {fileID: 8370372172793432354, guid: 4f142b0760f07ba49bdcd5a10b4b4d6b, type: 3}
       propertyPath: m_Name
       value: Tutorial
