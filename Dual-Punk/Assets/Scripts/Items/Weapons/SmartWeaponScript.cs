@@ -34,7 +34,7 @@ public class SmartWeaponScript : PowerWeaponScript
     }
 
 
-    public override void Run(Vector3 position, Vector3 direction, Vector3 targetPoint)
+    public override void Run(Vector3 position, Vector3 direction, Vector3 targetPoint, bool damagePlayer)
     {
         if (Input.GetButtonDown("SecondaryUse"))
         {
@@ -64,7 +64,7 @@ public class SmartWeaponScript : PowerWeaponScript
         else
             _resetTimer = 0;
         
-        base.Run(position, direction, targetPoint);
+        base.Run(position, direction, targetPoint, damagePlayer);
     }
 
 

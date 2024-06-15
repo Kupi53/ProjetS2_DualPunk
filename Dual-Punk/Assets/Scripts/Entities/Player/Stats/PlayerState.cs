@@ -53,6 +53,7 @@ public class PlayerState : NetworkBehaviour
         CrawlTime = 20;
         CrawlTimer = 0;
         ForcesEffect = 0.05f;
+        EnablePvp = false;
     }
 
 

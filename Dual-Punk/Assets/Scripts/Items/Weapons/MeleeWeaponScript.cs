@@ -80,7 +80,7 @@ public abstract class MeleeWeaponScript : WeaponScript
     }
 
 
-    public override void Run(Vector3 position, Vector3 direction, Vector3 targetPoint)
+    public override void Run(Vector3 position, Vector3 direction, Vector3 targetPoint, bool damagePlayer)
     {
         MovePosition(position, direction, targetPoint);
 
@@ -106,7 +106,7 @@ public abstract class MeleeWeaponScript : WeaponScript
         }
         else if (Input.GetButtonDown("Use") && _attack < 3 && _attackTimer >= _attackCooldown)
         {
-            Attack(direction, false);
+            Attack(direction, damagePlayer);
             PlayerState.CameraController.ShakeCamera(_cameraShake, 0.1f);
         }
     }

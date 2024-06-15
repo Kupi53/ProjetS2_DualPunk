@@ -45,6 +45,7 @@ public class BulletScript : NetworkBehaviour, IImpact, IDestroyable
 
     public void Setup(Vector3 moveDirection, int damage, float moveSpeed, float impactForce, int collisionsAllowed, bool damagePlayer, bool warriorLuck, PlayerState playerState)
     {
+        Debug.Log("setup" + damagePlayer);
         _damage = damage;
         _moveSpeed = moveSpeed;
         _impactForce = impactForce;
@@ -52,11 +53,8 @@ public class BulletScript : NetworkBehaviour, IImpact, IDestroyable
         _damagePlayer = damagePlayer;
         _warriorLuck = warriorLuck;
         _playerState = playerState;
-        if (playerState == null)
-        {
-            _damagePlayer = true;
-        }
-        else _damagePlayer = playerState.EnablePvp;
+
+        Debug.Log(_damagePlayer);
 
         if (warriorLuck)
         {
@@ -125,13 +123,16 @@ public class BulletScript : NetworkBehaviour, IImpact, IDestroyable
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
+        Debug.Log(collider);
         if (collider.CompareTag("Projectile"))
         {
             if (collider.GetComponent<IDestroyable>().DestroyObject())
                 DestroyObject();
         }
+        
         else if (!_stopDamage && (collider.CompareTag("Ennemy") && !_damagePlayer || collider.CompareTag("Player") && _damagePlayer))
         {
+            Debug.Log("test");
             _stopDamage = true;
             collider.GetComponent<IDamageable>().Damage(_damage, 0, _warriorLuck, 0f);
             collider.GetComponent<IImpact>().Impact(_moveDirection, _impactForce);

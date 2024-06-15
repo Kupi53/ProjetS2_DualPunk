@@ -136,9 +136,9 @@ public class LaserGunScript : FireArmScript
     }
 
 
-    public override void Run(Vector3 position, Vector3 direction, Vector3 targetPoint)
+    public override void Run(Vector3 position, Vector3 direction, Vector3 targetPoint, bool damagePlayer)
     {
-        base.Run(position, direction, targetPoint);
+        base.Run(position, direction, targetPoint, damagePlayer);
         
         if (_disableFire && Input.GetButton("Use"))
             PlayerState.PointerScript.CanShoot = false;
@@ -167,7 +167,7 @@ public class LaserGunScript : FireArmScript
         if (_fire)
         {
             PlayerState.CameraController.ShakeCamera(_cameraShake, 0.1f);
-            Fire(direction, _damage, 0, Vector3.Distance(_startPosition, targetPoint), false);
+            Fire(direction, _damage, 0, Vector3.Distance(_startPosition, targetPoint), damagePlayer);
         }
         else
         {

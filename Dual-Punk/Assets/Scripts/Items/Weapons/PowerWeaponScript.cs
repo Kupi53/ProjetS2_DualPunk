@@ -61,9 +61,9 @@ public class PowerWeaponScript : FireArmScript
     }
     
 
-    public override void Run(Vector3 position, Vector3 direction, Vector3 targetPoint)
+    public override void Run(Vector3 position, Vector3 direction, Vector3 targetPoint, bool damagePlayer)
     {
-        base.Run(position, direction, targetPoint);
+        base.Run(position, direction, targetPoint, damagePlayer);
 
         _aiming = PlayerState.Walking;
         if (_ammoLeft == 0)
@@ -79,7 +79,7 @@ public class PowerWeaponScript : FireArmScript
                 _reloading = false;
             }
 
-            Fire(direction, _damage, _dispersion, Vector3.Distance(_gunEndPoints[0].transform.position, targetPoint), false);
+            Fire(direction, _damage, _dispersion, Vector3.Distance(_gunEndPoints[0].transform.position, targetPoint), damagePlayer);
             PlayerState.CameraController.ShakeCamera(_cameraShake, 0.1f);
         }
 
