@@ -13,10 +13,9 @@ MonoBehaviour:
   m_Name: NeuralFreeze
   m_EditorClassIdentifier: 
   name: NeuralFreeze
-  prefab: {fileID: 0}
   icon: {fileID: 21300000, guid: 294fd3d7ff280fc41a5cc09361f0f9fd, type: 3}
-  description: "Cet implant permet au joueur d'\xE9tourdir l'ennemi pendant quelques
-    secondes lorsqu'il lui inflige des d\xE9g\xE2ts avec une arme de corp \xE0 corp."
+  description: This implant allows the player to stun the enemy for a few seconds
+    when dealing damage with a melee weapon.
   setName: Scavenger
   setItems:
   - NeuralFreeze

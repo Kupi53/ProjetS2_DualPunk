@@ -13,11 +13,9 @@ MonoBehaviour:
   m_Name: Bulletstorm
   m_EditorClassIdentifier: 
   name: Bulletstorm
-  prefab: {fileID: 0}
   icon: {fileID: 21300000, guid: 5f468c5d461b36f49ac63d5a97220146, type: 3}
-  description: "Cet implant offre au joueur une chance d'esquiver n'importe quelle
-    attaque ou balle. La chance d'esquiver augmente sur le joueur tient une arme
-    de corp \xE0 corp."
+  description: This implant gives the player a chance to dodge any attack or bullet.
+    The chance to dodge increases if the player is holding a melee weapon.
   setName: Scavenger
   setItems:
   - NeuralFreeze
