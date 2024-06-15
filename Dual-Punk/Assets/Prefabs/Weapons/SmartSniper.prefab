@@ -270,7 +270,7 @@ MonoBehaviour:
   _leftHand: {fileID: 4168790291945596085}
   _weaponOffset: {x: 0.15, y: 0.95, z: 0}
   _damage: 150
-  _range: 20
+  _range: 25
   _recoilForce: 1
   _impactForce: 0
   _cameraShake: 0.5
@@ -353,7 +353,7 @@ MonoBehaviour:
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 26
+  <PrefabId>k__BackingField: 24
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0
