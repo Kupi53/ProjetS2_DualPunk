@@ -608,7 +608,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: blablablalbabl teslotkjslktjasdolilkfjaosdijfosdiajf oisadjfoisadjfoiasjdfoisajdfoijasdofijasdoifjasoidjf
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4571d6a52b8f20d46b3ac3c2a7869b77, type: 2}
   m_sharedMaterial: {fileID: -5386445650779420068, guid: 4571d6a52b8f20d46b3ac3c2a7869b77, type: 2}
@@ -635,11 +635,11 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 12
+  m_fontSize: 6.7
   m_fontSizeBase: 12
   m_fontWeight: 400
-  m_enableAutoSizing: 0
-  m_fontSizeMin: 18
+  m_enableAutoSizing: 1
+  m_fontSizeMin: 0
   m_fontSizeMax: 72
   m_fontStyle: 1
   m_HorizontalAlignment: 1
@@ -671,7 +671,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 370.3975, y: 128.38847, z: 292.2022, w: 126.34201}
+  m_margin: {x: 370.3975, y: 128.38847, z: 292.2022, w: 128.41626}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0

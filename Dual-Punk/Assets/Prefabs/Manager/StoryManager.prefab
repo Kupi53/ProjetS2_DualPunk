@@ -54,6 +54,8 @@ MonoBehaviour:
     - You have quite the reputation around here, and I need YOU !
     - I know it's not usual to speak to a coumputer but you know with all these 
       technologies i guess it's not weird anymore...
+    - 'If you re really willing to change your train of life, meet me at the center
+      of the city but be ware, your determination will be put at test '
     - 'Well enough of this nonsense, I am aware of your situation, and I know a lot
       about you I have a job that can help you get out of this shit '
     - 'If you re really willing to change your train of life, meet me at the center
@@ -97,35 +99,17 @@ MonoBehaviour:
     - We will set up the infiltration in 6 days and try gather the best equipment
       for you.
   - text:
-    - Today is the day, we provided you with an extra loot hope you are prepared
-      for the journey.
-    - 'I will wait you in the first room '
+    - 6
   - text:
-    - Hi bud we are finally here, you must follow the corridors and find your way
-      to the heart
-    - I will guide you unitl then, stay aware of the cameras I will be sepaking to
-      you through them.
+    - 7
   - text:
-    - We found the room through the heart. Unfortunately, it is not where we thought
-      it was
-    - We've been duped ! Unfortunately the program is in a place kinda tough to reach...
-      It's on the moon. Remember for what you re doing the mission... It's worth
-      it
-    - We will gather more information but I an sure we can find a way to bring you
-      out there.
+    - 8
   - text:
-    - Bingo ! Actually the heart in the warehouse is not where the program remains
-    - Instead it gives you the access to a spaceship that enables you to reach the
-      moon !
-    - We must jump on the opportunity ! We will find a way to stay in contact with
-      you in the spaceship ! go NOW !
+    - 9
   - text:
-    - Boy ! Do you copy ?
-    - We made contact with the spaceship.
-    - Now go inside it we will take controll of it you don't have yo worry about
-      the commands see you inside !
-  _storyNpcSprite: {fileID: 21300000, guid: 7ec58a17ce88192478d50cddb514a8b1, type: 3}
-  _storyNpcName: testman
+    - 10
+  _storyNpcSprite: {fileID: 21300000, guid: 9d69b903d5e1d804989e7182d9f13f4d, type: 3}
+  _storyNpcName: Mafia Boss
   _storyNpc: {fileID: 5156350386522899684, guid: 5f50ede22a8f9fd4bb8a3151835e8343, type: 3}
 --- !u!114 &2547533428313607289
 MonoBehaviour:
@@ -155,7 +139,7 @@ MonoBehaviour:
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 0
+  <PrefabId>k__BackingField: 33
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0
