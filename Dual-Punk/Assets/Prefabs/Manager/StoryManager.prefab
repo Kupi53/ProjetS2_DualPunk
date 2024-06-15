@@ -97,15 +97,33 @@ MonoBehaviour:
     - We will set up the infiltration in 6 days and try gather the best equipment
       for you.
   - text:
-    - 6
+    - Today is the day, we provided you with an extra loot hope you are prepared
+      for the journey.
+    - 'I will wait you in the first room '
   - text:
-    - 7
+    - Hi bud we are finally here, you must follow the corridors and find your way
+      to the heart
+    - I will guide you unitl then, stay aware of the cameras I will be sepaking to
+      you through them.
   - text:
-    - 8
+    - We found the room through the heart. Unfortunately, it is not where we thought
+      it was
+    - We've been duped ! Unfortunately the program is in a place kinda tough to reach...
+      It's on the moon. Remember for what you re doing the mission... It's worth
+      it
+    - We will gather more information but I an sure we can find a way to bring you
+      out there.
   - text:
-    - 9
+    - Bingo ! Actually the heart in the warehouse is not where the program remains
+    - Instead it gives you the access to a spaceship that enables you to reach the
+      moon !
+    - We must jump on the opportunity ! We will find a way to stay in contact with
+      you in the spaceship ! go NOW !
   - text:
-    - 10
+    - Boy ! Do you copy ?
+    - We made contact with the spaceship.
+    - Now go inside it we will take controll of it you don't have yo worry about
+      the commands see you inside !
   _storyNpcSprite: {fileID: 21300000, guid: 7ec58a17ce88192478d50cddb514a8b1, type: 3}
   _storyNpcName: testman
   _storyNpc: {fileID: 5156350386522899684, guid: 5f50ede22a8f9fd4bb8a3151835e8343, type: 3}
