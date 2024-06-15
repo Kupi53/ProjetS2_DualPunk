@@ -10,8 +10,8 @@ public class Explosion : NetworkBehaviour
 {
     public void Explode(int damage, float explosionRadius, float explosionImpact, bool damagePlayer, bool warriorLuck)
     {
-        DamageVictims("Ennemy", damage, explosionRadius, explosionImpact, damagePlayer, warriorLuck);
-        DamageVictims("Player", damage, explosionRadius, explosionImpact, !damagePlayer, warriorLuck);
+        DamageVictims("Ennemy", damage, explosionRadius, explosionImpact, !damagePlayer, warriorLuck);
+        DamageVictims("Player", damage, explosionRadius, explosionImpact, damagePlayer, warriorLuck);
         DamageVictims("Projectile", damage, explosionRadius, explosionImpact, false, false);
 
         Destroy(gameObject, 2);
