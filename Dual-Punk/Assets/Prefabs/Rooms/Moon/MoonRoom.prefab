@@ -3653,6 +3653,7 @@ Transform:
   - {fileID: 8965871295965450925}
   - {fileID: 6827591678774549619}
   - {fileID: 5125414834792410233}
+  - {fileID: 801326256727317256}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!156049354 &5382889220720885125
@@ -3698,6 +3699,61 @@ Transform:
   m_Children: []
   m_Father: {fileID: 8970893873882797774}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4451422082814606642
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 801326256727317256}
+  - component: {fileID: 8904591953542273064}
+  m_Layer: 0
+  m_Name: BeginningPromptTrigger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &801326256727317256
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4451422082814606642}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8970893873882797774}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8904591953542273064
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4451422082814606642}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be69e0a67f2c90d488fbf1c169ccfc57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Prompt:
+    TextFields:
+    - Your friend has been corrupted by the Mafia Boss.
+    - They want to take away your hard earned freedom!
+    - Kill your friend to be rich and free.. If you don't, he will kill you first
+    DialogueFields: []
+    EnableMovement: 1
+    PromptType: 2
+    Trigger: {fileID: 0}
+  _type: 0
+  _delay: 0
 --- !u!1 &6707140982003034661
 GameObject:
   m_ObjectHideFlags: 0

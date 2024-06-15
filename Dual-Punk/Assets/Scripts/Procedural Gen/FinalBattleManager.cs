@@ -13,9 +13,11 @@ public class FinalBattleManager : NetworkBehaviour
     private bool _fightStarted;
     [SerializeField] private GameObject _room;
     [SerializeField] private GameObject _bossPrefab;
+    private PromptTrigger _promptTrigger;
 
     void Start()
     {
+        _promptTrigger = _room.GetComponentInChildren<PromptTrigger>();
         SetupGameState();
         SetupRoomPlayers();
     }
@@ -104,6 +106,7 @@ public class FinalBattleManager : NetworkBehaviour
     [TargetRpc]
     void SetupPlayer(NetworkConnection con, Vector3 pos)
     {
+        _promptTrigger.Spawn();
         GameManager.Instance.LocalPlayer.transform.position = pos;
         GameManager.Instance.LocalPlayerState.EnablePvp = true;
     }
