@@ -283,13 +283,6 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 146844a06ee140a40a8669162d439a38, type: 3}
   - {fileID: 8300000, guid: cde4d4c0f0abef1488adf6b46bbaa17b, type: 3}
   - {fileID: 8300000, guid: d32573ece0bc3b64185e78daa58a2030, type: 3}
-  _defendSound:
-  - {fileID: 8300000, guid: 852ffb4d33f39164c99ff940ac5e4ffa, type: 3}
-  - {fileID: 8300000, guid: 26aaa157ebb886e4ea1026ae4a2ae845, type: 3}
-  - {fileID: 8300000, guid: b68eb0ba51e0a9f4e8fc0dc62db77f0e, type: 3}
-  - {fileID: 8300000, guid: 4c0e1e1255da592488f6e31a1e26e93a, type: 3}
-  - {fileID: 8300000, guid: b00f7040ad7875b498d78b6b67eea660, type: 3}
-  - {fileID: 8300000, guid: 630189237ddd9194791f784b44da73d9, type: 3}
   _criticalSound: {fileID: 8300000, guid: bd618381a9e52dc40a2cbc4c67ce6397, type: 3}
   _attackPoint: {fileID: 7249373561558099710}
   _criticalDamage: 90
@@ -368,7 +361,7 @@ MonoBehaviour:
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0
-  <AssetPathHash>k__BackingField: 1126870683820887625
+  <AssetPathHash>k__BackingField: 18030854317978618863
 --- !u!114 &1720772536352017506
 MonoBehaviour:
   m_ObjectHideFlags: 0

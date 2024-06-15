@@ -364,7 +364,7 @@ MonoBehaviour:
   _addedNetworkObject: {fileID: 8662005701061872785}
   _networkObjectCache: {fileID: 8662005701061872785}
   _weapons:
-  - {fileID: 4730994522500747810, guid: 5f5cfecdb2f653e4b97c5be9ae46865c, type: 3}
+  - {fileID: 4730994522500747810, guid: 4db07167934a9e247ac151cec794bf56, type: 3}
   - {fileID: 3523624623969322734, guid: 2599e02f7729c4a47b45dbf3ef22a7d5, type: 3}
   - {fileID: 8832150194662058669, guid: f7aac53f2e09c714484920708fac4063, type: 3}
   _aimVariationAngleRange: 10
@@ -470,7 +470,7 @@ MonoBehaviour:
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 56
+  <PrefabId>k__BackingField: 31
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0
@@ -760,6 +760,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8662005701061872785, guid: 26ceb6209cf7a844bbe722acabbbdb98, type: 3}
+      propertyPath: <PrefabId>k__BackingField
+      value: 56
+      objectReference: {fileID: 0}
+    - target: {fileID: 8662005701061872785, guid: 26ceb6209cf7a844bbe722acabbbdb98, type: 3}
       propertyPath: <ComponentIndex>k__BackingField
       value: 1
       objectReference: {fileID: 0}
@@ -853,6 +857,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8662005701061872785, guid: 26ceb6209cf7a844bbe722acabbbdb98, type: 3}
+      propertyPath: <PrefabId>k__BackingField
+      value: 56
+      objectReference: {fileID: 0}
+    - target: {fileID: 8662005701061872785, guid: 26ceb6209cf7a844bbe722acabbbdb98, type: 3}
       propertyPath: <ComponentIndex>k__BackingField
       value: 2
       objectReference: {fileID: 0}
@@ -944,6 +952,10 @@ PrefabInstance:
     - target: {fileID: 8662005701061872785, guid: 26ceb6209cf7a844bbe722acabbbdb98, type: 3}
       propertyPath: <IsNested>k__BackingField
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8662005701061872785, guid: 26ceb6209cf7a844bbe722acabbbdb98, type: 3}
+      propertyPath: <PrefabId>k__BackingField
+      value: 56
       objectReference: {fileID: 0}
     - target: {fileID: 8662005701061872785, guid: 26ceb6209cf7a844bbe722acabbbdb98, type: 3}
       propertyPath: <ComponentIndex>k__BackingField
