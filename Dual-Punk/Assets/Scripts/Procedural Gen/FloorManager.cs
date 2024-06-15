@@ -36,7 +36,7 @@ public class FloorManager : MonoBehaviour
     [SerializeField] public Tile test1;
     [SerializeField] public Tile test2;
     //
-    private int _floorTypeCount { get => Enum.GetNames(typeof(FloorType)).Length; }
+    public int FloorTypeCount { get => Enum.GetNames(typeof(FloorType)).Length; }
     private const int _minRoomAmount = 4;
     private const int _maxRoomAmount = 8;
 

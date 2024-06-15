@@ -35,7 +35,7 @@ public class ObjectSpawner : NetworkBehaviour
     {
         GameObject instance = Instantiate(obj, pos, quaternion);
         Spawn(instance);
-        if (!GameManager.Instance.InTutorial)
+        if (!GameManager.Instance.InTutorial && !GameManager.Instance.InFinalFight)
         {
             instance.transform.SetParent(FloorNetworkWrapper.Instance.LocalFloorManager.CurrentRoom.gameObject.transform);
             GiveOwnerShipToAllClients(instance.GetComponent<NetworkObject>());
@@ -56,7 +56,7 @@ public class ObjectSpawner : NetworkBehaviour
             GameObject prefab = ItemIds.Instance.IdTable[Id];
             GameObject instance = Instantiate(prefab, pos, quaternion);
             Spawn(instance);
-            if (!GameManager.Instance.InTutorial)
+            if (!GameManager.Instance.InTutorial && !GameManager.Instance.InFinalFight)
             {
                 instance.transform.SetParent(FloorNetworkWrapper.Instance.LocalFloorManager.CurrentRoom.gameObject.transform);
                 GiveOwnerShipToAllClients(instance.GetComponent<NetworkObject>());
@@ -78,7 +78,7 @@ public class ObjectSpawner : NetworkBehaviour
             GameObject prefab = ItemIds.Instance.IdTable[Id];
             GameObject instance = Instantiate(prefab, pos, quaternion);
             Spawn(instance);
-            if (!GameManager.Instance.InTutorial)
+            if (!GameManager.Instance.InTutorial && !GameManager.Instance.InFinalFight)
             {
                 instance.transform.SetParent(FloorNetworkWrapper.Instance.LocalFloorManager.CurrentRoom.gameObject.transform);
                 GiveOwnerShipToAllClients(instance.GetComponent<NetworkObject>());

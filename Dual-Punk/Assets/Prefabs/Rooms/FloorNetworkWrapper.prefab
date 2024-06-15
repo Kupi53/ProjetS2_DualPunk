@@ -64,7 +64,8 @@ MonoBehaviour:
   <IsNested>k__BackingField: 0
   <ComponentIndex>k__BackingField: 0
   <PredictedSpawn>k__BackingField: {fileID: 0}
-  _networkBehaviours: []
+  _networkBehaviours:
+  - {fileID: 8218159435443752741}
   <ParentNetworkObject>k__BackingField: {fileID: 0}
   <ChildNetworkObjects>k__BackingField: []
   SerializedTransformProperties:
@@ -93,7 +94,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14ed25ef52ac1ec49b275993586aa23b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 255
+  _componentIndexCache: 0
   _addedNetworkObject: {fileID: 2512190564808807248}
-  _networkObjectCache: {fileID: 0}
+  _networkObjectCache: {fileID: 2512190564808807248}
   _floorManagerPrefab: {fileID: 7243987111373328831, guid: a6ab9596bfb41ff48893be06e5f990b6, type: 3}
+  _finalBattleManager: {fileID: 2560858959635934542, guid: 7d64fd82da5b75046b63e13765366ab6, type: 3}

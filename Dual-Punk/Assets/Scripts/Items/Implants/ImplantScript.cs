@@ -48,7 +48,7 @@ public abstract class ImplantScript : NetworkBehaviour
         transform.position = PlayerState.transform.position;
         transform.rotation = Quaternion.identity;
         ObjectSpawner.Instance.ImplantRendererSetEnabledRPC(gameObject, true);
-        if (!GameManager.Instance.InTutorial)
+        if (!GameManager.Instance.InTutorial && !GameManager.Instance.InFinalFight)
         {
             ObjectSpawner.Instance.ObjectParentToRoomRpc(gameObject);
         }

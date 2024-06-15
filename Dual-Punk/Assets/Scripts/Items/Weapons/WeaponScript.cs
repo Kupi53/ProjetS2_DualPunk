@@ -116,7 +116,7 @@ public abstract class WeaponScript : NetworkBehaviour
         PlayerState = null;
         EnemyState = null;
 
-        if (!GameManager.Instance.InTutorial)
+        if (!GameManager.Instance.InTutorial && !GameManager.Instance.InFinalFight)
         {
             ObjectSpawner.Instance.ObjectParentToRoomRpc(gameObject);
         }
