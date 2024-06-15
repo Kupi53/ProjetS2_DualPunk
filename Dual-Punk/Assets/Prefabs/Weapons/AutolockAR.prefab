@@ -322,7 +322,7 @@ MonoBehaviour:
   _reloadTime: 1.5
   _dispersion: 0.2
   _aimAccuracy: 4
-  _bulletSpeed: 10
+  _bulletSpeed: 12
   _bulletSize: 1
   _bulletCollisions: 0
   _lockedTargetIndicator: {fileID: 2443144578293597239, guid: e3bb1f7480ddb6645bdbf6c3371c4af5, type: 3}

@@ -28,7 +28,7 @@ public class PowerWeaponScript : FireArmScript
     [SerializeField] protected float _bulletSize;
     [SerializeField] protected int _bulletCollisions;
 
-    [SerializeField] protected int _ammoLeft;
+    protected int _ammoLeft;
     protected int _bulletPointIndex;
     private float _reloadTimer;
     protected float _fireTimer;

@@ -57,8 +57,8 @@ Transform:
   m_GameObject: {fileID: 7436378392273608810}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.204, y: -0.098, z: 0}
-  m_LocalScale: {x: 1.3, y: 1.3, z: 1}
+  m_LocalPosition: {x: 0.204, y: -0.075, z: 0}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8525544907906017579}
@@ -150,7 +150,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8855826882481181318}
@@ -269,7 +269,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.059272677, y: 0.09897177}
+  m_Offset: {x: 0.078428864, y: 0.055355646}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -280,7 +280,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.77454954, y: 0.19207576}
+  m_Size: {x: 0.512761, y: 0.1531338}
   m_EdgeRadius: 0
 --- !u!114 &-6790185488990606666
 MonoBehaviour:
@@ -300,15 +300,15 @@ MonoBehaviour:
   _rightHand: {fileID: 9015221885256457928}
   _leftHand: {fileID: 7436378392273608810}
   _weaponOffset: {x: 0.15, y: 0.9, z: 0}
-  _damage: 15
-  _range: 14
-  _recoilForce: 0.4
-  _impactForce: 0.5
-  _cameraShake: 0.5
+  _damage: 14
+  _range: 17
+  _recoilForce: 1
+  _impactForce: 0.7
+  _cameraShake: 0.7
   _weaponDistance: 0.45
   _pointerSpriteNumber: 2
-  _silencer: 0
-  _fireRate: 0.05
+  _silencer: 1
+  _fireRate: 0.1
   _fireSound: {fileID: 8300000, guid: dae32f51b1492904daa53cdaa8f329ea, type: 3}
   _reloadSound: {fileID: 8300000, guid: 12f76a00d6eed354790209110bad3320, type: 3}
   _bullet: {fileID: 3137761784652373764, guid: c83c2ecdccc5c4e42a0c6b0d758735f3, type: 3}
@@ -316,16 +316,15 @@ MonoBehaviour:
   - {fileID: 3833763891036575703}
   _isAuto: 1
   _autoReload: 1
-  _bulletsPerShot: 2
-  _magSize: 25
+  _bulletsPerShot: 1
+  _magSize: 50
   _reloadAmount: 25
-  _reloadTime: 1.5
-  _dispersion: 2
-  _aimAccuracy: 2
-  _bulletSpeed: 15
+  _reloadTime: 2
+  _dispersion: 0.3
+  _aimAccuracy: 5
+  _bulletSpeed: 10
   _bulletSize: 1
   _bulletCollisions: 0
-  _ammoLeft: 0
   _lockedTargetIndicator: {fileID: 2443144578293597239, guid: e3bb1f7480ddb6645bdbf6c3371c4af5, type: 3}
   _bulletRotateSpeed: 2
   _lockingRange: 1.5
@@ -379,13 +378,13 @@ MonoBehaviour:
   SerializedTransformProperties:
     Position: {x: 0, y: 0, z: 0}
     Rotation: {x: 0, y: 0, z: 0, w: 1}
-    LocalScale: {x: 0.8, y: 0.8, z: 1}
+    LocalScale: {x: 1, y: 1, z: 1}
   _isNetworked: 1
   _isGlobal: 0
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 20
+  <PrefabId>k__BackingField: 56
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0
@@ -477,7 +476,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.277, y: -0.116, z: 0}
-  m_LocalScale: {x: 1.3, y: 1.3, z: 1}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8525544907906017579}
