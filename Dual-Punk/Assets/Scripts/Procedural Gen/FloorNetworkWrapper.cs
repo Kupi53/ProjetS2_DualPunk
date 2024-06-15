@@ -174,7 +174,7 @@ public class FloorNetworkWrapper : NetworkBehaviour
         enemy.transform.position = newPos;
     }
 
-    private Vector3 FindSuitablePosition(Tilemap tileMap, IEnumerable<Tilemap> elevationMaps, BoundsInt bounds)
+    public Vector3 FindSuitablePosition(Tilemap tileMap, IEnumerable<Tilemap> elevationMaps, BoundsInt bounds)
     {
         int posX = UnityEngine.Random.Range(bounds.xMin, bounds.xMax);
         int posY = UnityEngine.Random.Range(bounds.yMin, bounds.yMax);

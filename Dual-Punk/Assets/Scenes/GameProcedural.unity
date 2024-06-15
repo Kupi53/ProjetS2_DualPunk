@@ -516,28 +516,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6480531313061175295, guid: 0599f3d54eb11544fae6d62a699125ec, type: 3}
   m_PrefabInstance: {fileID: 1451343401}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1558104560 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1158479541095139453, guid: 4f142b0760f07ba49bdcd5a10b4b4d6b, type: 3}
-  m_PrefabInstance: {fileID: 6278392959788454336}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a347289e42fa62459fd2924a7647fed, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1635030287 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5666978951232854036, guid: 4f142b0760f07ba49bdcd5a10b4b4d6b, type: 3}
-  m_PrefabInstance: {fileID: 6278392959788454336}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a347289e42fa62459fd2924a7647fed, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1894556705 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4380741521957479266, guid: 4f142b0760f07ba49bdcd5a10b4b4d6b, type: 3}
@@ -639,7 +617,7 @@ PrefabInstance:
     - target: {fileID: 4380741521957479266, guid: 4f142b0760f07ba49bdcd5a10b4b4d6b, type: 3}
       propertyPath: _networkBehaviours.Array.data[1]
       value: 
-      objectReference: {fileID: 1635030287}
+      objectReference: {fileID: 0}
     - target: {fileID: 4683479709139863861, guid: 4f142b0760f07ba49bdcd5a10b4b4d6b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -711,7 +689,7 @@ PrefabInstance:
     - target: {fileID: 7096860893514134283, guid: 4f142b0760f07ba49bdcd5a10b4b4d6b, type: 3}
       propertyPath: _networkBehaviours.Array.data[1]
       value: 
-      objectReference: {fileID: 1558104560}
+      objectReference: {fileID: 0}
     - target: {fileID: 7321682726171311499, guid: 4f142b0760f07ba49bdcd5a10b4b4d6b, type: 3}
       propertyPath: Prompt.TextFields.Array.size
       value: 6

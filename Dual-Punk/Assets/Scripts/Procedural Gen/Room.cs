@@ -128,11 +128,20 @@ public class Room : MonoBehaviour
         if (IsCleared)
         {   
             GameManager.Instance.RoomsCleared += 1;
-            SpawnLootBox();
+            Vector3 LootboxPos = SpawnLootBox();
+            if (!StoryManager.Instance.StoryCompleted)
+            {
+                Tilemap[] tilemaps = FloorNetworkWrapper.Instance.LocalFloorManager.CurrentRoom.GetComponentsInChildren<Tilemap>();
+                Tilemap tileMap = tilemaps.Where(map => map.gameObject.name == "Tilemap").First();
+                IEnumerable<Tilemap> elevationMaps = tilemaps.Where(map => map.gameObject.name.StartsWith("Elevation"));
+                BoundsInt bounds = tileMap.cellBounds;
+                Vector3 pos = FloorNetworkWrapper.Instance.FindSuitablePosition(tileMap, elevationMaps, bounds);
+                StoryManager.Instance.SpawnNpc(pos);
+            }
         }   
     }
 
-    private void SpawnLootBox()
+    private Vector3 SpawnLootBox()
     {
         Tilemap[] tilemaps = FloorNetworkWrapper.Instance.LocalFloorManager.CurrentRoom.GetComponentsInChildren<Tilemap>();
         Tilemap tileMap = tilemaps.Where(map => map.gameObject.name == "Tilemap").First();
@@ -149,7 +158,9 @@ public class Room : MonoBehaviour
         }
         Vector3 WorldPosition = tileMap.CellToWorld(position);
         ObjectSpawner.Instance.SpawnObjectFromIdRpc("0030", WorldPosition, quaternion.identity);
+        return WorldPosition;
     }
+
 
     private static WallCardinal GetOppositeWall(WallCardinal cardinal)
     {

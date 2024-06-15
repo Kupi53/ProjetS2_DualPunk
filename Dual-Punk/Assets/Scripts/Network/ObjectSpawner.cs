@@ -180,7 +180,7 @@ public class ObjectSpawner : NetworkBehaviour
     } 
     
     [ObserversRpc]
-    void GiveOwnerShipToAllClients(NetworkObject obj)
+    public void GiveOwnerShipToAllClients(NetworkObject obj)
     {
         GiveOwnershipRPC(obj, ClientManager.Connection);
     }
