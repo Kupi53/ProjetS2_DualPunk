@@ -251,7 +251,7 @@ GameObject:
   - component: {fileID: 45777571774306639}
   - component: {fileID: -257851370034313563}
   m_Layer: 7
-  m_Name: ChargeShotgun
+  m_Name: ChargeSG
   m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -610,7 +610,7 @@ MonoBehaviour:
   _rightHand: {fileID: 2455599545157016819}
   _leftHand: {fileID: 5055505049725042928}
   _weaponOffset: {x: 0.1, y: 0.85, z: 0}
-  _damage: 40
+  _damage: 80
   _range: 18
   _recoilForce: 3
   _impactForce: 2
@@ -636,7 +636,6 @@ MonoBehaviour:
   _bulletSpeed: 50
   _bulletSize: 2
   _bulletCollisions: 3
-  _ammoLeft: 0
   _chargeTime: 1.2
   _minDamage: 15
   _minSpeed: 10
@@ -703,7 +702,7 @@ MonoBehaviour:
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 26
+  <PrefabId>k__BackingField: 25
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0
