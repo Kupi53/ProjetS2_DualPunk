@@ -70,7 +70,7 @@ public class AttacksController : NetworkBehaviour
             }
 
             _playerState.AnimAngle = Methods.GetAngle(_direction);
-            _playerState.WeaponScript.Run(transform.position, _direction, targetPoint);
+            _playerState.WeaponScript.Run(transform.position, _direction, targetPoint, _playerState.EnablePvp);
         }
     }
 

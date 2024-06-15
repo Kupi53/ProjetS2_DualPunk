@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7221713909386203267}
   - component: {fileID: -5795670398753496561}
+  - component: {fileID: 5193211892125522631}
   m_Layer: 0
   m_Name: FinalBattleManager
   m_TagString: Untagged
@@ -45,7 +46,40 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _componentIndexCache: 0
-  _addedNetworkObject: {fileID: 0}
-  _networkObjectCache: {fileID: 0}
+  _addedNetworkObject: {fileID: 5193211892125522631}
+  _networkObjectCache: {fileID: 5193211892125522631}
   _room: {fileID: 4019020946379616920, guid: f54c48e51a29f544a886902f17871efe, type: 3}
-  _boss: {fileID: 6272146751674077345, guid: 3f24d948a14800e4aa11440733b91ffc, type: 3}
+  _bossPrefab: {fileID: 6272146751674077345, guid: 3f24d948a14800e4aa11440733b91ffc, type: 3}
+--- !u!114 &5193211892125522631
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2560858959635934542}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26b716c41e9b56b4baafaf13a523ba2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <IsNested>k__BackingField: 0
+  <ComponentIndex>k__BackingField: 0
+  <PredictedSpawn>k__BackingField: {fileID: 0}
+  _networkBehaviours:
+  - {fileID: -5795670398753496561}
+  <ParentNetworkObject>k__BackingField: {fileID: 0}
+  <ChildNetworkObjects>k__BackingField: []
+  SerializedTransformProperties:
+    Position: {x: 0, y: 0, z: 0}
+    Rotation: {x: 0, y: 0, z: 0, w: 1}
+    LocalScale: {x: 1, y: 1, z: 1}
+  _isNetworked: 1
+  _isGlobal: 0
+  _initializeOrder: 0
+  _defaultDespawnType: 0
+  NetworkObserver: {fileID: 0}
+  <PrefabId>k__BackingField: 0
+  <SpawnableCollectionId>k__BackingField: 0
+  _scenePathHash: 0
+  <SceneId>k__BackingField: 0
+  <AssetPathHash>k__BackingField: 17186398177319431629

@@ -72,7 +72,7 @@ public abstract class WeaponScript : NetworkBehaviour
     }
 
 
-    public abstract void Run(Vector3 position, Vector3 direction, Vector3 targetPoint);
+    public abstract void Run(Vector3 position, Vector3 direction, Vector3 targetPoint, bool damagePlayer);
     public abstract void EnemyRun(Vector3 position, Vector3 direction, Vector3 targetPoint);
     public abstract void MovePosition(Vector3 position, Vector3 direction, Vector3 targetPoint);
     public abstract void ResetWeapon();
@@ -80,7 +80,6 @@ public abstract class WeaponScript : NetworkBehaviour
 
     public void PickUp(GameObject owner)
     {
-        Debug.Log("AU SEOUR " + gameObject);
         UpdateInHandSer(true);
 
         PlayerState = owner.GetComponent<PlayerState>();
