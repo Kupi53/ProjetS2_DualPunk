@@ -83,6 +83,11 @@ public class GameManager : MonoBehaviour
         GameObject.Find($"{LocalPlayer.name} UI").GetComponentsInChildren<Animator>().Where(c=>c.gameObject.name == "DeathScreen").First().Play("FadeInDeath");
     }
 
+    public void FadeInWin()
+    {
+        GameObject.Find($"{LocalPlayer.name} UI").GetComponentsInChildren<Animator>().Where(c=>c.gameObject.name == "WinScreen").First().Play("FadeInDeath");
+    }
+
     public void CheckDeathMulti()
     {
         if (Player1State == null || Player2State == null) return;
@@ -128,12 +133,20 @@ public class GameManager : MonoBehaviour
 
     public void Lose()
     {
-        Debug.Log("Mort");
         Time.timeScale = 0;
         PromptManager.Instance.ClearPrompts();
         PromptManager.Instance.CloseCurrentArrow();
         PromptManager.Instance.CloseCurrentIndicator();
         FadeInDeath();
+    }
+
+    public void Win()
+    {
+        Time.timeScale = 0;
+        PromptManager.Instance.ClearPrompts();
+        PromptManager.Instance.CloseCurrentArrow();
+        PromptManager.Instance.CloseCurrentIndicator();
+        FadeInWin();
     }
 
     public void Reset()

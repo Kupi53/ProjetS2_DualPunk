@@ -33,7 +33,7 @@ public class ChargeWeaponScript : PowerWeaponScript
     }
 
 
-    public override void Run(Vector3 position, Vector3 direction, Vector3 targetPoint)
+    public override void Run(Vector3 position, Vector3 direction, Vector3 targetPoint, bool damagePlayer)
     {
         MovePosition(position, direction, targetPoint);
 
@@ -81,7 +81,7 @@ public class ChargeWeaponScript : PowerWeaponScript
                 {
                     _audioSource.Stop();
 
-                    Fire(direction, _damage, _dispersion, 0, false);
+                    Fire(direction, _damage, _dispersion, 0, damagePlayer);
                     PlayerState.CameraController.ShakeCamera(_cameraShake, 0.1f);
                 }
             }

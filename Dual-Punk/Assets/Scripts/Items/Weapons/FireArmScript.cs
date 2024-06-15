@@ -22,7 +22,7 @@ public abstract class FireArmScript : WeaponScript
     }
 
 
-    public override void Run(Vector3 position, Vector3 direction, Vector3 targetPoint)
+    public override void Run(Vector3 position, Vector3 direction, Vector3 targetPoint, bool damagePlayer)
     {
         MovePosition(position, direction, targetPoint);
 

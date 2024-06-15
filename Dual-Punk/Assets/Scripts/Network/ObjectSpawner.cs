@@ -85,7 +85,10 @@ public class ObjectSpawner : NetworkBehaviour
                 ObjectParentToRoomClients(instance);
             }
             UpdateLastSpawnedObjectObservers(instance);
-            EquipToTargetRpc(con, instance);
+            if (con.IsHost)
+            {
+                EquipToTargetRpc(con, instance);
+            }
         }
     }
 
