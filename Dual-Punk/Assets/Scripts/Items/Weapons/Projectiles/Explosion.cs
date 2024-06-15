@@ -56,8 +56,6 @@ public class Explosion : NetworkBehaviour
     [ObserversRpc]
     private void ShakeCamera(PlayerState playerState, float intensity)
     {
-        if (playerState == null) return;
-
         playerState.CameraController.ShakeCamera(intensity, 0.25f);
     }
 }

@@ -86,10 +86,6 @@ public class EnergyBladeScript : MeleeWeaponScript
 
     protected override void Attack(Vector3 direction, bool damagePlayer)
     {
-        _attack++;
-        _attackTimer = 0;
-        _resetCooldownTimer = 0;
-
         BaseAttack(direction, damagePlayer);
 
         _currentWeaponDistance = _attackDistance;
