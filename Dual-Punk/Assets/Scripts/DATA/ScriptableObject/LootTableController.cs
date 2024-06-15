@@ -12,9 +12,7 @@ public class LootTableController : MonoBehaviour
 
     public void Loot()
     {
-        Debug.Log("test");
         int lootRolls = UnityEngine.Random.Range(lootTable.MinLootRollAmount, lootTable.MaxLootRollAmount+1);
-        Debug.Log(lootRolls);
         for (int i = 0; i<lootRolls; i++)
         {
             string idToSpawn = lootTable.PickLoot();
@@ -25,8 +23,8 @@ public class LootTableController : MonoBehaviour
 
     public static Vector3 PickOffset()
     {
-        int i = UnityEngine.Random.Range(-1, 1);
-        int j = UnityEngine.Random.Range(-1, 1);
+        int i = UnityEngine.Random.Range(-1, 2);
+        int j = UnityEngine.Random.Range(-1, 2);
         return new Vector3(i, j, 0);
     }
 }

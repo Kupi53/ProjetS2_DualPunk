@@ -150,11 +150,24 @@ public class Room : MonoBehaviour
         int posX = UnityEngine.Random.Range(bounds.xMin, bounds.xMax);
         int posY = UnityEngine.Random.Range(bounds.yMin, bounds.yMax);
         Vector3Int position = new Vector3Int(posX, posY,0);
-        while (tileMap.GetTile(position) == null || elevationMaps.Any(map => map.GetTile(position) != null))
+        bool found = false;
+        while (!found)
         {
+            bool candididate = true;
             posX = UnityEngine.Random.Range(bounds.xMin, bounds.xMax);
             posY = UnityEngine.Random.Range(bounds.yMin, bounds.yMax);
             position = new Vector3Int(posX, posY,0);
+            for (int i = -3; i<=3 && candididate; i++)
+            {
+                for (int j = -3; j<=3 && candididate; j++)
+                {
+                    if (tileMap.GetTile(position + new Vector3Int(i, j, 0)) == null || elevationMaps.Any(map => map.GetTile(position + new Vector3Int(i,j,0)) != null))
+                    {
+                        candididate = false;
+                    }
+                }
+            }
+            found = candididate;
         }
         Vector3 WorldPosition = tileMap.CellToWorld(position);
         ObjectSpawner.Instance.SpawnObjectFromIdRpc("0030", WorldPosition, quaternion.identity);
