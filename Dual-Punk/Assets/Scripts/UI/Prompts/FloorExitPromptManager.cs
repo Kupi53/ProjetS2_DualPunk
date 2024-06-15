@@ -45,10 +45,16 @@ public class FloorExitPromptManager : MonoBehaviour
     
     void OnTriggerExit2D(Collider2D other)
     {
+        if (other.gameObject.GetComponent<NetworkObject>().Owner == GameManager.Instance.LocalPlayer.GetComponent<NetworkObject>().Owner)
+
         _playersOnExit.Remove(other.gameObject);
-        if (GameManager.Instance.Solo) return;
-        _promptTriggers[_lessThanTwoPromptIndex].enabled = true;
-        _promptTriggers[_twoPromptIndex].enabled = false;
-        _promptTriggers[_lessThanTwoPromptIndex].OnTriggerExit2D(other);
+
+        if (_promptTriggers[_twoPromptIndex].enabled && !GameManager.Instance.Solo)
+        {
+            _promptTriggers[_twoPromptIndex].OnTriggerExit2D(GameManager.Instance.LocalPlayer.GetComponent<Collider2D>());
+            _promptTriggers[_twoPromptIndex].enabled = false;
+            _promptTriggers[_lessThanTwoPromptIndex].enabled = true;
+            _promptTriggers[_lessThanTwoPromptIndex].OnTriggerEnter2D(GameManager.Instance.LocalPlayer.GetComponent<Collider2D>());
+        }
     }
 }

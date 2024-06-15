@@ -82,7 +82,7 @@ public class Room : MonoBehaviour
         {
             foreach ( Vector3Int coordinate in _exitWallCoordinates)
             {
-                wallTilemap.SetTile(coordinate, FloorNetworkWrapper.Instance.LocalFloorManager.test2);
+                wallTilemap.SetTile(coordinate, FloorNetworkWrapper.Instance.LocalFloorManager.test1);
                 _effectTilesController.EffectTiles.Add(new RoomExitTile(coordinate, NextRoom, GetOppositeWall(_exitWallCardinal)));
             }
         }
