@@ -16,7 +16,6 @@ public class RocketLauncherScript : PowerWeaponScript
         _ammoLeft--;
         _fireTimer = 0;
         UserRecoil.Impact(-direction, _recoilForce);
-        AudioManager.Instance.PlayClipAt(_fireSound, gameObject.transform.position, _ownerType);
 
         bool warriorLuckBullet = false;
         if (WarriorLuck && UnityEngine.Random.Range(0, 100) < DropPercentage)
@@ -32,6 +31,8 @@ public class RocketLauncherScript : PowerWeaponScript
     [ServerRpc(RequireOwnership = false)]
     private void FireRocketRpc(Vector3 direction, float distance, int damage, bool warriorLuckBullet, bool damagePlayer)
     {
+        AudioManager.Instance.PlayClipAt(_fireSound, gameObject.transform.position, _ownerType);
+
         for (int i = 0; i < _bulletsPerShot; i++)
         {
             GameObject rocket = Instantiate(_bullet, _gunEndPoints[_bulletPointIndex].transform.position, Quaternion.identity);

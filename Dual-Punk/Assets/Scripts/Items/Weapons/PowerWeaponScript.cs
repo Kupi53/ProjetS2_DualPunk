@@ -166,7 +166,6 @@ public class PowerWeaponScript : FireArmScript
         _ammoLeft--;
         _fireTimer = 0;
         UserRecoil.Impact(-direction, _recoilForce);
-        AudioManager.Instance.PlayClipAt(_fireSound, gameObject.transform.position, _ownerType);
 
         bool warriorLuckBullet = false;
         if (WarriorLuck && UnityEngine.Random.Range(0, 100) < DropPercentage)
@@ -186,6 +185,8 @@ public class PowerWeaponScript : FireArmScript
     [ServerRpc(RequireOwnership = false)]
     protected void FireBulletRpc(Vector3 direction, int damage, float bulletSpeed, float bulletSize, float impactForce, float dispersion, int collisionsAllowed, bool warriorLuckBullet, bool damagePlayer)
     {
+        AudioManager.Instance.PlayClipAt(_fireSound, transform.position, _ownerType);
+
         for (int i = 0; i < _bulletsPerShot; i++)
         {
             GameObject newBullet = Instantiate(_bullet, _gunEndPoints[_bulletPointIndex].transform.position, Quaternion.identity);

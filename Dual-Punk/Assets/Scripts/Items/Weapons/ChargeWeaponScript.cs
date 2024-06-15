@@ -191,11 +191,6 @@ public class ChargeWeaponScript : PowerWeaponScript
         _ammoLeft--;
         _fireTimer = 0;
         _chargeTimer = 0;
-
-        if (PlayerState != null)
-            AudioManager.Instance.PlayClipAt(_fireSound, gameObject.transform.position, "Player");
-        else
-            AudioManager.Instance.PlayClipAt(_fireSound, gameObject.transform.position, "Enemy");
         UserRecoil.Impact(-direction, GetProgressingFactor(multiplier, _minRecoil, _recoilForce));
 
         if (WarriorLuck && UnityEngine.Random.Range(0, 100) < DropPercentage)

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using FishNet.Object;
 
 
 public class EnergyBladeScript : MeleeWeaponScript
@@ -77,16 +78,16 @@ public class EnergyBladeScript : MeleeWeaponScript
             WeaponOffset = _defenceWeaponOffset;
         }
 
-        base.Defend(direction);
+        BaseDefend();
     }
 
 
     protected override void Attack(Vector3 direction, bool damagePlayer)
     {
-        base.Attack(direction, damagePlayer);
+        BaseAttack(direction, damagePlayer);
 
         _currentWeaponDistance = _attackDistance;
-        
+
         switch (_attack)
         {
             case 1:
