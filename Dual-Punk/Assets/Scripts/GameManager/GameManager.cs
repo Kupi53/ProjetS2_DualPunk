@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
     public bool downTutorialBegan;
     public bool InInventory;
     public bool InMenu;
+    public int RoomsCleared;
     public PromptTrigger downTutorialPromptTrigger;
     public GameObject LocalPlayer {
         get

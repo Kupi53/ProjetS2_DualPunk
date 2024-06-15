@@ -31,6 +31,7 @@ public class EffectTilesController : MonoBehaviour
             {
                 if (player1Position == effectTile.Position)
                 {
+                    Debug.Log("on");
                     player1StandingOnEFfectTile = true;
                     // FloorExitTile
                     if (effectTile is FloorExitTile)

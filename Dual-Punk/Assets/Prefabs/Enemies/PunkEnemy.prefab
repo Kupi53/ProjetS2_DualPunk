@@ -380,7 +380,7 @@ MonoBehaviour:
   _componentIndexCache: 3
   _addedNetworkObject: {fileID: 8662005701061872785}
   _networkObjectCache: {fileID: 8662005701061872785}
-  _lives: 96000000c8000000
+  _lives: 4b00000064000000
   _imuneTime: 0.5
   _defenceTime: 1
 --- !u!114 &105605007444475360

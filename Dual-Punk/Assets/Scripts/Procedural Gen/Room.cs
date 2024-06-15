@@ -127,6 +127,7 @@ public class Room : MonoBehaviour
     {
         if (IsCleared)
         {   
+            GameManager.Instance.RoomsCleared += 1;
             SpawnLootBox();
         }   
     }
