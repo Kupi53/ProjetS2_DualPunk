@@ -101,10 +101,9 @@ public abstract class MeleeWeaponScript : WeaponScript
 
         if (PlayerState.Stop || PlayerState.IsDown) return;
 
-        if (Input.GetButton("SecondaryUse"))
+        if (Input.GetButton("SecondaryUse") && !_disableDefence && _resetCooldownTimer >= _resetCooldown)
         {
-            if (!_disableDefence && _resetCooldownTimer >= _resetCooldown)
-                Defend(direction);
+            Defend(direction);
         }
         else if (Input.GetButtonDown("Use") && _attack < 3 && _attackTimer >= _attackCooldown)
         {
@@ -169,7 +168,6 @@ public abstract class MeleeWeaponScript : WeaponScript
 
     protected abstract void ResetPosition();
 
-    protected abstract void Attack(Vector3 direction, bool damagePlayer);
 
     protected virtual void Defend(Vector3 direction)
     {
@@ -186,29 +184,24 @@ public abstract class MeleeWeaponScript : WeaponScript
             ResetDefence();
             _disableDefence = true;
         }
-    }
 
-
-    [ServerRpc(RequireOwnership = false)]
-    protected void BaseDefend()
-    {
         Collider2D[] hitColliders = Physics2D.OverlapCircleAll(_attackPoint.transform.position, _range / 2, _layerMask);
         foreach (Collider2D hitCollider in hitColliders)
         {
             if (hitCollider.CompareTag("Projectile"))
             {
                 hitCollider.GetComponent<IDestroyable>().DestroyObject();
-
-                System.Random randomSound = new System.Random();
-                AudioManager.Instance.PlayClipAt(_attackSound[randomSound.Next(_defendSound.Count)], gameObject.transform.position, _ownerType);
             }
         }
     }
 
 
-    [ServerRpc(RequireOwnership = false)]
-    protected void BaseAttack(Vector3 direction, bool damagePlayer)
+    protected virtual void Attack(Vector3 direction, bool damagePlayer)
     {
+        _attack++;
+        _attackTimer = 0;
+        _resetCooldownTimer = 0;
+
         int damage;
         float impactForce = _impactForce;
 

@@ -57,8 +57,6 @@ public class Explosion : NetworkBehaviour
     [TargetRpc]
     private void ShakeCamera(NetworkConnection con, PlayerState playerState, float intensity)
     {
-        if (playerState == null) return;
-
         playerState.CameraController.ShakeCamera(intensity, 0.25f);
     }
 

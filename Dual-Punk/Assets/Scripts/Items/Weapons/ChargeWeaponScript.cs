@@ -14,11 +14,14 @@ public class ChargeWeaponScript : PowerWeaponScript
     [SerializeField] private float _minImpact;
     
     [SerializeField] private AudioClip _chargeTimeSound;
-	[SerializeField] private AudioSource _audioSource;
+    [SerializeField] private AudioClip _audioChargeMax;
+	[SerializeField] private AudioSource _audioSourceCharge;
+    [SerializeField] private AudioSource _audioSourceMax;
 
     private bool _cancel;
     private float _minCharge;
     private float _chargeTimer;
+    private bool _maxCharge;
 
     public bool ChargeMax { get; set; }
 
@@ -30,6 +33,7 @@ public class ChargeWeaponScript : PowerWeaponScript
         _cancel = false;
         _minCharge = 0;
         _chargeTimer = 0;
+        _maxCharge = false;
     }
 
 
@@ -48,10 +52,10 @@ public class ChargeWeaponScript : PowerWeaponScript
 
         if (Input.GetButton("Use") && !_reloading && _fireTimer >= _fireRate && _ammoLeft > 0 && _chargeTimer <= _chargeTime && !_cancel && !PlayerState.Stop && !PlayerState.IsDown)
         {
-			if (!_audioSource.isPlaying)
+			if (!_audioSourceCharge.isPlaying)
 			{
-				_audioSource.clip = _chargeTimeSound;
-				_audioSource.Play();
+				_audioSourceCharge.clip = _chargeTimeSound;
+				_audioSourceCharge.Play();
 			}
 
             _chargeTimer += Time.deltaTime;
@@ -61,12 +65,18 @@ public class ChargeWeaponScript : PowerWeaponScript
             _fireTimer += Time.deltaTime;
         }
 
-
         if (_chargeTimer > 0 && !_cancel && !PlayerState.Stop && !PlayerState.IsDown)
         {
+            if (_chargeTimer > _chargeTime && !_maxCharge)
+            {
+                _audioSourceMax.clip = _audioChargeMax;
+                _audioSourceMax.Play();
+                _maxCharge = true;
+            }
+
             PlayerState.CameraController.ShakeCamera(_cameraShake * _chargeTimer / 3, 0.1f);
 
-            if (!_audioSource.isPlaying)
+            if (!_audioSourceCharge.isPlaying)
             {
                 ResetWeapon();
             }
@@ -79,7 +89,7 @@ public class ChargeWeaponScript : PowerWeaponScript
                 }
                 else
                 {
-                    _audioSource.Stop();
+                    _audioSourceCharge.Stop();
 
                     Fire(direction, _damage, _dispersion, 0, damagePlayer);
                     PlayerState.CameraController.ShakeCamera(_cameraShake, 0.1f);
@@ -87,9 +97,9 @@ public class ChargeWeaponScript : PowerWeaponScript
             }
         }
 
-        else if (_audioSource.isPlaying)
+        else if (_audioSourceCharge.isPlaying)
         {
-            _audioSource.Stop();
+            _audioSourceCharge.Stop();
         }
         
         if (Input.GetButtonDown("Use") && !PlayerState.Stop && !PlayerState.IsDown)
@@ -169,16 +179,19 @@ public class ChargeWeaponScript : PowerWeaponScript
     {
         base.ResetWeapon();
 
+        _maxCharge = false;
         _cancel = true;
         _minCharge = 0;
         _fireTimer = 0;
         _chargeTimer = 0;
-        _audioSource.Stop();
+        _audioSourceCharge.Stop();
     }
 
 
     protected override void Fire(Vector3 direction, int damage, float dispersion, float distance, bool damagePlayer)
     {
+        _maxCharge = false;
+        
         if (!_silencer)
         {
             StopAllCoroutines();

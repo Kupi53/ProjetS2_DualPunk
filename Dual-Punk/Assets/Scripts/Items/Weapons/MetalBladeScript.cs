@@ -66,18 +66,12 @@ public class MetalBladeScript : MeleeWeaponScript
         ChangeAnimation("defend");
 
         base.Defend(direction);
-
-        BaseDefend();
     }
 
     protected override void Attack(Vector3 direction, bool damagePlayer)
     {
-        _attack++;
-        _attackTimer = 0;
-        _resetCooldownTimer = 0;
+        ChangeAnimation("attack" + (_attack + 1).ToString());
 
-        ChangeAnimation("attack" + _attack.ToString());
-
-        BaseAttack(direction, damagePlayer);
+        base.Attack(direction, damagePlayer);
     }
 }
