@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: TimerGrenade
   m_EditorClassIdentifier: 
   name: TimerGrenade
-  prefab: {fileID: 7057386926987168146, guid: 4e71980427ced514a9833a80d179e02e, type: 3}
   icon: {fileID: 21300000, guid: f15a9e67330dfce43ba7355ef1940432, type: 3}
-  description: A grenade that will support you all along the journey. Explodes after
-    a small amount of time. Shoot it to make it explode faster.
+  description: Press "C" to throw a grenade that accompanies you throughout the journey.
+    Explodes after a short time. Shoot it to make it explode faster.
   setName: 
   setItems: []
+  setDescription: 
