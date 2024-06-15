@@ -65,8 +65,6 @@ public class MetalBladeScript : MeleeWeaponScript
     {
         ChangeAnimation("defend");
 
-        base.Defend(direction);
-
         BaseDefend();
     }
 
