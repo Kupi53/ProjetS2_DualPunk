@@ -38,11 +38,7 @@ public class StoryManager : NetworkBehaviour
         InitPrompt(storyNpc.GetComponentInChildren<PromptTrigger>().Prompt);
         Spawn(storyNpc);
         ObjectSpawner.Instance.ObjectParentToRoomRpc(storyNpc);
-        if (_firstNpcSpawned)
-        {
-            PromptManager.Instance.CloseCurrentArrow();
-        }
-        else
+        if (!_firstNpcSpawned)
         {
             PromptManager.Instance.SpawnPointerArrow(storyNpc);
         }

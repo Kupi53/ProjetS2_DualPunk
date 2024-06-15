@@ -105,6 +105,7 @@ public class FloorManager : MonoBehaviour
     // Activates the new room, places the player at the entry
     public void SwitchRoom(Room newRoom)
     {
+        PromptManager.Instance.CloseCurrentArrow();
         newRoom.gameObject.SetActive(true);
         newRoom.tag = "ActiveRoom";
         if (!newRoom.Visited)
