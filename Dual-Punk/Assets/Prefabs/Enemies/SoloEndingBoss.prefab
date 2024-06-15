@@ -364,9 +364,9 @@ MonoBehaviour:
   _addedNetworkObject: {fileID: 8662005701061872785}
   _networkObjectCache: {fileID: 8662005701061872785}
   _weapons:
-  - {fileID: 3553326147683758454, guid: a722d359d97698748877efa49baf488f, type: 3}
-  - {fileID: 8297419380730599739, guid: 0b1ebc4ae84cf3e42a8ed2f5d087ceab, type: 3}
   - {fileID: 4730994522500747810, guid: 5f5cfecdb2f653e4b97c5be9ae46865c, type: 3}
+  - {fileID: 3523624623969322734, guid: 2599e02f7729c4a47b45dbf3ef22a7d5, type: 3}
+  - {fileID: 8832150194662058669, guid: f7aac53f2e09c714484920708fac4063, type: 3}
   _aimVariationAngleRange: 10
   _smoothTime: 0.25
 --- !u!114 &5565835780587346742
