@@ -30,6 +30,10 @@ public class OrderInLayerController : MonoBehaviour
             if (_tilemap.HasTile(player1Pos))
             {
                 ChangeOrderInLayer(GameManager.Instance.Player1);
+                if (GameManager.Instance.Player1State.HoldingWeapon)
+                {
+                    ChangeOrderInLayer(GameManager.Instance.Player1State.WeaponScript.gameObject);
+                }
             }
         }
         if (GameManager.Instance.Player2 is not null)
@@ -38,6 +42,10 @@ public class OrderInLayerController : MonoBehaviour
             if (_tilemap.HasTile(player2Pos))
             {
                 ChangeOrderInLayer(GameManager.Instance.Player2);
+                if (GameManager.Instance.Player2State.HoldingWeapon)
+                {
+                    ChangeOrderInLayer(GameManager.Instance.Player2State.WeaponScript.gameObject);
+                }
             }
         }
         foreach(GameObject enemy in _room.Enemies)
@@ -49,6 +57,14 @@ public class OrderInLayerController : MonoBehaviour
                 {
                     ChangeOrderInLayer(enemy);
                 }
+            }
+        }
+        foreach(GameObject item in GameObject.FindGameObjectsWithTag("Item"))
+        {
+            Vector3Int itemPos = _grid.WorldToCell(item.transform.position);
+            if (_tilemap.HasTile(itemPos))
+            {
+                ChangeOrderInLayer(item);
             }
         }
     }
