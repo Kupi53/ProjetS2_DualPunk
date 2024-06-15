@@ -79,6 +79,8 @@ public class EnergyBladeScript : MeleeWeaponScript
         }
 
         base.Defend(direction);
+
+        DoDefence();
     }
 
 
