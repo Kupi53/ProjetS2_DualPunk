@@ -16,7 +16,6 @@ public class LaserGunScript : FireArmScript
     [SerializeField] private GameObject _endVFXZone;
     [SerializeField] private LayerMask _layerMask;
 
-    [SerializeField] private bool _continuous;
     [SerializeField] private float _fireTime;
     [SerializeField] private float _coolDownSpeed;
     [SerializeField] private float _smoothTime;

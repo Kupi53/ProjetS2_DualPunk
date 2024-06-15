@@ -27,7 +27,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.49, y: -0.165, z: 0}
-  m_LocalScale: {x: 1.1, y: 1.1, z: 1}
+  m_LocalScale: {x: 1.2, y: 1.2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1209433242501080850}
@@ -24528,7 +24528,7 @@ GameObject:
   - component: {fileID: -2521635454258452127}
   - component: {fileID: -339388609575393449}
   m_Layer: 7
-  m_Name: BossImprovedLaserGun
+  m_Name: BossLaserGun
   m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -24544,7 +24544,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7233813186102170643}
@@ -24667,7 +24667,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.03004697, y: -0.011121444}
+  m_Offset: {x: 0.07971546, y: 0.015191473}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -24678,7 +24678,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.58659893, y: 0.23514654}
+  m_Size: {x: 0.8061238, y: 0.28777236}
   m_EdgeRadius: 0
 --- !u!82 &50279802192761020
 AudioSource:
@@ -24794,11 +24794,11 @@ MonoBehaviour:
   _rightHand: {fileID: 12479875987149540}
   _leftHand: {fileID: 6160880847261455949}
   _weaponOffset: {x: 0.15, y: 0.85, z: 0}
-  _damage: 20
-  _range: 40
+  _damage: 10
+  _range: 20
   _recoilForce: 0.15
   _impactForce: 0.2
-  _cameraShake: 0.5
+  _cameraShake: 0.3
   _weaponDistance: 0.6
   _pointerSpriteNumber: 3
   _silencer: 0
@@ -24812,7 +24812,6 @@ MonoBehaviour:
   _layerMask:
     serializedVersion: 2
     m_Bits: 863
-  _continuous: 0
   _fireTime: 12
   _coolDownSpeed: 3
   _smoothTime: 0.15
@@ -24868,7 +24867,7 @@ MonoBehaviour:
   SerializedTransformProperties:
     Position: {x: 0, y: 0, z: 0}
     Rotation: {x: 0, y: 0, z: 0, w: 1}
-    LocalScale: {x: 0.95, y: 0.95, z: 1}
+    LocalScale: {x: 1, y: 1, z: 1}
   _isNetworked: 1
   _isGlobal: 0
   _initializeOrder: 0
@@ -24878,7 +24877,7 @@ MonoBehaviour:
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0
-  <AssetPathHash>k__BackingField: 1985489743672134234
+  <AssetPathHash>k__BackingField: 17407685407572099262
 --- !u!114 &-2521635454258452127
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24966,7 +24965,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.169, y: -0.193, z: 0}
-  m_LocalScale: {x: 1.1, y: 1.1, z: 1}
+  m_LocalScale: {x: 1.2, y: 1.2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1209433242501080850}
@@ -25048,7 +25047,7 @@ Transform:
   m_GameObject: {fileID: 6987755135671807605}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.686, y: -0.049, z: 0}
+  m_LocalPosition: {x: 0.556, y: -0.036, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
