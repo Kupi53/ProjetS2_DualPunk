@@ -57,8 +57,8 @@ public class FloorManager : MonoBehaviour
         // create the new floor
         Floor floor = new Floor(floorType);
         floor.FloorHolderObject = CurrentFloorHolder;
-        int actualMinRoomAmount = _minRoomAmount + ((int)floorType * 2);
-        int actualMaxRoomAmount = _maxRoomAmount + ((int)floorType * 3);
+        int actualMinRoomAmount = _minRoomAmount + ((1-(int)floorType) * 2);
+        int actualMaxRoomAmount = _maxRoomAmount + ((1-(int)floorType) * 3);
         // pick the amount of rooms
         int roomAmount = UnityEngine.Random.Range(actualMinRoomAmount, actualMaxRoomAmount);
         // add rooms
