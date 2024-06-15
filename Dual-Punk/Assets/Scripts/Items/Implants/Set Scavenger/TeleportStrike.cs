@@ -81,7 +81,10 @@ public class TeleportStrike : ImplantScript
         _spriteRenderer.enabled = false;
         _animator.Play("Default");
 
-        PlayerState.gameObject.transform.position = nearestEnemy.transform.position;
+        if (nearestEnemy != null)
+        {
+            PlayerState.gameObject.transform.position = nearestEnemy.transform.position;
+        }
         PlayerSpriteRenderer.color = new Color(1f, 1f, 1f, 1f);
         MouvementsController.EnableDash = true;
         HealthManager.Teleportation = false;
