@@ -45,7 +45,7 @@ public class FloorManager : MonoBehaviour
     void Update(){
         // A SUPRIMER
         if (Input.GetKeyDown(KeyCode.G)){
-            FloorNetworkWrapper.Instance.NewFloor(FloorType.Hangar);
+            FloorNetworkWrapper.Instance.NewFloor(FloorType.City);
         }
     }
 
