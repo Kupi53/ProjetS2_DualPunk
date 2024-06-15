@@ -581,7 +581,7 @@ MonoBehaviour:
     IdTable:
     - null
     - 0002
-    - 0005
+    - null
     - 0010
     - 0001
     MinIntervalTable: 010000003d00000047000000510000005b000000

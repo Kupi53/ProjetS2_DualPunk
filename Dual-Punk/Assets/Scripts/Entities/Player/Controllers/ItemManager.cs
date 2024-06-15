@@ -79,7 +79,7 @@ public class ItemManager : NetworkBehaviour
                 }
                 else
                 {
-                    item.SetActive(false);
+                    ObjectSpawner.Instance.SetActiveEveryoneRpc(item, false);
                 }
             }
         
@@ -178,6 +178,6 @@ public class ItemManager : NetworkBehaviour
     {
         _playerState.WeaponScript = weaponScript;
         _playerState.HoldingWeapon = true;
-        weaponScript.gameObject.SetActive(true);
+        ObjectSpawner.Instance.SetActiveEveryoneRpc(weaponScript.gameObject, true);
     }
 }

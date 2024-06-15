@@ -220,4 +220,16 @@ public class ObjectSpawner : NetworkBehaviour
         implant.GetComponent<ImplantScript>().IsEquipped = equipped;
     }
 
+    [ServerRpc (RequireOwnership = false)]
+    public void SetActiveEveryoneRpc(GameObject obj, bool active)
+    {
+        SetActiveEveryoneObs(obj, active);
+    }
+
+    [ObserversRpc]
+    private void SetActiveEveryoneObs(GameObject obj, bool active)
+    {
+        obj.SetActive(active);
+    }
+
 }
