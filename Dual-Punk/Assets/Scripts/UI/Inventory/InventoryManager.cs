@@ -227,7 +227,7 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
             currentStoredObject.transform.localScale = currentWeaponSlot.transform.localScale;
             GameObject destroyedGameObject = PlayerState.WeaponScript.gameObject;
             destroyedGameObject.GetComponent<WeaponScript>().ResetWeapon();
-            destroyedGameObject.SetActive(false);
+            ObjectSpawner.Instance.SetActiveEveryoneRpc(destroyedGameObject, false);
         }
 
         if (nextStoredObject != null)
@@ -345,7 +345,7 @@ public class InventoryManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
         }
         else
         {
-            weapon.SetActive(true);
+            ObjectSpawner.Instance.SetActiveEveryoneRpc(weapon, true);
             weapon.GetComponent<WeaponScript>().Drop();
         }
     }

@@ -306,6 +306,7 @@ public class LaserGunScript : FireArmScript
     }
 
 
+    [ServerRpc(RequireOwnership = false)]
     protected override void Fire(Vector3 direction, int damage, float dispersion, float distance, bool damagePlayer)
     {
         if (_damageTimer < _fireRate)
@@ -350,9 +351,7 @@ public class LaserGunScript : FireArmScript
             }
         }
 
-        if (_ownerType == "Player")
-            DrawLaser(_startPosition, direction, distance);
-        DrawLaserServerRPC(_startPosition, direction, distance);
+        DrawLaserObservers(_startPosition, direction, distance);
     }
 
 

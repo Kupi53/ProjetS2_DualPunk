@@ -101,9 +101,10 @@ public abstract class MeleeWeaponScript : WeaponScript
 
         if (PlayerState.Stop || PlayerState.IsDown) return;
 
-        if (Input.GetButton("SecondaryUse") && !_disableDefence && _resetCooldownTimer >= _resetCooldown)
+        if (Input.GetButton("SecondaryUse"))
         {
-            Defend(direction);
+            if (!_disableDefence && _resetCooldownTimer >= _resetCooldown)
+                Defend(direction);
         }
         else if (Input.GetButtonDown("Use") && _attack < 3 && _attackTimer >= _attackCooldown)
         {
@@ -167,13 +168,10 @@ public abstract class MeleeWeaponScript : WeaponScript
     }
 
     protected abstract void ResetPosition();
-    protected abstract void Defend(Vector3 direction);
+
     protected abstract void Attack(Vector3 direction, bool damagePlayer);
 
-
-
-    [ServerRpc(RequireOwnership = false)]
-    protected void BaseDefend()
+    protected virtual void Defend(Vector3 direction)
     {
         if (_ownerType == "Player")
             PlayerState.Walking = true;
@@ -188,7 +186,12 @@ public abstract class MeleeWeaponScript : WeaponScript
             ResetDefence();
             _disableDefence = true;
         }
+    }
 
+
+    [ServerRpc(RequireOwnership = false)]
+    protected void BaseDefend()
+    {
         Collider2D[] hitColliders = Physics2D.OverlapCircleAll(_attackPoint.transform.position, _range / 2, _layerMask);
         foreach (Collider2D hitCollider in hitColliders)
         {
@@ -197,7 +200,7 @@ public abstract class MeleeWeaponScript : WeaponScript
                 hitCollider.GetComponent<IDestroyable>().DestroyObject();
 
                 System.Random randomSound = new System.Random();
-                AudioManager.Instance.PlayClipAt(_attackSound[randomSound.Next(_defendSound.Count - 1)], gameObject.transform.position, _ownerType);
+                AudioManager.Instance.PlayClipAt(_attackSound[randomSound.Next(_defendSound.Count)], gameObject.transform.position, _ownerType);
             }
         }
     }
@@ -229,7 +232,7 @@ public abstract class MeleeWeaponScript : WeaponScript
         else
         {
             System.Random randomSound = new System.Random();
-            AudioManager.Instance.PlayClipAt(_attackSound[randomSound.Next(_attackSound.Count) - 1], gameObject.transform.position, _ownerType);
+            AudioManager.Instance.PlayClipAt(_attackSound[randomSound.Next(_attackSound.Count)], gameObject.transform.position, _ownerType);
         }
 
         if (_attack == 3)
