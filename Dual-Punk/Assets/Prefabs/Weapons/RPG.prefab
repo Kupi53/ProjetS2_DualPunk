@@ -218,7 +218,7 @@ GameObject:
   - component: {fileID: 2424698432023525299}
   - component: {fileID: 4339179553196635599}
   m_Layer: 7
-  m_Name: RocketLauncher
+  m_Name: RPG
   m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
