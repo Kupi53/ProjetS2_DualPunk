@@ -78,6 +78,8 @@ public class EnergyBladeScript : MeleeWeaponScript
             WeaponOffset = _defenceWeaponOffset;
         }
 
+        base.Defend(direction);
+
         BaseDefend();
     }
 
