@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: AutolockAR
   m_EditorClassIdentifier: 
   name: AutolockAR
-  prefab: {fileID: 0}
   icon: {fileID: 21300000, guid: bf75ed1d991158e47830175dc9be7648, type: 3}
-  description: The autolock AR is a homing weapon, press TAB to lock the enemy out.
-    Press TAB again to unlock them.
+  description: The autolock AR is a homing weapon, press RIGHT CLICK to lock the
+    enemy out. Press TAB again to unlock them.
   setName: 
   setItems: []
+  setDescription: 
