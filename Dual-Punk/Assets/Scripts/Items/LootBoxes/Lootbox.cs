@@ -6,18 +6,30 @@ using UnityEngine;
 public class Lootbox : MonoBehaviour
 {
     private LootTableController _lootTableController;
+    private bool onLootbox;
     void Start()
     {
         _lootTableController = GetComponent<LootTableController>();
     }
 
-    void OnTriggerStay2D(Collider2D other)
+    void Update()
     {
-        if (!(other.gameObject.GetComponent<NetworkObject>().Owner == GameManager.Instance.LocalPlayer.GetComponent<NetworkObject>().Owner)) return;
-        if (Input.GetButtonDown("Pickup"))
+        if (onLootbox && Input.GetButton("Pickup"))
         {
             Loot();
         }
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (!(other.gameObject.GetComponent<NetworkObject>().Owner == GameManager.Instance.LocalPlayer.GetComponent<NetworkObject>().Owner)) return;
+        onLootbox = true;
+
+    }
+    void OnTriggerExit2D(Collider2D other)
+    {
+        if (!(other.gameObject.GetComponent<NetworkObject>().Owner == GameManager.Instance.LocalPlayer.GetComponent<NetworkObject>().Owner)) return;
+        onLootbox = false;
     }
 
     void Loot()

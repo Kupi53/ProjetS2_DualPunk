@@ -106,8 +106,8 @@ MonoBehaviour:
     - 9
   - text:
     - 10
-  _storyNpcSprite: {fileID: 21300000, guid: 7ec58a17ce88192478d50cddb514a8b1, type: 3}
-  _storyNpcName: testman
+  _storyNpcSprite: {fileID: 21300000, guid: 9d69b903d5e1d804989e7182d9f13f4d, type: 3}
+  _storyNpcName: Mafia Boss
   _storyNpc: {fileID: 5156350386522899684, guid: 5f50ede22a8f9fd4bb8a3151835e8343, type: 3}
 --- !u!114 &2547533428313607289
 MonoBehaviour:
@@ -137,7 +137,7 @@ MonoBehaviour:
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 0
+  <PrefabId>k__BackingField: 33
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0
