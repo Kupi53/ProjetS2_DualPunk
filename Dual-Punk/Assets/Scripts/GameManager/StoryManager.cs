@@ -35,18 +35,19 @@ public class StoryManager : NetworkBehaviour
     {
         if (!IsServer || _currentStoryIndex >= _storyMonologues.Length || (_currentStoryIndex>5 && FloorNetworkWrapper.Instance.LocalFloorManager.CurrentFloor.FloorType == FloorType.City )) return;
         GameObject storyNpc = Instantiate(_storyNpc, position, Quaternion.identity);
-        InitPrompt(storyNpc.GetComponentInChildren<PromptTrigger>().Prompt);
+        InitPromptObs(storyNpc);
         Spawn(storyNpc);
         ObjectSpawner.Instance.ObjectParentToRoomRpc(storyNpc);
         if (!_firstNpcSpawned)
         {
-            PromptManager.Instance.SpawnPointerArrow(storyNpc);
+            SpawnPointerArrowObs(storyNpc);
         }
-        _currentStoryIndex += 1;
     }
 
-    void InitPrompt(Prompt prompt)
+    [ObserversRpc]
+    void InitPromptObs(GameObject npc)
     {
+        Prompt prompt = npc.GetComponentInChildren<PromptTrigger>().Prompt;
         int nbDialogueFields = _storyMonologues[_currentStoryIndex].text.Length;
         prompt.DialogueFields = new DialogueField[nbDialogueFields];
         for (int i = 0; i<nbDialogueFields;i++)
@@ -54,6 +55,13 @@ public class StoryManager : NetworkBehaviour
             string text = _storyMonologues[_currentStoryIndex].text[i];
             prompt.DialogueFields[i] = new DialogueField(_storyNpcSprite, _storyNpcName, text);
         }
+        _currentStoryIndex += 1;
+    }
+
+    [ObserversRpc]
+    void SpawnPointerArrowObs(GameObject storyNpc)
+    {
+        PromptManager.Instance.SpawnPointerArrow(storyNpc);
     }
 }
 
