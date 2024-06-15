@@ -259,8 +259,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0016479492, y: -0.114730835}
-  m_Size: {x: 0.21179199, y: 0.21179199}
+  m_Offset: {x: -0.0028500333, y: -0.15800574}
+  m_Size: {x: 0.15649627, y: 0.15649627}
   m_Direction: 0
 --- !u!61 &83098999568091671
 BoxCollider2D:
@@ -294,7 +294,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.009277344, y: 0.21443176}
+  m_Offset: {x: -0.0063497126, y: 0.13629645}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.25}
@@ -305,7 +305,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.32592773, y: 0.8726196}
+  m_Size: {x: 0.26582366, y: 0.7163491}
   m_EdgeRadius: 0
 --- !u!114 &7098234963106787076
 MonoBehaviour:
@@ -457,7 +457,10 @@ MonoBehaviour:
   - {fileID: 6520979016740066916}
   - {fileID: 7868056608164439028}
   <ParentNetworkObject>k__BackingField: {fileID: 0}
-  <ChildNetworkObjects>k__BackingField: []
+  <ChildNetworkObjects>k__BackingField:
+  - {fileID: 7636397701657288759}
+  - {fileID: 5195113083323736947}
+  - {fileID: 3944998329998387300}
   SerializedTransformProperties:
     Position: {x: 2193.184, y: 274.793, z: 1.5806416}
     Rotation: {x: 0, y: 0, z: 0, w: 1}
@@ -756,6 +759,14 @@ PrefabInstance:
       propertyPath: <IsNested>k__BackingField
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8662005701061872785, guid: 26ceb6209cf7a844bbe722acabbbdb98, type: 3}
+      propertyPath: <ComponentIndex>k__BackingField
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8662005701061872785, guid: 26ceb6209cf7a844bbe722acabbbdb98, type: 3}
+      propertyPath: <ParentNetworkObject>k__BackingField
+      value: 
+      objectReference: {fileID: 8662005701061872785}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -766,6 +777,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3448834587345131190, guid: 26ceb6209cf7a844bbe722acabbbdb98, type: 3}
   m_PrefabInstance: {fileID: 1282486901027630246}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7636397701657288759 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8662005701061872785, guid: 26ceb6209cf7a844bbe722acabbbdb98, type: 3}
+  m_PrefabInstance: {fileID: 1282486901027630246}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26b716c41e9b56b4baafaf13a523ba2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3471465632938946530
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -830,6 +852,14 @@ PrefabInstance:
       propertyPath: <IsNested>k__BackingField
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8662005701061872785, guid: 26ceb6209cf7a844bbe722acabbbdb98, type: 3}
+      propertyPath: <ComponentIndex>k__BackingField
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8662005701061872785, guid: 26ceb6209cf7a844bbe722acabbbdb98, type: 3}
+      propertyPath: <ParentNetworkObject>k__BackingField
+      value: 
+      objectReference: {fileID: 8662005701061872785}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -840,6 +870,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3448834587345131190, guid: 26ceb6209cf7a844bbe722acabbbdb98, type: 3}
   m_PrefabInstance: {fileID: 3471465632938946530}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &5195113083323736947 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8662005701061872785, guid: 26ceb6209cf7a844bbe722acabbbdb98, type: 3}
+  m_PrefabInstance: {fileID: 3471465632938946530}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26b716c41e9b56b4baafaf13a523ba2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &5659568286000719093
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -904,11 +945,30 @@ PrefabInstance:
       propertyPath: <IsNested>k__BackingField
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8662005701061872785, guid: 26ceb6209cf7a844bbe722acabbbdb98, type: 3}
+      propertyPath: <ComponentIndex>k__BackingField
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8662005701061872785, guid: 26ceb6209cf7a844bbe722acabbbdb98, type: 3}
+      propertyPath: <ParentNetworkObject>k__BackingField
+      value: 
+      objectReference: {fileID: 8662005701061872785}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 26ceb6209cf7a844bbe722acabbbdb98, type: 3}
+--- !u!114 &3944998329998387300 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8662005701061872785, guid: 26ceb6209cf7a844bbe722acabbbdb98, type: 3}
+  m_PrefabInstance: {fileID: 5659568286000719093}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26b716c41e9b56b4baafaf13a523ba2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &7013911761781404227 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3448834587345131190, guid: 26ceb6209cf7a844bbe722acabbbdb98, type: 3}

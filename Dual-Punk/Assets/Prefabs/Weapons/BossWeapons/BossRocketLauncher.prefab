@@ -407,7 +407,7 @@ MonoBehaviour:
   _dispersion: 0
   _aimAccuracy: 1
   _bulletSpeed: 10
-  _bulletSize: 0.8
+  _bulletSize: 0.3
   _bulletCollisions: 0
   _ammoLeft: 0
   _explosionRadius: 7
@@ -469,7 +469,7 @@ MonoBehaviour:
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 63
+  <PrefabId>k__BackingField: 60
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0
