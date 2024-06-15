@@ -9,8 +9,7 @@ using UnityEngine.Tilemaps;
 
 public enum FloorType{
     City,
-    Hangar,
-    Spaceship
+    Hangar
 }
 
 
