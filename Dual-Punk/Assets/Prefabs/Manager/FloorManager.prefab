@@ -58,20 +58,14 @@ MonoBehaviour:
   - {fileID: 4019020946379616920, guid: fde1d60544e1a6e488f9ea31b7e410a6, type: 3}
   - {fileID: 4019020946379616920, guid: 448eceb1afa2bbe4fbd2f8ccdddf55df, type: 3}
   - {fileID: 4019020946379616920, guid: e4c7775d40a45884984a56a1322649f9, type: 3}
-  SpaceshipRoomPrefabs:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   CityEnemyPrefabs:
   - {fileID: 6272146751674077345, guid: 0f77c2463d8db4e40834373e72dfcef0, type: 3}
   - {fileID: 6272146751674077345, guid: 26ceb6209cf7a844bbe722acabbbdb98, type: 3}
   - {fileID: 6272146751674077345, guid: 55e37db6665305742909a50c6232e975, type: 3}
-  HangarEnemyPrefabs: []
-  SpaceshipEnemyPrefabs: []
+  HangarEnemyPrefabs:
+  - {fileID: 6272146751674077345, guid: 0f77c2463d8db4e40834373e72dfcef0, type: 3}
+  - {fileID: 6272146751674077345, guid: 26ceb6209cf7a844bbe722acabbbdb98, type: 3}
+  - {fileID: 6272146751674077345, guid: 55e37db6665305742909a50c6232e975, type: 3}
   FloorExitWallPrefab: {fileID: 1468348159299252417, guid: 85e0fd92583f5e744a63c7b62a1884fe, type: 3}
   test1: {fileID: 11400000, guid: c23a700627b120a40bebd7c308e6ed1b, type: 2}
   test2: {fileID: 11400000, guid: c23a700627b120a40bebd7c308e6ed1b, type: 2}

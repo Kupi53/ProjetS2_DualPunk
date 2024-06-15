@@ -17,8 +17,11 @@ public class FloorManager : MonoBehaviour
 {
     public Floor CurrentFloor;
     public Room CurrentRoom{
-        get {
-            return GameObject.FindWithTag("ActiveRoom").GetComponent<Room>();
+        get 
+        {
+           GameObject activeRoom = GameObject.FindWithTag("ActiveRoom");
+           if (activeRoom == null) return null;
+           else return activeRoom.GetComponent<Room>();
         }
     }
     [SerializeField] public GameObject[] CityRoomPrefabs;
