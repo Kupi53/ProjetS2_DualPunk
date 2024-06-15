@@ -36,7 +36,7 @@ public class Explosion : NetworkBehaviour
             if (distance <= explosionImpact * 6)
             {
                 if (tagDeLaVictime == "Player")
-                    grosseVictime.GetComponent<PlayerState>().CameraController.ShakeCamera(explosionImpact * (1 - distance / (explosionRadius * 6)), 0.25f);
+                    ShakeCamera(grosseVictime.GetComponent<PlayerState>(), explosionImpact * (1 - distance / (explosionRadius * 6)));
                 
                 if (tagDeLaVictime == "Ennemy")
                     grosseVictime.GetComponent<NPCState>().TargetPoint = transform.position;
@@ -57,13 +57,5 @@ public class Explosion : NetworkBehaviour
     private void ShakeCamera(PlayerState playerState, float intensity)
     {
         playerState.CameraController.ShakeCamera(intensity, 0.25f);
-    }
-
-    [ObserversRpc]
-    private void HitPlayer(GameObject player, Vector3 direction, float intensity, int damage, bool crit)
-    {
-        player.GetComponent<IImpact>().Impact(direction, intensity);
-        if (damage > 0)
-            player.GetComponent<IDamageable>().Damage(damage, 0.25f, crit, 0f);
     }
 }

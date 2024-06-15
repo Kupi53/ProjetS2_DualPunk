@@ -21,7 +21,6 @@ public abstract class WeaponScript : NetworkBehaviour
 
     private SpriteRenderer _rightHandSprite;
     private SpriteRenderer _leftHandSprite;
-    protected ObjectSpawner _objectSpawner;
     protected string _ownerType;
 
 #nullable enable
@@ -44,7 +43,6 @@ public abstract class WeaponScript : NetworkBehaviour
     {
         _rightHandSprite = _rightHand.GetComponent<SpriteRenderer>();
         _leftHandSprite = _leftHand.GetComponent<SpriteRenderer>();
-        _objectSpawner = GameObject.FindWithTag("ObjectSpawner").GetComponent<ObjectSpawner>();
 
         WeaponOffset = _weaponOffset;
         _rightHandSprite.enabled = false;
