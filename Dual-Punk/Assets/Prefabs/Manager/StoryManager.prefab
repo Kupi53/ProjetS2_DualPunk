@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2361708685980923914}
   - component: {fileID: -2245165414280679139}
+  - component: {fileID: 2547533428313607289}
   m_Layer: 0
   m_Name: StoryManager
   m_TagString: Untagged
@@ -45,23 +46,56 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _componentIndexCache: 0
-  _addedNetworkObject: {fileID: 0}
-  _networkObjectCache: {fileID: 0}
+  _addedNetworkObject: {fileID: 2547533428313607289}
+  _networkObjectCache: {fileID: 2547533428313607289}
   _storyMonologues:
   - text:
-    - 1
-    - test
+    - Pssst ! Boy come here. Ye you, I am talking to you
+    - You have quite the reputation around here, and I need YOU !
+    - I know it's not usual to speak to a coumputer but you know with all these 
+      technologies i guess it's not weird anymore...
+    - 'Well enough of this nonsense, I am aware of your situation, and I know a lot
+      about you I have a job that can help you get out of this shit '
+    - 'If you re really willing to change your train of life, meet me at the center
+      of the city but be ware, your determination will be put at test '
   - text:
-    - 2
-    - test
-    - test2
-    - test3
+    - Well well well, I did not expect less from the famous stealer of the blank
+      street.
+    - Let's talk about business now, you've not made it here for nothing. But the
+      hardest is yet to come.
+    - 'I guess I don''t need to present you NeuroDyne Coporation '
+    - We know that they developped an informatic program which can shake up the world
+      if you manage to put your hands on it, not only you'll be able to benefit it
+      but there will be a big amount of money to grab...
+    - I mean a huge amount... one that you ve never heard about before. you may wonder
+      why-         HEY NuroDyne Soldier ! MEET ME AT THE EDGE OF THE CITY TOMORROW
+      SANE HOUR !
   - text:
-    - 3
+    - Glad you made it here. it highlights again your potential for this mission...
+    - Well I chose you cuz the risk for this mission is so high I could not hire
+      one of my man to achieve this one.
+    - As you can see we provided you some stuff to equip you through the mission...
+      We will try our best to fill you with our latest technologies.
+    - Let's meet at the station in three days I will give you more information about
+      the mission. Bye.
   - text:
-    - 4
+    - 'Hey joung man right there ! '
+    - 'You sure you did not get tailed ? '
+    - 'Okay well, I will need you to make more concrete stuff '
+    - In one week the CEO of NeuroDyne Corp will be on a business trip to Japan.
+      As a consequence the program will be mor vulnerable in its secret warehouse
+    - Your next mission will be to infiltrate its warehouse.
+    - 'We have set a basement  at the edge of the city we will also provide you more
+      equipment to arm yourself against what is awaiting you. '
   - text:
-    - 5
+    - 'Well done I really put all my luck into you ! '
+    - See this warehouse ? It's Dr. Mercer's warehouse as I told you your main goal
+      is to steel the informatic program in the heart of the hiding, I count on you
+      !
+    - With my team we hacked the cameras so that I can keep contact with you in the
+      hiding. Unfortunately you will still be alone most of your trip heheha.
+    - We will set up the infiltration in 6 days and try gather the best equipment
+      for you.
   - text:
     - 6
   - text:
@@ -75,3 +109,36 @@ MonoBehaviour:
   _storyNpcSprite: {fileID: 21300000, guid: 7ec58a17ce88192478d50cddb514a8b1, type: 3}
   _storyNpcName: testman
   _storyNpc: {fileID: 5156350386522899684, guid: 5f50ede22a8f9fd4bb8a3151835e8343, type: 3}
+--- !u!114 &2547533428313607289
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1563875562671994047}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26b716c41e9b56b4baafaf13a523ba2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <IsNested>k__BackingField: 0
+  <ComponentIndex>k__BackingField: 0
+  <PredictedSpawn>k__BackingField: {fileID: 0}
+  _networkBehaviours:
+  - {fileID: -2245165414280679139}
+  <ParentNetworkObject>k__BackingField: {fileID: 0}
+  <ChildNetworkObjects>k__BackingField: []
+  SerializedTransformProperties:
+    Position: {x: 0, y: 0, z: 0}
+    Rotation: {x: 0, y: 0, z: 0, w: 1}
+    LocalScale: {x: 1, y: 1, z: 1}
+  _isNetworked: 1
+  _isGlobal: 0
+  _initializeOrder: 0
+  _defaultDespawnType: 0
+  NetworkObserver: {fileID: 0}
+  <PrefabId>k__BackingField: 0
+  <SpawnableCollectionId>k__BackingField: 0
+  _scenePathHash: 0
+  <SceneId>k__BackingField: 0
+  <AssetPathHash>k__BackingField: 8606228070618626555
