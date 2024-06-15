@@ -106,7 +106,10 @@ public class FinalBattleManager : NetworkBehaviour
     [TargetRpc]
     void SetupPlayer(NetworkConnection con, Vector3 pos)
     {
-        _promptTrigger.Spawn();
+        if (!GameManager.Instance.Solo)
+        {
+            _promptTrigger.Spawn();
+        }
         GameManager.Instance.LocalPlayer.transform.position = pos;
         GameManager.Instance.LocalPlayerState.EnablePvp = true;
     }
