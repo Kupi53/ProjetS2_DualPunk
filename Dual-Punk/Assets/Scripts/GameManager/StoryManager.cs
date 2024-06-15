@@ -32,7 +32,7 @@ public class StoryManager : NetworkBehaviour
 
     public void SpawnNpc(Vector3 position)
     {
-        if (!IsServer || _currentStoryIndex >= _storyMonologues.Length) return;
+        if (!IsServer || _currentStoryIndex >= _storyMonologues.Length || (_currentStoryIndex>3 && FloorNetworkWrapper.Instance.LocalFloorManager.CurrentFloor.FloorType == FloorType.City )) return;
         GameObject storyNpc = Instantiate(_storyNpc, position, Quaternion.identity);
         InitPrompt(storyNpc.GetComponentInChildren<PromptTrigger>().Prompt);
         Spawn(storyNpc);
