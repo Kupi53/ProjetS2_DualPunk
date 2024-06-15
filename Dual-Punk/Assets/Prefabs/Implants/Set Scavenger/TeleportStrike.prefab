@@ -152,8 +152,8 @@ MonoBehaviour:
   _componentIndexCache: 0
   _addedNetworkObject: {fileID: -218940236388108346}
   _networkObjectCache: {fileID: -218940236388108346}
-  _range: 10
-  _coolDown: 2
+  _range: 5
+  _coolDown: 10
   _teleportationSound: {fileID: 8300000, guid: 3e5bad2623634e043963e868a7c802c4, type: 3}
   _animator: {fileID: 5908692678405461227}
 --- !u!114 &-4059473331583019238
@@ -199,7 +199,7 @@ MonoBehaviour:
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 52
+  <PrefabId>k__BackingField: 57
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0
