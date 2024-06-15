@@ -41,8 +41,8 @@ public class EndOfTutorialTrigger : DoorBase
         GameManager.Instance.InTutorial = false;
         if (skipped)
         {
-            ObjectSpawner.Instance.SpawnObjectFromIdAndEquipToTargetRpc("0009", GameManager.Instance.LocalPlayer.transform.position, quaternion.identity, ClientManager.Connection);
-            ObjectSpawner.Instance.SpawnObjectFromIdAndEquipToTargetRpc("0020", GameManager.Instance.LocalPlayer.transform.position, quaternion.identity, ClientManager.Connection);
+            ObjectSpawner.Instance.SpawnObjectFromIdRpc("0009", GameManager.Instance.LocalPlayer.transform.position, quaternion.identity);
+            ObjectSpawner.Instance.SpawnObjectFromIdRpc("0020", GameManager.Instance.LocalPlayer.transform.position, quaternion.identity);
         }
     }
 
