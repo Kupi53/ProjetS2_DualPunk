@@ -138,7 +138,8 @@ public class EnemyHealthManager : NetworkBehaviour, IDamageable
 
     public bool DestroyObject()
     {
-        _lootTableController.Loot();
+        if (_lootTableController != null)
+            _lootTableController.Loot();
         EnemyWeaponHandler enemyWeaponHandler;
         TryGetComponent<EnemyWeaponHandler>(out enemyWeaponHandler);
         if (enemyWeaponHandler != null) enemyWeaponHandler.DeleteWeapon();

@@ -64,6 +64,7 @@ public class EnemyState : NPCState
         Run = (distance > _unlockDistance / 2 || !CanAttack) && DefenceType == DefenceType.NotDefending;
     }
 
+
     private void OnDestroy()
     {
         if (ParentRoom is not null)

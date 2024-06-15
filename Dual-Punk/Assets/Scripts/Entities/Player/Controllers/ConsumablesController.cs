@@ -78,7 +78,8 @@ public class ConsumablesController : NetworkBehaviour
             if (Input.GetButtonDown("UseHeal") && _playerState.Health < _playerState.MaxHealth)
             {
                 _healTimer = 0;
-                _damageable.Heal(_healHP, 0.2f);
+
+                HealPlayer();
 
                 //enables to display countdown in inventory
                 StartCD(_healCooldown, "HealthSyringeCD");
@@ -184,6 +185,13 @@ public class ConsumablesController : NetworkBehaviour
         GameObject grenade = Instantiate(_grenade, startPosition, Quaternion.identity);
         grenade.GetComponent<InstantGrenadeScript>().Setup(startPosition, moveDirection, verticalDirection, moveSpeed, explosionTimer, distanceUntilStop, curveFactor);
         Spawn(grenade);
+    }
+
+
+    [ServerRpc(RequireOwnership = false)]
+    private void HealPlayer()
+    {
+        _damageable.Heal(_healHP, 0.2f);
     }
 
 

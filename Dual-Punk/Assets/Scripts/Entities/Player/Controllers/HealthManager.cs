@@ -69,13 +69,7 @@ public class HealthManager : NetworkBehaviour, IDamageable
     }
 
 
-    public bool DestroyObject()
-    {
-        _playerState.Health = 0;
-        CheckHealth();
-        return true;
-    }
-
+    // tous les degats (ou heal) doivent etre inflige par une fonction sur le serv
     [ObserversRpc]
     public void Heal(int amount, float time)
     {
@@ -139,7 +133,6 @@ public class HealthManager : NetworkBehaviour, IDamageable
                 }
             }
         }
-        
     }
 
 
@@ -148,6 +141,14 @@ public class HealthManager : NetworkBehaviour, IDamageable
         _playerState.Health = amount;
         CheckHealth();
     }
+
+    public bool DestroyObject()
+    {
+        _playerState.Health = 0;
+        CheckHealth();
+        return true;
+    }
+
 
     public void DisplayMessageIndicator(string message, Vector3 scale, Color color)
     {
