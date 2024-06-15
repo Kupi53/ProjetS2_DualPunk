@@ -1,4 +1,4 @@
-using FishNet.Object;
+    using FishNet.Object;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -114,8 +114,8 @@ public class EnemyWeaponHandler : NetworkBehaviour
 
     public void AssignWeapon()
     {
-        if (_weaponScript != null) DeleteWeapon();
         if (_weaponIndex >= _weapons.Length) return;
+        if (_weaponScript != null) DeleteWeapon();
         
         GameObject weapon = Instantiate(_weapons[_weaponIndex], transform.position, Quaternion.identity);
         weapon.transform.SetParent(gameObject.transform);
@@ -123,12 +123,6 @@ public class EnemyWeaponHandler : NetworkBehaviour
 
         _weaponScript = weapon.GetComponent<WeaponScript>();
         _weaponIndex++;
-    }
-
-    public void DropWeapon()
-    {
-        _weaponScript.Drop();
-        _weaponScript = null;
     }
 
     public void DeleteWeapon()

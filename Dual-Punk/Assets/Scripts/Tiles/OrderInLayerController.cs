@@ -6,23 +6,26 @@ using UnityEngine.Tilemaps;
 public class OrderInLayerController : MonoBehaviour
 {
     private Grid _grid;
-    private Tilemap _tilemap;
     private Room _room;
+    private Tilemap _tilemap;
+
     private int _orderInLayer { get => this.gameObject.GetComponent<TilemapRenderer>().sortingOrder; } 
 
-    void Start()
+
+    private void Start()
     {
         _grid = this.gameObject.GetComponentInParent<Grid>();
         _room = this.gameObject.GetComponentInParent<Room>();
         _tilemap = this.gameObject.GetComponent<Tilemap>();
     }
-    void Update()
+
+    private void Update()
     {
-            CheckTile();
+        CheckTile();
     }
 
 
-    void CheckTile()
+    private void CheckTile()
     {
         if (GameManager.Instance.Player1 is not null)
         {
@@ -68,8 +71,11 @@ public class OrderInLayerController : MonoBehaviour
             }
         }
     }
-    void ChangeOrderInLayer(GameObject entity)
+
+
+    private void ChangeOrderInLayer(GameObject entity)
     {
-        entity.GetComponent<SpriteRenderer>().sortingOrder = _orderInLayer+1;
+        if (entity.GetComponent<SpriteRenderer>() != null)
+            entity.GetComponent<SpriteRenderer>().sortingOrder = _orderInLayer+1;
     }
 }

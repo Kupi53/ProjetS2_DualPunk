@@ -154,12 +154,9 @@ public class HealthManager : NetworkBehaviour, IDamageable
         if (message == "") return;
 
         GameObject floatingText = Instantiate(_floatingTextPrefab);
-
         floatingText.transform.SetParent(_floatingTextsParent.transform);
         floatingText.GetComponent<RectTransform>().localScale = scale;
         floatingText.GetComponent<TextMeshProUGUI>().text = message;
         floatingText.GetComponent<TextMeshProUGUI>().color = color;
-
-        Spawn(floatingText);
     }
 }

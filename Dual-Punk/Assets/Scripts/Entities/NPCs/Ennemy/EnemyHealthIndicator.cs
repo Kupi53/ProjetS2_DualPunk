@@ -29,7 +29,7 @@ public class EnemyHealthIndicator : NetworkBehaviour
     {
         _healthManager = GetComponent<EnemyHealthManager>();
         _length = _healthManager.Lives.Length;
-        SetIndexServ(0);
+        _index = 0;
 
         _healthsBar = new DisplayHealthBar[_length];
         _width = _healthsBarLayout.GetComponent<RectTransform>().rect.width;
@@ -59,29 +59,32 @@ public class EnemyHealthIndicator : NetworkBehaviour
 
     private void Update()
     {
+        if (!IsServer) return;
+
         if (_index < _healthManager.Index)
         {
-            _healthsBar[_length - _index - 1].Current = 0;
-            SetIndexServ(_index++);
+            SetHealthBarValueServ(_length - _index - 1, 0);
+            _index++;
         }
 
         if (_length - _index - 1 >= 0)
-            _healthsBar[_length - _index - 1].Current = _healthManager.Lives[_index];
+        {
+            SetHealthBarValueServ(_length - _index - 1, _healthManager.Lives[_index]);
+        }
     }
 
 
     [ServerRpc(RequireOwnership = false)]
-    private void SetIndexServ(int value)
+    private void SetHealthBarValueServ(int index, float value)
     {
-        SetIndexObs(value);
+        SetHealthBarValueObs(index, value);
     }
 
     [ObserversRpc]
-    private void SetIndexObs(int value)
+    private void SetHealthBarValueObs(int index, float value)
     {
-        _index = value;
+        _healthsBar[index].Current = value;
     }
-
 
 
     [ServerRpc(RequireOwnership = false)]

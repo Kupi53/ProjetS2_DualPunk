@@ -41,7 +41,6 @@ public class Explosion : NetworkBehaviour
                     grosseVictime.GetComponent<NPCState>().TargetPoint = transform.position;
             }
             
-            /*
             if (distance <= explosionRadius)
             {
                 if (dealDamage)
@@ -60,7 +59,7 @@ public class Explosion : NetworkBehaviour
 
                 if (damage > 0)
                     grosseVictime.GetComponent<IDamageable>().Damage(damage, 0.25f, warriorLuck, 0f);
-            }*/
+            }
         }
     }
 
@@ -68,8 +67,6 @@ public class Explosion : NetworkBehaviour
     [ObserversRpc]
     private void ShakeCamera(PlayerState playerState, float intensity)
     {
-        if (playerState.CameraController == null) return;
-
         playerState.CameraController.ShakeCamera(intensity, 0.25f);
     }
 
