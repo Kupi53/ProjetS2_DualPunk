@@ -169,45 +169,7 @@ public abstract class MeleeWeaponScript : WeaponScript
 
     protected abstract void ResetPosition();
 
-    protected abstract void Attack(Vector3 direction, bool damagePlayer);
-
-    protected virtual void Defend(Vector3 direction)
-    {
-        if (_ownerType == "Player")
-            PlayerState.Walking = true;
-        else
-            EnemyState.DefenceType = DefenceType.Defending;
-
-        _defenceCooldown = false;
-        _defenceTimer += Time.deltaTime;
-
-        if (_defenceTimer > _defenceTime)
-        {
-            ResetDefence();
-            _disableDefence = true;
-        }
-    }
-
-
-    [ServerRpc(RequireOwnership = false)]
-    protected void BaseDefend()
-    {
-        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(_attackPoint.transform.position, _range / 2, _layerMask);
-        foreach (Collider2D hitCollider in hitColliders)
-        {
-            if (hitCollider.CompareTag("Projectile"))
-            {
-                hitCollider.GetComponent<IDestroyable>().DestroyObject();
-
-                System.Random randomSound = new System.Random();
-                AudioManager.Instance.PlayClipAt(_attackSound[randomSound.Next(_defendSound.Count)], gameObject.transform.position, _ownerType);
-            }
-        }
-    }
-
-
-    [ServerRpc(RequireOwnership = false)]
-    protected void BaseAttack(Vector3 direction, bool damagePlayer)
+    protected virtual void Attack(Vector3 direction, bool damagePlayer)
     {
         _attack++;
         _attackTimer = 0;
@@ -266,6 +228,40 @@ public abstract class MeleeWeaponScript : WeaponScript
             }
 
             damagedObjects.Add(hitObject);
+        }
+    }
+
+    protected virtual void Defend(Vector3 direction)
+    {
+        if (_ownerType == "Player")
+            PlayerState.Walking = true;
+        else
+            EnemyState.DefenceType = DefenceType.Defending;
+
+        _defenceCooldown = false;
+        _defenceTimer += Time.deltaTime;
+
+        if (_defenceTimer > _defenceTime)
+        {
+            ResetDefence();
+            _disableDefence = true;
+        }
+    }
+
+
+    [ServerRpc(RequireOwnership = false)]
+    protected void DoDefence()
+    {
+        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(_attackPoint.transform.position, _range / 2, _layerMask);
+        foreach (Collider2D hitCollider in hitColliders)
+        {
+            if (hitCollider.CompareTag("Projectile"))
+            {
+                hitCollider.GetComponent<IDestroyable>().DestroyObject();
+
+                System.Random randomSound = new System.Random();
+                AudioManager.Instance.PlayClipAt(_attackSound[randomSound.Next(_defendSound.Count)], gameObject.transform.position, _ownerType);
+            }
         }
     }
 }
