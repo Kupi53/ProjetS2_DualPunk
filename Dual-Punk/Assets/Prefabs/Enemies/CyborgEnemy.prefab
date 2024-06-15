@@ -381,7 +381,7 @@ MonoBehaviour:
   _componentIndexCache: 3
   _addedNetworkObject: {fileID: 8662005701061872785}
   _networkObjectCache: {fileID: 8662005701061872785}
-  _lives: 320000006400000064000000
+  _lives: 64000000c8000000c8000000
   _imuneTime: 0.5
   _defenceTime: 1
 --- !u!114 &105605007444475360
@@ -464,7 +464,7 @@ MonoBehaviour:
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 53
+  <PrefabId>k__BackingField: 56
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0

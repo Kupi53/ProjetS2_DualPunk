@@ -47,7 +47,7 @@ public abstract class DoorBase : NetworkBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.GetComponent<NetworkObject>().Owner == GameManager.Instance.LocalPlayer.GetComponent<NetworkObject>().Owner)
+        if (other.gameObject.GetComponent<NetworkObject>().Owner == GameManager.Instance.LocalPlayer.GetComponent<NetworkObject>().Owner){}
             _onTrigger = true;
 
         if (!_playersOnDoor.Contains(other.gameObject))
@@ -59,7 +59,10 @@ public abstract class DoorBase : NetworkBehaviour
                 _promptTriggers[_lessThanTwoPromptIndex].OnTriggerExit2D(GameManager.Instance.LocalPlayer.GetComponent<Collider2D>());
                 _promptTriggers[_lessThanTwoPromptIndex].enabled = false;
                 _promptTriggers[_twoPromptIndex].enabled = true;
-                _promptTriggers[_twoPromptIndex].OnTriggerEnter2D(GameManager.Instance.LocalPlayer.GetComponent<Collider2D>());
+                if (other.gameObject.GetComponent<NetworkObject>().Owner != GameManager.Instance.LocalPlayer.GetComponent<NetworkObject>().Owner)
+                {
+                    _promptTriggers[_twoPromptIndex].OnTriggerEnter2D(GameManager.Instance.LocalPlayer.GetComponent<BoxCollider2D>());
+                }
             }
         }
     }

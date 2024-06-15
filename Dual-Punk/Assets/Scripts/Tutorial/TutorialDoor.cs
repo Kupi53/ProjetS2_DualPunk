@@ -53,9 +53,10 @@ public class TutorialDoor : DoorBase
 
         if (_promptTriggers[_twoPromptIndex].enabled && !GameManager.Instance.Solo)
         {
-            _promptTriggers[_lessThanTwoPromptIndex].enabled = true;
+            _promptTriggers[_twoPromptIndex].OnTriggerExit2D(GameManager.Instance.LocalPlayer.GetComponent<Collider2D>());
             _promptTriggers[_twoPromptIndex].enabled = false;
-            _promptTriggers[_lessThanTwoPromptIndex].OnTriggerExit2D(other);
+            _promptTriggers[_lessThanTwoPromptIndex].enabled = true;
+            _promptTriggers[_lessThanTwoPromptIndex].OnTriggerEnter2D(GameManager.Instance.LocalPlayer.GetComponent<Collider2D>());
         }
     }
 }

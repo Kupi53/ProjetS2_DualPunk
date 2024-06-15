@@ -56,7 +56,7 @@ public class PromptManager : MonoBehaviour
                 i--;
             }
         }
-        if (!GameManager.Instance.InInventory)
+        if (!GameManager.Instance.InInventory && !GameManager.Instance.InMenu)
         {
             if (CurrentPromptShown != null && CurrentPromptShown.activeSelf == false)
             {
@@ -65,7 +65,10 @@ public class PromptManager : MonoBehaviour
         }
         else
         {
-            CurrentPromptShown.SetActive(false);
+            if (CurrentPromptShown != null)
+            {
+                CurrentPromptShown.SetActive(false);
+            }
         }
 
     }

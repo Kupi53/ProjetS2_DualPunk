@@ -131,6 +131,7 @@ public class ObjectSpawner : NetworkBehaviour
         obj.SetActive(true);
     }
     
+    // if parent is null, offset will be the new position of the object
     [ServerRpc (RequireOwnership = false)]
     public void ObjectParentToGameObjectRpc(GameObject obj, GameObject parent, Vector3 offset)
     {
@@ -160,10 +161,18 @@ public class ObjectSpawner : NetworkBehaviour
     {
         obj.transform.SetParent(FloorNetworkWrapper.Instance.LocalFloorManager.CurrentRoom.gameObject.transform);
     }
+
     [ObserversRpc]
     public void ObjectParentToGameObjectClients(GameObject obj, GameObject parent, Vector3 offset)
     {
-        obj.transform.SetParent(parent.transform);
+        if (parent == null)
+        {
+            obj.transform.SetParent(null);
+        }
+        else
+        {
+            obj.transform.SetParent(parent.transform);
+        }
         obj.transform.localPosition = offset;
     } 
     
@@ -183,4 +192,29 @@ public class ObjectSpawner : NetworkBehaviour
     {
         LastSpawnedObject = obj;
     }
+
+    [ServerRpc (RequireOwnership = false)]
+    public void ImplantRendererSetEnabledRPC(GameObject implant, bool enabled)
+    {
+        ImplantRendererSetEnabledObs(implant, enabled);
+    }
+
+    [ObserversRpc]
+    private void ImplantRendererSetEnabledObs(GameObject implant, bool enabled)
+    {
+        implant.GetComponent<SpriteRenderer>().enabled = enabled;
+    }
+
+    [ServerRpc (RequireOwnership = false)]
+    public void ImplantSetIsEquippedRPC(GameObject implant, bool equipped)
+    {
+        ImplantSetIsEquippedObs(implant, equipped);
+    }
+
+    [ObserversRpc]
+    private void ImplantSetIsEquippedObs(GameObject implant, bool equipped)
+    {
+        implant.GetComponent<ImplantScript>().IsEquipped = equipped;
+    }
+
 }

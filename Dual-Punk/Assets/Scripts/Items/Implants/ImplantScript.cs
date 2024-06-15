@@ -44,11 +44,18 @@ public abstract class ImplantScript : NetworkBehaviour
                 break;
         }
 
-        IsEquipped = false;
+        ObjectSpawner.Instance.ImplantSetIsEquippedRPC(gameObject, false);
         transform.position = PlayerState.transform.position;
         transform.rotation = Quaternion.identity;
-        gameObject.GetComponent<SpriteRenderer>().enabled = true;
-        ObjectSpawner.Instance.ObjectParentToRoomRpc(gameObject);
+        ObjectSpawner.Instance.ImplantRendererSetEnabledRPC(gameObject, true);
+        if (!GameManager.Instance.InTutorial)
+        {
+            ObjectSpawner.Instance.ObjectParentToRoomRpc(gameObject);
+        }
+        else
+        {
+            ObjectSpawner.Instance.ObjectParentToGameObjectRpc(gameObject, null, gameObject.transform.position);
+        }
         RemoveAllOwnerShipRPC(gameObject.GetComponent<NetworkObject>());
     }
     

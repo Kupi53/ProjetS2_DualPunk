@@ -26,6 +26,13 @@ public class EnemyHealthManager : NetworkBehaviour, IDamageable
 
     private void Start()
     {
+        if (!GameManager.Instance.Solo)
+        {
+            for(int i = 0; i<Lives.Length; i++)
+            {
+                Lives[i] = Lives[i]*2;
+            }
+        }
         Index = 0;
         _defenceTimer = 0;
         _imunityTimer = 0;

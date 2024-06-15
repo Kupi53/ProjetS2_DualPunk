@@ -22,6 +22,7 @@ public class EscapeMenu : MonoBehaviour
         {
             if (pauseMenu.activeSelf)
             {
+                GameManager.Instance.InMenu = false;
                 PlayerState.Stop = false;
                 pauseMenu.SetActive(false);
             }
@@ -33,6 +34,7 @@ public class EscapeMenu : MonoBehaviour
             }
             else
             {
+                GameManager.Instance.InMenu = true;
                 PlayerState.Stop = true;
                 pauseMenu.SetActive(true);
             }

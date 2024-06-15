@@ -131,10 +131,10 @@ public class ItemManager : NetworkBehaviour
                 _inventoryManager.GetComponent<InventoryPickItem>().ItemPicked(item);
 
                 RemoveHighlight(item);
-                item.GetComponent<SpriteRenderer>().enabled = false;
+                ObjectSpawner.Instance.ImplantRendererSetEnabledRPC(item, false);
                 ObjectSpawner.Instance.ObjectParentToGameObjectRpc(item, gameObject, Vector3.zero);
 
-                implantScript.IsEquipped = true;
+                ObjectSpawner.Instance.ImplantSetIsEquippedRPC(item, true);
                 implantScript.PlayerState = _playerState;
             }
         }
@@ -171,7 +171,6 @@ public class ItemManager : NetworkBehaviour
 
     private void RemoveHighlight(GameObject item)
     {
-        Debug.Log("remove highlights");
         item.GetComponent<HighlightItem>().StopHighlight();
     }
 

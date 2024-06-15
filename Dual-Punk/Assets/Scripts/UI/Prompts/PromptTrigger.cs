@@ -23,6 +23,7 @@ public class PromptTrigger : MonoBehaviour
         if (!(other.gameObject.GetComponent<NetworkObject>().Owner == GameManager.Instance.LocalPlayer.GetComponent<NetworkObject>().Owner)) return;
         if (_type == PromptTriggerType.OnCollision)
         {
+            Debug.Log(other);
             Spawn();
         }
     }
