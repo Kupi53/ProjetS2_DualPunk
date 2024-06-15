@@ -1,3 +1,4 @@
+using FishNet.Connection;
 using FishNet.Demo.AdditiveScenes;
 using FishNet.Object;
 using System.Collections;
@@ -36,7 +37,7 @@ public class Explosion : NetworkBehaviour
             if (distance <= explosionImpact * 6)
             {
                 if (tagDeLaVictime == "Player")
-                    ShakeCamera(grosseVictime.GetComponent<PlayerState>(), explosionImpact * (1 - distance / (explosionRadius * 6)));
+                    ShakeCamera(grosseVictime.GetComponent<NetworkObject>().Owner, grosseVictime.GetComponent<PlayerState>(), explosionImpact * (1 - distance / (explosionRadius * 6)));
                 
                 if (tagDeLaVictime == "Ennemy")
                     grosseVictime.GetComponent<NPCState>().TargetPoint = transform.position;
@@ -44,7 +45,7 @@ public class Explosion : NetworkBehaviour
             
             if (distance <= explosionRadius)
             {
-                grosseVictime.GetComponent<IImpact>().Impact(hitDirection, explosionImpact * (1 - distance / explosionRadius));
+                ImpactTarget(grosseVictime.GetComponent<NetworkObject>().Owner, grosseVictime, hitDirection, explosionImpact * (1 - distance / explosionRadius));
 
                 if (dealDamage)
                     grosseVictime.GetComponent<IDamageable>().Damage((int)(damage * (explosionRadius - distance) / explosionRadius), 0.25f, warriorLuck, 0f);
@@ -53,9 +54,15 @@ public class Explosion : NetworkBehaviour
     }
 
 
-    [ObserversRpc]
-    private void ShakeCamera(PlayerState playerState, float intensity)
+    [TargetRpc]
+    private void ShakeCamera(NetworkConnection con, PlayerState playerState, float intensity)
     {
         playerState.CameraController.ShakeCamera(intensity, 0.25f);
+    }
+
+    [TargetRpc]
+    private void ImpactTarget(NetworkConnection con, GameObject target, Vector3 hitDir, float intensity)
+    {
+        target.GetComponent<IImpact>().Impact(hitDir, intensity);
     }
 }
