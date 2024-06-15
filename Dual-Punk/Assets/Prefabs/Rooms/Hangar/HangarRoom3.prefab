@@ -13001,7 +13001,6 @@ GameObject:
   - component: {fileID: 8091803302137078174}
   - component: {fileID: 448120881833048102}
   - component: {fileID: 8400160379312027654}
-  - component: {fileID: 3393112890518391102}
   m_Layer: 0
   m_Name: Elevation2
   m_TagString: Untagged
@@ -13285,18 +13284,6 @@ TilemapRenderer:
   m_Mode: 1
   m_DetectChunkCullingBounds: 0
   m_MaskInteraction: 0
---- !u!114 &3393112890518391102
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8023232032713740384}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a9cde14763ae6ab4dad9c1c8377a9db2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &9056196661489871099
 GameObject:
   m_ObjectHideFlags: 0
