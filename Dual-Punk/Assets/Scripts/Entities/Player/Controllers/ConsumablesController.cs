@@ -229,7 +229,7 @@ public class ConsumablesController : NetworkBehaviour
     {
         GameObject healParticleAnimation = transform.GetChild(2).gameObject;
         healParticleAnimation.SetActive(true);
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
         healParticleAnimation.SetActive(false);
     }
 

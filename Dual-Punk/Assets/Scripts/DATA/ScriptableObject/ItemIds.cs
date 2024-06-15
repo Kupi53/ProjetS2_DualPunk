@@ -4,7 +4,7 @@ using System.Diagnostics.Tracing;
 using Unity;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Data", menuName = "ScriptableObjects/ItemIds", order = 1)]
+[CreateAssetMenu(fileName = "Data", menuName = "ScriptableObject/ItemIds", order = 1)]
 public class ItemIds : ScriptableObject
 {
     public static ItemIds Instance 
