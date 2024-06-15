@@ -27,6 +27,7 @@ public class PlayerState : NetworkBehaviour
     public bool Dashing { get; set; }
     public bool HoldingWeapon { get; set; }
     public bool CanBeTeleported { get; set; }
+    public bool EnablePvp {get; set;}
 
     public Vector3 MousePosition { get => _mousePosition; }
 

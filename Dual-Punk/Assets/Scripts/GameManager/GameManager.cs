@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
     public bool downTutorialBegan;
     public bool InInventory;
     public bool InMenu;
+    public bool InFinalFight;
     public int RoomsCleared;
     public PromptTrigger downTutorialPromptTrigger;
     public GameObject LocalPlayer {
@@ -56,6 +57,7 @@ public class GameManager : MonoBehaviour
         }
         InInventory = false;
         InMenu = false;
+        InFinalFight = false;
         downTutorialBegan = false;
         downTutorialPromptTrigger = gameObject.GetComponent<PromptTrigger>();
     }

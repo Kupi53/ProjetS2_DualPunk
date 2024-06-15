@@ -28,6 +28,7 @@ public class FloorNetworkWrapper : NetworkBehaviour
     }
     public static FloorNetworkWrapper Instance;
     [SerializeField] private GameObject _floorManagerPrefab;
+    [SerializeField] private GameObject _finalBattleManager;
     public FloorManager LocalFloorManager {
         get
         {
@@ -50,6 +51,12 @@ public class FloorNetworkWrapper : NetworkBehaviour
         {
             CheckEnemiesOOB();
         }
+
+        // A SUPR
+        if (Input.GetKeyDown(KeyCode.Y))
+        {
+            StartEndFight();
+        }
     }
 
     public void NewFloor(FloorType floorType)
@@ -59,11 +66,25 @@ public class FloorNetworkWrapper : NetworkBehaviour
         int seed = UnityEngine.Random.Range(0,9999);
         SeedRPC(seed);
 
+        Debug.Log(LocalFloorManager.CurrentFloor);
         if (LocalFloorManager.CurrentFloor != null)
         {
             DestroyCurrentFloorRPC();
         }
         SwitchToNewFloorRPC(floorType);
+    }
+
+    public void StartEndFight()
+    {
+        if (!IsServer) return;
+
+        if (LocalFloorManager.CurrentFloor != null)
+        {
+            DestroyCurrentFloorRPC();
+        }
+
+        GameObject fbm = Instantiate(_finalBattleManager);
+        Spawn(fbm);
     }
 
     public void SpawnEnemies()
@@ -99,8 +120,10 @@ public class FloorNetworkWrapper : NetworkBehaviour
     [ObserversRpc]
     private void DestroyCurrentFloorRPC()
     {
+        Debug.Log("test");
         if (LocalFloorManager.CurrentFloor != null)
         {
+            Debug.Log("test2");
             LocalFloorManager.CurrentFloor.DestroyHolder();
         }
     }
@@ -126,6 +149,7 @@ public class FloorNetworkWrapper : NetworkBehaviour
     {
         LocalFloorManager.CurrentRoom.PopulateRoomEnemies();
     }
+
 
     public void CheckEnemiesOOB()
     {

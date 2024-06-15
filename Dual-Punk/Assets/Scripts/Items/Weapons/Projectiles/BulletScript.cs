@@ -52,6 +52,11 @@ public class BulletScript : NetworkBehaviour, IImpact, IDestroyable
         _damagePlayer = damagePlayer;
         _warriorLuck = warriorLuck;
         _playerState = playerState;
+        if (playerState == null)
+        {
+            _damagePlayer = true;
+        }
+        else _damagePlayer = playerState.EnablePvp;
 
         if (warriorLuck)
         {
