@@ -6,6 +6,7 @@ using System;
 using FishNet.Object;
 using UnityEngine.UI;
 using TMPro;
+using Unity.Mathematics;
 
 
 public class ConsumablesController : NetworkBehaviour
@@ -19,6 +20,7 @@ public class ConsumablesController : NetworkBehaviour
     [SerializeField] private float _grenadeCurveFactor;
     [SerializeField] private int _lineResolution;
     [SerializeField] private int _healHP;
+    [SerializeField] private GameObject _healAnimation;
 
     private LineRenderer _lineRenderer;
     private SpriteRenderer _grenadeImpact;
@@ -64,6 +66,12 @@ public class ConsumablesController : NetworkBehaviour
         _grenadeImpact = _grenadePath.GetComponentInChildren<SpriteRenderer>();
 
         _lineRenderer.positionCount = _lineResolution;
+
+        GameObject healAnimation = Instantiate(_healAnimation);
+        healAnimation.transform.parent = transform;
+        Spawn(healAnimation);
+        healAnimation.transform.localPosition = Vector3.zero;
+        healAnimation.gameObject.SetActive(false);
 
         ResetThrow();
     }
@@ -235,7 +243,7 @@ public class ConsumablesController : NetworkBehaviour
 
     private IEnumerator TriggerHealAnimation()
     {
-        GameObject healParticleAnimation = transform.GetChild(2).gameObject;
+        GameObject healParticleAnimation = transform.GetChild(3).gameObject;
         healParticleAnimation.SetActive(true);
         yield return new WaitForSeconds(2f);
         healParticleAnimation.SetActive(false);
