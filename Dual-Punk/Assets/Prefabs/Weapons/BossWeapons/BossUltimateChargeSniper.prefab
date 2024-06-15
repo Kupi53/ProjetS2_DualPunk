@@ -463,18 +463,18 @@ MonoBehaviour:
   _rightHand: {fileID: 2780313026022122217}
   _leftHand: {fileID: 4168790291945596085}
   _weaponOffset: {x: 0.3, y: 1, z: 0}
-  _damage: 300
+  _damage: 500
   _range: 20
   _recoilForce: 3
   _impactForce: 3
   _cameraShake: 2
-  _weaponDistance: 0.5
+  _weaponDistance: 0.6
   _pointerSpriteNumber: 3
   _silencer: 0
   _fireRate: 0
   _fireSound: {fileID: 8300000, guid: 5a840426a1b0e77469829ea3d648d509, type: 3}
   _reloadSound: {fileID: 8300000, guid: ba4b495b7a199bc498bbb395f6fad0f8, type: 3}
-  _bullet: {fileID: 8591999928390205349, guid: 0aa573b964f47d149967e5fcdc5da4d0, type: 3}
+  _bullet: {fileID: 795383686809686021, guid: 5abf0a4301bdefa48880196f3c90e3c3, type: 3}
   _gunEndPoints:
   - {fileID: 4522083825481786314}
   _isAuto: 0
@@ -489,7 +489,7 @@ MonoBehaviour:
   _bulletSize: 3
   _bulletCollisions: 5
   _chargeTime: 2
-  _minDamage: 100
+  _minDamage: 250
   _minSpeed: 20
   _minSize: 1
   _minRecoil: 1.5
@@ -554,7 +554,7 @@ MonoBehaviour:
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 7
+  <PrefabId>k__BackingField: 6
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0

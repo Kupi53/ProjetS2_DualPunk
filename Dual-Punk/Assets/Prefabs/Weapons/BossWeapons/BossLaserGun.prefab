@@ -24793,7 +24793,7 @@ MonoBehaviour:
   _networkObjectCache: {fileID: 8730197519940194915}
   _rightHand: {fileID: 12479875987149540}
   _leftHand: {fileID: 6160880847261455949}
-  _weaponOffset: {x: 0.15, y: 0.85, z: 0}
+  _weaponOffset: {x: 0.3, y: 0.85, z: 0}
   _damage: 10
   _range: 20
   _recoilForce: 0.15
