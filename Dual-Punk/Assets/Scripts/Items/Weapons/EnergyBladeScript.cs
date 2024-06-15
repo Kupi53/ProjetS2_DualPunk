@@ -78,13 +78,13 @@ public class EnergyBladeScript : MeleeWeaponScript
             WeaponOffset = _defenceWeaponOffset;
         }
 
-        base.Defend(direction);
+        BaseDefend();
     }
 
 
     protected override void Attack(Vector3 direction, bool damagePlayer)
     {
-        base.Attack(direction, damagePlayer);
+        BaseAttack(direction, damagePlayer);
 
         _currentWeaponDistance = _attackDistance;
 

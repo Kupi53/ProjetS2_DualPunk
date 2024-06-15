@@ -167,9 +167,13 @@ public abstract class MeleeWeaponScript : WeaponScript
     }
 
     protected abstract void ResetPosition();
+    protected abstract void Defend(Vector3 direction);
+    protected abstract void Attack(Vector3 direction, bool damagePlayer);
 
 
-    protected virtual void Defend(Vector3 direction)
+
+    [ServerRpc(RequireOwnership = false)]
+    protected void BaseDefend()
     {
         if (_ownerType == "Player")
             PlayerState.Walking = true;
@@ -191,12 +195,16 @@ public abstract class MeleeWeaponScript : WeaponScript
             if (hitCollider.CompareTag("Projectile"))
             {
                 hitCollider.GetComponent<IDestroyable>().DestroyObject();
+
+                System.Random randomSound = new System.Random();
+                AudioManager.Instance.PlayClipAt(_attackSound[randomSound.Next(_defendSound.Count - 1)], gameObject.transform.position, _ownerType);
             }
         }
     }
 
 
-    protected virtual void Attack(Vector3 direction, bool damagePlayer)
+    [ServerRpc(RequireOwnership = false)]
+    protected void BaseAttack(Vector3 direction, bool damagePlayer)
     {
         _attack++;
         _attackTimer = 0;
@@ -221,7 +229,7 @@ public abstract class MeleeWeaponScript : WeaponScript
         else
         {
             System.Random randomSound = new System.Random();
-            AudioManager.Instance.PlayClipAt(_attackSound[randomSound.Next(_attackSound.Count)], gameObject.transform.position, _ownerType);
+            AudioManager.Instance.PlayClipAt(_attackSound[randomSound.Next(_attackSound.Count) - 1], gameObject.transform.position, _ownerType);
         }
 
         if (_attack == 3)
