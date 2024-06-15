@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: InstantGrenade
   m_EditorClassIdentifier: 
   name: InstantGrenade
-  prefab: {fileID: 7172469282573387842, guid: c778ec0916809ae47b81190e0e075bcc, type: 3}
   icon: {fileID: 21300000, guid: 20503a93873f7a844a71be5746b497b6, type: 3}
-  description: This grenade enables you to blow up your ennemies as fast as possible.
+  description: Press "C" to throw this grenade which allows you to explode your enemies
+    as quickly as possible.
   setName: 
   setItems: []
+  setDescription: 
