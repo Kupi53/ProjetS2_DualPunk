@@ -88,7 +88,7 @@ public class DebugManager : MonoBehaviour
         {
             foreach (GameObject Enemy in FloorNetworkWrapper.Instance.LocalFloorManager.CurrentRoom.Enemies)
             {
-                Enemy.GetComponent<EnemyHealthManager>().SetHealth(0);
+                Enemy.GetComponent<EnemyHealthManager>().SetHealth(-1000);
             }
         }
         if (Input.GetKeyDown(KeyCode.V))
