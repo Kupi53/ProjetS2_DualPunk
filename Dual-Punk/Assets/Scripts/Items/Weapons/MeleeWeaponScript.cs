@@ -219,7 +219,7 @@ public abstract class MeleeWeaponScript : WeaponScript
 
             if (hitObject.CompareTag("Ennemy") && !damagePlayer || hitObject.CompareTag("Player") && damagePlayer)
             {
-                hitObject.GetComponent<IDamageable>().Damage(damage, 0, _critical, _stunDuration);
+                DamageEnemy(hitObject, damage);
                 hitObject.GetComponent<IImpact>().Impact(direction, impactForce);
             }
             if (hitObject.CompareTag("Projectile"))
@@ -263,5 +263,11 @@ public abstract class MeleeWeaponScript : WeaponScript
                 AudioManager.Instance.PlayClipAt(_attackSound[randomSound.Next(_defendSound.Count)], gameObject.transform.position, _ownerType);
             }
         }
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void DamageEnemy(GameObject enemy, int damage)
+    {
+        enemy.GetComponent<IDamageable>().Damage(damage, 0, _critical, _stunDuration);
     }
 }
