@@ -8,14 +8,16 @@ public class HighlightItem : MonoBehaviour
     [SerializeField] private Sprite _highlighted;
 
     private SpriteRenderer _spriteRenderer;
-    private NetworkAnimator _animator;
+    private Animator _animator;
+    private NetworkAnimator _networkAnimator;
     private string _currentAnim;
 
 
     private void Start()
     {
-        _animator = GetComponentInChildren<NetworkAnimator>();
-        if (_animator == null)
+        _animator = GetComponent<Animator>();
+        _networkAnimator = GetComponentInChildren<NetworkAnimator>();
+        if (_networkAnimator == null)
         {
             _spriteRenderer = GetComponent<SpriteRenderer>();
             if (_spriteRenderer == null)
@@ -26,6 +28,9 @@ public class HighlightItem : MonoBehaviour
     public void StopHighlight()
     {
         if (_animator != null)
+            _animator.Play("Default");
+
+        if (_networkAnimator != null)
             ChangeAnim("drop");
         else
             _spriteRenderer.sprite = _normal;
@@ -34,6 +39,9 @@ public class HighlightItem : MonoBehaviour
     public void Highlight()
     {
         if (_animator != null)
+            _animator.Play("Highlighted");
+
+        if (_networkAnimator != null)
             ChangeAnim("dropHighlight");
         else
             _spriteRenderer.sprite = _highlighted;
@@ -44,7 +52,7 @@ public class HighlightItem : MonoBehaviour
         if (newAnim != _currentAnim)
         {
             _currentAnim = newAnim;
-            _animator.Play(newAnim);
+            _networkAnimator.Play(newAnim);
         }
     }
 }
