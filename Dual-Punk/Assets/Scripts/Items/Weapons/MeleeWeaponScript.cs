@@ -209,10 +209,6 @@ public abstract class MeleeWeaponScript : WeaponScript
     [ServerRpc(RequireOwnership = false)]
     protected void BaseAttack(Vector3 direction, bool damagePlayer)
     {
-        _attack++;
-        _attackTimer = 0;
-        _resetCooldownTimer = 0;
-
         int damage;
         float impactForce = _impactForce;
 
