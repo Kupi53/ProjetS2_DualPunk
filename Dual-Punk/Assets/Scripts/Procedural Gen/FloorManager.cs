@@ -24,10 +24,8 @@ public class FloorManager : MonoBehaviour
     }
     [SerializeField] public GameObject[] CityRoomPrefabs;
     [SerializeField] public GameObject[] HangarRoomPrefabs;
-    [SerializeField] public GameObject[] SpaceshipRoomPrefabs;
     [SerializeField] public GameObject[] CityEnemyPrefabs;
     [SerializeField] public GameObject[] HangarEnemyPrefabs;
-    [SerializeField] public GameObject[] SpaceshipEnemyPrefabs;
     [SerializeField] public GameObject FloorExitWallPrefab;
     public const int DATALAYERINDEX = 0;
     public const int TILEMAPLAYERINDEX = 1;
@@ -44,7 +42,7 @@ public class FloorManager : MonoBehaviour
     // pour le debug
     void Update(){
         if (Input.GetKeyDown(KeyCode.G)){
-            FloorNetworkWrapper.Instance.NewFloor(FloorType.City);
+            FloorNetworkWrapper.Instance.NewFloor(FloorType.Hangar);
         }
     }
 

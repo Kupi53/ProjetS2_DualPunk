@@ -15,8 +15,6 @@ public class Floor
                     return FloorNetworkWrapper.Instance.LocalFloorManager.CityRoomPrefabs;
                 case FloorType.Hangar:
                     return FloorNetworkWrapper.Instance.LocalFloorManager.HangarRoomPrefabs;
-                case FloorType.Spaceship:
-                    return FloorNetworkWrapper.Instance.LocalFloorManager.SpaceshipRoomPrefabs;
                 default :
                     throw new Exception("floortype is invalid or has not been implemented in this method");
             }
@@ -32,8 +30,6 @@ public class Floor
                     return FloorNetworkWrapper.Instance.LocalFloorManager.CityEnemyPrefabs;
                 case FloorType.Hangar:
                     return FloorNetworkWrapper.Instance.LocalFloorManager.HangarEnemyPrefabs;
-                case FloorType.Spaceship:
-                    return FloorNetworkWrapper.Instance.LocalFloorManager.SpaceshipEnemyPrefabs;
                 default :
                     throw new Exception("floortype is invalid or has not been implemented in this method");
             }
