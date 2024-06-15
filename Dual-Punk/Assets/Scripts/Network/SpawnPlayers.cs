@@ -12,6 +12,7 @@ public class SpawnPlayers : NetworkBehaviour
     [SerializeField] private GameObject _floorWrapper;
     [SerializeField] private GameObject _effectTilesNetworkWrapper;
     [SerializeField] private GameObject _objectSpawner;
+    [SerializeField] private GameObject _storyManager;
     private Vector3 _PLAYER1SPAWNLOCATION;
     private Vector3 _PLAYER2SPAWNLOCATION;
     private GameObject playerObject;
@@ -32,9 +33,11 @@ public class SpawnPlayers : NetworkBehaviour
             GameObject floorWrapper = Instantiate(_floorWrapper);
             GameObject effectTileWrapper = Instantiate(_effectTilesNetworkWrapper);
             GameObject objectSpawner = Instantiate(_objectSpawner);
+            GameObject storyManager = Instantiate(_storyManager);
             Spawn(floorWrapper);
             Spawn(effectTileWrapper);
             Spawn(objectSpawner);
+            Spawn(storyManager);
             playerObject = Instantiate(playerPrefabA, _PLAYER1SPAWNLOCATION, transform.rotation);
             GameManager.Instance.Player1 = playerObject;
         }

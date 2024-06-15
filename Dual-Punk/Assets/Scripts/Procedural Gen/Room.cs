@@ -128,11 +128,16 @@ public class Room : MonoBehaviour
         if (IsCleared)
         {   
             GameManager.Instance.RoomsCleared += 1;
-            SpawnLootBox();
+            Vector3 LootboxPos = SpawnLootBox();
+            if (!StoryManager.Instance.StoryCompleted)
+            {
+                Vector3 pos = FindNeighboringPosition(LootboxPos);
+                StoryManager.Instance.SpawnNpc(pos);
+            }
         }   
     }
 
-    private void SpawnLootBox()
+    private Vector3 SpawnLootBox()
     {
         Tilemap[] tilemaps = FloorNetworkWrapper.Instance.LocalFloorManager.CurrentRoom.GetComponentsInChildren<Tilemap>();
         Tilemap tileMap = tilemaps.Where(map => map.gameObject.name == "Tilemap").First();
@@ -149,6 +154,29 @@ public class Room : MonoBehaviour
         }
         Vector3 WorldPosition = tileMap.CellToWorld(position);
         ObjectSpawner.Instance.SpawnObjectFromIdRpc("0030", WorldPosition, quaternion.identity);
+        return WorldPosition;
+    }
+
+    private Vector3 FindNeighboringPosition(Vector3 pos)
+    {
+        Tilemap[] tilemaps = FloorNetworkWrapper.Instance.LocalFloorManager.CurrentRoom.GetComponentsInChildren<Tilemap>();
+        Tilemap tileMap = tilemaps.Where(map => map.gameObject.name == "Tilemap").First();
+        IEnumerable<Tilemap> elevationMaps = tilemaps.Where(map => map.gameObject.name.StartsWith("Elevation"));
+        Vector3Int tilePos = tileMap.WorldToCell(pos);
+        bool found = false;
+        Vector3Int newPos = Vector3Int.zero;
+        for (int i = -2; i <= 2 && !found; i++)
+        {
+            for (int j = -2; i <= 2 && !found; j++)
+            {
+                newPos = tilePos + new Vector3Int(i, j, 0);
+                if (tileMap.GetTile(newPos) != null && elevationMaps.All(map => map.GetTile(newPos) == null) && newPos != tilePos)
+                {
+                    found = true;
+                }
+            }
+        }
+        return tileMap.CellToWorld(newPos);
     }
 
     private static WallCardinal GetOppositeWall(WallCardinal cardinal)

@@ -7,4 +7,11 @@ public class DialogueField
     [SerializeField] public string Name;
     [SerializeField] public string Text;
 
+    public DialogueField(Sprite portrait, string name, string text)
+    {
+        Portrait = portrait;
+        Name = name;
+        Text = text;
+    }
+
 }
