@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
   m_Name: Isometric-SpriteSheet_34
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: -9310964, guid: f00484b6962c9144fa0485cbe627fbc7, type: 3}
+  m_Sprite: {fileID: 589816560, guid: f00484b6962c9144fa0485cbe627fbc7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1
