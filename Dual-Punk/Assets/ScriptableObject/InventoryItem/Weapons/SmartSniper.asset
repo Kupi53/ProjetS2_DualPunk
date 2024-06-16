@@ -14,8 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: SmartSniper
   icon: {fileID: 21300000, guid: f1629d059e7fb7041b1ec180942b2993, type: 3}
-  description: The intelligent sniper, bullets follow opponents to their death. Press
-    R to reload.
+  description: 'The intelligent sniper, shooting powerful bullets following opponents
+    to their death.
+
+    Press RIGHT CLICK again to unlock a single target or hold
+    it to unlock all targets. Press R to reload.'
   setName: 
   setItems: []
   setDescription: 

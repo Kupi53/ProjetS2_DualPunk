@@ -14,8 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Shotgun
   icon: {fileID: 21300000, guid: 9dd371f6dc406804e8a08151ad1cc7fc, type: 3}
-  description: The basic Shotgun, very useful for literally putting holes in your
-    enemies. Press R to reload.
+  description: 'The basic Shotgun, very useful for literally putting holes in your
+    enemies.
+
+    Press R to reload.'
   setName: 
   setItems: []
   setDescription: 

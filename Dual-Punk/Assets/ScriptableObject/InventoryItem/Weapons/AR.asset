@@ -14,8 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: AR
   icon: {fileID: 21300000, guid: 90aa106e4f16de64885605d2868921d9, type: 3}
-  description: This is a classic assault rifle use it to delete your enemies. Press
-    R to reload.
+  description: 'This is a classic assault rifle use it to delete your enemies.
+
+    Press
+    R to reload.'
   setName: 
   setItems: []
   setDescription: 
