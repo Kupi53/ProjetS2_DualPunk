@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Dagger
   icon: {fileID: 21300000, guid: 753317044106bec479973f287f296a10, type: 3}
-  description: This dagger is a high speed melee weapon. use right click to pary
-    and reduce your damage
+  description: This dagger is a high speed melee weapon. Use right click to pary
+    and block your damage.
   setName: 
   setItems: []
   setDescription: 

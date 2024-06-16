@@ -5241,7 +5241,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7470240865930121378, guid: d15967f0adea3264ab7d508e264da05d, type: 3}
       propertyPath: _weaponsToSpawn.Array.size
-      value: 12
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 7470240865930121378, guid: d15967f0adea3264ab7d508e264da05d, type: 3}
       propertyPath: _implantsToSpawn.Array.size
@@ -5264,21 +5264,45 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 6272146751674077345, guid: 0f77c2463d8db4e40834373e72dfcef0, type: 3}
     - target: {fileID: 7470240865930121378, guid: d15967f0adea3264ab7d508e264da05d, type: 3}
+      propertyPath: _weaponsToSpawn.Array.data[0]
+      value: 
+      objectReference: {fileID: 3032033485489583445, guid: 84cccfb91f09fad4394421bd7bcd29e6, type: 3}
+    - target: {fileID: 7470240865930121378, guid: d15967f0adea3264ab7d508e264da05d, type: 3}
+      propertyPath: _weaponsToSpawn.Array.data[1]
+      value: 
+      objectReference: {fileID: 4730994522500747810, guid: 4db07167934a9e247ac151cec794bf56, type: 3}
+    - target: {fileID: 7470240865930121378, guid: d15967f0adea3264ab7d508e264da05d, type: 3}
+      propertyPath: _weaponsToSpawn.Array.data[2]
+      value: 
+      objectReference: {fileID: 8832150194662058669, guid: f7aac53f2e09c714484920708fac4063, type: 3}
+    - target: {fileID: 7470240865930121378, guid: d15967f0adea3264ab7d508e264da05d, type: 3}
+      propertyPath: _weaponsToSpawn.Array.data[3]
+      value: 
+      objectReference: {fileID: 3523624623969322734, guid: 2599e02f7729c4a47b45dbf3ef22a7d5, type: 3}
+    - target: {fileID: 7470240865930121378, guid: d15967f0adea3264ab7d508e264da05d, type: 3}
+      propertyPath: _weaponsToSpawn.Array.data[4]
+      value: 
+      objectReference: {fileID: 8566271621736578887, guid: 45c33cf5e24d4e94cb0d06a7185ababe, type: 3}
+    - target: {fileID: 7470240865930121378, guid: d15967f0adea3264ab7d508e264da05d, type: 3}
+      propertyPath: _weaponsToSpawn.Array.data[5]
+      value: 
+      objectReference: {fileID: 8832150194662058669, guid: 50792e658cc2ac544bf953b9d26dd1ac, type: 3}
+    - target: {fileID: 7470240865930121378, guid: d15967f0adea3264ab7d508e264da05d, type: 3}
       propertyPath: _weaponsToSpawn.Array.data[6]
       value: 
-      objectReference: {fileID: 4534173149834396158, guid: 2bc39f73d77d7e045bcf81db4c5a8a91, type: 3}
+      objectReference: {fileID: 7321002207951180533, guid: e26798f24e158594fbd0c9e6555e8911, type: 3}
     - target: {fileID: 7470240865930121378, guid: d15967f0adea3264ab7d508e264da05d, type: 3}
       propertyPath: _weaponsToSpawn.Array.data[7]
       value: 
-      objectReference: {fileID: 8423706692450219265, guid: 7befc299916ae75438c86584fee64267, type: 3}
+      objectReference: {fileID: 8547339821460021461, guid: 734d16466bc185640b850ab1d3ed641c, type: 3}
     - target: {fileID: 7470240865930121378, guid: d15967f0adea3264ab7d508e264da05d, type: 3}
       propertyPath: _weaponsToSpawn.Array.data[8]
       value: 
-      objectReference: {fileID: 3553326147683758454, guid: c537b2fa156ad2c4493157e872b54c9a, type: 3}
+      objectReference: {fileID: 8297419380730599739, guid: 239afa9696bf6fa469c3317efbe7993d, type: 3}
     - target: {fileID: 7470240865930121378, guid: d15967f0adea3264ab7d508e264da05d, type: 3}
       propertyPath: _weaponsToSpawn.Array.data[9]
       value: 
-      objectReference: {fileID: 3523624623969322734, guid: 369723fd2c1c3fe4d87eeffa57e39c40, type: 3}
+      objectReference: {fileID: 156933350303824626, guid: 2aa24079ea5cf324c9968a9df667c0ab, type: 3}
     - target: {fileID: 7470240865930121378, guid: d15967f0adea3264ab7d508e264da05d, type: 3}
       propertyPath: _implantsToSpawn.Array.data[5]
       value: 
@@ -5302,9 +5326,25 @@ PrefabInstance:
     - target: {fileID: 7470240865930121378, guid: d15967f0adea3264ab7d508e264da05d, type: 3}
       propertyPath: _weaponsToSpawn.Array.data[10]
       value: 
-      objectReference: {fileID: 4730994522500747810, guid: 4db07167934a9e247ac151cec794bf56, type: 3}
+      objectReference: {fileID: 4534173149834396158, guid: 2bc39f73d77d7e045bcf81db4c5a8a91, type: 3}
     - target: {fileID: 7470240865930121378, guid: d15967f0adea3264ab7d508e264da05d, type: 3}
       propertyPath: _weaponsToSpawn.Array.data[11]
+      value: 
+      objectReference: {fileID: 8423706692450219265, guid: 7befc299916ae75438c86584fee64267, type: 3}
+    - target: {fileID: 7470240865930121378, guid: d15967f0adea3264ab7d508e264da05d, type: 3}
+      propertyPath: _weaponsToSpawn.Array.data[12]
+      value: 
+      objectReference: {fileID: 3553326147683758454, guid: c537b2fa156ad2c4493157e872b54c9a, type: 3}
+    - target: {fileID: 7470240865930121378, guid: d15967f0adea3264ab7d508e264da05d, type: 3}
+      propertyPath: _weaponsToSpawn.Array.data[13]
+      value: 
+      objectReference: {fileID: 3523624623969322734, guid: 369723fd2c1c3fe4d87eeffa57e39c40, type: 3}
+    - target: {fileID: 7470240865930121378, guid: d15967f0adea3264ab7d508e264da05d, type: 3}
+      propertyPath: _weaponsToSpawn.Array.data[14]
+      value: 
+      objectReference: {fileID: 4730994522500747810, guid: 4db07167934a9e247ac151cec794bf56, type: 3}
+    - target: {fileID: 7470240865930121378, guid: d15967f0adea3264ab7d508e264da05d, type: 3}
+      propertyPath: _weaponsToSpawn.Array.data[15]
       value: 
       objectReference: {fileID: 2853303830935746606, guid: 0b67f3217d81ace439206d582d9f86e9, type: 3}
     - target: {fileID: 7470240865930121378, guid: d15967f0adea3264ab7d508e264da05d, type: 3}

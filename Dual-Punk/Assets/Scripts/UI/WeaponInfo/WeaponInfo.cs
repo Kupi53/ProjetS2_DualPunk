@@ -71,7 +71,8 @@ public class WeaponInfo : MonoBehaviour
             SetScale();
         }
 
-        _weaponName.text = _references.PlayerState.WeaponScript.gameObject.name;
+        string weaponName = _references.PlayerState.WeaponScript.gameObject.name;
+        _weaponName.text = weaponName.Substring(0, weaponName.Length - 7);
 
         if (_references.PlayerState.WeaponScript is PowerWeaponScript)
         {

@@ -26,6 +26,7 @@ public class AttacksController : NetworkBehaviour
     {
         _playerState = GetComponent<PlayerState>();
 
+
         _vel = Vector3.zero;
         _laserTracker = false;
         _lockingRange = 0;
