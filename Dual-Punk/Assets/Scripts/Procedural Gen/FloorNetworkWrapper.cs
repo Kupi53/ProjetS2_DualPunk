@@ -112,6 +112,19 @@ public class FloorNetworkWrapper : NetworkBehaviour
         SpawnLootRpc();
     }
 
+    [ServerRpc (RequireOwnership = false)]
+    public void RoomClearedRpc()
+    {
+        RoomClearedObs();
+    }
+
+    [ObserversRpc]
+    void RoomClearedObs()
+    {
+        Debug.Log(LocalFloorManager.CurrentRoom);
+        LocalFloorManager.CurrentRoom.Enemies.Clear();
+    }
+
     [ObserversRpc]
     private void SeedRPC(int seed)
     {

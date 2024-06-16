@@ -31,7 +31,6 @@ public class EffectTilesController : MonoBehaviour
             {
                 if (player1Position == effectTile.Position)
                 {
-                    Debug.Log("on");
                     player1StandingOnEFfectTile = true;
                     // FloorExitTile
                     if (effectTile is FloorExitTile)
@@ -50,11 +49,9 @@ public class EffectTilesController : MonoBehaviour
                     {
                         if (FloorNetworkWrapper.Instance.LocalFloorManager.CurrentRoom.IsCleared)
                             effectTile.Action(GameManager.Instance.Player1);
-                            player1State.CanBeTeleported = false;
                             if (GameManager.Instance.Player2 is not null)
                             {
-                                    EffectTileNetworkWrapper.Instance.EffectTileActionFromOtherPlayerRpc(GameManager.Instance.Player2.GetComponent<NetworkObject>().Owner, player1Position);
-                                    GameManager.Instance.Player2.GetComponent<PlayerState>().CanBeTeleported = false;
+                                EffectTileNetworkWrapper.Instance.EffectTileActionFromOtherPlayerRpc(GameManager.Instance.Player2.GetComponent<NetworkObject>().Owner, player1Position);
                             }
                     }
                     else
@@ -76,25 +73,27 @@ public class EffectTilesController : MonoBehaviour
             PlayerState player2State = GameManager.Instance.Player2.GetComponent<PlayerState>(); 
             foreach(EffectTile effectTile in EffectTiles)
             {
-                player2StandingOnEFfectTile = true;
-                // FloorExitTile
-                if (effectTile is FloorExitTile)
+                if (player2Position == effectTile.Position)
                 {
-                    if (Input.GetKeyDown("Pickup"))
+                    player2StandingOnEFfectTile = true;
+                    // FloorExitTile
+                    if (effectTile is FloorExitTile)
                     {
-                        effectTile.Action(GameManager.Instance.Player2);
-                        EffectTileNetworkWrapper.Instance.EffectTileActionFromOtherPlayerRpc(GameManager.Instance.Player1.GetComponent<NetworkObject>().Owner, player2Position);
+                        if (Input.GetKeyDown("Pickup"))
+                        {
+                            effectTile.Action(GameManager.Instance.Player2);
+                            EffectTileNetworkWrapper.Instance.EffectTileActionFromOtherPlayerRpc(GameManager.Instance.Player1.GetComponent<NetworkObject>().Owner, player2Position);
+                        }
                     }
                     else if (effectTile is RoomExitTile)
                     {
+                        Debug.Log(FloorNetworkWrapper.Instance.LocalFloorManager.CurrentRoom.IsCleared);
                         if (FloorNetworkWrapper.Instance.LocalFloorManager.CurrentRoom.IsCleared)
                         {
-                            effectTile.Action(GameManager.Instance.Player1);
-                            player2State.CanBeTeleported = false;
+                            effectTile.Action(GameManager.Instance.Player2);
                             if (GameManager.Instance.Player1 is not null)
                             {
-                                    EffectTileNetworkWrapper.Instance.EffectTileActionFromOtherPlayerRpc(GameManager.Instance.Player1.GetComponent<NetworkObject>().Owner, player2Position);
-                                    GameManager.Instance.Player1.GetComponent<PlayerState>().CanBeTeleported = false;
+                                EffectTileNetworkWrapper.Instance.EffectTileActionFromOtherPlayerRpc(GameManager.Instance.Player1.GetComponent<NetworkObject>().Owner, player2Position);
                             }
                         }
                     }

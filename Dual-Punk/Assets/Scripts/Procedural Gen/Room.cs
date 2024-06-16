@@ -127,6 +127,7 @@ public class Room : MonoBehaviour
     {
         if (IsCleared)
         {   
+            FloorNetworkWrapper.Instance.RoomClearedRpc();
             GameManager.Instance.RoomsCleared += 1;
             Vector3 LootboxPos = SpawnLootBox();
             if (!StoryManager.Instance.StoryCompleted)
