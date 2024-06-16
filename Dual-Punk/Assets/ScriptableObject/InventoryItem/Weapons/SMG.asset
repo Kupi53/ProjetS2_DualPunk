@@ -14,8 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: SMG
   icon: {fileID: 21300000, guid: 4d19d8188f4903f4f98d433ef64a40c5, type: 3}
-  description: This SMG has a very high firing rate and makes you more discreet from
-    enemies. Press R to reload.
+  description: 'This SMG has a very high firing rate and makes you more discreet
+    from enemies.
+
+    Press R to reload.'
   setName: 
   setItems: []
   setDescription: 

@@ -14,9 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: ChargeShotgun
   icon: {fileID: 21300000, guid: 88ca3d24b19df974abebc17b621c9de7, type: 3}
-  description: The charge shotgun, the more you hold LEFT CLICK to charge your shots
+  description: 'The charge shotgun, the more you hold LEFT CLICK to charge your shots
     (until bip for max charge), the faster you send your enemies to infinity and
-    beyond. Press R to reload.
+    beyond.
+
+    Press R to reload.'
   setName: 
   setItems: []
   setDescription: 
