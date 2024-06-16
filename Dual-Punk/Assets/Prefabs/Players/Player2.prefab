@@ -355,7 +355,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _componentIndexCache: 11
   _addedNetworkObject: {fileID: 5423358579492179876}
-  _networkObjectCache: {fileID: 0}
+  _networkObjectCache: {fileID: 5423358579492179876}
   _icon: {fileID: -695721306, guid: 3149fe79ff3ac524e866ab0572e453b1, type: 3}
   indicatorPosX: 0
   indicatorPosY: 1.75
@@ -741,6 +741,7 @@ MonoBehaviour:
   _grenadeCurveFactor: 20
   _lineResolution: 20
   _healHP: 300
+  _healAnimation: {fileID: 2151658644371777458}
   _healCooldown: 10
   _itemCooldown: 5
 --- !u!114 &-7003829035611701060
@@ -874,6 +875,7 @@ MonoBehaviour:
   - {fileID: 6014537000033638382}
   - {fileID: 5666972022531695219}
   - {fileID: 5723558484423617744}
+  - {fileID: 8770245707297466565}
   <ParentNetworkObject>k__BackingField: {fileID: 0}
   <ChildNetworkObjects>k__BackingField:
   - {fileID: 9029928123370003042}
@@ -1187,6 +1189,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eb09795464402bf499a4dd417ea6d9ae, type: 3}
+--- !u!1 &2151658644371777458 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4215740858642132537, guid: eb09795464402bf499a4dd417ea6d9ae, type: 3}
+  m_PrefabInstance: {fileID: 2836541926773836171}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7918579296847170418 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5384363623186285305, guid: eb09795464402bf499a4dd417ea6d9ae, type: 3}
@@ -1197,7 +1204,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: -2734296218206465047, guid: eb09795464402bf499a4dd417ea6d9ae, type: 3}
   m_PrefabInstance: {fileID: 2836541926773836171}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 2151658644371777458}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 26b716c41e9b56b4baafaf13a523ba2e, type: 3}
