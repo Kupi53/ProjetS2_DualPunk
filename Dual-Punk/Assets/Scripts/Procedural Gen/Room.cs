@@ -152,7 +152,8 @@ public class Room : MonoBehaviour
         int posY = UnityEngine.Random.Range(bounds.yMin, bounds.yMax);
         Vector3Int position = new Vector3Int(posX, posY,0);
         bool found = false;
-        while (!found)
+        int it = 0;
+        while (!found && it < 10000)
         {
             bool candididate = true;
             posX = UnityEngine.Random.Range(bounds.xMin, bounds.xMax);
@@ -169,6 +170,7 @@ public class Room : MonoBehaviour
                 }
             }
             found = candididate;
+            it++;
         }
         Vector3 WorldPosition = tileMap.CellToWorld(position);
         ObjectSpawner.Instance.SpawnObjectFromIdRpc("0030", WorldPosition, quaternion.identity);
