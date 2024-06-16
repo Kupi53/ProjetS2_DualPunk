@@ -151,7 +151,7 @@ MonoBehaviour:
   _componentIndexCache: 0
   _addedNetworkObject: {fileID: -218940236388108346}
   _networkObjectCache: {fileID: -218940236388108346}
-  _dashReloadMultiplier: 0.7
+  _dashReloadMultiplier: 0.8
   _dashSpeedMultiplier: 1.5
 --- !u!114 &-4059473331583019238
 MonoBehaviour:

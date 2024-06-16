@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: SwiftDash
   icon: {fileID: 21300000, guid: c816a41c38e345a43b8333b218b794a0, type: 3}
-  description: Increases dash distance while sligthy increasing dash cooldown.
+  description: Increases dash distance and sligthy decreases dash cooldown.
   setName: Heavy
   setItems:
   - WarriorLuck
