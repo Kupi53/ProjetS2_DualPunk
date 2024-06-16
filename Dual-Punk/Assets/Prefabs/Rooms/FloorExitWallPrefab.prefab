@@ -14,9 +14,7 @@ GameObject:
   - component: {fileID: 1306835221910938706}
   - component: {fileID: 2614996061321755399}
   - component: {fileID: 7367571667490925768}
-  - component: {fileID: 7149880210180294178}
-  - component: {fileID: 211816210099666442}
-  - component: {fileID: 8186249820856509143}
+  - component: {fileID: -1127049627737087995}
   m_Layer: 0
   m_Name: FloorExitWallPrefab
   m_TagString: Untagged
@@ -122,7 +120,7 @@ Tilemap:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Origin: {x: -13, y: -35, z: 0}
   m_Size: {x: 26, y: 38, z: 3}
-  m_TileAnchor: {x: 0.5, y: 0.5, z: 1}
+  m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
   m_TileOrientation: 0
   m_TileOrientationMatrix:
     e00: 1
@@ -181,7 +179,7 @@ TilemapRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
   m_MaxChunkCount: 16
@@ -265,10 +263,10 @@ CompositeCollider2D:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 959
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -296,19 +294,7 @@ CompositeCollider2D:
   m_OffsetDistance: 0.00005
   m_UseDelaunayMesh: 0
   m_CompositeGameObject: {fileID: 1468348159299252417}
---- !u!114 &7149880210180294178
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1468348159299252417}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d2c366f590c329d41b0d15f70bca7e21, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &211816210099666442
+--- !u!114 &-1127049627737087995
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -322,28 +308,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Prompt:
     TextFields:
-    - Wait for the other player before exiting the floor.
-    DialogueFields: []
-    EnableMovement: 1
-    PromptType: 1
-    Trigger: {fileID: 0}
-  _type: 1
-  _delay: 0
---- !u!114 &8186249820856509143
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1468348159299252417}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be69e0a67f2c90d488fbf1c169ccfc57, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Prompt:
-    TextFields:
-    - Press E to exit the floor.
+    - Press 'E' as Player 1 to go to the next floor.
     DialogueFields: []
     EnableMovement: 1
     PromptType: 1

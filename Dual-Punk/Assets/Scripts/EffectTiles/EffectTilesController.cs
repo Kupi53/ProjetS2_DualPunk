@@ -76,16 +76,7 @@ public class EffectTilesController : MonoBehaviour
                 if (player2Position == effectTile.Position)
                 {
                     player2StandingOnEFfectTile = true;
-                    // FloorExitTile
-                    if (effectTile is FloorExitTile)
-                    {
-                        if (Input.GetKeyDown("Pickup"))
-                        {
-                            effectTile.Action(GameManager.Instance.Player2);
-                            EffectTileNetworkWrapper.Instance.EffectTileActionFromOtherPlayerRpc(GameManager.Instance.Player1.GetComponent<NetworkObject>().Owner, player2Position);
-                        }
-                    }
-                    else if (effectTile is RoomExitTile)
+                    if (effectTile is RoomExitTile)
                     {
                         Debug.Log(FloorNetworkWrapper.Instance.LocalFloorManager.CurrentRoom.IsCleared);
                         if (FloorNetworkWrapper.Instance.LocalFloorManager.CurrentRoom.IsCleared)
@@ -97,7 +88,7 @@ public class EffectTilesController : MonoBehaviour
                             }
                         }
                     }
-                    else
+                    else if (effectTile is not FloorExitTile)
                     {
                         effectTile.Action(GameManager.Instance.Player2);
                     }
