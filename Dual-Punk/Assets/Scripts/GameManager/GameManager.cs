@@ -64,9 +64,6 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        Debug.Log(GameManager.Instance.Player1);
-        Debug.Log(GameManager.Instance.Player2);
-        Debug.Log(GameManager.Instance.LocalPlayer);
         if (Solo)
         {
             CheckDeathSolo();
