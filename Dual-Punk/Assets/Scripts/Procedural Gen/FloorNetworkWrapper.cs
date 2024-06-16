@@ -51,12 +51,6 @@ public class FloorNetworkWrapper : NetworkBehaviour
         {
             CheckEnemiesOOB();
         }
-
-        // A SUPR
-        if (Input.GetKeyDown(KeyCode.Y))
-        {
-            StartEndFight();
-        }
     }
 
     public void NewFloor(FloorType floorType)
