@@ -35,8 +35,8 @@ public class StoryManager : NetworkBehaviour
     {
         if (!IsServer || _currentStoryIndex >= _storyMonologues.Length || (_currentStoryIndex>5 && FloorNetworkWrapper.Instance.LocalFloorManager.CurrentFloor.FloorType == FloorType.City )) return;
         GameObject storyNpc = Instantiate(_storyNpc, position, Quaternion.identity);
-        InitPromptObs(storyNpc);
         Spawn(storyNpc);
+        InitPromptObs(storyNpc);
         ObjectSpawner.Instance.ObjectParentToRoomRpc(storyNpc);
         if (!_firstNpcSpawned)
         {
