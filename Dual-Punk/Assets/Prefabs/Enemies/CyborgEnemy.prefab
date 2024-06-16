@@ -464,7 +464,7 @@ MonoBehaviour:
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 56
+  <PrefabId>k__BackingField: 60
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0
@@ -581,7 +581,7 @@ MonoBehaviour:
     IdTable:
     - null
     - 0002
-    - null
+    - 0032
     - 0010
     - 0001
     MinIntervalTable: 010000003d00000047000000510000005b000000

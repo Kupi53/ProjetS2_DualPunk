@@ -8,7 +8,6 @@ public class FloorExitTile : EffectTile
 
     public override void Action(GameObject target)
     {
-        if (!target.GetComponent<PlayerState>().CanBeTeleported) return;
         GameManager.Instance.FadeIn();
         if ((int)FloorNetworkWrapper.Instance.LocalFloorManager.CurrentFloor.FloorType+1 < FloorNetworkWrapper.Instance.LocalFloorManager.FloorTypeCount)
         {
