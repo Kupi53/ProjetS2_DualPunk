@@ -81,7 +81,7 @@ MonoBehaviour:
     - Let's meet at the station in three days I will give you more information about
       the mission. Bye.
   - text:
-    - 'Hey joung man right there ! '
+    - 'Hey young man right there ! '
     - 'You sure you did not get tailed ? '
     - 'Okay well, I will need you to make more concrete stuff '
     - In one week the CEO of NeuroDyne Corp will be on a business trip to Japan.
@@ -157,7 +157,7 @@ MonoBehaviour:
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 33
+  <PrefabId>k__BackingField: 32
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0
