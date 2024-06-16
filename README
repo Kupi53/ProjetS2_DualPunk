@@ -1,1 +1,38 @@
-blabla
+Manuel d'utilisation de Dual Punk
+
+
+Lancement du Jeu :
+Au lancement, le joueur aura le choix de lancer le jeu en mode coop ou en mode solo.
+
+Mode Coop :
+    Pour lancer le jeu en coop, l'un des deux joueurs doit cliquer sur le bouton "Host". Un code apparaîtra alors à l'écran.
+    Le deuxième joueur doit cliquer sur le bouton "Join" et entrer le code.
+    Le joueur qui héberge (host) peut ensuite cliquer sur le bouton "Jouer" pour lancer la partie.
+
+
+Mode Solo :
+Pour lancer le jeu en solo, le joueur doit simplement cliquer sur le bouton "Solo".
+
+
+Déplacement :
+    Le joueur se déplace avec les touches "WASD".
+    Le joueur tire avec le "Clic gauche" de la souris et recharger en appuyant sur la touche "R".
+    Le joueur récupère des objets au sol en appuyant sur la touche "E".
+    Le joueur parle aux PNJ en appuyant sur la touche "Espace".
+    Le joueur peut utiliser une régénération en appuyant sur la touche "X".
+    Le joueur peut lancer une grenade en appuyant sur la touche "C".
+
+Inventaire :
+    Le joueur accède à son inventaire en appuyant sur la touche "I".
+    Il peut changer des objets de case en les glissant tout en maintenant le clic gauche sur l'objet concerné.
+    Si le joueur fait glisser une arme à l'extérieur de l'interface de l'inventaire, l'objet sera déposé au sol.
+    Il peut également effectuer cette action en appuyant sur le "Clic droit" de la souris.
+    Les quatre cases autour du joueur représentent les différents implants équipés.
+    Les trois cases en bas représentent les armes du joueur.
+    Les deux cases à droite représentent les capacités de régénération et de lancer de grenade.
+    Si le joueur laisse sa souris longtemps sur n'importe quelle de ces cases, il verra une description précise de l'objet présent dans la case.
+
+
+Menu Pause :
+    Le menu pause est accessible en appuyant sur la touche "Échap".
+    Le joueur peut accéder au menu des paramètres via ce dernier ou retourner au menu de lancement.
