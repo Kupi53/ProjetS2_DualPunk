@@ -150,7 +150,10 @@ public class GameManager : MonoBehaviour
     }
 
     public void Reset()
-    {
+    {   
+        InInventory = false;
+        InMenu = false;
+        InFinalFight = false;
         InGame = false;
         downTutorialBegan = false;
         Solo = false;
