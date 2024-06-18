@@ -271,13 +271,13 @@ MonoBehaviour:
   _weaponOffset: {x: 0.15, y: 0.95, z: 0}
   _damage: 150
   _range: 25
-  _recoilForce: 1
-  _impactForce: 0
+  _recoilForce: 1.2
+  _impactForce: 1
   _cameraShake: 0.5
   _weaponDistance: 0.6
   _pointerSpriteNumber: 2
   _silencer: 0
-  _fireRate: 1.5
+  _fireRate: 1
   _fireSound: {fileID: 8300000, guid: 49864305956127a468f0494d2344498f, type: 3}
   _reloadSound: {fileID: 8300000, guid: dadb953d118cf4d418188a1f82b6ed6d, type: 3}
   _bullet: {fileID: 3137761784652373764, guid: c83c2ecdccc5c4e42a0c6b0d758735f3, type: 3}
@@ -288,7 +288,7 @@ MonoBehaviour:
   _bulletsPerShot: 1
   _magSize: 3
   _reloadAmount: 3
-  _reloadTime: 1.6
+  _reloadTime: 1.5
   _dispersion: 0.3
   _aimAccuracy: 5
   _bulletSpeed: 18
@@ -527,7 +527,7 @@ Transform:
   m_GameObject: {fileID: 4522083825481786314}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.756, y: 0.009, z: 0}
+  m_LocalPosition: {x: 0.808, y: 0.009, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
