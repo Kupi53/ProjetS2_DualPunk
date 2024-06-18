@@ -40,15 +40,6 @@ public class FloorManager : MonoBehaviour
     private const int _minRoomAmount = 4;
     private const int _maxRoomAmount = 8;
 
-
-    // pour le debug
-    void Update(){
-        // A SUPRIMER
-        if (Input.GetKeyDown(KeyCode.G)){
-            FloorNetworkWrapper.Instance.NewFloor(FloorType.Hangar);
-        }
-    }
-
     // creates a floor and spawns all rooms, then returns that floor
     public Floor GenerateFloor(FloorType floorType)
     {
